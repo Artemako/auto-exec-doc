@@ -1,0 +1,11 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icons/text-editor.svg</file>
+    <file>icons/add-file.svg</file>
+    <file>icons/open.svg</file>
+    <file>icons/save.svg</file>
+    <file>icons/zoom-fit-width.svg</file>
+    <file>icons/zoom-in.svg</file>
+    <file>icons/zoom-out.svg</file>
+  </qresource>
+</RCC>
