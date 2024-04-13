@@ -13,17 +13,36 @@ class DirPathManager:
         QStandardPaths.StandardLocation.DocumentsLocation
     )
 
+    # путь к папке с проектами по умолчанию
+    _default_folder_projects_dirpath = os.path.join(
+        _documents_dirpath, "AutoExecDoc Projects"
+    )
+
     # путь к папке к базе данных
     _db_settings_dirpath = os.path.join(_main_dirpath, "db", "settings.db")
+    _db_original_project_dirpath = os.path.join(_main_dirpath, "db", "project.db")
 
-    # путь к папке с проектами по умолчанию
-    _default_folder_projects_dirpath = os.path.join(_documents_dirpath, "AutoExecDoc")
+    # путь к директории проекта
+    _project_dirpath = None
+    # путь к project.db проекта
+    _db_project_dirpath = None
 
     # путь к папке с логами
     _logs_dirpath = os.path.join(_main_dirpath, "logs")
 
     def __init__(self):
         pass
+
+    # region Методы set
+    @staticmethod
+    def set_project_dirpath(dirpath: str):
+        DirPathManager._project_dirpath = dirpath
+
+    @staticmethod
+    def set_db_project_dirpath(dirpath: str):
+        DirPathManager._db_project_dirpath = dirpath
+
+    # endregion
 
     # region методы get
     @staticmethod
@@ -49,5 +68,17 @@ class DirPathManager:
     @staticmethod
     def get_logs_dirpath() -> str:
         return DirPathManager._logs_dirpath
+
+    @staticmethod
+    def get_project_dirpath() -> str:
+        return DirPathManager._project_dirpath
+
+    @staticmethod
+    def get_db_project_dirpath() -> str:
+        return DirPathManager._db_project_dirpath
+
+    @staticmethod
+    def get_db_original_project_dirpath() -> str:
+        return DirPathManager._db_original_project_dirpath
 
     # endregion

@@ -54,3 +54,18 @@ class DialogWindows:
                     DialogWindows.select_empty_folder()
             else:
                 return None
+
+    @staticmethod
+    def select_folder_for_open_project() -> str:
+        """Диалоговое окно выбора папки для открытия проекта."""
+        while True:
+            folder_path = QFileDialog.getExistingDirectory(
+                None,
+                "Выбор папки",
+                dirpathsmanager.DirPathManager.get_default_folder_projects_dirpath(),
+            )
+            if folder_path:
+                print(f"Selected Folder: {folder_path}")
+                return folder_path
+            else:
+                return None

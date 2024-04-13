@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QApplication
 
 
 import package.components.mainwindow as mainwindow
-import package.modules.database as database
+import package.modules.settingsdatabase as settingsdatabase
 import package.modules.log as log
 import package.modules.filefoldermanager as filefoldermanager
 
@@ -27,7 +27,7 @@ class App:
         filefoldermanager.FileFolderManager.create_and_config_files_and_folders()
 
         # настроить БД
-        database.Database.create_and_config_database()
+        settingsdatabase.Database.create_and_config_db()
 
     def start_app(self):
         """

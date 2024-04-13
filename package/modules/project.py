@@ -1,13 +1,15 @@
 import os
-import datetime
 
 import package.components.dialogwindows as dialogwindows
-import package.modules.database as database
+import package.modules.settingsdatabase as settingsdatabase
+import package.modules.projectdatabase as projectdatabase
+
+import package.modules.filefoldermanager as filefoldermanager
+import package.modules.dirpathsmanager as dirpathsmanager
 
 
 class Project:
     # по умолчанию None
-    _current_directory = None
     _current_name = None
 
     # по умолчанию False
@@ -18,9 +20,6 @@ class Project:
         pass
 
     # region методы set
-    @staticmethod
-    def set_current_directory(directory):
-        Project._current_directory = directory
 
     @staticmethod
     def set_current_name(name):
@@ -36,9 +35,6 @@ class Project:
 
     # endregion
     # region методы get
-    @staticmethod
-    def get_current_directory() -> str:
-        return Project._current_directory
 
     @staticmethod
     def get_current_name() -> str:
@@ -73,6 +69,21 @@ class Project:
     # endregion
 
     @staticmethod
+    def set_project_dirpaths(folder_path: str):
+        """
+        Установка путей к папке проекта.
+        Установка пути к project.db проекта.
+        """
+        # Установка пути к папке проекта
+        dirpathsmanager.DirPathManager.set_project_dirpath(folder_path)
+        # Установка пути к project.db проекта
+        dirpathsmanager.DirPathManager.set_db_project_dirpath(
+            os.path.join(
+                dirpathsmanager.DirPathManager.get_project_dirpath(), "project.db"
+            )
+        )
+
+    @staticmethod
     def new_project():
         """
         Действие создание проекта.
@@ -80,14 +91,24 @@ class Project:
         # продолжить, если проверка успешна и не отменена
         if Project.check_project_before_new_or_open():
             # выбор директории будущего проекта
-            folder_path = Project.check_folder_path_for_new_project()
+            folder_path = dialogwindows.DialogWindows.select_folder_for_new_project()
             if folder_path:
-                # добавление в БД
-                database.Database.add_new_project_to_db(
-                    os.path.basename(folder_path), folder_path
-                )
-                # TODO Добавить в директорию файлы для проекта
-                Project.set_true_actives_project(folder_path)
+                Project.set_project_dirpaths(folder_path)
+                Project.config_new_project()
+
+    @staticmethod
+    def config_new_project():
+        """
+        Конфигурация нового проекта.
+        """
+        Project.set_current_name(
+            os.path.basename(dirpathsmanager.DirPathManager.get_project_dirpath())
+        )
+        settingsdatabase.Database.add_new_project_to_db()
+
+        filefoldermanager.FileFolderManager.add_files_and_folders_to_new_project()
+
+        Project.set_true_actives_project()
 
     @staticmethod
     def save_project():
@@ -97,32 +118,24 @@ class Project:
         Project.set_status_save(True)
 
     @staticmethod
-    def check_folder_path_for_new_project() -> str:
-        """
-        Выбор папки для нового проекта.
-        """
-        while True:
-            folder_path = dialogwindows.DialogWindows.select_folder_for_new_project()
-            if folder_path:
-                if not os.listdir(folder_path):
-                    return folder_path
-                else:
-                    dialogwindows.DialogWindows.select_empty_folder()
-            else:
-                return None
-
-    @staticmethod
     def open_project():
         """Открытие проекта."""
         # продолжить, если проверка успешна и не отменена
         if Project.check_project_before_new_or_open():
             # выбор директории будущего проекта
-            folder_path = Project.check_folder_path_for_new_project()
+            folder_path = dialogwindows.DialogWindows.select_folder_for_open_project()
             if folder_path:
-                database.Database.add_or_update_open_project_to_db(
-                    os.path.basename(folder_path), folder_path
-                )
-                Project.set_true_actives_project(folder_path)
+                Project.set_project_dirpaths(folder_path)
+                Project.config_open_project()
+
+    @staticmethod
+    def config_open_project():
+        """
+        Конфигурация открытого проекта.
+        """
+        settingsdatabase.Database.add_or_update_open_project_to_db()
+
+        Project.set_true_actives_project()
 
     @staticmethod
     def open_recent_project():
@@ -131,12 +144,10 @@ class Project:
         pass
 
     @staticmethod
-    def set_true_actives_project(folder_path):
+    def set_true_actives_project():
         """
         Задает активность проекта.
         """
-        Project.set_current_directory(folder_path)
-        Project.set_current_name(os.path.basename(folder_path))
         Project.set_status_active(True)
         Project.set_status_save(True)
 
