@@ -1,4 +1,5 @@
 import os
+import shutil
 
 import package.modules.dirpathsmanager as dirpathsmanager
 import package.modules.projectdatabase as projectdatabase
@@ -41,4 +42,17 @@ class FileFolderManager:
         """
         Добавление в проект папок форм.
         """
-        pass
+        forms_folder_dirpath = os.path.join(
+            dirpathsmanager.DirPathManager.get_project_dirpath(), "forms"
+        )
+        templates_dirpath = dirpathsmanager.DirPathManager.get_templates_dirpath()
+
+        # все формы из templates_dirpath
+        forms = os.listdir(templates_dirpath)
+
+        # копирование форм в папку проекта forms
+        for folder in forms:
+            shutil.copytree(
+                os.path.join(templates_dirpath, folder, "main"),
+                os.path.join(forms_folder_dirpath, folder),
+            )

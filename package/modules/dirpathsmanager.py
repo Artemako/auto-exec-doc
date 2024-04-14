@@ -30,6 +30,9 @@ class DirPathManager:
     # путь к папке с логами
     _logs_dirpath = os.path.join(_main_dirpath, "logs")
 
+    # путь к папке с формами
+    _templates_dirpath = os.path.join(_main_dirpath, "templates")
+
     def __init__(self):
         pass
 
@@ -80,5 +83,9 @@ class DirPathManager:
     @staticmethod
     def get_db_original_project_dirpath() -> str:
         return DirPathManager._db_original_project_dirpath
+
+    @staticmethod
+    def get_templates_dirpath() -> str:
+        return DirPathManager._templates_dirpath
 
     # endregion
