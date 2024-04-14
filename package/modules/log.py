@@ -48,3 +48,5 @@ class Log:
     @staticmethod
     def critical_logger(message: str):
         Log.get_logger().critical(message)
+
+    # TODO Действие очистить логи

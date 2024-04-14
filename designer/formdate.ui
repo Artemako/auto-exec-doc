@@ -48,11 +48,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineedit">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
+      <widget class="QDateEdit" name="dateedit"/>
      </item>
      <item>
       <widget class="QTextBrowser" name="textbrowser">
