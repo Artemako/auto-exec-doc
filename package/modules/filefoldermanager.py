@@ -33,7 +33,6 @@ class FileFolderManager:
         """
         Добавление в проект папок и файлов.
         """
-        # TODO Файлы и папки
         projectdatabase.Database.create_and_config_db()
         FileFolderManager.add_forms_folders_to_new_project()
 
@@ -47,12 +46,28 @@ class FileFolderManager:
         )
         templates_dirpath = dirpathsmanager.DirPathManager.get_templates_dirpath()
 
-        # все формы из templates_dirpath
-        forms = os.listdir(templates_dirpath)
+        # все формы и json_content из templates_dirpath
+        forms = []
+        json_content = []
+        for f in os.listdir(templates_dirpath):
+            if f.endswith(".json"):
+                json_content.append(f)
+            else:
+                forms.append(f)
+
+        print(f"forms, {forms}")
+        print(f"json_content, {json_content}")
 
         # копирование форм в папку проекта forms
-        for folder in forms:
+        for form in forms:
             shutil.copytree(
-                os.path.join(templates_dirpath, folder, "main"),
-                os.path.join(forms_folder_dirpath, folder),
+                os.path.join(templates_dirpath, form, "main"),
+                os.path.join(forms_folder_dirpath, form),
+            )
+
+        # копирование json_content в папку проекта forms
+        for json_file in json_content:
+            shutil.copy(
+                os.path.join(templates_dirpath, json_file),
+                os.path.join(forms_folder_dirpath, json_file),
             )
