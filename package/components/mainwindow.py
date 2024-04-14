@@ -36,6 +36,11 @@ class MainWindow(QMainWindow):
         # self.ui.action_saveas.triggered.connect()
         self.ui.action_zoomin.triggered.connect(lambda: self.ui.pdfwidget.zoom_in())
         self.ui.action_zoomout.triggered.connect(lambda: self.ui.pdfwidget.zoom_out())
+        self.ui.action_zoomfitpage.triggered.connect(
+            lambda: self.ui.pdfwidget.set_zoom_to_fit_view()
+            if self.ui.action_zoomfitpage.isChecked()
+            else self.ui.pdfwidget.set_zoom_custom()
+        )
 
     @staticmethod
     def set_statusbar(statusbar):

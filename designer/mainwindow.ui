@@ -32,128 +32,158 @@
    <string>Автоматизация ИД</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <layout class="QGridLayout" name="gl_main" columnstretch="4,7,5">
-      <property name="sizeConstraint">
-       <enum>QLayout::SetDefaultConstraint</enum>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
-      <item row="0" column="1">
-       <widget class="QGroupBox" name="gb_center">
-        <property name="title">
-         <string>Текущий результат</string>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="PdfWidget" name="pdfwidget" native="true">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(255, 170, 0);</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QGroupBox" name="gb_left">
-        <property name="title">
-         <string>Структура проекта</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QTabWidget" name="tabwidget">
-           <property name="currentIndex">
-            <number>1</number>
-           </property>
-           <widget class="QWidget" name="tab_structure_execdoc">
-            <attribute name="title">
-             <string>Состав ИД</string>
-            </attribute>
-            <layout class="QVBoxLayout" name="verticalLayout_2">
-             <item>
-              <widget class="QTreeWidget" name="treewidget_structure_execdoc">
-               <property name="contextMenuPolicy">
-                <enum>Qt::DefaultContextMenu</enum>
-               </property>
-               <column>
-                <property name="text">
-                 <string notr="true">1</string>
-                </property>
-               </column>
-               <item>
-                <property name="text">
-                 <string>Титульный лист</string>
-                </property>
-                <property name="checkState">
-                 <enum>Checked</enum>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Паспорт</string>
-                </property>
-                <property name="checkState">
-                 <enum>Checked</enum>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>ПТ-1</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>ПТ-2</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>ПТ-3</string>
-                 </property>
-                 <property name="checkState">
-                  <enum>Checked</enum>
-                 </property>
-                </item>
-               </item>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_2">
+      <widget class="QGroupBox" name="gb_left">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>250</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="title">
+        <string>Структура проекта</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QTabWidget" name="tabwidget">
+          <property name="currentIndex">
+           <number>1</number>
+          </property>
+          <widget class="QWidget" name="tab_structure_execdoc">
+           <attribute name="title">
+            <string>Состав ИД</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <widget class="QTreeWidget" name="treewidget_structure_execdoc">
+              <property name="contextMenuPolicy">
+               <enum>Qt::DefaultContextMenu</enum>
+              </property>
+              <column>
                <property name="text">
-                <string>Кнопка для чего-то</string>
+                <string notr="true">1</string>
                </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-           <widget class="QWidget" name="tab_pages_template">
-            <attribute name="title">
-             <string>Страницы шаблона</string>
-            </attribute>
-            <layout class="QVBoxLayout" name="verticalLayout_3">
-             <item>
-              <widget class="QListWidget" name="listwidget_pages_template"/>
-             </item>
-            </layout>
-           </widget>
+              </column>
+              <item>
+               <property name="text">
+                <string>Титульный лист</string>
+               </property>
+               <property name="checkState">
+                <enum>Checked</enum>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Паспорт</string>
+               </property>
+               <property name="checkState">
+                <enum>Checked</enum>
+               </property>
+               <item>
+                <property name="text">
+                 <string>ПТ-1</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>ПТ-2</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>ПТ-3</string>
+                </property>
+                <property name="checkState">
+                 <enum>Checked</enum>
+                </property>
+               </item>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_2">
+              <property name="text">
+               <string>Кнопка для чего-то</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QGroupBox" name="gb_right">
-        <property name="title">
-         <string>Ввод </string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
+          <widget class="QWidget" name="tab_pages_template">
+           <attribute name="title">
+            <string>Страницы шаблона</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QListWidget" name="listwidget_pages_template"/>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QGroupBox" name="gb_center">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>350</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="title">
+        <string>Текущий результат</string>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="PdfWidget" name="pdfwidget" native="true">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 170, 0);</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QGroupBox" name="gb_right">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>300</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="title">
+        <string>Ввод </string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -215,6 +245,7 @@
    <addaction name="separator"/>
    <addaction name="action_zoomin"/>
    <addaction name="action_zoomout"/>
+   <addaction name="action_zoomfitpage"/>
   </widget>
   <action name="action_new">
    <property name="icon">
@@ -257,7 +288,7 @@
     <string>Увеличить</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+-</string>
+    <string>Ctrl++</string>
    </property>
    <property name="menuRole">
     <enum>QAction::TextHeuristicRole</enum>
@@ -275,7 +306,7 @@
     <string>Уменьшить</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl++</string>
+    <string>Ctrl+-</string>
    </property>
    <property name="menuRole">
     <enum>QAction::TextHeuristicRole</enum>
@@ -291,6 +322,9 @@
    </property>
   </action>
   <action name="action_zoomfitpage">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="../resources.qrc">
      <normaloff>:/icons/icons/zoom-fit-width.svg</normaloff>:/icons/icons/zoom-fit-width.svg</iconset>
