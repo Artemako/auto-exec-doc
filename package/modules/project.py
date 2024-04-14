@@ -2,7 +2,7 @@ import os
 
 import package.components.dialogwindows as dialogwindows
 import package.modules.settingsdatabase as settingsdatabase
-import package.modules.projectdatabase as projectdatabase
+import package.modules.log as log
 
 import package.modules.filefoldermanager as filefoldermanager
 import package.modules.dirpathsmanager as dirpathsmanager
@@ -23,14 +23,26 @@ class Project:
 
     @staticmethod
     def set_current_name(name):
+        """
+        Установка имени проекта.
+        """
+        log.Log.debug_logger(f"set_current_name(name: str): name = {name}")
         Project._current_name = name
 
     @staticmethod
     def set_status_active(status: bool):
+        """
+        Установка статуса активности проекта.
+        """
+        log.Log.debug_logger(f"set_status_active(status: bool): status = {status}")
         Project._status_active = status
 
     @staticmethod
     def set_status_save(status: bool):
+        """
+        Установка статуса сохранения проекта.
+        """
+        log.Log.debug_logger(f"set_status_save(status: bool): status = {status}")
         Project._status_save = status
 
     # endregion
@@ -38,16 +50,19 @@ class Project:
 
     @staticmethod
     def get_current_name() -> str:
+        log.Log.debug_logger(f"get_current_name() -> str: {Project._current_name}")
         return Project._current_name
 
     # endregion
     # region методы is, check
     @staticmethod
     def is_active_status() -> bool:
+        log.Log.debug_logger(f"is_active_status() -> bool: {Project._status_active}")
         return Project._status_active
 
     @staticmethod
     def is_status_save() -> bool:
+        log.Log.debug_logger(f"is_status_save() -> bool: {Project._status_save}")
         return Project._status_save
 
     @staticmethod
@@ -74,6 +89,9 @@ class Project:
         Установка путей к папке проекта.
         Установка пути к project.db проекта.
         """
+        log.Log.debug_logger(
+            f"IN set_project_dirpaths(folder_path: str): folder_path = {folder_path}"
+        )
         # Установка пути к папке проекта
         dirpathsmanager.DirPathManager.set_project_dirpath(folder_path)
         # Установка пути к project.db проекта
@@ -88,6 +106,7 @@ class Project:
         """
         Действие создание проекта.
         """
+        log.Log.debug_logger("IN new_project()")
         # продолжить, если проверка успешна и не отменена
         if Project.check_project_before_new_or_open():
             # выбор директории будущего проекта
@@ -101,6 +120,7 @@ class Project:
         """
         Конфигурация нового проекта.
         """
+        log.Log.debug_logger("IN config_new_project()")
         Project.set_current_name(
             os.path.basename(dirpathsmanager.DirPathManager.get_project_dirpath())
         )
@@ -115,11 +135,13 @@ class Project:
         """
         Сохранение проекта.
         """
+        log.Log.debug_logger("IN save_project()")
         Project.set_status_save(True)
 
     @staticmethod
     def open_project():
         """Открытие проекта."""
+        log.Log.debug_logger("IN open_project()")
         # продолжить, если проверка успешна и не отменена
         if Project.check_project_before_new_or_open():
             # выбор директории будущего проекта
@@ -133,6 +155,8 @@ class Project:
         """
         Конфигурация открытого проекта.
         """
+        log.Log.debug_logger("IN config_open_project()")
+
         settingsdatabase.Database.add_or_update_open_project_to_db()
 
         Project.set_true_actives_project()
@@ -140,6 +164,7 @@ class Project:
     @staticmethod
     def open_recent_project():
         """Открытие недавнего проекта."""
+        log.Log.debug_logger("IN open_recent_project()")
         # TODO Проверить папку на проектность
         pass
 
@@ -148,11 +173,13 @@ class Project:
         """
         Задает активность проекта.
         """
+        log.Log.debug_logger("IN set_true_actives_project()")
         Project.set_status_active(True)
         Project.set_status_save(True)
 
     @staticmethod
     def save_project():
+        log.Log.debug_logger("IN save_project()")
         # TODO Сделать сохранение проекта
         Project.set_status_save(True)
         return

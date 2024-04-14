@@ -20,8 +20,8 @@ class App:
         Проверить и наcтроить до запуска.
         """
 
-        # настроить logging
-        # log.Log.create_and_config_logging()
+        # настроить loggerpy
+        log.Log.config_logger()
 
         # Проверка наличия папок.
         filefoldermanager.FileFolderManager.create_and_config_files_and_folders()

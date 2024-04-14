@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QMainWindow, QStatusBar
 
 import package.ui.mainwindow_ui as mainwindow_ui
 import package.modules.project as project
+import package.modules.log as log
 
 
 class MainWindow(QMainWindow):
@@ -19,6 +20,7 @@ class MainWindow(QMainWindow):
         """
         Подключить статусбар.
         """
+        log.Log.debug_logger("IN connect_statusbar()")
         MainWindow.set_statusbar(self.ui.status_bar)
         MainWindow.set_message_for_statusbar("Проект не открыт")
 
@@ -26,6 +28,7 @@ class MainWindow(QMainWindow):
         """
         Method to connect to various actions on the UI.
         """
+        log.Log.debug_logger("IN connecting_actions()")
         self.ui.action_new.triggered.connect(lambda: project.Project.new_project())
         self.ui.action_open.triggered.connect(lambda: project.Project.open_project())
         # TODO
@@ -37,9 +40,11 @@ class MainWindow(QMainWindow):
     @staticmethod
     def set_statusbar(statusbar):
         MainWindow._statusbar = statusbar
+        log.Log.debug_logger("set_statusbar(statusbar)")
 
     @staticmethod
     def get_statusbar() -> QStatusBar:
+        log.Log.debug_logger("get_statusbar() -> MainWindow._statusbar")
         return MainWindow._statusbar
 
     @staticmethod
@@ -48,3 +53,4 @@ class MainWindow(QMainWindow):
         Поставить сообщение в статусбар.
         """
         MainWindow.get_statusbar().showMessage(message)
+        log.Log.debug_logger(f"set_message_for_statusbar({message})")

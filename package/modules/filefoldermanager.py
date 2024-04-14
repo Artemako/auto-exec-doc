@@ -3,6 +3,7 @@ import shutil
 
 import package.modules.dirpathsmanager as dirpathsmanager
 import package.modules.projectdatabase as projectdatabase
+import package.modules.log as log
 
 
 class FileFolderManager:
@@ -14,13 +15,7 @@ class FileFolderManager:
         """
         Создание и конфигурация папок и файлов.
         """
-        FileFolderManager.create_folder_in_documents_dirpath()
-
-    @staticmethod
-    def create_folder_in_documents_dirpath():
-        """
-        Создание папки хранения проектов в документах.
-        """
+        log.Log.debug_logger("IN create_and_config_files_and_folders()")
         if not os.path.exists(
             dirpathsmanager.DirPathManager.get_default_folder_projects_dirpath()
         ):
@@ -33,6 +28,7 @@ class FileFolderManager:
         """
         Добавление в проект папок и файлов.
         """
+        log.Log.debug_logger("IN add_files_and_folders_to_new_project()")
         projectdatabase.Database.create_and_config_db()
         FileFolderManager.add_forms_folders_to_new_project()
 
@@ -41,6 +37,7 @@ class FileFolderManager:
         """
         Добавление в проект папок форм.
         """
+        log.Log.debug_logger("IN add_forms_folders_to_new_project()")
         forms_folder_dirpath = os.path.join(
             dirpathsmanager.DirPathManager.get_project_dirpath(), "forms"
         )
@@ -55,8 +52,8 @@ class FileFolderManager:
             else:
                 forms.append(f)
 
-        print(f"forms, {forms}")
-        print(f"json_content, {json_content}")
+        log.Log.debug_logger(f"forms: {forms}")
+        log.Log.debug_logger(f"json_content: {json_content}")
 
         # копирование форм в папку проекта forms
         for form in forms:

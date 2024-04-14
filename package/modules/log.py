@@ -1,54 +1,50 @@
-import logging
+from loggerpy import Logger, Level
 import datetime
 import os
+
 
 import package.modules.dirpathsmanager as dirpathsmanager
 
 
 class Log:
-    # TODO Посмотреть библиотеку loggerpy
-    logger = None
+    _logger = Logger()
 
     def __init__(self):
         pass
 
     @staticmethod
-    def create_and_config_logging():
-        # название файла для логирования
-        name_log = "log_" + str(datetime.datetime.now().replace(microsecond=0)).replace(
-            " ", "_"
+    def get_logger():
+        return Log._logger
+
+    @staticmethod
+    def config_logger():
+        Log.get_logger().configure(
+            name="Main logger",
+            log_folder=os.path.join(
+                dirpathsmanager.DirPathManager.get_logs_dirpath(),
+                str(datetime.datetime.now().replace(microsecond=0)).replace(":", "-"),
+            ),
+            print_level=Level.DEBUG,
+            save_level=Level.DEBUG,
         )
-        directory_log = dirpathsmanager.DirPathManager.get_logs_dirpath()
-
-        Log.logger = logging.getLogger()
-        Log.logger.setLevel(logging.DEBUG)
-
-        file_handler = logging.FileHandler(
-            filename=os.path.join(directory_log, name_log)
-        )
-        file_handler.setLevel(logging.DEBUG)
-
-        formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
-        file_handler.setFormatter(formatter)
-
-        Log.logger.addHandler(file_handler)
+        Log.debug_logger("Config logger")
 
     @staticmethod
-    def debug(message):
-        Log.logger.debug(message)
+    def debug_logger(message: str):
+        Log.get_logger().debug(message)
 
     @staticmethod
-    def info(message):
-        Log.logger.info(message)
+    def info_logger(message: str):
+        Log.get_logger().info(message)
 
     @staticmethod
-    def warning(message):
-        Log.logger.warning(message)
+    def warning_logger(message: str):
+        Log.get_logger().warning(message)
 
     @staticmethod
-    def error(message):
-        Log.logger.error(message)
+    def error_logger(message: str):
+        Log.get_logger().error(message)
 
     @staticmethod
-    def critical(message):
-        Log.logger.critical(message)
+    def critical_logger(message: str):
+        Log.get_logger().critical(message)

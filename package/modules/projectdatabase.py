@@ -2,6 +2,7 @@ import sqlite3
 import os
 
 import package.modules.dirpathsmanager as dirpathsmanager
+import package.modules.log as log
 
 
 class Database:
@@ -15,6 +16,7 @@ class Database:
         """
         Настройка базы данных перед использованием проекта
         """
+        log.Log.debug_logger("IN create_and_config_db()")
         if not os.path.exists(dirpathsmanager.DirPathManager.get_db_project_dirpath()):
             # Добавляем данные в пустую БД
             Database.con_db_project = sqlite3.connect(
@@ -31,6 +33,7 @@ class Database:
         """
         Добавление таблиц и данных в БД программы при запуске.
         """
+        log.Log.debug_logger("IN add_tables_and_datas_to_empty_db_project()")
         cursor = Database.con_db_project.cursor()
         cursor.executescript(
             """

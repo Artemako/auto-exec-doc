@@ -3,6 +3,7 @@ import datetime
 import os
 
 import package.modules.dirpathsmanager as dirpathsmanager
+import package.modules.log as log
 
 
 class Database:
@@ -16,6 +17,7 @@ class Database:
         """
         Настройка базы данных перед использованием приложения
         """
+        log.Log.debug_logger("IN create_and_config_db()")
         if not os.path.exists(dirpathsmanager.DirPathManager.get_db_settings_dirpath()):
             # Добавляем данные в пустую БД
             Database.con_db_settings = sqlite3.connect(
@@ -33,6 +35,7 @@ class Database:
         """
         Добавление таблиц и данных в БД программы.
         """
+        log.Log.debug_logger("IN add_tables_and_datas_to_empty_db_settings()")
         cursor = Database.con_db_settings.cursor()
 
         cursor.executescript("""
@@ -53,6 +56,8 @@ class Database:
         """
         Добавление в БД новый проекта.
         """
+        log.Log.debug_logger("IN add_new_project_to_db()")
+
         name_project = os.path.basename(
             dirpathsmanager.DirPathManager.get_project_dirpath()
         )
@@ -75,6 +80,7 @@ class Database:
         """
         Обновление проекта в БД.
         """
+        log.Log.debug_logger("IN update_project_to_db()")
         name_project = os.path.basename(
             dirpathsmanager.DirPathManager.get_project_dirpath()
         )
@@ -97,6 +103,7 @@ class Database:
         """
         Добавление или обновление открытого проекта в БД.
         """
+        log.Log.debug_logger("IN add_or_update_open_project_to_db()")
         name_project = os.path.basename(
             dirpathsmanager.DirPathManager.get_project_dirpath()
         )
