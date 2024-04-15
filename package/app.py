@@ -22,10 +22,8 @@ class App:
 
         # настроить loggerpy
         log.Log.config_logger()
-
         # Проверка наличия папок.
         filefoldermanager.FileFolderManager.create_and_config_files_and_folders()
-
         # настроить БД
         settingsdatabase.Database.create_and_config_db()
 

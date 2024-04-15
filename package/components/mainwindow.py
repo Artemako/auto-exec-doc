@@ -4,6 +4,9 @@ import package.ui.mainwindow_ui as mainwindow_ui
 import package.modules.project as project
 import package.modules.log as log
 
+import package.controllers.structureexecdoc as structureexecdoc
+import package.controllers.pagestemplate as pagestemplate
+
 
 class MainWindow(QMainWindow):
     _statusbar = None
@@ -13,7 +16,14 @@ class MainWindow(QMainWindow):
         self.ui = mainwindow_ui.Ui_MainWindow()
         self.ui.setupUi(self)
 
+        # настройка MainWindow
         self.connect_statusbar()
+        structureexecdoc.StructureExecdoc.connect_structureexecdoc(
+            self.ui.treewidget_structure_execdoc
+        )
+        pagestemplate.PagesTemplate.connect_pagestemplate(
+            self.ui.listwidget_pages_template
+        )
         self.connecting_actions()
 
     def connect_statusbar(self):
