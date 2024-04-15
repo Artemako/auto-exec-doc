@@ -19,15 +19,15 @@ from PySide6.QtWidgets import (QApplication, QDoubleSpinBox, QHBoxLayout, QLabel
     QPushButton, QSizePolicy, QTextBrowser, QVBoxLayout,
     QWidget)
 
-class Ui_FormTextWidget(object):
-    def setupUi(self, FormTextWidget):
-        if not FormTextWidget.objectName():
-            FormTextWidget.setObjectName(u"FormTextWidget")
-        FormTextWidget.resize(425, 191)
-        FormTextWidget.setMaximumSize(QSize(16777215, 16777215))
-        self.verticalLayout = QVBoxLayout(FormTextWidget)
+class Ui_FormImageWidget(object):
+    def setupUi(self, FormImageWidget):
+        if not FormImageWidget.objectName():
+            FormImageWidget.setObjectName(u"FormImageWidget")
+        FormImageWidget.resize(425, 191)
+        FormImageWidget.setMaximumSize(QSize(16777215, 16777215))
+        self.verticalLayout = QVBoxLayout(FormImageWidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.title = QLabel(FormTextWidget)
+        self.title = QLabel(FormImageWidget)
         self.title.setObjectName(u"title")
         self.title.setMinimumSize(QSize(0, 0))
         self.title.setMaximumSize(QSize(16777215, 16))
@@ -36,12 +36,12 @@ class Ui_FormTextWidget(object):
 
         self.verticalLayout.addWidget(self.title)
 
-        self.select_button = QPushButton(FormTextWidget)
+        self.select_button = QPushButton(FormImageWidget)
         self.select_button.setObjectName(u"select_button")
 
         self.verticalLayout.addWidget(self.select_button)
 
-        self.label = QLabel(FormTextWidget)
+        self.label = QLabel(FormImageWidget)
         self.label.setObjectName(u"label")
         self.label.setStyleSheet(u"font-style: italic;")
 
@@ -49,13 +49,13 @@ class Ui_FormTextWidget(object):
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.percent_label = QLabel(FormTextWidget)
+        self.percent_label = QLabel(FormImageWidget)
         self.percent_label.setObjectName(u"percent_label")
         self.percent_label.setMaximumSize(QSize(60, 16777215))
 
         self.horizontalLayout.addWidget(self.percent_label)
 
-        self.percent_spinbox = QDoubleSpinBox(FormTextWidget)
+        self.percent_spinbox = QDoubleSpinBox(FormImageWidget)
         self.percent_spinbox.setObjectName(u"percent_spinbox")
         self.percent_spinbox.setMaximum(500.000000000000000)
         self.percent_spinbox.setValue(100.000000000000000)
@@ -65,7 +65,7 @@ class Ui_FormTextWidget(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout)
 
-        self.textbrowser = QTextBrowser(FormTextWidget)
+        self.textbrowser = QTextBrowser(FormImageWidget)
         self.textbrowser.setObjectName(u"textbrowser")
         self.textbrowser.setStyleSheet(u"background-color: #f0f0f0;\n"
 "border: none")
@@ -74,19 +74,19 @@ class Ui_FormTextWidget(object):
         self.verticalLayout.addWidget(self.textbrowser)
 
 
-        self.retranslateUi(FormTextWidget)
+        self.retranslateUi(FormImageWidget)
 
-        QMetaObject.connectSlotsByName(FormTextWidget)
+        QMetaObject.connectSlotsByName(FormImageWidget)
     # setupUi
 
-    def retranslateUi(self, FormTextWidget):
-        FormTextWidget.setWindowTitle(QCoreApplication.translate("FormTextWidget", u"Form", None))
-        self.title.setText(QCoreApplication.translate("FormTextWidget", u"<html><head/><body><p>\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a</p></body></html>", None))
-        self.select_button.setText(QCoreApplication.translate("FormTextWidget", u"\u0412\u044b\u0431\u0440\u0430\u0442\u044c \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435", None))
-        self.label.setText(QCoreApplication.translate("FormTextWidget", u"\u0412\u044b\u0431\u0440\u0430\u043d\u043d\u044b\u0439 \u0444\u0430\u0439\u043b", None))
-        self.percent_label.setText(QCoreApplication.translate("FormTextWidget", u"\u041c\u0430\u0441\u0448\u0442\u0430\u0431", None))
-        self.percent_spinbox.setSuffix(QCoreApplication.translate("FormTextWidget", u"%", None))
-        self.textbrowser.setHtml(QCoreApplication.translate("FormTextWidget", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+    def retranslateUi(self, FormImageWidget):
+        FormImageWidget.setWindowTitle(QCoreApplication.translate("FormImageWidget", u"Form", None))
+        self.title.setText(QCoreApplication.translate("FormImageWidget", u"<html><head/><body><p>\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a</p></body></html>", None))
+        self.select_button.setText(QCoreApplication.translate("FormImageWidget", u"\u0412\u044b\u0431\u0440\u0430\u0442\u044c \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435", None))
+        self.label.setText(QCoreApplication.translate("FormImageWidget", u"\u0412\u044b\u0431\u0440\u0430\u043d\u043d\u044b\u0439 \u0444\u0430\u0439\u043b", None))
+        self.percent_label.setText(QCoreApplication.translate("FormImageWidget", u"\u041c\u0430\u0441\u0448\u0442\u0430\u0431", None))
+        self.percent_spinbox.setSuffix(QCoreApplication.translate("FormImageWidget", u"%", None))
+        self.textbrowser.setHtml(QCoreApplication.translate("FormImageWidget", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"

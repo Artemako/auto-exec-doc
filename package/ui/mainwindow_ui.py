@@ -18,9 +18,9 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QTransform)
 from PySide6.QtWidgets import (QApplication, QGroupBox, QHBoxLayout, QHeaderView,
     QListWidget, QListWidgetItem, QMainWindow, QMenu,
-    QMenuBar, QPushButton, QSizePolicy, QSplitter,
-    QStatusBar, QTabWidget, QToolBar, QTreeWidget,
-    QTreeWidgetItem, QVBoxLayout, QWidget)
+    QMenuBar, QPushButton, QScrollArea, QSizePolicy,
+    QSplitter, QStatusBar, QTabWidget, QToolBar,
+    QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget)
 
 from package.components.pdfwidget import PdfWidget
 import resources_rc
@@ -93,7 +93,7 @@ class Ui_MainWindow(object):
         self.splitter.setOrientation(Qt.Horizontal)
         self.gb_left = QGroupBox(self.splitter)
         self.gb_left.setObjectName(u"gb_left")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Preferred)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.gb_left.sizePolicy().hasHeightForWidth())
@@ -146,8 +146,11 @@ class Ui_MainWindow(object):
         self.splitter.addWidget(self.gb_left)
         self.gb_center = QGroupBox(self.splitter)
         self.gb_center.setObjectName(u"gb_center")
-        sizePolicy1.setHeightForWidth(self.gb_center.sizePolicy().hasHeightForWidth())
-        self.gb_center.setSizePolicy(sizePolicy1)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.gb_center.sizePolicy().hasHeightForWidth())
+        self.gb_center.setSizePolicy(sizePolicy2)
         self.gb_center.setMinimumSize(QSize(350, 0))
         self.horizontalLayout = QHBoxLayout(self.gb_center)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -160,11 +163,23 @@ class Ui_MainWindow(object):
         self.splitter.addWidget(self.gb_center)
         self.gb_right = QGroupBox(self.splitter)
         self.gb_right.setObjectName(u"gb_right")
-        sizePolicy1.setHeightForWidth(self.gb_right.sizePolicy().hasHeightForWidth())
-        self.gb_right.setSizePolicy(sizePolicy1)
+        sizePolicy2.setHeightForWidth(self.gb_right.sizePolicy().hasHeightForWidth())
+        self.gb_right.setSizePolicy(sizePolicy2)
         self.gb_right.setMinimumSize(QSize(300, 0))
         self.gb_right.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.gb_right.setFlat(False)
+        self.verticalLayout_4 = QVBoxLayout(self.gb_right)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.scrollarea_input = QScrollArea(self.gb_right)
+        self.scrollarea_input.setObjectName(u"scrollarea_input")
+        self.scrollarea_input.setWidgetResizable(True)
+        self.scrollAreaWidgetContents = QWidget()
+        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 300, 467))
+        self.scrollarea_input.setWidget(self.scrollAreaWidgetContents)
+
+        self.verticalLayout_4.addWidget(self.scrollarea_input)
+
         self.splitter.addWidget(self.gb_right)
 
         self.horizontalLayout_2.addWidget(self.splitter)

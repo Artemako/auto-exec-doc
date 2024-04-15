@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>FormDateWidget</class>
- <widget class="QWidget" name="FormDateWidget">
+ <class>FormTableWidget</class>
+ <widget class="QWidget" name="FormTableWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>439</width>
-    <height>139</height>
+    <width>429</width>
+    <height>188</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -48,10 +48,16 @@
       </widget>
      </item>
      <item>
-      <widget class="QDateEdit" name="dateedit"/>
+      <widget class="QTableWidget" name="tablewidget"/>
      </item>
      <item>
       <widget class="QTextBrowser" name="textbrowser">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="styleSheet">
         <string notr="true">background-color: #f0f0f0;
 border: none</string>
