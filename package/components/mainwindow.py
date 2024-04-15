@@ -6,6 +6,7 @@ import package.modules.log as log
 
 import package.controllers.structureexecdoc as structureexecdoc
 import package.controllers.pagestemplate as pagestemplate
+import package.controllers.scrollareainput as scrollareainput
 
 
 class MainWindow(QMainWindow):
@@ -23,6 +24,9 @@ class MainWindow(QMainWindow):
         )
         pagestemplate.PagesTemplate.connect_pagestemplate(
             self.ui.listwidget_pages_template
+        )
+        scrollareainput.ScroolAreaInput.connect_pagestemplate(
+            self.ui.scrollarea_input, self.ui.scrollarea_input_contents
         )
         self.connecting_actions()
 

@@ -1,0 +1,71 @@
+24-Apr-15 20:47:43.738471 | DEBUG    | MAIN LOGGER                    | Config logger                                                                   
+24-Apr-15 20:47:43.739471 | DEBUG    | MAIN LOGGER                    | IN create_and_config_files_and_folders()                                        
+24-Apr-15 20:47:43.739471 | DEBUG    | MAIN LOGGER                    | get_default_folder_projects_dirpath() -> str: C:/Users/hayar/OneDrive/Документы\AutoExecDoc Projects
+24-Apr-15 20:47:43.740472 | DEBUG    | MAIN LOGGER                    | IN create_and_config_db()                                                       
+24-Apr-15 20:47:43.740472 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-15 20:47:43.742471 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-15 20:47:43.773876 | DEBUG    | MAIN LOGGER                    | IN view_test_pdf(self):                                                         
+24-Apr-15 20:47:43.773876 | DEBUG    | MAIN LOGGER                    | get_documents_dirpath() -> str: C:/Users/hayar/OneDrive/Документы               
+24-Apr-15 20:47:43.774876 | DEBUG    | MAIN LOGGER                    | IN load_pdf_for_view(self, file_path): file_path = C:\Users\hayar\OneDrive\Документы\test.pdf
+24-Apr-15 20:47:43.811884 | DEBUG    | MAIN LOGGER                    | IN connect_statusbar()                                                          
+24-Apr-15 20:47:43.811884 | DEBUG    | MAIN LOGGER                    | set_statusbar(statusbar)                                                        
+24-Apr-15 20:47:43.812886 | DEBUG    | MAIN LOGGER                    | get_statusbar() -> MainWindow._statusbar                                        
+24-Apr-15 20:47:43.812886 | DEBUG    | MAIN LOGGER                    | set_message_for_statusbar(Проект не открыт)                                     
+24-Apr-15 20:47:43.813886 | DEBUG    | MAIN LOGGER                    | IN connect_structureexecdoc()                                                   
+24-Apr-15 20:47:43.813886 | DEBUG    | MAIN LOGGER                    | set_tr_sed()                                                                    
+24-Apr-15 20:47:43.814886 | DEBUG    | MAIN LOGGER                    | IN connect_pagestemplate(lw_pt)                                                 
+24-Apr-15 20:47:43.814886 | DEBUG    | MAIN LOGGER                    | set_lw_pt()                                                                     
+24-Apr-15 20:47:43.814886 | DEBUG    | MAIN LOGGER                    | IN connect_pagestemplate(sa_i, sa_ic)                                           
+24-Apr-15 20:47:43.815887 | DEBUG    | MAIN LOGGER                    | set_sa_i()                                                                      
+24-Apr-15 20:47:43.816887 | DEBUG    | MAIN LOGGER                    | set_sa_ic()                                                                     
+24-Apr-15 20:47:43.816887 | DEBUG    | MAIN LOGGER                    | IN connecting_actions()                                                         
+24-Apr-15 20:47:48.362296 | DEBUG    | MAIN LOGGER                    | set_zoom_to_fit_view(self)                                                      
+24-Apr-15 20:47:50.039370 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = 0.9                                                 
+24-Apr-15 20:47:50.662626 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 1.0                                                  
+24-Apr-15 20:47:50.855923 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 1.1                                                  
+24-Apr-15 20:47:51.761410 | DEBUG    | MAIN LOGGER                    | set_zoom_custom(self)                                                           
+24-Apr-15 20:47:55.729454 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = 1.0                                                 
+24-Apr-15 20:47:55.889836 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = 0.9                                                 
+24-Apr-15 20:47:56.044437 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = 0.8                                                 
+24-Apr-15 20:47:56.198496 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = 0.7000000000000001                                  
+24-Apr-15 20:47:56.353247 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = 0.6000000000000001                                  
+24-Apr-15 20:47:56.496595 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = 0.5000000000000001                                  
+24-Apr-15 20:47:56.638784 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = 0.40000000000000013                                 
+24-Apr-15 20:47:56.784128 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = 0.30000000000000016                                 
+24-Apr-15 20:47:56.932474 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = 0.20000000000000015                                 
+24-Apr-15 20:47:57.088275 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = 0.10000000000000014                                 
+24-Apr-15 20:47:57.243350 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = 1.3877787807814457e-16                              
+24-Apr-15 20:47:57.597737 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = -0.09999999999999987                                
+24-Apr-15 20:47:57.802259 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = -0.09999999999999987                                
+24-Apr-15 20:47:58.189447 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = -0.09999999999999987                                
+24-Apr-15 20:47:58.353235 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = -0.09999999999999987                                
+24-Apr-15 20:47:58.516351 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = -0.09999999999999987                                
+24-Apr-15 20:47:58.691647 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = -0.09999999999999987                                
+24-Apr-15 20:47:59.846403 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 1.3877787807814457e-16                               
+24-Apr-15 20:48:00.572439 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 0.10000000000000014                                  
+24-Apr-15 20:48:00.731521 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 0.20000000000000015                                  
+24-Apr-15 20:48:00.901383 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 0.30000000000000016                                  
+24-Apr-15 20:48:04.707412 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = 0.20000000000000015                                 
+24-Apr-15 20:48:04.856866 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = 0.10000000000000014                                 
+24-Apr-15 20:48:04.996957 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = 1.3877787807814457e-16                              
+24-Apr-15 20:48:05.171441 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = -0.09999999999999987                                
+24-Apr-15 20:48:05.368843 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = -0.09999999999999987                                
+24-Apr-15 20:48:05.564296 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = -0.09999999999999987                                
+24-Apr-15 20:48:05.771735 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = -0.09999999999999987                                
+24-Apr-15 20:48:06.311259 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = -0.09999999999999987                                
+24-Apr-15 20:48:06.497199 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = -0.09999999999999987                                
+24-Apr-15 20:48:06.800402 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 1.3877787807814457e-16                               
+24-Apr-15 20:48:07.000302 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 0.10000000000000014                                  
+24-Apr-15 20:48:07.175176 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 0.20000000000000015                                  
+24-Apr-15 20:48:07.352459 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 0.30000000000000016                                  
+24-Apr-15 20:48:07.511771 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 0.40000000000000013                                  
+24-Apr-15 20:48:07.652446 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 0.5000000000000001                                   
+24-Apr-15 20:48:07.809456 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 0.6000000000000001                                   
+24-Apr-15 20:48:07.957993 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 0.7000000000000001                                   
+24-Apr-15 20:48:08.114294 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 0.8                                                  
+24-Apr-15 20:48:08.262340 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 0.9                                                  
+24-Apr-15 20:48:08.408432 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 1.0                                                  
+24-Apr-15 20:48:08.555757 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 1.1                                                  
+24-Apr-15 20:48:08.704493 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 1.2000000000000002                                   
+24-Apr-15 20:48:09.012798 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 1.3000000000000003                                   
+24-Apr-15 20:48:09.154529 | DEBUG    | MAIN LOGGER                    | zoom_in(self): self.zoom = 1.4000000000000004                                   
