@@ -188,7 +188,7 @@
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
-          <widget class="QWidget" name="scrollarea_input_contents">
+          <widget class="QWidget" name="scrollarea_input_layout">
            <property name="geometry">
             <rect>
              <x>0</x>

@@ -26,7 +26,7 @@ class MainWindow(QMainWindow):
             self.ui.listwidget_pages_template
         )
         scrollareainput.ScroolAreaInput.connect_pagestemplate(
-            self.ui.scrollarea_input, self.ui.scrollarea_input_contents
+            self.ui.scrollarea_input, self.ui.scrollarea_input_layout
         )
         self.connecting_actions()
 
@@ -45,7 +45,7 @@ class MainWindow(QMainWindow):
         log.Log.debug_logger("IN connecting_actions()")
         self.ui.action_new.triggered.connect(lambda: project.Project.new_project())
         self.ui.action_open.triggered.connect(lambda: project.Project.open_project())
-        # TODO
+        # TODO Добавить активности для сохранения
         # self.ui.action_save.triggered.connect()
         # self.ui.action_saveas.triggered.connect()
         self.ui.action_zoomin.triggered.connect(lambda: self.ui.pdfwidget.zoom_in())

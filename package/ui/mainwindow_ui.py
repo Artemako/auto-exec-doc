@@ -173,12 +173,12 @@ class Ui_MainWindow(object):
         self.scrollarea_input = QScrollArea(self.gb_right)
         self.scrollarea_input.setObjectName(u"scrollarea_input")
         self.scrollarea_input.setWidgetResizable(True)
-        self.scrollarea_input_contents = QWidget()
-        self.scrollarea_input_contents.setObjectName(u"scrollarea_input_contents")
-        self.scrollarea_input_contents.setGeometry(QRect(0, 0, 300, 467))
-        self.verticalLayout_5 = QVBoxLayout(self.scrollarea_input_contents)
+        self.scrollarea_input_layout = QWidget()
+        self.scrollarea_input_layout.setObjectName(u"scrollarea_input_layout")
+        self.scrollarea_input_layout.setGeometry(QRect(0, 0, 300, 467))
+        self.verticalLayout_5 = QVBoxLayout(self.scrollarea_input_layout)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
-        self.scrollarea_input.setWidget(self.scrollarea_input_contents)
+        self.scrollarea_input.setWidget(self.scrollarea_input_layout)
 
         self.verticalLayout_4.addWidget(self.scrollarea_input)
 

@@ -1,0 +1,30 @@
+24-Apr-15 21:09:08.608417 | DEBUG    | MAIN LOGGER                    | Config logger                                                                   
+24-Apr-15 21:09:08.609416 | DEBUG    | MAIN LOGGER                    | IN create_and_config_files_and_folders()                                        
+24-Apr-15 21:09:08.610425 | DEBUG    | MAIN LOGGER                    | get_default_folder_projects_dirpath() -> str: C:/Users/hayar/OneDrive/Документы\AutoExecDoc Projects
+24-Apr-15 21:09:08.610425 | DEBUG    | MAIN LOGGER                    | IN create_and_config_db()                                                       
+24-Apr-15 21:09:08.611417 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-15 21:09:08.612430 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-15 21:09:08.641437 | DEBUG    | MAIN LOGGER                    | IN view_test_pdf(self):                                                         
+24-Apr-15 21:09:08.642437 | DEBUG    | MAIN LOGGER                    | get_documents_dirpath() -> str: C:/Users/hayar/OneDrive/Документы               
+24-Apr-15 21:09:08.642437 | DEBUG    | MAIN LOGGER                    | IN load_pdf_for_view(self, file_path): file_path = C:\Users\hayar\OneDrive\Документы\test.pdf
+24-Apr-15 21:09:08.675789 | DEBUG    | MAIN LOGGER                    | IN connect_statusbar()                                                          
+24-Apr-15 21:09:08.676791 | DEBUG    | MAIN LOGGER                    | set_statusbar(statusbar)                                                        
+24-Apr-15 21:09:08.676791 | DEBUG    | MAIN LOGGER                    | get_statusbar() -> MainWindow._statusbar                                        
+24-Apr-15 21:09:08.677790 | DEBUG    | MAIN LOGGER                    | set_message_for_statusbar(Проект не открыт)                                     
+24-Apr-15 21:09:08.677790 | DEBUG    | MAIN LOGGER                    | IN connect_structureexecdoc()                                                   
+24-Apr-15 21:09:08.678789 | DEBUG    | MAIN LOGGER                    | set_tr_sed()                                                                    
+24-Apr-15 21:09:08.678789 | DEBUG    | MAIN LOGGER                    | IN connect_pagestemplate(lw_pt)                                                 
+24-Apr-15 21:09:08.678789 | DEBUG    | MAIN LOGGER                    | set_lw_pt()                                                                     
+24-Apr-15 21:09:08.679790 | DEBUG    | MAIN LOGGER                    | IN connect_pagestemplate(sa_i, sa_il)                                           
+24-Apr-15 21:09:08.679790 | DEBUG    | MAIN LOGGER                    | set_sa()                                                                        
+24-Apr-15 21:09:08.680790 | DEBUG    | MAIN LOGGER                    | IN add_widget(widget)                                                           
+24-Apr-15 21:09:08.680790 | DEBUG    | MAIN LOGGER                    | get_sa_il() -> object                                                           
+24-Apr-15 21:09:08.681793 | DEBUG    | MAIN LOGGER                    | IN add_widget(widget)                                                           
+24-Apr-15 21:09:08.682791 | DEBUG    | MAIN LOGGER                    | get_sa_il() -> object                                                           
+24-Apr-15 21:09:08.682791 | DEBUG    | MAIN LOGGER                    | IN add_widget(widget)                                                           
+24-Apr-15 21:09:08.683791 | DEBUG    | MAIN LOGGER                    | get_sa_il() -> object                                                           
+24-Apr-15 21:09:08.683791 | DEBUG    | MAIN LOGGER                    | IN connecting_actions()                                                         
+24-Apr-15 21:10:52.066379 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = 0.9                                                 
+24-Apr-15 21:10:52.226672 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = 0.8                                                 
+24-Apr-15 21:10:52.362617 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = 0.7000000000000001                                  
+24-Apr-15 21:10:52.513559 | DEBUG    | MAIN LOGGER                    | zoom_out(self): self.zoom = 0.6000000000000001                                  

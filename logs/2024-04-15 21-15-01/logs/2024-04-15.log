@@ -1,0 +1,28 @@
+24-Apr-15 21:15:01.552096 | DEBUG    | MAIN LOGGER                    | Config logger                                                                   
+24-Apr-15 21:15:01.553095 | DEBUG    | MAIN LOGGER                    | IN create_and_config_files_and_folders()                                        
+24-Apr-15 21:15:01.553095 | DEBUG    | MAIN LOGGER                    | get_default_folder_projects_dirpath() -> str: C:/Users/hayar/OneDrive/Документы\AutoExecDoc Projects
+24-Apr-15 21:15:01.554097 | DEBUG    | MAIN LOGGER                    | IN create_and_config_db()                                                       
+24-Apr-15 21:15:01.554097 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-15 21:15:01.556095 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-15 21:15:01.584103 | DEBUG    | MAIN LOGGER                    | IN view_test_pdf(self):                                                         
+24-Apr-15 21:15:01.585103 | DEBUG    | MAIN LOGGER                    | get_documents_dirpath() -> str: C:/Users/hayar/OneDrive/Документы               
+24-Apr-15 21:15:01.585103 | DEBUG    | MAIN LOGGER                    | IN load_pdf_for_view(self, file_path): file_path = C:\Users\hayar\OneDrive\Документы\test.pdf
+24-Apr-15 21:15:01.626230 | DEBUG    | MAIN LOGGER                    | IN connect_statusbar()                                                          
+24-Apr-15 21:15:01.627235 | DEBUG    | MAIN LOGGER                    | set_statusbar(statusbar)                                                        
+24-Apr-15 21:15:01.628233 | DEBUG    | MAIN LOGGER                    | get_statusbar() -> MainWindow._statusbar                                        
+24-Apr-15 21:15:01.629233 | DEBUG    | MAIN LOGGER                    | set_message_for_statusbar(Проект не открыт)                                     
+24-Apr-15 21:15:01.629233 | DEBUG    | MAIN LOGGER                    | IN connect_structureexecdoc()                                                   
+24-Apr-15 21:15:01.630231 | DEBUG    | MAIN LOGGER                    | set_tr_sed()                                                                    
+24-Apr-15 21:15:01.631234 | DEBUG    | MAIN LOGGER                    | IN connect_pagestemplate(lw_pt)                                                 
+24-Apr-15 21:15:01.632233 | DEBUG    | MAIN LOGGER                    | set_lw_pt()                                                                     
+24-Apr-15 21:15:01.633234 | DEBUG    | MAIN LOGGER                    | IN connect_pagestemplate(sa_i, sa_il)                                           
+24-Apr-15 21:15:01.634234 | DEBUG    | MAIN LOGGER                    | set_sa()                                                                        
+24-Apr-15 21:15:01.635235 | DEBUG    | MAIN LOGGER                    | IN add_widget(widget)                                                           
+24-Apr-15 21:15:01.636234 | DEBUG    | MAIN LOGGER                    | get_sa_il() -> object                                                           
+24-Apr-15 21:15:01.637234 | DEBUG    | MAIN LOGGER                    | IN add_widget(widget)                                                           
+24-Apr-15 21:15:01.637234 | DEBUG    | MAIN LOGGER                    | get_sa_il() -> object                                                           
+24-Apr-15 21:15:01.638234 | DEBUG    | MAIN LOGGER                    | IN add_widget(widget)                                                           
+24-Apr-15 21:15:01.639235 | DEBUG    | MAIN LOGGER                    | get_sa_il() -> object                                                           
+24-Apr-15 21:15:01.640235 | DEBUG    | MAIN LOGGER                    | IN delete_all_widgets_in_sa()                                                   
+24-Apr-15 21:15:01.640235 | DEBUG    | MAIN LOGGER                    | clear_sa()                                                                      
+24-Apr-15 21:15:01.641234 | DEBUG    | MAIN LOGGER                    | get_sa_il() -> object                                                           
