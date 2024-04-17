@@ -4,13 +4,35 @@ import os
 
 import package.modules.dirpathsmanager as dirpathsmanager
 import package.modules.log as log
+import package.modules.project as project
 
 
 class Database:
-    con_db_settings = None
+    _conn_db_settings = None
+    _сurs_db_settings = None
 
     def __init__(self):
         pass
+
+    @staticmethod
+    def get_conn_db_settings():
+        log.Log.debug_logger("get_conn_db_settings()")
+        return Database._conn_db_settings
+
+    @staticmethod
+    def get_curs_db_settings():
+        log.Log.debug_logger("get_curs_db_settings()")
+        return Database._сurs_db_settings
+
+    @staticmethod
+    def set_conn_db_settings(value):
+        log.Log.debug_logger("set_conn_db_settings()")
+        Database._conn_db_settings = value
+
+    @staticmethod
+    def set_curs_db_settings(value):
+        log.Log.debug_logger("set_curs_db_settings()")
+        Database._сurs_db_settings = value
 
     @staticmethod
     def create_and_config_db():
@@ -20,14 +42,19 @@ class Database:
         log.Log.debug_logger("IN create_and_config_db()")
         if not os.path.exists(dirpathsmanager.DirPathManager.get_db_settings_dirpath()):
             # Добавляем данные в пустую БД
-            Database.con_db_settings = sqlite3.connect(
-                dirpathsmanager.DirPathManager.get_db_settings_dirpath()
+            Database.set_conn_db_settings(
+                sqlite3.connect(
+                    dirpathsmanager.DirPathManager.get_db_settings_dirpath()
+                )
             )
             Database.add_tables_and_datas_to_empty_db_settings()
         else:
-            Database.con_db_settings = sqlite3.connect(
-                dirpathsmanager.DirPathManager.get_db_settings_dirpath()
+            Database.set_conn_db_settings(
+                sqlite3.connect(
+                    dirpathsmanager.DirPathManager.get_db_settings_dirpath()
+                )
             )
+        Database.set_curs_db_settings(Database.get_conn_db_settings().cursor())
 
     # region Методы add (tables, values)
     @staticmethod
@@ -36,7 +63,7 @@ class Database:
         Добавление таблиц и данных в БД программы.
         """
         log.Log.debug_logger("IN add_tables_and_datas_to_empty_db_settings()")
-        cursor = Database.con_db_settings.cursor()
+        cursor = Database.get_curs_db_settings()
 
         cursor.executescript("""
         BEGIN TRANSACTION;
@@ -63,7 +90,7 @@ class Database:
         )
         directory_project = dirpathsmanager.DirPathManager.get_project_dirpath()
 
-        cursor = Database.con_db_settings.cursor()
+        cursor = Database.get_curs_db_settings()
 
         # текущее время для date_create_project и для date_last_open_project
         current_datetime = datetime.datetime.now().replace(microsecond=0)
@@ -73,7 +100,7 @@ class Database:
             (name_project, directory_project, current_datetime, current_datetime),
         )
 
-        Database.con_db_settings.commit()
+        Database.get_conn_db_settings().commit()
 
     @staticmethod
     def update_project_to_db():
@@ -86,7 +113,7 @@ class Database:
         )
         directory_project = dirpathsmanager.DirPathManager.get_project_dirpath()
 
-        cursor = Database.con_db_settings.cursor()
+        cursor = Database.get_curs_db_settings()
 
         # текущее время для date_last_open_project
         current_datetime = datetime.datetime.now().replace(microsecond=0)
@@ -96,7 +123,9 @@ class Database:
             (current_datetime, name_project, directory_project),
         )
 
-        Database.con_db_settings.commit()
+        Database.get_conn_db_settings().commit()
+
+
 
     @staticmethod
     def add_or_update_open_project_to_db():
@@ -109,7 +138,7 @@ class Database:
         )
         directory_project = dirpathsmanager.DirPathManager.get_project_dirpath()
 
-        cursor = Database.con_db_settings.cursor()
+        cursor = Database.get_curs_db_settings()
 
         # узнать, если проект в БД по имени и директории
         cursor.execute(
@@ -123,5 +152,8 @@ class Database:
             Database.add_new_project_to_db()
         else:
             Database.update_project_to_db()
+
+        
+
 
     # endregion

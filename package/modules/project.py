@@ -1,7 +1,7 @@
 import os
 
 import package.components.dialogwindows as dialogwindows
-import package.components.mainwindow as mainwindow
+import package.controllers.statusbar as statusbar
 
 import package.modules.settingsdatabase as settingsdatabase
 import package.modules.log as log
@@ -125,12 +125,12 @@ class Project:
 
         Project.set_current_name(
             os.path.basename(dirpathsmanager.DirPathManager.get_project_dirpath())
-        )
+        )        
         settingsdatabase.Database.add_new_project_to_db()
         filefoldermanager.FileFolderManager.add_files_and_folders_to_new_project()
         Project.set_true_actives_project()
         # сообщение для статусбара
-        mainwindow.MainWindow.set_message_for_statusbar(
+        statusbar.StatusBar.set_message_for_statusbar(
             f"Проект c именем {Project.get_current_name()} создан и открыт."
         )
 
@@ -161,10 +161,13 @@ class Project:
         """
         log.Log.debug_logger("IN config_open_project()")
 
-        settingsdatabase.Database.add_or_update_open_project_to_db()
+        Project.set_current_name(
+            os.path.basename(dirpathsmanager.DirPathManager.get_project_dirpath())
+        )
+        settingsdatabase.Database.add_or_update_open_project_to_db()        
         Project.set_true_actives_project()
         # сообщение для статусбара
-        mainwindow.MainWindow.set_message_for_statusbar(
+        statusbar.StatusBar.set_message_for_statusbar(
             f"Проект c именем {Project.get_current_name()} открыт."
         )
 

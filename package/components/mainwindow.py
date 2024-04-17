@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QMainWindow, QStatusBar
+from PySide6.QtWidgets import QMainWindow
 
 import package.ui.mainwindow_ui as mainwindow_ui
 import package.modules.project as project
@@ -7,6 +7,7 @@ import package.modules.log as log
 import package.controllers.structureexecdoc as structureexecdoc
 import package.controllers.pagestemplate as pagestemplate
 import package.controllers.scrollareainput as scrollareainput
+import package.controllers.statusbar as statusbar
 
 
 class MainWindow(QMainWindow):
@@ -17,8 +18,8 @@ class MainWindow(QMainWindow):
         self.ui = mainwindow_ui.Ui_MainWindow()
         self.ui.setupUi(self)
 
-        # настройка MainWindow
-        self.connect_statusbar()
+        # настройка контроллеров
+        statusbar.StatusBar.connect_statusbar(self.ui.status_bar)
         structureexecdoc.StructureExecdoc.connect_structureexecdoc(
             self.ui.treewidget_structure_execdoc
         )
@@ -28,15 +29,8 @@ class MainWindow(QMainWindow):
         scrollareainput.ScroolAreaInput.connect_pagestemplate(
             self.ui.scrollarea_input, self.ui.scrollarea_input_layout
         )
+        # Подключаем действия
         self.connecting_actions()
-
-    def connect_statusbar(self):
-        """
-        Подключить статусбар.
-        """
-        log.Log.debug_logger("IN connect_statusbar()")
-        MainWindow.set_statusbar(self.ui.status_bar)
-        MainWindow.set_message_for_statusbar("Проект не открыт")
 
     def connecting_actions(self):
         """
@@ -55,21 +49,3 @@ class MainWindow(QMainWindow):
             if self.ui.action_zoomfitpage.isChecked()
             else self.ui.pdfwidget.set_zoom_custom()
         )
-
-    @staticmethod
-    def set_statusbar(statusbar):
-        MainWindow._statusbar = statusbar
-        log.Log.debug_logger("set_statusbar(statusbar)")
-
-    @staticmethod
-    def get_statusbar() -> QStatusBar:
-        log.Log.debug_logger("get_statusbar() -> MainWindow._statusbar")
-        return MainWindow._statusbar
-
-    @staticmethod
-    def set_message_for_statusbar(message: str):
-        """
-        Поставить сообщение в статусбар.
-        """
-        MainWindow.get_statusbar().showMessage(message)
-        log.Log.debug_logger(f"set_message_for_statusbar({message})")
