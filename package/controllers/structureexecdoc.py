@@ -90,37 +90,5 @@ class StructureExecDoc:
         Создает структуру дерева ИД
         """
         log.Log.get_logger().debug("IN create_structure_exec_doc()")
-        # TODO
-        StructureExecDoc.from_table_structure_of_nodes_db_project_to_dict()
-        StructureExecDoc.add_items_from_dict_of_nodes_to_tr_sed()
+        # TODO Раюота с Project_structure_of_nodes
 
-    @staticmethod
-    def from_table_structure_of_nodes_db_project_to_dict():
-        """
-        Преобразование из таблицы в словарь ???????
-        """
-        log.Log.get_logger().debug(
-            "IN from_table_structure_of_nodes_db_project_to_dict()"
-        )
-        table = projectdatabase.Database.get_table_structure_of_nodes_from_db_project()
-        nodes = StructureExecDoc.get_nodes()
-        for elem in table:
-            id_node = elem[0]
-            nodes[id_node] = {
-                "name_node": elem[1],
-                "id_parent": elem[2],
-                "type_node": elem[3],
-                "id_left": elem[4],
-                "id_right": elem[5],
-                "template_name": elem[6],
-            }
-
-    @staticmethod
-    def add_items_from_dict_of_nodes_to_tr_sed():
-        """
-        Добавление items в _treewidget_structure_execdoc
-        """
-        log.Log.get_logger().debug("IN add_items_from_dict_of_nodes()")
-        nodes = StructureExecDoc.get_nodes()
-        # начальная вершина с node_id
-        start_node = nodes.get(0)
