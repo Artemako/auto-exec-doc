@@ -16,11 +16,11 @@ class StatusBar:
     @staticmethod
     def set_statusbar(statusbar):
         StatusBar._statusbar = statusbar
-        log.Log.debug_logger("set_statusbar(statusbar)")
+        log.Log.debug_logger("set_statusbar()")
 
     @staticmethod
     def get_statusbar() -> QStatusBar:
-        log.Log.debug_logger("get_statusbar() -> StatusBar._statusbar")
+        log.Log.debug_logger("get_statusbar()")
         return StatusBar._statusbar
 
     @staticmethod

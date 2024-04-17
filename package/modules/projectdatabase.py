@@ -6,56 +6,17 @@ import package.modules.log as log
 
 
 class Database:
-    _conn_db_project = None
-    _сurs_db_project = None
-
-    def __init__(self):
-        pass
-    
-    
     @staticmethod
-    def get_conn_db_project():
-        log.Log.debug_logger("get_conn_db_project()")
-        return Database._conn_db_project
-
-
-    @staticmethod
-    def get_curs_db_project():
-        log.Log.debug_logger("get_curs_db_project()")
-        return Database._сurs_db_project
-
-    @staticmethod
-    def set_conn_db_project(value):
-        log.Log.debug_logger("set_conn_db_project()")
-        Database._conn_db_project = value
-
-
-    @staticmethod
-    def set_curs_db_project(value):
-        log.Log.debug_logger("set_curs_db_project()")
-        Database._сurs_db_project = value
-
-
-    @staticmethod
-    def create_and_config_db():
+    def create_and_config_db_project():
         """
         Настройка базы данных перед использованием проекта
         """
-        log.Log.debug_logger("IN create_and_config_db()")
+        log.Log.debug_logger("IN create_and_config_db_project()")
+
         if not os.path.exists(dirpathsmanager.DirPathManager.get_db_project_dirpath()):
             # Добавляем данные в пустую БД
-            Database.set_conn_db_project(sqlite3.connect(
-                dirpathsmanager.DirPathManager.get_db_project_dirpath()
-            ))
             Database.add_tables_and_datas_to_empty_db_project()
-        else:
-            Database.set_conn_db_project(sqlite3.connect(
-                dirpathsmanager.DirPathManager.get_db_project_dirpath()
-            ))
 
-        Database.set_curs_db_project(Database.get_conn_db_project().cursor())
-        
-            
 
     @staticmethod
     def add_tables_and_datas_to_empty_db_project():
@@ -63,7 +24,8 @@ class Database:
         Добавление таблиц и данных в БД программы при запуске.
         """
         log.Log.debug_logger("IN add_tables_and_datas_to_empty_db_project()")
-        cursor = Database.get_curs_db_project()
+        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        cursor = conn.cursor()
         cursor.executescript(
             """
             BEGIN TRANSACTION;
@@ -191,17 +153,27 @@ class Database:
 
             """
         )
-
-
+        
+        conn.commit()
+        conn.close()
 
     @staticmethod
-    def get_structure_of_nodes() -> object:
+    def get_table_structure_of_nodes_from_db_project() -> object:
         """
         Получение данных таблицы Project_structure_of_nodes
         """
         log.Log.debug_logger("IN add_tables_and_datas_to_empty_db_project()")
-        cursor = Database.get_curs_db_project()
-        cursor.executescript("""SELECT * FROM "Project_structure_of_nodes";""")
+        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+
+        cursor = conn.cursor()
+
+        cursor.execute(
+            """
+            SELECT * FROM "Project_structure_of_nodes";
+            """
+        )
+
         result = cursor.fetchall()
-        print(result)
+
+        conn.close()
         return result

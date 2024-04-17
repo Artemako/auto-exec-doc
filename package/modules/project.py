@@ -4,6 +4,8 @@ import package.components.dialogwindows as dialogwindows
 import package.controllers.statusbar as statusbar
 
 import package.modules.settingsdatabase as settingsdatabase
+import package.controllers.structureexecdoc as structureexecdoc
+import package.modules.projectdatabase as projectdatabase
 import package.modules.log as log
 import package.modules.filefoldermanager as filefoldermanager
 import package.modules.dirpathsmanager as dirpathsmanager
@@ -127,7 +129,10 @@ class Project:
             os.path.basename(dirpathsmanager.DirPathManager.get_project_dirpath())
         )        
         settingsdatabase.Database.add_new_project_to_db()
-        filefoldermanager.FileFolderManager.add_files_and_folders_to_new_project()
+        projectdatabase.Database.create_and_config_db_project()
+        # настраиваем структуру execdoc
+        structureexecdoc.StructureExecDoc.create_structure_exec_doc()
+        filefoldermanager.FileFolderManager.add_forms_folders_to_new_project()
         Project.set_true_actives_project()
         # сообщение для статусбара
         statusbar.StatusBar.set_message_for_statusbar(
@@ -164,7 +169,11 @@ class Project:
         Project.set_current_name(
             os.path.basename(dirpathsmanager.DirPathManager.get_project_dirpath())
         )
-        settingsdatabase.Database.add_or_update_open_project_to_db()        
+        # настраиваем базы данных
+        settingsdatabase.Database.add_or_update_open_project_to_db()    
+        projectdatabase.Database.create_and_config_db_project()
+        # настраиваем структуру execdoc
+        structureexecdoc.StructureExecDoc.create_structure_exec_doc()
         Project.set_true_actives_project()
         # сообщение для статусбара
         statusbar.StatusBar.set_message_for_statusbar(

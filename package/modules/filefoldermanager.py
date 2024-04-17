@@ -24,15 +24,6 @@ class FileFolderManager:
             )
 
     @staticmethod
-    def add_files_and_folders_to_new_project():
-        """
-        Добавление в проект папок и файлов.
-        """
-        log.Log.debug_logger("IN add_files_and_folders_to_new_project()")
-        projectdatabase.Database.create_and_config_db()
-        FileFolderManager.add_forms_folders_to_new_project()
-
-    @staticmethod
     def add_forms_folders_to_new_project():
         """
         Добавление в проект папок форм.

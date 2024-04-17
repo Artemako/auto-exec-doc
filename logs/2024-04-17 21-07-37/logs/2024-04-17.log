@@ -1,0 +1,96 @@
+24-Apr-17 21:07:37.177162 | DEBUG    | MAIN LOGGER                    | Config logger                                                                   
+24-Apr-17 21:07:37.178163 | DEBUG    | MAIN LOGGER                    | IN create_and_config_files_and_folders()                                        
+24-Apr-17 21:07:37.179162 | DEBUG    | MAIN LOGGER                    | get_default_folder_projects_dirpath() -> str: C:/Users/hayar/OneDrive/Документы\AutoExecDoc Projects
+24-Apr-17 21:07:37.180162 | DEBUG    | MAIN LOGGER                    | IN create_and_config_db_settings()                                              
+24-Apr-17 21:07:37.180162 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-17 21:07:37.209966 | DEBUG    | MAIN LOGGER                    | IN view_test_pdf(self):                                                         
+24-Apr-17 21:07:37.210968 | DEBUG    | MAIN LOGGER                    | get_documents_dirpath() -> str: C:/Users/hayar/OneDrive/Документы               
+24-Apr-17 21:07:37.210968 | DEBUG    | MAIN LOGGER                    | IN load_pdf_for_view(self, file_path): file_path = C:\Users\hayar\OneDrive\Документы\test.pdf
+24-Apr-17 21:07:37.242519 | DEBUG    | MAIN LOGGER                    | IN connect_statusbar()                                                          
+24-Apr-17 21:07:37.245520 | DEBUG    | MAIN LOGGER                    | set_statusbar()                                                                 
+24-Apr-17 21:07:37.252522 | DEBUG    | MAIN LOGGER                    | get_statusbar()                                                                 
+24-Apr-17 21:07:37.253520 | DEBUG    | MAIN LOGGER                    | set_message_for_statusbar(Проект не открыт)                                     
+24-Apr-17 21:07:37.254521 | DEBUG    | MAIN LOGGER                    | IN connect_structureexecdoc()                                                   
+24-Apr-17 21:07:37.254521 | DEBUG    | MAIN LOGGER                    | set_tr_sed()                                                                    
+24-Apr-17 21:07:37.256521 | DEBUG    | MAIN LOGGER                    | IN clear_tr_sed()                                                               
+24-Apr-17 21:07:37.257520 | DEBUG    | MAIN LOGGER                    | get_tr_sed() -> object                                                          
+24-Apr-17 21:07:37.258521 | DEBUG    | MAIN LOGGER                    | IN connect_pagestemplate(lw_pt)                                                 
+24-Apr-17 21:07:37.259521 | DEBUG    | MAIN LOGGER                    | set_lw_pt()                                                                     
+24-Apr-17 21:07:37.260523 | DEBUG    | MAIN LOGGER                    | IN connect_pagestemplate(sa_i, sa_il)                                           
+24-Apr-17 21:07:37.262522 | DEBUG    | MAIN LOGGER                    | set_sa()                                                                        
+24-Apr-17 21:07:37.265524 | DEBUG    | MAIN LOGGER                    | IN add_widget(widget)                                                           
+24-Apr-17 21:07:37.266525 | DEBUG    | MAIN LOGGER                    | get_sa_il() -> object                                                           
+24-Apr-17 21:07:37.267525 | DEBUG    | MAIN LOGGER                    | IN connecting_actions()                                                         
+24-Apr-17 21:07:38.737309 | DEBUG    | MAIN LOGGER                    | IN new_project()                                                                
+24-Apr-17 21:07:38.737861 | DEBUG    | MAIN LOGGER                    | is_active_status() -> bool: False                                               
+24-Apr-17 21:07:38.737861 | DEBUG    | MAIN LOGGER                    | IN select_folder_for_new_project() -> str                                       
+24-Apr-17 21:07:38.737861 | DEBUG    | MAIN LOGGER                    | get_default_folder_projects_dirpath() -> str: C:/Users/hayar/OneDrive/Документы\AutoExecDoc Projects
+24-Apr-17 21:07:43.766435 | DEBUG    | MAIN LOGGER                    | select_folder_for_new_project() -> None                                         
+24-Apr-17 21:07:49.112442 | DEBUG    | MAIN LOGGER                    | IN new_project()                                                                
+24-Apr-17 21:07:49.112442 | DEBUG    | MAIN LOGGER                    | is_active_status() -> bool: False                                               
+24-Apr-17 21:07:49.113447 | DEBUG    | MAIN LOGGER                    | IN select_folder_for_new_project() -> str                                       
+24-Apr-17 21:07:49.113447 | DEBUG    | MAIN LOGGER                    | get_default_folder_projects_dirpath() -> str: C:/Users/hayar/OneDrive/Документы\AutoExecDoc Projects
+24-Apr-17 21:07:50.612645 | DEBUG    | MAIN LOGGER                    | select_folder_for_new_project() -> None                                         
+24-Apr-17 21:07:53.755111 | DEBUG    | MAIN LOGGER                    | IN new_project()                                                                
+24-Apr-17 21:07:53.755111 | DEBUG    | MAIN LOGGER                    | is_active_status() -> bool: False                                               
+24-Apr-17 21:07:53.756110 | DEBUG    | MAIN LOGGER                    | IN select_folder_for_new_project() -> str                                       
+24-Apr-17 21:07:53.756110 | DEBUG    | MAIN LOGGER                    | get_default_folder_projects_dirpath() -> str: C:/Users/hayar/OneDrive/Документы\AutoExecDoc Projects
+24-Apr-17 21:08:02.894582 | DEBUG    | MAIN LOGGER                    | select_folder_for_new_project() -> C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю
+24-Apr-17 21:08:02.895583 | DEBUG    | MAIN LOGGER                    | IN set_project_dirpaths(folder_path: str): folder_path = C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю
+24-Apr-17 21:08:02.895583 | DEBUG    | MAIN LOGGER                    | set_project_dirpath(dirpath: str): dirpath = C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю
+24-Apr-17 21:08:02.896583 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю
+24-Apr-17 21:08:02.896583 | DEBUG    | MAIN LOGGER                    | set_db_project_dirpath(dirpath: str): dirpath = C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю\project.db
+24-Apr-17 21:08:02.897583 | DEBUG    | MAIN LOGGER                    | IN config_new_project()                                                         
+24-Apr-17 21:08:02.897583 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю
+24-Apr-17 21:08:02.898582 | DEBUG    | MAIN LOGGER                    | set_current_name(name: str): name = чсмитьбю                                    
+24-Apr-17 21:08:02.898582 | DEBUG    | MAIN LOGGER                    | IN add_new_project_to_db()                                                      
+24-Apr-17 21:08:02.898582 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-17 21:08:02.900583 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю
+24-Apr-17 21:08:02.901583 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю
+24-Apr-17 21:08:02.906585 | DEBUG    | MAIN LOGGER                    | IN create_and_config_db_project()                                               
+24-Apr-17 21:08:02.906585 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю\project.db
+24-Apr-17 21:08:02.907587 | DEBUG    | MAIN LOGGER                    | IN add_tables_and_datas_to_empty_db_project()                                   
+24-Apr-17 21:08:02.908586 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю\project.db
+24-Apr-17 21:08:02.920461 | DEBUG    | MAIN LOGGER                    | IN add_forms_folders_to_new_project()                                           
+24-Apr-17 21:08:02.920461 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю
+24-Apr-17 21:08:02.921453 | DEBUG    | MAIN LOGGER                    | get_templates_dirpath() -> str: d:\work\project\AutoExecDoc\templates           
+24-Apr-17 21:08:02.922453 | DEBUG    | MAIN LOGGER                    | forms: ['1-ТЛ', '2-РД', '3-ПТ1', '3-ПТ2', '3-ПТ3']                              
+24-Apr-17 21:08:02.922453 | DEBUG    | MAIN LOGGER                    | json_content: ['1-ТЛ.json', 'project.json']                                     
+24-Apr-17 21:08:02.940455 | DEBUG    | MAIN LOGGER                    | IN set_true_actives_project()                                                   
+24-Apr-17 21:08:02.940455 | DEBUG    | MAIN LOGGER                    | set_status_active(status: bool): status = True                                  
+24-Apr-17 21:08:02.941457 | DEBUG    | MAIN LOGGER                    | set_status_save(status: bool): status = True                                    
+24-Apr-17 21:08:02.942459 | DEBUG    | MAIN LOGGER                    | get_current_name() -> str: чсмитьбю                                             
+24-Apr-17 21:08:02.943457 | DEBUG    | MAIN LOGGER                    | get_statusbar()                                                                 
+24-Apr-17 21:08:02.943457 | DEBUG    | MAIN LOGGER                    | set_message_for_statusbar(Проект c именем чсмитьбю создан и открыт.)            
+24-Apr-17 21:08:14.598269 | DEBUG    | MAIN LOGGER                    | IN open_project()                                                               
+24-Apr-17 21:08:14.598269 | DEBUG    | MAIN LOGGER                    | is_active_status() -> bool: True                                                
+24-Apr-17 21:08:14.599287 | DEBUG    | MAIN LOGGER                    | is_status_save() -> bool: True                                                  
+24-Apr-17 21:08:14.600280 | DEBUG    | MAIN LOGGER                    | get_default_folder_projects_dirpath() -> str: C:/Users/hayar/OneDrive/Документы\AutoExecDoc Projects
+24-Apr-17 21:08:17.518014 | DEBUG    | MAIN LOGGER                    | select_folder_for_open_project() -> C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю
+24-Apr-17 21:08:17.518014 | DEBUG    | MAIN LOGGER                    | IN set_project_dirpaths(folder_path: str): folder_path = C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю
+24-Apr-17 21:08:17.518014 | DEBUG    | MAIN LOGGER                    | set_project_dirpath(dirpath: str): dirpath = C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю
+24-Apr-17 21:08:17.519013 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю
+24-Apr-17 21:08:17.519013 | DEBUG    | MAIN LOGGER                    | set_db_project_dirpath(dirpath: str): dirpath = C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю\project.db
+24-Apr-17 21:08:17.520013 | DEBUG    | MAIN LOGGER                    | IN config_open_project()                                                        
+24-Apr-17 21:08:17.520013 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю
+24-Apr-17 21:08:17.520013 | DEBUG    | MAIN LOGGER                    | set_current_name(name: str): name = чсмитьбю                                    
+24-Apr-17 21:08:17.521013 | DEBUG    | MAIN LOGGER                    | IN add_or_update_open_project_to_db()                                           
+24-Apr-17 21:08:17.521013 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-17 21:08:17.522014 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю
+24-Apr-17 21:08:17.523018 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю
+24-Apr-17 21:08:17.523018 | DEBUG    | MAIN LOGGER                    | IN update_project_to_db()                                                       
+24-Apr-17 21:08:17.524018 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-17 21:08:17.524018 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю
+24-Apr-17 21:08:17.525018 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю
+24-Apr-17 21:08:17.530022 | DEBUG    | MAIN LOGGER                    | IN create_and_config_db_project()                                               
+24-Apr-17 21:08:17.530022 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю\project.db
+24-Apr-17 21:08:17.531020 | DEBUG    | MAIN LOGGER                    | IN create_structure_exec_doc()                                                  
+24-Apr-17 21:08:17.531020 | DEBUG    | MAIN LOGGER                    | IN get_table_of_nodes_from_db_project()                                         
+24-Apr-17 21:08:17.532020 | DEBUG    | MAIN LOGGER                    | IN add_tables_and_datas_to_empty_db_project()                                   
+24-Apr-17 21:08:17.532020 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/чсмитьбю\project.db
+24-Apr-17 21:08:17.537021 | DEBUG    | MAIN LOGGER                    | IN set_true_actives_project()                                                   
+24-Apr-17 21:08:17.537021 | DEBUG    | MAIN LOGGER                    | set_status_active(status: bool): status = True                                  
+24-Apr-17 21:08:17.538025 | DEBUG    | MAIN LOGGER                    | set_status_save(status: bool): status = True                                    
+24-Apr-17 21:08:17.538025 | DEBUG    | MAIN LOGGER                    | get_current_name() -> str: чсмитьбю                                             
+24-Apr-17 21:08:17.538025 | DEBUG    | MAIN LOGGER                    | get_statusbar()                                                                 
+24-Apr-17 21:08:17.539021 | DEBUG    | MAIN LOGGER                    | set_message_for_statusbar(Проект c именем чсмитьбю открыт.)                     

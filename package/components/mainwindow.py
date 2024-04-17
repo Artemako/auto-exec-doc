@@ -20,7 +20,7 @@ class MainWindow(QMainWindow):
 
         # настройка контроллеров
         statusbar.StatusBar.connect_statusbar(self.ui.status_bar)
-        structureexecdoc.StructureExecdoc.connect_structureexecdoc(
+        structureexecdoc.StructureExecDoc.connect_structureexecdoc(
             self.ui.treewidget_structure_execdoc
         )
         pagestemplate.PagesTemplate.connect_pagestemplate(
