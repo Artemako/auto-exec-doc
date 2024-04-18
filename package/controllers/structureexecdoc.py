@@ -66,9 +66,11 @@ class StructureExecDoc:
         # Очистить при запуске
         StructureExecDoc.clear_sed()
 
-        # Подключение сигнала on_item_changed()
+        # Подключение сигналов
         StructureExecDoc.get_tr_sed().currentItemChanged.connect(
-            StructureExecDoc.on_item_changed
+            lambda current: pagestemplate.PagesTemplate.update_pages_template(
+                current.get_node()
+            )
         )
 
     @staticmethod
@@ -82,22 +84,20 @@ class StructureExecDoc:
         StructureExecDoc.get_title_sed().setText("Проект не выбран")
 
     @staticmethod
-    def create_structure_exec_doc():
+    def update_structure_exec_doc():
         """
         Создает структуру дерева ИД
         """
-        log.Log.get_logger().debug("IN create_structure_exec_doc()")
+        log.Log.get_logger().debug("IN update_structure_exec_doc()")
+        # очистка
+        StructureExecDoc.clear_sed()
         # Задать название столбца
         title = f"{project.Project.get_current_name()}"
         StructureExecDoc.get_tr_sed().setHeaderLabels(["Проект"])
         StructureExecDoc.get_title_sed().setText(title)
         # проход по вершинам
-        StructureExecDoc.update_structure_exec_doc()
-    
-
-    @staticmethod
-    def update_structure_exec_doc():
         StructureExecDoc.dfs(projectdatabase.Database.get_project_node())
+        
 
     @staticmethod
     def dfs(parent_node):
@@ -118,7 +118,9 @@ class StructureExecDoc:
         """
         Поставить item в nodes_to_items.
         """
-        log.Log.get_logger().debug(f"IN set_item_in_nodes_to_items(node): node = {node}")
+        log.Log.get_logger().debug(
+            f"IN set_item_in_nodes_to_items(node): node = {node}"
+        )
         item = None
         if node.get("id_parent") == 0:
             item = MyTreeWidgetItem(StructureExecDoc.get_tr_sed(), node)
@@ -130,12 +132,3 @@ class StructureExecDoc:
         # С галочкой по умолчанию
         item.setCheckState(0, Qt.Checked)
         StructureExecDoc.get_nodes_to_items()[node.get("id_node")] = item
-
-    # TODO Функционал добавить
-    @staticmethod
-    @Slot()
-    def on_item_changed(current):
-        log.Log.get_logger().debug(f"IN on_item_changed(current): current = {current}")
-        pagestemplate.PagesTemplate.update_pages_template(current.get_node())
-        #print(current.get_node())
-        
