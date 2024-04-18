@@ -4,11 +4,13 @@ import package.components.dialogwindows as dialogwindows
 import package.controllers.statusbar as statusbar
 
 import package.modules.settingsdatabase as settingsdatabase
-import package.controllers.structureexecdoc as structureexecdoc
 import package.modules.projectdatabase as projectdatabase
 import package.modules.log as log
 import package.modules.filefoldermanager as filefoldermanager
 import package.modules.dirpathsmanager as dirpathsmanager
+
+import package.controllers.structureexecdoc as structureexecdoc
+import package.controllers.pagestemplate as pagestemplate
 
 
 class Project:
@@ -130,8 +132,11 @@ class Project:
         )        
         settingsdatabase.Database.add_new_project_to_db()
         projectdatabase.Database.create_and_config_db_project()
+        # настраиваем контроллеры
         # настраиваем структуру execdoc
         structureexecdoc.StructureExecDoc.create_structure_exec_doc()
+        # pagestemplate.PagesTemplate.create_pages_template()
+
         filefoldermanager.FileFolderManager.add_forms_folders_to_new_project()
         Project.set_true_actives_project()
         # сообщение для статусбара

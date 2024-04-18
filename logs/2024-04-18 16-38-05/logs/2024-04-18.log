@@ -1,0 +1,179 @@
+24-Apr-18 16:38:05.684846 | DEBUG    | MAIN LOGGER                    | Config logger                                                                   
+24-Apr-18 16:38:05.685849 | DEBUG    | MAIN LOGGER                    | IN create_and_config_files_and_folders()                                        
+24-Apr-18 16:38:05.686849 | DEBUG    | MAIN LOGGER                    | get_default_folder_projects_dirpath() -> str: C:/Users/hayar/OneDrive/���������\AutoExecDoc Projects
+24-Apr-18 16:38:05.686849 | DEBUG    | MAIN LOGGER                    | IN create_and_config_db_settings()                                              
+24-Apr-18 16:38:05.687848 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-18 16:38:05.715811 | DEBUG    | MAIN LOGGER                    | IN view_test_pdf(self):                                                         
+24-Apr-18 16:38:05.716809 | DEBUG    | MAIN LOGGER                    | get_documents_dirpath() -> str: C:/Users/hayar/OneDrive/���������               
+24-Apr-18 16:38:05.716809 | DEBUG    | MAIN LOGGER                    | IN load_pdf_for_view(self, file_path): file_path = C:\Users\hayar\OneDrive\���������\test.pdf
+24-Apr-18 16:38:05.747815 | DEBUG    | MAIN LOGGER                    | IN config_controllers()                                                         
+24-Apr-18 16:38:05.748815 | DEBUG    | MAIN LOGGER                    | IN connect_statusbar()                                                          
+24-Apr-18 16:38:05.748815 | DEBUG    | MAIN LOGGER                    | set_statusbar()                                                                 
+24-Apr-18 16:38:05.749816 | DEBUG    | MAIN LOGGER                    | get_statusbar()                                                                 
+24-Apr-18 16:38:05.749816 | DEBUG    | MAIN LOGGER                    | set_message_for_statusbar(������ �� ������)                                     
+24-Apr-18 16:38:05.750818 | DEBUG    | MAIN LOGGER                    | IN connect_structureexecdoc(tr_sed, title_sed)                                  
+24-Apr-18 16:38:05.750818 | DEBUG    | MAIN LOGGER                    | set_tr_sed()                                                                    
+24-Apr-18 16:38:05.751818 | DEBUG    | MAIN LOGGER                    | set_title_sed()                                                                 
+24-Apr-18 16:38:05.751818 | DEBUG    | MAIN LOGGER                    | IN clear_tr_sed()                                                               
+24-Apr-18 16:38:05.752818 | DEBUG    | MAIN LOGGER                    | get_tr_sed() -> object                                                          
+24-Apr-18 16:38:05.752818 | DEBUG    | MAIN LOGGER                    | get_tr_sed() -> object                                                          
+24-Apr-18 16:38:05.753819 | DEBUG    | MAIN LOGGER                    | get_title_sed()                                                                 
+24-Apr-18 16:38:05.754819 | DEBUG    | MAIN LOGGER                    | get_tr_sed() -> object                                                          
+24-Apr-18 16:38:05.754819 | DEBUG    | MAIN LOGGER                    | IN connect_pages_template(lw_pt)                                                 
+24-Apr-18 16:38:05.755817 | DEBUG    | MAIN LOGGER                    | set_lw_pt()                                                                     
+24-Apr-18 16:38:05.755817 | DEBUG    | MAIN LOGGER                    | IN connect_pages_template(sa_if, sa_ifl)                                         
+24-Apr-18 16:38:05.756819 | DEBUG    | MAIN LOGGER                    | set_sa()                                                                        
+24-Apr-18 16:38:05.758819 | DEBUG    | MAIN LOGGER                    | IN add_widget(widget)                                                           
+24-Apr-18 16:38:05.758819 | DEBUG    | MAIN LOGGER                    | get_sa_ifl() -> object                                                          
+24-Apr-18 16:38:05.759818 | DEBUG    | MAIN LOGGER                    | IN connecting_actions()                                                         
+24-Apr-18 16:38:07.427701 | DEBUG    | MAIN LOGGER                    | IN open_project()                                                               
+24-Apr-18 16:38:07.428718 | DEBUG    | MAIN LOGGER                    | is_active_status() -> bool: False                                               
+24-Apr-18 16:38:07.428718 | DEBUG    | MAIN LOGGER                    | get_default_folder_projects_dirpath() -> str: C:/Users/hayar/OneDrive/���������\AutoExecDoc Projects
+24-Apr-18 16:38:09.126922 | DEBUG    | MAIN LOGGER                    | select_folder_for_open_project() -> C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������
+24-Apr-18 16:38:09.126922 | DEBUG    | MAIN LOGGER                    | IN set_project_dirpaths(folder_path: str): folder_path = C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������
+24-Apr-18 16:38:09.127921 | DEBUG    | MAIN LOGGER                    | set_project_dirpath(dirpath: str): dirpath = C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������
+24-Apr-18 16:38:09.127921 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������
+24-Apr-18 16:38:09.128923 | DEBUG    | MAIN LOGGER                    | set_db_project_dirpath(dirpath: str): dirpath = C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.128923 | DEBUG    | MAIN LOGGER                    | IN config_open_project()                                                        
+24-Apr-18 16:38:09.129925 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������
+24-Apr-18 16:38:09.129925 | DEBUG    | MAIN LOGGER                    | set_current_name(name: str): name = ������                                      
+24-Apr-18 16:38:09.129925 | DEBUG    | MAIN LOGGER                    | IN add_or_update_open_project_to_db()                                           
+24-Apr-18 16:38:09.130923 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-18 16:38:09.130923 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������
+24-Apr-18 16:38:09.131924 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������
+24-Apr-18 16:38:09.133924 | DEBUG    | MAIN LOGGER                    | IN update_project_to_db()                                                       
+24-Apr-18 16:38:09.133924 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-18 16:38:09.134925 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������
+24-Apr-18 16:38:09.134925 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������
+24-Apr-18 16:38:09.138924 | DEBUG    | MAIN LOGGER                    | IN create_and_config_db_project()                                               
+24-Apr-18 16:38:09.139926 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.140929 | DEBUG    | MAIN LOGGER                    | IN create_structure_exec_doc()                                                  
+24-Apr-18 16:38:09.140929 | DEBUG    | MAIN LOGGER                    | get_current_name() -> str: ������                                               
+24-Apr-18 16:38:09.141926 | DEBUG    | MAIN LOGGER                    | get_tr_sed() -> object                                                          
+24-Apr-18 16:38:09.141926 | DEBUG    | MAIN LOGGER                    | get_title_sed()                                                                 
+24-Apr-18 16:38:09.142925 | DEBUG    | MAIN LOGGER                    | IN get_project_node()                                                           
+24-Apr-18 16:38:09.142925 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.144927 | DEBUG    | MAIN LOGGER                    | IN dfs({'id_node': 0, 'name_node': '������', 'id_parent': None, 'type_node': 'PROJECT', 'id_left': None, 'id_right': None, 'template_name': ''})
+24-Apr-18 16:38:09.145926 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 0, 'name_node': '������', 'id_parent': None, 'type_node': 'PROJECT', 'id_left': None, 'id_right': None, 'template_name': ''}: int) 
+24-Apr-18 16:38:09.145926 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.146928 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items({'id_node': 10, 'name_node': '��������� ����', 'id_parent': 0, 'type_node': 'FORM', 'id_left': None, 'id_right': 11, 'template_name': 'main'})
+24-Apr-18 16:38:09.147927 | DEBUG    | MAIN LOGGER                    | get_tr_sed() -> object                                                          
+24-Apr-18 16:38:09.147927 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.148927 | DEBUG    | MAIN LOGGER                    | IN dfs({'id_node': 10, 'name_node': '��������� ����', 'id_parent': 0, 'type_node': 'FORM', 'id_left': None, 'id_right': 11, 'template_name': 'main'})
+24-Apr-18 16:38:09.148927 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 10, 'name_node': '��������� ����', 'id_parent': 0, 'type_node': 'FORM', 'id_left': None, 'id_right': 11, 'template_name': 'main'}: int) 
+24-Apr-18 16:38:09.149928 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.149928 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items({'id_node': 11, 'name_node': '������ ������������', 'id_parent': 0, 'type_node': 'FORM', 'id_left': 10, 'id_right': 12, 'template_name': 'main'})
+24-Apr-18 16:38:09.150928 | DEBUG    | MAIN LOGGER                    | get_tr_sed() -> object                                                          
+24-Apr-18 16:38:09.151928 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.151928 | DEBUG    | MAIN LOGGER                    | IN dfs({'id_node': 11, 'name_node': '������ ������������', 'id_parent': 0, 'type_node': 'FORM', 'id_left': 10, 'id_right': 12, 'template_name': 'main'})
+24-Apr-18 16:38:09.152929 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 11, 'name_node': '������ ������������', 'id_parent': 0, 'type_node': 'FORM', 'id_left': 10, 'id_right': 12, 'template_name': 'main'}: int) 
+24-Apr-18 16:38:09.152929 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.153931 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items({'id_node': 12, 'name_node': '������� ������', 'id_parent': 0, 'type_node': 'GROUP', 'id_left': 11, 'id_right': None, 'template_name': None})
+24-Apr-18 16:38:09.154931 | DEBUG    | MAIN LOGGER                    | get_tr_sed() -> object                                                          
+24-Apr-18 16:38:09.155928 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.156929 | DEBUG    | MAIN LOGGER                    | IN dfs({'id_node': 12, 'name_node': '������� ������', 'id_parent': 0, 'type_node': 'GROUP', 'id_left': 11, 'id_right': None, 'template_name': None})
+24-Apr-18 16:38:09.156929 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 12, 'name_node': '������� ������', 'id_parent': 0, 'type_node': 'GROUP', 'id_left': 11, 'id_right': None, 'template_name': None}: int) 
+24-Apr-18 16:38:09.157930 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.157930 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items({'id_node': 1201, 'name_node': '��-1', 'id_parent': 12, 'type_node': 'FORM', 'id_left': None, 'id_right': 1202, 'template_name': 'main'})
+24-Apr-18 16:38:09.158929 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.158929 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.159930 | DEBUG    | MAIN LOGGER                    | IN dfs({'id_node': 1201, 'name_node': '��-1', 'id_parent': 12, 'type_node': 'FORM', 'id_left': None, 'id_right': 1202, 'template_name': 'main'})
+24-Apr-18 16:38:09.159930 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 1201, 'name_node': '��-1', 'id_parent': 12, 'type_node': 'FORM', 'id_left': None, 'id_right': 1202, 'template_name': 'main'}: int) 
+24-Apr-18 16:38:09.160929 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.161931 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items({'id_node': 1202, 'name_node': '��-2', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1201, 'id_right': 1203, 'template_name': 'main'})
+24-Apr-18 16:38:09.161931 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.162930 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.162930 | DEBUG    | MAIN LOGGER                    | IN dfs({'id_node': 1202, 'name_node': '��-2', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1201, 'id_right': 1203, 'template_name': 'main'})
+24-Apr-18 16:38:09.163930 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 1202, 'name_node': '��-2', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1201, 'id_right': 1203, 'template_name': 'main'}: int) 
+24-Apr-18 16:38:09.163930 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.164931 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items({'id_node': 1203, 'name_node': '��-3', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1202, 'id_right': 1204, 'template_name': 'main'})
+24-Apr-18 16:38:09.165931 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.165931 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.166932 | DEBUG    | MAIN LOGGER                    | IN dfs({'id_node': 1203, 'name_node': '��-3', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1202, 'id_right': 1204, 'template_name': 'main'})
+24-Apr-18 16:38:09.167935 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 1203, 'name_node': '��-3', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1202, 'id_right': 1204, 'template_name': 'main'}: int) 
+24-Apr-18 16:38:09.168933 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.169932 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items({'id_node': 1204, 'name_node': '��-4', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1203, 'id_right': 1205, 'template_name': 'main'})
+24-Apr-18 16:38:09.169932 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.170932 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.170932 | DEBUG    | MAIN LOGGER                    | IN dfs({'id_node': 1204, 'name_node': '��-4', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1203, 'id_right': 1205, 'template_name': 'main'})
+24-Apr-18 16:38:09.171933 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 1204, 'name_node': '��-4', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1203, 'id_right': 1205, 'template_name': 'main'}: int) 
+24-Apr-18 16:38:09.171933 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.172932 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items({'id_node': 1205, 'name_node': '��-5', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1204, 'id_right': 1206, 'template_name': 'main'})
+24-Apr-18 16:38:09.173933 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.173933 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.174934 | DEBUG    | MAIN LOGGER                    | IN dfs({'id_node': 1205, 'name_node': '��-5', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1204, 'id_right': 1206, 'template_name': 'main'})
+24-Apr-18 16:38:09.174934 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 1205, 'name_node': '��-5', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1204, 'id_right': 1206, 'template_name': 'main'}: int) 
+24-Apr-18 16:38:09.175933 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.175933 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items({'id_node': 1206, 'name_node': '��-6', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1205, 'id_right': 1207, 'template_name': 'main'})
+24-Apr-18 16:38:09.176934 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.177934 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.177934 | DEBUG    | MAIN LOGGER                    | IN dfs({'id_node': 1206, 'name_node': '��-6', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1205, 'id_right': 1207, 'template_name': 'main'})
+24-Apr-18 16:38:09.178934 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 1206, 'name_node': '��-6', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1205, 'id_right': 1207, 'template_name': 'main'}: int) 
+24-Apr-18 16:38:09.178934 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.179935 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items({'id_node': 1207, 'name_node': '��-7', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1206, 'id_right': 1208, 'template_name': 'main'})
+24-Apr-18 16:38:09.180934 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.181937 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.181937 | DEBUG    | MAIN LOGGER                    | IN dfs({'id_node': 1207, 'name_node': '��-7', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1206, 'id_right': 1208, 'template_name': 'main'})
+24-Apr-18 16:38:09.182935 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 1207, 'name_node': '��-7', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1206, 'id_right': 1208, 'template_name': 'main'}: int) 
+24-Apr-18 16:38:09.182935 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.183934 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items({'id_node': 1208, 'name_node': '��-8', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1207, 'id_right': 1209, 'template_name': 'main'})
+24-Apr-18 16:38:09.184936 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.184936 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.185936 | DEBUG    | MAIN LOGGER                    | IN dfs({'id_node': 1208, 'name_node': '��-8', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1207, 'id_right': 1209, 'template_name': 'main'})
+24-Apr-18 16:38:09.185936 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 1208, 'name_node': '��-8', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1207, 'id_right': 1209, 'template_name': 'main'}: int) 
+24-Apr-18 16:38:09.186936 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.187937 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items({'id_node': 1209, 'name_node': '��-9', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1208, 'id_right': 1210, 'template_name': 'main'})
+24-Apr-18 16:38:09.187937 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.188935 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.188935 | DEBUG    | MAIN LOGGER                    | IN dfs({'id_node': 1209, 'name_node': '��-9', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1208, 'id_right': 1210, 'template_name': 'main'})
+24-Apr-18 16:38:09.188935 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 1209, 'name_node': '��-9', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1208, 'id_right': 1210, 'template_name': 'main'}: int) 
+24-Apr-18 16:38:09.189936 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.190937 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items({'id_node': 1210, 'name_node': '��-10', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1209, 'id_right': 1211, 'template_name': 'main'})
+24-Apr-18 16:38:09.190937 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.191937 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.192937 | DEBUG    | MAIN LOGGER                    | IN dfs({'id_node': 1210, 'name_node': '��-10', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1209, 'id_right': 1211, 'template_name': 'main'})
+24-Apr-18 16:38:09.192937 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 1210, 'name_node': '��-10', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1209, 'id_right': 1211, 'template_name': 'main'}: int) 
+24-Apr-18 16:38:09.193938 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.194940 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items({'id_node': 1211, 'name_node': '��-11', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1210, 'id_right': 1212, 'template_name': 'main'})
+24-Apr-18 16:38:09.195938 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.195938 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.197386 | DEBUG    | MAIN LOGGER                    | IN dfs({'id_node': 1211, 'name_node': '��-11', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1210, 'id_right': 1212, 'template_name': 'main'})
+24-Apr-18 16:38:09.197893 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 1211, 'name_node': '��-11', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1210, 'id_right': 1212, 'template_name': 'main'}: int) 
+24-Apr-18 16:38:09.197893 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.198899 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items({'id_node': 1212, 'name_node': '��-12', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1211, 'id_right': 1213, 'template_name': 'main'})
+24-Apr-18 16:38:09.199899 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.199899 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.199899 | DEBUG    | MAIN LOGGER                    | IN dfs({'id_node': 1212, 'name_node': '��-12', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1211, 'id_right': 1213, 'template_name': 'main'})
+24-Apr-18 16:38:09.200898 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 1212, 'name_node': '��-12', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1211, 'id_right': 1213, 'template_name': 'main'}: int) 
+24-Apr-18 16:38:09.200898 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.201899 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items({'id_node': 1213, 'name_node': '��-13', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1212, 'id_right': 1214, 'template_name': 'main'})
+24-Apr-18 16:38:09.202899 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.202899 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.203900 | DEBUG    | MAIN LOGGER                    | IN dfs({'id_node': 1213, 'name_node': '��-13', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1212, 'id_right': 1214, 'template_name': 'main'})
+24-Apr-18 16:38:09.203900 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 1213, 'name_node': '��-13', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1212, 'id_right': 1214, 'template_name': 'main'}: int) 
+24-Apr-18 16:38:09.204899 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.205901 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items({'id_node': 1214, 'name_node': '��-14', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1213, 'id_right': 1215, 'template_name': 'main'})
+24-Apr-18 16:38:09.205901 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.206901 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.207900 | DEBUG    | MAIN LOGGER                    | IN dfs({'id_node': 1214, 'name_node': '��-14', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1213, 'id_right': 1215, 'template_name': 'main'})
+24-Apr-18 16:38:09.208900 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 1214, 'name_node': '��-14', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1213, 'id_right': 1215, 'template_name': 'main'}: int) 
+24-Apr-18 16:38:09.208900 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.209901 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items({'id_node': 1215, 'name_node': '��-15', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1214, 'id_right': 1216, 'template_name': 'main'})
+24-Apr-18 16:38:09.210901 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.210901 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.211902 | DEBUG    | MAIN LOGGER                    | IN dfs({'id_node': 1215, 'name_node': '��-15', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1214, 'id_right': 1216, 'template_name': 'main'})
+24-Apr-18 16:38:09.211902 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 1215, 'name_node': '��-15', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1214, 'id_right': 1216, 'template_name': 'main'}: int) 
+24-Apr-18 16:38:09.212902 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.213902 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items({'id_node': 1216, 'name_node': '��-16', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1215, 'id_right': None, 'template_name': 'main'})
+24-Apr-18 16:38:09.213902 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.214902 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            
+24-Apr-18 16:38:09.214902 | DEBUG    | MAIN LOGGER                    | IN dfs({'id_node': 1216, 'name_node': '��-16', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1215, 'id_right': None, 'template_name': 'main'})
+24-Apr-18 16:38:09.215902 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 1216, 'name_node': '��-16', 'id_parent': 12, 'type_node': 'FORM', 'id_left': 1215, 'id_right': None, 'template_name': 'main'}: int) 
+24-Apr-18 16:38:09.215902 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/���������/AutoExecDoc Projects/������\project.db
+24-Apr-18 16:38:09.216904 | DEBUG    | MAIN LOGGER                    | IN set_true_actives_project()                                                   
+24-Apr-18 16:38:09.216904 | DEBUG    | MAIN LOGGER                    | set_status_active(status: bool): status = True                                  
+24-Apr-18 16:38:09.217902 | DEBUG    | MAIN LOGGER                    | set_status_save(status: bool): status = True                                    
+24-Apr-18 16:38:09.217902 | DEBUG    | MAIN LOGGER                    | get_current_name() -> str: ������                                               
+24-Apr-18 16:38:09.218902 | DEBUG    | MAIN LOGGER                    | get_statusbar()                                                                 
+24-Apr-18 16:38:09.218902 | DEBUG    | MAIN LOGGER                    | set_message_for_statusbar(������ c ������ ������ ������.)                       
+24-Apr-18 16:38:15.822013 | DEBUG    | MAIN LOGGER                    | IN from_structure_execdoc_to_pages_template(node): <package.controllers.structureexecdoc.MyTreeWidgetItem object at 0x000001B3B1532D80>

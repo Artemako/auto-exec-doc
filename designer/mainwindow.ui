@@ -32,7 +32,7 @@
    <string>Автоматизация ИД</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <layout class="QVBoxLayout" name="verticalLayout_6">
     <item>
      <widget class="QSplitter" name="splitter">
       <property name="orientation">
@@ -65,6 +65,13 @@
             <string>Состав ИД</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <widget class="QLabel" name="title_structure_execdoc">
+              <property name="text">
+               <string>Название проекта</string>
+              </property>
+             </widget>
+            </item>
             <item>
              <widget class="QTreeWidget" name="treewidget_structure_execdoc">
               <property name="contextMenuPolicy">
@@ -126,6 +133,13 @@
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_3">
             <item>
+             <widget class="QLabel" name="title_pages_template">
+              <property name="text">
+               <string>Название шаблона.</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QListWidget" name="listwidget_pages_template"/>
             </item>
            </layout>
@@ -184,18 +198,27 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <widget class="QScrollArea" name="scrollarea_input">
+         <widget class="QScrollArea" name="scrollarea_inputforms">
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOn</enum>
+          </property>
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
-          <widget class="QWidget" name="scrollarea_input_layout">
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+          </property>
+          <widget class="QWidget" name="scrollarea_inputforms_layout">
            <property name="geometry">
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>300</width>
+             <width>283</width>
              <height>467</height>
             </rect>
+           </property>
+           <property name="mouseTracking">
+            <bool>false</bool>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5"/>
           </widget>

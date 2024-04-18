@@ -17,10 +17,11 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
 from PySide6.QtWidgets import (QApplication, QGroupBox, QHBoxLayout, QHeaderView,
-    QListWidget, QListWidgetItem, QMainWindow, QMenu,
-    QMenuBar, QPushButton, QScrollArea, QSizePolicy,
-    QSplitter, QStatusBar, QTabWidget, QToolBar,
-    QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget)
+    QLabel, QListWidget, QListWidgetItem, QMainWindow,
+    QMenu, QMenuBar, QPushButton, QScrollArea,
+    QSizePolicy, QSplitter, QStatusBar, QTabWidget,
+    QToolBar, QTreeWidget, QTreeWidgetItem, QVBoxLayout,
+    QWidget)
 
 from package.components.pdfwidget import PdfWidget
 import resources_rc
@@ -86,8 +87,8 @@ class Ui_MainWindow(object):
         self.action_zoomfitpage.setMenuRole(QAction.NoRole)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.horizontalLayout_2 = QHBoxLayout(self.centralwidget)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.verticalLayout_6 = QVBoxLayout(self.centralwidget)
+        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
         self.splitter = QSplitter(self.centralwidget)
         self.splitter.setObjectName(u"splitter")
         self.splitter.setOrientation(Qt.Horizontal)
@@ -107,9 +108,14 @@ class Ui_MainWindow(object):
         self.tab_structure_execdoc.setObjectName(u"tab_structure_execdoc")
         self.verticalLayout_2 = QVBoxLayout(self.tab_structure_execdoc)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.title_structure_execdoc = QLabel(self.tab_structure_execdoc)
+        self.title_structure_execdoc.setObjectName(u"title_structure_execdoc")
+
+        self.verticalLayout_2.addWidget(self.title_structure_execdoc)
+
         self.treewidget_structure_execdoc = QTreeWidget(self.tab_structure_execdoc)
         __qtreewidgetitem = QTreeWidgetItem()
-        __qtreewidgetitem.setText(0, u"1");
+        __qtreewidgetitem.setText(0, u"\u041f\u0440\u043e\u0435\u043a\u0442 \u043d\u0435 \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043d");
         self.treewidget_structure_execdoc.setHeaderItem(__qtreewidgetitem)
         __qtreewidgetitem1 = QTreeWidgetItem(self.treewidget_structure_execdoc)
         __qtreewidgetitem1.setCheckState(0, Qt.Checked);
@@ -134,6 +140,11 @@ class Ui_MainWindow(object):
         self.tab_pages_template.setObjectName(u"tab_pages_template")
         self.verticalLayout_3 = QVBoxLayout(self.tab_pages_template)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.title_pages_template = QLabel(self.tab_pages_template)
+        self.title_pages_template.setObjectName(u"title_pages_template")
+
+        self.verticalLayout_3.addWidget(self.title_pages_template)
+
         self.listwidget_pages_template = QListWidget(self.tab_pages_template)
         self.listwidget_pages_template.setObjectName(u"listwidget_pages_template")
 
@@ -170,21 +181,24 @@ class Ui_MainWindow(object):
         self.gb_right.setFlat(False)
         self.verticalLayout_4 = QVBoxLayout(self.gb_right)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.scrollarea_input = QScrollArea(self.gb_right)
-        self.scrollarea_input.setObjectName(u"scrollarea_input")
-        self.scrollarea_input.setWidgetResizable(True)
-        self.scrollarea_input_layout = QWidget()
-        self.scrollarea_input_layout.setObjectName(u"scrollarea_input_layout")
-        self.scrollarea_input_layout.setGeometry(QRect(0, 0, 300, 467))
-        self.verticalLayout_5 = QVBoxLayout(self.scrollarea_input_layout)
+        self.scrollarea_inputforms = QScrollArea(self.gb_right)
+        self.scrollarea_inputforms.setObjectName(u"scrollarea_inputforms")
+        self.scrollarea_inputforms.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.scrollarea_inputforms.setWidgetResizable(True)
+        self.scrollarea_inputforms.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
+        self.scrollarea_inputforms_layout = QWidget()
+        self.scrollarea_inputforms_layout.setObjectName(u"scrollarea_inputforms_layout")
+        self.scrollarea_inputforms_layout.setGeometry(QRect(0, 0, 283, 467))
+        self.scrollarea_inputforms_layout.setMouseTracking(False)
+        self.verticalLayout_5 = QVBoxLayout(self.scrollarea_inputforms_layout)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
-        self.scrollarea_input.setWidget(self.scrollarea_input_layout)
+        self.scrollarea_inputforms.setWidget(self.scrollarea_inputforms_layout)
 
-        self.verticalLayout_4.addWidget(self.scrollarea_input)
+        self.verticalLayout_4.addWidget(self.scrollarea_inputforms)
 
         self.splitter.addWidget(self.gb_right)
 
-        self.horizontalLayout_2.addWidget(self.splitter)
+        self.verticalLayout_6.addWidget(self.splitter)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menu_bar = QMenuBar(MainWindow)
@@ -252,6 +266,7 @@ class Ui_MainWindow(object):
         self.action_edit_templates.setText(QCoreApplication.translate("MainWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u043e\u0440 \u0448\u0430\u0431\u043b\u043e\u043d\u043e\u0432", None))
         self.action_zoomfitpage.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e \u0448\u0438\u0440\u0438\u043d\u0435", None))
         self.gb_left.setTitle(QCoreApplication.translate("MainWindow", u"\u0421\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0430 \u043f\u0440\u043e\u0435\u043a\u0442\u0430", None))
+        self.title_structure_execdoc.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u043f\u0440\u043e\u0435\u043a\u0442\u0430", None))
 
         __sortingEnabled = self.treewidget_structure_execdoc.isSortingEnabled()
         self.treewidget_structure_execdoc.setSortingEnabled(False)
@@ -269,6 +284,7 @@ class Ui_MainWindow(object):
 
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043d\u043e\u043f\u043a\u0430 \u0434\u043b\u044f \u0447\u0435\u0433\u043e-\u0442\u043e", None))
         self.tabwidget.setTabText(self.tabwidget.indexOf(self.tab_structure_execdoc), QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0441\u0442\u0430\u0432 \u0418\u0414", None))
+        self.title_pages_template.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0448\u0430\u0431\u043b\u043e\u043d\u0430.", None))
         self.tabwidget.setTabText(self.tabwidget.indexOf(self.tab_pages_template), QCoreApplication.translate("MainWindow", u"\u0421\u0442\u0440\u0430\u043d\u0438\u0446\u044b \u0448\u0430\u0431\u043b\u043e\u043d\u0430", None))
         self.gb_center.setTitle(QCoreApplication.translate("MainWindow", u"\u0422\u0435\u043a\u0443\u0449\u0438\u0439 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442", None))
         self.gb_right.setTitle(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u043e\u0434 ", None))

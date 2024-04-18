@@ -197,3 +197,8 @@ class Database:
         result = [dict(row) for row in cursor.fetchall()]
         conn.close()
         return result
+
+    @staticmethod
+    def get_pages():
+        pass
+    # TODO и в Sql 

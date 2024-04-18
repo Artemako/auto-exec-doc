@@ -1,5 +1,6 @@
 import package.modules.log as log
 
+import package.modules.projectdatabase as projectdatabase
 
 class PagesTemplate:
     _listwidget_pages_template = None
@@ -18,11 +19,33 @@ class PagesTemplate:
         return PagesTemplate._listwidget_pages_template
 
     @staticmethod
-    def connect_pagestemplate(lw_pt):
+    def connect_pages_template(lw_pt):
         """
         Подключить _listwidget_pages_template.
         """
-        log.Log.debug_logger("IN connect_pagestemplate(lw_pt)")
+        log.Log.debug_logger("IN connect_pages_template(lw_pt)")
         PagesTemplate.set_lw_pt(lw_pt)
 
-        # TODO
+    
+    # @staticmethod
+    # def create_pages_template():
+    #     """
+    #     Создать _listwidget_pages_template.
+    #     """
+    #     log.Log.debug_logger("IN create_pages_template()")
+    #     node = projectdatabase.ProjectDatabase.get_project_node()
+    #     PagesTemplate.update_pages_template(node)
+
+
+    @staticmethod
+    def update_pages_template(node):
+        """
+        Обновить _listwidget_pages_template.
+        """
+        log.Log.debug_logger(f"IN update_pages_template(node) : node = {node}")
+        
+
+    
+
+        
+
