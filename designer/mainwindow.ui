@@ -58,7 +58,7 @@
         <item>
          <widget class="QTabWidget" name="tabwidget">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab_structure_execdoc">
            <attribute name="title">
@@ -140,7 +140,24 @@
              </widget>
             </item>
             <item>
-             <widget class="QListWidget" name="listwidget_pages_template"/>
+             <widget class="QListWidget" name="listwidget_pages_template">
+              <item>
+               <property name="text">
+                <string>Лист 1</string>
+               </property>
+               <property name="checkState">
+                <enum>Checked</enum>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Лист 2</string>
+               </property>
+               <property name="checkState">
+                <enum>Checked</enum>
+               </property>
+              </item>
+             </widget>
             </item>
            </layout>
           </widget>

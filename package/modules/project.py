@@ -135,7 +135,7 @@ class Project:
         # настраиваем контроллеры
         # настраиваем структуру execdoc
         structureexecdoc.StructureExecDoc.create_structure_exec_doc()
-        # pagestemplate.PagesTemplate.create_pages_template()
+        pagestemplate.PagesTemplate.create_pages_template()
 
         filefoldermanager.FileFolderManager.add_forms_folders_to_new_project()
         Project.set_true_actives_project()

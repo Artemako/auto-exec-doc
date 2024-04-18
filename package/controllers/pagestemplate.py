@@ -1,6 +1,18 @@
+from PySide6.QtWidgets import QListWidgetItem
+from PySide6.QtCore import Qt
+
 import package.modules.log as log
 
 import package.modules.projectdatabase as projectdatabase
+
+class MyListWidgetItem(QListWidgetItem):
+    def __init__(self, page):
+        super().__init__()
+        self.page = page
+
+    def get_page(self):
+        return self.page
+
 
 class PagesTemplate:
     _listwidget_pages_template = None
@@ -27,15 +39,13 @@ class PagesTemplate:
         PagesTemplate.set_lw_pt(lw_pt)
 
     
-    # @staticmethod
-    # def create_pages_template():
-    #     """
-    #     Создать _listwidget_pages_template.
-    #     """
-    #     log.Log.debug_logger("IN create_pages_template()")
-    #     node = projectdatabase.ProjectDatabase.get_project_node()
-    #     PagesTemplate.update_pages_template(node)
-
+    @staticmethod
+    def create_pages_template():
+        """
+        Создать _listwidget_pages_template.
+        """
+        log.Log.debug_logger("IN create_pages_template()")
+        PagesTemplate.get_lw_pt().clear()
 
     @staticmethod
     def update_pages_template(node):
@@ -43,6 +53,18 @@ class PagesTemplate:
         Обновить _listwidget_pages_template.
         """
         log.Log.debug_logger(f"IN update_pages_template(node) : node = {node}")
+
+        PagesTemplate.get_lw_pt().clear()
+
+        pages = projectdatabase.Database.get_pages(node)
+        for page in pages:
+            item = MyListWidgetItem(page)
+            item.setText(page.get("name_page"))
+            # TODO state in SQL + отображение форм
+            item.setCheckState(Qt.Checked)
+            PagesTemplate.get_lw_pt().addItem(item)
+
+
         
 
     

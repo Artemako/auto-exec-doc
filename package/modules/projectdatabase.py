@@ -51,7 +51,15 @@ class Database:
             "order_node"	INTEGER,
             "type_node"	TEXT NOT NULL,
             "template_name"	TEXT,
+            "folder_form"	TEXT,
             PRIMARY KEY("id_node" AUTOINCREMENT)
+        );
+        CREATE TABLE IF NOT EXISTS "Project_pages" (
+            "id_page"	INTEGER NOT NULL UNIQUE,
+            "id_node_parent"	INTEGER,
+            "name_page"	TEXT,
+            "folder_page"	TEXT,
+            PRIMARY KEY("id_page" AUTOINCREMENT)
         );
         INSERT INTO "Project_content_config_list" VALUES (1000,'организационно_правовая_форма','TEXT',NULL);
         INSERT INTO "Project_content_config_list" VALUES (1001,'название_компании','TEXT',NULL);
@@ -127,27 +135,34 @@ class Database:
         INSERT INTO "Project_content_config_table" VALUES (505,1220,'CONTENT','длина_всего',NULL);
         INSERT INTO "Project_content_config_table" VALUES (506,1220,'CONTENT','длина_опт',NULL);
         INSERT INTO "Project_content_config_table" VALUES (507,1220,'CONTENT','инфо',NULL);
-        INSERT INTO "Project_structure_of_nodes" VALUES (0,'Проект',NULL,0,'PROJECT','');
-        INSERT INTO "Project_structure_of_nodes" VALUES (10,'Титульный лист',0,1,'FORM','main');
-        INSERT INTO "Project_structure_of_nodes" VALUES (11,'Реестр документации',0,2,'FORM','main');
-        INSERT INTO "Project_structure_of_nodes" VALUES (12,'Паспорт трассы',0,3,'GROUP',NULL);
-        INSERT INTO "Project_structure_of_nodes" VALUES (1201,'ПТ-1',12,1,'FORM','main');
-        INSERT INTO "Project_structure_of_nodes" VALUES (1202,'ПТ-2',12,2,'FORM','main');
-        INSERT INTO "Project_structure_of_nodes" VALUES (1203,'ПТ-3',12,3,'FORM','main');
-        INSERT INTO "Project_structure_of_nodes" VALUES (1204,'ПТ-4',12,4,'FORM','main');
-        INSERT INTO "Project_structure_of_nodes" VALUES (1205,'ПТ-5',12,5,'FORM','main');
-        INSERT INTO "Project_structure_of_nodes" VALUES (1206,'ПТ-6',12,6,'FORM','main');
-        INSERT INTO "Project_structure_of_nodes" VALUES (1207,'ПТ-7',12,7,'FORM','main');
-        INSERT INTO "Project_structure_of_nodes" VALUES (1208,'ПТ-8',12,8,'FORM','main');
-        INSERT INTO "Project_structure_of_nodes" VALUES (1209,'ПТ-9',12,9,'FORM','main');
-        INSERT INTO "Project_structure_of_nodes" VALUES (1210,'ПТ-10',12,10,'FORM','main');
-        INSERT INTO "Project_structure_of_nodes" VALUES (1211,'ПТ-11',12,11,'FORM','main');
-        INSERT INTO "Project_structure_of_nodes" VALUES (1212,'ПТ-12',12,12,'FORM','main');
-        INSERT INTO "Project_structure_of_nodes" VALUES (1213,'ПТ-13',12,13,'FORM','main');
-        INSERT INTO "Project_structure_of_nodes" VALUES (1214,'ПТ-14',12,14,'FORM','main');
-        INSERT INTO "Project_structure_of_nodes" VALUES (1215,'ПТ-15',12,15,'FORM','main');
-        INSERT INTO "Project_structure_of_nodes" VALUES (1216,'ПТ-16',12,16,'FORM','main');
+        INSERT INTO "Project_structure_of_nodes" VALUES (0,'Проект',NULL,0,'PROJECT',NULL,NULL);
+        INSERT INTO "Project_structure_of_nodes" VALUES (10,'Титульный лист',0,1,'FORM','main','1-ТЛ');
+        INSERT INTO "Project_structure_of_nodes" VALUES (11,'Реестр документации',0,2,'FORM','main','2-РД');
+        INSERT INTO "Project_structure_of_nodes" VALUES (12,'Паспорт трассы',0,3,'GROUP',NULL,NULL);
+        INSERT INTO "Project_structure_of_nodes" VALUES (1201,'ПТ-1',12,1,'FORM','main','3-ПТ1');
+        INSERT INTO "Project_structure_of_nodes" VALUES (1202,'ПТ-2',12,2,'FORM','main','3-ПТ2');
+        INSERT INTO "Project_structure_of_nodes" VALUES (1203,'ПТ-3',12,3,'FORM','main','3-ПТ3');
+        INSERT INTO "Project_structure_of_nodes" VALUES (1204,'ПТ-4',12,4,'FORM','main',NULL);
+        INSERT INTO "Project_structure_of_nodes" VALUES (1205,'ПТ-5',12,5,'FORM','main',NULL);
+        INSERT INTO "Project_structure_of_nodes" VALUES (1206,'ПТ-6',12,6,'FORM','main',NULL);
+        INSERT INTO "Project_structure_of_nodes" VALUES (1207,'ПТ-7',12,7,'FORM','main',NULL);
+        INSERT INTO "Project_structure_of_nodes" VALUES (1208,'ПТ-8',12,8,'FORM','main',NULL);
+        INSERT INTO "Project_structure_of_nodes" VALUES (1209,'ПТ-9',12,9,'FORM','main',NULL);
+        INSERT INTO "Project_structure_of_nodes" VALUES (1210,'ПТ-10',12,10,'FORM','main',NULL);
+        INSERT INTO "Project_structure_of_nodes" VALUES (1211,'ПТ-11',12,11,'FORM','main',NULL);
+        INSERT INTO "Project_structure_of_nodes" VALUES (1212,'ПТ-12',12,12,'FORM','main',NULL);
+        INSERT INTO "Project_structure_of_nodes" VALUES (1213,'ПТ-13',12,13,'FORM','main',NULL);
+        INSERT INTO "Project_structure_of_nodes" VALUES (1214,'ПТ-14',12,14,'FORM','main',NULL);
+        INSERT INTO "Project_structure_of_nodes" VALUES (1215,'ПТ-15',12,15,'FORM','main',NULL);
+        INSERT INTO "Project_structure_of_nodes" VALUES (1216,'ПТ-16',12,16,'FORM','main',NULL);
+        INSERT INTO "Project_pages" VALUES (1,10,'Лист 1','1-ТЛ-1');
+        INSERT INTO "Project_pages" VALUES (2,10,'Лист 2','1-ТЛ-2');
+        INSERT INTO "Project_pages" VALUES (3,11,'Лист 1','2-РД-1');
+        INSERT INTO "Project_pages" VALUES (4,1201,'Лист 1','3-ПТ1-1');
+        INSERT INTO "Project_pages" VALUES (5,1202,'Лист 1','3-ПТ2-1');
+        INSERT INTO "Project_pages" VALUES (6,1203,'Лист 1','3-ПТ3-1');
         COMMIT;
+
 
             """
         )
@@ -199,6 +214,23 @@ class Database:
         return result
 
     @staticmethod
-    def get_pages():
-        pass
-    # TODO и в Sql 
+    def get_pages(node) -> list:
+        """
+        Запрос на получение всех страниц выбранной формы.
+        """
+        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn.row_factory = sqlite3.Row
+
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        SELECT * FROM Project_pages
+        WHERE id_node_parent = ?
+        """,
+            [node.get("id_node")],
+        )
+
+        result = [dict(row) for row in cursor.fetchall()]
+        conn.close()
+        return result
+

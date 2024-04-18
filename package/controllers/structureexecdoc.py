@@ -136,6 +136,6 @@ class StructureExecDoc:
     @Slot()
     def on_item_changed(current):
         log.Log.get_logger().debug(f"IN on_item_changed(current): current = {current}")
-        pagestemplate.PagesTemplate.update_pages_template(current)
+        pagestemplate.PagesTemplate.update_pages_template(current.get_node())
         #print(current.get_node())
         
