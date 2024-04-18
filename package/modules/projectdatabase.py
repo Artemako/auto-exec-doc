@@ -155,23 +155,45 @@ class Database:
         conn.commit()
         conn.close()
 
+
     @staticmethod
-    def get_table_structure_of_nodes_from_db_project() -> object:
+    def get_project_node() -> object:
         """
-        Получение данных таблицы Project_structure_of_nodes
+        Запрос на вершину проекта.
         """
-        log.Log.debug_logger("IN add_tables_and_datas_to_empty_db_project()")
+        log.Log.debug_logger("IN get_project_node()")
+
         conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn.row_factory = sqlite3.Row
 
         cursor = conn.cursor()
+        cursor.execute("""
+        SELECT * FROM Project_structure_of_nodes
+        WHERE type_node = "PROJECT";
+        """)
 
+        result = dict(cursor.fetchone())
+        return result
+
+    @staticmethod
+    def get_childs(parent_node : object) -> list:
+        """
+        Запрос на детей вершины.
+        """
+        log.Log.debug_logger(f"IN get_childs({parent_node}: int) ")
+
+        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn.row_factory = sqlite3.Row
+
+        cursor = conn.cursor()
         cursor.execute(
             """
-            SELECT * FROM "Project_structure_of_nodes";
-            """
+        SELECT * FROM Project_structure_of_nodes
+        WHERE id_parent = ?
+        """,
+            [parent_node.get("id_node")],
         )
 
-        result = cursor.fetchall()
-
+        result = [dict(row) for row in cursor.fetchall()]
         conn.close()
         return result

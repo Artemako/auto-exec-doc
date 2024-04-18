@@ -1,0 +1,50 @@
+24-Apr-18 02:37:46.323257 | DEBUG    | MAIN LOGGER                    | Config logger                                                                   
+24-Apr-18 02:37:46.324260 | DEBUG    | MAIN LOGGER                    | IN create_and_config_files_and_folders()                                        
+24-Apr-18 02:37:46.324260 | DEBUG    | MAIN LOGGER                    | get_default_folder_projects_dirpath() -> str: C:/Users/hayar/OneDrive/Документы\AutoExecDoc Projects
+24-Apr-18 02:37:46.325262 | DEBUG    | MAIN LOGGER                    | IN create_and_config_db_settings()                                              
+24-Apr-18 02:37:46.326263 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-18 02:37:46.368292 | DEBUG    | MAIN LOGGER                    | IN view_test_pdf(self):                                                         
+24-Apr-18 02:37:46.369423 | DEBUG    | MAIN LOGGER                    | get_documents_dirpath() -> str: C:/Users/hayar/OneDrive/Документы               
+24-Apr-18 02:37:46.370289 | DEBUG    | MAIN LOGGER                    | IN load_pdf_for_view(self, file_path): file_path = C:\Users\hayar\OneDrive\Документы\test.pdf
+24-Apr-18 02:37:46.423051 | DEBUG    | MAIN LOGGER                    | IN connect_statusbar()                                                          
+24-Apr-18 02:37:46.424039 | DEBUG    | MAIN LOGGER                    | set_statusbar()                                                                 
+24-Apr-18 02:37:46.425041 | DEBUG    | MAIN LOGGER                    | get_statusbar()                                                                 
+24-Apr-18 02:37:46.425041 | DEBUG    | MAIN LOGGER                    | set_message_for_statusbar(Проект не открыт)                                     
+24-Apr-18 02:37:46.426052 | DEBUG    | MAIN LOGGER                    | IN connect_structureexecdoc()                                                   
+24-Apr-18 02:37:46.427040 | DEBUG    | MAIN LOGGER                    | set_tr_sed()                                                                    
+24-Apr-18 02:37:46.427040 | DEBUG    | MAIN LOGGER                    | IN clear_tr_sed()                                                               
+24-Apr-18 02:37:46.428042 | DEBUG    | MAIN LOGGER                    | get_tr_sed() -> object                                                          
+24-Apr-18 02:37:46.429041 | DEBUG    | MAIN LOGGER                    | IN connect_pagestemplate(lw_pt)                                                 
+24-Apr-18 02:37:46.430043 | DEBUG    | MAIN LOGGER                    | set_lw_pt()                                                                     
+24-Apr-18 02:37:46.430043 | DEBUG    | MAIN LOGGER                    | IN connect_pagestemplate(sa_i, sa_il)                                           
+24-Apr-18 02:37:46.431043 | DEBUG    | MAIN LOGGER                    | set_sa()                                                                        
+24-Apr-18 02:37:46.435042 | DEBUG    | MAIN LOGGER                    | IN add_widget(widget)                                                           
+24-Apr-18 02:37:46.435042 | DEBUG    | MAIN LOGGER                    | get_sa_il() -> object                                                           
+24-Apr-18 02:37:46.436043 | DEBUG    | MAIN LOGGER                    | IN connecting_actions()                                                         
+24-Apr-18 02:37:47.480615 | DEBUG    | MAIN LOGGER                    | IN open_project()                                                               
+24-Apr-18 02:37:47.481571 | DEBUG    | MAIN LOGGER                    | is_active_status() -> bool: False                                               
+24-Apr-18 02:37:47.482575 | DEBUG    | MAIN LOGGER                    | get_default_folder_projects_dirpath() -> str: C:/Users/hayar/OneDrive/Документы\AutoExecDoc Projects
+24-Apr-18 02:37:49.979373 | DEBUG    | MAIN LOGGER                    | select_folder_for_open_project() -> C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/яблоко
+24-Apr-18 02:37:49.980375 | DEBUG    | MAIN LOGGER                    | IN set_project_dirpaths(folder_path: str): folder_path = C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/яблоко
+24-Apr-18 02:37:49.981373 | DEBUG    | MAIN LOGGER                    | set_project_dirpath(dirpath: str): dirpath = C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/яблоко
+24-Apr-18 02:37:49.981373 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/яблоко
+24-Apr-18 02:37:49.982374 | DEBUG    | MAIN LOGGER                    | set_db_project_dirpath(dirpath: str): dirpath = C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/яблоко\project.db
+24-Apr-18 02:37:49.983374 | DEBUG    | MAIN LOGGER                    | IN config_open_project()                                                        
+24-Apr-18 02:37:49.983374 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/яблоко
+24-Apr-18 02:37:49.984375 | DEBUG    | MAIN LOGGER                    | set_current_name(name: str): name = яблоко                                      
+24-Apr-18 02:37:49.985375 | DEBUG    | MAIN LOGGER                    | IN add_or_update_open_project_to_db()                                           
+24-Apr-18 02:37:49.986377 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-18 02:37:49.988738 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/яблоко
+24-Apr-18 02:37:49.989319 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/яблоко
+24-Apr-18 02:37:49.990829 | DEBUG    | MAIN LOGGER                    | IN update_project_to_db()                                                       
+24-Apr-18 02:37:49.991829 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-18 02:37:49.992829 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/яблоко
+24-Apr-18 02:37:49.993832 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/яблоко
+24-Apr-18 02:37:49.999938 | DEBUG    | MAIN LOGGER                    | IN create_and_config_db_project()                                               
+24-Apr-18 02:37:50.000833 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/яблоко\project.db
+24-Apr-18 02:37:50.001833 | DEBUG    | MAIN LOGGER                    | IN create_structure_exec_doc()                                                  
+24-Apr-18 02:37:50.001833 | DEBUG    | MAIN LOGGER                    | IN get_project_node()                                                           
+24-Apr-18 02:37:50.002831 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/яблоко\project.db
+24-Apr-18 02:37:50.004836 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'type_node': 'PROJECT', 'id_left': None, 'id_right': None, 'template_name': ''}: int) 
+24-Apr-18 02:37:50.005834 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/яблоко\project.db
+24-Apr-18 02:37:50.008832 | DEBUG    | MAIN LOGGER                    | get_nodes_to_items()                                                            

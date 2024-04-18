@@ -72,7 +72,7 @@
               </property>
               <column>
                <property name="text">
-                <string notr="true">1</string>
+                <string notr="true">Проект не загружен</string>
                </property>
               </column>
               <item>

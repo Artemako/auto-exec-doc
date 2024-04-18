@@ -1,0 +1,23 @@
+24-Apr-18 02:31:18.289110 | DEBUG    | MAIN LOGGER                    | Config logger                                                                   
+24-Apr-18 02:31:18.290098 | DEBUG    | MAIN LOGGER                    | IN create_and_config_files_and_folders()                                        
+24-Apr-18 02:31:18.291098 | DEBUG    | MAIN LOGGER                    | get_default_folder_projects_dirpath() -> str: C:/Users/hayar/OneDrive/Документы\AutoExecDoc Projects
+24-Apr-18 02:31:18.292101 | DEBUG    | MAIN LOGGER                    | IN create_and_config_db_settings()                                              
+24-Apr-18 02:31:18.293101 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-18 02:31:18.697574 | DEBUG    | MAIN LOGGER                    | IN view_test_pdf(self):                                                         
+24-Apr-18 02:31:18.698573 | DEBUG    | MAIN LOGGER                    | get_documents_dirpath() -> str: C:/Users/hayar/OneDrive/Документы               
+24-Apr-18 02:31:18.699574 | DEBUG    | MAIN LOGGER                    | IN load_pdf_for_view(self, file_path): file_path = C:\Users\hayar\OneDrive\Документы\test.pdf
+24-Apr-18 02:31:19.134607 | DEBUG    | MAIN LOGGER                    | IN connect_statusbar()                                                          
+24-Apr-18 02:31:19.136596 | DEBUG    | MAIN LOGGER                    | set_statusbar()                                                                 
+24-Apr-18 02:31:19.137597 | DEBUG    | MAIN LOGGER                    | get_statusbar()                                                                 
+24-Apr-18 02:31:19.138596 | DEBUG    | MAIN LOGGER                    | set_message_for_statusbar(Проект не открыт)                                     
+24-Apr-18 02:31:19.139596 | DEBUG    | MAIN LOGGER                    | IN connect_structureexecdoc()                                                   
+24-Apr-18 02:31:19.140598 | DEBUG    | MAIN LOGGER                    | set_tr_sed()                                                                    
+24-Apr-18 02:31:19.141145 | DEBUG    | MAIN LOGGER                    | IN clear_tr_sed()                                                               
+24-Apr-18 02:31:19.141653 | DEBUG    | MAIN LOGGER                    | get_tr_sed() -> object                                                          
+24-Apr-18 02:31:19.144012 | DEBUG    | MAIN LOGGER                    | IN connect_pagestemplate(lw_pt)                                                 
+24-Apr-18 02:31:19.144012 | DEBUG    | MAIN LOGGER                    | set_lw_pt()                                                                     
+24-Apr-18 02:31:19.145029 | DEBUG    | MAIN LOGGER                    | IN connect_pagestemplate(sa_i, sa_il)                                           
+24-Apr-18 02:31:19.146016 | DEBUG    | MAIN LOGGER                    | set_sa()                                                                        
+24-Apr-18 02:31:19.154018 | DEBUG    | MAIN LOGGER                    | IN add_widget(widget)                                                           
+24-Apr-18 02:31:19.155029 | DEBUG    | MAIN LOGGER                    | get_sa_il() -> object                                                           
+24-Apr-18 02:31:19.156019 | DEBUG    | MAIN LOGGER                    | IN connecting_actions()                                                         
