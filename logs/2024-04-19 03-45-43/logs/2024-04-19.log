@@ -1,0 +1,174 @@
+24-Apr-19 03:45:43.231056 | DEBUG    | MAIN LOGGER                    | Config logger                                                                   
+24-Apr-19 03:45:43.232053 | DEBUG    | MAIN LOGGER                    | IN create_and_config_files_and_folders()                                        
+24-Apr-19 03:45:43.233055 | DEBUG    | MAIN LOGGER                    | get_default_folder_projects_dirpath() -> str: C:/Users/hayar/OneDrive/Документы\AutoExecDoc Projects
+24-Apr-19 03:45:43.233055 | DEBUG    | MAIN LOGGER                    | IN create_and_config_db_settings()                                              
+24-Apr-19 03:45:43.234054 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-19 03:45:43.262882 | DEBUG    | MAIN LOGGER                    | IN view_test_pdf(self):                                                         
+24-Apr-19 03:45:43.263882 | DEBUG    | MAIN LOGGER                    | get_documents_dirpath() -> str: C:/Users/hayar/OneDrive/Документы               
+24-Apr-19 03:45:43.264882 | DEBUG    | MAIN LOGGER                    | IN load_pdf_for_view(self, file_path): file_path = C:\Users\hayar\OneDrive\Документы\test.pdf
+24-Apr-19 03:45:43.299537 | DEBUG    | MAIN LOGGER                    | IN config_controllers()                                                         
+24-Apr-19 03:45:43.299537 | DEBUG    | MAIN LOGGER                    | IN connect_statusbar(statusbar)                                                 
+24-Apr-19 03:45:43.300537 | DEBUG    | MAIN LOGGER                    | set_message_for_statusbar(Проект не открыт)                                     
+24-Apr-19 03:45:43.300537 | DEBUG    | MAIN LOGGER                    | IN connect_structureexecdoc(tr_sed, title_sed)                                  
+24-Apr-19 03:45:43.301538 | DEBUG    | MAIN LOGGER                    | IN clear_tr_sed()                                                               
+24-Apr-19 03:45:43.301538 | DEBUG    | MAIN LOGGER                    | IN connect_pages_template(lw_pt)                                                
+24-Apr-19 03:45:43.302538 | DEBUG    | MAIN LOGGER                    | IN connect_pages_template(sa_if, sa_ifl)                                        
+24-Apr-19 03:45:43.302538 | DEBUG    | MAIN LOGGER                    | IN connecting_actions()                                                         
+24-Apr-19 03:45:44.563081 | DEBUG    | MAIN LOGGER                    | IN open_project()                                                               
+24-Apr-19 03:45:44.564082 | DEBUG    | MAIN LOGGER                    | is_active_status() -> bool: False                                               
+24-Apr-19 03:45:44.564082 | DEBUG    | MAIN LOGGER                    | get_default_folder_projects_dirpath() -> str: C:/Users/hayar/OneDrive/Документы\AutoExecDoc Projects
+24-Apr-19 03:45:46.906112 | DEBUG    | MAIN LOGGER                    | select_folder_for_open_project() -> C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв
+24-Apr-19 03:45:46.906112 | DEBUG    | MAIN LOGGER                    | IN set_project_dirpaths(folder_path: str): folder_path = C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв
+24-Apr-19 03:45:46.907111 | DEBUG    | MAIN LOGGER                    | set_project_dirpath(dirpath: str): dirpath = C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв
+24-Apr-19 03:45:46.907111 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв
+24-Apr-19 03:45:46.907111 | DEBUG    | MAIN LOGGER                    | set_db_project_dirpath(dirpath: str): dirpath = C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:46.908112 | DEBUG    | MAIN LOGGER                    | IN config_open_project()                                                        
+24-Apr-19 03:45:46.908112 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв
+24-Apr-19 03:45:46.908112 | DEBUG    | MAIN LOGGER                    | set_current_name(name: str): name = вавапв                                      
+24-Apr-19 03:45:46.909111 | DEBUG    | MAIN LOGGER                    | IN add_or_update_open_project_to_db()                                           
+24-Apr-19 03:45:46.909111 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-19 03:45:46.910111 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв
+24-Apr-19 03:45:46.911112 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв
+24-Apr-19 03:45:46.911112 | DEBUG    | MAIN LOGGER                    | IN update_project_to_db()                                                       
+24-Apr-19 03:45:46.912113 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-19 03:45:46.912113 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв
+24-Apr-19 03:45:46.913113 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв
+24-Apr-19 03:45:46.917113 | DEBUG    | MAIN LOGGER                    | IN create_and_config_db_project()                                               
+24-Apr-19 03:45:46.918120 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:46.918120 | DEBUG    | MAIN LOGGER                    | IN update_structure_exec_doc()                                                  
+24-Apr-19 03:45:46.919120 | DEBUG    | MAIN LOGGER                    | IN clear_tr_sed()                                                               
+24-Apr-19 03:45:46.920117 | DEBUG    | MAIN LOGGER                    | get_current_name() -> str: вавапв                                               
+24-Apr-19 03:45:46.920117 | DEBUG    | MAIN LOGGER                    | IN get_project_node()                                                           
+24-Apr-19 03:45:46.921115 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:46.922115 | DEBUG    | MAIN LOGGER                    | IN dfs(parent_node): parent_node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': 0, 'type_node': 'PROJECT', 'template_name': None, 'folder_form': None}
+24-Apr-19 03:45:46.922115 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': 0, 'type_node': 'PROJECT', 'template_name': None, 'folder_form': None}: int) 
+24-Apr-19 03:45:46.922115 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:46.923115 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items(node): node = {'id_node': 10, 'name_node': 'Титульный лист', 'id_parent': 0, 'order_node': 1, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '1-ТЛ'}
+24-Apr-19 03:45:46.924115 | DEBUG    | MAIN LOGGER                    | IN dfs(parent_node): parent_node = {'id_node': 10, 'name_node': 'Титульный лист', 'id_parent': 0, 'order_node': 1, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '1-ТЛ'}
+24-Apr-19 03:45:46.924115 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 10, 'name_node': 'Титульный лист', 'id_parent': 0, 'order_node': 1, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '1-ТЛ'}: int) 
+24-Apr-19 03:45:46.925115 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:46.926116 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items(node): node = {'id_node': 11, 'name_node': 'Реестр документации', 'id_parent': 0, 'order_node': 2, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '2-РД'}
+24-Apr-19 03:45:46.926116 | DEBUG    | MAIN LOGGER                    | IN dfs(parent_node): parent_node = {'id_node': 11, 'name_node': 'Реестр документации', 'id_parent': 0, 'order_node': 2, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '2-РД'}
+24-Apr-19 03:45:46.927114 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 11, 'name_node': 'Реестр документации', 'id_parent': 0, 'order_node': 2, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '2-РД'}: int) 
+24-Apr-19 03:45:46.927114 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:46.928116 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items(node): node = {'id_node': 12, 'name_node': 'Паспорт трассы', 'id_parent': 0, 'order_node': 3, 'type_node': 'GROUP', 'template_name': None, 'folder_form': None}
+24-Apr-19 03:45:46.928116 | DEBUG    | MAIN LOGGER                    | IN dfs(parent_node): parent_node = {'id_node': 12, 'name_node': 'Паспорт трассы', 'id_parent': 0, 'order_node': 3, 'type_node': 'GROUP', 'template_name': None, 'folder_form': None}
+24-Apr-19 03:45:46.929117 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 12, 'name_node': 'Паспорт трассы', 'id_parent': 0, 'order_node': 3, 'type_node': 'GROUP', 'template_name': None, 'folder_form': None}: int) 
+24-Apr-19 03:45:46.930117 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:46.931117 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items(node): node = {'id_node': 1201, 'name_node': 'ПТ-1', 'id_parent': 12, 'order_node': 1, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '3-ПТ1'}
+24-Apr-19 03:45:46.932116 | DEBUG    | MAIN LOGGER                    | IN dfs(parent_node): parent_node = {'id_node': 1201, 'name_node': 'ПТ-1', 'id_parent': 12, 'order_node': 1, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '3-ПТ1'}
+24-Apr-19 03:45:46.933116 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 1201, 'name_node': 'ПТ-1', 'id_parent': 12, 'order_node': 1, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '3-ПТ1'}: int) 
+24-Apr-19 03:45:46.933116 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:46.934118 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items(node): node = {'id_node': 1202, 'name_node': 'ПТ-2', 'id_parent': 12, 'order_node': 2, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '3-ПТ2'}
+24-Apr-19 03:45:46.935118 | DEBUG    | MAIN LOGGER                    | IN dfs(parent_node): parent_node = {'id_node': 1202, 'name_node': 'ПТ-2', 'id_parent': 12, 'order_node': 2, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '3-ПТ2'}
+24-Apr-19 03:45:46.935118 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 1202, 'name_node': 'ПТ-2', 'id_parent': 12, 'order_node': 2, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '3-ПТ2'}: int) 
+24-Apr-19 03:45:46.936119 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:46.937118 | DEBUG    | MAIN LOGGER                    | IN set_item_in_nodes_to_items(node): node = {'id_node': 1203, 'name_node': 'ПТ-3', 'id_parent': 12, 'order_node': 3, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '3-ПТ3'}
+24-Apr-19 03:45:46.937118 | DEBUG    | MAIN LOGGER                    | IN dfs(parent_node): parent_node = {'id_node': 1203, 'name_node': 'ПТ-3', 'id_parent': 12, 'order_node': 3, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '3-ПТ3'}
+24-Apr-19 03:45:46.938118 | DEBUG    | MAIN LOGGER                    | IN get_childs({'id_node': 1203, 'name_node': 'ПТ-3', 'id_parent': 12, 'order_node': 3, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '3-ПТ3'}: int) 
+24-Apr-19 03:45:46.938118 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:46.939118 | DEBUG    | MAIN LOGGER                    | IN set_true_actives_project()                                                   
+24-Apr-19 03:45:46.939118 | DEBUG    | MAIN LOGGER                    | set_status_active(status: bool): status = True                                  
+24-Apr-19 03:45:46.939118 | DEBUG    | MAIN LOGGER                    | set_status_save(status: bool): status = True                                    
+24-Apr-19 03:45:46.940120 | DEBUG    | MAIN LOGGER                    | get_current_name() -> str: вавапв                                               
+24-Apr-19 03:45:46.940120 | DEBUG    | MAIN LOGGER                    | set_message_for_statusbar(Проект c именем вавапв открыт.)                       
+24-Apr-19 03:45:48.457342 | DEBUG    | MAIN LOGGER                    | IN update_pages_template(node) : node = {'id_node': 11, 'name_node': 'Реестр документации', 'id_parent': 0, 'order_node': 2, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '2-РД'}
+24-Apr-19 03:45:48.458353 | DEBUG    | MAIN LOGGER                    | get_pages(node) -> list: node = {'id_node': 11, 'name_node': 'Реестр документации', 'id_parent': 0, 'order_node': 2, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '2-РД'}
+24-Apr-19 03:45:48.459344 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:49.644810 | DEBUG    | MAIN LOGGER                    | IN update_scrollarea()                                                          
+24-Apr-19 03:45:49.645800 | DEBUG    | MAIN LOGGER                    | IN delete_all_widgets_in_sa()                                                   
+24-Apr-19 03:45:49.645800 | DEBUG    | MAIN LOGGER                    | clear_sa()                                                                      
+24-Apr-19 03:45:49.646801 | DEBUG    | MAIN LOGGER                    | get_node_parent_from_pages(page) -> object: page = {'id_page': 3, 'id_node_parent': 11, 'name_page': 'Лист 3', 'folder_page': '2-РД-1'}
+24-Apr-19 03:45:49.647797 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:49.648797 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв
+24-Apr-19 03:45:49.648797 | DEBUG    | MAIN LOGGER                    | IN get_data_from_json_file(filepath) -> dict: filepath = C:\Users\hayar\OneDrive\Документы\AutoExecDoc Projects\вавапв\forms\2-РД\2-РД-1\2-РД-1.json
+24-Apr-19 03:45:49.650798 | DEBUG    | MAIN LOGGER                    | get_content_config(name_content) -> list: name_content = реестр_ид_паспорт_трассы
+24-Apr-19 03:45:49.651806 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:49.652799 | DEBUG    | MAIN LOGGER                    | get_content_config(name_content) -> list: name_content = реестр_ид_эл_паспорт_трассы
+24-Apr-19 03:45:49.653801 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:49.654809 | DEBUG    | MAIN LOGGER                    | get_content_config(name_content) -> list: name_content = рабочая_документация   
+24-Apr-19 03:45:49.655810 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:52.345300 | DEBUG    | MAIN LOGGER                    | IN update_pages_template(node) : node = {'id_node': 10, 'name_node': 'Титульный лист', 'id_parent': 0, 'order_node': 1, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '1-ТЛ'}
+24-Apr-19 03:45:52.346300 | DEBUG    | MAIN LOGGER                    | get_pages(node) -> list: node = {'id_node': 10, 'name_node': 'Титульный лист', 'id_parent': 0, 'order_node': 1, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '1-ТЛ'}
+24-Apr-19 03:45:52.346300 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:54.111276 | DEBUG    | MAIN LOGGER                    | IN update_pages_template(node) : node = {'id_node': 11, 'name_node': 'Реестр документации', 'id_parent': 0, 'order_node': 2, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '2-РД'}
+24-Apr-19 03:45:54.112285 | DEBUG    | MAIN LOGGER                    | get_pages(node) -> list: node = {'id_node': 11, 'name_node': 'Реестр документации', 'id_parent': 0, 'order_node': 2, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '2-РД'}
+24-Apr-19 03:45:54.113286 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:54.511274 | DEBUG    | MAIN LOGGER                    | IN update_pages_template(node) : node = {'id_node': 12, 'name_node': 'Паспорт трассы', 'id_parent': 0, 'order_node': 3, 'type_node': 'GROUP', 'template_name': None, 'folder_form': None}
+24-Apr-19 03:45:54.512281 | DEBUG    | MAIN LOGGER                    | get_pages(node) -> list: node = {'id_node': 12, 'name_node': 'Паспорт трассы', 'id_parent': 0, 'order_node': 3, 'type_node': 'GROUP', 'template_name': None, 'folder_form': None}
+24-Apr-19 03:45:54.513282 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:54.947173 | DEBUG    | MAIN LOGGER                    | IN update_pages_template(node) : node = {'id_node': 11, 'name_node': 'Реестр документации', 'id_parent': 0, 'order_node': 2, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '2-РД'}
+24-Apr-19 03:45:54.947173 | DEBUG    | MAIN LOGGER                    | get_pages(node) -> list: node = {'id_node': 11, 'name_node': 'Реестр документации', 'id_parent': 0, 'order_node': 2, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '2-РД'}
+24-Apr-19 03:45:54.948174 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:56.110179 | DEBUG    | MAIN LOGGER                    | IN update_scrollarea()                                                          
+24-Apr-19 03:45:56.111186 | DEBUG    | MAIN LOGGER                    | IN delete_all_widgets_in_sa()                                                   
+24-Apr-19 03:45:56.111186 | DEBUG    | MAIN LOGGER                    | clear_sa()                                                                      
+24-Apr-19 03:45:56.112194 | DEBUG    | MAIN LOGGER                    | get_node_parent_from_pages(page) -> object: page = {'id_page': 3, 'id_node_parent': 11, 'name_page': 'Лист 3', 'folder_page': '2-РД-1'}
+24-Apr-19 03:45:56.112194 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:56.113195 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв
+24-Apr-19 03:45:56.114198 | DEBUG    | MAIN LOGGER                    | IN get_data_from_json_file(filepath) -> dict: filepath = C:\Users\hayar\OneDrive\Документы\AutoExecDoc Projects\вавапв\forms\2-РД\2-РД-1\2-РД-1.json
+24-Apr-19 03:45:56.116194 | DEBUG    | MAIN LOGGER                    | get_content_config(name_content) -> list: name_content = реестр_ид_паспорт_трассы
+24-Apr-19 03:45:56.117188 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:56.118189 | DEBUG    | MAIN LOGGER                    | get_content_config(name_content) -> list: name_content = реестр_ид_эл_паспорт_трассы
+24-Apr-19 03:45:56.119195 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:56.120196 | DEBUG    | MAIN LOGGER                    | get_content_config(name_content) -> list: name_content = рабочая_документация   
+24-Apr-19 03:45:56.120196 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:57.823186 | DEBUG    | MAIN LOGGER                    | IN update_pages_template(node) : node = {'id_node': 10, 'name_node': 'Титульный лист', 'id_parent': 0, 'order_node': 1, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '1-ТЛ'}
+24-Apr-19 03:45:57.824195 | DEBUG    | MAIN LOGGER                    | get_pages(node) -> list: node = {'id_node': 10, 'name_node': 'Титульный лист', 'id_parent': 0, 'order_node': 1, 'type_node': 'FORM', 'template_name': 'main', 'folder_form': '1-ТЛ'}
+24-Apr-19 03:45:57.824195 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:58.714170 | DEBUG    | MAIN LOGGER                    | IN update_scrollarea()                                                          
+24-Apr-19 03:45:58.714170 | DEBUG    | MAIN LOGGER                    | IN delete_all_widgets_in_sa()                                                   
+24-Apr-19 03:45:58.715166 | DEBUG    | MAIN LOGGER                    | clear_sa()                                                                      
+24-Apr-19 03:45:58.716151 | DEBUG    | MAIN LOGGER                    | get_node_parent_from_pages(page) -> object: page = {'id_page': 1, 'id_node_parent': 10, 'name_page': 'Лист 1', 'folder_page': '1-ТЛ-1'}
+24-Apr-19 03:45:58.716151 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:58.718162 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв
+24-Apr-19 03:45:58.718162 | DEBUG    | MAIN LOGGER                    | IN get_data_from_json_file(filepath) -> dict: filepath = C:\Users\hayar\OneDrive\Документы\AutoExecDoc Projects\вавапв\forms\1-ТЛ\1-ТЛ-1\1-ТЛ-1.json
+24-Apr-19 03:45:58.721154 | DEBUG    | MAIN LOGGER                    | get_content_config(name_content) -> list: name_content = строительно_монтажная_организация
+24-Apr-19 03:45:58.721154 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:58.724152 | DEBUG    | MAIN LOGGER                    | get_content_config(name_content) -> list: name_content = город                  
+24-Apr-19 03:45:58.725154 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:45:58.728155 | DEBUG    | MAIN LOGGER                    | get_content_config(name_content) -> list: name_content = год                    
+24-Apr-19 03:45:58.729154 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:46:00.576981 | DEBUG    | MAIN LOGGER                    | IN update_scrollarea()                                                          
+24-Apr-19 03:46:00.577986 | DEBUG    | MAIN LOGGER                    | IN delete_all_widgets_in_sa()                                                   
+24-Apr-19 03:46:00.577986 | DEBUG    | MAIN LOGGER                    | clear_sa()                                                                      
+24-Apr-19 03:46:00.578972 | DEBUG    | MAIN LOGGER                    | get_node_parent_from_pages(page) -> object: page = {'id_page': 2, 'id_node_parent': 10, 'name_page': 'Лист 2', 'folder_page': '1-ТЛ-2'}
+24-Apr-19 03:46:00.578972 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:46:00.579973 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв
+24-Apr-19 03:46:00.580980 | DEBUG    | MAIN LOGGER                    | IN get_data_from_json_file(filepath) -> dict: filepath = C:\Users\hayar\OneDrive\Документы\AutoExecDoc Projects\вавапв\forms\1-ТЛ\1-ТЛ-2\1-ТЛ-2.json
+24-Apr-19 03:46:00.582988 | DEBUG    | MAIN LOGGER                    | get_content_config(name_content) -> list: name_content = инж_про_ком            
+24-Apr-19 03:46:00.583975 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:46:00.585981 | DEBUG    | MAIN LOGGER                    | get_content_config(name_content) -> list: name_content = инж_про_ком_фио        
+24-Apr-19 03:46:00.586981 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:46:00.590974 | DEBUG    | MAIN LOGGER                    | get_content_config(name_content) -> list: name_content = гла_инж_компания       
+24-Apr-19 03:46:00.590974 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:46:00.593982 | DEBUG    | MAIN LOGGER                    | get_content_config(name_content) -> list: name_content = гла_инж_фио            
+24-Apr-19 03:46:00.593982 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:46:14.451302 | DEBUG    | MAIN LOGGER                    | IN update_scrollarea()                                                          
+24-Apr-19 03:46:14.452318 | DEBUG    | MAIN LOGGER                    | IN delete_all_widgets_in_sa()                                                   
+24-Apr-19 03:46:14.452318 | DEBUG    | MAIN LOGGER                    | clear_sa()                                                                      
+24-Apr-19 03:46:14.453313 | DEBUG    | MAIN LOGGER                    | get_node_parent_from_pages(page) -> object: page = {'id_page': 1, 'id_node_parent': 10, 'name_page': 'Лист 1', 'folder_page': '1-ТЛ-1'}
+24-Apr-19 03:46:14.454317 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:46:14.455317 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв
+24-Apr-19 03:46:14.456313 | DEBUG    | MAIN LOGGER                    | IN get_data_from_json_file(filepath) -> dict: filepath = C:\Users\hayar\OneDrive\Документы\AutoExecDoc Projects\вавапв\forms\1-ТЛ\1-ТЛ-1\1-ТЛ-1.json
+24-Apr-19 03:46:14.458306 | DEBUG    | MAIN LOGGER                    | get_content_config(name_content) -> list: name_content = строительно_монтажная_организация
+24-Apr-19 03:46:14.459306 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:46:14.462313 | DEBUG    | MAIN LOGGER                    | get_content_config(name_content) -> list: name_content = город                  
+24-Apr-19 03:46:14.462313 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:46:14.465306 | DEBUG    | MAIN LOGGER                    | get_content_config(name_content) -> list: name_content = год                    
+24-Apr-19 03:46:14.466306 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:46:14.780267 | DEBUG    | MAIN LOGGER                    | IN update_scrollarea()                                                          
+24-Apr-19 03:46:14.781345 | DEBUG    | MAIN LOGGER                    | IN delete_all_widgets_in_sa()                                                   
+24-Apr-19 03:46:14.781872 | DEBUG    | MAIN LOGGER                    | clear_sa()                                                                      
+24-Apr-19 03:46:14.782401 | DEBUG    | MAIN LOGGER                    | get_node_parent_from_pages(page) -> object: page = {'id_page': 2, 'id_node_parent': 10, 'name_page': 'Лист 2', 'folder_page': '1-ТЛ-2'}
+24-Apr-19 03:46:14.782935 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:46:14.783993 | DEBUG    | MAIN LOGGER                    | get_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв
+24-Apr-19 03:46:14.784531 | DEBUG    | MAIN LOGGER                    | IN get_data_from_json_file(filepath) -> dict: filepath = C:\Users\hayar\OneDrive\Документы\AutoExecDoc Projects\вавапв\forms\1-ТЛ\1-ТЛ-2\1-ТЛ-2.json
+24-Apr-19 03:46:14.786148 | DEBUG    | MAIN LOGGER                    | get_content_config(name_content) -> list: name_content = инж_про_ком            
+24-Apr-19 03:46:14.786684 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:46:14.791195 | DEBUG    | MAIN LOGGER                    | get_content_config(name_content) -> list: name_content = инж_про_ком_фио        
+24-Apr-19 03:46:14.791195 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:46:14.795195 | DEBUG    | MAIN LOGGER                    | get_content_config(name_content) -> list: name_content = гла_инж_компания       
+24-Apr-19 03:46:14.796197 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db
+24-Apr-19 03:46:14.799195 | DEBUG    | MAIN LOGGER                    | get_content_config(name_content) -> list: name_content = гла_инж_фио            
+24-Apr-19 03:46:14.800196 | DEBUG    | MAIN LOGGER                    | get_db_project_dirpath() -> str: C:/Users/hayar/OneDrive/Документы/AutoExecDoc Projects/вавапв\project.db

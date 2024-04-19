@@ -1,0 +1,11 @@
+24-Apr-19 03:57:20.799849 | DEBUG    | MAIN LOGGER                    | Config logger                                                                   
+24-Apr-19 03:57:20.800851 | DEBUG    | MAIN LOGGER                    | IN create_and_config_files_and_folders()                                        
+24-Apr-19 03:57:20.800851 | DEBUG    | MAIN LOGGER                    | get_default_folder_projects_dirpath() -> str: C:/Users/hayar/OneDrive/Документы\AutoExecDoc Projects
+24-Apr-19 03:57:20.801851 | DEBUG    | MAIN LOGGER                    | IN create_and_config_db_settings()                                              
+24-Apr-19 03:57:20.801851 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-19 03:57:20.832405 | DEBUG    | MAIN LOGGER                    | IN view_test_pdf(self):                                                         
+24-Apr-19 03:57:20.833405 | DEBUG    | MAIN LOGGER                    | get_documents_dirpath() -> str: C:/Users/hayar/OneDrive/Документы               
+24-Apr-19 03:57:20.833405 | DEBUG    | MAIN LOGGER                    | IN load_pdf_for_view(self, file_path): file_path = C:\Users\hayar\OneDrive\Документы\test.pdf
+24-Apr-19 03:57:20.865872 | DEBUG    | MAIN LOGGER                    | IN config_controllers()                                                         
+24-Apr-19 03:57:20.866871 | DEBUG    | MAIN LOGGER                    | IN connect_statusbar(statusbar)                                                 
+24-Apr-19 03:57:20.867871 | DEBUG    | MAIN LOGGER                    | set_message_for_statusbar(Проект не открыт)                                     

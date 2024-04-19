@@ -18,60 +18,33 @@ import package.controllers.statusbar as statusbar
 
 class Project:
     # по умолчанию None
-    _current_name = None
+    __current_name = None
 
     # по умолчанию False
-    _status_active = False
-    _status_save = False
+    __status_active = False
+    __status_save = False
 
     def __init__(self):
         pass
 
-    # region методы set
-
-    @staticmethod
-    def set_current_name(name):
-        """
-        Установка имени проекта.
-        """
-        log.Log.debug_logger(f"set_current_name(name: str): name = {name}")
-        Project._current_name = name
-
-    @staticmethod
-    def set_status_active(status: bool):
-        """
-        Установка статуса активности проекта.
-        """
-        log.Log.debug_logger(f"set_status_active(status: bool): status = {status}")
-        Project._status_active = status
-
-    @staticmethod
-    def set_status_save(status: bool):
-        """
-        Установка статуса сохранения проекта.
-        """
-        log.Log.debug_logger(f"set_status_save(status: bool): status = {status}")
-        Project._status_save = status
-
-    # endregion
     # region методы get
 
     @staticmethod
     def get_current_name() -> str:
-        log.Log.debug_logger(f"get_current_name() -> str: {Project._current_name}")
-        return Project._current_name
+        log.Log.debug_logger(f"get_current_name() -> str: {Project.__current_name}")
+        return Project.__current_name
 
     # endregion
     # region методы is, check
     @staticmethod
     def is_active_status() -> bool:
-        log.Log.debug_logger(f"is_active_status() -> bool: {Project._status_active}")
-        return Project._status_active
+        log.Log.debug_logger(f"is_active_status() -> bool: {Project.__status_active}")
+        return Project.__status_active
 
     @staticmethod
     def is_status_save() -> bool:
-        log.Log.debug_logger(f"is_status_save() -> bool: {Project._status_save}")
-        return Project._status_save
+        log.Log.debug_logger(f"is_status_save() -> bool: {Project.__status_save}")
+        return Project.__status_save
 
     @staticmethod
     def check_project_before_new_or_open() -> bool:
@@ -79,7 +52,7 @@ class Project:
         Проверка текущего проекта до создания или открытия нового.
         """
         # появление диалогового окна, когда проект активен, но не сохранен
-        if Project.is_active_status() and not Project.is_status_save():
+        if Project.__status_active and not Project.__status_save:
             answer = dialogwindows.DialogWindows.save_active_project()
             if answer == "Yes":
                 Project.save_project()
@@ -130,9 +103,8 @@ class Project:
         """
         log.Log.debug_logger("IN config_new_project()")
 
-        Project.set_current_name(
-            os.path.basename(dirpathsmanager.DirPathManager.get_project_dirpath())
-        )
+        Project.__current_name = os.path.basename(dirpathsmanager.DirPathManager.get_project_dirpath())
+        
         settingsdatabase.Database.add_new_project_to_db()
         projectdatabase.Database.create_and_config_db_project()
         # настраиваем контроллеры
@@ -144,7 +116,7 @@ class Project:
         Project.set_true_actives_project()
         # сообщение для статусбара
         statusbar.StatusBar.set_message_for_statusbar(
-            f"Проект c именем {Project.get_current_name()} создан и открыт."
+            f"Проект c именем {Project.__current_name} создан и открыт."
         )
 
     @staticmethod
@@ -154,9 +126,9 @@ class Project:
         """
         log.Log.debug_logger("IN save_project()")
         # TODO Сделать сохранение проекта
-        if Project.is_active_status():
+        if Project.__status_active:
             scrollareainput.ScroolAreaInput.save_data()
-            Project.set_status_save(True)
+            Project.__status_save = True
 
     @staticmethod
     def open_project():
@@ -177,9 +149,7 @@ class Project:
         """
         log.Log.debug_logger("IN config_open_project()")
 
-        Project.set_current_name(
-            os.path.basename(dirpathsmanager.DirPathManager.get_project_dirpath())
-        )
+        Project.__current_name = os.path.basename(dirpathsmanager.DirPathManager.get_project_dirpath())
         # настраиваем базы данных
         settingsdatabase.Database.add_or_update_open_project_to_db()
         projectdatabase.Database.create_and_config_db_project()
@@ -188,7 +158,7 @@ class Project:
         Project.set_true_actives_project()
         # сообщение для статусбара
         statusbar.StatusBar.set_message_for_statusbar(
-            f"Проект c именем {Project.get_current_name()} открыт."
+            f"Проект c именем {Project.__current_name} открыт."
         )
 
     @staticmethod
@@ -204,7 +174,7 @@ class Project:
         Задает активность проекта.
         """
         log.Log.debug_logger("IN set_true_actives_project()")
-        Project.set_status_active(True)
-        Project.set_status_save(True)
+        Project.__status_active = True
+        Project.__status_save = True
 
 

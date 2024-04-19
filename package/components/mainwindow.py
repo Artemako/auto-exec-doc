@@ -12,9 +12,6 @@ import package.controllers.statusbar as statusbar
 
 
 class MainWindow(QMainWindow):
-    _statusbar = None
-
-
     def __init__(self):
         super(MainWindow, self).__init__()
         self.ui = mainwindow_ui.Ui_MainWindow()

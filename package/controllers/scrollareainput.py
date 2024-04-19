@@ -17,45 +17,20 @@ from PySide6.QtWidgets import QLabel, QVBoxLayout, QPushButton, QSpacerItem, QSi
 
 
 class ScroolAreaInput:
-    _scrollarea_input = None
-    _scrollarea_input_layout = None
+    __scrollarea_input = None
+    __scrollarea_input_layout = None
 
-    _data = dict()
+    __data = dict()
 
     def __init__(self):
         pass
 
-    @staticmethod
-    def set_sa(sa_if, sa_ifl):
-        ScroolAreaInput._scrollarea_input = sa_if
-        ScroolAreaInput._scrollarea_input_layout = sa_ifl
-        sa_if.setWidget(sa_ifl)
-        log.Log.debug_logger("set_sa()")
-
-    @staticmethod
-    def get_sa_if() -> object:
-        log.Log.debug_logger("get_sa_if() -> object")
-        return ScroolAreaInput._scrollarea_input
-
-    @staticmethod
-    def get_sa_ifl() -> object:
-        log.Log.debug_logger("get_sa_ifl() -> object")
-        return ScroolAreaInput._scrollarea_input_layout
+        return ScroolAreaInput.__scrollarea_input_layout
 
     @staticmethod
     def get_data() -> object:
         log.Log.debug_logger("get_data() -> object")
-        return ScroolAreaInput._data
-
-    @staticmethod
-    def set_data(data):
-        log.Log.debug_logger("set_data(data)")
-        ScroolAreaInput._data = data
-
-    @staticmethod
-    def clear_data():
-        log.Log.debug_logger("clear_data()")
-        ScroolAreaInput._data = dict()
+        return ScroolAreaInput.__data
 
     @staticmethod
     def connect_inputforms(sa_if, sa_ifl):
@@ -63,7 +38,8 @@ class ScroolAreaInput:
         Подключить _scrollarea_input и _scrollarea_input_contents
         """
         log.Log.debug_logger("IN connect_pages_template(sa_if, sa_ifl)")
-        ScroolAreaInput.set_sa(sa_if, sa_ifl)
+        ScroolAreaInput.__scrollarea_input = sa_if
+        ScroolAreaInput.__scrollarea_input_layout = sa_ifl
 
     @staticmethod
     def delete_all_widgets_in_sa():
@@ -73,7 +49,7 @@ class ScroolAreaInput:
         log.Log.debug_logger("IN delete_all_widgets_in_sa()")
 
         log.Log.debug_logger("clear_sa()")
-        layout = ScroolAreaInput.get_sa_ifl().layout()
+        layout = ScroolAreaInput.__scrollarea_input_layout.layout()
         while layout.count():
             item = layout.takeAt(0)
             widget = item.widget()
@@ -98,7 +74,7 @@ class ScroolAreaInput:
         log.Log.debug_logger("IN update_scrollarea()")
 
         ScroolAreaInput.delete_all_widgets_in_sa()
-        ScroolAreaInput.clear_data()
+        ScroolAreaInput.__data = dict()
 
         parent_node = projectdatabase.Database.get_node_parent_from_pages(page)
         folder_form = parent_node.get("folder_form")
@@ -115,7 +91,7 @@ class ScroolAreaInput:
         # получаем данные с json
         # TODO Подумать про _data
         data = jsonmanager.JsonManager.get_data_from_json_file(json_dirpath)
-        ScroolAreaInput.set_data(data)
+        ScroolAreaInput.__data = data
 
         section = customsection.Section()
         section_layout = QVBoxLayout()
@@ -136,8 +112,8 @@ class ScroolAreaInput:
 
         section.setContentLayout(section_layout)
 
-        ScroolAreaInput.get_sa_ifl().layout().addWidget(section)
+        ScroolAreaInput.__scrollarea_input_layout.layout().addWidget(section)
 
-        ScroolAreaInput.get_sa_ifl().layout().addItem(
+        ScroolAreaInput.__scrollarea_input_layout.layout().addItem(
             QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
         )

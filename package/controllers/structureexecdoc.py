@@ -17,57 +17,28 @@ class MyTreeWidgetItem(QTreeWidgetItem):
 
 
 class StructureExecDoc:
-    _treewidget_structure_execdoc = None
-    _title_sed = None
+    __treewidget_structure_execdoc = None
+    __title_sed = None
 
-    _nodes_to_items = dict()
+    __nodes_to_items = dict()
 
     def __init__(self):
         pass
 
-    @staticmethod
-    def set_tr_sed(tr_sed):
-        log.Log.get_logger().debug("set_tr_sed()")
-        StructureExecDoc._treewidget_structure_execdoc = tr_sed
-
-    @staticmethod
-    def get_tr_sed() -> object:
-        log.Log.get_logger().debug("get_tr_sed() -> object")
-        return StructureExecDoc._treewidget_structure_execdoc
-
-    @staticmethod
-    def set_title_sed(title):
-        log.Log.get_logger().debug("set_title_sed()")
-        StructureExecDoc._title_sed = title
-
-    @staticmethod
-    def get_title_sed() -> object:
-        log.Log.get_logger().debug("get_title_sed()")
-        return StructureExecDoc._title_sed
-
-    @staticmethod
-    def set_nodes_to_items(nodes):
-        log.Log.get_logger().debug("set_nodes_to_items()")
-        StructureExecDoc._nodes_to_items = nodes
-
-    @staticmethod
-    def get_nodes_to_items() -> dict:
-        log.Log.get_logger().debug("get_nodes_to_items()")
-        return StructureExecDoc._nodes_to_items
 
     @staticmethod
     def connect_structureexecdoc(tr_sed, title_sed):
         """
         Подключить tr_sed к контроллеру.
         """
-        log.Log.get_logger().debug("IN connect_structureexecdoc(tr_sed, title_sed)")
-        StructureExecDoc.set_tr_sed(tr_sed)
-        StructureExecDoc.set_title_sed(title_sed)
+        log.Log.debug_logger("IN connect_structureexecdoc(tr_sed, title_sed)")
+        StructureExecDoc.__treewidget_structure_execdoc = tr_sed
+        StructureExecDoc.__title_sed = title_sed
         # Очистить при запуске
         StructureExecDoc.clear_sed()
 
         # Подключение сигналов
-        StructureExecDoc.get_tr_sed().currentItemChanged.connect(
+        StructureExecDoc.__treewidget_structure_execdoc.currentItemChanged.connect(
             lambda current: pagestemplate.PagesTemplate.update_pages_template(
                 current.get_node()
             )
@@ -78,33 +49,32 @@ class StructureExecDoc:
         """
         Очистить дерево
         """
-        log.Log.get_logger().debug("IN clear_tr_sed()")
-        StructureExecDoc.get_tr_sed().clear()
-        StructureExecDoc.get_tr_sed().setHeaderLabels([""])
-        StructureExecDoc.get_title_sed().setText("Проект не выбран")
+        log.Log.debug_logger("IN clear_tr_sed()")
+        StructureExecDoc.__treewidget_structure_execdoc.clear()
+        StructureExecDoc.__treewidget_structure_execdoc.setHeaderLabels([""])
+        StructureExecDoc.__title_sed.setText("Проект не выбран")
 
     @staticmethod
     def update_structure_exec_doc():
         """
         Создает структуру дерева ИД
         """
-        log.Log.get_logger().debug("IN update_structure_exec_doc()")
+        log.Log.debug_logger("IN update_structure_exec_doc()")
         # очистка
         StructureExecDoc.clear_sed()
         # Задать название столбца
         title = f"{project.Project.get_current_name()}"
-        StructureExecDoc.get_tr_sed().setHeaderLabels(["Проект"])
-        StructureExecDoc.get_title_sed().setText(title)
+        StructureExecDoc.__treewidget_structure_execdoc.setHeaderLabels(["Проект"])
+        StructureExecDoc.__title_sed.setText(title)
         # проход по вершинам
         StructureExecDoc.dfs(projectdatabase.Database.get_project_node())
-        
 
     @staticmethod
     def dfs(parent_node):
         """
         Проход по всем вершинам.
         """
-        log.Log.get_logger().debug(f"IN dfs(parent_node): parent_node = {parent_node}")
+        log.Log.debug_logger(f"IN dfs(parent_node): parent_node = {parent_node}")
         childs = projectdatabase.Database.get_childs(parent_node)
         if childs:
             for child in childs:
@@ -118,17 +88,17 @@ class StructureExecDoc:
         """
         Поставить item в nodes_to_items.
         """
-        log.Log.get_logger().debug(
+        log.Log.debug_logger(
             f"IN set_item_in_nodes_to_items(node): node = {node}"
         )
         item = None
         if node.get("id_parent") == 0:
-            item = MyTreeWidgetItem(StructureExecDoc.get_tr_sed(), node)
+            item = MyTreeWidgetItem(StructureExecDoc.__treewidget_structure_execdoc, node)
         else:
             item = MyTreeWidgetItem(
-                StructureExecDoc.get_nodes_to_items()[node.get("id_parent")], node
+                StructureExecDoc.__nodes_to_items[node.get("id_parent")], node
             )
         item.setText(0, node.get("name_node"))
         # С галочкой по умолчанию
         item.setCheckState(0, Qt.Checked)
-        StructureExecDoc.get_nodes_to_items()[node.get("id_node")] = item
+        StructureExecDoc.__nodes_to_items[node.get("id_node")] = item

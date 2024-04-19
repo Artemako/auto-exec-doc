@@ -7,18 +7,15 @@ import package.modules.dirpathsmanager as dirpathsmanager
 
 
 class Log:
-    _logger = Logger()
+    __logger = Logger()
 
     def __init__(self):
         pass
 
-    @staticmethod
-    def get_logger():
-        return Log._logger
 
     @staticmethod
     def config_logger():
-        Log.get_logger().configure(
+        Log.__logger.configure(
             name="Main logger",
             log_folder=os.path.join(
                 dirpathsmanager.DirPathManager.get_logs_dirpath(),
@@ -31,22 +28,22 @@ class Log:
 
     @staticmethod
     def debug_logger(message: str):
-        Log.get_logger().debug(message)
+        Log.__logger.debug(message)
 
     @staticmethod
     def info_logger(message: str):
-        Log.get_logger().info(message)
+        Log.__logger.info(message)
 
     @staticmethod
     def warning_logger(message: str):
-        Log.get_logger().warning(message)
+        Log.__logger.warning(message)
 
     @staticmethod
     def error_logger(message: str):
-        Log.get_logger().error(message)
+        Log.__logger.error(message)
 
     @staticmethod
     def critical_logger(message: str):
-        Log.get_logger().critical(message)
+        Log.__logger.critical(message)
 
     # TODO Действие очистить логи
