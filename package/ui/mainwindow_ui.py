@@ -16,14 +16,13 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
+from PySide6.QtPdfWidgets import QPdfView
 from PySide6.QtWidgets import (QApplication, QGroupBox, QHBoxLayout, QHeaderView,
     QLabel, QListWidget, QListWidgetItem, QMainWindow,
     QMenu, QMenuBar, QPushButton, QScrollArea,
     QSizePolicy, QSplitter, QStatusBar, QTabWidget,
     QToolBar, QTreeWidget, QTreeWidgetItem, QVBoxLayout,
     QWidget)
-
-from package.components.pdfwidget import PdfWidget
 import resources_rc
 
 class Ui_MainWindow(object):
@@ -146,6 +145,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addWidget(self.title_pages_template)
 
         self.listwidget_pages_template = QListWidget(self.tab_pages_template)
+        __qlistwidgetitem = QListWidgetItem(self.listwidget_pages_template)
+        __qlistwidgetitem.setCheckState(Qt.Checked);
+        __qlistwidgetitem1 = QListWidgetItem(self.listwidget_pages_template)
+        __qlistwidgetitem1.setCheckState(Qt.Checked);
         self.listwidget_pages_template.setObjectName(u"listwidget_pages_template")
 
         self.verticalLayout_3.addWidget(self.listwidget_pages_template)
@@ -165,11 +168,11 @@ class Ui_MainWindow(object):
         self.gb_center.setMinimumSize(QSize(350, 0))
         self.horizontalLayout = QHBoxLayout(self.gb_center)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.pdfwidget = PdfWidget(self.gb_center)
-        self.pdfwidget.setObjectName(u"pdfwidget")
-        self.pdfwidget.setStyleSheet(u"background-color: rgb(255, 170, 0);")
+        self.widget_pdf_view = QPdfView(self.gb_center)
+        self.widget_pdf_view.setObjectName(u"widget_pdf_view")
+        self.widget_pdf_view.setStyleSheet(u"background-color: rgb(255, 170, 0);")
 
-        self.horizontalLayout.addWidget(self.pdfwidget)
+        self.horizontalLayout.addWidget(self.widget_pdf_view)
 
         self.splitter.addWidget(self.gb_center)
         self.gb_right = QGroupBox(self.splitter)
@@ -285,6 +288,15 @@ class Ui_MainWindow(object):
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043d\u043e\u043f\u043a\u0430 \u0434\u043b\u044f \u0447\u0435\u0433\u043e-\u0442\u043e", None))
         self.tabwidget.setTabText(self.tabwidget.indexOf(self.tab_structure_execdoc), QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0441\u0442\u0430\u0432 \u0418\u0414", None))
         self.title_pages_template.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0448\u0430\u0431\u043b\u043e\u043d\u0430.", None))
+
+        __sortingEnabled1 = self.listwidget_pages_template.isSortingEnabled()
+        self.listwidget_pages_template.setSortingEnabled(False)
+        ___qlistwidgetitem = self.listwidget_pages_template.item(0)
+        ___qlistwidgetitem.setText(QCoreApplication.translate("MainWindow", u"\u041b\u0438\u0441\u0442 1", None));
+        ___qlistwidgetitem1 = self.listwidget_pages_template.item(1)
+        ___qlistwidgetitem1.setText(QCoreApplication.translate("MainWindow", u"\u041b\u0438\u0441\u0442 2", None));
+        self.listwidget_pages_template.setSortingEnabled(__sortingEnabled1)
+
         self.tabwidget.setTabText(self.tabwidget.indexOf(self.tab_pages_template), QCoreApplication.translate("MainWindow", u"\u0421\u0442\u0440\u0430\u043d\u0438\u0446\u044b \u0448\u0430\u0431\u043b\u043e\u043d\u0430", None))
         self.gb_center.setTitle(QCoreApplication.translate("MainWindow", u"\u0422\u0435\u043a\u0443\u0449\u0438\u0439 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442", None))
         self.gb_right.setTitle(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u043e\u0434 ", None))

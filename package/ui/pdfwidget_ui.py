@@ -22,13 +22,13 @@ class Ui_PdfWidget(object):
     def setupUi(self, PdfWidget):
         if not PdfWidget.objectName():
             PdfWidget.setObjectName(u"PdfWidget")
-        PdfWidget.resize(151, 84)
+        PdfWidget.resize(300, 240)
         self.horizontalLayout = QHBoxLayout(PdfWidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.view = QPdfView(PdfWidget)
-        self.view.setObjectName(u"view")
+        self.pdf_view = QPdfView(PdfWidget)
+        self.pdf_view.setObjectName(u"pdf_view")
 
-        self.horizontalLayout.addWidget(self.view)
+        self.horizontalLayout.addWidget(self.pdf_view)
 
 
         self.retranslateUi(PdfWidget)

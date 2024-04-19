@@ -9,6 +9,7 @@ import package.controllers.structureexecdoc as structureexecdoc
 import package.controllers.pagestemplate as pagestemplate
 import package.controllers.scrollareainput as scrollareainput
 import package.controllers.statusbar as statusbar
+import package.controllers.pdfview as pdfview
 
 
 class MainWindow(QMainWindow):
@@ -22,6 +23,8 @@ class MainWindow(QMainWindow):
         # подключаем глобальные действия
         # Подключаем действия
         self.connecting_actions()
+
+
 
     def config_controllers(self):
         """
@@ -42,6 +45,8 @@ class MainWindow(QMainWindow):
         scrollareainput.ScroolAreaInput.connect_inputforms(
             self.ui.scrollarea_inputforms, self.ui.scrollarea_inputforms_layout
         )
+        # ПОДКЛЮЧИТЬ PDF
+        pdfview.PdfView.connect_pdfview(self.ui.widget_pdf_view)
 
     def connecting_actions(self):
         """
@@ -51,12 +56,12 @@ class MainWindow(QMainWindow):
         self.ui.action_new.triggered.connect(lambda: project.Project.new_project())
         self.ui.action_open.triggered.connect(lambda: project.Project.open_project())
         # TODO Добавить активности для сохранения
-        self.ui.action_save.triggered.connect(lambda: project.Project.save_project())
+        # self.ui.action_save.triggered.connect(lambda: project.Project.save_project())
         # self.ui.action_saveas.triggered.connect()
-        self.ui.action_zoomin.triggered.connect(lambda: self.ui.pdfwidget.zoom_in())
-        self.ui.action_zoomout.triggered.connect(lambda: self.ui.pdfwidget.zoom_out())
+        self.ui.action_zoomin.triggered.connect(lambda: pdfview.PdfView.zoom_in())
+        self.ui.action_zoomout.triggered.connect(lambda: pdfview.PdfView.zoom_out())
         self.ui.action_zoomfitpage.triggered.connect(
-            lambda: self.ui.pdfwidget.set_zoom_to_fit_view()
-            if self.ui.action_zoomfitpage.isChecked()
-            else self.ui.pdfwidget.set_zoom_custom()
+            lambda checked: pdfview.PdfView.set_zoom_to_fit_width()
+            if checked
+            else pdfview.PdfView.set_zoom_custom()
         )

@@ -183,7 +183,7 @@
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="PdfWidget" name="pdfwidget" native="true">
+         <widget class="QPdfView" name="widget_pdf_view" native="true">
           <property name="styleSheet">
            <string notr="true">background-color: rgb(255, 170, 0);</string>
           </property>
@@ -399,9 +399,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>PdfWidget</class>
+   <class>QPdfView</class>
    <extends>QWidget</extends>
-   <header>package/components/pdfwidget</header>
+   <header>PySide6/QtPdfWidgets</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
