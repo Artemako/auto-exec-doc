@@ -96,15 +96,17 @@ class ScroolAreaInput:
         section = customsection.Section()
         section_layout = QVBoxLayout()
         for key, value in data.items():
-            config_content = projectdatabase.Database.get_content_config(key)
+            config_content = projectdatabase.Database.get_config_content(key)
             # print(f"config_content = {config_content}")
+            id_content = config_content.get("id_content")
             type_content = config_content.get("type_content")
             if type_content == "TEXT":
                 item = formtext.FormText(config_content, value)
                 section_layout.addWidget(item)
             # TODO добавить остальные типы форм
-            # elif type_content == "DATE":
-            #     item = formdate.FormDate(config_content, value)
+            elif type_content == "DATE":
+                config_date = projectdatabase.Database.get_config_date(id_content)
+                item = formdate.FormDate(config_content, config_date, value)
             # elif type_content == "IMAGE":
             #     item = formimage.FormImage(config_content, value)
             # elif type_content == "TABLE":

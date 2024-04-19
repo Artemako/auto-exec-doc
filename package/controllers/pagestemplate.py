@@ -74,5 +74,5 @@ class PagesTemplate:
         for page in pages:
             item = MyListWidgetItem(page)
             item.setText(page.get("name_page"))
-            item.setCheckState(Qt.Checked)
             PagesTemplate.__listwidget_pages_template.addItem(item)
+

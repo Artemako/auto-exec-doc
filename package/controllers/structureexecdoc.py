@@ -25,7 +25,6 @@ class StructureExecDoc:
     def __init__(self):
         pass
 
-
     @staticmethod
     def connect_structureexecdoc(tr_sed, title_sed):
         """
@@ -43,6 +42,21 @@ class StructureExecDoc:
                 current.get_node()
             )
         )
+        StructureExecDoc.__treewidget_structure_execdoc.itemChanged.connect(
+            lambda item: StructureExecDoc.item_changed(item)
+        )
+
+    @staticmethod
+    def item_changed(item):
+        node = item.get_node()
+        state = item.checkState(0) == Qt.Checked
+        StructureExecDoc.set_state_included_for_child(
+                node,
+                item.checkState(0) == Qt.Checked
+            )
+        projectdatabase.Database.set_included_for_node(node, state)
+
+
 
     @staticmethod
     def clear_sed():
@@ -88,12 +102,12 @@ class StructureExecDoc:
         """
         Поставить item в nodes_to_items.
         """
-        log.Log.debug_logger(
-            f"IN set_item_in_nodes_to_items(node): node = {node}"
-        )
+        log.Log.debug_logger(f"IN set_item_in_nodes_to_items(node): node = {node}")
         item = None
         if node.get("id_parent") == 0:
-            item = MyTreeWidgetItem(StructureExecDoc.__treewidget_structure_execdoc, node)
+            item = MyTreeWidgetItem(
+                StructureExecDoc.__treewidget_structure_execdoc, node
+            )
         else:
             item = MyTreeWidgetItem(
                 StructureExecDoc.__nodes_to_items[node.get("id_parent")], node
@@ -102,3 +116,16 @@ class StructureExecDoc:
         # С галочкой по умолчанию
         item.setCheckState(0, Qt.Checked)
         StructureExecDoc.__nodes_to_items[node.get("id_node")] = item
+
+
+    @staticmethod
+    def set_state_included_for_child(node, state):
+        log.Log.debug_logger(f"IN set_state_included_for_childs(node, state): node = {node}, state = {state}")
+        item = StructureExecDoc.__nodes_to_items.get(node.get("id_node"))
+        if item:
+            item.setCheckState(0, Qt.Checked if state else Qt.Unchecked)
+
+            childs = projectdatabase.Database.get_childs(node)
+            if childs:
+                for child in childs:
+                    StructureExecDoc.set_state_included_for_child(child, state)

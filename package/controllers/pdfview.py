@@ -24,7 +24,7 @@ class PdfView:
         PdfView.__widget_pdf_view = widget
         PdfView.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.Custom)
 
-        PdfView.view_test_pdf()
+        #PdfView.view_test_pdf()
 
     @staticmethod
     def zoom_in():
