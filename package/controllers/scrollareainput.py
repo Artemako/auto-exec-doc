@@ -20,6 +20,7 @@ class ScroolAreaInput:
     _scrollarea_input = None
     _scrollarea_input_layout = None
 
+    _data = dict()
 
     def __init__(self):
         pass
@@ -42,27 +43,27 @@ class ScroolAreaInput:
         return ScroolAreaInput._scrollarea_input_layout
 
     @staticmethod
+    def get_data() -> object:
+        log.Log.debug_logger("get_data() -> object")
+        return ScroolAreaInput._data
+
+    @staticmethod
+    def set_data(data):
+        log.Log.debug_logger("set_data(data)")
+        ScroolAreaInput._data = data
+
+    @staticmethod
+    def clear_data():
+        log.Log.debug_logger("clear_data()")
+        ScroolAreaInput._data = dict()
+
+    @staticmethod
     def connect_inputforms(sa_if, sa_ifl):
         """
         Подключить _scrollarea_input и _scrollarea_input_contents
         """
         log.Log.debug_logger("IN connect_pages_template(sa_if, sa_ifl)")
         ScroolAreaInput.set_sa(sa_if, sa_ifl)
-
-        # TODO Шаблон-черновик
-        # ScroolAreaInput.add_widget_in_sa(QLabel("Пока нет ни одного шаблона"))
-        # ScroolAreaInput.add_widget_in_sa(QLabel("Нет ни одного шаблона"))
-        # ScroolAreaInput.add_widget_in_sa(QLabel("Точно нет ни одного шаблона"))
-
-        # ScroolAreaInput.delete_all_widgets_in_sa()
-
-        # section = customsection.Section("Section")
-        # anyLayout = QVBoxLayout()
-        # anyLayout.addWidget(QLabel("Some Text in Section", section))
-        # anyLayout.addWidget(QPushButton("Button in Section", section))
-        # section.setContentLayout(anyLayout)
-
-        # ScroolAreaInput.get_sa_ifl().layout().addWidget(section)
 
     @staticmethod
     def delete_all_widgets_in_sa():
@@ -82,13 +83,22 @@ class ScroolAreaInput:
                 del item
 
     @staticmethod
+    def save_data():
+        """
+        Cохранение _data
+        """
+        log.Log.debug_logger("IN save_data()")
+        # TODO Сделать сохранение
+
+    @staticmethod
     def update_scrollarea(page):
         """
         Обновление ScroolAreaInput
         """
         log.Log.debug_logger("IN update_scrollarea()")
-        
+
         ScroolAreaInput.delete_all_widgets_in_sa()
+        ScroolAreaInput.clear_data()
 
         parent_node = projectdatabase.Database.get_node_parent_from_pages(page)
         folder_form = parent_node.get("folder_form")
@@ -103,39 +113,31 @@ class ScroolAreaInput:
             )
         )
         # получаем данные с json
+        # TODO Подумать про _data
         data = jsonmanager.JsonManager.get_data_from_json_file(json_dirpath)
+        ScroolAreaInput.set_data(data)
 
         section = customsection.Section()
         section_layout = QVBoxLayout()
         for key, value in data.items():
             config_content = projectdatabase.Database.get_content_config(key)
-            #print(f"config_content = {config_content}")
+            # print(f"config_content = {config_content}")
             type_content = config_content.get("type_content")
             if type_content == "TEXT":
                 item = formtext.FormText(config_content, value)
                 section_layout.addWidget(item)
+            # TODO добавить остальные типы форм
             # elif type_content == "DATE":
             #     item = formdate.FormDate(config_content, value)
             # elif type_content == "IMAGE":
             #     item = formimage.FormImage(config_content, value)
             # elif type_content == "TABLE":
             #     item = formtable.FormTable(config_content, value)
-            
-        
 
         section.setContentLayout(section_layout)
 
         ScroolAreaInput.get_sa_ifl().layout().addWidget(section)
 
-        ScroolAreaInput.get_sa_ifl().layout().addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
-                
-        
-
-
-
-
-        
-
-
-        
-
+        ScroolAreaInput.get_sa_ifl().layout().addItem(
+            QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        )

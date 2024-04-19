@@ -14,6 +14,7 @@ import package.controllers.statusbar as statusbar
 class MainWindow(QMainWindow):
     _statusbar = None
 
+
     def __init__(self):
         super(MainWindow, self).__init__()
         self.ui = mainwindow_ui.Ui_MainWindow()
@@ -21,6 +22,7 @@ class MainWindow(QMainWindow):
 
         # настройка контроллеров
         self.config_controllers()
+        # подключаем глобальные действия
         # Подключаем действия
         self.connecting_actions()
 
@@ -52,7 +54,7 @@ class MainWindow(QMainWindow):
         self.ui.action_new.triggered.connect(lambda: project.Project.new_project())
         self.ui.action_open.triggered.connect(lambda: project.Project.open_project())
         # TODO Добавить активности для сохранения
-        # self.ui.action_save.triggered.connect()
+        self.ui.action_save.triggered.connect(lambda: project.Project.save_project())
         # self.ui.action_saveas.triggered.connect()
         self.ui.action_zoomin.triggered.connect(lambda: self.ui.pdfwidget.zoom_in())
         self.ui.action_zoomout.triggered.connect(lambda: self.ui.pdfwidget.zoom_out())

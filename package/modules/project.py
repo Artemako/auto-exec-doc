@@ -1,7 +1,7 @@
 import os
 
 import package.components.dialogwindows as dialogwindows
-import package.controllers.statusbar as statusbar
+
 
 import package.modules.settingsdatabase as settingsdatabase
 import package.modules.projectdatabase as projectdatabase
@@ -9,8 +9,11 @@ import package.modules.log as log
 import package.modules.filefoldermanager as filefoldermanager
 import package.modules.dirpathsmanager as dirpathsmanager
 
+import package.controllers.scrollareainput as scrollareainput
+
 import package.controllers.structureexecdoc as structureexecdoc
 import package.controllers.pagestemplate as pagestemplate
+import package.controllers.statusbar as statusbar
 
 
 class Project:
@@ -150,7 +153,10 @@ class Project:
         Сохранение проекта.
         """
         log.Log.debug_logger("IN save_project()")
-        Project.set_status_save(True)
+        # TODO Сделать сохранение проекта
+        if Project.is_active_status():
+            scrollareainput.ScroolAreaInput.save_data()
+            Project.set_status_save(True)
 
     @staticmethod
     def open_project():
@@ -201,9 +207,4 @@ class Project:
         Project.set_status_active(True)
         Project.set_status_save(True)
 
-    @staticmethod
-    def save_project():
-        log.Log.debug_logger("IN save_project()")
-        # TODO Сделать сохранение проекта
-        Project.set_status_save(True)
-        return
+
