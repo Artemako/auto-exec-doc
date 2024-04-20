@@ -36,7 +36,6 @@ class FileFolderManager:
         if not os.path.exists(forms_folder_dirpath):
             os.mkdir(forms_folder_dirpath)
 
-
         temp_folder_dirpath = os.path.join(
             dirpathsmanager.DirPathManager.get_project_dirpath(), "temp"
         )
@@ -74,13 +73,20 @@ class FileFolderManager:
             )
 
     @staticmethod
-    def move_image_to_temp(image_dirpath, name):
+    def move_image_to_temp(image_dirpath, file_name_with_extension):
         """
         Перемещение изображения в папку temp.
         """
-        log.Log.debug_logger(f"IN move_image_to_temp(image_dirpath, name): image_dirpath = {image_dirpath}, name = {name}")
-        file_name = f"{name}{os.path.splitext(image_dirpath)[1]}"
-        shutil.copy2(image_dirpath, os.path.join(dirpathsmanager.DirPathManager.get_project_dirpath(), "temp", file_name))
+        log.Log.debug_logger(
+            f"IN move_image_to_temp(image_dirpath, file_name_with_extension): image_dirpath = {image_dirpath}, file_name_with_extension = {file_name_with_extension}"
+        )
+        
+        shutil.copy2(
+            image_dirpath,
+            os.path.join(
+                dirpathsmanager.DirPathManager.get_project_dirpath(), "temp", file_name_with_extension
+            ),
+        )
 
     @staticmethod
     def clear_temp_folder():
@@ -94,3 +100,19 @@ class FileFolderManager:
         if os.path.exists(temp_folder_dirpath):
             shutil.rmtree(temp_folder_dirpath)
         os.makedirs(temp_folder_dirpath)
+
+    @staticmethod
+    def move_from_temp_to_project(json_dirpath, file_name_with_extension):
+        """
+        Перемещение изображения из папки temp в папку проекта.
+        """
+        
+        log.Log.debug_logger(
+            f"IN move_from_temp_to_project(json_dirpath, file_name_with_extension): json_dirpath = {json_dirpath}, file_name_with_extension = {file_name_with_extension}"
+        )
+        shutil.move(
+            os.path.join(
+                dirpathsmanager.DirPathManager.get_project_dirpath(), "temp", file_name_with_extension
+            ),
+            os.path.dirname(json_dirpath)
+        )

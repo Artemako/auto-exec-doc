@@ -65,12 +65,27 @@ class ScroolAreaInput:
         Cохранение _data
         """
         log.Log.debug_logger("IN save_data()")
-        # TODO Сделать сохранение
-
-        for section in ScroolAreaInput.__sections_info:
+        # сохранение data
+        for sections_info in ScroolAreaInput.__sections_info:
             jsonmanager.JsonManager.save_data_to_json_file(
-                section.get("json_dirpath"), section.get("data")
+                sections_info.get("json_dirpath"), sections_info.get("data")
             )
+        # сохранение изображений
+        sections_info = ScroolAreaInput.__sections_info
+        for section_index, section_info in enumerate(sections_info):
+            section_data = section_info.get("data")
+            for key, value in section_data.items():
+                config_content = projectdatabase.Database.get_config_content(key)
+                type_content = config_content.get("type_content")
+                if type_content == "IMAGE":
+                    # TODO НЕ ТОТ DIRPATH
+                    filefoldermanager.FileFolderManager.move_from_temp_to_project(
+                        section_info.get("json_dirpath"),
+                        section_data[config_content.get("name_content")]
+                    )
+
+
+
 
     @staticmethod
     def add_page_for_info_sections(page):

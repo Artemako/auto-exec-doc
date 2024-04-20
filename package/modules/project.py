@@ -155,6 +155,7 @@ class Project:
         projectdatabase.Database.create_and_config_db_project()
         # настраиваем структуру execdoc
         structureexecdoc.StructureExecDoc.update_structure_exec_doc()
+
         Project.set_true_actives_project()
         # сообщение для статусбара
         statusbar.StatusBar.set_message_for_statusbar(

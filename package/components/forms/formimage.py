@@ -59,10 +59,12 @@ class FormImage(QWidget):
         )
         if image_dirpath:
             self.ui.label.setText(os.path.basename(image_dirpath))  
+            
+            file_name_with_extension = f"""{config_content.get("name_content")}{os.path.splitext(image_dirpath)[1]}"""
 
-            filefoldermanager.FileFolderManager.move_image_to_temp(image_dirpath, config_content.get("name_content"))
+            filefoldermanager.FileFolderManager.move_image_to_temp(image_dirpath, file_name_with_extension)
 
             sections_info = scrollareainput.ScroolAreaInput.get_sections_info()
             section_info = sections_info[self.section_index]
             section_data = section_info.get("data")
-            section_data[config_content.get("name_content")] = True
+            section_data[config_content.get("name_content")] = file_name_with_extension
