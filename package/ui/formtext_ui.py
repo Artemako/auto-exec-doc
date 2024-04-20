@@ -22,7 +22,12 @@ class Ui_FormTextWidget(object):
     def setupUi(self, FormTextWidget):
         if not FormTextWidget.objectName():
             FormTextWidget.setObjectName(u"FormTextWidget")
-        FormTextWidget.resize(439, 139)
+        FormTextWidget.resize(460, 139)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(FormTextWidget.sizePolicy().hasHeightForWidth())
+        FormTextWidget.setSizePolicy(sizePolicy)
         FormTextWidget.setMaximumSize(QSize(16777215, 16777215))
         self.horizontalLayout = QHBoxLayout(FormTextWidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -34,6 +39,7 @@ class Ui_FormTextWidget(object):
         self.title.setMaximumSize(QSize(16777215, 16))
         self.title.setStyleSheet(u"font-weight: bold;")
         self.title.setTextFormat(Qt.AutoText)
+        self.title.setScaledContents(False)
 
         self.verticalLayout.addWidget(self.title)
 

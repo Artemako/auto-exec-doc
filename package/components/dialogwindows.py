@@ -87,3 +87,27 @@ class DialogWindows:
             else:
                 log.Log.debug_logger(f"select_folder_for_open_project() -> {None}")
                 return None
+
+
+    @staticmethod
+    def select_image_for_formimage_in_project() -> str:
+        """Диалоговое окно выбора изображения для формы."""
+
+        log.Log.debug_logger("IN select_image_for_formimage_in_project() -> str")
+        while True:
+            image_path = QFileDialog.getOpenFileName(
+                None,
+                "Выбор изображения",
+                dirpathsmanager.DirPathManager.get_default_folder_projects_dirpath(),
+                "Изображения (*.png *.jpg *.jpeg)",
+            )
+            if image_path[0]:
+                log.Log.debug_logger(
+                    f"select_image_for_formimage_in_project() -> {image_path[0]}"
+                )
+                return image_path[0]
+            else:
+                log.Log.debug_logger(
+                    f"select_image_for_formimage_in_project() -> {None}"
+                )
+                return None

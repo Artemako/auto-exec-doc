@@ -9,6 +9,8 @@ import package.modules.log as log
 
 class FormText(QWidget):
     def __init__(self, section_index, config_content, value):
+        log.Log.debug_logger(f"FormText(self, section_index, config_content, value): section_index = {section_index}, config_content = {config_content}, value = {value}")
+        
         super(FormText, self).__init__()
         self.ui = formtext_ui.Ui_FormTextWidget()
         self.ui.setupUi(self)
@@ -22,7 +24,7 @@ class FormText(QWidget):
         # описание
         description_content = config_content['description_content'] 
         if description_content:
-            self.ui.textbrowser.setHtml(config_content['description_content'])
+            self.ui.textbrowser.setHtml(description_content)
         else:
             self.ui.textbrowser.hide()
 

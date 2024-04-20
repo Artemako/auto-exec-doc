@@ -32,6 +32,11 @@ class FileFolderManager:
         forms_folder_dirpath = os.path.join(
             dirpathsmanager.DirPathManager.get_project_dirpath(), "forms"
         )
+
+        if not os.path.exists(forms_folder_dirpath):
+            os.mkdir(forms_folder_dirpath)
+
+        # путь к папке с шаблонами
         templates_dirpath = dirpathsmanager.DirPathManager.get_templates_dirpath()
 
         # все формы и json_content из templates_dirpath

@@ -10,6 +10,8 @@ import package.modules.log as log
 
 class FormDate(QWidget):
     def __init__(self, section_index, config_content, config_date, value):
+        log.Log.debug_logger( f"FormDate(self, section_index, config_content, config_date, value): section_index = {section_index}, config_content = {config_content}, config_date = {config_date}, value = {value}" )
+        
         super(FormDate, self).__init__()
         self.ui = formdate_ui.Ui_FormDateWidget()
         self.ui.setupUi(self)
@@ -20,10 +22,15 @@ class FormDate(QWidget):
         # заголовок
         self.ui.title.setText(config_content["title_content"])
         # поле ввода
-        self.ui.dateedit.setDateTime(QDateTime.currentDateTime())
+        self.ui.dateedit.setDateTime(value if value else QDateTime.currentDateTime())
         self.ui.dateedit.setDisplayFormat("dd.MM.yyyy")
         # описание
-        self.ui.textbrowser.hide()
+        description_content = config_content['description_content'] 
+        if description_content:
+            self.ui.textbrowser.setHtml(description_content)
+        else:
+            self.ui.textbrowser.hide()
+
 
         # ОСОБЕННОСТИ из config_date
         for config in config_date:

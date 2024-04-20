@@ -47,23 +47,23 @@ class Ui_FormImageWidget(object):
 
         self.verticalLayout.addWidget(self.label)
 
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.scale_layout = QHBoxLayout()
+        self.scale_layout.setObjectName(u"scale_layout")
         self.percent_label = QLabel(FormImageWidget)
         self.percent_label.setObjectName(u"percent_label")
         self.percent_label.setMaximumSize(QSize(60, 16777215))
 
-        self.horizontalLayout.addWidget(self.percent_label)
+        self.scale_layout.addWidget(self.percent_label)
 
         self.percent_spinbox = QDoubleSpinBox(FormImageWidget)
         self.percent_spinbox.setObjectName(u"percent_spinbox")
         self.percent_spinbox.setMaximum(500.000000000000000)
         self.percent_spinbox.setValue(100.000000000000000)
 
-        self.horizontalLayout.addWidget(self.percent_spinbox)
+        self.scale_layout.addWidget(self.percent_spinbox)
 
 
-        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.verticalLayout.addLayout(self.scale_layout)
 
         self.textbrowser = QTextBrowser(FormImageWidget)
         self.textbrowser.setObjectName(u"textbrowser")

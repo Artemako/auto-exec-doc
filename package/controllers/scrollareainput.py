@@ -147,6 +147,9 @@ class ScroolAreaInput:
 
     @staticmethod
     def add_sections_in_sa():
+        """ """
+        log.Log.debug_logger("IN add_sections_in_sa()")
+
         sections_info = ScroolAreaInput.__sections_info
         for section_index, section_info in enumerate(sections_info):
             # перебор секций
@@ -159,12 +162,13 @@ class ScroolAreaInput:
 
             section = customsection.Section(section_name)
             section_layout = QVBoxLayout()
-
+            print(f"section_data = {section_data}")
             for key, value in section_data.items():
                 # перебор ключа и значения в config_content секции
                 config_content = projectdatabase.Database.get_config_content(key)
                 type_content = config_content.get("type_content")
                 id_content = config_content.get("id_content")
+                print(config_content, type_content, id_content)
                 if type_content == "TEXT":
                     item = formtext.FormText(section_index, config_content, value)
                     section_layout.addWidget(item)
@@ -176,9 +180,10 @@ class ScroolAreaInput:
                     )
                     section_layout.addWidget(item)
 
-                # elif type_content == "IMAGE":
-                #     config_table = projectdatabase.Database.get_config_table(id_content)
-                #     item = formimage.FormImage(section_index, config_content, config_table, value)
+                elif type_content == "IMAGE":
+                    config_image = []
+                    item = formimage.FormImage(section_index, config_content, config_image, value)
+                    section_layout.addWidget(item)
 
                 # elif type_content == "TABLE":
                 #     item = formtable.FormTable(section_index, config_content, value)
