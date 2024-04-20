@@ -130,6 +130,8 @@ INSERT INTO "Project_content_config_table" VALUES (505,1220,'CONTENT','длин�
 INSERT INTO "Project_content_config_table" VALUES (506,1220,'CONTENT','длина_опт',NULL);
 INSERT INTO "Project_content_config_table" VALUES (507,1220,'CONTENT','инфо',NULL);
 INSERT INTO "Project_content_config_date" VALUES (100,1208,'FORMAT','yyyy',NULL);
+INSERT INTO "Project_content_config_date" VALUES (101,1227,'FORMAT','yyyy',NULL);
+INSERT INTO "Project_content_config_date" VALUES (102,1228,'FORMAT','yyyy',NULL);
 INSERT INTO "Project_content_config_list" VALUES (1000,'организационно_правовая_форма','TEXT','Организационно-правовая форма',NULL,NULL);
 INSERT INTO "Project_content_config_list" VALUES (1001,'название_компании','TEXT','Название компании',NULL,NULL);
 INSERT INTO "Project_content_config_list" VALUES (1002,'адрес_компании','TEXT','Адрес компании',NULL,NULL);
@@ -152,19 +154,18 @@ INSERT INTO "Project_content_config_list" VALUES (1209,'пт_опись_доку
 INSERT INTO "Project_content_config_list" VALUES (1220,'кабеля','TABLE','Кабеля.',NULL,NULL);
 INSERT INTO "Project_content_config_list" VALUES (1225,'общая_физ_длина','TEXT','Общая физическая длина',NULL,NULL);
 INSERT INTO "Project_content_config_list" VALUES (1226,'общая_опт_длина','TEXT','Общая оптическая длина',NULL,NULL);
-INSERT INTO "Project_content_config_list" VALUES (1227,'год_прокладки_кабеля','TEXT','Год прокладки кабеля',NULL,NULL);
-INSERT INTO "Project_content_config_list" VALUES (1228,'год_составления_паспорта','TEXT','Год составления паспорта',NULL,NULL);
+INSERT INTO "Project_content_config_list" VALUES (1227,'год_прокладки_кабеля','DATE','Год прокладки кабеля',NULL,NULL);
+INSERT INTO "Project_content_config_list" VALUES (1228,'год_составления_паспорта','DATE','Год составления паспорта',NULL,NULL);
 INSERT INTO "Project_content_config_list" VALUES (1229,'отв_пред_орг_фио ','TEXT','ФИО ответственного представителя организации',NULL,NULL);
 INSERT INTO "Project_content_config_list" VALUES (1230,'скелетная_схема_ВОЛП','IMAGE','Скелетная схема ВОЛП',NULL,NULL);
 INSERT INTO "Project_structure_of_nodes" VALUES (0,'Проект',NULL,'0','PROJECT',NULL,NULL,'project',NULL);
-INSERT INTO "Project_structure_of_nodes" VALUES (10,'Титульный лист',0,'1','FORM','main','1-ТЛ','1-ТЛ',NULL);
-INSERT INTO "Project_structure_of_nodes" VALUES (11,'Реестр документации',0,'2','FORM','main','2-РД','2-РД',NULL);
-INSERT INTO "Project_structure_of_nodes" VALUES (12,'Паспорт трассы',0,'3','GROUP',NULL,NULL,NULL,NULL);
-INSERT INTO "Project_structure_of_nodes" VALUES (1201,'ПТ-1',12,'1','FORM','main','3-ПТ1','3-ПТ1',NULL);
-INSERT INTO "Project_structure_of_nodes" VALUES (1202,'ПТ-2',12,'2','FORM','main','3-ПТ2','3-ПТ2',NULL);
-INSERT INTO "Project_structure_of_nodes" VALUES (1203,'ПТ-3',12,'3','FORM','main','3-ПТ3','3-ПТ3',NULL);
+INSERT INTO "Project_structure_of_nodes" VALUES (10,'Титульный лист',0,'1','FORM','main','1-ТЛ','1-ТЛ','1');
+INSERT INTO "Project_structure_of_nodes" VALUES (11,'Реестр документации',0,'2','FORM','main','2-РД',NULL,'1');
+INSERT INTO "Project_structure_of_nodes" VALUES (12,'Паспорт трассы',0,'3','GROUP',NULL,NULL,NULL,'1');
+INSERT INTO "Project_structure_of_nodes" VALUES (1201,'ПТ-1',12,'1','FORM','main','3-ПТ1',NULL,'1');
+INSERT INTO "Project_structure_of_nodes" VALUES (1202,'ПТ-2',12,'2','FORM','main','3-ПТ2',NULL,'1');
+INSERT INTO "Project_structure_of_nodes" VALUES (1203,'ПТ-3',12,'3','FORM','main','3-ПТ3',NULL,'1');
 COMMIT;
-
 
             """
         )

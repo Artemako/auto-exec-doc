@@ -90,15 +90,18 @@ class ScroolAreaInput:
             )
         )
 
-        data = jsonmanager.JsonManager.get_data_from_json_file(json_dirpath)
-        section = {
-            "type": "page",
-            "id_page": id_page,
-            "name_page": name_page,
-            "json_dirpath": json_dirpath,
-            "data": data,
-        }
-        ScroolAreaInput.__sections_info.append(section)
+        try:
+            data = jsonmanager.JsonManager.get_data_from_json_file(json_dirpath)
+            section = {
+                "type": "page",
+                "id_page": id_page,
+                "name_page": name_page,
+                "json_dirpath": json_dirpath,
+                "data": data,
+            }
+            ScroolAreaInput.__sections_info.append(section)
+        except FileNotFoundError:
+                log.Log.error_logger(f"FileNotFoundError: json_dirpath = {json_dirpath}")
 
     @staticmethod
     def add_node_for_datas(node):
@@ -116,15 +119,18 @@ class ScroolAreaInput:
                     f"{name_json}.json",
                 )
             )
-            data = jsonmanager.JsonManager.get_data_from_json_file(json_dirpath)
-            section = {
-                "type": "node",
-                "id_node": id_node,
-                "name_node": name_node,
-                "json_dirpath": json_dirpath,
-                "data": data,
-            }
-            ScroolAreaInput.__sections_info.append(section)
+            try:
+                data = jsonmanager.JsonManager.get_data_from_json_file(json_dirpath)
+                section = {
+                    "type": "node",
+                    "id_node": id_node,
+                    "name_node": name_node,
+                    "json_dirpath": json_dirpath,
+                    "data": data,
+                }
+                ScroolAreaInput.__sections_info.append(section)
+            except FileNotFoundError:
+                log.Log.error_logger(f"FileNotFoundError: json_dirpath = {json_dirpath}")
 
     @staticmethod
     def add_nodes_for_info_sections(page):
@@ -134,10 +140,9 @@ class ScroolAreaInput:
         parent_node = projectdatabase.Database.get_node_parent_from_pages(page)
         flag = True
         while flag:
+            ScroolAreaInput.add_node_for_datas(parent_node)
             parent_node = projectdatabase.Database.get_node_parent(parent_node)
-            if parent_node:
-                ScroolAreaInput.add_node_for_datas(parent_node)
-            else:
+            if not parent_node:
                 flag = False
 
     @staticmethod
@@ -145,8 +150,6 @@ class ScroolAreaInput:
         sections_info = ScroolAreaInput.__sections_info
         for section_index, section_info in enumerate(sections_info):
             # перебор секций
-            #print(section_index, section_info)
-
             section_type = section_info.get("type")
             if section_type == "page":
                 section_name = section_info.get("name_page")
@@ -162,21 +165,21 @@ class ScroolAreaInput:
                 config_content = projectdatabase.Database.get_config_content(key)
                 type_content = config_content.get("type_content")
                 id_content = config_content.get("id_content")
-                print(f"""section_data = {section_data}""")
                 if type_content == "TEXT":
                     item = formtext.FormText(section_index, config_content, value)
                     section_layout.addWidget(item)
 
                 elif type_content == "DATE":
                     config_date = projectdatabase.Database.get_config_date(id_content)
-                    item = formdate.FormDate(section_index, config_content, config_date, value)
+                    item = formdate.FormDate(
+                        section_index, config_content, config_date, value
+                    )
                     section_layout.addWidget(item)
-                    print(f"""config_date = {config_date}""")
 
                 # elif type_content == "IMAGE":
                 #     config_table = projectdatabase.Database.get_config_table(id_content)
                 #     item = formimage.FormImage(section_index, config_content, config_table, value)
-                
+
                 # elif type_content == "TABLE":
                 #     item = formtable.FormTable(section_index, config_content, value)
 
@@ -187,7 +190,6 @@ class ScroolAreaInput:
         ScroolAreaInput.__scrollarea_input_layout.layout().addItem(
             QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
         )
-
 
     @staticmethod
     def update_scrollarea(page):
@@ -203,5 +205,3 @@ class ScroolAreaInput:
         ScroolAreaInput.add_nodes_for_info_sections(page)
 
         ScroolAreaInput.add_sections_in_sa()
-
-        
