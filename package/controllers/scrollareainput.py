@@ -4,6 +4,7 @@ import package.modules.log as log
 import package.components.customsection as customsection
 import package.modules.projectdatabase as projectdatabase
 import package.modules.dirpathsmanager as dirpathsmanager
+import package.modules.filefoldermanager as filefoldermanager
 import package.modules.jsonmanager as jsonmanager
 
 import package.components.customsection as customsection
@@ -65,6 +66,11 @@ class ScroolAreaInput:
         """
         log.Log.debug_logger("IN save_data()")
         # TODO Сделать сохранение
+
+        for section in ScroolAreaInput.__sections_info:
+            jsonmanager.JsonManager.save_data_to_json_file(
+                section.get("json_dirpath"), section.get("data")
+            )
 
     @staticmethod
     def add_page_for_info_sections(page):
@@ -205,8 +211,13 @@ class ScroolAreaInput:
 
         ScroolAreaInput.delete_all_widgets_in_sa()
         ScroolAreaInput.__sections_info.clear()
+        filefoldermanager.FileFolderManager.clear_temp_folder()
+
 
         ScroolAreaInput.add_page_for_info_sections(page)
         ScroolAreaInput.add_nodes_for_info_sections(page)
 
         ScroolAreaInput.add_sections_in_sa()
+
+
+

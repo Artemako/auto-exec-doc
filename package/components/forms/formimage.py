@@ -3,6 +3,7 @@ import os
 from PySide6.QtWidgets import QWidget
 
 import package.modules.log as log
+import package.modules.filefoldermanager as filefoldermanager
 
 import package.ui.formimage_ui as formimage_ui
 
@@ -57,8 +58,9 @@ class FormImage(QWidget):
             dialogwindows.DialogWindows.select_image_for_formimage_in_project()
         )
         if image_dirpath:
-            self.ui.label.setText(os.path.basename(image_dirpath))
-            # TODO Загрузить изображение сразу
+            self.ui.label.setText(os.path.basename(image_dirpath))  
+
+            filefoldermanager.FileFolderManager.move_image_to_temp(image_dirpath, config_content.get("name_content"))
 
             sections_info = scrollareainput.ScroolAreaInput.get_sections_info()
             section_info = sections_info[self.section_index]

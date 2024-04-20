@@ -36,6 +36,14 @@ class FileFolderManager:
         if not os.path.exists(forms_folder_dirpath):
             os.mkdir(forms_folder_dirpath)
 
+
+        temp_folder_dirpath = os.path.join(
+            dirpathsmanager.DirPathManager.get_project_dirpath(), "temp"
+        )
+
+        if not os.path.exists(temp_folder_dirpath):
+            os.mkdir(temp_folder_dirpath)
+
         # путь к папке с шаблонами
         templates_dirpath = dirpathsmanager.DirPathManager.get_templates_dirpath()
 
@@ -64,3 +72,25 @@ class FileFolderManager:
                 os.path.join(templates_dirpath, json_file),
                 os.path.join(forms_folder_dirpath, json_file),
             )
+
+    @staticmethod
+    def move_image_to_temp(image_dirpath, name):
+        """
+        Перемещение изображения в папку temp.
+        """
+        log.Log.debug_logger(f"IN move_image_to_temp(image_dirpath, name): image_dirpath = {image_dirpath}, name = {name}")
+        file_name = f"{name}{os.path.splitext(image_dirpath)[1]}"
+        shutil.copy2(image_dirpath, os.path.join(dirpathsmanager.DirPathManager.get_project_dirpath(), "temp", file_name))
+
+    @staticmethod
+    def clear_temp_folder():
+        """
+        Очистка папки temp.
+        """
+        log.Log.debug_logger("IN clear_temp_folder()")
+        temp_folder_dirpath = os.path.join(
+            dirpathsmanager.DirPathManager.get_project_dirpath(), "temp"
+        )
+        if os.path.exists(temp_folder_dirpath):
+            shutil.rmtree(temp_folder_dirpath)
+        os.makedirs(temp_folder_dirpath)

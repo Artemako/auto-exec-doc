@@ -56,7 +56,7 @@ class MainWindow(QMainWindow):
         self.ui.action_new.triggered.connect(lambda: project.Project.new_project())
         self.ui.action_open.triggered.connect(lambda: project.Project.open_project())
         # TODO Добавить активности для сохранения
-        # self.ui.action_save.triggered.connect(lambda: project.Project.save_project())
+        self.ui.action_save.triggered.connect(lambda: project.Project.save_project())
         # self.ui.action_saveas.triggered.connect()
         self.ui.action_zoomin.triggered.connect(lambda: pdfview.PdfView.zoom_in())
         self.ui.action_zoomout.triggered.connect(lambda: pdfview.PdfView.zoom_out())

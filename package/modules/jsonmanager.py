@@ -11,7 +11,7 @@ class JsonManager:
             return json.load(file)
 
     @staticmethod
-    def set_data_to_json_file(filepath, data) -> None:
+    def save_data_to_json_file(filepath, data) -> None:
         log.Log.debug_logger(f"IN set_data_to_json_file(filepath, data) -> None: filepath = {filepath}, data = {data}")
         with open(filepath, "w", encoding="utf-8") as file:
             json.dump(data, file)
