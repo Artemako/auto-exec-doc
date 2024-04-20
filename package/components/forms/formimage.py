@@ -31,7 +31,7 @@ class FormImage(QWidget):
             "Изображение выбрано" if value else "Выберите изображение"
         )
         # масштаб
-        # TODO
+        # TODO Сделать масштаб изображения
         if True:
             for i in range(self.ui.scale_layout.count()):
                 widget = self.ui.scale_layout.itemAt(i).widget()

@@ -180,16 +180,18 @@ class ScroolAreaInput:
             elif section_type == "node":
                 section_name = section_info.get("name_node")
             section_data = section_info.get("data")
-
+            # Создание секции виджета
             section = customsection.Section(section_name)
             section_layout = QVBoxLayout()
-            print(f"section_data = {section_data}")
+            #print(f"section_data = {section_data}")
             for key, value in section_data.items():
                 # перебор ключа и значения в config_content секции
                 config_content = projectdatabase.Database.get_config_content(key)
                 type_content = config_content.get("type_content")
                 id_content = config_content.get("id_content")
-                print(config_content, type_content, id_content)
+                #print(config_content, type_content, id_content)
+
+                # Добавление формы в секцию в зависимости от типа контента
                 if type_content == "TEXT":
                     item = formtext.FormText(section_index, config_content, value)
                     section_layout.addWidget(item)
@@ -206,13 +208,16 @@ class ScroolAreaInput:
                     item = formimage.FormImage(section_index, config_content, config_image, value)
                     section_layout.addWidget(item)
 
-                # elif type_content == "TABLE":
-                #     item = formtable.FormTable(section_index, config_content, value)
+                elif type_content == "TABLE":
+                    config_table = []
+                    item = formtable.FormTable(section_index, config_content, config_table, value)
+                    section_layout.addWidget(item)
 
             section.setContentLayout(section_layout)
 
             ScroolAreaInput.__scrollarea_input_layout.layout().insertWidget(0, section)
 
+        # Добавление SpacerItem в конец
         ScroolAreaInput.__scrollarea_input_layout.layout().addItem(
             QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
         )
@@ -223,15 +228,16 @@ class ScroolAreaInput:
         Обновление ScroolAreaInput
         """
         log.Log.debug_logger("IN update_scrollarea()")
-
+        # Очистка всего и вся
         ScroolAreaInput.delete_all_widgets_in_sa()
         ScroolAreaInput.__sections_info.clear()
         filefoldermanager.FileFolderManager.clear_temp_folder()
 
-
+        # информация нужная для создания секции
         ScroolAreaInput.add_page_for_info_sections(page)
         ScroolAreaInput.add_nodes_for_info_sections(page)
-
+        
+        # Добавление новых секций
         ScroolAreaInput.add_sections_in_sa()
 
 

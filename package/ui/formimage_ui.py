@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QDoubleSpinBox, QHBoxLayout, QLabel,
-    QPushButton, QSizePolicy, QTextBrowser, QVBoxLayout,
-    QWidget)
+    QPushButton, QSizePolicy, QSpacerItem, QTextBrowser,
+    QVBoxLayout, QWidget)
 
 class Ui_FormImageWidget(object):
     def setupUi(self, FormImageWidget):
@@ -61,6 +61,10 @@ class Ui_FormImageWidget(object):
         self.percent_spinbox.setValue(100.000000000000000)
 
         self.scale_layout.addWidget(self.percent_spinbox)
+
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.scale_layout.addItem(self.horizontalSpacer)
 
 
         self.verticalLayout.addLayout(self.scale_layout)
