@@ -20,7 +20,7 @@ class ScroolAreaInput:
     __scrollarea_input = None
     __scrollarea_input_layout = None
 
-    __data = dict()
+    __sections_info = []
 
     def __init__(self):
         pass
@@ -28,16 +28,17 @@ class ScroolAreaInput:
         return ScroolAreaInput.__scrollarea_input_layout
 
     @staticmethod
-    def get_data() -> object:
+    def get_sections_info() -> object:
+        # TODO
         log.Log.debug_logger("get_data() -> object")
-        return ScroolAreaInput.__data
+        return ScroolAreaInput.__sections_info
 
     @staticmethod
     def connect_inputforms(sa_if, sa_ifl):
         """
         Подключить _scrollarea_input и _scrollarea_input_contents
         """
-        log.Log.debug_logger("IN connect_pages_template(sa_if, sa_ifl)")
+        log.Log.debug_logger("IN connect_inputforms(sa_if, sa_ifl)")
         ScroolAreaInput.__scrollarea_input = sa_if
         ScroolAreaInput.__scrollarea_input_layout = sa_ifl
 
@@ -48,7 +49,6 @@ class ScroolAreaInput:
         """
         log.Log.debug_logger("IN delete_all_widgets_in_sa()")
 
-        log.Log.debug_logger("clear_sa()")
         layout = ScroolAreaInput.__scrollarea_input_layout.layout()
         while layout.count():
             item = layout.takeAt(0)
@@ -67,6 +67,129 @@ class ScroolAreaInput:
         # TODO Сделать сохранение
 
     @staticmethod
+    def add_page_for_info_sections(page):
+        """
+        Добавление форм на ScroolAreaInput
+        """
+        log.Log.debug_logger("IN add_page_for_datas(page)")
+
+        parent_node = projectdatabase.Database.get_node_parent_from_pages(page)
+
+        id_page = page.get("id_page")
+        name_page = page.get("name_page")
+        folder_form = parent_node.get("folder_form")
+        folder_page = page.get("folder_page")
+        name_json = folder_page
+        json_dirpath = os.path.normpath(
+            os.path.join(
+                dirpathsmanager.DirPathManager.get_project_dirpath(),
+                "forms",
+                folder_form,
+                folder_page,
+                f"{name_json}.json",
+            )
+        )
+
+        data = jsonmanager.JsonManager.get_data_from_json_file(json_dirpath)
+        section = {
+            "type": "page",
+            "id_page": id_page,
+            "name_page": name_page,
+            "json_dirpath": json_dirpath,
+            "data": data,
+        }
+        ScroolAreaInput.__sections_info.append(section)
+
+    @staticmethod
+    def add_node_for_datas(node):
+        id_node = node.get("id_node")
+        name_node = node.get("name_node")
+        folder_node = node.get("folder_form")
+        folder_node = "" if not folder_node else folder_node
+        name_json = node.get("name_json")
+        if name_json:
+            json_dirpath = os.path.normpath(
+                os.path.join(
+                    dirpathsmanager.DirPathManager.get_project_dirpath(),
+                    "forms",
+                    folder_node,
+                    f"{name_json}.json",
+                )
+            )
+            data = jsonmanager.JsonManager.get_data_from_json_file(json_dirpath)
+            section = {
+                "type": "node",
+                "id_node": id_node,
+                "name_node": name_node,
+                "json_dirpath": json_dirpath,
+                "data": data,
+            }
+            ScroolAreaInput.__sections_info.append(section)
+
+    @staticmethod
+    def add_nodes_for_info_sections(page):
+        """ """
+        log.Log.debug_logger("IN add_nodes_for_datas()")
+
+        parent_node = projectdatabase.Database.get_node_parent_from_pages(page)
+        flag = True
+        while flag:
+            parent_node = projectdatabase.Database.get_node_parent(parent_node)
+            if parent_node:
+                ScroolAreaInput.add_node_for_datas(parent_node)
+            else:
+                flag = False
+
+    @staticmethod
+    def add_sections_in_sa():
+        sections_info = ScroolAreaInput.__sections_info
+        for section_index, section_info in enumerate(sections_info):
+            # перебор секций
+            #print(section_index, section_info)
+
+            section_type = section_info.get("type")
+            if section_type == "page":
+                section_name = section_info.get("name_page")
+            elif section_type == "node":
+                section_name = section_info.get("name_node")
+            section_data = section_info.get("data")
+
+            section = customsection.Section(section_name)
+            section_layout = QVBoxLayout()
+
+            for key, value in section_data.items():
+                # перебор ключа и значения в config_content секции
+                config_content = projectdatabase.Database.get_config_content(key)
+                type_content = config_content.get("type_content")
+                id_content = config_content.get("id_content")
+                print(f"""section_data = {section_data}""")
+                if type_content == "TEXT":
+                    item = formtext.FormText(section_index, config_content, value)
+                    section_layout.addWidget(item)
+
+                elif type_content == "DATE":
+                    config_date = projectdatabase.Database.get_config_date(id_content)
+                    item = formdate.FormDate(section_index, config_content, config_date, value)
+                    section_layout.addWidget(item)
+                    print(f"""config_date = {config_date}""")
+
+                # elif type_content == "IMAGE":
+                #     config_table = projectdatabase.Database.get_config_table(id_content)
+                #     item = formimage.FormImage(section_index, config_content, config_table, value)
+                
+                # elif type_content == "TABLE":
+                #     item = formtable.FormTable(section_index, config_content, value)
+
+            section.setContentLayout(section_layout)
+
+            ScroolAreaInput.__scrollarea_input_layout.layout().insertWidget(0, section)
+
+        ScroolAreaInput.__scrollarea_input_layout.layout().addItem(
+            QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        )
+
+
+    @staticmethod
     def update_scrollarea(page):
         """
         Обновление ScroolAreaInput
@@ -74,48 +197,11 @@ class ScroolAreaInput:
         log.Log.debug_logger("IN update_scrollarea()")
 
         ScroolAreaInput.delete_all_widgets_in_sa()
-        ScroolAreaInput.__data = dict()
+        ScroolAreaInput.__sections_info.clear()
 
-        parent_node = projectdatabase.Database.get_node_parent_from_pages(page)
-        folder_form = parent_node.get("folder_form")
-        folder_page = page.get("folder_page")
-        json_dirpath = os.path.normpath(
-            os.path.join(
-                dirpathsmanager.DirPathManager.get_project_dirpath(),
-                "forms",
-                folder_form,
-                folder_page,
-                f"{folder_page}.json",
-            )
-        )
-        # получаем данные с json
-        # TODO Подумать про _data
-        data = jsonmanager.JsonManager.get_data_from_json_file(json_dirpath)
-        ScroolAreaInput.__data = data
+        ScroolAreaInput.add_page_for_info_sections(page)
+        ScroolAreaInput.add_nodes_for_info_sections(page)
 
-        section = customsection.Section()
-        section_layout = QVBoxLayout()
-        for key, value in data.items():
-            config_content = projectdatabase.Database.get_config_content(key)
-            # print(f"config_content = {config_content}")
-            id_content = config_content.get("id_content")
-            type_content = config_content.get("type_content")
-            if type_content == "TEXT":
-                item = formtext.FormText(config_content, value)
-                section_layout.addWidget(item)
-            # TODO добавить остальные типы форм
-            elif type_content == "DATE":
-                config_date = projectdatabase.Database.get_config_date(id_content)
-                item = formdate.FormDate(config_content, config_date, value)
-            # elif type_content == "IMAGE":
-            #     item = formimage.FormImage(config_content, value)
-            # elif type_content == "TABLE":
-            #     item = formtable.FormTable(config_content, value)
+        ScroolAreaInput.add_sections_in_sa()
 
-        section.setContentLayout(section_layout)
-
-        ScroolAreaInput.__scrollarea_input_layout.layout().addWidget(section)
-
-        ScroolAreaInput.__scrollarea_input_layout.layout().addItem(
-            QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-        )
+        

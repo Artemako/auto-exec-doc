@@ -1,10 +1,16 @@
 from PySide6 import QtCore
-from PySide6.QtWidgets import QWidget, QScrollArea, QFrame, QToolButton, QGridLayout, QSizePolicy
-
+from PySide6.QtWidgets import (
+    QWidget,
+    QScrollArea,
+    QFrame,
+    QToolButton,
+    QGridLayout,
+    QSizePolicy,
+)
 
 
 class Section(QWidget):
-    def __init__(self):
+    def __init__(self, section_name = "Секция"):
         """
         References:
             # Adapted from c++ version
@@ -23,7 +29,7 @@ class Section(QWidget):
         toggleButton.setStyleSheet("QToolButton { border: none; }")
         toggleButton.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
         toggleButton.setArrowType(QtCore.Qt.RightArrow)
-        toggleButton.setText("Секция")
+        toggleButton.setText(section_name)
         toggleButton.setCheckable(True)
         toggleButton.setChecked(False)
 
@@ -41,7 +47,9 @@ class Section(QWidget):
         toggleAnimation = self.toggleAnimation
         toggleAnimation.addAnimation(QtCore.QPropertyAnimation(self, b"minimumHeight"))
         toggleAnimation.addAnimation(QtCore.QPropertyAnimation(self, b"maximumHeight"))
-        toggleAnimation.addAnimation(QtCore.QPropertyAnimation(self.contentArea, b"maximumHeight"))
+        toggleAnimation.addAnimation(
+            QtCore.QPropertyAnimation(self.contentArea, b"maximumHeight")
+        )
         # don't waste space
         mainLayout = self.mainLayout
         mainLayout.setVerticalSpacing(0)
@@ -55,7 +63,11 @@ class Section(QWidget):
 
         def start_animation(checked):
             arrow_type = QtCore.Qt.DownArrow if checked else QtCore.Qt.RightArrow
-            direction = QtCore.QAbstractAnimation.Forward if checked else QtCore.QAbstractAnimation.Backward
+            direction = (
+                QtCore.QAbstractAnimation.Forward
+                if checked
+                else QtCore.QAbstractAnimation.Backward
+            )
             toggleButton.setArrowType(arrow_type)
             self.toggleAnimation.setDirection(direction)
             self.toggleAnimation.start()
@@ -68,12 +80,15 @@ class Section(QWidget):
         self.contentArea.setLayout(contentLayout)
         collapsedHeight = self.sizeHint().height() - self.contentArea.maximumHeight()
         contentHeight = contentLayout.sizeHint().height()
-        for i in range(self.toggleAnimation.animationCount()-1):
+        for i in range(self.toggleAnimation.animationCount() - 1):
             SectionAnimation = self.toggleAnimation.animationAt(i)
             SectionAnimation.setDuration(self.animationDuration)
             SectionAnimation.setStartValue(collapsedHeight)
             SectionAnimation.setEndValue(collapsedHeight + contentHeight)
-        contentAnimation = self.toggleAnimation.animationAt(self.toggleAnimation.animationCount() - 1)
+        contentAnimation = self.toggleAnimation.animationAt(
+            self.toggleAnimation.animationCount() - 1
+        )
         contentAnimation.setDuration(self.animationDuration)
         contentAnimation.setStartValue(0)
         contentAnimation.setEndValue(contentHeight)
+

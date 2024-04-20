@@ -28,17 +28,6 @@ class Database:
         cursor.executescript(
             """
 BEGIN TRANSACTION;
-CREATE TABLE IF NOT EXISTS "Project_structure_of_nodes" (
-	"id_node"	INTEGER NOT NULL UNIQUE,
-	"name_node"	TEXT,
-	"id_parent"	INTEGER,
-	"order_node"	TEXT,
-	"type_node"	TEXT NOT NULL,
-	"template_name"	TEXT,
-	"folder_form"	TEXT,
-	"included"	TEXT DEFAULT 'True',
-	PRIMARY KEY("id_node" AUTOINCREMENT)
-);
 CREATE TABLE IF NOT EXISTS "Project_pages" (
 	"id_page"	INTEGER NOT NULL UNIQUE,
 	"id_node_parent"	INTEGER,
@@ -74,19 +63,24 @@ CREATE TABLE IF NOT EXISTS "Project_content_config_list" (
 	"enable"	INTEGER,
 	PRIMARY KEY("id_content" AUTOINCREMENT)
 );
-INSERT INTO "Project_structure_of_nodes" VALUES (0,'Проект',NULL,'0','PROJECT',NULL,NULL,NULL);
-INSERT INTO "Project_structure_of_nodes" VALUES (10,'Титульный лист',0,'1','FORM','main','1-ТЛ',NULL);
-INSERT INTO "Project_structure_of_nodes" VALUES (11,'Реестр документации',0,'2','FORM','main','2-РД',NULL);
-INSERT INTO "Project_structure_of_nodes" VALUES (12,'Паспорт трассы',0,'3','GROUP',NULL,NULL,NULL);
-INSERT INTO "Project_structure_of_nodes" VALUES (1201,'ПТ-1',12,'1','FORM','main','3-ПТ1',NULL);
-INSERT INTO "Project_structure_of_nodes" VALUES (1202,'ПТ-2',12,'2','FORM','main','3-ПТ2',NULL);
-INSERT INTO "Project_structure_of_nodes" VALUES (1203,'ПТ-3',12,'3','FORM','main','3-ПТ3',NULL);
-INSERT INTO "Project_pages" VALUES (1,10,'Лист 1','1-ТЛ-1',NULL);
-INSERT INTO "Project_pages" VALUES (2,10,'Лист 2','1-ТЛ-2',NULL);
-INSERT INTO "Project_pages" VALUES (3,11,'Лист 3','2-РД-1',NULL);
-INSERT INTO "Project_pages" VALUES (4,1201,'Лист 1','3-ПТ1-1',NULL);
-INSERT INTO "Project_pages" VALUES (5,1202,'Лист 1','3-ПТ2-1',NULL);
-INSERT INTO "Project_pages" VALUES (6,1203,'Лист 1','3-ПТ3-1',NULL);
+CREATE TABLE IF NOT EXISTS "Project_structure_of_nodes" (
+	"id_node"	INTEGER NOT NULL UNIQUE,
+	"name_node"	TEXT,
+	"id_parent"	INTEGER,
+	"order_node"	TEXT,
+	"type_node"	TEXT,
+	"template_name"	TEXT,
+	"folder_form"	TEXT,
+	"name_json"	TEXT,
+	"included"	TEXT DEFAULT 'True',
+	PRIMARY KEY("id_node" AUTOINCREMENT)
+);
+INSERT INTO "Project_pages" VALUES (1,10,'Л.1. Титульный лист.','1-ТЛ-1',NULL);
+INSERT INTO "Project_pages" VALUES (2,10,'Л.2. Титульный лист.','1-ТЛ-2',NULL);
+INSERT INTO "Project_pages" VALUES (3,11,'Л.1. Реестр исполнительной документации ВОЛС.','2-РД-1',NULL);
+INSERT INTO "Project_pages" VALUES (4,1201,'Л.1. Паспорт трассы. Опись документов.','3-ПТ1-1',NULL);
+INSERT INTO "Project_pages" VALUES (5,1202,'Л.1. Паспорт трассы волоконно-оптической линии связи на участке.','3-ПТ2-1',NULL);
+INSERT INTO "Project_pages" VALUES (6,1203,'Л.1. Скелетная схема ВОЛП и основные данные цепей кабеля.','3-ПТ3-1',NULL);
 INSERT INTO "Project_content_config_table" VALUES (100,1200,'HEADER','Форма',NULL);
 INSERT INTO "Project_content_config_table" VALUES (101,1200,'HEADER','Наименование',NULL);
 INSERT INTO "Project_content_config_table" VALUES (102,1200,'HEADER','Количество листов',NULL);
@@ -162,7 +156,15 @@ INSERT INTO "Project_content_config_list" VALUES (1227,'год_прокладк�
 INSERT INTO "Project_content_config_list" VALUES (1228,'год_составления_паспорта','TEXT','Год составления паспорта',NULL,NULL);
 INSERT INTO "Project_content_config_list" VALUES (1229,'отв_пред_орг_фио ','TEXT','ФИО ответственного представителя организации',NULL,NULL);
 INSERT INTO "Project_content_config_list" VALUES (1230,'скелетная_схема_ВОЛП','IMAGE','Скелетная схема ВОЛП',NULL,NULL);
+INSERT INTO "Project_structure_of_nodes" VALUES (0,'Проект',NULL,'0','PROJECT',NULL,NULL,'project',NULL);
+INSERT INTO "Project_structure_of_nodes" VALUES (10,'Титульный лист',0,'1','FORM','main','1-ТЛ','1-ТЛ',NULL);
+INSERT INTO "Project_structure_of_nodes" VALUES (11,'Реестр документации',0,'2','FORM','main','2-РД','2-РД',NULL);
+INSERT INTO "Project_structure_of_nodes" VALUES (12,'Паспорт трассы',0,'3','GROUP',NULL,NULL,NULL,NULL);
+INSERT INTO "Project_structure_of_nodes" VALUES (1201,'ПТ-1',12,'1','FORM','main','3-ПТ1','3-ПТ1',NULL);
+INSERT INTO "Project_structure_of_nodes" VALUES (1202,'ПТ-2',12,'2','FORM','main','3-ПТ2','3-ПТ2',NULL);
+INSERT INTO "Project_structure_of_nodes" VALUES (1203,'ПТ-3',12,'3','FORM','main','3-ПТ3','3-ПТ3',NULL);
 COMMIT;
+
 
             """
         )
@@ -185,7 +187,8 @@ COMMIT;
         WHERE type_node = "PROJECT";
         """)
 
-        result = dict(cursor.fetchone())
+        cursor_result = cursor.fetchone()
+        result = dict(cursor_result) if cursor_result else {}
         return result
 
     @staticmethod
@@ -207,7 +210,8 @@ COMMIT;
             [parent_node.get("id_node")],
         )
 
-        result = [dict(row) for row in cursor.fetchall()]
+        cursor_result = cursor.fetchall()
+        result = [dict(row) for row in cursor_result] if cursor_result else []
         conn.close()
         return result
 
@@ -230,7 +234,8 @@ COMMIT;
             [node.get("id_node")],
         )
 
-        result = [dict(row) for row in cursor.fetchall()]
+        cursor_result = cursor.fetchall()
+        result = [dict(row) for row in cursor_result] if cursor_result else []
         conn.close()
         return result
 
@@ -255,7 +260,33 @@ COMMIT;
             [page.get("id_node_parent")],
         )
 
-        result = dict(cursor.fetchone())
+        cursor_result = cursor.fetchone()
+        result = dict(cursor_result) if cursor_result else {}
+        conn.close()
+        return result
+    
+
+    @staticmethod
+    def get_node_parent(node) -> object:
+        """
+        Запрос на получение node_parent из таблицы Project_structure_of_nodes.
+        """
+        log.Log.debug_logger(f"get_node_parent(node) -> object: node = {node}")
+
+        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn.row_factory = sqlite3.Row
+
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        SELECT * FROM Project_structure_of_nodes
+        WHERE id_node = ?
+        """,
+            [node.get("id_parent")],
+        )
+
+        cursor_result = cursor.fetchone()
+        result = dict(cursor_result) if cursor_result else {}
         conn.close()
         return result
 
@@ -280,7 +311,8 @@ COMMIT;
             [name_content],
         )
 
-        result = dict(cursor.fetchone())
+        cursor_result = cursor.fetchone()
+        result = dict(cursor_result) if cursor_result else {}
         conn.close()
         return result
 
@@ -305,7 +337,8 @@ COMMIT;
             [id_content],
         )
 
-        result = [dict(row) for row in cursor.fetchall()]
+        cursor_result = cursor.fetchall()
+        result = [dict(row) for row in cursor_result] if cursor_result else []
         conn.close()
         return result
 
@@ -329,3 +362,4 @@ COMMIT;
         )
         conn.commit()
         conn.close()
+    
