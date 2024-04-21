@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS "Project_content_config_table" (
 	"type_config"	TEXT,
 	"value_config"	TEXT,
 	"note_config"	TEXT,
-	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content"),
-	PRIMARY KEY("id_config" AUTOINCREMENT)
+	PRIMARY KEY("id_config" AUTOINCREMENT),
+	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content")
 );
 CREATE TABLE IF NOT EXISTS "Project_content_config_date" (
 	"id_config"	INTEGER UNIQUE,
@@ -14,8 +14,8 @@ CREATE TABLE IF NOT EXISTS "Project_content_config_date" (
 	"type_config"	TEXT,
 	"value_config"	TEXT,
 	"note_config"	TEXT,
-	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content"),
-	PRIMARY KEY("id_config" AUTOINCREMENT)
+	PRIMARY KEY("id_config" AUTOINCREMENT),
+	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content")
 );
 CREATE TABLE IF NOT EXISTS "Project_content_config_list" (
 	"id_content"	INTEGER NOT NULL UNIQUE,
@@ -25,24 +25,6 @@ CREATE TABLE IF NOT EXISTS "Project_content_config_list" (
 	"description_content"	TEXT,
 	"enable"	INTEGER,
 	PRIMARY KEY("id_content" AUTOINCREMENT)
-);
-CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
-	"id_pair"	INTEGER UNIQUE,
-	"id_node"	INTEGER,
-	"id_content"	INTEGER,
-	"value"	TEXT,
-	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content"),
-	FOREIGN KEY("id_node") REFERENCES "Project_nodes"("id_node"),
-	PRIMARY KEY("id_pair" AUTOINCREMENT)
-);
-CREATE TABLE IF NOT EXISTS "Project_pages_data" (
-	"id_pair"	INTEGER UNIQUE,
-	"id_page"	INTEGER,
-	"id_content"	INTEGER,
-	"value"	TEXT,
-	FOREIGN KEY("id_page") REFERENCES "Project_pages"("id_page"),
-	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content"),
-	PRIMARY KEY("id_pair" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "Project_nodes" (
 	"id_node"	INTEGER NOT NULL UNIQUE,
@@ -62,6 +44,26 @@ CREATE TABLE IF NOT EXISTS "Project_pages" (
 	"page_order"	INTEGER,
 	"included"	TEXT DEFAULT 'True',
 	PRIMARY KEY("id_page" AUTOINCREMENT)
+);
+CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
+	"id_pair"	INTEGER UNIQUE,
+	"id_node"	INTEGER,
+	"id_content"	INTEGER,
+	"name_content"	TEXT,
+	"value"	TEXT,
+	PRIMARY KEY("id_pair" AUTOINCREMENT),
+	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content"),
+	FOREIGN KEY("id_node") REFERENCES "Project_nodes"("id_node")
+);
+CREATE TABLE IF NOT EXISTS "Project_pages_data" (
+	"id_pair"	INTEGER UNIQUE,
+	"id_page"	INTEGER,
+	"id_content"	INTEGER,
+	"name_content"	TEXT,
+	"value"	TEXT,
+	PRIMARY KEY("id_pair" AUTOINCREMENT),
+	FOREIGN KEY("id_page") REFERENCES "Project_pages"("id_page"),
+	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content")
 );
 INSERT INTO "Project_content_config_table" VALUES (100,1200,'HEADER','Форма',NULL);
 INSERT INTO "Project_content_config_table" VALUES (101,1200,'HEADER','Наименование',NULL);
@@ -140,34 +142,6 @@ INSERT INTO "Project_content_config_list" VALUES (1227,'год_прокладк�
 INSERT INTO "Project_content_config_list" VALUES (1228,'год_составления_паспорта','DATE','Год составления паспорта',NULL,NULL);
 INSERT INTO "Project_content_config_list" VALUES (1229,'отв_пред_орг_фио ','TEXT','ФИО ответственного представителя организации',NULL,NULL);
 INSERT INTO "Project_content_config_list" VALUES (1230,'скелетная_схема_ВОЛП','IMAGE','Скелетная схема ВОЛП',NULL,NULL);
-INSERT INTO "Project_nodes_data" VALUES (100,0,1003,NULL);
-INSERT INTO "Project_nodes_data" VALUES (101,0,1004,NULL);
-INSERT INTO "Project_nodes_data" VALUES (102,0,1001,NULL);
-INSERT INTO "Project_nodes_data" VALUES (1000,NULL,NULL,NULL);
-INSERT INTO "Project_nodes_data" VALUES (1001,10,1002,NULL);
-INSERT INTO "Project_nodes_data" VALUES (1002,10,1003,NULL);
-INSERT INTO "Project_nodes_data" VALUES (1003,10,1004,NULL);
-INSERT INTO "Project_nodes_data" VALUES (1004,10,1005,NULL);
-INSERT INTO "Project_nodes_data" VALUES (1005,10,1006,NULL);
-INSERT INTO "Project_nodes_data" VALUES (1110,10,NULL,NULL);
-INSERT INTO "Project_pages_data" VALUES (100,10,1007,NULL);
-INSERT INTO "Project_pages_data" VALUES (101,10,1008,NULL);
-INSERT INTO "Project_pages_data" VALUES (102,10,1009,NULL);
-INSERT INTO "Project_pages_data" VALUES (200,NULL,NULL,NULL);
-INSERT INTO "Project_pages_data" VALUES (201,11,1101,NULL);
-INSERT INTO "Project_pages_data" VALUES (202,11,1102,NULL);
-INSERT INTO "Project_pages_data" VALUES (203,11,1103,NULL);
-INSERT INTO "Project_pages_data" VALUES (300,NULL,NULL,NULL);
-INSERT INTO "Project_pages_data" VALUES (301,NULL,NULL,NULL);
-INSERT INTO "Project_pages_data" VALUES (302,20,1202,NULL);
-INSERT INTO "Project_pages_data" VALUES (400,NULL,NULL,NULL);
-INSERT INTO "Project_pages_data" VALUES (500,NULL,NULL,NULL);
-INSERT INTO "Project_pages_data" VALUES (501,40,1225,NULL);
-INSERT INTO "Project_pages_data" VALUES (502,40,1226,NULL);
-INSERT INTO "Project_pages_data" VALUES (503,40,1227,NULL);
-INSERT INTO "Project_pages_data" VALUES (504,40,1228,NULL);
-INSERT INTO "Project_pages_data" VALUES (505,40,1229,NULL);
-INSERT INTO "Project_pages_data" VALUES (600,NULL,NULL,NULL);
 INSERT INTO "Project_nodes" VALUES (0,'Проект',NULL,'0','PROJECT',NULL,NULL);
 INSERT INTO "Project_nodes" VALUES (10,'Титульный лист',0,'1','FORM','main','1');
 INSERT INTO "Project_nodes" VALUES (11,'Реестр документации',0,'2','FORM','main','1');
@@ -181,4 +155,31 @@ INSERT INTO "Project_pages" VALUES (20,11,'Л.1. Реестр исполните
 INSERT INTO "Project_pages" VALUES (30,1201,'Л.1. Паспорт трассы. Опись документов.','3-ПТ1-1',1,NULL);
 INSERT INTO "Project_pages" VALUES (40,1202,'Л.1. Паспорт трассы волоконно-оптической линии связи на участке.','3-ПТ2-1',1,NULL);
 INSERT INTO "Project_pages" VALUES (50,1203,'Л.1. Скелетная схема ВОЛП и основные данные цепей кабеля.','3-ПТ3-1',1,NULL);
+INSERT INTO "Project_nodes_data" VALUES (100,0,1003,'название_объекта',NULL);
+INSERT INTO "Project_nodes_data" VALUES (101,0,1004,'участок',NULL);
+INSERT INTO "Project_nodes_data" VALUES (102,0,1001,'название_компании',NULL);
+INSERT INTO "Project_nodes_data" VALUES (1000,10,1000,'организационно_правовая_форма',NULL);
+INSERT INTO "Project_nodes_data" VALUES (1001,10,1002,'адрес_компании',NULL);
+INSERT INTO "Project_nodes_data" VALUES (1002,10,1003,'название_объекта',NULL);
+INSERT INTO "Project_nodes_data" VALUES (1003,10,1004,'участок',NULL);
+INSERT INTO "Project_nodes_data" VALUES (1004,10,1005,'номер_кабеля',NULL);
+INSERT INTO "Project_nodes_data" VALUES (1005,10,1006,'заказчик',NULL);
+INSERT INTO "Project_pages_data" VALUES (100,10,1007,'строительно_монтажная_организация',NULL);
+INSERT INTO "Project_pages_data" VALUES (101,10,1008,'город',NULL);
+INSERT INTO "Project_pages_data" VALUES (102,10,1009,'год',NULL);
+INSERT INTO "Project_pages_data" VALUES (200,11,1000,'организационно_правовая_форма',NULL);
+INSERT INTO "Project_pages_data" VALUES (201,11,1101,'инж_про_ком_фио',NULL);
+INSERT INTO "Project_pages_data" VALUES (202,11,1102,'гла_инж_компания',NULL);
+INSERT INTO "Project_pages_data" VALUES (203,11,1103,'гла_инж_фио',NULL);
+INSERT INTO "Project_pages_data" VALUES (300,20,1200,'реестр_ид_паспорт_трассы',NULL);
+INSERT INTO "Project_pages_data" VALUES (301,20,1201,'реестр_ид_эл_паспорт_трассы',NULL);
+INSERT INTO "Project_pages_data" VALUES (302,20,1202,'рабочая_документация',NULL);
+INSERT INTO "Project_pages_data" VALUES (400,30,1209,'пт_опись_документов',NULL);
+INSERT INTO "Project_pages_data" VALUES (500,40,1220,'кабеля',NULL);
+INSERT INTO "Project_pages_data" VALUES (501,40,1225,'общая_физ_длина',NULL);
+INSERT INTO "Project_pages_data" VALUES (502,40,1226,'общая_опт_длина',NULL);
+INSERT INTO "Project_pages_data" VALUES (503,40,1227,'год_прокладки_кабеля',NULL);
+INSERT INTO "Project_pages_data" VALUES (504,40,1228,'год_составления_паспорта',NULL);
+INSERT INTO "Project_pages_data" VALUES (505,40,1229,'отв_пред_орг_фио',NULL);
+INSERT INTO "Project_pages_data" VALUES (600,50,1230,'скелетная_схема_ВОЛП',NULL);
 COMMIT;

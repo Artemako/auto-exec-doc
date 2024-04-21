@@ -1,34 +1,34 @@
 import os
+import datetime
+from PIL import Image
 
 from PySide6.QtWidgets import QWidget
 
 import package.modules.log as log
+
 import package.modules.filefoldermanager as filefoldermanager
+import package.modules.dirpathsmanager as dirpathsmanager
 
 import package.ui.formimage_ui as formimage_ui
-
-import package.controllers.scrollareainput as scrollareainput
 
 import package.components.dialogwindows as dialogwindows
 
 
 class FormImage(QWidget):
-    def __init__(self, section_index, config_content, config_image, value):
+    def __init__(self, pair, config_content, config_image):
         log.Log.debug_logger(
-            f"FormImage(self, section_index, config_content, config_image, value): section_index = {section_index}, config_content = {config_content}, config_image = {config_image}, value = {value}"
+            f"FormImage(self, pair, config_content, config_image): pair = {pair}, config_content = {config_content}, config_image = {config_image}"
         )
 
         super(FormImage, self).__init__()
         self.ui = formimage_ui.Ui_FormImageWidget()
         self.ui.setupUi(self)
 
-        self.section_index = section_index
-
         # заголовок
         self.ui.title.setText(config_content["title_content"])
         # поле ввода
         self.ui.label.setText(
-            "Изображение выбрано" if value else "Выберите изображение"
+            "Изображение успешно выбрано" if pair.get("value") else "Выберите изображение"
         )
         # масштаб
         # TODO Сделать масштаб изображения
@@ -48,23 +48,27 @@ class FormImage(QWidget):
         # CONFIG IMAGE
 
         # connect
-        self.ui.select_button.clicked.connect(lambda: self.select_image(config_content))
+        self.ui.select_button.clicked.connect(lambda: self.set_new_value_in_pair(pair))
 
-    def select_image(self, config_content):
-        log.Log.debug_logger(
-            f"select_image(self, config_content): config_content = {config_content}"
-        )
-        image_dirpath = (
-            dialogwindows.DialogWindows.select_image_for_formimage_in_project()
-        )
+    def set_new_value_in_pair(self, pair):
+
+        image_dirpath = dialogwindows.DialogWindows.select_image_for_formimage_in_project()
+        
         if image_dirpath:
+            # текст выбранного изображения
             self.ui.label.setText(os.path.basename(image_dirpath))  
-            
-            file_name_with_extension = f"""{config_content.get("name_content")}{os.path.splitext(image_dirpath)[1]}"""
+            # имя нового изображения
+            file_name = f"img_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
+            file_name_with_png = f"{file_name}.png"       
 
-            filefoldermanager.FileFolderManager.move_image_to_temp(image_dirpath, file_name_with_extension)
-
-            sections_info = scrollareainput.ScroolAreaInput.get_sections_info()
-            section_info = sections_info[self.section_index]
-            section_data = section_info.get("data")
-            section_data[config_content.get("name_content")] = file_name_with_extension
+            # путь к временной папке
+            temp_dir = dirpathsmanager.DirPathManager.get_temp_dirpath()
+            # Путь к временному файлу
+            temp_file_path = os.path.join(temp_dir, file_name_with_png)
+            # Открыть изображение
+            image = Image.open(image_dirpath)
+            # Сохранить изображение в временный файл
+            image.save(temp_file_path, "PNG")
+            # Вывести путь к временному файлу
+            print("Изображение сохранено в временную папку:", temp_file_path)
+            pair["value"] = file_name_with_png

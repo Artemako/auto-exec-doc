@@ -9,20 +9,19 @@ import package.modules.log as log
 
 
 class FormDate(QWidget):
-    def __init__(self, section_index, config_content, config_date, value):
-        log.Log.debug_logger( f"FormDate(self, section_index, config_content, config_date, value): section_index = {section_index}, config_content = {config_content}, config_date = {config_date}, value = {value}" )
+    def __init__(self, pair, config_content, config_date):
+        log.Log.debug_logger(f"FormDate(self, pair, config_content, config_date): pair = {pair}, config_content = {config_content}, config_date = {config_date}" )
         
         super(FormDate, self).__init__()
         self.ui = formdate_ui.Ui_FormDateWidget()
         self.ui.setupUi(self)
 
-        self.section_index = section_index
 
         # ПО УМОЛЧАНИЮ из config_content
         # заголовок
         self.ui.title.setText(config_content["title_content"])
         # поле ввода
-        self.ui.dateedit.setDateTime(value if value else QDateTime.currentDateTime())
+        self.ui.dateedit.setDateTime(pair.get("value") if pair.get("value") else QDateTime.currentDateTime())
         self.ui.dateedit.setDisplayFormat("dd.MM.yyyy")
         # описание
         description_content = config_content['description_content'] 
@@ -41,15 +40,10 @@ class FormDate(QWidget):
 
         # connect
         self.ui.dateedit.dateChanged.connect(
-            lambda date: self.set_value_in_sections_info(config_content, date)
+            lambda date: self.set_new_value_in_pair(pair, date)
         )
 
-    def set_value_in_sections_info(self, config_content, value):
-        log.Log.debug_logger(
-            f"IN set_value_in_sections_info(self, config_content, value): config_content = {config_content}, value = {value}"
-        )
-        # TODO
-        sections_info = scrollareainput.ScroolAreaInput.get_sections_info()
-        section_info = sections_info[self.section_index]
-        section_data = section_info.get("data")
-        section_data[config_content.get("name_content")] = value
+    def set_new_value_in_pair(self, pair, new_value):
+        log.Log.debug_logger(f"set_new_value_in_pair(self, pair, new_value): pair = {pair}, new_value = {new_value}")
+        pair["value"] = new_value
+        print(pair)

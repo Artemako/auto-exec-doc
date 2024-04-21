@@ -8,54 +8,42 @@ import package.controllers.scrollareainput as scrollareainput
 
 
 class FormTable(QWidget):
-    def __init__(self, section_index, config_content, config_table, value):
-        log.Log.debug_logger(
-            f"FormTable(self, section_index, config_content, config_table, value): section_index = {section_index}, config_content = {config_content}, config_table = {config_table}, value = {value}"
-        )
-
+    def __init__(self, pair, config_content, config_table):
         super(FormTable, self).__init__()
         self.ui = formtable_ui.Ui_FormTableWidget()
         self.ui.setupUi(self)
 
-        # self к этим section_index, config_content, config_table, value
-        self.section_index = section_index
-        self.config_content = config_content
-        self.config_table = config_table
-        self.value = value
-
-        self.labels = []
-        # self.content = []
-
         # заголовок
-        self.ui.title.setText(self.config_content["title_content"])
+        self.ui.title.setText(config_content["title_content"])
 
         # описание
-        description_content = self.config_content["description_content"]
+        description_content = config_content["description_content"]
         if description_content:
             self.ui.textbrowser.setHtml(description_content)
         else:
             self.ui.textbrowser.hide()
 
-        # ОСОБЕННОСТИ из self.config_table        
-        for config in self.config_table:
+        # ОСОБЕННОСТИ из self.config_table
+        labels = []
+        # content = []
+        for config in config_table:
             type_config = config.get("type_config")
             value_config = config.get("value_config")
             if type_config == "HEADER":
-                self.labels.append(value_config)
+                labels.append(value_config)
             # elif type_config == "CONTENT":
-            #     self.content.append(value_config)
-
-
-        self.ui.table.setColumnCount(len(self.labels))
-        self.ui.table.setHorizontalHeaderLabels(self.labels)
-
+            #     content.append(value_config)
+        # создать столбцы таблицы
+        self.ui.table.setColumnCount(len(labels))
+        self.ui.table.setHorizontalHeaderLabels(labels)
         # поставить значения из таблицы
-        self.create_table_from_json_data()
-        
+        self.create_table_from_value(pair.get("value"))
         # connect
         self.ui.add_button.clicked.connect(self.add_row)
         self.ui.delete_button.clicked.connect(self.delete_row)
-        self.ui.table.cellChanged.connect(lambda: self.set_value_in_sections_info())
+        self.ui.table.cellChanged.connect(
+            lambda: self.set_new_value_in_pair(pair, self.get_data_from_table())
+        )
 
     def add_row(self):
         row_count = self.ui.table.rowCount()
@@ -73,9 +61,19 @@ class FormTable(QWidget):
     #     item = self.ui.table.item(row, column)
     #     if item:
     #         print(f"Cell ({row}, {column}) changed to {item.text()}")
-        
-    def to_json(self) -> list:
-        log.Log.debug_logger("IN to_json(self) -> list:" )
+
+    def create_table_from_value(self, data):
+        log.Log.debug_logger(f"create_table_from_value(self, data): data = {data}")
+        if data:
+            self.ui.table.setRowCount(len(data))
+            self.ui.table.setColumnCount(len(data[0]))
+            for row, row_data in enumerate(data):
+                for column, value in enumerate(row_data):
+                    item = QTableWidgetItem(value)
+                    self.ui.table.setItem(row, column, item)
+
+    def get_data_from_table(self) -> list:
+        log.Log.debug_logger("IN to_json(self) -> list:")
         data = []
         for row in range(self.ui.table.rowCount()):
             row_data = []
@@ -86,29 +84,11 @@ class FormTable(QWidget):
                 else:
                     row_data.append("")
             data.append(row_data)
-        print(f"data = {data}")
         return data
 
-
-    def create_table_from_json_data(self):
+    def set_new_value_in_pair(self, pair, new_value):
         log.Log.debug_logger(
-            "IN create_table_from_json_data(self):"
+            f"set_new_value_in_pair(self, pair, new_value): pair = {pair}, new_value = {new_value}"
         )
-        if self.value:
-            self.ui.table.setRowCount(len(self.value))
-            self.ui.table.setColumnCount(len(self.value[0]))
-            for row, row_data in enumerate(self.value):
-                for column, value in enumerate(row_data):
-                    item = QTableWidgetItem(value)
-                    self.ui.table.setItem(row, column, item)
-
-
-    def set_value_in_sections_info(self):
-        log.Log.debug_logger(
-            "set_value_in_sections_info(self):"
-        )
-        
-        sections_info = scrollareainput.ScroolAreaInput.get_sections_info()
-        section_info = sections_info[self.section_index]
-        section_data = section_info.get("data")
-        section_data[self.config_content.get("name_content")] = self.to_json()
+        pair["value"] = new_value
+        print(pair)

@@ -71,9 +71,10 @@ class PagesTemplate:
 
         PagesTemplate.__title_pt.setText(node.get("name_node"))
 
-        pages = projectdatabase.Database.get_pages(node)
+        pages = projectdatabase.Database.get_pages_by_node(node)
         for page in pages:
+            print(f"page = {page}")
             item = MyListWidgetItem(page)
-            item.setText(page.get("name_page"))
+            item.setText(page.get("page_name"))
             PagesTemplate.__listwidget_pages_template.addItem(item)
 

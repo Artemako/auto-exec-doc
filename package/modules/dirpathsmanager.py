@@ -1,5 +1,6 @@
 import sys
 import os
+import tempfile 
 
 from PySide6.QtCore import QStandardPaths
 
@@ -15,8 +16,11 @@ class DirPathManager:
         QStandardPaths.StandardLocation.DocumentsLocation
     )
 
+    # путь к папке с Temp
+    __temp_dirpath = tempfile.mkdtemp()
+
     # путь к папке с проектами по умолчанию
-    _default_folder_projects_dirpath = os.path.join(
+    __default_folder_projects_dirpath = os.path.join(
         __documents_dirpath, "AutoExecDoc Projects"
     )
 
@@ -85,9 +89,9 @@ class DirPathManager:
     @staticmethod
     def get_default_folder_projects_dirpath() -> str:
         log.Log.debug_logger(
-            f"get_default_folder_projects_dirpath() -> str: {DirPathManager._default_folder_projects_dirpath}"
+            f"get_default_folder_projects_dirpath() -> str: {DirPathManager.__default_folder_projects_dirpath}"
         )
-        return DirPathManager._default_folder_projects_dirpath
+        return DirPathManager.__default_folder_projects_dirpath
 
     @staticmethod
     def get_logs_dirpath() -> str:
@@ -121,5 +125,12 @@ class DirPathManager:
             f"get_templates_dirpath() -> str: {DirPathManager.__templates_dirpath}"
         )
         return DirPathManager.__templates_dirpath
+
+    @staticmethod
+    def get_temp_dirpath() -> str:
+        log.Log.debug_logger(
+            "get_temp_dirpath() -> str:"
+        )
+        return DirPathManager.__temp_dirpath
 
     # endregion

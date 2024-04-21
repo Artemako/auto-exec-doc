@@ -75,83 +75,44 @@ class ScroolAreaInput:
         for section_index, section_info in enumerate(sections_info):
             section_data = section_info.get("data")
             for key, value in section_data.items():
-                config_content = projectdatabase.Database.get_config_content(key)
+                config_content = projectdatabase.Database.get_config_content_by_id(key)
                 type_content = config_content.get("type_content")
                 if type_content == "IMAGE":
                     # TODO ЗАМЕНЯТЬ ИЗОБРАЖЕНИЕ С ДРУГИМ РАСШИРЕНЕНИЕМ
                     filefoldermanager.FileFolderManager.move_from_temp_to_project(
                         section_info.get("json_dirpath"),
-                        section_data[config_content.get("name_content")]
+                        section_data[config_content.get("name_content")],
                     )
-
-
-
 
     @staticmethod
     def add_page_for_info_sections(page):
         """
         Добавление форм на ScroolAreaInput
         """
-        log.Log.debug_logger("IN add_page_for_datas(page)")
+        log.Log.debug_logger(f"IN add_page_for_datas(page): page = {page}")
 
-        parent_node = projectdatabase.Database.get_node_parent_from_pages(page)
-
-        id_page = page.get("id_page")
-        name_page = page.get("name_page")
-        folder_form = parent_node.get("folder_form")
-        folder_page = page.get("folder_page")
-        name_json = folder_page
-        json_dirpath = os.path.normpath(
-            os.path.join(
-                dirpathsmanager.DirPathManager.get_project_dirpath(),
-                "forms",
-                folder_form,
-                folder_page,
-                f"{name_json}.json",
-            )
-        )
-
-        try:
-            data = jsonmanager.JsonManager.get_data_from_json_file(json_dirpath)
+        data = projectdatabase.Database.get_page_data(page)
+        if data:
             section = {
                 "type": "page",
-                "id_page": id_page,
-                "name_page": name_page,
-                "json_dirpath": json_dirpath,
+                "page": page,
                 "data": data,
             }
             ScroolAreaInput.__sections_info.append(section)
-        except FileNotFoundError:
-                log.Log.error_logger(f"FileNotFoundError: json_dirpath = {json_dirpath}")
 
     @staticmethod
     def add_node_for_datas(node):
-        id_node = node.get("id_node")
-        name_node = node.get("name_node")
-        folder_node = node.get("folder_form")
-        folder_node = "" if not folder_node else folder_node
-        name_json = node.get("name_json")
-        if name_json:
-            json_dirpath = os.path.normpath(
-                os.path.join(
-                    dirpathsmanager.DirPathManager.get_project_dirpath(),
-                    "forms",
-                    folder_node,
-                    f"{name_json}.json",
-                )
-            )
-            try:
-                data = jsonmanager.JsonManager.get_data_from_json_file(json_dirpath)
-                section = {
-                    "type": "node",
-                    "id_node": id_node,
-                    "name_node": name_node,
-                    "json_dirpath": json_dirpath,
-                    "data": data,
-                }
-                ScroolAreaInput.__sections_info.append(section)
-            except FileNotFoundError:
-                log.Log.error_logger(f"FileNotFoundError: json_dirpath = {json_dirpath}")
+        """ """
+        log.Log.debug_logger(f"IN add_node_for_datas(node): node = {node}")
+
+        data = projectdatabase.Database.get_node_data(node)
+        if data:
+            section = {
+                "type": "node",
+                "node": node,
+                "data": data,
+            }
+            ScroolAreaInput.__sections_info.append(section)
 
     @staticmethod
     def add_nodes_for_info_sections(page):
@@ -172,46 +133,55 @@ class ScroolAreaInput:
         log.Log.debug_logger("IN add_sections_in_sa()")
 
         sections_info = ScroolAreaInput.__sections_info
+        # перебор секций
         for section_index, section_info in enumerate(sections_info):
-            # перебор секций
+            print(f"section_index = {section_index},\n section_info = {section_info}\n")
+            # тип секции: страница или вершина
             section_type = section_info.get("type")
             if section_type == "page":
-                section_name = section_info.get("name_page")
+                page = section_info.get("page")
+                section_name = page.get("page_name")
             elif section_type == "node":
-                section_name = section_info.get("name_node")
-            section_data = section_info.get("data")
+                node = section_info.get("node")
+                section_name = node.get("name_node")
+
             # Создание секции виджета
             section = customsection.Section(section_name)
             section_layout = QVBoxLayout()
-            #print(f"section_data = {section_data}")
-            for key, value in section_data.items():
-                # перебор ключа и значения в config_content секции
-                config_content = projectdatabase.Database.get_config_content(key)
+            # data секции
+            section_data = section_info.get("data")
+            print(f"section_data = {section_data}\n")
+            # перебор пар в section_data секции
+            for pair_index, pair in enumerate(section_data):
+                print(f"pair = {pair}\n")
+                id_content = pair.get("id_content")
+                # все свойства основного контента
+                config_content = projectdatabase.Database.get_config_content_by_id(
+                    id_content
+                )
                 type_content = config_content.get("type_content")
-                id_content = config_content.get("id_content")
-                
-                print(f"key, value = {key}, \n{value}")
 
-                # Добавление формы в секцию в зависимости от типа контента
+                #Добавление формы в секцию в зависимости от типа контента
                 if type_content == "TEXT":
-                    item = formtext.FormText(section_index, config_content, value)
+                    item = formtext.FormText(pair, config_content)
                     section_layout.addWidget(item)
 
                 elif type_content == "DATE":
-                    config_date = projectdatabase.Database.get_config_date(id_content)
-                    item = formdate.FormDate(
-                        section_index, config_content, config_date, value
+                    config_date = projectdatabase.Database.get_config_date_by_id(
+                        id_content
                     )
+                    item = formdate.FormDate(pair, config_content, config_date)
                     section_layout.addWidget(item)
 
                 elif type_content == "IMAGE":
+                    # TODO config_image
                     config_image = []
-                    item = formimage.FormImage(section_index, config_content, config_image, value)
+                    item = formimage.FormImage(pair, config_content, config_image)
                     section_layout.addWidget(item)
 
                 elif type_content == "TABLE":
-                    config_table = projectdatabase.Database.get_config_table(id_content)
-                    item = formtable.FormTable(section_index, config_content, config_table, value)
+                    config_table = projectdatabase.Database.get_config_table_by_id(id_content)
+                    item = formtable.FormTable(pair, config_content, config_table)
                     section_layout.addWidget(item)
 
             section.setContentLayout(section_layout)
@@ -238,9 +208,6 @@ class ScroolAreaInput:
         # TODO Меняем с json на sql
         ScroolAreaInput.add_page_for_info_sections(page)
         ScroolAreaInput.add_nodes_for_info_sections(page)
-        
+
         # Добавление новых секций
         ScroolAreaInput.add_sections_in_sa()
-
-
-

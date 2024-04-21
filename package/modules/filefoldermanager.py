@@ -37,13 +37,9 @@ class FileFolderManager:
         if not os.path.exists(forms_folder_dirpath):
             os.mkdir(forms_folder_dirpath)
 
-        # Папка temp
-        temp_folder_dirpath = os.path.join(
-            dirpathsmanager.DirPathManager.get_project_dirpath(), "temp"
-        )
-
-        if not os.path.exists(temp_folder_dirpath):
-            os.mkdir(temp_folder_dirpath)
+        #Папка temp
+        if not os.path.exists(dirpathsmanager.DirPathManager.get_temp_dirpath()):
+            os.mkdir(dirpathsmanager.DirPathManager.get_temp_dirpath())
 
         # путь к папке с шаблонами
         templates_main_dirpath = os.path.join(
@@ -57,37 +53,17 @@ class FileFolderManager:
                 os.path.join(forms_folder_dirpath, f),
             )
 
-        # # все формы и json_content из templates_dirpath
-        # for f in os.listdir(templates_dirpath):
-        #     if f.endswith(".json"):
-        #         json_content.append(f)
-        #     else:
-        #         forms.append(f)
+    # @staticmethod
+    # def move_image_to_temp(image_dirpath) -> str:
+    #     """
+    #     Перемещение изображения в папку temp.
+    #     """
+    #     log.Log.debug_logger(
+    #         f"IN move_image_to_temp(image_dirpath): image_dirpath = {image_dirpath}"
+    #     )  
+    #     new_dirpath = shutil.copy(image_dirpath, dirpathsmanager.DirPathManager.get_temp_dirpath())
+    #     return new_dirpath
 
-
-        # # копирование форм в папку проекта forms
-        # for form in forms:
-        #     shutil.copytree(
-        #         os.path.join(templates_dirpath, form, "main"),
-        #         os.path.join(forms_folder_dirpath, form),
-        #     )
-
-
-    @staticmethod
-    def move_image_to_temp(image_dirpath, file_name_with_extension):
-        """
-        Перемещение изображения в папку temp.
-        """
-        log.Log.debug_logger(
-            f"IN move_image_to_temp(image_dirpath, file_name_with_extension): image_dirpath = {image_dirpath}, file_name_with_extension = {file_name_with_extension}"
-        )
-        
-        shutil.copy2(
-            image_dirpath,
-            os.path.join(
-                dirpathsmanager.DirPathManager.get_project_dirpath(), "temp", file_name_with_extension
-            ),
-        )
 
     @staticmethod
     def clear_temp_folder():
@@ -95,10 +71,15 @@ class FileFolderManager:
         Очистка папки temp.
         """
         log.Log.debug_logger("IN clear_temp_folder()")
-        temp_folder_dirpath = os.path.join(
-            dirpathsmanager.DirPathManager.get_project_dirpath(), "temp"
-        )
-        if os.path.exists(temp_folder_dirpath):
-            shutil.rmtree(temp_folder_dirpath)
-        os.makedirs(temp_folder_dirpath)
+
+        temp_dirpath = dirpathsmanager.DirPathManager.get_temp_dirpath()
+        files = os.listdir(temp_dirpath)
+        # Удалить каждый файл и папку в папке
+        for file in files:
+            file_path = os.path.join(temp_dirpath, file)
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+
 
