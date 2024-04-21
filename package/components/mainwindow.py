@@ -1,5 +1,6 @@
+import shutil
+
 from PySide6.QtWidgets import QMainWindow
-from PySide6.QtCore import Qt
 
 import package.ui.mainwindow_ui as mainwindow_ui
 import package.modules.project as project
@@ -10,6 +11,7 @@ import package.controllers.pagestemplate as pagestemplate
 import package.controllers.scrollareainput as scrollareainput
 import package.controllers.statusbar as statusbar
 import package.controllers.pdfview as pdfview
+import package.modules.filefoldermanager as filefoldermanager
 
 
 class MainWindow(QMainWindow):
@@ -23,8 +25,6 @@ class MainWindow(QMainWindow):
         # подключаем глобальные действия
         # Подключаем действия
         self.connecting_actions()
-
-
 
     def config_controllers(self):
         """
@@ -47,6 +47,10 @@ class MainWindow(QMainWindow):
         )
         # ПОДКЛЮЧИТЬ PDF
         pdfview.PdfView.connect_pdfview(self.ui.widget_pdf_view)
+
+    def closeEvent(self, event):
+        log.Log.debug_logger(f"IN closeEvent(self, event): event = {event}")
+        filefoldermanager.FileFolderManager.clear_temp_folder(True)
 
     def connecting_actions(self):
         """

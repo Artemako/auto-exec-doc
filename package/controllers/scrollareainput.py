@@ -29,12 +29,6 @@ class ScroolAreaInput:
         return ScroolAreaInput.__scrollarea_input_layout
 
     @staticmethod
-    def get_sections_info() -> object:
-        # TODO
-        log.Log.debug_logger("get_data() -> object")
-        return ScroolAreaInput.__sections_info
-
-    @staticmethod
     def connect_inputforms(sa_if, sa_ifl):
         """
         Подключить _scrollarea_input и _scrollarea_input_contents
@@ -205,7 +199,6 @@ class ScroolAreaInput:
         filefoldermanager.FileFolderManager.clear_temp_folder()
 
         # информация нужная для создания секции
-        # TODO Меняем с json на sql
         ScroolAreaInput.add_page_for_info_sections(page)
         ScroolAreaInput.add_nodes_for_info_sections(page)
 

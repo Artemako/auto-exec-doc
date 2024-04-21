@@ -99,7 +99,7 @@ class DialogWindows:
                 None,
                 "Выбор изображения",
                 dirpathsmanager.DirPathManager.get_default_folder_projects_dirpath(),
-                "Изображения (*.png *.jpg *.jpeg)",
+                "Изображения (*.png *.jpg *.jpeg, *.bmp, *.tiff)",
             )
             if image_path[0]:
                 log.Log.debug_logger(

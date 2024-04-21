@@ -37,14 +37,14 @@ class FileFolderManager:
         if not os.path.exists(forms_folder_dirpath):
             os.mkdir(forms_folder_dirpath)
 
-        #Папка temp
+        # Папка temp
         if not os.path.exists(dirpathsmanager.DirPathManager.get_temp_dirpath()):
             os.mkdir(dirpathsmanager.DirPathManager.get_temp_dirpath())
 
         # путь к папке с шаблонами
         templates_main_dirpath = os.path.join(
             dirpathsmanager.DirPathManager.get_templates_dirpath(), "main"
-        )        
+        )
 
         # копирование шаблонов в папку проекта forms
         for f in os.listdir(templates_main_dirpath):
@@ -53,33 +53,16 @@ class FileFolderManager:
                 os.path.join(forms_folder_dirpath, f),
             )
 
-    # @staticmethod
-    # def move_image_to_temp(image_dirpath) -> str:
-    #     """
-    #     Перемещение изображения в папку temp.
-    #     """
-    #     log.Log.debug_logger(
-    #         f"IN move_image_to_temp(image_dirpath): image_dirpath = {image_dirpath}"
-    #     )  
-    #     new_dirpath = shutil.copy(image_dirpath, dirpathsmanager.DirPathManager.get_temp_dirpath())
-    #     return new_dirpath
-
-
     @staticmethod
-    def clear_temp_folder():
+    def clear_temp_folder(is_del_folder=False):
         """
         Очистка папки temp.
         """
-        log.Log.debug_logger("IN clear_temp_folder()")
+        log.Log.debug_logger(
+            f"IN clear_temp_folder(is_del_folder): is_del_folder = {is_del_folder}, temp_dirpath = {dirpathsmanager.DirPathManager.get_temp_dirpath()}"
+        )
 
         temp_dirpath = dirpathsmanager.DirPathManager.get_temp_dirpath()
-        files = os.listdir(temp_dirpath)
-        # Удалить каждый файл и папку в папке
-        for file in files:
-            file_path = os.path.join(temp_dirpath, file)
-            if os.path.isfile(file_path):
-                os.remove(file_path)
-            elif os.path.isdir(file_path):
-                shutil.rmtree(file_path)
-
-
+        shutil.rmtree(temp_dirpath)
+        if is_del_folder:
+            os.mkdir(temp_dirpath)

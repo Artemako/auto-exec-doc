@@ -1,12 +1,11 @@
 import sys
-import os
+
 
 from PySide6.QtWidgets import QApplication
 
 
 import package.components.mainwindow as mainwindow
 import package.modules.settingsdatabase as settingsdatabase
-import package.modules.projectdatabase as projectdatabase
 import package.modules.log as log
 import package.modules.filefoldermanager as filefoldermanager
 
@@ -36,3 +35,9 @@ class App:
         self.window = mainwindow.MainWindow()
         self.window.show()
         sys.exit(self.app.exec())
+
+
+    
+
+
+
