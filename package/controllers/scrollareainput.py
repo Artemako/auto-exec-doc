@@ -65,7 +65,7 @@ class ScroolAreaInput:
         Cохранение _data
         """
         log.Log.debug_logger("IN save_data()")
-        # сохранение data
+        # сохранение data в json
         for sections_info in ScroolAreaInput.__sections_info:
             jsonmanager.JsonManager.save_data_to_json_file(
                 sections_info.get("json_dirpath"), sections_info.get("data")
@@ -78,7 +78,7 @@ class ScroolAreaInput:
                 config_content = projectdatabase.Database.get_config_content(key)
                 type_content = config_content.get("type_content")
                 if type_content == "IMAGE":
-                    # TODO НЕ ТОТ DIRPATH
+                    # TODO ЗАМЕНЯТЬ ИЗОБРАЖЕНИЕ С ДРУГИМ РАСШИРЕНЕНИЕМ
                     filefoldermanager.FileFolderManager.move_from_temp_to_project(
                         section_info.get("json_dirpath"),
                         section_data[config_content.get("name_content")]
@@ -189,7 +189,8 @@ class ScroolAreaInput:
                 config_content = projectdatabase.Database.get_config_content(key)
                 type_content = config_content.get("type_content")
                 id_content = config_content.get("id_content")
-                #print(config_content, type_content, id_content)
+                
+                print(f"key, value = {key}, \n{value}")
 
                 # Добавление формы в секцию в зависимости от типа контента
                 if type_content == "TEXT":
@@ -209,7 +210,7 @@ class ScroolAreaInput:
                     section_layout.addWidget(item)
 
                 elif type_content == "TABLE":
-                    config_table = []
+                    config_table = projectdatabase.Database.get_config_table(id_content)
                     item = formtable.FormTable(section_index, config_content, config_table, value)
                     section_layout.addWidget(item)
 

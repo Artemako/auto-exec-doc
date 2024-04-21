@@ -177,7 +177,7 @@ COMMIT;
         """
         Запрос на вершину проекта.
         """
-        log.Log.debug_logger("IN get_project_node()")
+        log.Log.debug_logger("IN get_project_node() -> object")
 
         conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
@@ -193,11 +193,11 @@ COMMIT;
         return result
 
     @staticmethod
-    def get_childs(parent_node: object) -> list:
+    def get_childs(parent_node) -> list:
         """
         Запрос на детей вершины.
         """
-        log.Log.debug_logger(f"IN get_childs({parent_node}: int) ")
+        log.Log.debug_logger(f"IN get_childs(parent_node) -> list: parent_node = {parent_node}")
 
         conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
@@ -221,7 +221,7 @@ COMMIT;
         """
         Запрос на получение всех страниц выбранной формы.
         """
-        log.Log.debug_logger(f"get_pages(node) -> list: node = {node}")
+        log.Log.debug_logger(f"IN get_pages(node) -> list: node = {node}")
 
         conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
@@ -246,7 +246,7 @@ COMMIT;
         Запрос на получение node_parent из таблицы Project_pages.
         """
         log.Log.debug_logger(
-            f"get_node_parent_from_pages(page) -> object: page = {page}"
+            f"IN get_node_parent_from_pages(page) -> object: page = {page}"
         )
 
         conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
@@ -272,7 +272,7 @@ COMMIT;
         """
         Запрос на получение node_parent из таблицы Project_structure_of_nodes.
         """
-        log.Log.debug_logger(f"get_node_parent(node) -> object: node = {node}")
+        log.Log.debug_logger(f"IN get_node_parent(node) -> object: node = {node}")
 
         conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
@@ -297,7 +297,7 @@ COMMIT;
         Запрос на получение config_content по имени формы.
         """
         log.Log.debug_logger(
-            f"get_config_content(name_content) -> list: name_content = {name_content}"
+            f"IN get_config_content(name_content) -> list: name_content = {name_content}"
         )
 
         conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
@@ -323,7 +323,7 @@ COMMIT;
         Запрос на получение config_date по имени формы.
         """
         log.Log.debug_logger(
-            f"get_config_date(id_content) -> list: name_content = {id_content}"
+            f"IN get_config_date(id_content) -> list: name_content = {id_content}"
         )
 
         conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
@@ -345,11 +345,36 @@ COMMIT;
 
 
     @staticmethod
+    def get_config_table(id_content):
+        """
+        Запрос на получение config_table по имени формы.
+        """
+        log.Log.debug_logger(f"IN get_config_table(id_content): id_content = {id_content}")
+
+        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn.row_factory = sqlite3.Row
+
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        SELECT * FROM Project_content_config_table
+        WHERE id_content = ?
+        """,
+            [id_content],
+        )
+
+        cursor_result = cursor.fetchall()
+        result = [dict(row) for row in cursor_result] if cursor_result else []
+        conn.close()
+        return result
+
+
+    @staticmethod
     def set_included_for_node(node, state):
         """
         Запрос на установку включенности для вершины.
         """
-        log.Log.debug_logger(f"set_included_for_node(node, state): node = {node}, state = {state}")
+        log.Log.debug_logger(f"IN set_included_for_node(node, state): node = {node}, state = {state}")
 
         conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
         cursor = conn.cursor()

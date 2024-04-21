@@ -38,11 +38,6 @@ class FormDate(QWidget):
             value_config = config.get("value_config")
             if type_config == "FORMAT":
                 self.ui.dateedit.setDisplayFormat(value_config)
-            print(f"""
-                ПРИВЕТ ВСЕМ
-                type_config = {type_config}
-                value_config = {value_config}
-                """)
 
         # connect
         self.ui.dateedit.dateChanged.connect(
@@ -51,7 +46,7 @@ class FormDate(QWidget):
 
     def set_value_in_sections_info(self, config_content, value):
         log.Log.debug_logger(
-            f"set_value_in_sections_info(self, config_content, value): config_content = {config_content}, value = {value}"
+            f"IN set_value_in_sections_info(self, config_content, value): config_content = {config_content}, value = {value}"
         )
         # TODO
         sections_info = scrollareainput.ScroolAreaInput.get_sections_info()
