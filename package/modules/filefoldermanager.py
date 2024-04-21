@@ -29,6 +29,7 @@ class FileFolderManager:
         Добавление в проект папок форм.
         """
         log.Log.debug_logger("IN add_forms_folders_to_new_project()")
+        # папка forms
         forms_folder_dirpath = os.path.join(
             dirpathsmanager.DirPathManager.get_project_dirpath(), "forms"
         )
@@ -36,6 +37,7 @@ class FileFolderManager:
         if not os.path.exists(forms_folder_dirpath):
             os.mkdir(forms_folder_dirpath)
 
+        # Папка temp
         temp_folder_dirpath = os.path.join(
             dirpathsmanager.DirPathManager.get_project_dirpath(), "temp"
         )
@@ -44,33 +46,32 @@ class FileFolderManager:
             os.mkdir(temp_folder_dirpath)
 
         # путь к папке с шаблонами
-        templates_dirpath = dirpathsmanager.DirPathManager.get_templates_dirpath()
+        templates_main_dirpath = os.path.join(
+            dirpathsmanager.DirPathManager.get_templates_dirpath(), "main"
+        )        
 
-        # все формы и json_content из templates_dirpath
-        forms = []
-        json_content = []
-        for f in os.listdir(templates_dirpath):
-            if f.endswith(".json"):
-                json_content.append(f)
-            else:
-                forms.append(f)
-
-        log.Log.debug_logger(f"forms: {forms}")
-        log.Log.debug_logger(f"json_content: {json_content}")
-
-        # копирование форм в папку проекта forms
-        for form in forms:
-            shutil.copytree(
-                os.path.join(templates_dirpath, form, "main"),
-                os.path.join(forms_folder_dirpath, form),
-            )
-
-        # копирование json_content в папку проекта forms
-        for json_file in json_content:
+        # копирование шаблонов в папку проекта forms
+        for f in os.listdir(templates_main_dirpath):
             shutil.copy(
-                os.path.join(templates_dirpath, json_file),
-                os.path.join(forms_folder_dirpath, json_file),
+                os.path.join(templates_main_dirpath, f),
+                os.path.join(forms_folder_dirpath, f),
             )
+
+        # # все формы и json_content из templates_dirpath
+        # for f in os.listdir(templates_dirpath):
+        #     if f.endswith(".json"):
+        #         json_content.append(f)
+        #     else:
+        #         forms.append(f)
+
+
+        # # копирование форм в папку проекта forms
+        # for form in forms:
+        #     shutil.copytree(
+        #         os.path.join(templates_dirpath, form, "main"),
+        #         os.path.join(forms_folder_dirpath, form),
+        #     )
+
 
     @staticmethod
     def move_image_to_temp(image_dirpath, file_name_with_extension):
@@ -101,18 +102,3 @@ class FileFolderManager:
             shutil.rmtree(temp_folder_dirpath)
         os.makedirs(temp_folder_dirpath)
 
-    @staticmethod
-    def move_from_temp_to_project(json_dirpath, file_name_with_extension):
-        """
-        Перемещение изображения из папки temp в папку проекта.
-        """
-        
-        log.Log.debug_logger(
-            f"IN move_from_temp_to_project(json_dirpath, file_name_with_extension): json_dirpath = {json_dirpath}, file_name_with_extension = {file_name_with_extension}"
-        )
-        shutil.move(
-            os.path.join(
-                dirpathsmanager.DirPathManager.get_project_dirpath(), "temp", file_name_with_extension
-            ),
-            os.path.dirname(json_dirpath)
-        )

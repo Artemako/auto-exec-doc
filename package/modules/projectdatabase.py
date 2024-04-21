@@ -28,14 +28,6 @@ class Database:
         cursor.executescript(
             """
 BEGIN TRANSACTION;
-CREATE TABLE IF NOT EXISTS "Project_pages" (
-	"id_page"	INTEGER NOT NULL UNIQUE,
-	"id_node_parent"	INTEGER,
-	"name_page"	TEXT,
-	"folder_page"	TEXT,
-	"included"	TEXT DEFAULT 'True',
-	PRIMARY KEY("id_page" AUTOINCREMENT)
-);
 CREATE TABLE IF NOT EXISTS "Project_content_config_table" (
 	"id_config"	INTEGER UNIQUE,
 	"id_content"	INTEGER,
@@ -63,24 +55,43 @@ CREATE TABLE IF NOT EXISTS "Project_content_config_list" (
 	"enable"	INTEGER,
 	PRIMARY KEY("id_content" AUTOINCREMENT)
 );
-CREATE TABLE IF NOT EXISTS "Project_structure_of_nodes" (
+CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
+	"id_pair"	INTEGER UNIQUE,
+	"id_node"	INTEGER,
+	"id_content"	INTEGER,
+	"value"	TEXT,
+	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content"),
+	FOREIGN KEY("id_node") REFERENCES "Project_nodes"("id_node"),
+	PRIMARY KEY("id_pair" AUTOINCREMENT)
+);
+CREATE TABLE IF NOT EXISTS "Project_pages_data" (
+	"id_pair"	INTEGER UNIQUE,
+	"id_page"	INTEGER,
+	"id_content"	INTEGER,
+	"value"	TEXT,
+	FOREIGN KEY("id_page") REFERENCES "Project_pages"("id_page"),
+	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content"),
+	PRIMARY KEY("id_pair" AUTOINCREMENT)
+);
+CREATE TABLE IF NOT EXISTS "Project_nodes" (
 	"id_node"	INTEGER NOT NULL UNIQUE,
 	"name_node"	TEXT,
 	"id_parent"	INTEGER,
 	"order_node"	TEXT,
 	"type_node"	TEXT,
 	"template_name"	TEXT,
-	"folder_form"	TEXT,
-	"name_json"	TEXT,
 	"included"	TEXT DEFAULT 'True',
 	PRIMARY KEY("id_node" AUTOINCREMENT)
 );
-INSERT INTO "Project_pages" VALUES (1,10,'Л.1. Титульный лист.','1-ТЛ-1',NULL);
-INSERT INTO "Project_pages" VALUES (2,10,'Л.2. Титульный лист.','1-ТЛ-2',NULL);
-INSERT INTO "Project_pages" VALUES (3,11,'Л.1. Реестр исполнительной документации ВОЛС.','2-РД-1',NULL);
-INSERT INTO "Project_pages" VALUES (4,1201,'Л.1. Паспорт трассы. Опись документов.','3-ПТ1-1',NULL);
-INSERT INTO "Project_pages" VALUES (5,1202,'Л.1. Паспорт трассы волоконно-оптической линии связи на участке.','3-ПТ2-1',NULL);
-INSERT INTO "Project_pages" VALUES (6,1203,'Л.1. Скелетная схема ВОЛП и основные данные цепей кабеля.','3-ПТ3-1',NULL);
+CREATE TABLE IF NOT EXISTS "Project_pages" (
+	"id_page"	INTEGER NOT NULL UNIQUE,
+	"id_node_parent"	INTEGER,
+	"page_name"	TEXT,
+	"template_name"	TEXT,
+	"page_order"	INTEGER,
+	"included"	TEXT DEFAULT 'True',
+	PRIMARY KEY("id_page" AUTOINCREMENT)
+);
 INSERT INTO "Project_content_config_table" VALUES (100,1200,'HEADER','Форма',NULL);
 INSERT INTO "Project_content_config_table" VALUES (101,1200,'HEADER','Наименование',NULL);
 INSERT INTO "Project_content_config_table" VALUES (102,1200,'HEADER','Количество листов',NULL);
@@ -158,14 +169,49 @@ INSERT INTO "Project_content_config_list" VALUES (1227,'год_прокладк�
 INSERT INTO "Project_content_config_list" VALUES (1228,'год_составления_паспорта','DATE','Год составления паспорта',NULL,NULL);
 INSERT INTO "Project_content_config_list" VALUES (1229,'отв_пред_орг_фио ','TEXT','ФИО ответственного представителя организации',NULL,NULL);
 INSERT INTO "Project_content_config_list" VALUES (1230,'скелетная_схема_ВОЛП','IMAGE','Скелетная схема ВОЛП',NULL,NULL);
-INSERT INTO "Project_structure_of_nodes" VALUES (0,'Проект',NULL,'0','PROJECT',NULL,NULL,'project',NULL);
-INSERT INTO "Project_structure_of_nodes" VALUES (10,'Титульный лист',0,'1','FORM','main','1-ТЛ','1-ТЛ','1');
-INSERT INTO "Project_structure_of_nodes" VALUES (11,'Реестр документации',0,'2','FORM','main','2-РД',NULL,'1');
-INSERT INTO "Project_structure_of_nodes" VALUES (12,'Паспорт трассы',0,'3','GROUP',NULL,NULL,NULL,'1');
-INSERT INTO "Project_structure_of_nodes" VALUES (1201,'ПТ-1',12,'1','FORM','main','3-ПТ1',NULL,'1');
-INSERT INTO "Project_structure_of_nodes" VALUES (1202,'ПТ-2',12,'2','FORM','main','3-ПТ2',NULL,'1');
-INSERT INTO "Project_structure_of_nodes" VALUES (1203,'ПТ-3',12,'3','FORM','main','3-ПТ3',NULL,'1');
+INSERT INTO "Project_nodes_data" VALUES (100,0,1003,NULL);
+INSERT INTO "Project_nodes_data" VALUES (101,0,1004,NULL);
+INSERT INTO "Project_nodes_data" VALUES (102,0,1001,NULL);
+INSERT INTO "Project_nodes_data" VALUES (1000,NULL,NULL,NULL);
+INSERT INTO "Project_nodes_data" VALUES (1001,10,1002,NULL);
+INSERT INTO "Project_nodes_data" VALUES (1002,10,1003,NULL);
+INSERT INTO "Project_nodes_data" VALUES (1003,10,1004,NULL);
+INSERT INTO "Project_nodes_data" VALUES (1004,10,1005,NULL);
+INSERT INTO "Project_nodes_data" VALUES (1005,10,1006,NULL);
+INSERT INTO "Project_nodes_data" VALUES (1110,10,NULL,NULL);
+INSERT INTO "Project_pages_data" VALUES (100,10,1007,NULL);
+INSERT INTO "Project_pages_data" VALUES (101,10,1008,NULL);
+INSERT INTO "Project_pages_data" VALUES (102,10,1009,NULL);
+INSERT INTO "Project_pages_data" VALUES (200,NULL,NULL,NULL);
+INSERT INTO "Project_pages_data" VALUES (201,11,1101,NULL);
+INSERT INTO "Project_pages_data" VALUES (202,11,1102,NULL);
+INSERT INTO "Project_pages_data" VALUES (203,11,1103,NULL);
+INSERT INTO "Project_pages_data" VALUES (300,NULL,NULL,NULL);
+INSERT INTO "Project_pages_data" VALUES (301,NULL,NULL,NULL);
+INSERT INTO "Project_pages_data" VALUES (302,20,1202,NULL);
+INSERT INTO "Project_pages_data" VALUES (400,NULL,NULL,NULL);
+INSERT INTO "Project_pages_data" VALUES (500,NULL,NULL,NULL);
+INSERT INTO "Project_pages_data" VALUES (501,40,1225,NULL);
+INSERT INTO "Project_pages_data" VALUES (502,40,1226,NULL);
+INSERT INTO "Project_pages_data" VALUES (503,40,1227,NULL);
+INSERT INTO "Project_pages_data" VALUES (504,40,1228,NULL);
+INSERT INTO "Project_pages_data" VALUES (505,40,1229,NULL);
+INSERT INTO "Project_pages_data" VALUES (600,NULL,NULL,NULL);
+INSERT INTO "Project_nodes" VALUES (0,'Проект',NULL,'0','PROJECT',NULL,NULL);
+INSERT INTO "Project_nodes" VALUES (10,'Титульный лист',0,'1','FORM','main','1');
+INSERT INTO "Project_nodes" VALUES (11,'Реестр документации',0,'2','FORM','main','1');
+INSERT INTO "Project_nodes" VALUES (12,'Паспорт трассы',0,'3','GROUP',NULL,'1');
+INSERT INTO "Project_nodes" VALUES (1201,'ПТ-1',12,'1','FORM','main','1');
+INSERT INTO "Project_nodes" VALUES (1202,'ПТ-2',12,'2','FORM','main','1');
+INSERT INTO "Project_nodes" VALUES (1203,'ПТ-3',12,'3','FORM','main','1');
+INSERT INTO "Project_pages" VALUES (10,10,'Л.1. Титульный лист.','1-ТЛ-1',1,NULL);
+INSERT INTO "Project_pages" VALUES (11,10,'Л.2. Титульный лист.','1-ТЛ-2',2,NULL);
+INSERT INTO "Project_pages" VALUES (20,11,'Л.1. Реестр исполнительной документации ВОЛС.','2-РД-1',1,NULL);
+INSERT INTO "Project_pages" VALUES (30,1201,'Л.1. Паспорт трассы. Опись документов.','3-ПТ1-1',1,NULL);
+INSERT INTO "Project_pages" VALUES (40,1202,'Л.1. Паспорт трассы волоконно-оптической линии связи на участке.','3-ПТ2-1',1,NULL);
+INSERT INTO "Project_pages" VALUES (50,1203,'Л.1. Скелетная схема ВОЛП и основные данные цепей кабеля.','3-ПТ3-1',1,NULL);
 COMMIT;
+
 
             """
         )
@@ -184,7 +230,7 @@ COMMIT;
 
         cursor = conn.cursor()
         cursor.execute("""
-        SELECT * FROM Project_structure_of_nodes
+        SELECT * FROM Project_nodes
         WHERE type_node = "PROJECT";
         """)
 
@@ -205,7 +251,7 @@ COMMIT;
         cursor = conn.cursor()
         cursor.execute(
             """
-        SELECT * FROM Project_structure_of_nodes
+        SELECT * FROM Project_nodes
         WHERE id_parent = ?
         """,
             [parent_node.get("id_node")],
@@ -255,7 +301,7 @@ COMMIT;
         cursor = conn.cursor()
         cursor.execute(
             """
-        SELECT * FROM Project_structure_of_nodes
+        SELECT * FROM Project_nodes
         WHERE id_node = ?
         """,
             [page.get("id_node_parent")],
@@ -270,7 +316,7 @@ COMMIT;
     @staticmethod
     def get_node_parent(node) -> object:
         """
-        Запрос на получение node_parent из таблицы Project_structure_of_nodes.
+        Запрос на получение node_parent из таблицы Project_nodes.
         """
         log.Log.debug_logger(f"IN get_node_parent(node) -> object: node = {node}")
 
@@ -280,7 +326,7 @@ COMMIT;
         cursor = conn.cursor()
         cursor.execute(
             """
-        SELECT * FROM Project_structure_of_nodes
+        SELECT * FROM Project_nodes
         WHERE id_node = ?
         """,
             [node.get("id_parent")],
@@ -380,7 +426,7 @@ COMMIT;
         cursor = conn.cursor()
         cursor.execute(
             """
-        UPDATE Project_structure_of_nodes
+        UPDATE Project_nodes
         SET included = ?
         WHERE id_node = ?
         """,

@@ -39,6 +39,7 @@ class PagesTemplate:
 
         # Подключение сигналов
         PagesTemplate.__listwidget_pages_template.itemClicked.connect(
+            # TODO PDF VIEW
             lambda current: scrollareainput.ScroolAreaInput.update_scrollarea(
                 current.get_page()
             )

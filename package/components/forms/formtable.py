@@ -112,4 +112,3 @@ class FormTable(QWidget):
         section_info = sections_info[self.section_index]
         section_data = section_info.get("data")
         section_data[self.config_content.get("name_content")] = self.to_json()
-        print(f"""section_data[self.config_content.get("name_content")] = {section_data[self.config_content.get('name_content')]}""")
