@@ -103,21 +103,27 @@ class Project:
         """
         log.Log.debug_logger("IN config_new_project()")
 
-        Project.__current_name = os.path.basename(dirpathsmanager.DirPathManager.get_project_dirpath())
-        
+        Project.__current_name = os.path.basename(
+            dirpathsmanager.DirPathManager.get_project_dirpath()
+        )
+
         settingsdatabase.Database.add_new_project_to_db()
         projectdatabase.Database.create_and_config_db_project()
         # настраиваем контроллеры
         # настраиваем структуру execdoc
         structureexecdoc.StructureExecDoc.update_structure_exec_doc()
         pagestemplate.PagesTemplate.create_pages_template()
-
+        # пути для проекта
+        dirpathsmanager.DirPathManager.set_new_dirpaths_for_project()
+        # добавляем папки форм в новый проект
         filefoldermanager.FileFolderManager.add_forms_folders_to_new_project()
+        # активируем проект
         Project.set_true_actives_project()
         # сообщение для статусбара
         statusbar.StatusBar.set_message_for_statusbar(
             f"Проект c именем {Project.__current_name} создан и открыт."
         )
+
 
     @staticmethod
     def save_project():
@@ -129,6 +135,9 @@ class Project:
         if Project.__status_active:
             sectionsinfo.SectionsInfo.save_data_to_database()
             Project.__status_save = True
+            statusbar.StatusBar.set_message_for_statusbar(
+                f"Проект c именем {Project.__current_name} сохранён."
+            )
 
     @staticmethod
     def open_project():
@@ -149,7 +158,9 @@ class Project:
         """
         log.Log.debug_logger("IN config_open_project()")
 
-        Project.__current_name = os.path.basename(dirpathsmanager.DirPathManager.get_project_dirpath())
+        Project.__current_name = os.path.basename(
+            dirpathsmanager.DirPathManager.get_project_dirpath()
+        )
         # настраиваем базы данных
         settingsdatabase.Database.add_or_update_open_project_to_db()
         projectdatabase.Database.create_and_config_db_project()
@@ -177,5 +188,3 @@ class Project:
         log.Log.debug_logger("IN set_true_actives_project()")
         Project.__status_active = True
         Project.__status_save = True
-
-

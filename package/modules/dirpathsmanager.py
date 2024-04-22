@@ -38,11 +38,46 @@ class DirPathManager:
 
     # путь к папке с формами
     __templates_dirpath = os.path.join(__main_dirpath, "templates")
+    __templates_main_dirpath = os.path.join(__templates_dirpath, "main" )
 
     def __init__(self):
         pass
+    
+    
+    @staticmethod
+    def set_new_dirpaths_for_project():
+        # папка forms в проекте
+        DirPathManager.__forms_folder_dirpath = os.path.join(
+            DirPathManager.get_project_dirpath(), "forms"
+        )
 
-    # region Методы set
+        # папка images в проекте
+        DirPathManager.__image_folder_dirpath = os.path.join(
+            DirPathManager.get_project_dirpath(), "images"
+        )
+
+    @staticmethod
+    def get_forms_folder_dirpath() -> str:
+        log.Log.debug_logger(
+            f"get_forms_folder_dirpath() -> str: {DirPathManager.__forms_folder_dirpath}"
+        )
+        return DirPathManager.__forms_folder_dirpath
+    
+    @staticmethod
+    def get_image_folder_dirpath() -> str:
+        log.Log.debug_logger(
+            f"get_image_folder_dirpath() -> str: {DirPathManager.__image_folder_dirpath}"
+        )
+        return DirPathManager.__image_folder_dirpath
+    
+    @staticmethod
+    def get_templates_main_dirpath() -> str:
+        log.Log.debug_logger(
+            f"get_templates_main_dirpath() -> str: {DirPathManager.__templates_main_dirpath}"
+        )
+        return DirPathManager.__templates_main_dirpath
+
+
     @staticmethod
     def set_project_dirpath(dirpath: str):
         DirPathManager.__project_dirpath = dirpath
@@ -55,9 +90,6 @@ class DirPathManager:
             f"set_db_project_dirpath(dirpath: str): dirpath = {dirpath}"
         )
 
-    # endregion
-
-    # region методы get
     @staticmethod
     def get_main_dirpath() -> str:
         log.Log.debug_logger(
@@ -138,4 +170,3 @@ class DirPathManager:
         DirPathManager.__temp_dirpath = tempfile.mkdtemp()
         log.Log.debug_logger(f"set_temp_dirpath(dirpath: str): __temp_dirpath = {DirPathManager.__temp_dirpath}")
 
-    # endregion

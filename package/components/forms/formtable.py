@@ -109,6 +109,8 @@ class FormTable(QWidget):
             else:
                 col = new_col
                 text += "\n" + item.text() + "\t"
+        if text[-1] == "\t":
+            text = text[:-1]
         clipboard = QApplication.clipboard()
         clipboard.clear()
         clipboard.setText(text)
@@ -125,11 +127,16 @@ class FormTable(QWidget):
         selected_items = self.ui.table.selectedItems()
         start_row = selected_items[0].row() if selected_items else 0
         start_col = selected_items[0].column() if selected_items else 0
+        #print(f"rows = {rows}")
         for i, row in enumerate(rows):
             columns = row.split("\t")
-            for j, value in enumerate(columns):
-                if not (start_col + j >= self.ui.table.columnCount()) or not (start_row + i >= self.ui.table.rowCount()):
-                    self.ui.table.item(start_row + i, start_col + j).setText(value)
+            #print(f"columns = {columns}")
+            if start_row + i < self.ui.table.rowCount():
+                for j, value in enumerate(columns):
+                    if start_col + j < self.ui.table.columnCount():
+                        item = self.ui.table.item(start_row + i, start_col + j)
+                        if item:
+                            item.setText(value)
 
 
     def create_table_from_value(self, json_data):

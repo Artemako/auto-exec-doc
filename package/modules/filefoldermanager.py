@@ -29,31 +29,24 @@ class FileFolderManager:
         Добавление в проект папок форм.
         """
         log.Log.debug_logger("IN add_forms_folders_to_new_project()")
-        # папка forms d проекте
-        forms_folder_dirpath = os.path.join(
-            dirpathsmanager.DirPathManager.get_project_dirpath(), "forms"
-        )
+        
+        # папка forms в проекте
+        forms_folder_dirpath = dirpathsmanager.DirPathManager.get_forms_folder_dirpath()
 
         if not os.path.exists(forms_folder_dirpath):
-            os.mkdir(forms_folder_dirpath)
+            os.makedirs(forms_folder_dirpath)
 
-        # папка для изображений
-        image_folder_dirpath = os.path.join(
-            dirpathsmanager.DirPathManager.get_project_dirpath(), "images"
-        )
+        # папка images в проекте
+        image_folder_dirpath = dirpathsmanager.DirPathManager.get_image_folder_dirpath()
 
         if not os.path.exists(image_folder_dirpath):
-            os.mkdir(image_folder_dirpath)
-        
+            os.makedirs(image_folder_dirpath)        
 
         # Папка TEMP/AUTOEXECDOC
         if not os.path.exists(dirpathsmanager.DirPathManager.get_temp_dirpath()):
-            os.mkdir(dirpathsmanager.DirPathManager.get_temp_dirpath())
+            os.makedirs(dirpathsmanager.DirPathManager.get_temp_dirpath())
 
-        # путь к папке с шаблонами
-        templates_main_dirpath = os.path.join(
-            dirpathsmanager.DirPathManager.get_templates_dirpath(), "main"
-        )
+        templates_main_dirpath = dirpathsmanager.DirPathManager.get_templates_main_dirpath()
 
         # копирование шаблонов в папку проекта forms
         for f in os.listdir(templates_main_dirpath):
