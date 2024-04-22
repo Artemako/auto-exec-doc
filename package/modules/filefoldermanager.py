@@ -34,10 +34,17 @@ class FileFolderManager:
             dirpathsmanager.DirPathManager.get_project_dirpath(), "forms"
         )
 
-        # TODO папка images и pdfs и docx
-
         if not os.path.exists(forms_folder_dirpath):
             os.mkdir(forms_folder_dirpath)
+
+        # папка для изображений
+        image_folder_dirpath = os.path.join(
+            dirpathsmanager.DirPathManager.get_project_dirpath(), "images"
+        )
+
+        if not os.path.exists(image_folder_dirpath):
+            os.mkdir(image_folder_dirpath)
+        
 
         # Папка TEMP/AUTOEXECDOC
         if not os.path.exists(dirpathsmanager.DirPathManager.get_temp_dirpath()):
@@ -71,3 +78,24 @@ class FileFolderManager:
         except Exception as e:
             log.Log.error_logger(e)
             dirpathsmanager.DirPathManager.set_new_temp_dirpath()
+
+    @staticmethod
+    def move_image_from_temp_to_project(name_image):
+        log.Log.debug_logger("IN move_image_from_temp_to_project()")
+        # путь к папке с шаблонами
+        temp_dirpath = dirpathsmanager.DirPathManager.get_temp_dirpath()
+        image_folder_dirpath = os.path.join(dirpathsmanager.DirPathManager.get_project_dirpath(), "images")
+        try:
+            shutil.move(os.path.join(temp_dirpath, name_image), os.path.join(image_folder_dirpath, name_image))
+        except Exception as e:
+            log.Log.error_logger(e)
+
+    @staticmethod
+    def delete_image_from_project(image_dirpath):
+        log.Log.debug_logger("IN delete_image_from_project()")
+        # путь к папке с шаблонами
+        image_folder_dirpath = os.path.join(dirpathsmanager.DirPathManager.get_project_dirpath(), "images")
+        try:
+            os.remove(os.path.join(image_folder_dirpath, image_dirpath))
+        except Exception as e:
+            log.Log.error_logger(e)

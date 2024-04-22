@@ -1,6 +1,8 @@
 import package.modules.log as log
 import package.modules.projectdatabase as projectdatabase
 
+import package.modules.filefoldermanager as filefoldermanager
+
 
 class SectionsInfo:
     __sections_info = []
@@ -84,7 +86,21 @@ class SectionsInfo:
                 print(f"pair = {pair}\n")
                 id_pair = pair.get("id_pair")
                 value = pair.get("value")
+                old_value = None
                 if section_type == "page":
+                    old_value = projectdatabase.Database.get_page_pair_value_by_id(id_pair)                    
                     projectdatabase.Database.update_pages_data(id_pair, value)
                 elif section_type == "node":
+                    old_value = projectdatabase.Database.get_node_pair_value_by_id(id_pair)   
                     projectdatabase.Database.update_nodes_data(id_pair, value)
+                # Сохранения изображения
+                id_content = pair.get("id_content")
+                config_content = projectdatabase.Database.get_config_content_by_id(
+                    id_content
+                )
+                print(f"id_content = {id_content}\n")
+                print(f"config_content = {config_content}\n")
+                type_content = config_content.get("type_content")
+                if type_content == "IMAGE":
+                    filefoldermanager.FileFolderManager.delete_image_from_project(old_value)
+                    filefoldermanager.FileFolderManager.move_image_from_temp_to_project(value)

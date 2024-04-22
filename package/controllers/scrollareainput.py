@@ -127,7 +127,6 @@ class ScroolAreaInput:
         log.Log.debug_logger("IN update_scrollarea()")
         # Очистка всего и вся 
         ScroolAreaInput.delete_all_widgets_in_sa()        
-        filefoldermanager.FileFolderManager.clear_temp_folder()
         # обновить информацию о секциях
         sectionsinfo.SectionsInfo.update_sections_info(page)
         # Добавление новых секций в ScroolAreaInput

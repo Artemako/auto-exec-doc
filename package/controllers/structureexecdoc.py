@@ -4,7 +4,7 @@ import package.modules.project as project
 import package.controllers.pagestemplate as pagestemplate
 
 from PySide6.QtWidgets import QTreeWidgetItem
-from PySide6.QtCore import Qt, Slot
+from PySide6.QtCore import Qt
 
 
 class MyTreeWidgetItem(QTreeWidgetItem):

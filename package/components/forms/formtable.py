@@ -1,12 +1,13 @@
 import json
 
-from PySide6.QtWidgets import QWidget, QTableWidgetItem
+from PySide6.QtWidgets import QWidget, QTableWidgetItem, QApplication, QMenu
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QKeySequence, QAction
 
 import package.modules.log as log
 
 import package.ui.formtable_ui as formtable_ui
 
-import package.controllers.scrollareainput as scrollareainput
 
 
 class FormTable(QWidget):
@@ -40,12 +41,24 @@ class FormTable(QWidget):
         self.ui.table.setHorizontalHeaderLabels(labels)
         # поставить значения из таблицы
         self.create_table_from_value(pair.get("value"))
+        # вставка из буфера обмена
+        self.context_menu = QMenu(self)
+        self.paste_action = QAction("Paste", self)
+        self.paste_action.triggered.connect(self.paste_values_from_clipboard)
+        self.context_menu.addAction(self.paste_action)
+        # Connect the context menu to the table's right-click event
+        self.ui.table.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.ui.table.customContextMenuRequested.connect(self.show_context_menu)
         # connect
         self.ui.add_button.clicked.connect(self.add_row)
         self.ui.delete_button.clicked.connect(self.delete_row)
         self.ui.table.cellChanged.connect(
             lambda: self.set_new_value_in_pair(pair, self.get_data_from_table())
         )
+
+    def show_context_menu(self, position):
+        # Show the context menu at the mouse position
+        self.context_menu.exec_(self.ui.table.mapToGlobal(position))
 
     def add_row(self):
         row_count = self.ui.table.rowCount()
@@ -63,6 +76,33 @@ class FormTable(QWidget):
     #     item = self.ui.table.item(row, column)
     #     if item:
     #         print(f"Cell ({row}, {column}) changed to {item.text()}")
+
+        
+
+    def paste_values_from_clipboard(self):
+        clipboard = QApplication.clipboard()
+        text = clipboard.text()
+        rows = text.split('\n')
+        selected_rows = self.ui.table.selectedItems()
+        start_row = selected_rows[0].row() if selected_rows else 0
+        start_col = selected_rows[0].column() if selected_rows else 0
+        for i, row in enumerate(rows):
+            if start_row + i >= self.ui.table.rowCount():
+                break
+            columns = row.split('\t')
+            for j, value in enumerate(columns):
+                if start_col + j >= self.ui.table.columnCount():
+                    break
+                item = self.ui.table.item(start_row + i, start_col + j)
+                if item is None:
+                    item = QTableWidgetItem(value)
+                    self.table_widget.setItem(start_row + i, start_col + j, item)
+                else:
+                    item.setText(value)
+
+        # Clearing the selection after pasting
+        self.ui.table.clearSelection()
+
 
     def create_table_from_value(self, json_data):
         log.Log.debug_logger(f"create_table_from_value(self, json_data): data = {json_data}")

@@ -526,3 +526,52 @@ COMMIT;
         )
         conn.commit()
         conn.close()
+
+    @staticmethod
+    def get_page_pair_value_by_id(id_pair):
+        """
+        Запрос на получение значения по id_pair в Project_pages_data.
+        """
+        log.Log.debug_logger(f"IN get_page_pair_value_by_id(id_pair): id_pair = {id_pair}")
+
+        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn.row_factory = sqlite3.Row
+
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        SELECT value FROM Project_pages_data
+        WHERE id_pair = ?
+        """,
+            [id_pair],
+        )
+
+        cursor_result = cursor.fetchone()
+        result = cursor_result[0] if cursor_result else None
+        conn.close()
+        return result
+    
+
+    @staticmethod
+    def get_node_pair_value_by_id(id_pair):
+        """
+        Запрос на получение значения по id_pair в Project_nodes_data.
+        """
+        log.Log.debug_logger(f"IN get_node_pair_value_by_id(id_pair): id_pair = {id_pair}")
+
+        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn.row_factory = sqlite3.Row
+
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        SELECT value FROM Project_nodes_data
+        WHERE id_pair = ?
+        """,
+            [id_pair],
+        )
+
+        cursor_result = cursor.fetchone()
+        result = cursor_result[0] if cursor_result else None
+        conn.close()
+        return result
