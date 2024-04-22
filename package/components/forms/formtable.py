@@ -9,7 +9,6 @@ import package.modules.log as log
 import package.ui.formtable_ui as formtable_ui
 
 
-
 class FormTable(QWidget):
     def __init__(self, pair, config_content, config_table):
         super(FormTable, self).__init__()
@@ -41,14 +40,24 @@ class FormTable(QWidget):
         self.ui.table.setHorizontalHeaderLabels(labels)
         # поставить значения из таблицы
         self.create_table_from_value(pair.get("value"))
-        # вставка из буфера обмена
+
+        # контекстное меню
         self.context_menu = QMenu(self)
-        self.paste_action = QAction("Paste", self)
-        self.paste_action.triggered.connect(self.paste_values_from_clipboard)
+
+        # Копировать - copy_values_to_clipboard
+        self.copy_action = QAction("Копировать", self)
+        self.copy_action.triggered.connect(lambda: self.copy_values_to_clipboard())
+        self.context_menu.addAction(self.copy_action)
+        # Вставить - paste_values_from_clipboard
+        self.paste_action = QAction("Вставить", self)
+        self.paste_action.triggered.connect(lambda: self.paste_values_from_clipboard())
         self.context_menu.addAction(self.paste_action)
-        # Connect the context menu to the table's right-click event
+
+
+        # контекстное меню по правой кнопкой мыши по таблице.
         self.ui.table.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.ui.table.customContextMenuRequested.connect(self.show_context_menu)
+
         # connect
         self.ui.add_button.clicked.connect(self.add_row)
         self.ui.delete_button.clicked.connect(self.delete_row)
@@ -61,6 +70,7 @@ class FormTable(QWidget):
         self.context_menu.exec_(self.ui.table.mapToGlobal(position))
 
     def add_row(self):
+        log.Log.debug_logger("IN add_row()")
         row_count = self.ui.table.rowCount()
         self.ui.table.insertRow(row_count)
         for column in range(self.ui.table.columnCount()):
@@ -68,6 +78,7 @@ class FormTable(QWidget):
             self.ui.table.setItem(row_count, column, item)
 
     def delete_row(self):
+        log.Log.debug_logger("IN delete_row()")
         current_row = self.ui.table.currentRow()
         if current_row >= 0:
             self.ui.table.removeRow(current_row)
@@ -77,35 +88,54 @@ class FormTable(QWidget):
     #     if item:
     #         print(f"Cell ({row}, {column}) changed to {item.text()}")
 
-        
+    def copy_values_to_clipboard(self):
+        """
+        Копирование значения в буфер обмена
+        """
+        log.Log.debug_logger("IN copy_values_to_clipboard()")
+        selected_items = self.ui.table.selectedItems()
+        # values = []
+        # for item in selected_items:
+        #     values.append('\t'.join(item.text()))
+        # text = '\n'.join(values)
+        text = str()
+        selected_items = self.ui.table.selectedItems()
+        col = -1
+        for item in selected_items:
+            new_col = item.column()
+            if new_col > col:
+                col = new_col
+                text += item.text() + "\t"
+            else:
+                col = new_col
+                text += "\n" + item.text() + "\t"
+        clipboard = QApplication.clipboard()
+        clipboard.clear()
+        clipboard.setText(text)
+        print(f"text = {text}")
 
     def paste_values_from_clipboard(self):
+        """
+        Вставка значений из буфера обмена
+        """
+        log.Log.debug_logger("IN paste_values_from_clipboard()")
         clipboard = QApplication.clipboard()
         text = clipboard.text()
-        rows = text.split('\n')
-        selected_rows = self.ui.table.selectedItems()
-        start_row = selected_rows[0].row() if selected_rows else 0
-        start_col = selected_rows[0].column() if selected_rows else 0
+        rows = text.split("\n")
+        selected_items = self.ui.table.selectedItems()
+        start_row = selected_items[0].row() if selected_items else 0
+        start_col = selected_items[0].column() if selected_items else 0
         for i, row in enumerate(rows):
-            if start_row + i >= self.ui.table.rowCount():
-                break
-            columns = row.split('\t')
+            columns = row.split("\t")
             for j, value in enumerate(columns):
-                if start_col + j >= self.ui.table.columnCount():
-                    break
-                item = self.ui.table.item(start_row + i, start_col + j)
-                if item is None:
-                    item = QTableWidgetItem(value)
-                    self.table_widget.setItem(start_row + i, start_col + j, item)
-                else:
-                    item.setText(value)
-
-        # Clearing the selection after pasting
-        self.ui.table.clearSelection()
+                if not (start_col + j >= self.ui.table.columnCount()) or not (start_row + i >= self.ui.table.rowCount()):
+                    self.ui.table.item(start_row + i, start_col + j).setText(value)
 
 
     def create_table_from_value(self, json_data):
-        log.Log.debug_logger(f"create_table_from_value(self, json_data): data = {json_data}")
+        log.Log.debug_logger(
+            f"create_table_from_value(self, json_data): data = {json_data}"
+        )
         if json_data:
             data = json.loads(json_data)
             self.ui.table.setRowCount(len(data))
@@ -135,6 +165,3 @@ class FormTable(QWidget):
         )
         pair["value"] = new_value
         print(pair)
-
-
-    # TODO sqlite3.ProgrammingError: Error binding parameter 1: type 'list' is not supported
