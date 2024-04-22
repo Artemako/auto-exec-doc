@@ -8,8 +8,7 @@ import package.modules.projectdatabase as projectdatabase
 import package.modules.log as log
 import package.modules.filefoldermanager as filefoldermanager
 import package.modules.dirpathsmanager as dirpathsmanager
-
-import package.controllers.scrollareainput as scrollareainput
+import package.modules.sectionsinfo as sectionsinfo
 
 import package.controllers.structureexecdoc as structureexecdoc
 import package.controllers.pagestemplate as pagestemplate
@@ -22,6 +21,7 @@ class Project:
 
     # по умолчанию False
     __status_active = False
+    # TODO При редактировании __status_save = False
     __status_save = False
 
     def __init__(self):
@@ -127,7 +127,7 @@ class Project:
         log.Log.debug_logger("IN save_project()")
         # TODO Сделать сохранение проекта
         if Project.__status_active:
-            scrollareainput.ScroolAreaInput.save_data()
+            sectionsinfo.SectionsInfo.save_data_to_database()
             Project.__status_save = True
 
     @staticmethod

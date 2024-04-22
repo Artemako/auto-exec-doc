@@ -29,15 +29,17 @@ class FileFolderManager:
         Добавление в проект папок форм.
         """
         log.Log.debug_logger("IN add_forms_folders_to_new_project()")
-        # папка forms
+        # папка forms d проекте
         forms_folder_dirpath = os.path.join(
             dirpathsmanager.DirPathManager.get_project_dirpath(), "forms"
         )
 
+        # TODO папка images и pdfs и docx
+
         if not os.path.exists(forms_folder_dirpath):
             os.mkdir(forms_folder_dirpath)
 
-        # Папка temp
+        # Папка TEMP/AUTOEXECDOC
         if not os.path.exists(dirpathsmanager.DirPathManager.get_temp_dirpath()):
             os.mkdir(dirpathsmanager.DirPathManager.get_temp_dirpath())
 

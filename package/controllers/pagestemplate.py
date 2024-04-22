@@ -1,10 +1,10 @@
 from PySide6.QtWidgets import QListWidgetItem
-from PySide6.QtCore import Qt
 
 import package.modules.log as log
 
 import package.modules.projectdatabase as projectdatabase
 import package.controllers.scrollareainput as scrollareainput
+import package.modules.sectionsinfo as sectionsinfo
 
 
 class MyListWidgetItem(QListWidgetItem):
@@ -39,11 +39,21 @@ class PagesTemplate:
 
         # Подключение сигналов
         PagesTemplate.__listwidget_pages_template.itemClicked.connect(
-            # TODO PDF VIEW
-            lambda current: scrollareainput.ScroolAreaInput.update_scrollarea(
-                current.get_page()
-            )
+            lambda current: PagesTemplate.item_clicked(current)
         )
+
+    @staticmethod
+    def item_clicked(current):
+        """
+        Слот для сигнала itemClicked.
+        """
+        log.Log.debug_logger(f"IN item_clicked(current): current = {current}")
+        page = current.get_page()
+        # добыть информация для SectionInfo
+        sectionsinfo.SectionsInfo.update_sections_info(page)
+        # Обновить ScroolAreaInput после SectionInfo
+        scrollareainput.ScroolAreaInput.update_scrollarea(page)
+        # TODO PDF VIEW
 
     @staticmethod
     def clear_pt():
@@ -77,4 +87,3 @@ class PagesTemplate:
             item = MyListWidgetItem(page)
             item.setText(page.get("page_name"))
             PagesTemplate.__listwidget_pages_template.addItem(item)
-
