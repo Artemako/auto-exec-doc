@@ -1,3 +1,5 @@
+import json
+
 from PySide6.QtWidgets import QWidget, QTableWidgetItem
 
 import package.modules.log as log
@@ -62,9 +64,10 @@ class FormTable(QWidget):
     #     if item:
     #         print(f"Cell ({row}, {column}) changed to {item.text()}")
 
-    def create_table_from_value(self, data):
-        log.Log.debug_logger(f"create_table_from_value(self, data): data = {data}")
-        if data:
+    def create_table_from_value(self, json_data):
+        log.Log.debug_logger(f"create_table_from_value(self, json_data): data = {json_data}")
+        if json_data:
+            data = json.loads(json_data)
             self.ui.table.setRowCount(len(data))
             self.ui.table.setColumnCount(len(data[0]))
             for row, row_data in enumerate(data):
@@ -84,7 +87,7 @@ class FormTable(QWidget):
                 else:
                     row_data.append("")
             data.append(row_data)
-        return data
+        return json.dumps(data)
 
     def set_new_value_in_pair(self, pair, new_value):
         log.Log.debug_logger(
@@ -92,3 +95,6 @@ class FormTable(QWidget):
         )
         pair["value"] = new_value
         print(pair)
+
+
+    # TODO sqlite3.ProgrammingError: Error binding parameter 1: type 'list' is not supported

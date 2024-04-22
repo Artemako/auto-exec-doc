@@ -48,7 +48,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QDateEdit" name="dateedit"/>
+      <widget class="QDateEdit" name="dateedit">
+       <property name="timeSpec">
+        <enum>Qt::UTC</enum>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QTextBrowser" name="textbrowser">

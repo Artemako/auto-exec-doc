@@ -1,5 +1,7 @@
+import json
+
 from PySide6.QtWidgets import QWidget
-from PySide6.QtCore import QDateTime
+from PySide6.QtCore import QDate
 
 import package.ui.formdate_ui as formdate_ui
 
@@ -10,40 +12,62 @@ import package.modules.log as log
 
 class FormDate(QWidget):
     def __init__(self, pair, config_content, config_date):
-        log.Log.debug_logger(f"FormDate(self, pair, config_content, config_date): pair = {pair}, config_content = {config_content}, config_date = {config_date}" )
-        
+        log.Log.debug_logger(
+            f"FormDate(self, pair, config_content, config_date): pair = {pair}, config_content = {config_content}, config_date = {config_date}"
+        )
+
         super(FormDate, self).__init__()
         self.ui = formdate_ui.Ui_FormDateWidget()
         self.ui.setupUi(self)
 
+        # формат по умолчанию
+        self.str_format = "dd.MM.yyyy"
 
         # ПО УМОЛЧАНИЮ из config_content
         # заголовок
         self.ui.title.setText(config_content["title_content"])
-        # поле ввода
-        self.ui.dateedit.setDateTime(pair.get("value") if pair.get("value") else QDateTime.currentDateTime())
-        self.ui.dateedit.setDisplayFormat("dd.MM.yyyy")
+
         # описание
-        description_content = config_content['description_content'] 
-        if description_content:
+        description_content = config_content["description_content"]
+        if description_content: 
             self.ui.textbrowser.setHtml(description_content)
         else:
             self.ui.textbrowser.hide()
-
 
         # ОСОБЕННОСТИ из config_date
         for config in config_date:
             type_config = config.get("type_config")
             value_config = config.get("value_config")
             if type_config == "FORMAT":
-                self.ui.dateedit.setDisplayFormat(value_config)
+                self.str_format = value_config
+        
+        # поле ввода
+        value = pair.get("value")
+        if value:
+            self.ui.dateedit.setDate(self.string_to_qdate(value, self.str_format))
+        else:
+            self.ui.dateedit.setDate(QDate.currentDate())
+        self.ui.dateedit.setDisplayFormat(self.str_format)         
 
-        # connect
-        self.ui.dateedit.dateChanged.connect(
-            lambda date: self.set_new_value_in_pair(pair, date)
+        self.ui.dateedit.editingFinished.connect(
+            lambda: self.set_new_value_in_pair(pair, self.qdate_to_string(self.ui.dateedit.date(), self.str_format))
         )
 
+    def string_to_qdate(self, str_date, str_format) -> object:
+        log.Log.debug_logger(
+            f"string_to_date(self, str_date, str_format): str_date = {str_date}, str_format = {str_format}"
+        )
+        return QDate.fromString(str_date, str_format)
+
+    def qdate_to_string(self, date, str_format) -> str:
+        log.Log.debug_logger(
+            f"date_to_string(self, date) -> str: date = {date}"
+        )
+        return str(date.toString(str_format))
+
     def set_new_value_in_pair(self, pair, new_value):
-        log.Log.debug_logger(f"set_new_value_in_pair(self, pair, new_value): pair = {pair}, new_value = {new_value}")
+        log.Log.debug_logger(
+            f"set_new_value_in_pair(self, pair, new_value): pair = {pair}, new_value = {new_value}"
+        )
         pair["value"] = new_value
-        print(pair)
+        print(f"pair = {pair}")

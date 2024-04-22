@@ -484,3 +484,45 @@ COMMIT;
         result = [dict(row) for row in cursor_result] if cursor_result else []
         conn.close()
         return result
+    
+
+    @staticmethod
+    def update_pages_data(id_pair, value):
+        """
+        Запрос на обновление данных страницы в Project_pages_data.
+        """
+        log.Log.debug_logger(f"IN update_pages_data(id_pair, value): id_pair = {id_pair}, value = {value}")
+
+        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        UPDATE Project_pages_data
+        SET value = ?
+        WHERE id_pair = ?
+        """,
+            [value, id_pair],
+        )
+        conn.commit()
+        conn.close()
+    
+
+    @staticmethod
+    def update_nodes_data(id_pair, value):
+        """
+        Запрос на обновление данных вершины в Project_nodes_data.
+        """
+        log.Log.debug_logger(f"IN update_nodes_data(id_pair, value): id_pair = {id_pair}, value = {value}")
+
+        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        UPDATE Project_nodes_data
+        SET value = ?
+        WHERE id_pair = ?
+        """,
+            [value, id_pair],
+        )
+        conn.commit()
+        conn.close()

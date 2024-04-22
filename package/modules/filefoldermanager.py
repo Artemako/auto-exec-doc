@@ -61,8 +61,11 @@ class FileFolderManager:
         log.Log.debug_logger(
             f"IN clear_temp_folder(is_del_folder): is_del_folder = {is_del_folder}, temp_dirpath = {dirpathsmanager.DirPathManager.get_temp_dirpath()}"
         )
-
         temp_dirpath = dirpathsmanager.DirPathManager.get_temp_dirpath()
-        shutil.rmtree(temp_dirpath)
-        if is_del_folder:
-            os.mkdir(temp_dirpath)
+        try:
+            shutil.rmtree(temp_dirpath)
+            if not is_del_folder:
+                os.mkdir(temp_dirpath)
+        except Exception as e:
+            log.Log.error_logger(e)
+            dirpathsmanager.DirPathManager.set_new_temp_dirpath()

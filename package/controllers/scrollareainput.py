@@ -59,24 +59,25 @@ class ScroolAreaInput:
         Cохранение _data
         """
         log.Log.debug_logger("IN save_data()")
-        # сохранение data в json
-        for sections_info in ScroolAreaInput.__sections_info:
-            jsonmanager.JsonManager.save_data_to_json_file(
-                sections_info.get("json_dirpath"), sections_info.get("data")
-            )
-        # сохранение изображений
         sections_info = ScroolAreaInput.__sections_info
+        # перебор секций
         for section_index, section_info in enumerate(sections_info):
+            print(f"section_index = {section_index},\n section_info = {section_info}\n")
+            # инфо из секции
+            section_type = section_info.get("type")
             section_data = section_info.get("data")
-            for key, value in section_data.items():
-                config_content = projectdatabase.Database.get_config_content_by_id(key)
-                type_content = config_content.get("type_content")
-                if type_content == "IMAGE":
-                    # TODO ЗАМЕНЯТЬ ИЗОБРАЖЕНИЕ С ДРУГИМ РАСШИРЕНЕНИЕМ
-                    filefoldermanager.FileFolderManager.move_from_temp_to_project(
-                        section_info.get("json_dirpath"),
-                        section_data[config_content.get("name_content")],
-                    )
+            print(f"section_data = {section_data}\n")
+            # перебор пар в section_data секции
+            for pair_index, pair in enumerate(section_data):
+                print(f"pair = {pair}\n")
+                id_pair = pair.get("id_pair")
+                value = pair.get("value")
+                if section_type == "page":
+                    projectdatabase.Database.update_pages_data(id_pair, value)
+                elif section_type == "node":
+                    projectdatabase.Database.update_nodes_data(id_pair, value)
+
+        
 
     @staticmethod
     def add_page_for_info_sections(page):

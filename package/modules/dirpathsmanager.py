@@ -132,5 +132,10 @@ class DirPathManager:
             "get_temp_dirpath() -> str:"
         )
         return DirPathManager.__temp_dirpath
+    
+    @staticmethod
+    def set_new_temp_dirpath():
+        DirPathManager.__temp_dirpath = tempfile.mkdtemp()
+        log.Log.debug_logger(f"set_temp_dirpath(dirpath: str): __temp_dirpath = {DirPathManager.__temp_dirpath}")
 
     # endregion
