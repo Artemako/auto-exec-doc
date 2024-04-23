@@ -65,14 +65,16 @@ class Converter:
                 if type_content == "TEXT":
                     data_context[name_content] = value
                 elif type_content == "IMAGE":
-                    image_dirpath = os.path.abspath(
-                        os.path.join(
-                            dirpathsmanager.DirPathManager.get_images_folder_dirpath(),
-                            value
+                    # TODO контент для изображения
+                    if value:
+                        image_dirpath = os.path.abspath(
+                            os.path.join(
+                                dirpathsmanager.DirPathManager.get_images_folder_dirpath(),
+                                value
+                            )
                         )
-                    )
-                    image = InlineImage(docx_template, image_dirpath)
-                    data_context[name_content] = image
+                        image = InlineImage(docx_template, image_dirpath)
+                        data_context[name_content] = image
                 elif type_content == "DATE":
                     data_context[name_content] = value
                 elif type_content == "TABLE":

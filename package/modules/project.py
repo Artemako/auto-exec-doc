@@ -135,7 +135,7 @@ class Project:
         if Project.__status_active and pagestemplate.PagesTemplate.is_page_template_selected():
             # сохранить в базу данных
             sectionsinfo.SectionsInfo.save_data_to_database()
-            pagestemplate.PagesTemplate.current_page_to_pdf()   
+            # current_page_to_pdf() расположен в save_data_to_database()
             # настроить статус         
             Project.__status_save = True
             statusbar.StatusBar.set_message_for_statusbar(

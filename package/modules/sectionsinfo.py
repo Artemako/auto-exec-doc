@@ -2,6 +2,7 @@ import package.modules.log as log
 import package.modules.projectdatabase as projectdatabase
 
 import package.modules.filefoldermanager as filefoldermanager
+import package.controllers.pagestemplate as pagestemplate
 
 
 class SectionsInfo:
@@ -103,6 +104,9 @@ class SectionsInfo:
                 if type_content == "IMAGE":
                     filefoldermanager.FileFolderManager.delete_image_from_project(old_value)
                     filefoldermanager.FileFolderManager.move_image_from_temp_to_project(value)
+
+        pagestemplate.PagesTemplate.current_page_to_pdf()   
+        
 
 
 
