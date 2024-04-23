@@ -63,7 +63,7 @@ class PdfView:
     def open_pdf_file_for_page(page):
         log.Log.debug_logger(f"IN open_pdf_file_for_page(page): page = {page}")
         # имя файла для открытия
-        pdf_name = page.get_name() + ".pdf"
+        pdf_name = page.get("template_name") + ".pdf"
         # путь файла для открытия
         page_pdf_path = os.path.abspath(
             os.path.join(

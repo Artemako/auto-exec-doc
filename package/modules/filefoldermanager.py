@@ -48,15 +48,20 @@ class FileFolderManager:
         if not os.path.exists(pdfs_folder_dirpath):
             os.makedirs(pdfs_folder_dirpath)    
 
-
         # Папка TEMP/AUTOEXECDOC
         if not os.path.exists(dirpathsmanager.DirPathManager.get_temp_dirpath()):
             os.makedirs(dirpathsmanager.DirPathManager.get_temp_dirpath())
 
+
+    @staticmethod
+    def copy_templates_to_forms_folder():
+        """
+        Копирование шаблонов в папку forms.
+        """
+        log.Log.debug_logger("IN copy_templates_to_forms_folder()")
+
         templates_main_dirpath = dirpathsmanager.DirPathManager.get_templates_main_dirpath()
-
-
-
+        forms_folder_dirpath = dirpathsmanager.DirPathManager.get_forms_folder_dirpath()
 
         # копирование шаблонов в папку проекта forms
         for f in os.listdir(templates_main_dirpath):

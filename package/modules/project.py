@@ -117,13 +117,13 @@ class Project:
         dirpathsmanager.DirPathManager.set_new_dirpaths_for_project()
         # добавляем папки форм в новый проект
         filefoldermanager.FileFolderManager.create_folders_for_new_project()
+        filefoldermanager.FileFolderManager.copy_templates_to_forms_folder()
         # активируем проект
         Project.set_true_actives_project()
         # сообщение для статусбара
         statusbar.StatusBar.set_message_for_statusbar(
             f"Проект c именем {Project.__current_name} создан и открыт."
         )
-
 
     @staticmethod
     def save_project():
@@ -166,6 +166,10 @@ class Project:
         projectdatabase.Database.create_and_config_db_project()
         # настраиваем структуру execdoc
         structureexecdoc.StructureExecDoc.update_structure_exec_doc()
+        # пути для проекта
+        dirpathsmanager.DirPathManager.set_new_dirpaths_for_project()
+        # добавляем папки в новый проект
+        filefoldermanager.FileFolderManager.create_folders_for_new_project()
 
         Project.set_true_actives_project()
         # сообщение для статусбара

@@ -55,7 +55,7 @@ class DialogWindows:
         while True:
             folder_path = QFileDialog.getExistingDirectory(
                 None,
-                "Выбор папки",
+                "Выбор папки для нового проекта",
                 dirpathsmanager.DirPathManager.get_default_folder_projects_dirpath(),
             )
             if folder_path:
@@ -76,7 +76,7 @@ class DialogWindows:
         while True:
             folder_path = QFileDialog.getExistingDirectory(
                 None,
-                "Выбор папки",
+                "Выбор папки для открытия проекта",
                 dirpathsmanager.DirPathManager.get_default_folder_projects_dirpath(),
             )
             if folder_path:

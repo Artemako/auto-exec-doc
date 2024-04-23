@@ -28,23 +28,14 @@ class Database:
         cursor.executescript(
             """
 BEGIN TRANSACTION;
-CREATE TABLE IF NOT EXISTS "Project_content_config_table" (
-	"id_config"	INTEGER UNIQUE,
-	"id_content"	INTEGER,
-	"type_config"	TEXT,
-	"value_config"	TEXT,
-	"note_config"	TEXT,
-	PRIMARY KEY("id_config" AUTOINCREMENT),
-	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content")
-);
 CREATE TABLE IF NOT EXISTS "Project_content_config_date" (
 	"id_config"	INTEGER UNIQUE,
 	"id_content"	INTEGER,
 	"type_config"	TEXT,
 	"value_config"	TEXT,
 	"note_config"	TEXT,
-	PRIMARY KEY("id_config" AUTOINCREMENT),
-	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content")
+	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content"),
+	PRIMARY KEY("id_config" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "Project_content_config_list" (
 	"id_content"	INTEGER NOT NULL UNIQUE,
@@ -80,9 +71,9 @@ CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
 	"id_content"	INTEGER,
 	"name_content"	TEXT,
 	"value"	TEXT,
-	PRIMARY KEY("id_pair" AUTOINCREMENT),
 	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content"),
-	FOREIGN KEY("id_node") REFERENCES "Project_nodes"("id_node")
+	FOREIGN KEY("id_node") REFERENCES "Project_nodes"("id_node"),
+	PRIMARY KEY("id_pair" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "Project_pages_data" (
 	"id_pair"	INTEGER UNIQUE,
@@ -90,58 +81,20 @@ CREATE TABLE IF NOT EXISTS "Project_pages_data" (
 	"id_content"	INTEGER,
 	"name_content"	TEXT,
 	"value"	TEXT,
-	PRIMARY KEY("id_pair" AUTOINCREMENT),
+	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content"),
 	FOREIGN KEY("id_page") REFERENCES "Project_pages"("id_page"),
-	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content")
+	PRIMARY KEY("id_pair" AUTOINCREMENT)
 );
-INSERT INTO "Project_content_config_table" VALUES (100,1200,'HEADER','Форма',NULL);
-INSERT INTO "Project_content_config_table" VALUES (101,1200,'HEADER','Наименование',NULL);
-INSERT INTO "Project_content_config_table" VALUES (102,1200,'HEADER','Количество листов',NULL);
-INSERT INTO "Project_content_config_table" VALUES (103,1200,'HEADER','Номера страниц',NULL);
-INSERT INTO "Project_content_config_table" VALUES (104,1200,'HEADER','Примечание',NULL);
-INSERT INTO "Project_content_config_table" VALUES (110,1200,'CONTENT','форма',NULL);
-INSERT INTO "Project_content_config_table" VALUES (111,1200,'CONTENT','наименование_документа',NULL);
-INSERT INTO "Project_content_config_table" VALUES (112,1200,'CONTENT','кол_листов',NULL);
-INSERT INTO "Project_content_config_table" VALUES (113,1200,'CONTENT','номера_стр',NULL);
-INSERT INTO "Project_content_config_table" VALUES (114,1200,'CONTENT','примечание',NULL);
-INSERT INTO "Project_content_config_table" VALUES (200,1201,'HEADER','Форма',NULL);
-INSERT INTO "Project_content_config_table" VALUES (201,1201,'HEADER','Наименование',NULL);
-INSERT INTO "Project_content_config_table" VALUES (202,1201,'HEADER','Количество листов',NULL);
-INSERT INTO "Project_content_config_table" VALUES (203,1201,'HEADER','Номера страниц',NULL);
-INSERT INTO "Project_content_config_table" VALUES (204,1201,'HEADER','Примечание',NULL);
-INSERT INTO "Project_content_config_table" VALUES (205,1201,'CONTENT','форма',NULL);
-INSERT INTO "Project_content_config_table" VALUES (206,1201,'CONTENT','наименование_документа',NULL);
-INSERT INTO "Project_content_config_table" VALUES (207,1201,'CONTENT','кол_листов',NULL);
-INSERT INTO "Project_content_config_table" VALUES (208,1201,'CONTENT','номера_стр',NULL);
-INSERT INTO "Project_content_config_table" VALUES (209,1201,'CONTENT','примечание',NULL);
-INSERT INTO "Project_content_config_table" VALUES (300,1202,'HEADER','Форма',NULL);
-INSERT INTO "Project_content_config_table" VALUES (301,1202,'HEADER','Наименование',NULL);
-INSERT INTO "Project_content_config_table" VALUES (302,1202,'HEADER','Количество листов',NULL);
-INSERT INTO "Project_content_config_table" VALUES (303,1202,'HEADER','Номера страниц',NULL);
-INSERT INTO "Project_content_config_table" VALUES (304,1202,'HEADER','Примечание',NULL);
-INSERT INTO "Project_content_config_table" VALUES (305,1202,'CONTENT','форма',NULL);
-INSERT INTO "Project_content_config_table" VALUES (306,1202,'CONTENT','наименование_документа',NULL);
-INSERT INTO "Project_content_config_table" VALUES (307,1202,'CONTENT','кол_листов',NULL);
-INSERT INTO "Project_content_config_table" VALUES (308,1202,'CONTENT','номера_стр',NULL);
-INSERT INTO "Project_content_config_table" VALUES (309,1202,'CONTENT','примечание',NULL);
-INSERT INTO "Project_content_config_table" VALUES (400,1209,'HEADER','Номер формы',NULL);
-INSERT INTO "Project_content_config_table" VALUES (401,1209,'HEADER','Наименование документа',NULL);
-INSERT INTO "Project_content_config_table" VALUES (402,1209,'HEADER','Количество листов',NULL);
-INSERT INTO "Project_content_config_table" VALUES (403,1209,'HEADER','Номера страниц',NULL);
-INSERT INTO "Project_content_config_table" VALUES (404,1209,'HEADER','Примечания',NULL);
-INSERT INTO "Project_content_config_table" VALUES (405,1209,'CONTENT','номер_формы',NULL);
-INSERT INTO "Project_content_config_table" VALUES (406,1209,'CONTENT','наименование_документа',NULL);
-INSERT INTO "Project_content_config_table" VALUES (407,1209,'CONTENT','кол_листов',NULL);
-INSERT INTO "Project_content_config_table" VALUES (408,1209,'CONTENT','номера_стр',NULL);
-INSERT INTO "Project_content_config_table" VALUES (409,1209,'CONTENT','примечание',NULL);
-INSERT INTO "Project_content_config_table" VALUES (500,1220,'HEADER','Марка кабеля',NULL);
-INSERT INTO "Project_content_config_table" VALUES (501,1220,'HEADER','Длина кабеля (всего) в м.',NULL);
-INSERT INTO "Project_content_config_table" VALUES (502,1220,'HEADER','Оптическая длина в м.',NULL);
-INSERT INTO "Project_content_config_table" VALUES (503,1220,'HEADER','Информация',NULL);
-INSERT INTO "Project_content_config_table" VALUES (504,1220,'CONTENT','марка',NULL);
-INSERT INTO "Project_content_config_table" VALUES (505,1220,'CONTENT','длина_всего',NULL);
-INSERT INTO "Project_content_config_table" VALUES (506,1220,'CONTENT','длина_опт',NULL);
-INSERT INTO "Project_content_config_table" VALUES (507,1220,'CONTENT','инфо',NULL);
+CREATE TABLE IF NOT EXISTS "Project_content_config_table" (
+	"id_config"	INTEGER UNIQUE,
+	"id_content"	INTEGER,
+	"type_config"	TEXT,
+	"value_config"	TEXT,
+	"note_config"	TEXT,
+	"order_config"	INTEGER,
+	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content"),
+	PRIMARY KEY("id_config" AUTOINCREMENT)
+);
 INSERT INTO "Project_content_config_date" VALUES (100,1208,'FORMAT','yyyy',NULL);
 INSERT INTO "Project_content_config_date" VALUES (101,1227,'FORMAT','yyyy',NULL);
 INSERT INTO "Project_content_config_date" VALUES (102,1228,'FORMAT','yyyy',NULL);
@@ -211,7 +164,56 @@ INSERT INTO "Project_pages_data" VALUES (503,40,1227,'год_прокладки_
 INSERT INTO "Project_pages_data" VALUES (504,40,1228,'год_составления_паспорта',NULL);
 INSERT INTO "Project_pages_data" VALUES (505,40,1229,'отв_пред_орг_фио',NULL);
 INSERT INTO "Project_pages_data" VALUES (600,50,1230,'скелетная_схема_ВОЛП',NULL);
+INSERT INTO "Project_content_config_table" VALUES (100,1200,'HEADER','Форма','',0);
+INSERT INTO "Project_content_config_table" VALUES (101,1200,'HEADER','Наименование','',1);
+INSERT INTO "Project_content_config_table" VALUES (102,1200,'HEADER','Количество листов','',2);
+INSERT INTO "Project_content_config_table" VALUES (103,1200,'HEADER','Номера страниц','',3);
+INSERT INTO "Project_content_config_table" VALUES (104,1200,'HEADER','Примечание','',4);
+INSERT INTO "Project_content_config_table" VALUES (110,1200,'CONTENT','форма','',0);
+INSERT INTO "Project_content_config_table" VALUES (111,1200,'CONTENT','наименование_документа','',1);
+INSERT INTO "Project_content_config_table" VALUES (112,1200,'CONTENT','кол_листов','',2);
+INSERT INTO "Project_content_config_table" VALUES (113,1200,'CONTENT','номера_стр','',3);
+INSERT INTO "Project_content_config_table" VALUES (114,1200,'CONTENT','примечание','',4);
+INSERT INTO "Project_content_config_table" VALUES (200,1201,'HEADER','Форма','',0);
+INSERT INTO "Project_content_config_table" VALUES (201,1201,'HEADER','Наименование','',1);
+INSERT INTO "Project_content_config_table" VALUES (202,1201,'HEADER','Количество листов','',2);
+INSERT INTO "Project_content_config_table" VALUES (203,1201,'HEADER','Номера страниц','',3);
+INSERT INTO "Project_content_config_table" VALUES (204,1201,'HEADER','Примечание','',4);
+INSERT INTO "Project_content_config_table" VALUES (205,1201,'CONTENT','форма','',0);
+INSERT INTO "Project_content_config_table" VALUES (206,1201,'CONTENT','наименование_документа','',1);
+INSERT INTO "Project_content_config_table" VALUES (207,1201,'CONTENT','кол_листов','',2);
+INSERT INTO "Project_content_config_table" VALUES (208,1201,'CONTENT','номера_стр','',3);
+INSERT INTO "Project_content_config_table" VALUES (209,1201,'CONTENT','примечание','',4);
+INSERT INTO "Project_content_config_table" VALUES (300,1202,'HEADER','Форма','',0);
+INSERT INTO "Project_content_config_table" VALUES (301,1202,'HEADER','Наименование','',1);
+INSERT INTO "Project_content_config_table" VALUES (302,1202,'HEADER','Количество листов','',2);
+INSERT INTO "Project_content_config_table" VALUES (303,1202,'HEADER','Номера страниц','',3);
+INSERT INTO "Project_content_config_table" VALUES (304,1202,'HEADER','Примечание','',4);
+INSERT INTO "Project_content_config_table" VALUES (305,1202,'CONTENT','форма','',0);
+INSERT INTO "Project_content_config_table" VALUES (306,1202,'CONTENT','наименование_документа','',1);
+INSERT INTO "Project_content_config_table" VALUES (307,1202,'CONTENT','кол_листов','',2);
+INSERT INTO "Project_content_config_table" VALUES (308,1202,'CONTENT','номера_стр','',3);
+INSERT INTO "Project_content_config_table" VALUES (309,1202,'CONTENT','примечание','',4);
+INSERT INTO "Project_content_config_table" VALUES (400,1209,'HEADER','Номер формы','',0);
+INSERT INTO "Project_content_config_table" VALUES (401,1209,'HEADER','Наименование документа','',1);
+INSERT INTO "Project_content_config_table" VALUES (402,1209,'HEADER','Количество листов','',2);
+INSERT INTO "Project_content_config_table" VALUES (403,1209,'HEADER','Номера страниц','',3);
+INSERT INTO "Project_content_config_table" VALUES (404,1209,'HEADER','Примечания','',4);
+INSERT INTO "Project_content_config_table" VALUES (405,1209,'CONTENT','номер_формы','',0);
+INSERT INTO "Project_content_config_table" VALUES (406,1209,'CONTENT','наименование_документа','',1);
+INSERT INTO "Project_content_config_table" VALUES (407,1209,'CONTENT','кол_листов','',2);
+INSERT INTO "Project_content_config_table" VALUES (408,1209,'CONTENT','номера_стр','',3);
+INSERT INTO "Project_content_config_table" VALUES (409,1209,'CONTENT','примечание','',4);
+INSERT INTO "Project_content_config_table" VALUES (500,1220,'HEADER','Марка кабеля','',0);
+INSERT INTO "Project_content_config_table" VALUES (501,1220,'HEADER','Длина кабеля (всего) в м.','',1);
+INSERT INTO "Project_content_config_table" VALUES (502,1220,'HEADER','Оптическая длина в м.','',2);
+INSERT INTO "Project_content_config_table" VALUES (503,1220,'HEADER','Информация','',3);
+INSERT INTO "Project_content_config_table" VALUES (504,1220,'CONTENT','марка','',0);
+INSERT INTO "Project_content_config_table" VALUES (505,1220,'CONTENT','длина_всего','',1);
+INSERT INTO "Project_content_config_table" VALUES (506,1220,'CONTENT','длина_опт','',2);
+INSERT INTO "Project_content_config_table" VALUES (507,1220,'CONTENT','инфо','',3);
 COMMIT;
+
 
             """
         )
