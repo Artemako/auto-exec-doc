@@ -30,6 +30,11 @@ class PagesTemplate:
         pass
 
     @staticmethod
+    def is_page_template_selected():
+        log.Log.debug_logger("get_listwidget_pages_template()")
+        return PagesTemplate.__listwidget_pages_template.currentItem()
+
+    @staticmethod
     def connect_pages_template(lw_pt, title_pt):
         """
         Подключить _listwidget_pages_template.
@@ -41,15 +46,15 @@ class PagesTemplate:
 
         # Подключение сигналов
         PagesTemplate.__listwidget_pages_template.itemClicked.connect(
-            lambda current: PagesTemplate.item_clicked(current)
+            lambda current: PagesTemplate.item_page_updated(current)
         )
 
     @staticmethod
-    def item_clicked(current):
+    def item_page_updated(current):
         """
         Слот для сигнала itemClicked.
         """
-        log.Log.debug_logger(f"IN item_clicked(current): current = {current}")
+        log.Log.debug_logger(f"IN item_page_updated(current): current = {current}")
         page = current.get_page()
         # добыть информация для SectionInfo
         sectionsinfo.SectionsInfo.update_sections_info(page)
@@ -58,6 +63,13 @@ class PagesTemplate:
         # открыть pdf форму для текущей страницы
         pdfview.PdfView.open_pdf_file_for_page(page)
         
+    @staticmethod
+    def current_page_to_pdf():
+        log.Log.debug_logger("IN current_page_to_pdf()")
+        current = PagesTemplate.__listwidget_pages_template.currentItem()
+        page = current.get_page()
+        pdfview.PdfView.open_pdf_file_for_page(page)
+
 
 
     @staticmethod

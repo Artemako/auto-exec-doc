@@ -132,11 +132,18 @@ class Project:
         """
         log.Log.debug_logger("IN save_project()")
         # TODO Сделать сохранение проекта
-        if Project.__status_active:
+        if Project.__status_active and pagestemplate.PagesTemplate.is_page_template_selected():
+            # сохранить в базу данных
             sectionsinfo.SectionsInfo.save_data_to_database()
+            pagestemplate.PagesTemplate.current_page_to_pdf()   
+            # настроить статус         
             Project.__status_save = True
             statusbar.StatusBar.set_message_for_statusbar(
                 f"Проект c именем {Project.__current_name} сохранён."
+            )
+        else:
+            statusbar.StatusBar.set_message_for_statusbar(
+                "Нечего сохранять. Либо проект не открыт, либо форма не выбрана."
             )
 
     @staticmethod

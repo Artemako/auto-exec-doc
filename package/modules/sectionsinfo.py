@@ -103,3 +103,7 @@ class SectionsInfo:
                 if type_content == "IMAGE":
                     filefoldermanager.FileFolderManager.delete_image_from_project(old_value)
                     filefoldermanager.FileFolderManager.move_image_from_temp_to_project(value)
+
+
+
+
