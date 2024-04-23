@@ -116,7 +116,7 @@ class Project:
         # пути для проекта
         dirpathsmanager.DirPathManager.set_new_dirpaths_for_project()
         # добавляем папки форм в новый проект
-        filefoldermanager.FileFolderManager.add_forms_folders_to_new_project()
+        filefoldermanager.FileFolderManager.create_folders_for_new_project()
         # активируем проект
         Project.set_true_actives_project()
         # сообщение для статусбара

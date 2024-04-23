@@ -24,7 +24,7 @@ class FileFolderManager:
             )
 
     @staticmethod
-    def add_forms_folders_to_new_project():
+    def create_folders_for_new_project():
         """
         Добавление в проект папок форм.
         """
@@ -37,16 +37,26 @@ class FileFolderManager:
             os.makedirs(forms_folder_dirpath)
 
         # папка images в проекте
-        image_folder_dirpath = dirpathsmanager.DirPathManager.get_image_folder_dirpath()
+        image_folder_dirpath = dirpathsmanager.DirPathManager.get_images_folder_dirpath()
 
         if not os.path.exists(image_folder_dirpath):
             os.makedirs(image_folder_dirpath)        
+
+        # папка с pdfs
+        pdfs_folder_dirpath = dirpathsmanager.DirPathManager.get_pdfs_folder_dirpath()
+
+        if not os.path.exists(pdfs_folder_dirpath):
+            os.makedirs(pdfs_folder_dirpath)    
+
 
         # Папка TEMP/AUTOEXECDOC
         if not os.path.exists(dirpathsmanager.DirPathManager.get_temp_dirpath()):
             os.makedirs(dirpathsmanager.DirPathManager.get_temp_dirpath())
 
         templates_main_dirpath = dirpathsmanager.DirPathManager.get_templates_main_dirpath()
+
+
+
 
         # копирование шаблонов в папку проекта forms
         for f in os.listdir(templates_main_dirpath):

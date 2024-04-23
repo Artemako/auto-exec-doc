@@ -40,20 +40,31 @@ class DirPathManager:
     __templates_dirpath = os.path.join(__main_dirpath, "templates")
     __templates_main_dirpath = os.path.join(__templates_dirpath, "main" )
 
+
+    __forms_folder_dirpath = None
+    __images_folder_dirpath = None
+    __pdfs_filder_dirpath = None
+
     def __init__(self):
         pass
     
     
     @staticmethod
     def set_new_dirpaths_for_project():
+        log.Log.debug_logger("set_new_dirpaths_for_project()")
         # папка forms в проекте
         DirPathManager.__forms_folder_dirpath = os.path.join(
             DirPathManager.get_project_dirpath(), "forms"
         )
 
         # папка images в проекте
-        DirPathManager.__image_folder_dirpath = os.path.join(
+        DirPathManager.__images_folder_dirpath = os.path.join(
             DirPathManager.get_project_dirpath(), "images"
+        )
+
+        # папка images в проекте
+        DirPathManager.__pdfs_filder_dirpath = os.path.join(
+            DirPathManager.get_project_dirpath(), "pdfs"
         )
 
     @staticmethod
@@ -64,11 +75,18 @@ class DirPathManager:
         return DirPathManager.__forms_folder_dirpath
     
     @staticmethod
-    def get_image_folder_dirpath() -> str:
+    def get_images_folder_dirpath() -> str:
         log.Log.debug_logger(
-            f"get_image_folder_dirpath() -> str: {DirPathManager.__image_folder_dirpath}"
+            f"get_image_folder_dirpath() -> str: {DirPathManager.__images_folder_dirpath}"
         )
-        return DirPathManager.__image_folder_dirpath
+        return DirPathManager.__images_folder_dirpath
+    
+    @staticmethod
+    def get_pdfs_folder_dirpath() -> str:
+        log.Log.debug_logger(
+            f"get_pdfs_folder_dirpath() -> str: {DirPathManager.__pdfs_filder_dirpath}"
+        )
+        return DirPathManager.__pdfs_filder_dirpath
     
     @staticmethod
     def get_templates_main_dirpath() -> str:

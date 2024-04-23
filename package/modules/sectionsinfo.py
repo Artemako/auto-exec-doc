@@ -77,7 +77,6 @@ class SectionsInfo:
         for section_index, section_info in enumerate(sections_info):
             print(f"section_index = {section_index},\n section_info = {section_info}\n")
             # инфо из секции
-            # TODO Сохранения изображения
             section_type = section_info.get("type")
             section_data = section_info.get("data")
             print(f"section_data = {section_data}\n")

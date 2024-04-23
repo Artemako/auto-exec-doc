@@ -6,6 +6,8 @@ import package.modules.projectdatabase as projectdatabase
 import package.controllers.scrollareainput as scrollareainput
 import package.modules.sectionsinfo as sectionsinfo
 
+import package.controllers.pdfview as pdfview
+
 
 class MyListWidgetItem(QListWidgetItem):
     """
@@ -53,7 +55,10 @@ class PagesTemplate:
         sectionsinfo.SectionsInfo.update_sections_info(page)
         # Обновить ScroolAreaInput после SectionInfo
         scrollareainput.ScroolAreaInput.update_scrollarea(page)
-        # TODO PDF VIEW
+        # открыть pdf форму для текущей страницы
+        pdfview.PdfView.open_pdf_file_for_page(page)
+        
+
 
     @staticmethod
     def clear_pt():
