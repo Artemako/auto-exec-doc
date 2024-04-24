@@ -16,7 +16,10 @@ class PdfView:
 
     @staticmethod
     def connect_pdfview(widget):
+        PdfView.__document = QPdfDocument()
         PdfView.__widget_pdf_view = widget
+        PdfView.__widget_pdf_view.setDocument(PdfView.__document)
+        PdfView.__widget_pdf_view.setZoomFactor(PdfView.__zoom)        
         PdfView.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.Custom)
 
     @staticmethod
@@ -49,13 +52,14 @@ class PdfView:
 
     @staticmethod
     def set_empty_pdf_view():
-        PdfView.__widget_pdf_view.setDocument(QPdfDocument())
+        PdfView.__document = QPdfDocument()
+        PdfView.__widget_pdf_view.setDocument(PdfView.__document)
         log.Log.debug_logger("set_empty_pdf_view()")
 
     @staticmethod
-    def load_pdf_document(pdf_path):
+    def load_and_show_pdf_document(pdf_path):
 
-        log.Log.debug_logger(f"load_pdf_document(pdf_path): pdf_path = {pdf_path}")
+        log.Log.debug_logger(f"load_and_show_pdf_document(pdf_path): pdf_path = {pdf_path}")
 
         PdfView.__document = QPdfDocument()
         PdfView.__document.load(pdf_path)
