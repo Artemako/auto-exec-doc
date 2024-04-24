@@ -3,6 +3,7 @@ import json
 import copy
 from docxtpl import DocxTemplate, InlineImage
 from docx2pdf import convert
+import datetime
 
 import package.modules.dirpathsmanager as dirpathsmanager
 import package.modules.sectionsinfo as seccionsinfo
@@ -12,59 +13,47 @@ import package.controllers.pdfview as pdfview
 
 import package.modules.log as log
 
+
 class Converter:
-
     def __init__(self):
-        pass    
-
+        pass
 
     @staticmethod
     def create_and_open_page_pdf(page):
         log.Log.debug_logger(f"IN create_page_pdf(page): page = {page}")
-        # ПОРЯДОК ДЕЙСТВИЙ
 
-        # имя файла для открытия
-        pdf_name = page.get("template_name") + ".pdf"
-        # путь файла для открытия
-        page_pdf_path = os.path.abspath(
-            os.path.join(
-                dirpathsmanager.DirPathManager.get_pdfs_folder_dirpath(), pdf_name
-            )
-        )  
+        form_page_name = page.get("template_name")
+        docx_pdf_page_name = f"page_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
 
-        # очистить __widget_pdf_view 
-        pdfview.PdfView.set_empty_pdf_view()
-
-        if os.path.exists(page_pdf_path):
-            # удалить 
-            os.remove(page_pdf_path)
-
-              
         # создать docx из данным page
-        Converter.create_docx_page(page)
+        Converter.create_docx_page(form_page_name, docx_pdf_page_name)
         # создать pdf из docx
-        Converter.create_pdf_from_docx_page(page)
+        pdf_path = Converter.create_pdf_from_docx_page(docx_pdf_page_name)
         # открыть pdf
-        pdfview.PdfView.load_pdf_document(page_pdf_path)
-
+        pdfview.PdfView.load_pdf_document(pdf_path)
 
     @staticmethod
-    def create_docx_page(page):
-        log.Log.debug_logger(f"IN create_docx_page(page): page = {page}")
+    def create_docx_page(form_page_name, docx_pdf_page_name):
+        log.Log.debug_logger(
+            f"IN create_docx_page(page): form_page_name = {form_page_name}, docx_pdf_page_name = {docx_pdf_page_name}"
+        )
         # получить docx_template
-        form_page_name = page.get("template_name")
         form_page_fullname = form_page_name + ".docx"
+        docx_page_fullname = docx_pdf_page_name + ".docx"
+        # путь к шаблону в папке forms проекта
         template_path = os.path.abspath(
             os.path.join(
-                dirpathsmanager.DirPathManager.get_forms_folder_dirpath(), form_page_fullname
+                dirpathsmanager.DirPathManager.get_forms_folder_dirpath(),
+                form_page_fullname,
             )
         )
-        # создать docx из данным page
+        # путь к будущему docx файлу
         docx_path = os.path.abspath(
             os.path.join(
-                dirpathsmanager.DirPathManager.get_temp_dirpath(), form_page_fullname
+                dirpathsmanager.DirPathManager.get_temp_dirpath(), docx_page_fullname
             )
         )
+
         # учитывать main или nomain шаблон
         docx_template = DocxTemplate(template_path)
 
@@ -94,7 +83,7 @@ class Converter:
                         image_dirpath = os.path.abspath(
                             os.path.join(
                                 dirpathsmanager.DirPathManager.get_images_folder_dirpath(),
-                                value
+                                value,
                             )
                         )
                         image = InlineImage(docx_template, image_dirpath)
@@ -102,7 +91,9 @@ class Converter:
                 elif type_content == "DATE":
                     data_context[name_content] = value
                 elif type_content == "TABLE":
-                    config_table = projectdatabase.Database.get_config_table_by_id(id_content)
+                    config_table = projectdatabase.Database.get_config_table_by_id(
+                        id_content
+                    )
                     # узнать content в таблице
                     order_to_content_config_table = dict()
                     object_content = dict()
@@ -115,38 +106,40 @@ class Converter:
                     # заполнять data_context
                     table_values = []
                     if value:
-                        table = json.loads(value)                    
+                        table = json.loads(value)
                         for row, row_data in enumerate(table):
                             pt = copy.deepcopy(object_content)
                             for col, cell_value in enumerate(row_data):
-                                pt[order_to_content_config_table.get(col)] = (cell_value)
+                                pt[order_to_content_config_table.get(col)] = cell_value
                             table_values.append(pt)
-                    
+
                     data_context[name_content] = table_values
-                    
-    
+
         print(f"data_context = {data_context}")
         docx_template.render(data_context)
         print(f"docx_path = {docx_path}")
         docx_template.save(docx_path)
 
-
-
     @staticmethod
-    def create_pdf_from_docx_page(page):
-        log.Log.debug_logger(f"IN create_pdf_from_docx_page(page): page = {page}")
-        # создать pdf из docx
-        form_page_name = page.get("template_name")
-        form_page_fullname = form_page_name + ".docx"
+    def create_pdf_from_docx_page(docx_pdf_page_name) -> str:
+        log.Log.debug_logger(
+            f"IN create_pdf_from_docx_page(docx_pdf_page_name) -> str: docx_pdf_page_name = {docx_pdf_page_name}"
+        )
+        # пути к docx и к pdf
+        docx_page_fullname = docx_pdf_page_name + ".docx"
+        pdf_page_fullname = docx_pdf_page_name + ".pdf"
         docx_path = os.path.abspath(
             os.path.join(
-                dirpathsmanager.DirPathManager.get_temp_dirpath(), form_page_fullname
+                dirpathsmanager.DirPathManager.get_temp_dirpath(), docx_page_fullname
             )
         )
-        pdf_page_fullname = form_page_name + ".pdf"
-        page_pdf_path = os.path.abspath(
+        # путь к pdf в temp проекта
+        pdf_path = os.path.abspath(
             os.path.join(
-                dirpathsmanager.DirPathManager.get_pdfs_folder_dirpath(), pdf_page_fullname
+                dirpathsmanager.DirPathManager.get_temp_dirpath(), pdf_page_fullname
             )
         )
-        convert(docx_path, page_pdf_path)
+        # преобразовать docx в pdf
+        convert(docx_path, pdf_path)
+
+        return pdf_path

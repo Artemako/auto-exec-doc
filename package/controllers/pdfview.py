@@ -53,9 +53,12 @@ class PdfView:
         log.Log.debug_logger("set_empty_pdf_view()")
 
     @staticmethod
-    def load_pdf_document(page_pdf_path):
+    def load_pdf_document(pdf_path):
+
+        log.Log.debug_logger(f"load_pdf_document(pdf_path): pdf_path = {pdf_path}")
+
         PdfView.__document = QPdfDocument()
-        PdfView.__document.load(page_pdf_path)
+        PdfView.__document.load(pdf_path)
         PdfView.__widget_pdf_view.setDocument(PdfView.__document)
 
     # скроллинг по горизонтали работает с нажатой клавишей Alt
