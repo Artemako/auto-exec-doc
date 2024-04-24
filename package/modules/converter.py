@@ -2,10 +2,13 @@ import os
 import json
 import copy
 from docxtpl import DocxTemplate, InlineImage
+from docx2pdf import convert
 
 import package.modules.dirpathsmanager as dirpathsmanager
 import package.modules.sectionsinfo as seccionsinfo
 import package.modules.projectdatabase as projectdatabase
+
+import package.controllers.pdfview as pdfview
 
 import package.modules.log as log
 
@@ -16,12 +19,33 @@ class Converter:
 
 
     @staticmethod
-    def create_page_pdf(page):
+    def create_and_open_page_pdf(page):
         log.Log.debug_logger(f"IN create_page_pdf(page): page = {page}")
+        # ПОРЯДОК ДЕЙСТВИЙ
+
+        # имя файла для открытия
+        pdf_name = page.get("template_name") + ".pdf"
+        # путь файла для открытия
+        page_pdf_path = os.path.abspath(
+            os.path.join(
+                dirpathsmanager.DirPathManager.get_pdfs_folder_dirpath(), pdf_name
+            )
+        )  
+
+        # очистить __widget_pdf_view 
+        pdfview.PdfView.set_empty_pdf_view()
+
+        if os.path.exists(page_pdf_path):
+            # удалить 
+            os.remove(page_pdf_path)
+
+              
         # создать docx из данным page
         Converter.create_docx_page(page)
         # создать pdf из docx
         Converter.create_pdf_from_docx_page(page)
+        # открыть pdf
+        pdfview.PdfView.load_pdf_document(page_pdf_path)
 
 
     @staticmethod
@@ -108,18 +132,21 @@ class Converter:
 
 
 
-
-
-
-
-
-
-
-
-
-
     @staticmethod
     def create_pdf_from_docx_page(page):
         log.Log.debug_logger(f"IN create_pdf_from_docx_page(page): page = {page}")
         # создать pdf из docx
-        pass
+        form_page_name = page.get("template_name")
+        form_page_fullname = form_page_name + ".docx"
+        docx_path = os.path.abspath(
+            os.path.join(
+                dirpathsmanager.DirPathManager.get_temp_dirpath(), form_page_fullname
+            )
+        )
+        pdf_page_fullname = form_page_name + ".pdf"
+        page_pdf_path = os.path.abspath(
+            os.path.join(
+                dirpathsmanager.DirPathManager.get_pdfs_folder_dirpath(), pdf_page_fullname
+            )
+        )
+        convert(docx_path, page_pdf_path)

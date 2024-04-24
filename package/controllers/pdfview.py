@@ -1,13 +1,7 @@
-import os
-
 from PySide6.QtPdf import QPdfDocument
 from PySide6.QtPdfWidgets import QPdfView
 from PySide6.QtWidgets import QWidget, QSizePolicy
 
-
-import package.app as app
-import package.modules.dirpathsmanager as dirpathsmanager
-import package.modules.converter as converter
 
 import package.modules.log as log
 
@@ -24,8 +18,6 @@ class PdfView:
     def connect_pdfview(widget):
         PdfView.__widget_pdf_view = widget
         PdfView.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.Custom)
-
-        # PdfView.view_test_pdf()
 
     @staticmethod
     def zoom_in():
@@ -55,36 +47,15 @@ class PdfView:
         PdfView.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.Custom)
         log.Log.debug_logger("set_zoom_custom()")
 
-    # endregion
+    @staticmethod
+    def set_empty_pdf_view():
+        PdfView.__widget_pdf_view.setDocument(QPdfDocument())
+        log.Log.debug_logger("set_empty_pdf_view()")
+
+    @staticmethod
+    def load_pdf_document(page_pdf_path):
+        PdfView.__document = QPdfDocument()
+        PdfView.__document.load(page_pdf_path)
+        PdfView.__widget_pdf_view.setDocument(PdfView.__document)
 
     # скроллинг по горизонтали работает с нажатой клавишей Alt
-
-    @staticmethod
-    def open_pdf_file_for_page(page):
-        log.Log.debug_logger(f"IN open_pdf_file_for_page(page): page = {page}")
-        # имя файла для открытия
-        pdf_name = page.get("template_name") + ".pdf"
-        # путь файла для открытия
-        page_pdf_path = os.path.abspath(
-            os.path.join(
-                dirpathsmanager.DirPathManager.get_pdfs_folder_dirpath(), pdf_name
-            )
-        )
-
-        if not os.path.exists(page_pdf_path):
-            converter.Converter.create_page_pdf(page)
-            pass
-
-        PdfView.load_pdf_for_view(page_pdf_path)
-
-    @staticmethod
-    def load_pdf_for_view(file_path):
-        """
-        Load a PDF file for viewing.
-        """
-        log.Log.debug_logger(
-            f"IN load_pdf_for_view(file_path): file_path = {file_path}"
-        )
-        PdfView.__document = QPdfDocument()
-        PdfView.__document.load(file_path)
-        PdfView.__widget_pdf_view.setDocument(PdfView.__document)

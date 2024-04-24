@@ -5,6 +5,7 @@ import package.modules.log as log
 import package.modules.projectdatabase as projectdatabase
 import package.controllers.scrollareainput as scrollareainput
 import package.modules.sectionsinfo as sectionsinfo
+import package.modules.converter as converter
 
 import package.controllers.pdfview as pdfview
 
@@ -61,14 +62,14 @@ class PagesTemplate:
         # Обновить ScroolAreaInput после SectionInfo
         scrollareainput.ScroolAreaInput.update_scrollarea(page)
         # открыть pdf форму для текущей страницы
-        pdfview.PdfView.open_pdf_file_for_page(page)
+        converter.Converter.create_and_open_page_pdf(page)
         
     @staticmethod
     def current_page_to_pdf():
         log.Log.debug_logger("IN current_page_to_pdf()")
         current = PagesTemplate.__listwidget_pages_template.currentItem()
         page = current.get_page()
-        pdfview.PdfView.open_pdf_file_for_page(page)
+        converter.Converter.create_and_open_page_pdf(page)
 
 
 

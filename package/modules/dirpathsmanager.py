@@ -43,7 +43,7 @@ class DirPathManager:
 
     __forms_folder_dirpath = None
     __images_folder_dirpath = None
-    __pdfs_filder_dirpath = None
+    # __pdfs_filder_dirpath = None
 
     def __init__(self):
         pass
@@ -62,10 +62,10 @@ class DirPathManager:
             DirPathManager.get_project_dirpath(), "images"
         )
 
-        # папка images в проекте
-        DirPathManager.__pdfs_filder_dirpath = os.path.join(
-            DirPathManager.get_project_dirpath(), "pdfs"
-        )
+        # папка pdfs в проекте
+        # DirPathManager.__pdfs_filder_dirpath = os.path.join(
+        #     DirPathManager.get_project_dirpath(), "pdfs"
+        # )
 
     @staticmethod
     def get_forms_folder_dirpath() -> str:
@@ -81,12 +81,12 @@ class DirPathManager:
         )
         return DirPathManager.__images_folder_dirpath
     
-    @staticmethod
-    def get_pdfs_folder_dirpath() -> str:
-        log.Log.debug_logger(
-            f"get_pdfs_folder_dirpath() -> str: {DirPathManager.__pdfs_filder_dirpath}"
-        )
-        return DirPathManager.__pdfs_filder_dirpath
+    # @staticmethod
+    # def get_pdfs_folder_dirpath() -> str:
+    #     log.Log.debug_logger(
+    #         f"get_pdfs_folder_dirpath() -> str: {DirPathManager.__pdfs_filder_dirpath}"
+    #     )
+    #     return DirPathManager.__pdfs_filder_dirpath
     
     @staticmethod
     def get_templates_main_dirpath() -> str:
