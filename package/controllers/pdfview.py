@@ -59,16 +59,9 @@ class PdfView:
     def load_and_show_pdf_document(pdf_path):
 
         log.Log.debug_logger(f"load_and_show_pdf_document(pdf_path): pdf_path = {pdf_path}")
-        # PdfView.__document = QPdfDocument()
-        # PdfView.__document.load(pdf_path)
-        # PdfView.__widget_pdf_view.setDocument(PdfView.__document)
-        print(f"pdf_path = {pdf_path}")
+
         doc_location = QUrl.fromLocalFile(pdf_path)
-        print(f"doc_location = {doc_location}")
         if doc_location.isLocalFile():
             PdfView.__document.load(doc_location.toLocalFile())
-        else:
-            message = f"{doc_location} is not a valid local file"
-            print(message, file=sys.stderr)
 
     # скроллинг по горизонтали работает с нажатой клавишей Alt
