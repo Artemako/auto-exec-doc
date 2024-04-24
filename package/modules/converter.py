@@ -3,12 +3,14 @@ import json
 import copy
 from docxtpl import DocxTemplate, InlineImage
 from docx2pdf import convert
+from pypdf import PdfWriter
 import datetime
 import concurrent.futures
 
 import package.modules.dirpathsmanager as dirpathsmanager
 import package.modules.sectionsinfo as seccionsinfo
 import package.modules.projectdatabase as projectdatabase
+import package.components.dialogwindows as dialogwindows
 
 import package.controllers.pdfview as pdfview
 
@@ -25,7 +27,7 @@ class Converter:
         # создать pdf
         pdf_path = Converter.create_page_pdf(page)
         # открыть pdf
-        pdfview.PdfView.load_pdf_document(pdf_path)
+        pdfview.PdfView.load_and_show_pdf_document(pdf_path)
 
     @staticmethod
     def create_page_pdf(page) -> str:
@@ -185,9 +187,9 @@ class Converter:
         )
         print(f"list_of_pdf_pages = {list_of_pdf_pages}")
         # объеденить несколько pdf файлов в один
-
+        Converter.merge_pdfs_and_create(multipage_pdf_path, list_of_pdf_pages)
         # открыть pdf
-        # page_pdf_path = Converter.create_page_pdf(multipage_pdf_path)
+        os.startfile(os.path.dirname(multipage_pdf_path))
 
     @staticmethod
     def dfs(parent_node, project_pages_objects, number_page):
@@ -235,3 +237,17 @@ class Converter:
         if object_type == "page":
             pdf_path = Converter.create_page_pdf(object.get("page"))
             list_of_pdf_pages.append({"number_page": number_page, "pdf_path": pdf_path})
+
+
+    @staticmethod
+    def merge_pdfs_and_create(multipage_pdf_path, list_of_pdf_pages):
+        log.Log.debug_logger(
+            f"IN merge_pdfs(multipage_pdf_path, list_of_pdf_pages): multipage_pdf_path = {multipage_pdf_path}, list_of_pdf_pages = {list_of_pdf_pages}"
+        )
+        # объединить несколько pdf файлов в один
+        merger = PdfWriter()
+        for pdf in sorted(list_of_pdf_pages, key=lambda x: x["number_page"]):
+            merger.append(pdf.get("pdf_path"))
+
+        merger.write(multipage_pdf_path)
+        merger.close()

@@ -1,6 +1,7 @@
 import os
 
-from PySide6.QtWidgets import QMessageBox, QFileDialog
+from PySide6.QtWidgets import QMessageBox, QFileDialog, QProgressDialog
+from PySide6.QtCore import Qt
 
 import package.app as app
 import package.modules.dirpathsmanager as dirpathsmanager
@@ -148,3 +149,4 @@ class DialogWindows:
                     f"select_name_and_dirpath_export_pdf() -> {None}"
                 )
                 return None
+            
