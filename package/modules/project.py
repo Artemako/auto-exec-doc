@@ -9,6 +9,7 @@ import package.modules.log as log
 import package.modules.filefoldermanager as filefoldermanager
 import package.modules.dirpathsmanager as dirpathsmanager
 import package.modules.sectionsinfo as sectionsinfo
+import package.modules.converter as converter
 
 import package.controllers.structureexecdoc as structureexecdoc
 import package.controllers.pagestemplate as pagestemplate
@@ -132,11 +133,14 @@ class Project:
         """
         log.Log.debug_logger("IN save_project()")
         # TODO Сделать сохранение проекта
-        if Project.__status_active and pagestemplate.PagesTemplate.is_page_template_selected():
+        if (
+            Project.__status_active
+            and pagestemplate.PagesTemplate.is_page_template_selected()
+        ):
             # сохранить в базу данных
             sectionsinfo.SectionsInfo.save_data_to_database()
             # current_page_to_pdf() расположен в save_data_to_database()
-            # настроить статус         
+            # настроить статус
             Project.__status_save = True
             statusbar.StatusBar.set_message_for_statusbar(
                 f"Проект c именем {Project.__current_name} сохранён."
@@ -144,6 +148,9 @@ class Project:
         else:
             statusbar.StatusBar.set_message_for_statusbar(
                 "Нечего сохранять. Либо проект не открыт, либо форма не выбрана."
+            )
+            dialogwindows.DialogWindows.warning_message(
+                "Нечего сохранять.\nЛибо проект не открыт, либо форма не выбрана.",
             )
 
     @staticmethod
@@ -188,7 +195,7 @@ class Project:
     def open_recent_project():
         """Открытие недавнего проекта."""
         log.Log.debug_logger("IN open_recent_project()")
-        # TODO Проверить папку на проектность
+        # TODO open_recent_project
         pass
 
     @staticmethod
@@ -199,3 +206,29 @@ class Project:
         log.Log.debug_logger("IN set_true_actives_project()")
         Project.__status_active = True
         Project.__status_save = True
+
+    @staticmethod
+    def export_to_pdf():
+        """
+        Экспорт проекта в pdf.
+        """
+        log.Log.debug_logger("IN export_to_pdf()")
+        if not Project.__status_active: 
+            statusbar.StatusBar.set_message_for_statusbar(
+                "Нечего экспортировать. Проект не открыт."
+            )
+            dialogwindows.DialogWindows.warning_message(
+                "Нечего экспортировать.\nПроект не открыт."
+            )
+            return False
+        
+        multipage_pdf_path = dialogwindows.DialogWindows.select_name_and_dirpath_export_pdf()
+        if multipage_pdf_path:
+            converter.Converter.export_to_pdf(multipage_pdf_path)
+
+        
+    
+
+
+
+        

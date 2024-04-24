@@ -276,6 +276,7 @@
     <addaction name="action_open"/>
     <addaction name="action_save"/>
     <addaction name="action_saveas"/>
+    <addaction name="action_export_to_pdf"/>
    </widget>
    <widget class="QMenu" name="menu_help">
     <property name="title">
@@ -312,6 +313,7 @@
    <addaction name="action_new"/>
    <addaction name="action_open"/>
    <addaction name="action_save"/>
+   <addaction name="action_export_to_pdf"/>
    <addaction name="separator"/>
    <addaction name="action_edit_templates"/>
    <addaction name="separator"/>
@@ -338,11 +340,17 @@
    </property>
   </action>
   <action name="action_saveas">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Сохранить как</string>
    </property>
   </action>
   <action name="action_save">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="../resources.qrc">
      <normaloff>:/icons/icons/save.svg</normaloff>:/icons/icons/save.svg</iconset>
@@ -385,6 +393,9 @@
    </property>
   </action>
   <action name="action_edit_templates">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../resources.qrc">
      <normaloff>:/icons/icons/text-editor.svg</normaloff>:/icons/icons/text-editor.svg</iconset>
@@ -406,6 +417,15 @@
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="action_export_to_pdf">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/icons/export.svg</normaloff>:/icons/icons/export.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Экспорт в PDF</string>
    </property>
   </action>
  </widget>
