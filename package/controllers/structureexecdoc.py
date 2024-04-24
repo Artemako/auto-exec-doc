@@ -81,21 +81,21 @@ class StructureExecDoc:
         StructureExecDoc.__treewidget_structure_execdoc.setHeaderLabels(["Проект"])
         StructureExecDoc.__title_sed.setText(title)
         # проход по вершинам
-        StructureExecDoc.dfs(projectdatabase.Database.get_project_node())
+        StructureExecDoc.dfs_exec_doc(projectdatabase.Database.get_project_node())
 
     @staticmethod
-    def dfs(parent_node):
+    def dfs_exec_doc(parent_node):
         """
         Проход по всем вершинам.
         """
-        log.Log.debug_logger(f"IN dfs(parent_node): parent_node = {parent_node}")
+        log.Log.debug_logger(f"IN dfs_exec_doc(parent_node): parent_node = {parent_node}")
         childs = projectdatabase.Database.get_childs(parent_node)
         if childs:
             for child in childs:
                 # действие
                 StructureExecDoc.set_item_in_nodes_to_items(child)
                 # проход по дочерним вершинам
-                StructureExecDoc.dfs(child)
+                StructureExecDoc.dfs_exec_doc(child)
 
     @staticmethod
     def set_item_in_nodes_to_items(node):

@@ -9,6 +9,7 @@ import package.modules.log as log
 import package.modules.filefoldermanager as filefoldermanager
 import package.modules.dirpathsmanager as dirpathsmanager
 import package.modules.sectionsinfo as sectionsinfo
+import package.modules.converter as converter
 
 import package.controllers.structureexecdoc as structureexecdoc
 import package.controllers.pagestemplate as pagestemplate
@@ -194,7 +195,7 @@ class Project:
     def open_recent_project():
         """Открытие недавнего проекта."""
         log.Log.debug_logger("IN open_recent_project()")
-        # TODO Проверить папку на проектность
+        # TODO open_recent_project
         pass
 
     @staticmethod
@@ -212,14 +213,22 @@ class Project:
         Экспорт проекта в pdf.
         """
         log.Log.debug_logger("IN export_to_pdf()")
-        if Project.__status_active:
-            # TODO Сделать экспорт проекта в pdf
-
-
-        else:
+        if not Project.__status_active: 
             statusbar.StatusBar.set_message_for_statusbar(
                 "Нечего экспортировать. Проект не открыт."
             )
             dialogwindows.DialogWindows.warning_message(
                 "Нечего экспортировать.\nПроект не открыт."
             )
+            return False
+        
+        multipage_pdf_path = dialogwindows.DialogWindows.select_name_and_dirpath_export_pdf()
+        if multipage_pdf_path:
+            converter.Converter.export_to_pdf(multipage_pdf_path)
+
+        
+    
+
+
+
+        

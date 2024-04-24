@@ -4,6 +4,7 @@ import copy
 from docxtpl import DocxTemplate, InlineImage
 from docx2pdf import convert
 import datetime
+import concurrent.futures
 
 import package.modules.dirpathsmanager as dirpathsmanager
 import package.modules.sectionsinfo as seccionsinfo
@@ -21,16 +22,26 @@ class Converter:
     @staticmethod
     def create_and_open_page_pdf(page):
         log.Log.debug_logger(f"IN create_page_pdf(page): page = {page}")
+        # создать pdf
+        pdf_path = Converter.create_page_pdf(page)
+        # открыть pdf
+        pdfview.PdfView.load_pdf_document(pdf_path)
 
+    @staticmethod
+    def create_page_pdf(page) -> str:
+        """
+        Создать pdf страницы. Вернуть директорию.
+        """
         form_page_name = page.get("template_name")
-        docx_pdf_page_name = f"page_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
+        docx_pdf_page_name = f"""page_{page.get("id_page")}_{datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')}"""
 
         # создать docx из данным page
         Converter.create_docx_page(form_page_name, docx_pdf_page_name)
         # создать pdf из docx
-        pdf_path = Converter.create_pdf_from_docx_page(docx_pdf_page_name)
-        # открыть pdf
-        pdfview.PdfView.load_pdf_document(pdf_path)
+        pdf_path = os.path.normpath(
+            Converter.create_pdf_from_docx_page(docx_pdf_page_name)
+        )
+        return pdf_path
 
     @staticmethod
     def create_docx_page(form_page_name, docx_pdf_page_name):
@@ -41,16 +52,21 @@ class Converter:
         form_page_fullname = form_page_name + ".docx"
         docx_page_fullname = docx_pdf_page_name + ".docx"
         # путь к шаблону в папке forms проекта
-        template_path = os.path.abspath(
-            os.path.join(
-                dirpathsmanager.DirPathManager.get_forms_folder_dirpath(),
-                form_page_fullname,
+        template_path = os.path.normpath(
+            os.path.abspath(
+                os.path.join(
+                    dirpathsmanager.DirPathManager.get_forms_folder_dirpath(),
+                    form_page_fullname,
+                )
             )
         )
         # путь к будущему docx файлу
-        docx_path = os.path.abspath(
-            os.path.join(
-                dirpathsmanager.DirPathManager.get_temp_dirpath(), docx_page_fullname
+        docx_path = os.path.normpath(
+            os.path.abspath(
+                os.path.join(
+                    dirpathsmanager.DirPathManager.get_temp_dirpath(),
+                    docx_page_fullname,
+                )
             )
         )
 
@@ -143,3 +159,74 @@ class Converter:
         convert(docx_path, pdf_path)
 
         return pdf_path
+
+    @staticmethod
+    def export_to_pdf(multipage_pdf_path) -> None:
+        log.Log.debug_logger(
+            f"IN export_to_pdf(multipage_pdf_path): multipage_pdf_path = {multipage_pdf_path}"
+        )
+        # проход по всем вершинам дерева для заполенения project_pages_objects
+        project_pages_objects = list()
+        number_page = 0
+        Converter.dfs(
+            projectdatabase.Database.get_project_node(),
+            project_pages_objects,
+            number_page,
+        )
+        log.Log.debug_logger(f"project_pages_objects = {project_pages_objects}")
+        # проход по project_pages_objects для преобразования каждой страницы в pdf
+        list_of_pdf_pages = Converter.get_list_of_created_pdf_pages(
+            project_pages_objects
+        )
+        print(f"list_of_pdf_pages = {list_of_pdf_pages}")
+        # объеденить несколько pdf файлов в один
+
+        # открыть pdf
+        # page_pdf_path = Converter.create_page_pdf(multipage_pdf_path)
+
+    @staticmethod
+    def dfs(parent_node, project_pages_objects, number_page):
+        log.Log.debug_logger(
+            f"IN dfs(node, project_pages_objects): parent_node = {parent_node}, number_page = {number_page}"
+        )
+        childs = projectdatabase.Database.get_childs(parent_node)
+        if childs:
+            for child in childs:
+                # TODO подумать про PDF node, загруженный пользователем
+                # проход по страницам node
+                pages = projectdatabase.Database.get_pages_by_node(child)
+                for page in pages:
+                    object = {"type": "page", "page": page, "number_page": number_page}
+                    project_pages_objects.append(object)
+                    number_page += 1
+                # проход по дочерним вершинам
+                Converter.dfs(child, project_pages_objects, number_page)
+
+    @staticmethod
+    def get_list_of_created_pdf_pages(project_pages_objects) -> list:
+        list_of_pdf_pages = list()
+        # создание пула потоков с автоматическим количеством потоков
+        with concurrent.futures.ThreadPoolExecutor(max_workers=None) as executor:
+            # создание списка задач, которые будут выполнены параллельно
+            tasks = [
+                executor.submit(
+                    Converter.process_object_of_project_pages_objects,
+                    object,
+                    list_of_pdf_pages,
+                )
+                for object in project_pages_objects
+            ]
+            # ожидание завершения всех задач
+            concurrent.futures.wait(tasks)
+        return list_of_pdf_pages
+
+    @staticmethod
+    def process_object_of_project_pages_objects(object, list_of_pdf_pages):
+        log.Log.debug_logger(
+            f"IN process_object_of_project_pages_objects(object): object = {object}"
+        )
+        object_type = object.get("type")
+        number_page = object.get("number_page")
+        if object_type == "page":
+            pdf_path = Converter.create_page_pdf(object.get("page"))
+            list_of_pdf_pages.append({"number_page": number_page, "pdf_path": pdf_path})

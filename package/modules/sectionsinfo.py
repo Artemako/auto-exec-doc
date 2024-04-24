@@ -107,7 +107,3 @@ class SectionsInfo:
 
         pagestemplate.PagesTemplate.current_page_to_pdf()   
         
-
-
-
-
