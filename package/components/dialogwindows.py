@@ -111,39 +111,3 @@ class DialogWindows:
                     f"select_image_for_formimage_in_project() -> {None}"
                 )
                 return None
-            
-    @staticmethod
-    def warning_message(message: str):
-        """Диалоговое окно 'Предупреждение'."""
-
-        log.Log.debug_logger("IN warning_message(message: str)")
-        dialogwindow = QMessageBox()
-        dialogwindow.setWindowTitle("Предупреждение")
-        dialogwindow.setText(message)
-        dialogwindow.setIcon(QMessageBox.Warning)
-
-        dialogwindow.exec()
-
-    @staticmethod
-    def select_name_and_dirpath_export_pdf() -> str:
-        """Диалоговое окно 'Выберите имя и путь для экспорта в PDF'."""
-
-        log.Log.debug_logger("IN select_name_and_dirpath_export_pdf() -> str")
-
-        while True:
-            multipage_pdf_path = QFileDialog.getSaveFileName(
-                None,
-                "Выберите имя и путь для экспорта в PDF",
-                dirpathsmanager.DirPathManager.get_default_folder_projects_dirpath(),
-                "PDF (*.pdf)",
-            )
-            if multipage_pdf_path[0]:
-                log.Log.debug_logger(
-                    f"select_name_and_dirpath_export_pdf() -> {multipage_pdf_path[0]}"
-                )
-                return multipage_pdf_path[0]
-            else:
-                log.Log.debug_logger(
-                    f"select_name_and_dirpath_export_pdf() -> {None}"
-                )
-                return None
