@@ -25,7 +25,6 @@ class Converter:
         form_page_name = page.get("template_name")
         docx_pdf_page_name = f"page_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
 
-        #pdfview.PdfView.set_empty_pdf_view()
         # создать docx из данным page
         Converter.create_docx_page(form_page_name, docx_pdf_page_name)
         # создать pdf из docx

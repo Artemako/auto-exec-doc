@@ -1,6 +1,8 @@
 from PySide6.QtPdf import QPdfDocument
 from PySide6.QtPdfWidgets import QPdfView
 from PySide6.QtWidgets import QWidget, QSizePolicy
+from PySide6.QtCore import QUrl
+import sys
 
 
 import package.modules.log as log
@@ -8,19 +10,16 @@ import package.modules.log as log
 
 class PdfView:
     __widget_pdf_view = None
-    __zoom = 1
     __document = None
+    __zoom = 1    
 
     def __init__(self):
         pass
 
     @staticmethod
-    def connect_pdfview(widget):
-        PdfView.__document = QPdfDocument()
+    def connect_pdfview(widget, m_document):
         PdfView.__widget_pdf_view = widget
-        PdfView.__widget_pdf_view.setDocument(PdfView.__document)
-        PdfView.__widget_pdf_view.setZoomFactor(PdfView.__zoom)        
-        PdfView.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.Custom)
+        PdfView.__document = m_document
 
     @staticmethod
     def zoom_in():
@@ -60,9 +59,16 @@ class PdfView:
     def load_and_show_pdf_document(pdf_path):
 
         log.Log.debug_logger(f"load_and_show_pdf_document(pdf_path): pdf_path = {pdf_path}")
-
-        PdfView.__document = QPdfDocument()
-        PdfView.__document.load(pdf_path)
-        PdfView.__widget_pdf_view.setDocument(PdfView.__document)
+        # PdfView.__document = QPdfDocument()
+        # PdfView.__document.load(pdf_path)
+        # PdfView.__widget_pdf_view.setDocument(PdfView.__document)
+        print(f"pdf_path = {pdf_path}")
+        doc_location = QUrl.fromLocalFile(pdf_path)
+        print(f"doc_location = {doc_location}")
+        if doc_location.isLocalFile():
+            PdfView.__document.load(doc_location.toLocalFile())
+        else:
+            message = f"{doc_location} is not a valid local file"
+            print(message, file=sys.stderr)
 
     # скроллинг по горизонтали работает с нажатой клавишей Alt

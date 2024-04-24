@@ -1,6 +1,6 @@
-import shutil
-
 from PySide6.QtWidgets import QMainWindow
+from PySide6.QtPdf import QPdfDocument
+from PySide6.QtPdfWidgets import QPdfView
 
 import package.ui.mainwindow_ui as mainwindow_ui
 import package.modules.project as project
@@ -20,12 +20,17 @@ class MainWindow(QMainWindow):
         self.ui = mainwindow_ui.Ui_MainWindow()
         self.ui.setupUi(self)
 
+        # настройка pdfViewer
+        self.config_pdf_view_in_mainwindow()
         # настройка контроллеров
         self.config_controllers()
-        # подключаем глобальные действия
         # Подключаем действия
         self.connecting_actions()
 
+    def config_pdf_view_in_mainwindow(self):
+        self.m_document = QPdfDocument(self)
+        self.ui.widget_pdf_view.setDocument(self.m_document)
+          
     def config_controllers(self):
         """
         Method to configure controllers.
@@ -46,7 +51,7 @@ class MainWindow(QMainWindow):
             self.ui.scrollarea_inputforms, self.ui.scrollarea_inputforms_layout
         )
         # ПОДКЛЮЧИТЬ PDF
-        pdfview.PdfView.connect_pdfview(self.ui.widget_pdf_view)
+        pdfview.PdfView.connect_pdfview(self.ui.widget_pdf_view, self.m_document)
 
     def closeEvent(self, event):
         log.Log.debug_logger(f"IN closeEvent(self, event): event = {event}")
@@ -69,3 +74,6 @@ class MainWindow(QMainWindow):
             if checked
             else pdfview.PdfView.set_zoom_custom()
         )
+
+
+
