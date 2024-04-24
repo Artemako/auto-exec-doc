@@ -39,6 +39,7 @@ class Ui_FormDateWidget(object):
 
         self.dateedit = QDateEdit(FormDateWidget)
         self.dateedit.setObjectName(u"dateedit")
+        self.dateedit.setTimeSpec(Qt.UTC)
 
         self.verticalLayout.addWidget(self.dateedit)
 

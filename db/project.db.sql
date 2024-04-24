@@ -27,15 +27,6 @@ CREATE TABLE IF NOT EXISTS "Project_nodes" (
 	"included"	TEXT DEFAULT 'True',
 	PRIMARY KEY("id_node" AUTOINCREMENT)
 );
-CREATE TABLE IF NOT EXISTS "Project_pages" (
-	"id_page"	INTEGER NOT NULL UNIQUE,
-	"id_node_parent"	INTEGER,
-	"page_name"	TEXT,
-	"template_name"	TEXT,
-	"page_order"	INTEGER,
-	"included"	TEXT DEFAULT 'True',
-	PRIMARY KEY("id_page" AUTOINCREMENT)
-);
 CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
 	"id_pair"	INTEGER UNIQUE,
 	"id_node"	INTEGER,
@@ -52,8 +43,8 @@ CREATE TABLE IF NOT EXISTS "Project_pages_data" (
 	"id_content"	INTEGER,
 	"name_content"	TEXT,
 	"value"	TEXT,
-	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content"),
 	FOREIGN KEY("id_page") REFERENCES "Project_pages"("id_page"),
+	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content"),
 	PRIMARY KEY("id_pair" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "Project_content_config_table" (
@@ -65,6 +56,15 @@ CREATE TABLE IF NOT EXISTS "Project_content_config_table" (
 	"order_config"	INTEGER,
 	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content"),
 	PRIMARY KEY("id_config" AUTOINCREMENT)
+);
+CREATE TABLE IF NOT EXISTS "Project_pages" (
+	"id_page"	INTEGER NOT NULL UNIQUE,
+	"id_node_parent"	INTEGER,
+	"page_name"	TEXT,
+	"template_name"	TEXT,
+	"order_page"	INTEGER,
+	"included"	TEXT DEFAULT 'True',
+	PRIMARY KEY("id_page" AUTOINCREMENT)
 );
 INSERT INTO "Project_content_config_date" VALUES (100,1208,'FORMAT','yyyy',NULL);
 INSERT INTO "Project_content_config_date" VALUES (101,1227,'FORMAT','yyyy',NULL);
@@ -102,12 +102,6 @@ INSERT INTO "Project_nodes" VALUES (12,'Паспорт трассы',0,'3','GROU
 INSERT INTO "Project_nodes" VALUES (1201,'ПТ-1',12,'1','FORM','main','1');
 INSERT INTO "Project_nodes" VALUES (1202,'ПТ-2',12,'2','FORM','main','1');
 INSERT INTO "Project_nodes" VALUES (1203,'ПТ-3',12,'3','FORM','main','1');
-INSERT INTO "Project_pages" VALUES (10,10,'Л.1. Титульный лист.','1-ТЛ-1',1,NULL);
-INSERT INTO "Project_pages" VALUES (11,10,'Л.2. Титульный лист.','1-ТЛ-2',2,NULL);
-INSERT INTO "Project_pages" VALUES (20,11,'Л.1. Реестр исполнительной документации ВОЛС.','2-РД-1',1,NULL);
-INSERT INTO "Project_pages" VALUES (30,1201,'Л.1. Паспорт трассы. Опись документов.','3-ПТ1-1',1,NULL);
-INSERT INTO "Project_pages" VALUES (40,1202,'Л.1. Паспорт трассы волоконно-оптической линии связи на участке.','3-ПТ2-1',1,NULL);
-INSERT INTO "Project_pages" VALUES (50,1203,'Л.1. Скелетная схема ВОЛП и основные данные цепей кабеля.','3-ПТ3-1',1,NULL);
 INSERT INTO "Project_nodes_data" VALUES (100,0,1003,'название_объекта',NULL);
 INSERT INTO "Project_nodes_data" VALUES (101,0,1004,'участок',NULL);
 INSERT INTO "Project_nodes_data" VALUES (102,0,1001,'название_компании',NULL);
@@ -183,4 +177,10 @@ INSERT INTO "Project_content_config_table" VALUES (504,1220,'CONTENT','марк�
 INSERT INTO "Project_content_config_table" VALUES (505,1220,'CONTENT','длина_всего','',1);
 INSERT INTO "Project_content_config_table" VALUES (506,1220,'CONTENT','длина_опт','',2);
 INSERT INTO "Project_content_config_table" VALUES (507,1220,'CONTENT','инфо','',3);
+INSERT INTO "Project_pages" VALUES (10,10,'Л.1. Титульный лист.','1-ТЛ-1',0,NULL);
+INSERT INTO "Project_pages" VALUES (11,10,'Л.2. Титульный лист.','1-ТЛ-2',1,NULL);
+INSERT INTO "Project_pages" VALUES (20,11,'Л.1. Реестр исполнительной документации ВОЛС.','2-РД-1',0,NULL);
+INSERT INTO "Project_pages" VALUES (30,1201,'Л.1. Паспорт трассы. Опись документов.','3-ПТ1-1',0,NULL);
+INSERT INTO "Project_pages" VALUES (40,1202,'Л.1. Паспорт трассы волоконно-оптической линии связи на участке.','3-ПТ2-1',0,NULL);
+INSERT INTO "Project_pages" VALUES (50,1203,'Л.1. Скелетная схема ВОЛП и основные данные цепей кабеля.','3-ПТ3-1',0,NULL);
 COMMIT;

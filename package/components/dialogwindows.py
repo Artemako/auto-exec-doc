@@ -111,3 +111,15 @@ class DialogWindows:
                     f"select_image_for_formimage_in_project() -> {None}"
                 )
                 return None
+            
+    @staticmethod
+    def warning_message(message: str):
+        """Диалоговое окно 'Предупреждение'."""
+
+        log.Log.debug_logger("IN warning_message(message: str)")
+        dialogwindow = QMessageBox()
+        dialogwindow.setWindowTitle("Предупреждение")
+        dialogwindow.setText(message)
+        dialogwindow.setIcon(QMessageBox.Warning)
+
+        dialogwindow.exec()
