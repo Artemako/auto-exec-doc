@@ -15,6 +15,7 @@ import package.modules.dirpathsmanager as dirpathsmanager
 import package.modules.sectionsinfo as seccionsinfo
 import package.modules.projectdatabase as projectdatabase
 import package.components.dialogwindows as dialogwindows
+import package.modules.sectionsinfo as sectionsinfo
 
 import package.controllers.statusbar as statusbar
 import package.controllers.pdfview as pdfview
@@ -26,8 +27,13 @@ class Converter:
     def __init__(self):
         pass
 
+    __flag_for_all = False
+
     @staticmethod
     def create_and_open_page_pdf(page):
+        """
+        Вызывается при нажатии на кнопку Save.
+        """
         log.Log.debug_logger(f"IN create_page_pdf(page): page = {page}")
         # создать pdf
         pdf_path = Converter.create_page_pdf(page)
@@ -41,7 +47,8 @@ class Converter:
         """
         form_page_name = page.get("template_name")
         docx_pdf_page_name = f"""page_{page.get("id_page")}_{datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')}"""
-
+        # добыть информация для SectionInfo
+        sectionsinfo.SectionsInfo.update_sections_info(page)
         # создать docx из данным page
         Converter.create_docx_page(form_page_name, docx_pdf_page_name)
         # создать pdf из docx
@@ -82,7 +89,11 @@ class Converter:
 
             # создаем context из sections_info
             data_context = dict()
+            # TODO sections_info ПОДУМАТЬ ПРО ОПТИМИЗАЦИЮ
+
             sections_info = seccionsinfo.SectionsInfo.get_sections_info()
+            
+            print(f"sections_info = {sections_info}")
             for section_index, section_info in enumerate(sections_info):
                 # инфо из секции
                 section_data = section_info.get("data")
@@ -174,6 +185,9 @@ class Converter:
 
     @staticmethod
     def export_to_pdf(multipage_pdf_path) -> None:
+        """
+        Вызывается при нажатии на кнопку EXPORT после диалогового окна.
+        """
         log.Log.debug_logger(
             f"IN export_to_pdf(multipage_pdf_path): multipage_pdf_path = {multipage_pdf_path}"
         )
@@ -187,7 +201,7 @@ class Converter:
             number_page,
         )
         log.Log.debug_logger(f"project_pages_objects = {project_pages_objects}")
-        # проход по project_pages_objects для преобразования каждой страницы в pdf
+        # проход по project_pages_objects для преобразования каждой страницы в docx, а потом в pdf
         list_of_pdf_pages = Converter.get_list_of_created_pdf_pages(
             project_pages_objects
         )
@@ -233,6 +247,7 @@ class Converter:
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
             # создание списка задач, которые будут выполнены параллельно
             tasks = [
+                # ВЫПОЛНИТЬ process_object_of_project_pages_objects с атребутами object и list_of_pdf_pages
                 executor.submit(
                     Converter.process_object_of_project_pages_objects,
                     object,
@@ -252,6 +267,7 @@ class Converter:
         object_type = object.get("type")
         number_page = object.get("number_page")
         if object_type == "page":
+            # преобразовать docx в pdf
             pdf_path = Converter.create_page_pdf(object.get("page"))
             list_of_pdf_pages.append({"number_page": number_page, "pdf_path": pdf_path})
 

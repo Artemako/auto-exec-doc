@@ -8,42 +8,44 @@ import package.modules.log as log
 
 
 class DirPathManager:
+
+    def config_paths(main_dirpath):
     # путь к main.py
-    __main_dirpath = os.path.dirname(sys.modules["__main__"].__file__)
+        DirPathManager.__main_dirpath = main_dirpath
 
-    # путь к Документы
-    __documents_dirpath = QStandardPaths.writableLocation(
-        QStandardPaths.StandardLocation.DocumentsLocation
-    )
+        # путь к Документы
+        DirPathManager.__documents_dirpath = QStandardPaths.writableLocation(
+            QStandardPaths.StandardLocation.DocumentsLocation
+        )
 
-    # путь к папке с Temp
-    __temp_dirpath = tempfile.mkdtemp()
+        # путь к папке с Temp
+        DirPathManager.__temp_dirpath = tempfile.mkdtemp()
 
-    # путь к папке с проектами по умолчанию
-    __default_folder_projects_dirpath = os.path.join(
-        __documents_dirpath, "AutoExecDoc Projects"
-    )
+        # путь к папке с проектами по умолчанию
+        DirPathManager.__default_folder_projects_dirpath = os.path.join(
+            DirPathManager.__documents_dirpath, "AutoExecDoc Projects"
+        )
 
-    # путь к папке к базе данных
-    __db_settings_dirpath = os.path.join(__main_dirpath, "db", "settings.db")
-    __db_original_project_dirpath = os.path.join(__main_dirpath, "db", "project.db")
+        # путь к папке к базе данных
+        DirPathManager.__db_settings_dirpath = os.path.join(DirPathManager.__main_dirpath, "db", "settings.db")
+        DirPathManager.__db_original_project_dirpath = os.path.join(DirPathManager.__main_dirpath, "db", "project.db")
 
-    # путь к директории проекта
-    __project_dirpath = None
-    # путь к project.db проекта
-    __db_project_dirpath = None
+        # путь к директории проекта
+        DirPathManager.__project_dirpath = None
+        # путь к project.db проекта
+        DirPathManager.__db_project_dirpath = None
 
-    # путь к папке с логами
-    __logs_dirpath = os.path.join(__main_dirpath, "logs")
+        # путь к папке с логами
+        DirPathManager.__logs_dirpath = os.path.join(DirPathManager.__main_dirpath, "logs")
 
-    # путь к папке с формами
-    __templates_dirpath = os.path.join(__main_dirpath, "templates")
-    __templates_main_dirpath = os.path.join(__templates_dirpath, "main" )
+        # путь к папке с формами
+        DirPathManager.__templates_dirpath = os.path.join(DirPathManager.__main_dirpath, "templates")
+        DirPathManager.__templates_main_dirpath = os.path.join(DirPathManager.__templates_dirpath, "main" )
 
 
-    __forms_folder_dirpath = None
-    __images_folder_dirpath = None
-    # __pdfs_filder_dirpath = None
+        DirPathManager.__forms_folder_dirpath = None
+        DirPathManager.__images_folder_dirpath = None
+        # DirPathManager.__pdfs_filder_dirpath = None
 
     def __init__(self):
         pass

@@ -120,7 +120,7 @@ class StructureExecDoc:
 
     @staticmethod
     def set_state_included_for_child(node, state):
-        log.Log.debug_logger(f"IN set_state_included_for_childs(node, state): id_node = {node.get("id_node")}, state = {state}")
+        log.Log.debug_logger(f"""IN set_state_included_for_childs(node, state): id_node = {node.get("id_node")}, state = {state}""")
         item = StructureExecDoc.__nodes_to_items.get(node.get("id_node"))
         if item:
             item.setCheckState(0, Qt.Checked if state else Qt.Unchecked)

@@ -118,6 +118,9 @@ class Database:
         )
         result = cursor.fetchone()
 
+        conn.commit()
+        conn.close()
+
         if result is None:
             Database.add_new_project_to_db()
         else:
