@@ -5,11 +5,6 @@ from docxtpl import DocxTemplate, InlineImage
 from docx2pdf import convert
 from pypdf import PdfWriter
 import datetime
-import concurrent.futures
-
-from PySide6.QtWidgets import QProgressDialog
-
-from PySide6.QtCore import Qt
 
 import package.modules.dirpathsmanager as dirpathsmanager
 import package.modules.sectionsinfo as seccionsinfo
@@ -27,24 +22,40 @@ class Converter:
     def __init__(self):
         pass
 
-    __flag_for_all = False
 
     @staticmethod
-    def create_and_open_page_pdf(page):
+    def create_and_open_one_page_pdf(page):
         """
         Вызывается при нажатии на кнопку Save.
         """
-        log.Log.debug_logger(f"IN create_page_pdf(page): page = {page}")
+        log.Log.debug_logger(f"IN create_one_page_pdf(page): page = {page}")
         # создать pdf
-        pdf_path = Converter.create_page_pdf(page)
+        pdf_path = Converter.create_one_page_pdf(page)
         # открыть pdf
         pdfview.PdfView.load_and_show_pdf_document(pdf_path)
 
     @staticmethod
-    def create_page_pdf(page) -> str:
+    def create_one_page_pdf(page) -> str:
         """
         Создать pdf страницы. Вернуть директорию.
         """
+        log.Log.debug_logger(f"IN create_one_page_pdf(page): page = {page}")
+        form_page_name = page.get("template_name")
+        docx_pdf_page_name = f"""page_{page.get("id_page")}_{datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')}"""
+        # создать docx из данным page
+        Converter.create_docx_page(form_page_name, docx_pdf_page_name)
+        # создать pdf из docx
+        pdf_path = os.path.normpath(
+            Converter.create_pdf_from_docx_page(docx_pdf_page_name)
+        )
+        return pdf_path
+    
+    @staticmethod
+    def create_one_for_multiple_page_pdf(page) -> str:
+        """
+        Создать pdf страницы. Вернуть директорию.
+        """
+        log.Log.debug_logger(f"IN create_one_for_multiple_page_pdf(page): page = {page}")
         form_page_name = page.get("template_name")
         docx_pdf_page_name = f"""page_{page.get("id_page")}_{datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')}"""
         # добыть информация для SectionInfo
@@ -56,6 +67,8 @@ class Converter:
             Converter.create_pdf_from_docx_page(docx_pdf_page_name)
         )
         return pdf_path
+
+    #         
 
     @staticmethod
     def create_docx_page(form_page_name, docx_pdf_page_name):
@@ -240,23 +253,8 @@ class Converter:
     @staticmethod
     def get_list_of_created_pdf_pages(project_pages_objects) -> list:
         list_of_pdf_pages = list()
-        # создание пула потоков с автоматическим количеством потоков
-        max_workers = concurrent.futures.ThreadPoolExecutor()._max_workers
-        #print(f"max_workers = {max_workers}")
-        #print(f"os.cpu_count() = {}")
-        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-            # создание списка задач, которые будут выполнены параллельно
-            tasks = [
-                # ВЫПОЛНИТЬ process_object_of_project_pages_objects с атребутами object и list_of_pdf_pages
-                executor.submit(
-                    Converter.process_object_of_project_pages_objects,
-                    object,
-                    list_of_pdf_pages,
-                )
-                for object in project_pages_objects
-            ]
-            # ожидание завершения всех задач
-            concurrent.futures.wait(tasks)
+        for object in project_pages_objects:
+            Converter.process_object_of_project_pages_objects(object, list_of_pdf_pages)
         return list_of_pdf_pages
 
     @staticmethod
@@ -268,7 +266,7 @@ class Converter:
         number_page = object.get("number_page")
         if object_type == "page":
             # преобразовать docx в pdf
-            pdf_path = Converter.create_page_pdf(object.get("page"))
+            pdf_path = Converter.create_one_for_multiple_page_pdf(object.get("page"))
             list_of_pdf_pages.append({"number_page": number_page, "pdf_path": pdf_path})
 
 

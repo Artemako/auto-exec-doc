@@ -15,6 +15,8 @@ class FormTable(QWidget):
         self.ui = formtable_ui.Ui_FormTableWidget()
         self.ui.setupUi(self)
 
+        self.pair = pair
+
         # заголовок
         self.ui.title.setText(config_content["title_content"])
 
@@ -62,7 +64,7 @@ class FormTable(QWidget):
         self.ui.add_button.clicked.connect(self.add_row)
         self.ui.delete_button.clicked.connect(self.delete_row)
         self.ui.table.cellChanged.connect(
-            lambda: self.set_new_value_in_pair(pair, self.get_data_from_table())
+            lambda: self.set_new_value_in_pair(self.pair, self.get_data_from_table())
         )
 
     def show_context_menu(self, position):
@@ -76,12 +78,15 @@ class FormTable(QWidget):
         for column in range(self.ui.table.columnCount()):
             item = QTableWidgetItem()
             self.ui.table.setItem(row_count, column, item)
+        self.set_new_value_in_pair(self.pair, self.get_data_from_table())
+        
 
     def delete_row(self):
         log.Log.debug_logger("IN delete_row()")
         current_row = self.ui.table.currentRow()
         if current_row >= 0:
             self.ui.table.removeRow(current_row)
+        self.set_new_value_in_pair(self.pair, self.get_data_from_table())
 
     # def update_cell(self, row, column):
     #     item = self.ui.table.item(row, column)
@@ -154,17 +159,20 @@ class FormTable(QWidget):
 
     def get_data_from_table(self) -> list:
         log.Log.debug_logger("IN to_json(self) -> list:")
-        data = []
+        table_data = []
         for row in range(self.ui.table.rowCount()):
+            print("row = ", row)
             row_data = []
             for column in range(self.ui.table.columnCount()):
+                print("column = ", column)
                 item = self.ui.table.item(row, column)
                 if item:
                     row_data.append(item.text())
                 else:
                     row_data.append("")
-            data.append(row_data)
-        return json.dumps(data)
+            table_data.append(row_data)
+        print(f"table_data = {table_data}")
+        return json.dumps(table_data)
 
     def set_new_value_in_pair(self, pair, new_value):
         log.Log.debug_logger(

@@ -6,6 +6,9 @@ import package.controllers.pagestemplate as pagestemplate
 
 
 class SectionsInfo:
+
+    # TODO __sections_info должен быть dict 
+
     __sections_info = []
 
     @staticmethod

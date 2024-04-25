@@ -62,14 +62,14 @@ class PagesTemplate:
         # Обновить ScroolAreaInput после SectionInfo
         scrollareainput.ScroolAreaInput.update_scrollarea(page)
         # открыть pdf форму для текущей страницы
-        converter.Converter.create_and_open_page_pdf(page)
+        converter.Converter.create_and_open_one_page_pdf(page)
         
     @staticmethod
     def current_page_to_pdf():
         log.Log.debug_logger("IN current_page_to_pdf()")
         current = PagesTemplate.__listwidget_pages_template.currentItem()
         page = current.get_page()
-        converter.Converter.create_and_open_page_pdf(page)
+        converter.Converter.create_and_open_one_page_pdf(page)
 
 
 
