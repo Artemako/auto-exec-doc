@@ -49,7 +49,7 @@ class StructureExecDoc:
     @staticmethod
     def item_changed(item):
         node = item.get_node()
-        state = item.checkState(0) == Qt.Checked
+        state = int(item.checkState(0) == Qt.Checked)
         StructureExecDoc.set_state_included_for_child(
                 node,
                 item.checkState(0) == Qt.Checked
@@ -120,11 +120,10 @@ class StructureExecDoc:
 
     @staticmethod
     def set_state_included_for_child(node, state):
-        log.Log.debug_logger(f"IN set_state_included_for_childs(node, state): node = {node}, state = {state}")
+        log.Log.debug_logger(f"IN set_state_included_for_childs(node, state): id_node = {node.get("id_node")}, state = {state}")
         item = StructureExecDoc.__nodes_to_items.get(node.get("id_node"))
         if item:
             item.setCheckState(0, Qt.Checked if state else Qt.Unchecked)
-
             childs = projectdatabase.Database.get_childs(node)
             if childs:
                 for child in childs:

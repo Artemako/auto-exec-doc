@@ -210,21 +210,27 @@ class Converter:
         if childs:
             for child in childs:
                 # TODO подумать про PDF node, загруженный пользователем
-                # проход по страницам node
-                pages = projectdatabase.Database.get_pages_by_node(child)
-                for page in pages:
-                    # TODO Included
-                    object = {"type": "page", "page": page, "number_page": number_page}
-                    project_pages_objects.append(object)
-                    number_page += 1
-                # проход по дочерним вершинам
-                Converter.dfs(child, project_pages_objects, number_page)
+                child_included = int(child.get("included"))
+                print("included = ", child_included, type(child_included))
+                if not child_included == 0:
+                    # проход по страницам node                
+                    pages = projectdatabase.Database.get_pages_by_node(child)
+                    for page in pages: 
+                        object = {"type": "page", "page": page, "number_page": number_page}
+                        print(f"object = {object}")
+                        project_pages_objects.append(object)
+                        number_page += 1
+                    # проход по дочерним вершинам
+                    Converter.dfs(child, project_pages_objects, number_page)
 
     @staticmethod
     def get_list_of_created_pdf_pages(project_pages_objects) -> list:
         list_of_pdf_pages = list()
         # создание пула потоков с автоматическим количеством потоков
-        with concurrent.futures.ThreadPoolExecutor(max_workers=None) as executor:
+        max_workers = concurrent.futures.ThreadPoolExecutor()._max_workers
+        #print(f"max_workers = {max_workers}")
+        #print(f"os.cpu_count() = {}")
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
             # создание списка задач, которые будут выполнены параллельно
             tasks = [
                 executor.submit(

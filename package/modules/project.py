@@ -224,6 +224,7 @@ class Project:
         
         multipage_pdf_path = dialogwindows.DialogWindows.select_name_and_dirpath_export_pdf()
         if multipage_pdf_path:
+            statusbar.StatusBar.set_message_for_statusbar("Процесс экспорта в PDF...")
             converter.Converter.export_to_pdf(multipage_pdf_path)
 
         
