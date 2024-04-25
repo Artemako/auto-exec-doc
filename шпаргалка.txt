@@ -3,8 +3,9 @@ python -m nuitka --follow-imports main.py
 # исключит templates
 python -m nuitka --follow-imports --noinclude-data-files=template/**/*.docx main.py
 
-python -m nuitka --follow-imports --noinclude-data-files=template/**/*.docx --standalone --output my_script.exe my_script.py
+python -m nuitka --plugin-enable=pyside6 --onefile --noinclude-data-files=template/**/*.docx main.py
 
+python -m nuitka --standalone --plugin-enable=pyside6  --noinclude-data-files=template/**/*.docx main.py
 
 
 python -m nuitka main.py
@@ -16,3 +17,5 @@ pyside6-uic designer/formtext.ui -o package/ui/formtext_ui.py
 pyside6-rcc resources.qrc -o resources_rc.py
 
 Pyside6 code to create an opening widget PDF file
+
+pyinstaller --onefile --paths=D:/work/project/AutoExecDoc/venv/Lib/site-packages main.py

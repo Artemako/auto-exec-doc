@@ -1,0 +1,19 @@
+24-Apr-25 19:30:28.189188 | DEBUG    | MAIN LOGGER                    | Config logger                                                                   
+24-Apr-25 19:30:28.190189 | DEBUG    | MAIN LOGGER                    | self.current_directory = D:\work\project\AutoExecDoc                            
+24-Apr-25 19:30:28.190189 | DEBUG    | MAIN LOGGER                    | IN create_and_config_files_and_folders()                                        
+24-Apr-25 19:30:28.191198 | DEBUG    | MAIN LOGGER                    | get_default_folder_projects_dirpath() -> str: C:/Users/hayar/OneDrive/Документы\AutoExecDoc Projects
+24-Apr-25 19:30:28.191198 | DEBUG    | MAIN LOGGER                    | IN create_and_config_db_settings()                                              
+24-Apr-25 19:30:28.192197 | DEBUG    | MAIN LOGGER                    | get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\db\settings.db    
+24-Apr-25 19:30:28.192197 | DEBUG    | MAIN LOGGER                    | get_templates_main_dirpath() -> str: D:\work\project\AutoExecDoc\templates\main 
+24-Apr-25 19:30:28.242210 | DEBUG    | MAIN LOGGER                    | IN config_controllers()                                                         
+24-Apr-25 19:30:28.242210 | DEBUG    | MAIN LOGGER                    | IN connect_statusbar(statusbar)                                                 
+24-Apr-25 19:30:28.244209 | DEBUG    | MAIN LOGGER                    | set_message_for_statusbar(Проект не открыт)                                     
+24-Apr-25 19:30:28.245210 | DEBUG    | MAIN LOGGER                    | IN connect_structureexecdoc(tr_sed, title_sed)                                  
+24-Apr-25 19:30:28.245210 | DEBUG    | MAIN LOGGER                    | IN clear_tr_sed()                                                               
+24-Apr-25 19:30:28.246210 | DEBUG    | MAIN LOGGER                    | IN connect_pages_template(lw_pt)                                                
+24-Apr-25 19:30:28.246785 | DEBUG    | MAIN LOGGER                    | IN connect_inputforms(sa_if, sa_ifl)                                            
+24-Apr-25 19:30:28.246785 | DEBUG    | MAIN LOGGER                    | IN connecting_actions()                                                         
+24-Apr-25 19:30:29.333208 | DEBUG    | MAIN LOGGER                    | IN closeEvent(self, event): event = <PySide6.QtCore.QEvent(QEvent::Close)>      
+24-Apr-25 19:30:29.334208 | DEBUG    | MAIN LOGGER                    | get_temp_dirpath() -> str:                                                      
+24-Apr-25 19:30:29.335213 | DEBUG    | MAIN LOGGER                    | IN clear_temp_folder(is_del_folder): is_del_folder = True, temp_dirpath = C:\Users\hayar\AppData\Local\Temp\tmpa0tzjbrs
+24-Apr-25 19:30:29.336208 | DEBUG    | MAIN LOGGER                    | get_temp_dirpath() -> str:                                                      
