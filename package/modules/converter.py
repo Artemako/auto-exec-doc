@@ -7,11 +7,16 @@ from pypdf import PdfWriter
 import datetime
 import concurrent.futures
 
+from PySide6.QtWidgets import QProgressDialog
+
+from PySide6.QtCore import Qt
+
 import package.modules.dirpathsmanager as dirpathsmanager
 import package.modules.sectionsinfo as seccionsinfo
 import package.modules.projectdatabase as projectdatabase
 import package.components.dialogwindows as dialogwindows
 
+import package.controllers.statusbar as statusbar
 import package.controllers.pdfview as pdfview
 
 import package.modules.log as log
@@ -172,6 +177,7 @@ class Converter:
         log.Log.debug_logger(
             f"IN export_to_pdf(multipage_pdf_path): multipage_pdf_path = {multipage_pdf_path}"
         )
+
         # проход по всем вершинам дерева для заполенения project_pages_objects
         project_pages_objects = list()
         number_page = 0
@@ -188,8 +194,12 @@ class Converter:
         print(f"list_of_pdf_pages = {list_of_pdf_pages}")
         # объеденить несколько pdf файлов в один
         Converter.merge_pdfs_and_create(multipage_pdf_path, list_of_pdf_pages)
+        # закрыть диалоговое окно
+        statusbar.StatusBar.set_message_for_statusbar(f"Экспорт завершен. Файл {multipage_pdf_path} готов.")
         # открыть pdf
         os.startfile(os.path.dirname(multipage_pdf_path))
+        statusbar.StatusBar.set_message_for_statusbar("Преобразование завершено.")
+        
 
     @staticmethod
     def dfs(parent_node, project_pages_objects, number_page):
@@ -203,6 +213,7 @@ class Converter:
                 # проход по страницам node
                 pages = projectdatabase.Database.get_pages_by_node(child)
                 for page in pages:
+                    # TODO Included
                     object = {"type": "page", "page": page, "number_page": number_page}
                     project_pages_objects.append(object)
                     number_page += 1

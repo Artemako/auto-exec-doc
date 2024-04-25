@@ -1,6 +1,6 @@
 import os
 
-from PySide6.QtWidgets import QMessageBox, QFileDialog, QProgressDialog
+from PySide6.QtWidgets import QMessageBox, QFileDialog
 from PySide6.QtCore import Qt
 
 import package.app as app
