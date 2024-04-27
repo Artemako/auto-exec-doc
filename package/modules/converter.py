@@ -2,9 +2,11 @@ import os
 import json
 import copy
 from docxtpl import DocxTemplate, InlineImage
-from docx2pdf import convert
+#from docx2pdf import convert
+import comtypes.client
 from pypdf import PdfWriter
 import datetime
+
 
 import package.modules.dirpathsmanager as dirpathsmanager
 import package.modules.sectionsinfo as seccionsinfo
@@ -192,9 +194,26 @@ class Converter:
             )
         )
         # преобразовать docx в pdf
-        convert(docx_path, pdf_path)
+        #convert(docx_path, pdf_path)
+        Converter.convert_from_pdf_docx(docx_path, pdf_path)
 
         return pdf_path
+
+
+    @staticmethod
+    def convert_from_pdf_docx(docx_path, pdf_path):
+        log.Log.debug_logger(
+            f"IN convert_from_pdf_docx(docx_path, pdf_path): docx_path = {docx_path}, pdf_path = {pdf_path}"
+        )
+
+        wdFormatPDF = 17
+        word = comtypes.client.CreateObject('Word.Application')
+        doc = word.Documents.Open(docx_path)
+        doc.SaveAs(pdf_path, FileFormat=wdFormatPDF)
+        doc.Close()
+        word.Quit()
+
+
 
     @staticmethod
     def export_to_pdf(multipage_pdf_path) -> None:
