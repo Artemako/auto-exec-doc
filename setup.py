@@ -2,7 +2,7 @@ import sys
 
 from cx_Freeze import setup, Executable
 
-setup(name = "MyApp",
+setup(name = "AutoExecDoc",
       version = "0.1",
-      description = "My GUI App",
+      description = "AutoExecDoc",
       executables = [Executable("main.py")])
