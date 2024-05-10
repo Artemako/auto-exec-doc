@@ -433,7 +433,7 @@
   <customwidget>
    <class>QPdfView</class>
    <extends>QWidget</extends>
-   <header>PySide6/QtPdfWidgets</header>
+   <header>PySide2/QtPdfWidgets</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

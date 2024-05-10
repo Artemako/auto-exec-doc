@@ -1,7 +1,7 @@
 import json
 
-from PySide6.QtWidgets import QWidget
-from PySide6.QtCore import QDate
+from PySide2.QtWidgets import QWidget
+from PySide2.QtCore import QDate
 
 import package.ui.formdate_ui as formdate_ui
 

@@ -1,7 +1,7 @@
 import os
 
-from PySide6.QtWidgets import QMessageBox, QFileDialog
-from PySide6.QtCore import Qt
+from PySide2.QtWidgets import QMessageBox, QFileDialog
+from PySide2.QtCore import Qt
 
 import package.app as app
 import package.modules.dirpathsmanager as dirpathsmanager

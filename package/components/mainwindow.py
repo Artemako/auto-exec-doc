@@ -1,6 +1,6 @@
-from PySide6.QtWidgets import QMainWindow
-from PySide6.QtPdf import QPdfDocument
-from PySide6.QtPdfWidgets import QPdfView
+from PySide2.QtWidgets import QMainWindow
+from PySide2.QtPdf import QPdfDocument
+from PySide2.QtPdfWidgets import QPdfView
 
 import package.ui.mainwindow_ui as mainwindow_ui
 import package.modules.project as project

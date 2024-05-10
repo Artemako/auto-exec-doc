@@ -18,8 +18,8 @@ You should have received a copy of the GNU General Public License
 along with Elypson/qt-collapsible-section. If not, see <http:#www.gnu.org/licenses/>.
 """
 
-import PySide6.QtCore as cr
-import PySide6.QtWidgets as wd
+import PySide2.QtCore as cr
+import PySide2.QtWidgets as wd
 
 import sys
 

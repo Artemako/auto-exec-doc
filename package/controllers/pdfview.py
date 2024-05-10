@@ -1,11 +1,32 @@
-from PySide6.QtPdf import QPdfDocument
-from PySide6.QtPdfWidgets import QPdfView
-from PySide6.QtWidgets import QWidget, QSizePolicy
-from PySide6.QtCore import QUrl
+from PySide2.QtPdf import QPdfDocument
+from PySide2.QtPdfWidgets import QPdfView
+from PySide2.QtWidgets import QWidget, QSizePolicy
+from PySide2.QtCore import QUrl
 import sys
 
 
 import package.modules.log as log
+
+
+# from PySide2.QtWidgets import QApplication, QMainWindow
+# from PySide2.QtWebEngineWidgets import QWebEngineView
+
+# class PDFViewer(QMainWindow):
+#     def __init__(self, pdf_file):
+#         super().__init__()
+#         self.pdf_file = pdf_file
+#         self.setup_ui()
+
+#     def setup_ui(self):
+#         self.webview = QWebEngineView(self)
+#         self.setCentralWidget(self.webview)
+#         self.webview.load(QUrl.fromLocalFile(self.pdf_file))
+
+# if __name__ == '__main__':
+#     app = QApplication([])
+#     pdf_viewer = PDFViewer('path/to/your/pdf_file.pdf')
+#     pdf_viewer.show()
+#     app.exec_()
 
 
 class PdfView:
