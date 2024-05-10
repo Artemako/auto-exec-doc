@@ -1,7 +1,7 @@
 import os
 import tempfile 
 
-from PySide2.QtCore import QStandardPaths
+from PySide6.QtCore import QStandardPaths
 
 import package.modules.log as log
 

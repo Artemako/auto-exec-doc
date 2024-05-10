@@ -1,4 +1,4 @@
-from PySide2.QtWidgets import QApplication, QMainWindow, QGroupBox, QVBoxLayout, QPushButton, QLabel
+from PySide6.QtWidgets import QApplication, QMainWindow, QGroupBox, QVBoxLayout, QPushButton, QLabel
 
 class MainWindow(QMainWindow):
     def __init__(self):

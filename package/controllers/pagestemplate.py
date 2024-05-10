@@ -1,4 +1,4 @@
-from PySide2.QtWidgets import QListWidgetItem
+from PySide6.QtWidgets import QListWidgetItem
 
 import package.modules.log as log
 

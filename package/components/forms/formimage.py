@@ -2,7 +2,7 @@ import os
 import datetime
 from PIL import Image
 
-from PySide2.QtWidgets import QWidget
+from PySide6.QtWidgets import QWidget
 
 import package.modules.log as log
 

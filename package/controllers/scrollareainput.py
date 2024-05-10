@@ -13,7 +13,7 @@ import package.components.forms.formimage as formimage
 import package.components.forms.formtable as formtable
 import package.components.forms.formtext as formtext
 
-from PySide2.QtWidgets import QLabel, QVBoxLayout, QPushButton, QSpacerItem, QSizePolicy
+from PySide6.QtWidgets import QLabel, QVBoxLayout, QPushButton, QSpacerItem, QSizePolicy
 
 
 class ScroolAreaInput:

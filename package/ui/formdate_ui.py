@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'formtext.ui'
+## Form generated from reading UI file 'formdate.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.3
 ##
@@ -15,40 +15,34 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QLineEdit,
+from PySide6.QtWidgets import (QApplication, QDateEdit, QHBoxLayout, QLabel,
     QSizePolicy, QTextBrowser, QVBoxLayout, QWidget)
 
-class Ui_FormTextWidget(object):
-    def setupUi(self, FormTextWidget):
-        if not FormTextWidget.objectName():
-            FormTextWidget.setObjectName(u"FormTextWidget")
-        FormTextWidget.resize(460, 139)
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(FormTextWidget.sizePolicy().hasHeightForWidth())
-        FormTextWidget.setSizePolicy(sizePolicy)
-        FormTextWidget.setMaximumSize(QSize(16777215, 16777215))
-        self.horizontalLayout = QHBoxLayout(FormTextWidget)
+class Ui_FormDateWidget(object):
+    def setupUi(self, FormDateWidget):
+        if not FormDateWidget.objectName():
+            FormDateWidget.setObjectName(u"FormDateWidget")
+        FormDateWidget.resize(439, 139)
+        FormDateWidget.setMaximumSize(QSize(16777215, 16777215))
+        self.horizontalLayout = QHBoxLayout(FormDateWidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.title = QLabel(FormTextWidget)
+        self.title = QLabel(FormDateWidget)
         self.title.setObjectName(u"title")
         self.title.setMinimumSize(QSize(0, 0))
         self.title.setMaximumSize(QSize(16777215, 16))
         self.title.setStyleSheet(u"font-weight: bold;")
         self.title.setTextFormat(Qt.AutoText)
-        self.title.setScaledContents(False)
 
         self.verticalLayout.addWidget(self.title)
 
-        self.lineedit = QLineEdit(FormTextWidget)
-        self.lineedit.setObjectName(u"lineedit")
+        self.dateedit = QDateEdit(FormDateWidget)
+        self.dateedit.setObjectName(u"dateedit")
 
-        self.verticalLayout.addWidget(self.lineedit)
+        self.verticalLayout.addWidget(self.dateedit)
 
-        self.textbrowser = QTextBrowser(FormTextWidget)
+        self.textbrowser = QTextBrowser(FormDateWidget)
         self.textbrowser.setObjectName(u"textbrowser")
         self.textbrowser.setStyleSheet(u"background-color: #f0f0f0;\n"
 "border: none")
@@ -60,16 +54,15 @@ class Ui_FormTextWidget(object):
         self.horizontalLayout.addLayout(self.verticalLayout)
 
 
-        self.retranslateUi(FormTextWidget)
+        self.retranslateUi(FormDateWidget)
 
-        QMetaObject.connectSlotsByName(FormTextWidget)
+        QMetaObject.connectSlotsByName(FormDateWidget)
     # setupUi
 
-    def retranslateUi(self, FormTextWidget):
-        FormTextWidget.setWindowTitle(QCoreApplication.translate("FormTextWidget", u"Form", None))
-        self.title.setText(QCoreApplication.translate("FormTextWidget", u"<html><head/><body><p>\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a</p></body></html>", None))
-        self.lineedit.setText("")
-        self.textbrowser.setHtml(QCoreApplication.translate("FormTextWidget", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+    def retranslateUi(self, FormDateWidget):
+        FormDateWidget.setWindowTitle(QCoreApplication.translate("FormDateWidget", u"Form", None))
+        self.title.setText(QCoreApplication.translate("FormDateWidget", u"<html><head/><body><p>\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a</p></body></html>", None))
+        self.textbrowser.setHtml(QCoreApplication.translate("FormDateWidget", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"

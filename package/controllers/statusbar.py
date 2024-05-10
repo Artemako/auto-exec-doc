@@ -1,6 +1,6 @@
 import package.modules.log as log
 
-from PySide2.QtWidgets import QStatusBar
+from PySide6.QtWidgets import QStatusBar
 
 class StatusBar:
     __statusbar = None

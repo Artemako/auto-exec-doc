@@ -3,8 +3,8 @@ import package.modules.projectdatabase as projectdatabase
 import package.modules.project as project
 import package.controllers.pagestemplate as pagestemplate
 
-from PySide2.QtWidgets import QTreeWidgetItem
-from PySide2.QtCore import Qt
+from PySide6.QtWidgets import QTreeWidgetItem
+from PySide6.QtCore import Qt
 
 
 class MyTreeWidgetItem(QTreeWidgetItem):

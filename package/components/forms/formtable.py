@@ -1,7 +1,8 @@
 import json
 
-from PySide2.QtWidgets import QWidget, QTableWidgetItem, QApplication, QMenu, QAction
-from PySide2.QtCore import Qt
+from PySide6.QtWidgets import QWidget, QTableWidgetItem, QApplication, QMenu
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QKeySequence, QAction
 
 import package.modules.log as log
 

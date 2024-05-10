@@ -1,5 +1,5 @@
-from PySide2.QtWidgets import QToolButton, QApplication, QMainWindow
-from PySide2.QtCore import QSize, Qt, QPropertyAnimation, QParallelAnimationGroup, QEasingCurve, QAbstractAnimation
+from PySide6.QtWidgets import QToolButton, QApplication, QMainWindow
+from PySide6.QtCore import QSize, Qt, QPropertyAnimation, QParallelAnimationGroup, QEasingCurve, QAbstractAnimation
 import sys
 
 class CollapseButton(QToolButton):
