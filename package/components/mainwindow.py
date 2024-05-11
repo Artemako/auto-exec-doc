@@ -55,6 +55,7 @@ class MainWindow(QMainWindow):
 
     def closeEvent(self, event):
         log.Log.debug_logger(f"IN closeEvent(self, event): event = {event}")
+        
         filefoldermanager.FileFolderManager.clear_temp_folder(True)
 
     def connecting_actions(self):
