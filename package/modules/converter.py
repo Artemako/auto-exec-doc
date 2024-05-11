@@ -271,6 +271,7 @@ class Converter:
         )
         
         list_of_pdf_pages = list()
+
         for object in project_pages_objects:
             number_page_pdf_path = Converter.process_object_of_project_pages_objects(object)
             if number_page_pdf_path:

@@ -1,8 +1,11 @@
 import os
 import shutil
+import base64
+import datetime
 
 import package.modules.dirpathsmanager as dirpathsmanager
 import package.modules.projectdatabase as projectdatabase
+import package.modules.project as project
 import package.modules.log as log
 
 
@@ -30,6 +33,20 @@ class FileFolderManager:
         """
         log.Log.debug_logger("IN add_forms_folders_to_new_project()")
         
+        # создать указатель файл
+        aedfilename = f"{project.Project.get_current_name()}.aed"
+        aedfilepath = os.path.join(dirpathsmanager.DirPathManager.get_project_dirpath(), aedfilename)
+        aedfile = open(aedfilepath, "a+")
+        # перевести в base64
+        message = f"{aedfilename} {aedfilepath} {datetime.datetime.now()}"
+        message_bytes = message.encode('utf-8')
+        base64_bytes = base64.b64encode(message_bytes)
+        base64_message = base64_bytes.decode('utf-8')
+        print(base64_message)
+        # записать в файл
+        aedfile.write(base64_message)
+        aedfile.close()
+
         # папка forms в проекте
         forms_folder_dirpath = dirpathsmanager.DirPathManager.get_forms_folder_dirpath()
 

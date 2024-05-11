@@ -75,16 +75,17 @@ class DialogWindows:
     def select_folder_for_open_project() -> str:
         """Диалоговое окно выбора папки для открытия проекта."""
         while True:
-            folder_path = QFileDialog.getExistingDirectory(
+            folder_path = QFileDialog.getOpenFileName(
                 None,
-                "Выбор папки для открытия проекта",
+                "Выбор aed файла проекта для его открытия",
                 dirpathsmanager.DirPathManager.get_default_folder_projects_dirpath(),
+                "Project files (*.aed)"
             )
-            if folder_path:
+            if folder_path[0]:
                 log.Log.debug_logger(
-                    f"select_folder_for_open_project() -> {folder_path}"
+                    f"select_folder_for_open_project() -> {folder_path[0]}"
                 )
-                return folder_path
+                return os.path.dirname(folder_path[0])
             else:
                 log.Log.debug_logger(f"select_folder_for_open_project() -> {None}")
                 return None
