@@ -21,6 +21,9 @@ import package.modules.log as log
 
 
 class Converter:
+
+    __word = comtypes.client.CreateObject('Word.Application')
+
     def __init__(self):
         pass
 
@@ -207,11 +210,11 @@ class Converter:
         )
 
         wdFormatPDF = 17
-        word = comtypes.client.CreateObject('Word.Application')
+        word = Converter.__word
         doc = word.Documents.Open(docx_path)
         doc.SaveAs(pdf_path, FileFormat=wdFormatPDF)
         doc.Close()
-        word.Quit()
+        # word.Quit()
 
 
 
