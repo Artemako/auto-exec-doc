@@ -137,7 +137,7 @@ class Project:
             and pagestemplate.PagesTemplate.is_page_template_selected()
         ):
             # сохранить в базу данных
-            sectionsinfo.SectionsInfo.save_data_to_database()
+            sectionsinfo.SectionsInfoGlobal.save_data_to_database()
             # NOT (current_page_to_pdf() расположен в save_data_to_database())
             pagestemplate.PagesTemplate.current_page_to_pdf()   
             # настроить статус

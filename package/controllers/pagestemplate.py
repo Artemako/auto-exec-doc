@@ -58,7 +58,7 @@ class PagesTemplate:
         log.Log.debug_logger(f"IN item_page_updated(current): current = {current}")
         page = current.get_page()
         # добыть информация для SectionInfo
-        sectionsinfo.SectionsInfo.update_sections_info(page)
+        sectionsinfo.SectionsInfoGlobal.update_sections_info(page)
         # Обновить ScroolAreaInput после SectionInfo
         scrollareainput.ScroolAreaInput.update_scrollarea(page)
         # открыть pdf форму для текущей страницы

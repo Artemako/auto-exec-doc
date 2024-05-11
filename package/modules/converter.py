@@ -64,7 +64,7 @@ class Converter:
         form_page_name = page.get("template_name")
         docx_pdf_page_name = f"""page_{page.get("id_page")}_{datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')}"""
         # добыть информация для SectionInfo
-        sectionsinfo.SectionsInfo.update_sections_info(page)
+        sectionsinfo.SectionsInfoGlobal.update_sections_info(page)
         # создать docx из данным page
         Converter.create_docx_page(form_page_name, docx_pdf_page_name)
         # создать pdf из docx
@@ -109,7 +109,7 @@ class Converter:
             data_context = dict()
             # TODO sections_info ПОДУМАТЬ ПРО ОПТИМИЗАЦИЮ
 
-            sections_info = seccionsinfo.SectionsInfo.get_sections_info()
+            sections_info = seccionsinfo.SectionsInfoGlobal.get_sections_info()
             
             print(f"sections_info = {sections_info}")
             for section_index, section_info in enumerate(sections_info):

@@ -20,7 +20,6 @@ class ScroolAreaInput:
     __scrollarea_input = None
     __scrollarea_input_layout = None
 
-    
 
     def __init__(self):
         pass
@@ -58,7 +57,7 @@ class ScroolAreaInput:
         """ """
         log.Log.debug_logger("IN add_sections_in_sa()")
 
-        sections_info = sectionsinfo.SectionsInfo.get_sections_info()
+        sections_info = sectionsinfo.SectionsInfoGlobal.get_sections_info()
         # перебор секций
         for section_index, section_info in enumerate(sections_info):
             print(f"section_index = {section_index},\n section_info = {section_info}\n")
@@ -128,6 +127,6 @@ class ScroolAreaInput:
         # Очистка всего и вся 
         ScroolAreaInput.delete_all_widgets_in_sa()        
         # обновить информацию о секциях
-        sectionsinfo.SectionsInfo.update_sections_info(page)
+        sectionsinfo.SectionsInfoGlobal.update_sections_info(page)
         # Добавление новых секций в ScroolAreaInput
         ScroolAreaInput.add_sections_in_sa()
