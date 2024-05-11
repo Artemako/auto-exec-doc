@@ -85,7 +85,8 @@ class FileFolderManager:
                 os.mkdir(temp_dirpath)
         except Exception as e:
             log.Log.error_logger(e)
-            dirpathsmanager.DirPathManager.set_new_temp_dirpath()
+        
+
 
     @staticmethod
     def move_image_from_temp_to_project(name_image):

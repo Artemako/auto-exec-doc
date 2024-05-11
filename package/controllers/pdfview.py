@@ -51,6 +51,7 @@ class PdfView:
 
     @staticmethod
     def set_empty_pdf_view():
+        PdfView.__document = PdfView.__document.close()
         PdfView.__document = QPdfDocument()
         PdfView.__widget_pdf_view.setDocument(PdfView.__document)
         log.Log.debug_logger("set_empty_pdf_view()")

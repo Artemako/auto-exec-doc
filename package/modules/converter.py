@@ -1,6 +1,7 @@
 import os
 import json
 import copy
+import threading
 from docxtpl import DocxTemplate, InlineImage
 
 # from docx2pdf import convert
@@ -50,11 +51,9 @@ class Converter:
         if not is_local:
             sections_info = sectionsinfo.SectionsInfoGlobal.get_sections_info()
         else:
-            sections_info = (
-                sectionsinfo.SectionsInfo()
-                .update_sections_info(page)
-                .get_sections_info()
-            )
+            object = sectionsinfo.SectionsInfo()
+            object.update_sections_info(page)
+            sections_info = object.get_sections_info()
 
         # создать docx из данным page
         Converter.create_docx_page(sections_info, form_page_name, docx_pdf_page_name)
@@ -270,13 +269,17 @@ class Converter:
         log.Log.debug_logger(
             f"IN get_list_of_created_pdf_pages(project_pages_objects): project_pages_objects = {project_pages_objects}"
         )
+        
         list_of_pdf_pages = list()
         for object in project_pages_objects:
-            Converter.process_object_of_project_pages_objects(object, list_of_pdf_pages)
+            number_page_pdf_path = Converter.process_object_of_project_pages_objects(object)
+            if number_page_pdf_path:
+                list_of_pdf_pages.append(number_page_pdf_path)
+    
         return list_of_pdf_pages
 
     @staticmethod
-    def process_object_of_project_pages_objects(object, list_of_pdf_pages):
+    def process_object_of_project_pages_objects(object) -> dict:
         log.Log.debug_logger(
             f"IN process_object_of_project_pages_objects(object): object = {object}"
         )
@@ -285,7 +288,8 @@ class Converter:
         if object_type == "page":
             # преобразовать docx в pdf
             pdf_path = Converter.create_page_pdf(object.get("page"), True)
-            list_of_pdf_pages.append({"number_page": number_page, "pdf_path": pdf_path})
+            return {"number_page": number_page, "pdf_path": pdf_path}
+        return None
 
     @staticmethod
     def merge_pdfs_and_create(multipage_pdf_path, list_of_pdf_pages):

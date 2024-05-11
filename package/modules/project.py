@@ -1,4 +1,5 @@
 import os
+import time
 
 import package.components.dialogwindows as dialogwindows
 
@@ -222,10 +223,14 @@ class Project:
             )
             return False
         
+    
         multipage_pdf_path = dialogwindows.DialogWindows.select_name_and_dirpath_export_pdf()
         if multipage_pdf_path:
+            start_time = time.time()
             statusbar.StatusBar.set_message_for_statusbar("Процесс экспорта в PDF...")
             converter.Converter.export_to_pdf(multipage_pdf_path)
+            end_time = time.time()
+            log.Log.debug_logger(f"export_to_pdf() -> time: {end_time - start_time}")
 
         
     

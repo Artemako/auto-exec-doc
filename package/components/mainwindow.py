@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QMainWindow
 from PySide6.QtPdf import QPdfDocument
 from PySide6.QtPdfWidgets import QPdfView
+from PySide6.QtGui import QShortcut, QKeySequence
 
 import package.ui.mainwindow_ui as mainwindow_ui
 import package.modules.project as project
@@ -55,7 +56,9 @@ class MainWindow(QMainWindow):
 
     def closeEvent(self, event):
         log.Log.debug_logger(f"IN closeEvent(self, event): event = {event}")
-        
+        # удаление pdf из виджета pdfview
+        pdfview.PdfView.set_empty_pdf_view()
+        # очистка временных файлов
         filefoldermanager.FileFolderManager.clear_temp_folder(True)
 
     def connecting_actions(self):
@@ -78,6 +81,9 @@ class MainWindow(QMainWindow):
             if checked
             else pdfview.PdfView.set_zoom_custom()
         )
+
+        # shortcut = QShortcut(QKeySequence("R"), self)
+        # shortcut.activated.connect(lambda: pdfview.PdfView.set_empty_pdf_view())
 
 
 
