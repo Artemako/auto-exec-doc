@@ -24,84 +24,84 @@ class MyListWidgetItem(QListWidgetItem):
 
 
 class PagesTemplate:
-    __listwidget_pages_template = None
-    __title_pt = None
 
     def __init__(self):
-        pass
+        self.__listwidget_pages_template = None
+        self.__title_pt = None
 
-    @staticmethod
-    def is_page_template_selected():
-        log.Log.debug_logger("get_listwidget_pages_template()")
-        return PagesTemplate.__listwidget_pages_template.currentItem()
 
-    @staticmethod
-    def connect_pages_template(lw_pt, title_pt):
+    def is_page_template_selected(self):
+        log.obj_l.debug_logger("get_listwidget_pages_template()")
+        return self.__listwidget_pages_template.currentItem()
+
+
+    def connect_pages_template(self, lw_pt, title_pt):
         """
         Подключить _listwidget_pages_template.
         """
-        log.Log.debug_logger("IN connect_pages_template(lw_pt)")
-        PagesTemplate.__listwidget_pages_template = lw_pt
-        PagesTemplate.__title_pt = title_pt
-        PagesTemplate.clear_pt()
+        log.obj_l.debug_logger("IN connect_pages_template(lw_pt)")
+        self.__listwidget_pages_template = lw_pt
+        self.__title_pt = title_pt
+        self.clear_pt()
 
         # Подключение сигналов
-        PagesTemplate.__listwidget_pages_template.itemClicked.connect(
-            lambda current: PagesTemplate.item_page_updated(current)
+        self.__listwidget_pages_template.itemClicked.connect(
+            lambda current: self.item_page_updated(current)
         )
 
-    @staticmethod
-    def item_page_updated(current):
+
+    def item_page_updated(self, current):
         """
         Слот для сигнала itemClicked.
         """
-        log.Log.debug_logger(f"IN item_page_updated(current): current = {current}")
+        log.obj_l.debug_logger(f"IN item_page_updated(current): current = {current}")
         page = current.get_page()
         # добыть информация для SectionInfo
-        sectionsinfo.SectionsInfoGlobal.update_sections_info(page)
+        sectionsinfo.obj_si.update_sections_info(page)
         # Обновить ScroolAreaInput после SectionInfo
-        scrollareainput.ScroolAreaInput.update_scrollarea(page)
+        scrollareainput.obj_sai.update_scrollarea(page)
         # открыть pdf форму для текущей страницы
-        converter.Converter.create_and_view_page_pdf(page)
+        converter.obj_c.create_and_view_page_pdf(page)
         
-    @staticmethod
-    def current_page_to_pdf():
-        log.Log.debug_logger("IN current_page_to_pdf()")
-        current = PagesTemplate.__listwidget_pages_template.currentItem()
+
+    def current_page_to_pdf(self):
+        log.obj_l.debug_logger("IN current_page_to_pdf()")
+        current = self.__listwidget_pages_template.currentItem()
         page = current.get_page()
-        converter.Converter.create_and_view_page_pdf(page)
+        converter.obj_c.create_and_view_page_pdf(page)
 
 
+    def clear_pt(self):
+        self.__listwidget_pages_template.clear()
+        self.__title_pt.setText("Форма не выбрана")
 
-    @staticmethod
-    def clear_pt():
-        PagesTemplate.__listwidget_pages_template.clear()
-        PagesTemplate.__title_pt.setText("Форма не выбрана")
-
-    @staticmethod
-    def create_pages_template():
+    def create_pages_template(self):
         """
         Создание _listwidget_pages_template.
         """
-        log.Log.debug_logger("IN create_pages_template()")
+        log.obj_l.debug_logger("IN create_pages_template()")
 
-        PagesTemplate.clear_pt()
-        PagesTemplate.__title_pt.setText("Форма не выбрана")
+        self.clear_pt()
+        self.__title_pt.setText("Форма не выбрана")
 
-    @staticmethod
-    def update_pages_template(node):
+    def update_pages_template(self, node):
         """
         Обновить _listwidget_pages_template.
         """
-        log.Log.debug_logger(f"IN update_pages_template(node) : node = {node}")
+        log.obj_l.debug_logger(f"IN update_pages_template(node) : node = {node}")
 
-        PagesTemplate.clear_pt()
+        self.clear_pt()
 
-        PagesTemplate.__title_pt.setText(node.get("name_node"))
+        self.__title_pt.setText(node.get("name_node"))
 
-        pages = projectdatabase.Database.get_pages_by_node(node)
+        pages = projectdatabase.obj_pd.get_pages_by_node(node)
         for page in pages:
             print(f"page = {page}")
             item = MyListWidgetItem(page)
             item.setText(page.get("page_name"))
-            PagesTemplate.__listwidget_pages_template.addItem(item)
+            self.__listwidget_pages_template.addItem(item)
+
+
+
+
+obj_pt = PagesTemplate()

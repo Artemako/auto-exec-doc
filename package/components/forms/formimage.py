@@ -16,7 +16,7 @@ import package.components.dialogwindows as dialogwindows
 
 class FormImage(QWidget):
     def __init__(self, pair, config_content, config_image):
-        log.Log.debug_logger(
+        log.obj_l.debug_logger(
             f"FormImage(self, pair, config_content, config_image): pair = {pair}, config_content = {config_content}, config_image = {config_image}"
         )
 
@@ -52,7 +52,7 @@ class FormImage(QWidget):
 
     def set_new_value_in_pair(self, pair):
 
-        image_dirpath = dialogwindows.DialogWindows.select_image_for_formimage_in_project()
+        image_dirpath = dialogwindows.obj_dw.select_image_for_formimage_in_project()
         
         if image_dirpath:
             # текст выбранного изображения
@@ -62,7 +62,7 @@ class FormImage(QWidget):
             file_name_with_png = f"{file_name}.png"       
 
             # путь к временной папке
-            temp_dir = dirpathsmanager.DirPathManager.get_temp_dirpath()
+            temp_dir = dirpathsmanager.obj_dpm.get_temp_dirpath()
             # Путь к временному файлу
             temp_file_path = os.path.join(temp_dir, file_name_with_png)
             # Открыть изображение

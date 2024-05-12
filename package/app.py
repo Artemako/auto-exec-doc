@@ -22,20 +22,20 @@ class App:
         Проверить и наcтроить до запуска.
         """
         # настройка путей 
-        dirpathsmanager.DirPathManager.config_paths(self.current_directory)    
+        dirpathsmanager.obj_dpm.config_paths(self.current_directory)    
         # настроить loggerpy
-        log.Log.config_logger()
-        log.Log.debug_logger(f"self.current_directory = {self.current_directory}")            
+        log.obj_l.config_logger()
+        log.obj_l.debug_logger(f"self.current_directory = {self.current_directory}")            
         # Проверка наличия папок.
-        filefoldermanager.FileFolderManager.create_and_config_files_and_folders()
+        filefoldermanager.obj_ffm.create_and_config_files_and_folders()
         # настроить БД
-        settingsdatabase.Database.create_and_config_db_settings()
+        settingsdatabase.obj_sd.create_and_config_db_settings()
 
     def start_app(self):
         """
         Запуск фронта.
         """
-        print("dirpathsmanager.DirPathManager.get_templates_main_dirpath() =", dirpathsmanager.DirPathManager.get_templates_main_dirpath())
+        print("dirpathsmanager.obj_dpm.get_templates_main_dirpath() =", dirpathsmanager.obj_dpm.get_templates_main_dirpath())
         self.app = QApplication(sys.argv)
         self.window = mainwindow.MainWindow()
         self.window.show()

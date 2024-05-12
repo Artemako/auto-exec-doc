@@ -17,114 +17,106 @@ class MyTreeWidgetItem(QTreeWidgetItem):
 
 
 class StructureExecDoc:
-    __treewidget_structure_execdoc = None
-    __title_sed = None
-
-    __nodes_to_items = dict()
 
     def __init__(self):
-        pass
+        self.__treewidget_structure_execdoc = None
+        self.__title_sed = None
+        self.__nodes_to_items = dict()
 
-    @staticmethod
-    def connect_structureexecdoc(tr_sed, title_sed):
+    def connect_structureexecdoc(self, tr_sed, title_sed):
         """
         Подключить tr_sed к контроллеру.
         """
-        log.Log.debug_logger("IN connect_structureexecdoc(tr_sed, title_sed)")
-        StructureExecDoc.__treewidget_structure_execdoc = tr_sed
-        StructureExecDoc.__title_sed = title_sed
+        log.obj_l.debug_logger("IN connect_structureexecdoc(tr_sed, title_sed)")
+        self.__treewidget_structure_execdoc = tr_sed
+        self.__title_sed = title_sed
         # Очистить при запуске
-        StructureExecDoc.clear_sed()
+        self.clear_sed()
 
         # Подключение сигналов
-        StructureExecDoc.__treewidget_structure_execdoc.currentItemChanged.connect(
-            lambda current: pagestemplate.PagesTemplate.update_pages_template(
+        self.__treewidget_structure_execdoc.currentItemChanged.connect(
+            lambda current: pagestemplate.obj_pt.update_pages_template(
                 current.get_node()
             )
         )
-        StructureExecDoc.__treewidget_structure_execdoc.itemChanged.connect(
-            lambda item: StructureExecDoc.item_changed(item)
+        self.__treewidget_structure_execdoc.itemChanged.connect(
+            lambda item: self.item_changed(item)
         )
 
-    @staticmethod
-    def item_changed(item):
+    def item_changed(self, item):
         node = item.get_node()
         state = int(item.checkState(0) == Qt.Checked)
-        StructureExecDoc.set_state_included_for_child(
-                node,
-                item.checkState(0) == Qt.Checked
-            )
-        projectdatabase.Database.set_included_for_node(node, state)
+        self.set_state_included_for_child(
+            node, item.checkState(0) == Qt.Checked
+        )
+        projectdatabase.obj_pd.set_included_for_node(node, state)
 
-
-
-    @staticmethod
-    def clear_sed():
+    def clear_sed(self):
         """
         Очистить дерево
         """
-        log.Log.debug_logger("IN clear_tr_sed()")
-        StructureExecDoc.__treewidget_structure_execdoc.clear()
-        StructureExecDoc.__treewidget_structure_execdoc.setHeaderLabels([""])
-        StructureExecDoc.__title_sed.setText("Проект не выбран")
+        log.obj_l.debug_logger("IN clear_tr_sed()")
+        self.__treewidget_structure_execdoc.clear()
+        self.__treewidget_structure_execdoc.setHeaderLabels([""])
+        self.__title_sed.setText("Проект не выбран")
 
-    @staticmethod
-    def update_structure_exec_doc():
+    def update_structure_exec_doc(self):
         """
         Создает структуру дерева ИД
         """
-        log.Log.debug_logger("IN update_structure_exec_doc()")
+        log.obj_l.debug_logger("IN update_structure_exec_doc()")
         # очистка
-        StructureExecDoc.clear_sed()
+        self.clear_sed()
         # Задать название столбца
-        title = f"{project.Project.get_current_name()}"
-        StructureExecDoc.__treewidget_structure_execdoc.setHeaderLabels(["Проект"])
-        StructureExecDoc.__title_sed.setText(title)
+        title = f"{project.obj_p.get_current_name()}"
+        self.__treewidget_structure_execdoc.setHeaderLabels(["Проект"])
+        self.__title_sed.setText(title)
         # проход по вершинам
-        StructureExecDoc.dfs(projectdatabase.Database.get_project_node())
+        self.dfs(projectdatabase.obj_pd.get_project_node())
 
-    @staticmethod
-    def dfs(parent_node):
+    def dfs(self, parent_node):
         """
         Проход по всем вершинам.
         """
-        log.Log.debug_logger(f"IN dfs(parent_node): parent_node = {parent_node}")
-        childs = projectdatabase.Database.get_childs(parent_node)
+        log.obj_l.debug_logger(f"IN dfs(parent_node): parent_node = {parent_node}")
+        childs = projectdatabase.obj_pd.get_childs(parent_node)
         if childs:
             for child in childs:
                 # действие
-                StructureExecDoc.set_item_in_nodes_to_items(child)
+                self.set_item_in_nodes_to_items(child)
                 # проход по дочерним вершинам
-                StructureExecDoc.dfs(child)
+                self.dfs(child)
 
-    @staticmethod
-    def set_item_in_nodes_to_items(node):
+    def set_item_in_nodes_to_items(self, node):
         """
         Поставить item в nodes_to_items.
         """
-        log.Log.debug_logger(f"IN set_item_in_nodes_to_items(node): node = {node}")
+        log.obj_l.debug_logger(f"IN set_item_in_nodes_to_items(node): node = {node}")
         item = None
         if node.get("id_parent") == 0:
             item = MyTreeWidgetItem(
-                StructureExecDoc.__treewidget_structure_execdoc, node
+                self.__treewidget_structure_execdoc, node
             )
         else:
             item = MyTreeWidgetItem(
-                StructureExecDoc.__nodes_to_items[node.get("id_parent")], node
+                self.__nodes_to_items[node.get("id_parent")], node
             )
         item.setText(0, node.get("name_node"))
         # С галочкой по умолчанию
         item.setCheckState(0, Qt.Checked)
-        StructureExecDoc.__nodes_to_items[node.get("id_node")] = item
+        self.__nodes_to_items[node.get("id_node")] = item
 
-
-    @staticmethod
-    def set_state_included_for_child(node, state):
-        log.Log.debug_logger(f"""IN set_state_included_for_childs(node, state): id_node = {node.get("id_node")}, state = {state}""")
-        item = StructureExecDoc.__nodes_to_items.get(node.get("id_node"))
+    def set_state_included_for_child(self, node, state):
+        log.obj_l.debug_logger(
+            f"""IN set_state_included_for_childs(node, state): id_node = {node.get("id_node")}, state = {state}"""
+        )
+        item = self.__nodes_to_items.get(node.get("id_node"))
         if item:
             item.setCheckState(0, Qt.Checked if state else Qt.Unchecked)
-            childs = projectdatabase.Database.get_childs(node)
+            childs = projectdatabase.obj_pd.get_childs(node)
             if childs:
                 for child in childs:
-                    StructureExecDoc.set_state_included_for_child(child, state)
+                    self.set_state_included_for_child(child, state)
+
+
+obj_sed = StructureExecDoc()

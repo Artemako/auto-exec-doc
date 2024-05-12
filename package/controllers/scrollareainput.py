@@ -17,32 +17,26 @@ from PySide6.QtWidgets import QLabel, QVBoxLayout, QPushButton, QSpacerItem, QSi
 
 
 class ScroolAreaInput:
-    __scrollarea_input = None
-    __scrollarea_input_layout = None
-
 
     def __init__(self):
-        pass
-
-        return ScroolAreaInput.__scrollarea_input_layout
-
-    @staticmethod
-    def connect_inputforms(sa_if, sa_ifl):
+        self.__scrollarea_input = None
+        self.__scrollarea_input_layout = None
+        
+    def connect_inputforms(self, sa_if, sa_ifl):
         """
         Подключить _scrollarea_input и _scrollarea_input_contents
         """
-        log.Log.debug_logger("IN connect_inputforms(sa_if, sa_ifl)")
-        ScroolAreaInput.__scrollarea_input = sa_if
-        ScroolAreaInput.__scrollarea_input_layout = sa_ifl
+        log.obj_l.debug_logger("IN connect_inputforms(sa_if, sa_ifl)")
+        self.__scrollarea_input = sa_if
+        self.__scrollarea_input_layout = sa_ifl
 
-    @staticmethod
-    def delete_all_widgets_in_sa():
+    def delete_all_widgets_in_sa(self):
         """
-        Удаление всех виджетов в ScroolAreaInput
+        Удаление всех виджетов в self
         """
-        log.Log.debug_logger("IN delete_all_widgets_in_sa()")
+        log.obj_l.debug_logger("IN delete_all_widgets_in_sa()")
 
-        layout = ScroolAreaInput.__scrollarea_input_layout.layout()
+        layout = self.__scrollarea_input_layout.layout()
         while layout.count():
             item = layout.takeAt(0)
             widget = item.widget()
@@ -52,12 +46,11 @@ class ScroolAreaInput:
                 del item
 
 
-    @staticmethod
-    def add_sections_in_sa():
+    def add_sections_in_sa(self):
         """ """
-        log.Log.debug_logger("IN add_sections_in_sa()")
+        log.obj_l.debug_logger("IN add_sections_in_sa()")
 
-        sections_info = sectionsinfo.SectionsInfoGlobal.get_sections_info()
+        sections_info = sectionsinfo.obj_si.get_sections_info()
         # перебор секций
         for section_index, section_info in enumerate(sections_info):
             print(f"section_index = {section_index},\n section_info = {section_info}\n")
@@ -81,7 +74,7 @@ class ScroolAreaInput:
                 print(f"pair = {pair}\n")
                 id_content = pair.get("id_content")
                 # все свойства основного контента
-                config_content = projectdatabase.Database.get_config_content_by_id(
+                config_content = projectdatabase.obj_pd.get_config_content_by_id(
                     id_content
                 )
                 type_content = config_content.get("type_content")
@@ -92,7 +85,7 @@ class ScroolAreaInput:
                     section_layout.addWidget(item)
 
                 elif type_content == "DATE":
-                    config_date = projectdatabase.Database.get_config_date_by_id(
+                    config_date = projectdatabase.obj_pd.get_config_date_by_id(
                         id_content
                     )
                     item = formdate.FormDate(pair, config_content, config_date)
@@ -105,28 +98,33 @@ class ScroolAreaInput:
                     section_layout.addWidget(item)
 
                 elif type_content == "TABLE":
-                    config_table = projectdatabase.Database.get_config_table_by_id(id_content)
+                    config_table = projectdatabase.obj_pd.get_config_table_by_id(id_content)
                     item = formtable.FormTable(pair, config_content, config_table)
                     section_layout.addWidget(item)
 
             section.setContentLayout(section_layout)
 
-            ScroolAreaInput.__scrollarea_input_layout.layout().insertWidget(0, section)
+            self.__scrollarea_input_layout.layout().insertWidget(0, section)
 
         # Добавление SpacerItem в конец
-        ScroolAreaInput.__scrollarea_input_layout.layout().addItem(
+        self.__scrollarea_input_layout.layout().addItem(
             QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
         )
 
-    @staticmethod
-    def update_scrollarea(page):
+    def update_scrollarea(self, page):
         """
-        Обновление ScroolAreaInput
+        Обновление self
         """
-        log.Log.debug_logger("IN update_scrollarea()")
+        log.obj_l.debug_logger("IN update_scrollarea()")
         # Очистка всего и вся 
-        ScroolAreaInput.delete_all_widgets_in_sa()        
+        self.delete_all_widgets_in_sa()        
         # обновить информацию о секциях
-        sectionsinfo.SectionsInfoGlobal.update_sections_info(page)
-        # Добавление новых секций в ScroolAreaInput
-        ScroolAreaInput.add_sections_in_sa()
+        sectionsinfo.obj_si.update_sections_info(page)
+        # Добавление новых секций в self
+        self.add_sections_in_sa()
+
+
+
+
+
+obj_sai = ScroolAreaInput()

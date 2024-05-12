@@ -36,54 +36,54 @@ class MainWindow(QMainWindow):
         """
         Method to configure controllers.
         """
-        log.Log.debug_logger("IN config_controllers()")
+        log.obj_l.debug_logger("IN config_controllers()")
         # настройка статус бара
-        statusbar.StatusBar.connect_statusbar(self.ui.status_bar)
+        statusbar.obj_sb.connect_statusbar(self.ui.status_bar)
         # настройка structureexecdoc
-        structureexecdoc.StructureExecDoc.connect_structureexecdoc(
+        structureexecdoc.obj_sed.connect_structureexecdoc(
             self.ui.treewidget_structure_execdoc, self.ui.title_structure_execdoc
         )
         # настройка pagestemplate
-        pagestemplate.PagesTemplate.connect_pages_template(
+        pagestemplate.obj_pt.connect_pages_template(
             self.ui.listwidget_pages_template, self.ui.title_pages_template
         )
         # настройка inputforms
-        scrollareainput.ScroolAreaInput.connect_inputforms(
+        scrollareainput.obj_sai.connect_inputforms(
             self.ui.scrollarea_inputforms, self.ui.scrollarea_inputforms_layout
         )
         # ПОДКЛЮЧИТЬ PDF
-        pdfview.PdfView.connect_pdfview(self.ui.widget_pdf_view, self.m_document)
+        pdfview.obj_pv.connect_pdfview(self.ui.widget_pdf_view, self.m_document)
 
     def closeEvent(self, event):
-        log.Log.debug_logger(f"IN closeEvent(self, event): event = {event}")
+        log.obj_l.debug_logger(f"IN closeEvent(self, event): event = {event}")
         # удаление pdf из виджета pdfview
-        pdfview.PdfView.set_empty_pdf_view()
+        pdfview.obj_pv.set_empty_pdf_view()
         # очистка временных файлов
-        filefoldermanager.FileFolderManager.clear_temp_folder(True)
+        filefoldermanager.obj_ffm.clear_temp_folder(True)
 
     def connecting_actions(self):
         """
         Method to connect to various actions on the UI.
         """
-        log.Log.debug_logger("IN connecting_actions()")
-        self.ui.action_new.triggered.connect(lambda: project.Project.new_project())
-        self.ui.action_open.triggered.connect(lambda: project.Project.open_project())
+        log.obj_l.debug_logger("IN connecting_actions()")
+        self.ui.action_new.triggered.connect(lambda: project.obj_p.new_project())
+        self.ui.action_open.triggered.connect(lambda: project.obj_p.open_project())
         # TODO Добавить активности для сохранения
-        self.ui.action_save.triggered.connect(lambda: project.Project.save_project())
+        self.ui.action_save.triggered.connect(lambda: project.obj_p.save_project())
         # self.ui.action_saveas.triggered.connect()
         self.ui.action_export_to_pdf.triggered.connect(
-            lambda: project.Project.export_to_pdf()
+            lambda: project.obj_p.export_to_pdf()
         )
-        self.ui.action_zoomin.triggered.connect(lambda: pdfview.PdfView.zoom_in())
-        self.ui.action_zoomout.triggered.connect(lambda: pdfview.PdfView.zoom_out())
+        self.ui.action_zoomin.triggered.connect(lambda: pdfview.obj_pv.zoom_in())
+        self.ui.action_zoomout.triggered.connect(lambda: pdfview.obj_pv.zoom_out())
         self.ui.action_zoomfitpage.triggered.connect(
-            lambda checked: pdfview.PdfView.set_zoom_to_fit_width()
+            lambda checked: pdfview.obj_pv.set_zoom_to_fit_width()
             if checked
-            else pdfview.PdfView.set_zoom_custom()
+            else pdfview.obj_pv.set_zoom_custom()
         )
 
         # shortcut = QShortcut(QKeySequence("R"), self)
-        # shortcut.activated.connect(lambda: pdfview.PdfView.set_empty_pdf_view())
+        # shortcut.activated.connect(lambda: pdfview.obj_pdf_view.set_empty_pdf_view())
 
 
 

@@ -9,60 +9,54 @@ import package.modules.log as log
 
 
 class PdfView:
-    __widget_pdf_view = None
-    __document = None
-    __zoom = 1    
-
     def __init__(self):
-        pass
+        self.__widget_pdf_view = None
+        self.__document = None
+        self.__zoom = 1
 
-    @staticmethod
-    def connect_pdfview(widget, m_document):
-        PdfView.__widget_pdf_view = widget
-        PdfView.__document = m_document
+    def connect_pdfview(self, widget, m_document):
+        self.__widget_pdf_view = widget
+        self.__document = m_document
 
-    @staticmethod
-    def zoom_in():
-        PdfView.__zoom += 0.1
-        PdfView.__widget_pdf_view.setZoomFactor(PdfView.__zoom)
-        log.Log.debug_logger(f"zoom_in(): PdfView.__zoom = {PdfView.__zoom}")
+    def zoom_in(self):
+        self.__zoom += 0.1
+        self.__widget_pdf_view.setZoomFactor(self.__zoom)
+        log.obj_l.debug_logger(f"zoom_in(): self.__zoom = {self.__zoom}")
 
-    @staticmethod
-    def zoom_out():
-        if PdfView.__zoom >= 0:
-            PdfView.__zoom -= 0.1
-        PdfView.__widget_pdf_view.setZoomFactor(PdfView.__zoom)
-        log.Log.debug_logger(f"zoom_out(): PdfView.__zoom = {PdfView.__zoom}")
+    def zoom_out(self):
+        if self.__zoom >= 0:
+            self.__zoom -= 0.1
+        self.__widget_pdf_view.setZoomFactor(self.__zoom)
+        log.obj_l.debug_logger(f"zoom_out(): self.__zoom = {self.__zoom}")
 
-    @staticmethod
-    def set_zoom_to_fit_width():
-        PdfView.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.FitToWidth)
-        log.Log.debug_logger("set_zoom_to_fit_width()")
+    def set_zoom_to_fit_width(self):
+        self.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.FitToWidth)
+        log.obj_l.debug_logger("set_zoom_to_fit_width()")
 
-    @staticmethod
-    def set_zoom_to_fit_view():
-        PdfView.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.FitInView)
-        log.Log.debug_logger("set_zoom_to_fit_view()")
+    def set_zoom_to_fit_view(self):
+        self.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.FitInView)
+        log.obj_l.debug_logger("set_zoom_to_fit_view()")
 
-    @staticmethod
-    def set_zoom_custom():
-        PdfView.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.Custom)
-        log.Log.debug_logger("set_zoom_custom()")
+    def set_zoom_custom(self):
+        self.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.Custom)
+        log.obj_l.debug_logger("set_zoom_custom()")
 
-    @staticmethod
-    def set_empty_pdf_view():
-        PdfView.__document = PdfView.__document.close()
-        PdfView.__document = QPdfDocument()
-        PdfView.__widget_pdf_view.setDocument(PdfView.__document)
-        log.Log.debug_logger("set_empty_pdf_view()")
+    def set_empty_pdf_view(self):
+        self.__document = self.__document.close()
+        self.__document = QPdfDocument()
+        self.__widget_pdf_view.setDocument(self.__document)
+        log.obj_l.debug_logger("set_empty_pdf_view()")
 
-    @staticmethod
-    def load_and_show_pdf_document(pdf_path):
-
-        log.Log.debug_logger(f"load_and_show_pdf_document(pdf_path): pdf_path = {pdf_path}")
+    def load_and_show_pdf_document(self, pdf_path):
+        log.obj_l.debug_logger(
+            f"load_and_show_pdf_document(pdf_path): pdf_path = {pdf_path}"
+        )
 
         doc_location = QUrl.fromLocalFile(pdf_path)
         if doc_location.isLocalFile():
-            PdfView.__document.load(doc_location.toLocalFile())
+            self.__document.load(doc_location.toLocalFile())
 
     # скроллинг по горизонтали работает с нажатой клавишей Alt
+
+
+obj_pv = PdfView()

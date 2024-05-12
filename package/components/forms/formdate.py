@@ -12,7 +12,7 @@ import package.modules.log as log
 
 class FormDate(QWidget):
     def __init__(self, pair, config_content, config_date):
-        log.Log.debug_logger(
+        log.obj_l.debug_logger(
             f"FormDate(self, pair, config_content, config_date): pair = {pair}, config_content = {config_content}, config_date = {config_date}"
         )
 
@@ -54,19 +54,19 @@ class FormDate(QWidget):
         )
 
     def string_to_qdate(self, str_date, str_format) -> object:
-        log.Log.debug_logger(
+        log.obj_l.debug_logger(
             f"string_to_date(self, str_date, str_format): str_date = {str_date}, str_format = {str_format}"
         )
         return QDate.fromString(str_date, str_format)
 
     def qdate_to_string(self, date, str_format) -> str:
-        log.Log.debug_logger(
+        log.obj_l.debug_logger(
             f"date_to_string(self, date) -> str: date = {date}"
         )
         return str(date.toString(str_format))
 
     def set_new_value_in_pair(self, pair, new_value):
-        log.Log.debug_logger(
+        log.obj_l.debug_logger(
             f"set_new_value_in_pair(self, pair, new_value): pair = {pair}, new_value = {new_value}"
         )
         pair["value"] = new_value

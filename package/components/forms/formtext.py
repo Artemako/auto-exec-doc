@@ -9,7 +9,7 @@ import package.modules.log as log
 
 class FormText(QWidget):
     def __init__(self, pair, config_content):
-        log.Log.debug_logger(f"FormText(self, pair, config_content): pair = {pair}, config_content = {config_content}")        
+        log.obj_l.debug_logger(f"FormText(self, pair, config_content): pair = {pair}, config_content = {config_content}")        
         
         super(FormText, self).__init__()
         self.ui = formtext_ui.Ui_FormTextWidget()
@@ -31,6 +31,6 @@ class FormText(QWidget):
 
     staticmethod
     def set_new_value_in_pair(self, pair, new_value):
-        log.Log.debug_logger(f"set_new_value_in_pair(self, pair, new_value): pair = {pair}, new_value = {new_value}")
+        log.obj_l.debug_logger(f"set_new_value_in_pair(self, pair, new_value): pair = {pair}, new_value = {new_value}")
         pair["value"] = new_value
         print(pair)

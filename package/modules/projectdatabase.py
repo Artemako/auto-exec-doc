@@ -5,29 +5,29 @@ import package.modules.dirpathsmanager as dirpathsmanager
 import package.modules.log as log
 
 
-class Database:
-    @staticmethod
-    def create_and_config_db_project():
+class ProjectDatabase:
+    
+    def create_and_config_db_project(self):
         """
         Настройка базы данных перед использованием проекта
         """
-        log.Log.debug_logger("IN create_and_config_db_project()")
+        log.obj_l.debug_logger("IN create_and_config_db_project()")
 
-        if not os.path.exists(dirpathsmanager.DirPathManager.get_db_project_dirpath()):
+        if not os.path.exists(dirpathsmanager.obj_dpm.get_db_project_dirpath()):
             # Добавляем данные в пустую БД
-            Database.add_tables_and_datas_to_empty_db_project()
+            self.add_tables_and_datas_to_empty_db_project()
 
         # set всем included = True
-        Database.set_all_included_in_db_project_to_true()
+        self.set_all_included_in_db_project_to_true()
         
 
-    @staticmethod
-    def add_tables_and_datas_to_empty_db_project():
+    
+    def add_tables_and_datas_to_empty_db_project(self):
         """
         Добавление таблиц и данных в БД программы при запуске.
         """
-        log.Log.debug_logger("IN add_tables_and_datas_to_empty_db_project()")
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        log.obj_l.debug_logger("IN add_tables_and_datas_to_empty_db_project()")
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_project_dirpath())
         cursor = conn.cursor()
         cursor.executescript(
             """
@@ -226,14 +226,14 @@ COMMIT;
         conn.commit()
         conn.close()
 
-    @staticmethod
-    def get_project_node() -> object:
+    
+    def get_project_node(self) -> object:
         """
         Запрос на вершину проекта.
         """
-        log.Log.debug_logger("IN get_project_node() -> object")
+        log.obj_l.debug_logger("IN get_project_node() -> object")
 
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
 
         cursor = conn.cursor()
@@ -246,14 +246,14 @@ COMMIT;
         result = dict(cursor_result) if cursor_result else {}
         return result
 
-    @staticmethod
-    def get_childs(parent_node) -> list:
+    
+    def get_childs(self, parent_node) -> list:
         """
         Запрос на детей вершины.
         """
-        log.Log.debug_logger(f"IN get_childs(parent_node) -> list: parent_node = {parent_node}")
+        log.obj_l.debug_logger(f"IN get_childs(parent_node) -> list: parent_node = {parent_node}")
 
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
 
         cursor = conn.cursor()
@@ -271,14 +271,14 @@ COMMIT;
         conn.close()
         return result
 
-    @staticmethod
-    def get_pages_by_node(node) -> list:
+    
+    def get_pages_by_node(self, node) -> list:
         """
         Запрос на получение всех страниц выбранной формы.
         """
-        log.Log.debug_logger(f"IN get_pages_by_node(node) -> list: node = {node}")
+        log.obj_l.debug_logger(f"IN get_pages_by_node(node) -> list: node = {node}")
 
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
 
         cursor = conn.cursor()
@@ -296,16 +296,16 @@ COMMIT;
         conn.close()
         return result
 
-    @staticmethod
-    def get_node_parent_from_pages(page) -> object:
+    
+    def get_node_parent_from_pages(self, page) -> object:
         """
         Запрос на получение node_parent из таблицы Project_pages.
         """
-        log.Log.debug_logger(
+        log.obj_l.debug_logger(
             f"IN get_node_parent_from_pages(page) -> object: page = {page}"
         )
 
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
 
         cursor = conn.cursor()
@@ -323,14 +323,14 @@ COMMIT;
         return result
     
 
-    @staticmethod
-    def get_node_parent(node) -> object:
+    
+    def get_node_parent(self, node) -> object:
         """
         Запрос на получение node_parent из таблицы Project_nodes.
         """
-        log.Log.debug_logger(f"IN get_node_parent(node) -> object: node = {node}")
+        log.obj_l.debug_logger(f"IN get_node_parent(node) -> object: node = {node}")
 
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
 
         cursor = conn.cursor()
@@ -348,13 +348,13 @@ COMMIT;
         return result
     
 
-    def get_node_by_id(id_node) -> object:
+    def get_node_by_id(self, id_node) -> object:
         """
         Запрос на получение node по id.
         """
-        log.Log.debug_logger(f"IN get_node_by_id(id_node) -> object: id_node = {id_node}")
+        log.obj_l.debug_logger(f"IN get_node_by_id(id_node) -> object: id_node = {id_node}")
 
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
 
         cursor = conn.cursor()
@@ -372,16 +372,16 @@ COMMIT;
         return result
 
 
-    @staticmethod
-    def get_config_content_by_id(id_content) -> object:
+    
+    def get_config_content_by_id(self, id_content) -> object:
         """
         Запрос на получение config_content по имени формы.
         """
-        log.Log.debug_logger(
+        log.obj_l.debug_logger(
             f"IN get_config_content(id_content) -> list: id_content = {id_content}"
         )
 
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
 
         cursor = conn.cursor()
@@ -398,16 +398,16 @@ COMMIT;
         conn.close()
         return result
 
-    @staticmethod
-    def get_config_date_by_id(id_content) -> list:
+    
+    def get_config_date_by_id(self, id_content) -> list:
         """
         Запрос на получение config_date по имени формы.
         """
-        log.Log.debug_logger(
+        log.obj_l.debug_logger(
             f"IN get_config_date(id_content) -> list: name_content = {id_content}"
         )
 
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
 
         cursor = conn.cursor()
@@ -425,14 +425,14 @@ COMMIT;
         return result
 
 
-    @staticmethod
-    def get_config_table_by_id(id_content) -> list:
+    
+    def get_config_table_by_id(self, id_content) -> list:
         """
         Запрос на получение config_table по имени формы.
         """
-        log.Log.debug_logger(f"IN get_config_table(id_content) -> list: id_content = {id_content}")
+        log.obj_l.debug_logger(f"IN get_config_table(id_content) -> list: id_content = {id_content}")
 
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
 
         cursor = conn.cursor()
@@ -450,14 +450,14 @@ COMMIT;
         return result
 
 
-    @staticmethod
-    def set_included_for_node(node, state):
+    
+    def set_included_for_node(self, node, state):
         """
         Запрос на установку включенности для вершины.
         """
-        log.Log.debug_logger(f"IN set_included_for_node(node, state): node = {node}, state = {state}")
+        log.obj_l.debug_logger(f"IN set_included_for_node(node, state): node = {node}, state = {state}")
 
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_project_dirpath())
         cursor = conn.cursor()
         cursor.execute(
             """
@@ -470,17 +470,17 @@ COMMIT;
         conn.commit()
         conn.close()
 
-        # print(Database.get_node_by_id(node.get("id_node")))
+        # print(self.get_node_by_id(node.get("id_node")))
     
 
-    @staticmethod
-    def get_page_data(page) -> list:
+    
+    def get_page_data(self, page) -> list:
         """
         Запрос на получение данных страницы из Project_pages_data.
         """
-        log.Log.debug_logger(f"IN get_page_data(page) -> list: page = {page}")
+        log.obj_l.debug_logger(f"IN get_page_data(page) -> list: page = {page}")
 
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
 
         cursor = conn.cursor()
@@ -498,14 +498,14 @@ COMMIT;
         return result
     
     
-    @staticmethod
-    def get_node_data(node) -> list:
+    
+    def get_node_data(self, node) -> list:
         """
         Запрос на получение данных вершины из Project_nodes_data.
         """
-        log.Log.debug_logger(f"IN get_node_data(node) -> list: node = {node}")
+        log.obj_l.debug_logger(f"IN get_node_data(node) -> list: node = {node}")
 
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
 
         cursor = conn.cursor()
@@ -523,14 +523,14 @@ COMMIT;
         return result
     
 
-    @staticmethod
-    def update_pages_data(id_pair, value):
+    
+    def update_pages_data(self, id_pair, value):
         """
         Запрос на обновление данных страницы в Project_pages_data.
         """
-        log.Log.debug_logger(f"IN update_pages_data(id_pair, value): id_pair = {id_pair}, value = {value}")
+        log.obj_l.debug_logger(f"IN update_pages_data(id_pair, value): id_pair = {id_pair}, value = {value}")
 
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_project_dirpath())
         cursor = conn.cursor()
         cursor.execute(
             """
@@ -544,14 +544,14 @@ COMMIT;
         conn.close()
     
 
-    @staticmethod
-    def update_nodes_data(id_pair, value):
+    
+    def update_nodes_data(self, id_pair, value):
         """
         Запрос на обновление данных вершины в Project_nodes_data.
         """
-        log.Log.debug_logger(f"IN update_nodes_data(id_pair, value): id_pair = {id_pair}, value = {value}")
+        log.obj_l.debug_logger(f"IN update_nodes_data(id_pair, value): id_pair = {id_pair}, value = {value}")
 
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_project_dirpath())
         cursor = conn.cursor()
         cursor.execute(
             """
@@ -564,14 +564,14 @@ COMMIT;
         conn.commit()
         conn.close()
 
-    @staticmethod
-    def get_page_pair_value_by_id(id_pair):
+    
+    def get_page_pair_value_by_id(self, id_pair):
         """
         Запрос на получение значения по id_pair в Project_pages_data.
         """
-        log.Log.debug_logger(f"IN get_page_pair_value_by_id(id_pair): id_pair = {id_pair}")
+        log.obj_l.debug_logger(f"IN get_page_pair_value_by_id(id_pair): id_pair = {id_pair}")
 
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
 
         cursor = conn.cursor()
@@ -589,14 +589,14 @@ COMMIT;
         return result
     
 
-    @staticmethod
-    def get_node_pair_value_by_id(id_pair):
+    
+    def get_node_pair_value_by_id(self, id_pair):
         """
         Запрос на получение значения по id_pair в Project_nodes_data.
         """
-        log.Log.debug_logger(f"IN get_node_pair_value_by_id(id_pair): id_pair = {id_pair}")
+        log.obj_l.debug_logger(f"IN get_node_pair_value_by_id(id_pair): id_pair = {id_pair}")
 
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
 
         cursor = conn.cursor()
@@ -613,14 +613,14 @@ COMMIT;
         conn.close()
         return result
     
-    @staticmethod
-    def set_all_included_in_db_project_to_true():
+    
+    def set_all_included_in_db_project_to_true(self):
         """
         Установка всех included = True
         """
-        log.Log.debug_logger("IN set_all_included_in_db_project_to_true()")
+        log.obj_l.debug_logger("IN set_all_included_in_db_project_to_true()")
 
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_project_dirpath())
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
 
         cursor = conn.cursor()
@@ -635,3 +635,6 @@ COMMIT;
         )
         conn.commit()
         conn.close()
+
+
+obj_pd = ProjectDatabase()

@@ -13,72 +13,74 @@ class FileFolderManager:
     def __init__(self):
         pass
 
-    @staticmethod
-    def create_and_config_files_and_folders():
+    def create_and_config_files_and_folders(self):
         """
         Создание и конфигурация папок и файлов.
         """
-        log.Log.debug_logger("IN create_and_config_files_and_folders()")
+        log.obj_l.debug_logger("IN create_and_config_files_and_folders()")
         if not os.path.exists(
-            dirpathsmanager.DirPathManager.get_default_folder_projects_dirpath()
+            dirpathsmanager.obj_dpm.get_default_folder_projects_dirpath()
         ):
             os.mkdir(
-                dirpathsmanager.DirPathManager.get_default_folder_projects_dirpath()
+                dirpathsmanager.obj_dpm.get_default_folder_projects_dirpath()
             )
 
-    @staticmethod
-    def create_folders_for_new_project():
+    def create_folders_for_new_project(self):
         """
         Добавление в проект папок форм.
         """
-        log.Log.debug_logger("IN add_forms_folders_to_new_project()")
-        
+        log.obj_l.debug_logger("IN add_forms_folders_to_new_project()")
+
         # создать указатель файл
-        aedfilename = f"{project.Project.get_current_name()}.aed"
-        aedfilepath = os.path.join(dirpathsmanager.DirPathManager.get_project_dirpath(), aedfilename)
+        aedfilename = f"{project.obj_p.get_current_name()}.aed"
+        aedfilepath = os.path.join(
+            dirpathsmanager.obj_dpm.get_project_dirpath(), aedfilename
+        )
         aedfile = open(aedfilepath, "a+")
         # перевести в base64
         message = f"{aedfilename} {aedfilepath} {datetime.datetime.now()}"
-        message_bytes = message.encode('utf-8')
+        message_bytes = message.encode("utf-8")
         base64_bytes = base64.b64encode(message_bytes)
-        base64_message = base64_bytes.decode('utf-8')
+        base64_message = base64_bytes.decode("utf-8")
         print(base64_message)
         # записать в файл
         aedfile.write(base64_message)
         aedfile.close()
 
         # папка forms в проекте
-        forms_folder_dirpath = dirpathsmanager.DirPathManager.get_forms_folder_dirpath()
+        forms_folder_dirpath = dirpathsmanager.obj_dpm.get_forms_folder_dirpath()
 
         if not os.path.exists(forms_folder_dirpath):
             os.makedirs(forms_folder_dirpath)
 
         # папка images в проекте
-        image_folder_dirpath = dirpathsmanager.DirPathManager.get_images_folder_dirpath()
+        image_folder_dirpath = (
+            dirpathsmanager.obj_dpm.get_images_folder_dirpath()
+        )
 
         if not os.path.exists(image_folder_dirpath):
-            os.makedirs(image_folder_dirpath)        
+            os.makedirs(image_folder_dirpath)
 
         # # папка с pdfs
-        # pdfs_folder_dirpath = dirpathsmanager.DirPathManager.get_pdfs_folder_dirpath()
+        # pdfs_folder_dirpath = dirpathsmanager.obj_dpm.get_pdfs_folder_dirpath()
 
         # if not os.path.exists(pdfs_folder_dirpath):
-        #     os.makedirs(pdfs_folder_dirpath)    
+        #     os.makedirs(pdfs_folder_dirpath)
 
         # Папка TEMP/AUTOEXECDOC
-        if not os.path.exists(dirpathsmanager.DirPathManager.get_temp_dirpath()):
-            os.makedirs(dirpathsmanager.DirPathManager.get_temp_dirpath())
+        if not os.path.exists(dirpathsmanager.obj_dpm.get_temp_dirpath()):
+            os.makedirs(dirpathsmanager.obj_dpm.get_temp_dirpath())
 
-
-    @staticmethod
-    def copy_templates_to_forms_folder():
+    def copy_templates_to_forms_folder(self):
         """
         Копирование шаблонов в папку forms.
         """
-        log.Log.debug_logger("IN copy_templates_to_forms_folder()")
+        log.obj_l.debug_logger("IN copy_templates_to_forms_folder()")
 
-        templates_main_dirpath = dirpathsmanager.DirPathManager.get_templates_main_dirpath()
-        forms_folder_dirpath = dirpathsmanager.DirPathManager.get_forms_folder_dirpath()
+        templates_main_dirpath = (
+            dirpathsmanager.obj_dpm.get_templates_main_dirpath()
+        )
+        forms_folder_dirpath = dirpathsmanager.obj_dpm.get_forms_folder_dirpath()
 
         # копирование шаблонов в папку проекта forms
         for f in os.listdir(templates_main_dirpath):
@@ -87,41 +89,46 @@ class FileFolderManager:
                 os.path.join(forms_folder_dirpath, f),
             )
 
-    @staticmethod
-    def clear_temp_folder(is_del_folder=False):
+    def clear_temp_folder(self, is_del_folder=False):
         """
         Очистка папки temp.
         """
-        log.Log.debug_logger(
-            f"IN clear_temp_folder(is_del_folder): is_del_folder = {is_del_folder}, temp_dirpath = {dirpathsmanager.DirPathManager.get_temp_dirpath()}"
+        log.obj_l.debug_logger(
+            f"IN clear_temp_folder(is_del_folder): is_del_folder = {is_del_folder}, temp_dirpath = {dirpathsmanager.obj_dpm.get_temp_dirpath()}"
         )
-        temp_dirpath = dirpathsmanager.DirPathManager.get_temp_dirpath()
+        temp_dirpath = dirpathsmanager.obj_dpm.get_temp_dirpath()
         try:
             shutil.rmtree(temp_dirpath)
             if not is_del_folder:
                 os.mkdir(temp_dirpath)
         except Exception as e:
-            log.Log.error_logger(e)
-        
+            log.obj_l.error_logger(e)
 
-
-    @staticmethod
-    def move_image_from_temp_to_project(name_image):
-        log.Log.debug_logger("IN move_image_from_temp_to_project()")
+    def move_image_from_temp_to_project(self, name_image):
+        log.obj_l.debug_logger("IN move_image_from_temp_to_project()")
         # путь к папке с шаблонами
-        temp_dirpath = dirpathsmanager.DirPathManager.get_temp_dirpath()
-        image_folder_dirpath = os.path.join(dirpathsmanager.DirPathManager.get_project_dirpath(), "images")
+        temp_dirpath = dirpathsmanager.obj_dpm.get_temp_dirpath()
+        image_folder_dirpath = os.path.join(
+            dirpathsmanager.obj_dpm.get_project_dirpath(), "images"
+        )
         try:
-            shutil.move(os.path.join(temp_dirpath, name_image), os.path.join(image_folder_dirpath, name_image))
+            shutil.move(
+                os.path.join(temp_dirpath, name_image),
+                os.path.join(image_folder_dirpath, name_image),
+            )
         except Exception as e:
-            log.Log.error_logger(e)
+            log.obj_l.error_logger(e)
 
-    @staticmethod
-    def delete_image_from_project(image_dirpath):
-        log.Log.debug_logger("IN delete_image_from_project()")
+    def delete_image_from_project(self, image_dirpath):
+        log.obj_l.debug_logger("IN delete_image_from_project()")
         # путь к папке с шаблонами
-        image_folder_dirpath = os.path.join(dirpathsmanager.DirPathManager.get_project_dirpath(), "images")
+        image_folder_dirpath = os.path.join(
+            dirpathsmanager.obj_dpm.get_project_dirpath(), "images"
+        )
         try:
             os.remove(os.path.join(image_folder_dirpath, image_dirpath))
         except Exception as e:
-            log.Log.error_logger(e)
+            log.obj_l.error_logger(e)
+
+
+obj_ffm = FileFolderManager()

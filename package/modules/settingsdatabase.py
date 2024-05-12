@@ -7,25 +7,25 @@ import package.modules.log as log
 import package.modules.project as project
 
 
-class Database:
-    @staticmethod
-    def create_and_config_db_settings():
+class SettingsDatabase:
+    
+    def create_and_config_db_settings(self):
         """
         Настройка базы данных перед использованием приложения
         """
-        log.Log.debug_logger("IN create_and_config_db_settings()")
-        if not os.path.exists(dirpathsmanager.DirPathManager.get_db_settings_dirpath()):
+        log.obj_l.debug_logger("IN create_and_config_db_settings()")
+        if not os.path.exists(dirpathsmanager.obj_dpm.get_db_settings_dirpath()):
             # Добавляем данные в пустую БД
-            Database.add_tables_and_datas_to_empty_db_settings()
+            self.add_tables_and_datas_to_empty_db_settings()
 
     # region Методы add (tables, values)
-    @staticmethod
-    def add_tables_and_datas_to_empty_db_settings():
+    
+    def add_tables_and_datas_to_empty_db_settings(self):
         """
         Добавление таблиц и данных в БД программы.
         """
-        log.Log.debug_logger("IN add_tables_and_datas_to_empty_db_settings()")
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_settings_dirpath())
+        log.obj_l.debug_logger("IN add_tables_and_datas_to_empty_db_settings()")
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_settings_dirpath())
         cursor = conn.cursor()
 
         cursor.executescript("""
@@ -44,20 +44,20 @@ class Database:
         conn.commit()
         conn.close()
 
-    @staticmethod
-    def add_new_project_to_db():
+    
+    def add_new_project_to_db(self):
         """
         Добавление в БД новый проекта.
         """
-        log.Log.debug_logger("IN add_new_project_to_db()")
+        log.obj_l.debug_logger("IN add_new_project_to_db()")
 
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_settings_dirpath())
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_settings_dirpath())
         cursor = conn.cursor()
 
         name_project = os.path.basename(
-            dirpathsmanager.DirPathManager.get_project_dirpath()
+            dirpathsmanager.obj_dpm.get_project_dirpath()
         )
-        directory_project = dirpathsmanager.DirPathManager.get_project_dirpath()        
+        directory_project = dirpathsmanager.obj_dpm.get_project_dirpath()        
 
         # текущее время для date_create_project и для date_last_open_project
         current_datetime = datetime.datetime.now().replace(microsecond=0)
@@ -70,20 +70,20 @@ class Database:
         conn.commit()
         conn.close()
 
-    @staticmethod
-    def update_project_to_db():
+    
+    def update_project_to_db(self):
         """
         Обновление проекта в БД.
         """
-        log.Log.debug_logger("IN update_project_to_db()")
+        log.obj_l.debug_logger("IN update_project_to_db()")
 
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_settings_dirpath())
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_settings_dirpath())
         cursor = conn.cursor()
 
         name_project = os.path.basename(
-            dirpathsmanager.DirPathManager.get_project_dirpath()
+            dirpathsmanager.obj_dpm.get_project_dirpath()
         )
-        directory_project = dirpathsmanager.DirPathManager.get_project_dirpath()
+        directory_project = dirpathsmanager.obj_dpm.get_project_dirpath()
 
         # текущее время для date_last_open_project
         current_datetime = datetime.datetime.now().replace(microsecond=0)
@@ -96,20 +96,20 @@ class Database:
         conn.commit()
         conn.close()
 
-    @staticmethod
-    def add_or_update_open_project_to_db():
+    
+    def add_or_update_open_project_to_db(self):
         """
         Добавление или обновление открытого проекта в БД.
         """
-        log.Log.debug_logger("IN add_or_update_open_project_to_db()")
+        log.obj_l.debug_logger("IN add_or_update_open_project_to_db()")
 
-        conn = sqlite3.connect(dirpathsmanager.DirPathManager.get_db_settings_dirpath())
+        conn = sqlite3.connect(dirpathsmanager.obj_dpm.get_db_settings_dirpath())
         cursor = conn.cursor()
 
         name_project = os.path.basename(
-            dirpathsmanager.DirPathManager.get_project_dirpath()
+            dirpathsmanager.obj_dpm.get_project_dirpath()
         )
-        directory_project = dirpathsmanager.DirPathManager.get_project_dirpath()
+        directory_project = dirpathsmanager.obj_dpm.get_project_dirpath()
 
         # узнать, если проект в БД по имени и директории
         cursor.execute(
@@ -122,8 +122,11 @@ class Database:
         conn.close()
 
         if result is None:
-            Database.add_new_project_to_db()
+            self.add_new_project_to_db()
         else:
-            Database.update_project_to_db()
+            self.update_project_to_db()
 
     # endregion
+
+
+obj_sd = SettingsDatabase()
