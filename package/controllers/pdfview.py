@@ -5,11 +5,10 @@ from PySide6.QtCore import QUrl
 import sys
 
 
-import package.modules.log as log
-
 
 class PdfView:
-    def __init__(self):
+    def __init__(self, obs_manager):
+        self.__obs_manager = obs_manager
         self.__widget_pdf_view = None
         self.__document = None
         self.__zoom = 1
@@ -21,34 +20,34 @@ class PdfView:
     def zoom_in(self):
         self.__zoom += 0.1
         self.__widget_pdf_view.setZoomFactor(self.__zoom)
-        log.obj_l.debug_logger(f"zoom_in(): self.__zoom = {self.__zoom}")
+        self.__obs_manager.obj_l.debug_logger(f"zoom_in(): self.__zoom = {self.__zoom}")
 
     def zoom_out(self):
         if self.__zoom >= 0:
             self.__zoom -= 0.1
         self.__widget_pdf_view.setZoomFactor(self.__zoom)
-        log.obj_l.debug_logger(f"zoom_out(): self.__zoom = {self.__zoom}")
+        self.__obs_manager.obj_l.debug_logger(f"zoom_out(): self.__zoom = {self.__zoom}")
 
     def set_zoom_to_fit_width(self):
         self.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.FitToWidth)
-        log.obj_l.debug_logger("set_zoom_to_fit_width()")
+        self.__obs_manager.obj_l.debug_logger("set_zoom_to_fit_width()")
 
     def set_zoom_to_fit_view(self):
         self.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.FitInView)
-        log.obj_l.debug_logger("set_zoom_to_fit_view()")
+        self.__obs_manager.obj_l.debug_logger("set_zoom_to_fit_view()")
 
     def set_zoom_custom(self):
         self.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.Custom)
-        log.obj_l.debug_logger("set_zoom_custom()")
+        self.__obs_manager.obj_l.debug_logger("set_zoom_custom()")
 
     def set_empty_pdf_view(self):
         self.__document = self.__document.close()
         self.__document = QPdfDocument()
         self.__widget_pdf_view.setDocument(self.__document)
-        log.obj_l.debug_logger("set_empty_pdf_view()")
+        self.__obs_manager.obj_l.debug_logger("set_empty_pdf_view()")
 
     def load_and_show_pdf_document(self, pdf_path):
-        log.obj_l.debug_logger(
+        self.__obs_manager.obj_l.debug_logger(
             f"load_and_show_pdf_document(pdf_path): pdf_path = {pdf_path}"
         )
 
@@ -59,4 +58,4 @@ class PdfView:
     # скроллинг по горизонтали работает с нажатой клавишей Alt
 
 
-obj_pv = PdfView()
+# obj_pv = PdfView()

@@ -1,8 +1,9 @@
 import os
 import json
 import copy
-import threading
 from docxtpl import DocxTemplate, InlineImage
+
+from mpire import WorkerPool
 
 # from docx2pdf import convert
 import comtypes.client
@@ -10,57 +11,55 @@ from pypdf import PdfWriter
 import datetime
 
 
-import package.modules.dirpathsmanager as dirpathsmanager
-import package.modules.sectionsinfo as seccionsinfo
-import package.modules.projectdatabase as projectdatabase
-import package.components.dialogwindows as dialogwindows
-import package.modules.sectionsinfo as sectionsinfo
+class ElementPool:
+    def __init__(self, value):
+        self.value = value
 
-import package.controllers.statusbar as statusbar
-import package.controllers.pdfview as pdfview
-
-import package.modules.log as log
+    def get_value(self):
+        return self.value
 
 
 class Converter:
-    def __init__(self):
+
+    # TODO 
+    def __init__(self, obs_manager):
+        self.__obs_manager = obs_manager
         self.__word = comtypes.client.CreateObject("Word.Application")
+        print("__init__ word = ")
 
     def create_and_view_page_pdf(self, page):
         """
         Вызывается при нажатии на кнопку Save.
         """
-        log.obj_l.debug_logger(f"IN create_one_page_pdf(page): page = {page}")
+        self.__obs_manager.obj_l.debug_logger(f"IN create_one_page_pdf(page): page = {page}")
         # создать pdf
         pdf_path = self.create_page_pdf(page)
         # открыть pdf
-        pdfview.obj_pv.load_and_show_pdf_document(pdf_path)
+        self.__obs_manager.obj_pv.load_and_show_pdf_document(pdf_path)
 
     def create_page_pdf(self, page, is_local: bool = False) -> str:
         """
         Создать pdf страницы. Вернуть директорию.
         """
-        log.obj_l.debug_logger(f"IN create_one_page_pdf(page): page = {page}")
+        self.__obs_manager.obj_l.debug_logger(f"IN create_one_page_pdf(page): page = {page}")
         form_page_name = page.get("template_name")
         docx_pdf_page_name = f"""page_{page.get("id_page")}_{datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')}"""
         # TODO добыть информация для SectionInfo
         if not is_local:
-            sections_info = sectionsinfo.obj_si.get_sections_info()
+            sections_info = self.__obs_manager.obj_si.get_sections_info()
         else:
-            object = sectionsinfo.SectionsInfo()
+            object = self.__obs_manager.SectionsInfo()
             object.update_sections_info(page)
             sections_info = object.get_sections_info()
 
         # создать docx из данным page
         self.create_docx_page(sections_info, form_page_name, docx_pdf_page_name)
         # создать pdf из docx
-        pdf_path = os.path.normpath(
-            self.create_pdf_from_docx_page(docx_pdf_page_name)
-        )
+        pdf_path = os.path.normpath(self.create_pdf_from_docx_page(docx_pdf_page_name))
         return pdf_path
 
     def create_docx_page(self, sections_info, form_page_name, docx_pdf_page_name):
-        log.obj_l.debug_logger(
+        self.__obs_manager.obj_l.debug_logger(
             f"IN create_docx_page(sections_info, form_page_name, docx_pdf_page_name): sections_info = {sections_info}, form_page_name = {form_page_name}, docx_pdf_page_name = {docx_pdf_page_name}"
         )
         # получить docx_template
@@ -70,7 +69,7 @@ class Converter:
         template_path = os.path.normpath(
             os.path.abspath(
                 os.path.join(
-                    dirpathsmanager.obj_dpm.get_forms_folder_dirpath(),
+                    self.__obs_manager.obj_dpm.get_forms_folder_dirpath(),
                     form_page_fullname,
                 )
             )
@@ -79,7 +78,7 @@ class Converter:
         docx_path = os.path.normpath(
             os.path.abspath(
                 os.path.join(
-                    dirpathsmanager.obj_dpm.get_temp_dirpath(),
+                    self.__obs_manager.obj_dpm.get_temp_dirpath(),
                     docx_page_fullname,
                 )
             )
@@ -101,7 +100,7 @@ class Converter:
                     name_content = pair.get("name_content")
                     value = pair.get("value")
                     # config_content
-                    config_content = projectdatabase.obj_pd.get_config_content_by_id(
+                    config_content = self.__obs_manager.obj_pd.get_config_content_by_id(
                         id_content
                     )
                     type_content = config_content.get("type_content")
@@ -112,7 +111,7 @@ class Converter:
                         if value:
                             image_dirpath = os.path.abspath(
                                 os.path.join(
-                                    dirpathsmanager.obj_dpm.get_images_folder_dirpath(),
+                                    self.__obs_manager.obj_dpm.get_images_folder_dirpath(),
                                     value,
                                 )
                             )
@@ -121,7 +120,7 @@ class Converter:
                     elif type_content == "DATE":
                         data_context[name_content] = value
                     elif type_content == "TABLE":
-                        config_table = projectdatabase.obj_pd.get_config_table_by_id(
+                        config_table = self.__obs_manager.obj_pd.get_config_table_by_id(
                             id_content
                         )
                         print(f"config_table = {config_table}")
@@ -157,25 +156,21 @@ class Converter:
             docx_template.save(docx_path)
 
         except Exception as e:
-            log.obj_l.error_logger(e)
+            self.__obs_manager.obj_l.error_logger(e)
 
     def create_pdf_from_docx_page(self, docx_pdf_page_name) -> str:
-        log.obj_l.debug_logger(
+        self.__obs_manager.obj_l.debug_logger(
             f"IN create_pdf_from_docx_page(docx_pdf_page_name) -> str: docx_pdf_page_name = {docx_pdf_page_name}"
         )
         # пути к docx и к pdf
         docx_page_fullname = docx_pdf_page_name + ".docx"
         pdf_page_fullname = docx_pdf_page_name + ".pdf"
         docx_path = os.path.abspath(
-            os.path.join(
-                dirpathsmanager.obj_dpm.get_temp_dirpath(), docx_page_fullname
-            )
+            os.path.join(self.__obs_manager.obj_dpm.get_temp_dirpath(), docx_page_fullname)
         )
         # путь к pdf в temp проекта
         pdf_path = os.path.abspath(
-            os.path.join(
-                dirpathsmanager.obj_dpm.get_temp_dirpath(), pdf_page_fullname
-            )
+            os.path.join(self.__obs_manager.obj_dpm.get_temp_dirpath(), pdf_page_fullname)
         )
         # преобразовать docx в pdf
         # convert(docx_path, pdf_path)
@@ -184,7 +179,7 @@ class Converter:
         return pdf_path
 
     def convert_from_pdf_docx(self, docx_path, pdf_path):
-        log.obj_l.debug_logger(
+        self.__obs_manager.obj_l.debug_logger(
             f"IN convert_from_pdf_docx(docx_path, pdf_path): docx_path = {docx_path}, pdf_path = {pdf_path}"
         )
 
@@ -199,7 +194,7 @@ class Converter:
         """
         Вызывается при нажатии на кнопку EXPORT после диалогового окна.
         """
-        log.obj_l.debug_logger(
+        self.__obs_manager.obj_l.debug_logger(
             f"IN export_to_pdf(multipage_pdf_path): multipage_pdf_path = {multipage_pdf_path}"
         )
 
@@ -207,31 +202,29 @@ class Converter:
         project_pages_objects = list()
         number_page = 0
         self.dfs(
-            projectdatabase.obj_pd.get_project_node(),
+            self.__obs_manager.obj_pd.get_project_node(),
             project_pages_objects,
             number_page,
         )
-        log.obj_l.debug_logger(f"project_pages_objects = {project_pages_objects}")
+        self.__obs_manager.obj_l.debug_logger(f"project_pages_objects = {project_pages_objects}")
         # проход по project_pages_objects для преобразования каждой страницы в docx, а потом в pdf
-        list_of_pdf_pages = self.get_list_of_created_pdf_pages(
-            project_pages_objects
-        )
+        list_of_pdf_pages = self.get_list_of_created_pdf_pages(project_pages_objects)
         print(f"list_of_pdf_pages = {list_of_pdf_pages}")
         # объеденить несколько pdf файлов в один
         self.merge_pdfs_and_create(multipage_pdf_path, list_of_pdf_pages)
         # закрыть диалоговое окно
-        statusbar.obj_sb.set_message_for_statusbar(
+        self.__obs_manager.obj_sb.set_message_for_statusbar(
             f"Экспорт завершен. Файл {multipage_pdf_path} готов."
         )
         # открыть pdf
         os.startfile(os.path.dirname(multipage_pdf_path))
-        statusbar.obj_sb.set_message_for_statusbar("Преобразование завершено.")
+        self.__obs_manager.obj_sb.set_message_for_statusbar("Преобразование завершено.")
 
     def dfs(self, parent_node, project_pages_objects, number_page):
-        log.obj_l.debug_logger(
+        self.__obs_manager.obj_l.debug_logger(
             f"IN dfs(node, project_pages_objects): parent_node = {parent_node}, number_page = {number_page}"
         )
-        childs = projectdatabase.obj_pd.get_childs(parent_node)
+        childs = self.__obs_manager.obj_pd.get_childs(parent_node)
         if childs:
             for child in childs:
                 # TODO подумать про PDF node, загруженный пользователем
@@ -239,7 +232,7 @@ class Converter:
                 print("included = ", child_included, type(child_included))
                 if not child_included == 0:
                     # проход по страницам node
-                    pages = projectdatabase.obj_pd.get_pages_by_node(child)
+                    pages = self.__obs_manager.obj_pd.get_pages_by_node(child)
                     for page in pages:
                         object = {
                             "type": "page",
@@ -256,35 +249,39 @@ class Converter:
         """
         Проход по project_pages_objects для преобразования каждой страницы в docx, а потом в pdf
         """
-        log.obj_l.debug_logger(
+        self.__obs_manager.obj_l.debug_logger(
             f"IN get_list_of_created_pdf_pages(project_pages_objects): project_pages_objects = {project_pages_objects}"
         )
 
         list_of_pdf_pages = list()
 
+        project_pages_objects_for_pool = list()
         for object in project_pages_objects:
-            number_page_pdf_path = self.process_object_of_project_pages_objects(
-                object
-            )
-            if number_page_pdf_path:
-                list_of_pdf_pages.append(number_page_pdf_path)
+            project_pages_objects_for_pool.append(ElementPool(object))
 
+        with WorkerPool(n_jobs=1, use_dill=True) as pool:
+            results = pool.map(
+                self.process_object_of_project_pages_objects,
+                project_pages_objects_for_pool,
+            )
+
+        list_of_pdf_pages = [result for result in results if result]
         return list_of_pdf_pages
 
-    def process_object_of_project_pages_objects(self, object) -> dict:
-        log.obj_l.debug_logger(
-            f"IN process_object_of_project_pages_objects(object): object = {object}"
+    def process_object_of_project_pages_objects(self, object_for_pool) -> dict:
+        self.__obs_manager.obj_l.debug_logger(
+            f"IN process_object_of_project_pages_objects(object_for_pool): object_for_pool = {object_for_pool}"
         )
+        object = object_for_pool.get_value()
         object_type = object.get("type")
         number_page = object.get("number_page")
         if object_type == "page":
-            # преобразовать docx в pdf
-            pdf_path = self.create_page_pdf(object.get("page"), True)
+            pdf_path = self.create_page_pdf(self.__obs_manager, object.get("page"), True)
             return {"number_page": number_page, "pdf_path": pdf_path}
-        return None
+        return dict()
 
     def merge_pdfs_and_create(self, multipage_pdf_path, list_of_pdf_pages):
-        log.obj_l.debug_logger(
+        self.__obs_manager.obj_l.debug_logger(
             f"IN merge_pdfs(multipage_pdf_path, list_of_pdf_pages): multipage_pdf_path = {multipage_pdf_path}, list_of_pdf_pages = {list_of_pdf_pages}"
         )
         # объединить несколько pdf файлов в один
@@ -295,5 +292,3 @@ class Converter:
         merger.write(multipage_pdf_path)
         merger.close()
 
-
-obj_c = Converter()

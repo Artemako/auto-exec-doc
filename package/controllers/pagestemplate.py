@@ -1,15 +1,5 @@
 from PySide6.QtWidgets import QListWidgetItem
 
-import package.modules.log as log
-
-import package.modules.projectdatabase as projectdatabase
-import package.controllers.scrollareainput as scrollareainput
-import package.modules.sectionsinfo as sectionsinfo
-import package.modules.converter as converter
-
-import package.controllers.pdfview as pdfview
-
-
 class MyListWidgetItem(QListWidgetItem):
     """
     Кастомный QListWidgetItem с полем page.
@@ -25,13 +15,14 @@ class MyListWidgetItem(QListWidgetItem):
 
 class PagesTemplate:
 
-    def __init__(self):
+    def __init__(self, obs_manager):
+        self.__obs_manager = obs_manager
         self.__listwidget_pages_template = None
         self.__title_pt = None
 
 
     def is_page_template_selected(self):
-        log.obj_l.debug_logger("get_listwidget_pages_template()")
+        self.__obs_manager.obj_l.debug_logger("get_listwidget_pages_template()")
         return self.__listwidget_pages_template.currentItem()
 
 
@@ -39,7 +30,7 @@ class PagesTemplate:
         """
         Подключить _listwidget_pages_template.
         """
-        log.obj_l.debug_logger("IN connect_pages_template(lw_pt)")
+        self.__obs_manager.obj_l.debug_logger("IN connect_pages_template(lw_pt)")
         self.__listwidget_pages_template = lw_pt
         self.__title_pt = title_pt
         self.clear_pt()
@@ -54,21 +45,21 @@ class PagesTemplate:
         """
         Слот для сигнала itemClicked.
         """
-        log.obj_l.debug_logger(f"IN item_page_updated(current): current = {current}")
+        self.__obs_manager.obj_l.debug_logger(f"IN item_page_updated(current): current = {current}")
         page = current.get_page()
         # добыть информация для SectionInfo
-        sectionsinfo.obj_si.update_sections_info(page)
+        self.__obs_manager.obj_si.update_sections_info(page)
         # Обновить ScroolAreaInput после SectionInfo
-        scrollareainput.obj_sai.update_scrollarea(page)
+        self.__obs_manager.obj_sai.update_scrollarea(page)
         # открыть pdf форму для текущей страницы
-        converter.obj_c.create_and_view_page_pdf(page)
+        self.__obs_manager.obj_c.create_and_view_page_pdf(page)
         
 
     def current_page_to_pdf(self):
-        log.obj_l.debug_logger("IN current_page_to_pdf()")
+        self.__obs_manager.obj_l.debug_logger("IN current_page_to_pdf()")
         current = self.__listwidget_pages_template.currentItem()
         page = current.get_page()
-        converter.obj_c.create_and_view_page_pdf(page)
+        self.__obs_manager.obj_c.create_and_view_page_pdf(page)
 
 
     def clear_pt(self):
@@ -79,7 +70,7 @@ class PagesTemplate:
         """
         Создание _listwidget_pages_template.
         """
-        log.obj_l.debug_logger("IN create_pages_template()")
+        self.__obs_manager.obj_l.debug_logger("IN create_pages_template()")
 
         self.clear_pt()
         self.__title_pt.setText("Форма не выбрана")
@@ -88,13 +79,13 @@ class PagesTemplate:
         """
         Обновить _listwidget_pages_template.
         """
-        log.obj_l.debug_logger(f"IN update_pages_template(node) : node = {node}")
+        self.__obs_manager.obj_l.debug_logger(f"IN update_pages_template(node) : node = {node}")
 
         self.clear_pt()
 
         self.__title_pt.setText(node.get("name_node"))
 
-        pages = projectdatabase.obj_pd.get_pages_by_node(node)
+        pages = self.__obs_manager.obj_pd.get_pages_by_node(node)
         for page in pages:
             print(f"page = {page}")
             item = MyListWidgetItem(page)
@@ -104,4 +95,4 @@ class PagesTemplate:
 
 
 
-obj_pt = PagesTemplate()
+# obj_pt = PagesTemplate()

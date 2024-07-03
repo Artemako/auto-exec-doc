@@ -329,6 +329,9 @@
    <property name="text">
     <string>Новый</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
   </action>
   <action name="action_open">
    <property name="icon">
@@ -337,6 +340,9 @@
    </property>
    <property name="text">
     <string>Открыть</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="action_saveas">
@@ -357,6 +363,9 @@
    </property>
    <property name="text">
     <string>Сохранить</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="action_zoomin">

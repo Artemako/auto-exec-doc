@@ -3,38 +3,33 @@ import shutil
 import base64
 import datetime
 
-import package.modules.dirpathsmanager as dirpathsmanager
-import package.modules.projectdatabase as projectdatabase
-import package.modules.project as project
-import package.modules.log as log
-
 
 class FileFolderManager:
-    def __init__(self):
-        pass
+    def __init__(self, obs_manager):
+        self.__obs_manager = obs_manager
 
     def create_and_config_files_and_folders(self):
         """
         Создание и конфигурация папок и файлов.
         """
-        log.obj_l.debug_logger("IN create_and_config_files_and_folders()")
+        self.__obs_manager.obj_l.debug_logger("IN create_and_config_files_and_folders()")
         if not os.path.exists(
-            dirpathsmanager.obj_dpm.get_default_folder_projects_dirpath()
+            self.__obs_manager.obj_dpm.get_default_folder_projects_dirpath()
         ):
             os.mkdir(
-                dirpathsmanager.obj_dpm.get_default_folder_projects_dirpath()
+                self.__obs_manager.obj_dpm.get_default_folder_projects_dirpath()
             )
 
     def create_folders_for_new_project(self):
         """
         Добавление в проект папок форм.
         """
-        log.obj_l.debug_logger("IN add_forms_folders_to_new_project()")
+        self.__obs_manager.obj_l.debug_logger("IN add_forms_folders_to_new_project()")
 
         # создать указатель файл
-        aedfilename = f"{project.obj_p.get_current_name()}.aed"
+        aedfilename = f"{self.__obs_manager.obj_p.get_current_name()}.aed"
         aedfilepath = os.path.join(
-            dirpathsmanager.obj_dpm.get_project_dirpath(), aedfilename
+            self.__obs_manager.obj_dpm.get_project_dirpath(), aedfilename
         )
         aedfile = open(aedfilepath, "a+")
         # перевести в base64
@@ -48,14 +43,14 @@ class FileFolderManager:
         aedfile.close()
 
         # папка forms в проекте
-        forms_folder_dirpath = dirpathsmanager.obj_dpm.get_forms_folder_dirpath()
+        forms_folder_dirpath = self.__obs_manager.obj_dpm.get_forms_folder_dirpath()
 
         if not os.path.exists(forms_folder_dirpath):
             os.makedirs(forms_folder_dirpath)
 
         # папка images в проекте
         image_folder_dirpath = (
-            dirpathsmanager.obj_dpm.get_images_folder_dirpath()
+            self.__obs_manager.obj_dpm.get_images_folder_dirpath()
         )
 
         if not os.path.exists(image_folder_dirpath):
@@ -68,19 +63,19 @@ class FileFolderManager:
         #     os.makedirs(pdfs_folder_dirpath)
 
         # Папка TEMP/AUTOEXECDOC
-        if not os.path.exists(dirpathsmanager.obj_dpm.get_temp_dirpath()):
-            os.makedirs(dirpathsmanager.obj_dpm.get_temp_dirpath())
+        if not os.path.exists(self.__obs_manager.obj_dpm.get_temp_dirpath()):
+            os.makedirs(self.__obs_manager.obj_dpm.get_temp_dirpath())
 
     def copy_templates_to_forms_folder(self):
         """
         Копирование шаблонов в папку forms.
         """
-        log.obj_l.debug_logger("IN copy_templates_to_forms_folder()")
+        self.__obs_manager.obj_l.debug_logger("IN copy_templates_to_forms_folder()")
 
         templates_main_dirpath = (
-            dirpathsmanager.obj_dpm.get_templates_main_dirpath()
+            self.__obs_manager.obj_dpm.get_templates_main_dirpath()
         )
-        forms_folder_dirpath = dirpathsmanager.obj_dpm.get_forms_folder_dirpath()
+        forms_folder_dirpath = self.__obs_manager.obj_dpm.get_forms_folder_dirpath()
 
         # копирование шаблонов в папку проекта forms
         for f in os.listdir(templates_main_dirpath):
@@ -93,23 +88,23 @@ class FileFolderManager:
         """
         Очистка папки temp.
         """
-        log.obj_l.debug_logger(
-            f"IN clear_temp_folder(is_del_folder): is_del_folder = {is_del_folder}, temp_dirpath = {dirpathsmanager.obj_dpm.get_temp_dirpath()}"
+        self.__obs_manager.obj_l.debug_logger(
+            f"IN clear_temp_folder(is_del_folder): is_del_folder = {is_del_folder}, temp_dirpath = {self.__obs_manager.obj_dpm.get_temp_dirpath()}"
         )
-        temp_dirpath = dirpathsmanager.obj_dpm.get_temp_dirpath()
+        temp_dirpath = self.__obs_manager.obj_dpm.get_temp_dirpath()
         try:
             shutil.rmtree(temp_dirpath)
             if not is_del_folder:
                 os.mkdir(temp_dirpath)
         except Exception as e:
-            log.obj_l.error_logger(e)
+            self.__obs_manager.obj_l.error_logger(e)
 
     def move_image_from_temp_to_project(self, name_image):
-        log.obj_l.debug_logger("IN move_image_from_temp_to_project()")
+        self.__obs_manager.obj_l.debug_logger("IN move_image_from_temp_to_project()")
         # путь к папке с шаблонами
-        temp_dirpath = dirpathsmanager.obj_dpm.get_temp_dirpath()
+        temp_dirpath = self.__obs_manager.obj_dpm.get_temp_dirpath()
         image_folder_dirpath = os.path.join(
-            dirpathsmanager.obj_dpm.get_project_dirpath(), "images"
+            self.__obs_manager.obj_dpm.get_project_dirpath(), "images"
         )
         try:
             shutil.move(
@@ -117,18 +112,18 @@ class FileFolderManager:
                 os.path.join(image_folder_dirpath, name_image),
             )
         except Exception as e:
-            log.obj_l.error_logger(e)
+            self.__obs_manager.obj_l.error_logger(e)
 
     def delete_image_from_project(self, image_dirpath):
-        log.obj_l.debug_logger("IN delete_image_from_project()")
+        self.__obs_manager.obj_l.debug_logger("IN delete_image_from_project()")
         # путь к папке с шаблонами
         image_folder_dirpath = os.path.join(
-            dirpathsmanager.obj_dpm.get_project_dirpath(), "images"
+            self.__obs_manager.obj_dpm.get_project_dirpath(), "images"
         )
         try:
             os.remove(os.path.join(image_folder_dirpath, image_dirpath))
         except Exception as e:
-            log.obj_l.error_logger(e)
+            self.__obs_manager.obj_l.error_logger(e)
 
 
-obj_ffm = FileFolderManager()
+# obj_ffm = FileFolderManager()

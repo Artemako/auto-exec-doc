@@ -1,11 +1,5 @@
 import os
 
-import package.modules.log as log
-import package.modules.projectdatabase as projectdatabase
-import package.modules.dirpathsmanager as dirpathsmanager
-import package.modules.filefoldermanager as filefoldermanager
-import package.modules.sectionsinfo as sectionsinfo
-
 import package.components.customsection as customsection
 
 import package.components.forms.formdate as formdate
@@ -18,7 +12,8 @@ from PySide6.QtWidgets import QLabel, QVBoxLayout, QPushButton, QSpacerItem, QSi
 
 class ScroolAreaInput:
 
-    def __init__(self):
+    def __init__(self, obs_manager):
+        self.__obs_manager = obs_manager
         self.__scrollarea_input = None
         self.__scrollarea_input_layout = None
         
@@ -26,7 +21,7 @@ class ScroolAreaInput:
         """
         Подключить _scrollarea_input и _scrollarea_input_contents
         """
-        log.obj_l.debug_logger("IN connect_inputforms(sa_if, sa_ifl)")
+        self.__obs_manager.obj_l.debug_logger("IN connect_inputforms(sa_if, sa_ifl)")
         self.__scrollarea_input = sa_if
         self.__scrollarea_input_layout = sa_ifl
 
@@ -34,7 +29,7 @@ class ScroolAreaInput:
         """
         Удаление всех виджетов в self
         """
-        log.obj_l.debug_logger("IN delete_all_widgets_in_sa()")
+        self.__obs_manager.obj_l.debug_logger("IN delete_all_widgets_in_sa()")
 
         layout = self.__scrollarea_input_layout.layout()
         while layout.count():
@@ -48,9 +43,9 @@ class ScroolAreaInput:
 
     def add_sections_in_sa(self):
         """ """
-        log.obj_l.debug_logger("IN add_sections_in_sa()")
+        self.__obs_manager.obj_l.debug_logger("IN add_sections_in_sa()")
 
-        sections_info = sectionsinfo.obj_si.get_sections_info()
+        sections_info = self.__obs_manager.obj_si.get_sections_info()
         # перебор секций
         for section_index, section_info in enumerate(sections_info):
             print(f"section_index = {section_index},\n section_info = {section_info}\n")
@@ -74,32 +69,32 @@ class ScroolAreaInput:
                 print(f"pair = {pair}\n")
                 id_content = pair.get("id_content")
                 # все свойства основного контента
-                config_content = projectdatabase.obj_pd.get_config_content_by_id(
+                config_content = self.__obs_manager.obj_pd.get_config_content_by_id(
                     id_content
                 )
                 type_content = config_content.get("type_content")
 
                 #Добавление формы в секцию в зависимости от типа контента
                 if type_content == "TEXT":
-                    item = formtext.FormText(pair, config_content)
+                    item = formtext.FormText(self.__obs_manager, pair, config_content)
                     section_layout.addWidget(item)
 
                 elif type_content == "DATE":
-                    config_date = projectdatabase.obj_pd.get_config_date_by_id(
+                    config_date = self.__obs_manager.obj_pd.get_config_date_by_id(
                         id_content
                     )
-                    item = formdate.FormDate(pair, config_content, config_date)
+                    item = formdate.FormDate(self.__obs_manager, pair, config_content, config_date)
                     section_layout.addWidget(item)
 
                 elif type_content == "IMAGE":
                     # TODO config_image
                     config_image = []
-                    item = formimage.FormImage(pair, config_content, config_image)
+                    item = formimage.FormImage(self.__obs_manager, pair, config_content, config_image)
                     section_layout.addWidget(item)
 
                 elif type_content == "TABLE":
-                    config_table = projectdatabase.obj_pd.get_config_table_by_id(id_content)
-                    item = formtable.FormTable(pair, config_content, config_table)
+                    config_table = self.__obs_manager.obj_pd.get_config_table_by_id(id_content)
+                    item = formtable.FormTable(self.__obs_manager, pair, config_content, config_table)
                     section_layout.addWidget(item)
 
             section.setContentLayout(section_layout)
@@ -115,11 +110,11 @@ class ScroolAreaInput:
         """
         Обновление self
         """
-        log.obj_l.debug_logger("IN update_scrollarea()")
+        self.__obs_manager.obj_l.debug_logger("IN update_scrollarea()")
         # Очистка всего и вся 
         self.delete_all_widgets_in_sa()        
         # обновить информацию о секциях
-        sectionsinfo.obj_si.update_sections_info(page)
+        self.__obs_manager.obj_si.update_sections_info(page)
         # Добавление новых секций в self
         self.add_sections_in_sa()
 
@@ -127,4 +122,4 @@ class ScroolAreaInput:
 
 
 
-obj_sai = ScroolAreaInput()
+# obj_sai = ScroolAreaInput()
