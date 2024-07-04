@@ -3,12 +3,19 @@ import json
 import copy
 from docxtpl import DocxTemplate, InlineImage
 
+import asyncio
+import threading
+
 from mpire import WorkerPool
 
 # from docx2pdf import convert
 import comtypes.client
+import pythoncom
+
 from pypdf import PdfWriter
 import datetime
+
+import time
 
 
 class ElementPool:
@@ -24,8 +31,15 @@ class Converter:
     # TODO 
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
+        self.time = time.time()
+        
+        self.t = threading.Thread(target=self.initialize_word)
+        self.t.start()
+
+    def initialize_word(self):
+        pythoncom.CoInitialize()
         self.__word = comtypes.client.CreateObject("Word.Application")
-        print("__init__ word = ")
+        print("RESULT", time.time(), self.time, time.time() - self.time)
 
     def create_and_view_page_pdf(self, page):
         """
@@ -184,7 +198,7 @@ class Converter:
         )
 
         wdFormatPDF = 17
-        word = self.__word
+        word = comtypes.client.GetActiveObject("Word.Application")
         doc = word.Documents.Open(docx_path)
         doc.SaveAs(pdf_path, FileFormat=wdFormatPDF)
         doc.Close()

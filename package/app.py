@@ -84,6 +84,7 @@ class App:
         # настройка хранилища экземпляров модулей
         self.obs_manager = ObjectsManager()
         self.obs_manager.initialize_all()
+        
         # настройка путей
         self.obs_manager.obj_dpm.config_paths(
             self.current_directory

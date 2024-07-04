@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS "Project_content_config_date" (
 	"type_config"	TEXT,
 	"value_config"	TEXT,
 	"note_config"	TEXT,
-	PRIMARY KEY("id_config" AUTOINCREMENT),
-	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content")
+	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content"),
+	PRIMARY KEY("id_config" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "Project_content_config_list" (
 	"id_content"	INTEGER NOT NULL UNIQUE,
@@ -23,9 +23,9 @@ CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
 	"id_content"	INTEGER,
 	"name_content"	TEXT,
 	"value"	TEXT,
-	PRIMARY KEY("id_pair" AUTOINCREMENT),
 	FOREIGN KEY("id_node") REFERENCES "Project_nodes"("id_node"),
-	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content")
+	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content"),
+	PRIMARY KEY("id_pair" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "Project_pages_data" (
 	"id_pair"	INTEGER UNIQUE,
@@ -33,9 +33,9 @@ CREATE TABLE IF NOT EXISTS "Project_pages_data" (
 	"id_content"	INTEGER,
 	"name_content"	TEXT,
 	"value"	TEXT,
-	PRIMARY KEY("id_pair" AUTOINCREMENT),
+	FOREIGN KEY("id_page") REFERENCES "Project_pages"("id_page"),
 	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content"),
-	FOREIGN KEY("id_page") REFERENCES "Project_pages"("id_page")
+	PRIMARY KEY("id_pair" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "Project_content_config_table" (
 	"id_config"	INTEGER UNIQUE,
@@ -44,8 +44,8 @@ CREATE TABLE IF NOT EXISTS "Project_content_config_table" (
 	"value_config"	TEXT,
 	"note_config"	TEXT,
 	"order_config"	INTEGER,
-	PRIMARY KEY("id_config" AUTOINCREMENT),
-	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content")
+	FOREIGN KEY("id_content") REFERENCES "Project_content_config_list"("id_content"),
+	PRIMARY KEY("id_config" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "Project_nodes" (
 	"id_node"	INTEGER NOT NULL UNIQUE,

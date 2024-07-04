@@ -19,10 +19,9 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
 from PySide6.QtPdfWidgets import QPdfView
 from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QGroupBox, QHBoxLayout,
     QHeaderView, QLabel, QListWidget, QListWidgetItem,
-    QMainWindow, QMenu, QMenuBar, QPushButton,
-    QScrollArea, QSizePolicy, QSplitter, QStatusBar,
-    QTabWidget, QToolBar, QTreeWidget, QTreeWidgetItem,
-    QVBoxLayout, QWidget)
+    QMainWindow, QMenu, QMenuBar, QScrollArea,
+    QSizePolicy, QSplitter, QStatusBar, QToolBar,
+    QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget)
 import resources_rc
 
 class Ui_MainWindow(object):
@@ -31,7 +30,7 @@ class Ui_MainWindow(object):
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.setWindowModality(Qt.NonModal)
         MainWindow.setEnabled(True)
-        MainWindow.resize(1000, 600)
+        MainWindow.resize(1000, 581)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -74,12 +73,12 @@ class Ui_MainWindow(object):
         icon4.addFile(u":/icons/icons/zoom-out.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.action_zoomout.setIcon(icon4)
         self.action_zoomout.setMenuRole(QAction.TextHeuristicRole)
-        self.action_edit_templates = QAction(MainWindow)
-        self.action_edit_templates.setObjectName(u"action_edit_templates")
-        self.action_edit_templates.setEnabled(False)
+        self.action_edit_tags = QAction(MainWindow)
+        self.action_edit_tags.setObjectName(u"action_edit_tags")
+        self.action_edit_tags.setEnabled(False)
         icon5 = QIcon()
         icon5.addFile(u":/icons/icons/text-editor.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.action_edit_templates.setIcon(icon5)
+        self.action_edit_tags.setIcon(icon5)
         self.action_zoomfitpage = QAction(MainWindow)
         self.action_zoomfitpage.setObjectName(u"action_zoomfitpage")
         self.action_zoomfitpage.setCheckable(True)
@@ -92,14 +91,20 @@ class Ui_MainWindow(object):
         icon7 = QIcon()
         icon7.addFile(u":/icons/icons/export.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.action_export_to_pdf.setIcon(icon7)
+        self.action_edit_templates = QAction(MainWindow)
+        self.action_edit_templates.setObjectName(u"action_edit_templates")
+        icon8 = QIcon()
+        icon8.addFile(u":/icons/icons/template.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.action_edit_templates.setIcon(icon8)
+        self.action_edit_templates.setMenuRole(QAction.NoRole)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_6 = QVBoxLayout(self.centralwidget)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
-        self.splitter = QSplitter(self.centralwidget)
-        self.splitter.setObjectName(u"splitter")
-        self.splitter.setOrientation(Qt.Horizontal)
-        self.gb_left = QGroupBox(self.splitter)
+        self.centralwidget_splitter = QSplitter(self.centralwidget)
+        self.centralwidget_splitter.setObjectName(u"centralwidget_splitter")
+        self.centralwidget_splitter.setOrientation(Qt.Horizontal)
+        self.gb_left = QGroupBox(self.centralwidget_splitter)
         self.gb_left.setObjectName(u"gb_left")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Preferred)
         sizePolicy1.setHorizontalStretch(0)
@@ -107,20 +112,22 @@ class Ui_MainWindow(object):
         sizePolicy1.setHeightForWidth(self.gb_left.sizePolicy().hasHeightForWidth())
         self.gb_left.setSizePolicy(sizePolicy1)
         self.gb_left.setMinimumSize(QSize(250, 0))
-        self.verticalLayout = QVBoxLayout(self.gb_left)
-        self.verticalLayout.setObjectName(u"verticalLayout")
-        self.tabwidget = QTabWidget(self.gb_left)
-        self.tabwidget.setObjectName(u"tabwidget")
-        self.tab_structure_execdoc = QWidget()
-        self.tab_structure_execdoc.setObjectName(u"tab_structure_execdoc")
-        self.verticalLayout_2 = QVBoxLayout(self.tab_structure_execdoc)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.title_structure_execdoc = QLabel(self.tab_structure_execdoc)
+        self.verticalLayout_8 = QVBoxLayout(self.gb_left)
+        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
+        self.gb_left_splitter = QSplitter(self.gb_left)
+        self.gb_left_splitter.setObjectName(u"gb_left_splitter")
+        self.gb_left_splitter.setOrientation(Qt.Vertical)
+        self.verticalLayoutWidget = QWidget(self.gb_left_splitter)
+        self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
+        self.vbl_templates = QVBoxLayout(self.verticalLayoutWidget)
+        self.vbl_templates.setObjectName(u"vbl_templates")
+        self.vbl_templates.setContentsMargins(0, 0, 0, 0)
+        self.title_structure_execdoc = QLabel(self.verticalLayoutWidget)
         self.title_structure_execdoc.setObjectName(u"title_structure_execdoc")
 
-        self.verticalLayout_2.addWidget(self.title_structure_execdoc)
+        self.vbl_templates.addWidget(self.title_structure_execdoc)
 
-        self.treewidget_structure_execdoc = QTreeWidget(self.tab_structure_execdoc)
+        self.treewidget_structure_execdoc = QTreeWidget(self.verticalLayoutWidget)
         __qtreewidgetitem = QTreeWidgetItem()
         __qtreewidgetitem.setText(0, u"\u041f\u0440\u043e\u0435\u043a\u0442 \u043d\u0435 \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043d");
         self.treewidget_structure_execdoc.setHeaderItem(__qtreewidgetitem)
@@ -135,38 +142,34 @@ class Ui_MainWindow(object):
         self.treewidget_structure_execdoc.setObjectName(u"treewidget_structure_execdoc")
         self.treewidget_structure_execdoc.setContextMenuPolicy(Qt.DefaultContextMenu)
 
-        self.verticalLayout_2.addWidget(self.treewidget_structure_execdoc)
+        self.vbl_templates.addWidget(self.treewidget_structure_execdoc)
 
-        self.pushButton_2 = QPushButton(self.tab_structure_execdoc)
-        self.pushButton_2.setObjectName(u"pushButton_2")
-
-        self.verticalLayout_2.addWidget(self.pushButton_2)
-
-        self.tabwidget.addTab(self.tab_structure_execdoc, "")
-        self.tab_pages_template = QWidget()
-        self.tab_pages_template.setObjectName(u"tab_pages_template")
-        self.verticalLayout_3 = QVBoxLayout(self.tab_pages_template)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.title_pages_template = QLabel(self.tab_pages_template)
+        self.gb_left_splitter.addWidget(self.verticalLayoutWidget)
+        self.verticalLayoutWidget_2 = QWidget(self.gb_left_splitter)
+        self.verticalLayoutWidget_2.setObjectName(u"verticalLayoutWidget_2")
+        self.vbl_pages = QVBoxLayout(self.verticalLayoutWidget_2)
+        self.vbl_pages.setObjectName(u"vbl_pages")
+        self.vbl_pages.setContentsMargins(0, 0, 0, 0)
+        self.title_pages_template = QLabel(self.verticalLayoutWidget_2)
         self.title_pages_template.setObjectName(u"title_pages_template")
 
-        self.verticalLayout_3.addWidget(self.title_pages_template)
+        self.vbl_pages.addWidget(self.title_pages_template)
 
-        self.listwidget_pages_template = QListWidget(self.tab_pages_template)
+        self.listwidget_pages_template = QListWidget(self.verticalLayoutWidget_2)
         __qlistwidgetitem = QListWidgetItem(self.listwidget_pages_template)
         __qlistwidgetitem.setCheckState(Qt.Checked);
         __qlistwidgetitem1 = QListWidgetItem(self.listwidget_pages_template)
         __qlistwidgetitem1.setCheckState(Qt.Checked);
         self.listwidget_pages_template.setObjectName(u"listwidget_pages_template")
 
-        self.verticalLayout_3.addWidget(self.listwidget_pages_template)
+        self.vbl_pages.addWidget(self.listwidget_pages_template)
 
-        self.tabwidget.addTab(self.tab_pages_template, "")
+        self.gb_left_splitter.addWidget(self.verticalLayoutWidget_2)
 
-        self.verticalLayout.addWidget(self.tabwidget)
+        self.verticalLayout_8.addWidget(self.gb_left_splitter)
 
-        self.splitter.addWidget(self.gb_left)
-        self.gb_center = QGroupBox(self.splitter)
+        self.centralwidget_splitter.addWidget(self.gb_left)
+        self.gb_center = QGroupBox(self.centralwidget_splitter)
         self.gb_center.setObjectName(u"gb_center")
         sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy2.setHorizontalStretch(0)
@@ -182,8 +185,8 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.widget_pdf_view)
 
-        self.splitter.addWidget(self.gb_center)
-        self.gb_right = QGroupBox(self.splitter)
+        self.centralwidget_splitter.addWidget(self.gb_center)
+        self.gb_right = QGroupBox(self.centralwidget_splitter)
         self.gb_right.setObjectName(u"gb_right")
         sizePolicy2.setHeightForWidth(self.gb_right.sizePolicy().hasHeightForWidth())
         self.gb_right.setSizePolicy(sizePolicy2)
@@ -206,17 +209,18 @@ class Ui_MainWindow(object):
         self.scrollarea_inputforms.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
         self.scrollarea_inputforms_layout = QWidget()
         self.scrollarea_inputforms_layout.setObjectName(u"scrollarea_inputforms_layout")
-        self.scrollarea_inputforms_layout.setGeometry(QRect(0, 0, 283, 467))
+        self.scrollarea_inputforms_layout.setGeometry(QRect(0, 0, 305, 448))
         self.scrollarea_inputforms_layout.setMouseTracking(False)
         self.verticalLayout_5 = QVBoxLayout(self.scrollarea_inputforms_layout)
+        self.verticalLayout_5.setSpacing(6)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.scrollarea_inputforms.setWidget(self.scrollarea_inputforms_layout)
 
         self.verticalLayout_4.addWidget(self.scrollarea_inputforms)
 
-        self.splitter.addWidget(self.gb_right)
+        self.centralwidget_splitter.addWidget(self.gb_right)
 
-        self.verticalLayout_6.addWidget(self.splitter)
+        self.verticalLayout_6.addWidget(self.centralwidget_splitter)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menu_bar = QMenuBar(MainWindow)
@@ -234,6 +238,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.status_bar)
         self.tb_main = QToolBar(MainWindow)
         self.tb_main.setObjectName(u"tb_main")
+        self.tb_main.setEnabled(True)
         self.tb_main.setAllowedAreas(Qt.TopToolBarArea)
         self.tb_main.setOrientation(Qt.Horizontal)
         MainWindow.addToolBar(Qt.TopToolBarArea, self.tb_main)
@@ -246,12 +251,13 @@ class Ui_MainWindow(object):
         self.menu_file.addAction(self.action_save)
         self.menu_file.addAction(self.action_saveas)
         self.menu_file.addAction(self.action_export_to_pdf)
-        self.menu_tools.addAction(self.action_edit_templates)
+        self.menu_tools.addAction(self.action_edit_tags)
         self.tb_main.addAction(self.action_new)
         self.tb_main.addAction(self.action_open)
         self.tb_main.addAction(self.action_save)
         self.tb_main.addAction(self.action_export_to_pdf)
         self.tb_main.addSeparator()
+        self.tb_main.addAction(self.action_edit_tags)
         self.tb_main.addAction(self.action_edit_templates)
         self.tb_main.addSeparator()
         self.tb_main.addAction(self.action_zoomin)
@@ -259,9 +265,6 @@ class Ui_MainWindow(object):
         self.tb_main.addAction(self.action_zoomfitpage)
 
         self.retranslateUi(MainWindow)
-
-        self.tabwidget.setCurrentIndex(0)
-
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
@@ -292,9 +295,13 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(shortcut)
         self.action_zoomout.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+-", None))
 #endif // QT_CONFIG(shortcut)
-        self.action_edit_templates.setText(QCoreApplication.translate("MainWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u043e\u0440 \u0448\u0430\u0431\u043b\u043e\u043d\u043e\u0432", None))
+        self.action_edit_tags.setText(QCoreApplication.translate("MainWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u043e\u0440 \u0448\u0430\u0431\u043b\u043e\u043d\u043e\u0432", None))
+#if QT_CONFIG(tooltip)
+        self.action_edit_tags.setToolTip(QCoreApplication.translate("MainWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u043e\u0440 \u0442\u0435\u0433\u043e\u0432", None))
+#endif // QT_CONFIG(tooltip)
         self.action_zoomfitpage.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e \u0448\u0438\u0440\u0438\u043d\u0435", None))
         self.action_export_to_pdf.setText(QCoreApplication.translate("MainWindow", u"\u042d\u043a\u0441\u043f\u043e\u0440\u0442 \u0432 PDF", None))
+        self.action_edit_templates.setText(QCoreApplication.translate("MainWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u043e\u0440 \u0448\u0430\u0431\u043b\u043e\u043d\u043e\u0432", None))
         self.gb_left.setTitle(QCoreApplication.translate("MainWindow", u"\u0421\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0430 \u043f\u0440\u043e\u0435\u043a\u0442\u0430", None))
         self.title_structure_execdoc.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u043f\u0440\u043e\u0435\u043a\u0442\u0430", None))
 
@@ -312,8 +319,6 @@ class Ui_MainWindow(object):
         ___qtreewidgetitem4.setText(0, QCoreApplication.translate("MainWindow", u"\u041f\u0422-3", None));
         self.treewidget_structure_execdoc.setSortingEnabled(__sortingEnabled)
 
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043d\u043e\u043f\u043a\u0430 \u0434\u043b\u044f \u0447\u0435\u0433\u043e-\u0442\u043e", None))
-        self.tabwidget.setTabText(self.tabwidget.indexOf(self.tab_structure_execdoc), QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0441\u0442\u0430\u0432 \u0418\u0414", None))
         self.title_pages_template.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0448\u0430\u0431\u043b\u043e\u043d\u0430.", None))
 
         __sortingEnabled1 = self.listwidget_pages_template.isSortingEnabled()
@@ -324,7 +329,6 @@ class Ui_MainWindow(object):
         ___qlistwidgetitem1.setText(QCoreApplication.translate("MainWindow", u"\u041b\u0438\u0441\u0442 2", None));
         self.listwidget_pages_template.setSortingEnabled(__sortingEnabled1)
 
-        self.tabwidget.setTabText(self.tabwidget.indexOf(self.tab_pages_template), QCoreApplication.translate("MainWindow", u"\u0421\u0442\u0440\u0430\u043d\u0438\u0446\u044b \u0448\u0430\u0431\u043b\u043e\u043d\u0430", None))
         self.gb_center.setTitle(QCoreApplication.translate("MainWindow", u"\u0422\u0435\u043a\u0443\u0449\u0438\u0439 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442", None))
         self.gb_right.setTitle(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u043e\u0434 ", None))
         self.menu_file.setTitle(QCoreApplication.translate("MainWindow", u"\u0424\u0430\u0439\u043b", None))

@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/template.svg</file>
     <file>icons/export.svg</file>
     <file>icons/text-editor.svg</file>
     <file>icons/add-file.svg</file>
