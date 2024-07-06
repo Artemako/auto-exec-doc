@@ -101,8 +101,8 @@ class Converter:
             # учитывать main или nomain шаблон
             docx_template = DocxTemplate(template_path)
 
-            # создаем context из sections_info
-            data_context = dict()
+            # создаем tag из sections_info
+            data_tag = dict()
             for section_index, section_info in enumerate(sections_info):
                 # инфо из секции
                 section_data = section_info.get("data")
@@ -110,17 +110,17 @@ class Converter:
                 for pair_index, pair in enumerate(section_data):
                     id_pair = pair.get("id_pair")
                     id_page = pair.get("id_page")
-                    id_content = pair.get("id_content")
-                    name_content = pair.get("name_content")
+                    id_tag = pair.get("id_tag")
+                    name_tag = pair.get("name_tag")
                     value = pair.get("value")
                     # config_content
                     config_content = self.__obs_manager.obj_pd.get_config_content_by_id(
-                        id_content
+                        id_tag
                     )
-                    type_content = config_content.get("type_content")
-                    if type_content == "TEXT":
-                        data_context[name_content] = value
-                    elif type_content == "IMAGE":
+                    type_tag = config_content.get("type_tag")
+                    if type_tag == "TEXT":
+                        data_tag[name_tag] = value
+                    elif type_tag == "IMAGE":
                         # TODO контент для изображения
                         if value:
                             image_dirpath = os.path.abspath(
@@ -130,12 +130,12 @@ class Converter:
                                 )
                             )
                             image = InlineImage(docx_template, image_dirpath)
-                            data_context[name_content] = image
-                    elif type_content == "DATE":
-                        data_context[name_content] = value
-                    elif type_content == "TABLE":
+                            data_tag[name_tag] = image
+                    elif type_tag == "DATE":
+                        data_tag[name_tag] = value
+                    elif type_tag == "TABLE":
                         config_table = self.__obs_manager.obj_pd.get_config_table_by_id(
-                            id_content
+                            id_tag
                         )
                         print(f"config_table = {config_table}")
                         # узнать content в таблице
@@ -150,7 +150,7 @@ class Converter:
                                 )
                                 object_content[value_config] = None
                         print(f"object_content = {object_content}")
-                        # заполнять data_context
+                        # заполнять data_tag
                         table_values = []
                         if value:
                             table = json.loads(value)
@@ -162,10 +162,10 @@ class Converter:
                                     )
                                 table_values.append(pt)
                         print(f"table_values = {table_values}")
-                        data_context[name_content] = table_values
+                        data_tag[name_tag] = table_values
 
-            print(f"data_context = {data_context}")
-            docx_template.render(data_context)
+            print(f"data_tag = {data_tag}")
+            docx_template.render(data_tag)
             print(f"docx_path = {docx_path}")
             docx_template.save(docx_path)
 

@@ -25,7 +25,7 @@ import package.components.dialogwindows as dialogwindows
 
 class ObjectsManager:
     """
-    Мененджер модулей. Хранит экземпляры модулей.
+    Мененджер объектов.
     """
     def __init__(self):
         # modules
@@ -45,8 +45,14 @@ class ObjectsManager:
         self.obj_sed = None
         # components
         self.obj_dw = None
+        # components
+        self.obj_mw = None
+        self.obj_etdw = None
 
     def initialize_all(self):
+        """
+        Инициализация всех объектов, кроме MainWindow.
+        """
         self.initialize_modules()
         self.initialize_controllers()
         self.initialize_components()
@@ -107,5 +113,7 @@ class App:
         )
         self.app = QApplication(sys.argv)
         self.window = mainwindow.MainWindow(self.obs_manager)
+        # подключение MainWindow к obs_manager
+        self.obs_manager.obj_mw = self.window
         self.window.show()
         sys.exit(self.app.exec())

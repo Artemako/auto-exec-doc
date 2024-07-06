@@ -284,7 +284,6 @@
    <addaction name="menu_tools"/>
    <addaction name="menu_help"/>
   </widget>
-  <widget class="QStatusBar" name="status_bar"/>
   <widget class="QToolBar" name="tb_main">
    <property name="enabled">
     <bool>true</bool>
@@ -315,6 +314,11 @@
    <addaction name="action_zoomin"/>
    <addaction name="action_zoomout"/>
    <addaction name="action_zoomfitpage"/>
+  </widget>
+  <widget class="QStatusBar" name="status_bar">
+   <property name="sizeGripEnabled">
+    <bool>true</bool>
+   </property>
   </widget>
   <action name="action_new">
    <property name="icon">
@@ -350,7 +354,7 @@
   </action>
   <action name="action_save">
    <property name="enabled">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="icon">
     <iconset resource="../resources.qrc">
@@ -364,6 +368,9 @@
    </property>
   </action>
   <action name="action_zoomin">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../resources.qrc">
      <normaloff>:/icons/icons/zoom-in.svg</normaloff>:/icons/icons/zoom-in.svg</iconset>
@@ -379,6 +386,9 @@
    </property>
   </action>
   <action name="action_zoomout">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../resources.qrc">
      <normaloff>:/icons/icons/zoom-out.svg</normaloff>:/icons/icons/zoom-out.svg</iconset>
@@ -415,6 +425,9 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../resources.qrc">
      <normaloff>:/icons/icons/zoom-fit-width.svg</normaloff>:/icons/icons/zoom-fit-width.svg</iconset>
@@ -427,6 +440,9 @@
    </property>
   </action>
   <action name="action_export_to_pdf">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../resources.qrc">
      <normaloff>:/icons/icons/export.svg</normaloff>:/icons/icons/export.svg</iconset>
@@ -436,6 +452,9 @@
    </property>
   </action>
   <action name="action_edit_templates">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../resources.qrc">
      <normaloff>:/icons/icons/template.svg</normaloff>:/icons/icons/template.svg</iconset>

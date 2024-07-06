@@ -73,8 +73,26 @@ class MainWindow(QMainWindow):
             else self.__obs_manager.obj_pv.set_zoom_custom()
         )
 
+        # TODO Добавить активности для редактирования
+        self.ui.action_edit_tags.triggered.connect(lambda: self.__obs_manager.obj_p.edit_tags())
+        #self.ui.action_edit_templates.triggered.connect(lambda: self.__obs_manager.obj_p.edit_templates())
+
         # shortcut = QShortcut(QKeySequence("R"), self)
         # shortcut.activated.connect(lambda: self.__obs_manager.obj_pdf_view.set_empty_pdf_view())
+
+    def enable_qt_actions(self):
+        """
+        Активирует кнопки в статусбаре при открытии проекта
+        """
+        self.ui.action_save.setEnabled(True)
+        self.ui.action_zoomin.setEnabled(True)
+        self.ui.action_zoomout.setEnabled(True)
+        self.ui.action_edit_tags.setEnabled(True)
+        self.ui.action_zoomfitpage.setEnabled(True)
+        self.ui.action_export_to_pdf.setEnabled(True)
+        self.ui.action_edit_templates.setEnabled(True)
+        
+        
 
 
 

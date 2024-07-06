@@ -17,12 +17,12 @@ class FormTable(QWidget):
         self.pair = pair
 
         # заголовок
-        self.ui.title.setText(config_content["title_content"])
+        self.ui.title.setText(config_content["title_tag"])
 
         # описание
-        description_content = config_content["description_content"]
-        if description_content:
-            self.ui.textbrowser.setHtml(description_content)
+        description_tag = config_content["description_tag"]
+        if description_tag:
+            self.ui.textbrowser.setHtml(description_tag)
         else:
             self.ui.textbrowser.hide()
 

@@ -17,7 +17,7 @@ context = {
 }
 
 
-data_context = {
+data_tag = {
     "кабеля": [{"марка": "ываыа", "длина_всего": "выаыа", "длина_опт": "", "инфо": ""}],
     "общая_физ_длина": "выыа",
     "общая_опт_длина": "ывавыа",
@@ -30,5 +30,5 @@ data_context = {
 }
 
 
-tpl.render(data_context)
+tpl.render(data_tag)
 tpl.save(output_path)

@@ -19,7 +19,7 @@ class FormImage(QWidget):
         self.ui.setupUi(self)
 
         # заголовок
-        self.ui.title.setText(config_content["title_content"])
+        self.ui.title.setText(config_content["title_tag"])
         # поле ввода
         self.ui.label.setText(
             "Изображение успешно выбрано" if pair.get("value") else "Выберите изображение"
@@ -33,9 +33,9 @@ class FormImage(QWidget):
                     widget.hide()
 
         # описание
-        description_content = config_content["description_content"]
-        if description_content:
-            self.ui.textbrowser.setHtml(description_content)
+        description_tag = config_content["description_tag"]
+        if description_tag:
+            self.ui.textbrowser.setHtml(description_tag)
         else:
             self.ui.textbrowser.hide()
 

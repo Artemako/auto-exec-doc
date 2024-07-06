@@ -1,6 +1,8 @@
 import os
 import time
 
+import package.components.tagslistdialogwindow as tagslistdialogwindow
+
 class Project:
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager 
@@ -174,21 +176,14 @@ class Project:
         self.__obs_manager.obj_l.debug_logger("IN set_true_actives_project()")
         self.__status_active = True
         self.__status_save = True
+        # активировать qactions в статусбаре
+        self.__obs_manager.obj_mw.enable_qt_actions()
 
     def export_to_pdf(self):
         """
         Экспорт проекта в pdf.
         """
         self.__obs_manager.obj_l.debug_logger("IN export_to_pdf()")
-        if not self.__status_active:
-            self.__obs_manager.obj_sb.set_message_for_statusbar(
-                "Нечего экспортировать. Проект не открыт."
-            )
-            self.__obs_manager.obj_dw.warning_message(
-                "Нечего экспортировать.\nПроект не открыт."
-            )
-            return False
-
         multipage_pdf_path = self.__obs_manager.obj_dw.select_name_and_dirpath_export_pdf()
         if multipage_pdf_path:
             start_time = time.time()
@@ -196,6 +191,13 @@ class Project:
             self.__obs_manager.obj_c.export_to_pdf(multipage_pdf_path)
             end_time = time.time()
             self.__obs_manager.obj_l.debug_logger(f"export_to_pdf() -> time: {end_time - start_time}")
+
+
+    def edit_tags(self):
+        """ Редактирование тегов. """
+        self.__obs_manager.obj_l.debug_logger("IN edit_tags()")
+        self.__obs_manager.obj_etdw = tagslistdialogwindow.TagsListDialogWindow(self.__obs_manager)
+        self.__obs_manager.obj_etdw.exec()
 
 
 

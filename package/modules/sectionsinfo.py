@@ -84,14 +84,14 @@ class SectionsInfo:
                     )
                     self.__obs_manager.obj_pd.update_nodes_data(id_pair, value)
                 # Сохранения изображения
-                id_content = pair.get("id_content")
+                id_tag = pair.get("id_tag")
                 config_content = self.__obs_manager.obj_pd.get_config_content_by_id(
-                    id_content
+                    id_tag
                 )
-                print(f"id_content = {id_content}\n")
+                print(f"id_tag = {id_tag}\n")
                 print(f"config_content = {config_content}\n")
-                type_content = config_content.get("type_content")
-                if type_content == "IMAGE":
+                type_tag = config_content.get("type_tag")
+                if type_tag == "IMAGE":
                     self.__obs_manager.obj_ffm.delete_image_from_project(
                         old_value
                     )

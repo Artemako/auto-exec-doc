@@ -67,33 +67,33 @@ class ScroolAreaInput:
             # перебор пар в section_data секции
             for pair_index, pair in enumerate(section_data):
                 print(f"pair = {pair}\n")
-                id_content = pair.get("id_content")
+                id_tag = pair.get("id_tag")
                 # все свойства основного контента
                 config_content = self.__obs_manager.obj_pd.get_config_content_by_id(
-                    id_content
+                    id_tag
                 )
-                type_content = config_content.get("type_content")
+                type_tag = config_content.get("type_tag")
 
                 #Добавление формы в секцию в зависимости от типа контента
-                if type_content == "TEXT":
+                if type_tag == "TEXT":
                     item = formtext.FormText(self.__obs_manager, pair, config_content)
                     section_layout.addWidget(item)
 
-                elif type_content == "DATE":
+                elif type_tag == "DATE":
                     config_date = self.__obs_manager.obj_pd.get_config_date_by_id(
-                        id_content
+                        id_tag
                     )
                     item = formdate.FormDate(self.__obs_manager, pair, config_content, config_date)
                     section_layout.addWidget(item)
 
-                elif type_content == "IMAGE":
+                elif type_tag == "IMAGE":
                     # TODO config_image
                     config_image = []
                     item = formimage.FormImage(self.__obs_manager, pair, config_content, config_image)
                     section_layout.addWidget(item)
 
-                elif type_content == "TABLE":
-                    config_table = self.__obs_manager.obj_pd.get_config_table_by_id(id_content)
+                elif type_tag == "TABLE":
+                    config_table = self.__obs_manager.obj_pd.get_config_table_by_id(id_tag)
                     item = formtable.FormTable(self.__obs_manager, pair, config_content, config_table)
                     section_layout.addWidget(item)
 
