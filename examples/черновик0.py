@@ -9,7 +9,7 @@ tpl = DocxTemplate(input_path)
 
 context = {
     "col_labels": ["fruit", "vegetable", "stone", "thing"],
-    "tbl_contents": [
+    "tbl_tags": [
         {"label": "yellow", "cols": ["banana", "capsicum", "pyrite", "taxi"]},
         {"label": "red", "cols": ["apple", "tomato", "cinnabar", "doubledecker"]},
         {"label": "green", "cols": ["guava", "cucumber", "aventurine", "card"]},

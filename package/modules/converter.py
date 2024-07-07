@@ -113,11 +113,11 @@ class Converter:
                     id_tag = pair.get("id_tag")
                     name_tag = pair.get("name_tag")
                     value = pair.get("value")
-                    # config_content
-                    config_content = self.__obs_manager.obj_pd.get_config_content_by_id(
+                    # config_tag
+                    config_tag = self.__obs_manager.obj_pd.get_config_tag_by_id(
                         id_tag
                     )
-                    type_tag = config_content.get("type_tag")
+                    type_tag = config_tag.get("type_tag")
                     if type_tag == "TEXT":
                         data_tag[name_tag] = value
                     elif type_tag == "IMAGE":
@@ -139,25 +139,25 @@ class Converter:
                         )
                         print(f"config_table = {config_table}")
                         # узнать content в таблице
-                        order_to_content_config_table = dict()
-                        object_content = dict()
+                        order_to_tag_config_table = dict()
+                        object_tag = dict()
                         for config in config_table:
                             if config.get("type_config") == "CONTENT":
                                 value_config = config.get("value_config")
                                 order_config = config.get("order_config")
-                                order_to_content_config_table[order_config] = (
+                                order_to_tag_config_table[order_config] = (
                                     value_config
                                 )
-                                object_content[value_config] = None
-                        print(f"object_content = {object_content}")
+                                object_tag[value_config] = None
+                        print(f"object_tag = {object_tag}")
                         # заполнять data_tag
                         table_values = []
                         if value:
                             table = json.loads(value)
                             for row, row_data in enumerate(table):
-                                pt = copy.deepcopy(object_content)
+                                pt = copy.deepcopy(object_tag)
                                 for col, cell_value in enumerate(row_data):
-                                    pt[order_to_content_config_table.get(col)] = (
+                                    pt[order_to_tag_config_table.get(col)] = (
                                         cell_value
                                     )
                                 table_values.append(pt)

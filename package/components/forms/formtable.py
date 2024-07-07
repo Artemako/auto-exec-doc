@@ -8,7 +8,7 @@ import package.ui.formtable_ui as formtable_ui
 
 
 class FormTable(QWidget):
-    def __init__(self, obs_manager, pair, config_content, config_table):
+    def __init__(self, obs_manager, pair, config_tag, config_table):
         self.__obs_manager = obs_manager
         super(FormTable, self).__init__()
         self.ui = formtable_ui.Ui_FormTableWidget()
@@ -17,10 +17,10 @@ class FormTable(QWidget):
         self.pair = pair
 
         # заголовок
-        self.ui.title.setText(config_content["title_tag"])
+        self.ui.title.setText(config_tag["title_tag"])
 
         # описание
-        description_tag = config_content["description_tag"]
+        description_tag = config_tag["description_tag"]
         if description_tag:
             self.ui.textbrowser.setHtml(description_tag)
         else:

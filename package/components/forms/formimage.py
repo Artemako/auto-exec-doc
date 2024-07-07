@@ -8,10 +8,10 @@ import package.ui.formimage_ui as formimage_ui
 
 
 class FormImage(QWidget):
-    def __init__(self, obs_manager, pair, config_content, config_image):
+    def __init__(self, obs_manager, pair, config_tag, config_image):
         self.__obs_manager = obs_manager
         self.__obs_manager.obj_l.debug_logger(
-            f"FormImage(self, pair, config_content, config_image): pair = {pair}, config_content = {config_content}, config_image = {config_image}"
+            f"FormImage(self, pair, config_tag, config_image): pair = {pair}, config_tag = {config_tag}, config_image = {config_image}"
         )
 
         super(FormImage, self).__init__()
@@ -19,7 +19,7 @@ class FormImage(QWidget):
         self.ui.setupUi(self)
 
         # заголовок
-        self.ui.title.setText(config_content["title_tag"])
+        self.ui.title.setText(config_tag["title_tag"])
         # поле ввода
         self.ui.label.setText(
             "Изображение успешно выбрано" if pair.get("value") else "Выберите изображение"
@@ -33,7 +33,7 @@ class FormImage(QWidget):
                     widget.hide()
 
         # описание
-        description_tag = config_content["description_tag"]
+        description_tag = config_tag["description_tag"]
         if description_tag:
             self.ui.textbrowser.setHtml(description_tag)
         else:

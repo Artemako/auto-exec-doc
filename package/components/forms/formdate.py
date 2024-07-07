@@ -8,10 +8,10 @@ import package.ui.formdate_ui as formdate_ui
 
 
 class FormDate(QWidget):
-    def __init__(self, obs_manager, pair, config_content, config_date):
+    def __init__(self, obs_manager, pair, config_tag, config_date):
         self.__obs_manager = obs_manager
         self.__obs_manager.obj_l.debug_logger(
-            f"FormDate(self, pair, config_content, config_date): pair = {pair}, config_content = {config_content}, config_date = {config_date}"
+            f"FormDate(self, pair, config_tag, config_date): pair = {pair}, config_tag = {config_tag}, config_date = {config_date}"
         )
 
         super(FormDate, self).__init__()
@@ -21,12 +21,12 @@ class FormDate(QWidget):
         # формат по умолчанию
         self.str_format = "dd.MM.yyyy"
 
-        # ПО УМОЛЧАНИЮ из config_content
+        # ПО УМОЛЧАНИЮ из config_tag
         # заголовок
-        self.ui.title.setText(config_content["title_tag"])
+        self.ui.title.setText(config_tag["title_tag"])
 
         # описание
-        description_tag = config_content["description_tag"]
+        description_tag = config_tag["description_tag"]
         if description_tag: 
             self.ui.textbrowser.setHtml(description_tag)
         else:

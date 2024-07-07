@@ -1,8 +1,8 @@
 import sqlite3
 import os
 
+
 class ProjectDatabase:
-    
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
 
@@ -18,14 +18,14 @@ class ProjectDatabase:
 
         # set всем included = True
         self.set_all_included_in_db_project_to_true()
-        
 
-    
     def add_tables_and_datas_to_empty_db_project(self):
         """
         Добавление таблиц и данных в БД программы при запуске.
         """
-        self.__obs_manager.obj_l.debug_logger("IN add_tables_and_datas_to_empty_db_project()")
+        self.__obs_manager.obj_l.debug_logger(
+            "IN add_tables_and_datas_to_empty_db_project()"
+        )
         conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
         cursor = conn.cursor()
         cursor.executescript(
@@ -227,7 +227,6 @@ COMMIT;
         conn.commit()
         conn.close()
 
-    
     def get_project_node(self) -> object:
         """
         Запрос на вершину проекта.
@@ -247,12 +246,13 @@ COMMIT;
         result = dict(cursor_result) if cursor_result else {}
         return result
 
-    
     def get_childs(self, parent_node) -> list:
         """
         Запрос на детей вершины.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN get_childs(parent_node) -> list: parent_node = {parent_node}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"IN get_childs(parent_node) -> list: parent_node = {parent_node}"
+        )
 
         conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
@@ -272,12 +272,13 @@ COMMIT;
         conn.close()
         return result
 
-    
     def get_pages_by_node(self, node) -> list:
         """
         Запрос на получение всех страниц выбранной формы.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN get_pages_by_node(node) -> list: node = {node}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"IN get_pages_by_node(node) -> list: node = {node}"
+        )
 
         conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
@@ -297,7 +298,6 @@ COMMIT;
         conn.close()
         return result
 
-    
     def get_node_parent_from_pages(self, page) -> object:
         """
         Запрос на получение node_parent из таблицы Project_pages.
@@ -322,14 +322,14 @@ COMMIT;
         result = dict(cursor_result) if cursor_result else {}
         conn.close()
         return result
-    
 
-    
     def get_node_parent(self, node) -> object:
         """
         Запрос на получение node_parent из таблицы Project_nodes.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN get_node_parent(node) -> object: node = {node}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"IN get_node_parent(node) -> object: node = {node}"
+        )
 
         conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
@@ -347,13 +347,14 @@ COMMIT;
         result = dict(cursor_result) if cursor_result else {}
         conn.close()
         return result
-    
 
     def get_node_by_id(self, id_node) -> object:
         """
         Запрос на получение node по id.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN get_node_by_id(id_node) -> object: id_node = {id_node}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"IN get_node_by_id(id_node) -> object: id_node = {id_node}"
+        )
 
         conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
@@ -372,14 +373,12 @@ COMMIT;
         conn.close()
         return result
 
-
-    
-    def get_config_content_by_id(self, id_tag) -> object:
+    def get_config_tag_by_id(self, id_tag) -> object:
         """
-        Запрос на получение config_content по имени формы.
+        Запрос на получение config_tag по имени формы.
         """
         self.__obs_manager.obj_l.debug_logger(
-            f"IN get_config_content(id_tag) -> list: id_tag = {id_tag}"
+            f"IN get_config_tag(id_tag) -> list: id_tag = {id_tag}"
         )
 
         conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
@@ -399,7 +398,6 @@ COMMIT;
         conn.close()
         return result
 
-    
     def get_config_date_by_id(self, id_tag) -> list:
         """
         Запрос на получение config_date по имени формы.
@@ -425,13 +423,13 @@ COMMIT;
         conn.close()
         return result
 
-
-    
     def get_config_table_by_id(self, id_tag) -> list:
         """
         Запрос на получение config_table по имени формы.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN get_config_table(id_tag) -> list: id_tag = {id_tag}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"IN get_config_table(id_tag) -> list: id_tag = {id_tag}"
+        )
 
         conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
@@ -450,13 +448,13 @@ COMMIT;
         conn.close()
         return result
 
-
-    
     def set_included_for_node(self, node, state):
         """
         Запрос на установку включенности для вершины.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN set_included_for_node(node, state): node = {node}, state = {state}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"IN set_included_for_node(node, state): node = {node}, state = {state}"
+        )
 
         conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
         cursor = conn.cursor()
@@ -472,14 +470,14 @@ COMMIT;
         conn.close()
 
         # print(self.get_node_by_id(node.get("id_node")))
-    
 
-    
     def get_page_data(self, page) -> list:
         """
         Запрос на получение данных страницы из Project_pages_data.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN get_page_data(page) -> list: page = {page}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"IN get_page_data(page) -> list: page = {page}"
+        )
 
         conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
@@ -497,14 +495,14 @@ COMMIT;
         result = [dict(row) for row in cursor_result] if cursor_result else []
         conn.close()
         return result
-    
-    
-    
+
     def get_node_data(self, node) -> list:
         """
         Запрос на получение данных вершины из Project_nodes_data.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN get_node_data(node) -> list: node = {node}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"IN get_node_data(node) -> list: node = {node}"
+        )
 
         conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
@@ -522,14 +520,14 @@ COMMIT;
         result = [dict(row) for row in cursor_result] if cursor_result else []
         conn.close()
         return result
-    
 
-    
     def update_pages_data(self, id_pair, value):
         """
         Запрос на обновление данных страницы в Project_pages_data.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN update_pages_data(id_pair, value): id_pair = {id_pair}, value = {value}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"IN update_pages_data(id_pair, value): id_pair = {id_pair}, value = {value}"
+        )
 
         conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
         cursor = conn.cursor()
@@ -543,14 +541,14 @@ COMMIT;
         )
         conn.commit()
         conn.close()
-    
 
-    
     def update_nodes_data(self, id_pair, value):
         """
         Запрос на обновление данных вершины в Project_nodes_data.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN update_nodes_data(id_pair, value): id_pair = {id_pair}, value = {value}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"IN update_nodes_data(id_pair, value): id_pair = {id_pair}, value = {value}"
+        )
 
         conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
         cursor = conn.cursor()
@@ -565,12 +563,13 @@ COMMIT;
         conn.commit()
         conn.close()
 
-    
     def get_page_pair_value_by_id(self, id_pair):
         """
         Запрос на получение значения по id_pair в Project_pages_data.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN get_page_pair_value_by_id(id_pair): id_pair = {id_pair}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"IN get_page_pair_value_by_id(id_pair): id_pair = {id_pair}"
+        )
 
         conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
@@ -588,14 +587,14 @@ COMMIT;
         result = cursor_result[0] if cursor_result else None
         conn.close()
         return result
-    
 
-    
     def get_node_pair_value_by_id(self, id_pair):
         """
         Запрос на получение значения по id_pair в Project_nodes_data.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN get_node_pair_value_by_id(id_pair): id_pair = {id_pair}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"IN get_node_pair_value_by_id(id_pair): id_pair = {id_pair}"
+        )
 
         conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
@@ -613,15 +612,16 @@ COMMIT;
         result = cursor_result[0] if cursor_result else None
         conn.close()
         return result
-    
+
     # TODO
 
-    
     def set_all_included_in_db_project_to_true(self):
         """
         Установка всех included = True
         """
-        self.__obs_manager.obj_l.debug_logger("IN set_all_included_in_db_project_to_true()")
+        self.__obs_manager.obj_l.debug_logger(
+            "IN set_all_included_in_db_project_to_true()"
+        )
 
         conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
@@ -638,13 +638,14 @@ COMMIT;
         )
         conn.commit()
         conn.close()
-    
 
-    def get_project_tag_config_list(self) -> list:
+    def get_project_tag_config(self) -> list:
         """
         Запрос на получение тегов проекта.
         """
-        self.__obs_manager.obj_l.debug_logger("IN get_project_tag_config_list() -> list")
+        self.__obs_manager.obj_l.debug_logger(
+            "IN get_project_tag_config() -> list"
+        )
 
         conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
@@ -660,6 +661,30 @@ COMMIT;
         result = [dict(row) for row in cursor_result] if cursor_result else []
         conn.close()
         return result
+    
+    def get_tag_config_by_id(self, id_tag):
+        """
+        Запрос на получение тегов проекта.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"IN get_tag_config_by_id(id): id = {id_tag}"
+        )
 
+        conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
+        conn.row_factory = sqlite3.Row
+
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        SELECT * FROM Project_tag_config_list
+        WHERE id_tag = ?
+        """ ,
+            [id_tag],
+        )
+
+        cursor_result = cursor.fetchall()
+        result = [dict(row) for row in cursor_result] if cursor_result else []
+        conn.close()
+        return result
 
 # obj_pd = ProjectDatabase()

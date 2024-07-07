@@ -19,7 +19,7 @@ class ScroolAreaInput:
         
     def connect_inputforms(self, sa_if, sa_ifl):
         """
-        Подключить _scrollarea_input и _scrollarea_input_contents
+        Подключить _scrollarea_input и _scrollarea_input_tags
         """
         self.__obs_manager.obj_l.debug_logger("IN connect_inputforms(sa_if, sa_ifl)")
         self.__scrollarea_input = sa_if
@@ -69,32 +69,32 @@ class ScroolAreaInput:
                 print(f"pair = {pair}\n")
                 id_tag = pair.get("id_tag")
                 # все свойства основного контента
-                config_content = self.__obs_manager.obj_pd.get_config_content_by_id(
+                config_tag = self.__obs_manager.obj_pd.get_config_tag_by_id(
                     id_tag
                 )
-                type_tag = config_content.get("type_tag")
+                type_tag = config_tag.get("type_tag")
 
                 #Добавление формы в секцию в зависимости от типа контента
                 if type_tag == "TEXT":
-                    item = formtext.FormText(self.__obs_manager, pair, config_content)
+                    item = formtext.FormText(self.__obs_manager, pair, config_tag)
                     section_layout.addWidget(item)
 
                 elif type_tag == "DATE":
                     config_date = self.__obs_manager.obj_pd.get_config_date_by_id(
                         id_tag
                     )
-                    item = formdate.FormDate(self.__obs_manager, pair, config_content, config_date)
+                    item = formdate.FormDate(self.__obs_manager, pair, config_tag, config_date)
                     section_layout.addWidget(item)
 
                 elif type_tag == "IMAGE":
                     # TODO config_image
                     config_image = []
-                    item = formimage.FormImage(self.__obs_manager, pair, config_content, config_image)
+                    item = formimage.FormImage(self.__obs_manager, pair, config_tag, config_image)
                     section_layout.addWidget(item)
 
                 elif type_tag == "TABLE":
                     config_table = self.__obs_manager.obj_pd.get_config_table_by_id(id_tag)
-                    item = formtable.FormTable(self.__obs_manager, pair, config_content, config_table)
+                    item = formtable.FormTable(self.__obs_manager, pair, config_tag, config_table)
                     section_layout.addWidget(item)
 
             section.setContentLayout(section_layout)

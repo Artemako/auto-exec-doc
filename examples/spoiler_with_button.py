@@ -17,7 +17,7 @@ class MainWindow(QMainWindow):
 
         # Create a button to toggle the visibility of the content
         self.toggle_button = QPushButton("Show/Hide")
-        self.toggle_button.clicked.connect(self.toggle_content)
+        self.toggle_button.clicked.connect(self.toggle_tag)
         layout.addWidget(self.toggle_button)
 
         # Hide the content initially
@@ -26,7 +26,7 @@ class MainWindow(QMainWindow):
         # Set the central widget
         self.setCentralWidget(self.spoiler_group_box)
 
-    def toggle_content(self):
+    def toggle_tag(self):
         if self.content_label.isVisible():
             self.content_label.hide()
             self.toggle_button.setText("Show")
