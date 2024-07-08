@@ -73,19 +73,26 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_template">
+     <widget class="QWidget" name="tab_form_template_page">
       <attribute name="title">
-       <string>Шаблон/Страница</string>
+       <string>Форма/Шаблон/Страница</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_6">
        <item>
-        <widget class="QComboBox" name="combox_templates"/>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QComboBox" name="combox_forms"/>
+         </item>
+         <item>
+          <widget class="QComboBox" name="combox_templates"/>
+         </item>
+         <item>
+          <widget class="QComboBox" name="combox_pages"/>
+         </item>
+        </layout>
        </item>
        <item>
-        <widget class="QComboBox" name="combox_page"/>
-       </item>
-       <item>
-        <widget class="QTableWidget" name="table_template_tags"/>
+        <widget class="QTableWidget" name="table_template_page_tags"/>
        </item>
        <item>
         <widget class="QPushButton" name="btn_add_tag_to_template_or_page">

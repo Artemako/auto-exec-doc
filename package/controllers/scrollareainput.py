@@ -47,6 +47,7 @@ class ScroolAreaInput:
 
         sections_info = self.__obs_manager.obj_si.get_sections_info()
         # перебор секций
+        # TODO Сделать отдел для группы и для формы (страница есть)
         for section_index, section_info in enumerate(sections_info):
             print(f"section_index = {section_index},\n section_info = {section_info}\n")
             # тип секции: страница или вершина
@@ -57,6 +58,7 @@ class ScroolAreaInput:
             elif section_type == "node":
                 node = section_info.get("node")
                 section_name = node.get("name_node")
+            # elif ...
 
             # Создание секции виджета
             section = customsection.Section(section_name)

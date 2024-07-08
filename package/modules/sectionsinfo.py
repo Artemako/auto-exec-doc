@@ -1,18 +1,23 @@
 import package.controllers.pagestemplate as pagestemplate
 
 class SectionsInfo:
+    # TODO Сделать отдел для группы и для формы (страница есть)
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager 
         self.__sections_info = []
 
     def get_sections_info(self):
+        print(f"self.__sections_info = {self.__sections_info}")
         return self.__sections_info
 
     def update_sections_info(self, page):
         # обновить информацию, нужная для создания секций
         self.__sections_info.clear()
+        # TODO Тут явно переделать/добавить механику добавления информации для группы и для формы
         self.add_page_for_sections_info(page)
         self.add_nodes_for_sections_info(page)
+    
+    # TODO добавить section_type == "form"
 
     def add_page_for_sections_info(self, page):
         """
@@ -54,6 +59,7 @@ class SectionsInfo:
             if not parent_node:
                 flag = False
 
+
     def save_data_to_database(self):
         """
         Cохранение информации в __sections_info в БД
@@ -69,35 +75,42 @@ class SectionsInfo:
             print(f"section_data = {section_data}\n")
             # перебор пар в section_data секции
             for pair_index, pair in enumerate(section_data):
-                print(f"pair = {pair}\n")
                 id_pair = pair.get("id_pair")
                 value = pair.get("value")
-                old_value = None
-                if section_type == "page":
-                    old_value = self.__obs_manager.obj_pd.get_page_pair_value_by_id(
-                        id_pair
-                    )
-                    self.__obs_manager.obj_pd.update_pages_data(id_pair, value)
-                elif section_type == "node":
-                    old_value = self.__obs_manager.obj_pd.get_node_pair_value_by_id(
-                        id_pair
-                    )
-                    self.__obs_manager.obj_pd.update_nodes_data(id_pair, value)
-                # Сохранения изображения
+                old_value = self.update_data_from_pair(section_type, id_pair, value)
                 id_tag = pair.get("id_tag")
-                config_tag = self.__obs_manager.obj_pd.get_config_tag_by_id(
-                    id_tag
-                )
-                print(f"id_tag = {id_tag}\n")
-                print(f"config_tag = {config_tag}\n")
-                type_tag = config_tag.get("type_tag")
-                if type_tag == "IMAGE":
-                    self.__obs_manager.obj_ffm.delete_image_from_project(
-                        old_value
-                    )
-                    self.__obs_manager.obj_ffm.move_image_from_temp_to_project(
-                        value
-                    )
+                self.save_image(id_tag, old_value, value)               
+
+    def update_data_from_pair(self, section_type, id_pair, value):
+        self.__obs_manager.obj_l.debug_logger(f"IN update_data_with_pair(section_type, pair): section_type = {section_type}, id_pair = {id_pair}, value = {value}")
+        old_value = None
+        if section_type == "page":
+            old_value = self.__obs_manager.obj_pd.get_page_pair_value_by_id(
+                id_pair
+            )
+            self.__obs_manager.obj_pd.update_pages_data(id_pair, value)
+        elif section_type == "node":
+            old_value = self.__obs_manager.obj_pd.get_node_pair_value_by_id(
+                id_pair
+            )
+            self.__obs_manager.obj_pd.update_nodes_data(id_pair, value)
+        return old_value
+
+    def save_image(self, id_tag, old_value, value):
+        self.__obs_manager.obj_l.debug_logger(f"IN save_image(id_tag, old_value, value): id_tag = {id_tag}, old_value = {old_value}, value = {value}")
+        config_tag = self.__obs_manager.obj_pd.get_config_tag_by_id(
+            id_tag
+        )
+        print(f"id_tag = {id_tag}\n")
+        print(f"config_tag = {config_tag}\n")
+        type_tag = config_tag.get("type_tag")
+        if type_tag == "IMAGE":
+            self.__obs_manager.obj_ffm.delete_image_from_project(
+                old_value
+            )
+            self.__obs_manager.obj_ffm.move_image_from_temp_to_project(
+                value
+            )
 
 
 # obj_si = SectionsInfo()

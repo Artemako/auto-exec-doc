@@ -245,6 +245,26 @@ COMMIT;
         cursor_result = cursor.fetchone()
         result = dict(cursor_result) if cursor_result else {}
         return result
+    
+    def get_group_nodes(self) -> list:
+        """
+        Запрос на вершину проекта.
+        """
+        self.__obs_manager.obj_l.debug_logger("IN get_group_nodes() -> list")
+
+        conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
+        conn.row_factory = sqlite3.Row
+
+        cursor = conn.cursor()
+        cursor.execute("""
+        SELECT * FROM Project_nodes
+        WHERE type_node = "GROUP";
+        """)
+
+        cursor_result = cursor.fetchall()
+        result = [dict(row) for row in cursor_result] if cursor_result else []
+        conn.close()
+        return result
 
     def get_childs(self, parent_node) -> list:
         """

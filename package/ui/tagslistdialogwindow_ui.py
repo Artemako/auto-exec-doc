@@ -78,31 +78,41 @@ class Ui_TagsListDialog(object):
         self.verticalLayout_5.addWidget(self.btn_add_tag_to_group)
 
         self.tabwidget.addTab(self.tab_group, "")
-        self.tab_template = QWidget()
-        self.tab_template.setObjectName(u"tab_template")
-        self.verticalLayout_6 = QVBoxLayout(self.tab_template)
+        self.tab_form_template_page = QWidget()
+        self.tab_form_template_page.setObjectName(u"tab_form_template_page")
+        self.verticalLayout_6 = QVBoxLayout(self.tab_form_template_page)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
-        self.combox_templates = QComboBox(self.tab_template)
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.combox_forms = QComboBox(self.tab_form_template_page)
+        self.combox_forms.setObjectName(u"combox_forms")
+
+        self.horizontalLayout_2.addWidget(self.combox_forms)
+
+        self.combox_templates = QComboBox(self.tab_form_template_page)
         self.combox_templates.setObjectName(u"combox_templates")
 
-        self.verticalLayout_6.addWidget(self.combox_templates)
+        self.horizontalLayout_2.addWidget(self.combox_templates)
 
-        self.combox_page = QComboBox(self.tab_template)
-        self.combox_page.setObjectName(u"combox_page")
+        self.combox_pages = QComboBox(self.tab_form_template_page)
+        self.combox_pages.setObjectName(u"combox_pages")
 
-        self.verticalLayout_6.addWidget(self.combox_page)
+        self.horizontalLayout_2.addWidget(self.combox_pages)
 
-        self.table_template_tags = QTableWidget(self.tab_template)
-        self.table_template_tags.setObjectName(u"table_template_tags")
 
-        self.verticalLayout_6.addWidget(self.table_template_tags)
+        self.verticalLayout_6.addLayout(self.horizontalLayout_2)
 
-        self.btn_add_tag_to_template_or_page = QPushButton(self.tab_template)
+        self.table_template_page_tags = QTableWidget(self.tab_form_template_page)
+        self.table_template_page_tags.setObjectName(u"table_template_page_tags")
+
+        self.verticalLayout_6.addWidget(self.table_template_page_tags)
+
+        self.btn_add_tag_to_template_or_page = QPushButton(self.tab_form_template_page)
         self.btn_add_tag_to_template_or_page.setObjectName(u"btn_add_tag_to_template_or_page")
 
         self.verticalLayout_6.addWidget(self.btn_add_tag_to_template_or_page)
 
-        self.tabwidget.addTab(self.tab_template, "")
+        self.tabwidget.addTab(self.tab_form_template_page, "")
 
         self.verticalLayout_2.addWidget(self.tabwidget)
 
@@ -139,7 +149,7 @@ class Ui_TagsListDialog(object):
         self.btn_add_tag_to_group.setText(QCoreApplication.translate("TagsListDialog", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0442\u0435\u0433", None))
         self.tabwidget.setTabText(self.tabwidget.indexOf(self.tab_group), QCoreApplication.translate("TagsListDialog", u"\u0413\u0440\u0443\u043f\u043f\u0430", None))
         self.btn_add_tag_to_template_or_page.setText(QCoreApplication.translate("TagsListDialog", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0442\u0435\u0433", None))
-        self.tabwidget.setTabText(self.tabwidget.indexOf(self.tab_template), QCoreApplication.translate("TagsListDialog", u"\u0428\u0430\u0431\u043b\u043e\u043d/\u0421\u0442\u0440\u0430\u043d\u0438\u0446\u0430", None))
+        self.tabwidget.setTabText(self.tabwidget.indexOf(self.tab_form_template_page), QCoreApplication.translate("TagsListDialog", u"\u0424\u043e\u0440\u043c\u0430/\u0428\u0430\u0431\u043b\u043e\u043d/\u0421\u0442\u0440\u0430\u043d\u0438\u0446\u0430", None))
         self.btn_save.setText(QCoreApplication.translate("TagsListDialog", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
         self.btn_close.setText(QCoreApplication.translate("TagsListDialog", u"\u0417\u0430\u043a\u0440\u044b\u0442\u044c", None))
     # retranslateUi
