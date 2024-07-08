@@ -92,7 +92,10 @@ class MainWindow(QMainWindow):
         self.ui.action_export_to_pdf.setEnabled(True)
         self.ui.action_edit_templates.setEnabled(True)
         
-        
-
-
+    
+    def get_view_height(self):
+        return self.ui.widget_pdf_view.verticalScrollBar().value()
+    
+    def set_view_height(self, value):
+        self.ui.widget_pdf_view.verticalScrollBar().setValue(value)
 

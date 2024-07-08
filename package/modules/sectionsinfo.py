@@ -15,10 +15,11 @@ class SectionsInfo:
         self.__sections_info.clear()
         # TODO Тут явно переделать/добавить механику добавления информации для группы и для формы
         self.add_page_for_sections_info(page)
-        self.add_nodes_for_sections_info(page)
+        template = self.__obs_manager.obj_pd.get_parent_template(page)
+        self.add_template_for_sections_info(template)
+        node = self.__obs_manager.obj_pd.get_parent_node(template)
+        self.add_nodes_for_sections_info(node)
     
-    # TODO добавить section_type == "form"
-
     def add_page_for_sections_info(self, page):
         """
         Добавление секции для страницы.
@@ -34,24 +35,49 @@ class SectionsInfo:
             }
             self.__sections_info.append(section)
 
-    def add_node_for_datas(self, node):
+    def add_template_for_sections_info(self, template):
         """ """
-        self.__obs_manager.obj_l.debug_logger(f"IN add_node_for_datas(node): node = {node}")
-
-        data = self.__obs_manager.obj_pd.get_node_data(node)
+        self.__obs_manager.obj_l.debug_logger(f"IN add_template_for_datas(page): page = {template}")
+        # TODO 
+        data = self.__obs_manager.obj_pd.get_template_data(template)
         if data:
             section = {
-                "type": "node",
-                "node": node,
+                "type": "template",
+                "template": template,
                 "data": data,
             }
             self.__sections_info.append(section)
 
-    def add_nodes_for_sections_info(self, page):
-        """ """
-        self.__obs_manager.obj_l.debug_logger("IN add_nodes_for_datas()")
+    def add_node_for_datas(self, node):
+        """
+        Добавление секции для вершины: группы или проекта.
+        """
+        self.__obs_manager.obj_l.debug_logger(f"IN add_node_for_datas(node): node = {node}")
 
-        parent_node = self.__obs_manager.obj_pd.get_node_parent_from_pages(page)
+        data = self.__obs_manager.obj_pd.get_node_data(node)
+        if data:
+            type_node = node.get("type_node")
+            if type_node == "GROUP":
+                section = {
+                    "type": "group",
+                    "group": node,
+                    "data": data,
+                }
+                self.__sections_info.append(section)
+            elif type_node == "PROJECT":
+                section = {
+                    "type": "project",
+                    "project": node,
+                    "data": data,
+                }
+                self.__sections_info.append(section)
+
+    def add_nodes_for_sections_info(self, node):
+        """ 
+        Проход по всем вершинам и добавление секции для них.
+        """
+        self.__obs_manager.obj_l.debug_logger(f"IN add_nodes_for_sections_info(node): node = {node}")
+        parent_node = node
         flag = True
         while flag:
             self.add_node_for_datas(parent_node)

@@ -112,8 +112,12 @@ class Project:
         if self.__status_active and self.__obs_manager.obj_pt.is_page_template_selected():
             # сохранить в базу данных
             self.__obs_manager.obj_si.save_data_to_database()
-            # NOT (current_page_to_pdf() расположен в save_data_to_database())
+            # получить значение высоты страницы
+            saved_view_height = self.__obs_manager.obj_mw.get_view_height()
+            # сохранить в pdf
             self.__obs_manager.obj_pt.current_page_to_pdf()
+            # восстановить высоту страницы
+            self.__obs_manager.obj_mw.set_view_height(saved_view_height)
             # настроить статус
             self.__status_save = True
             self.__obs_manager.obj_sb.set_message_for_statusbar(

@@ -40,6 +40,60 @@ class ScroolAreaInput:
             else:
                 del item
 
+    def get_section_name(self, section_info):
+        """
+        Определение типа/названия секции
+        """
+        self.__obs_manager.obj_l.debug_logger(f"IN get_section_name(section_info): section_info = {section_info}") 
+        section_type = section_info.get("type")
+        section_name = None
+        if section_type == "page":
+            page = section_info.get("page")
+            section_name = page.get("page_name")
+        elif section_type == "template":
+            template = section_info.get("template")
+            section_name = template.get("name_template")
+        elif section_type == "group":
+            group = section_info.get("group")
+            section_name = group.get("name_node")
+        elif section_type == "project":
+            project = section_info.get("project")
+            section_name = project.get("name_node")
+        return section_name
+
+    def add_form_in_section(self, pair, section_layout):
+        """
+        Добавление формы в секцию в зависимости от типа контента.
+        """
+        id_tag = pair.get("id_tag")
+        # все свойства основного контента
+        config_tag = self.__obs_manager.obj_pd.get_config_tag_by_id(
+            id_tag
+        )
+        type_tag = config_tag.get("type_tag")
+
+        if type_tag == "TEXT":
+            item = formtext.FormText(self.__obs_manager, pair, config_tag)
+            section_layout.addWidget(item)
+
+        elif type_tag == "DATE":
+            config_date = self.__obs_manager.obj_pd.get_config_date_by_id(
+                id_tag
+            )
+            item = formdate.FormDate(self.__obs_manager, pair, config_tag, config_date)
+            section_layout.addWidget(item)
+
+        elif type_tag == "IMAGE":
+            # TODO config_image
+            config_image = []
+            item = formimage.FormImage(self.__obs_manager, pair, config_tag, config_image)
+            section_layout.addWidget(item)
+
+        elif type_tag == "TABLE":
+            config_table = self.__obs_manager.obj_pd.get_config_table_by_id(id_tag)
+            item = formtable.FormTable(self.__obs_manager, pair, config_tag, config_table)
+            section_layout.addWidget(item)
+
 
     def add_sections_in_sa(self):
         """ """
@@ -47,62 +101,19 @@ class ScroolAreaInput:
 
         sections_info = self.__obs_manager.obj_si.get_sections_info()
         # перебор секций
-        # TODO Сделать отдел для группы и для формы (страница есть)
-        for section_index, section_info in enumerate(sections_info):
-            print(f"section_index = {section_index},\n section_info = {section_info}\n")
-            # тип секции: страница или вершина
-            section_type = section_info.get("type")
-            if section_type == "page":
-                page = section_info.get("page")
-                section_name = page.get("page_name")
-            elif section_type == "node":
-                node = section_info.get("node")
-                section_name = node.get("name_node")
-            # elif ...
-
+        for section_info in sections_info:
+            section_name = self.get_section_name(section_info)
             # Создание секции виджета
             section = customsection.Section(section_name)
             section_layout = QVBoxLayout()
             # data секции
             section_data = section_info.get("data")
-            print(f"section_data = {section_data}\n")
             # перебор пар в section_data секции
-            for pair_index, pair in enumerate(section_data):
-                print(f"pair = {pair}\n")
-                id_tag = pair.get("id_tag")
-                # все свойства основного контента
-                config_tag = self.__obs_manager.obj_pd.get_config_tag_by_id(
-                    id_tag
-                )
-                type_tag = config_tag.get("type_tag")
-
-                #Добавление формы в секцию в зависимости от типа контента
-                if type_tag == "TEXT":
-                    item = formtext.FormText(self.__obs_manager, pair, config_tag)
-                    section_layout.addWidget(item)
-
-                elif type_tag == "DATE":
-                    config_date = self.__obs_manager.obj_pd.get_config_date_by_id(
-                        id_tag
-                    )
-                    item = formdate.FormDate(self.__obs_manager, pair, config_tag, config_date)
-                    section_layout.addWidget(item)
-
-                elif type_tag == "IMAGE":
-                    # TODO config_image
-                    config_image = []
-                    item = formimage.FormImage(self.__obs_manager, pair, config_tag, config_image)
-                    section_layout.addWidget(item)
-
-                elif type_tag == "TABLE":
-                    config_table = self.__obs_manager.obj_pd.get_config_table_by_id(id_tag)
-                    item = formtable.FormTable(self.__obs_manager, pair, config_tag, config_table)
-                    section_layout.addWidget(item)
-
+            for pair in section_data:
+                self.add_form_in_section(pair, section_layout)
+            # Добавление виджета в секцию
             section.setContentLayout(section_layout)
-
             self.__scrollarea_input_layout.layout().insertWidget(0, section)
-
         # Добавление SpacerItem в конец
         self.__scrollarea_input_layout.layout().addItem(
             QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)

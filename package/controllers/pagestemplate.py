@@ -85,7 +85,9 @@ class PagesTemplate:
 
         self.__title_pt.setText(node.get("name_node"))
 
-        pages = self.__obs_manager.obj_pd.get_pages_by_node(node)
+        id_active_template = node.get("id_active_template")
+        template = self.__obs_manager.obj_pd.get_template_by_id(id_active_template)
+        pages = self.__obs_manager.obj_pd.get_pages_by_template(template)
         for page in pages:
             print(f"page = {page}")
             item = MyListWidgetItem(page)

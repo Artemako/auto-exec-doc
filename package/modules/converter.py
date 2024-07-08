@@ -59,7 +59,7 @@ class Converter:
         self.__obs_manager.obj_l.debug_logger(
             f"IN create_one_page_pdf(page): page = {page}"
         )
-        form_page_name = page.get("template_name")
+        form_page_name = page.get("page_filename")
         docx_pdf_page_name = f"""page_{page.get("id_page")}_{datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')}"""
         # TODO добыть информация для SectionInfo
         if not is_local:
@@ -198,7 +198,6 @@ class Converter:
         template_path, docx_path = self.get_template_path_and_docx_path(
             form_page_fullname, docx_page_fullname
         )
-
         docx_template = DocxTemplate(template_path)
         # создаем tag из sections_info
         data_tag = dict()
