@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>825</width>
-    <height>566</height>
+    <height>297</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabwidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -92,7 +92,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QTableWidget" name="table_template_page_tags"/>
+        <widget class="QTableWidget" name="table_form_template_page_tags"/>
        </item>
        <item>
         <widget class="QPushButton" name="btn_add_tag_to_template_or_page">

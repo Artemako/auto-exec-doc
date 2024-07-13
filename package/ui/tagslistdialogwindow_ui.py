@@ -102,10 +102,10 @@ class Ui_TagsListDialog(object):
 
         self.verticalLayout_6.addLayout(self.horizontalLayout_2)
 
-        self.table_template_page_tags = QTableWidget(self.tab_form_template_page)
-        self.table_template_page_tags.setObjectName(u"table_template_page_tags")
+        self.table_form_template_page_tags = QTableWidget(self.tab_form_template_page)
+        self.table_form_template_page_tags.setObjectName(u"table_form_template_page_tags")
 
-        self.verticalLayout_6.addWidget(self.table_template_page_tags)
+        self.verticalLayout_6.addWidget(self.table_form_template_page_tags)
 
         self.btn_add_tag_to_template_or_page = QPushButton(self.tab_form_template_page)
         self.btn_add_tag_to_template_or_page.setObjectName(u"btn_add_tag_to_template_or_page")
@@ -134,7 +134,7 @@ class Ui_TagsListDialog(object):
 
         self.retranslateUi(TagsListDialog)
 
-        self.tabwidget.setCurrentIndex(0)
+        self.tabwidget.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(TagsListDialog)
