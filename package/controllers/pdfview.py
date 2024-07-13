@@ -20,13 +20,13 @@ class PdfView:
     def zoom_in(self):
         self.__zoom += 0.1
         self.__widget_pdf_view.setZoomFactor(self.__zoom)
-        self.__obs_manager.obj_l.debug_logger(f"zoom_in(): self.__zoom = {self.__zoom}")
+        self.__obs_manager.obj_l.debug_logger(f"zoom_in():\nself.__zoom = {self.__zoom}")
 
     def zoom_out(self):
         if self.__zoom >= 0:
             self.__zoom -= 0.1
         self.__widget_pdf_view.setZoomFactor(self.__zoom)
-        self.__obs_manager.obj_l.debug_logger(f"zoom_out(): self.__zoom = {self.__zoom}")
+        self.__obs_manager.obj_l.debug_logger(f"zoom_out():\nself.__zoom = {self.__zoom}")
 
     def set_zoom_to_fit_width(self):
         self.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.FitToWidth)
@@ -48,7 +48,7 @@ class PdfView:
 
     def load_and_show_pdf_document(self, pdf_path):
         self.__obs_manager.obj_l.debug_logger(
-            f"load_and_show_pdf_document(pdf_path): pdf_path = {pdf_path}"
+            f"IN load_and_show_pdf_document(pdf_path):\npdf_path = {pdf_path}"
         )
 
         doc_location = QUrl.fromLocalFile(pdf_path)

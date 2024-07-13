@@ -26,7 +26,7 @@ class DialogWindows:
 
         return_value = dialogwindow.exec()
 
-        self.__obs_manager.obj_l.debug_logger(f"save_active_project(): return_value = {return_value}")
+        self.__obs_manager.obj_l.debug_logger(f"save_active_project() -> return_value = {return_value}")
 
         if return_value == QMessageBox.Yes:
             return "Yes"
@@ -119,7 +119,7 @@ class DialogWindows:
     def warning_message(self, message: str):
         """Диалоговое окно 'Предупреждение'."""
 
-        self.__obs_manager.obj_l.debug_logger("IN warning_message(message: str)")
+        self.__obs_manager.obj_l.debug_logger(f"IN warning_message(message: str):\nmessage = {message}") 
         dialogwindow = QMessageBox()
         dialogwindow.setWindowTitle("Предупреждение")
         dialogwindow.setText(message)

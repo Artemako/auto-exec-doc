@@ -89,7 +89,7 @@ class FileFolderManager:
         Очистка папки temp.
         """
         self.__obs_manager.obj_l.debug_logger(
-            f"IN clear_temp_folder(is_del_folder): is_del_folder = {is_del_folder}, temp_dirpath = {self.__obs_manager.obj_dpm.get_temp_dirpath()}"
+            f"IN clear_temp_folder(is_del_folder):\nis_del_folder = {is_del_folder},\ntemp_dirpath = {self.__obs_manager.obj_dpm.get_temp_dirpath()}"
         )
         temp_dirpath = self.__obs_manager.obj_dpm.get_temp_dirpath()
         try:

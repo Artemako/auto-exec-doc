@@ -30,7 +30,7 @@ class PagesTemplate:
         """
         Подключить _listwidget_pages_template.
         """
-        self.__obs_manager.obj_l.debug_logger("IN connect_pages_template(lw_pt)")
+        self.__obs_manager.obj_l.debug_logger(f"IN connect_pages_template(lw_pt, title_pt):\nlw_pt = {lw_pt},\ntitle_pt = {title_pt}")
         self.__listwidget_pages_template = lw_pt
         self.__title_pt = title_pt
         self.clear_pt()
@@ -45,7 +45,7 @@ class PagesTemplate:
         """
         Слот для сигнала itemClicked.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN item_page_updated(current): current = {current}")
+        self.__obs_manager.obj_l.debug_logger(f"IN item_page_updated(current):\ncurrent = {current}")
         page = current.get_page()
         # добыть информация для SectionInfo
         self.__obs_manager.obj_si.update_sections_info(page)
@@ -79,7 +79,7 @@ class PagesTemplate:
         """
         Обновить _listwidget_pages_template.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN update_pages_template(node) : node = {node}")
+        self.__obs_manager.obj_l.debug_logger(f"IN update_pages_template(node):\nnode = {node}")
 
         self.clear_pt()
 

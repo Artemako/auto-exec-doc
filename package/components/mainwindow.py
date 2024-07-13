@@ -46,7 +46,7 @@ class MainWindow(QMainWindow):
         self.__obs_manager.obj_pv.connect_pdfview(self.ui.widget_pdf_view, self.m_document)
 
     def closeEvent(self, event):
-        self.__obs_manager.obj_l.debug_logger(f"IN closeEvent(self, event): event = {event}")
+        self.__obs_manager.obj_l.debug_logger(f"IN closeEvent(self, event):\nevent = {event}")
         # удаление pdf из виджета pdfview
         self.__obs_manager.obj_pv.set_empty_pdf_view()
         # очистка временных файлов

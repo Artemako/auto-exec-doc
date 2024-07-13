@@ -11,7 +11,7 @@ class FormImage(QWidget):
     def __init__(self, obs_manager, pair, config_tag, config_image):
         self.__obs_manager = obs_manager
         self.__obs_manager.obj_l.debug_logger(
-            f"FormImage(self, pair, config_tag, config_image): pair = {pair}, config_tag = {config_tag}, config_image = {config_image}"
+            f"FormImage(self, pair, config_tag, config_image):\npair = {pair},\nconfig_tag = {config_tag},\nconfig_image = {config_image}"
         )
 
         super(FormImage, self).__init__()

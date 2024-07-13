@@ -71,7 +71,7 @@ class StructureExecDoc:
         """
         Проход по всем вершинам.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN dfs(parent_node): parent_node = {parent_node}")
+        self.__obs_manager.obj_l.debug_logger(f"IN dfs(parent_node):\nparent_node = {parent_node}")
         childs = self.__obs_manager.obj_pd.get_childs(parent_node)
         if childs:
             for child in childs:
@@ -84,7 +84,7 @@ class StructureExecDoc:
         """
         Поставить item в nodes_to_items.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN set_item_in_nodes_to_items(node): node = {node}")
+        self.__obs_manager.obj_l.debug_logger(f"IN set_item_in_nodes_to_items(node):\nnode = {node}")
         item = None
         if node.get("id_parent") == 0:
             item = MyTreeWidgetItem(self.__treewidget_structure_execdoc, node)
@@ -97,7 +97,7 @@ class StructureExecDoc:
 
     def set_state_included_for_child(self, node, state):
         self.__obs_manager.obj_l.debug_logger(
-            f"""IN set_state_included_for_childs(node, state): id_node = {node.get("id_node")}, state = {state}"""
+            f"""IN set_state_included_for_childs(node, state):\nid_node = {node.get("id_node")},\nstate = {state}"""
         )
         item = self.__nodes_to_items.get(node.get("id_node"))
         if item:

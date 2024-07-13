@@ -145,7 +145,7 @@ class FormTable(QWidget):
 
     def create_table_from_value(self, json_data):
         self.__obs_manager.obj_l.debug_logger(
-            f"create_table_from_value(self, json_data): data = {json_data}"
+            f"create_table_from_value(self, json_data):\ndata = {json_data}"
         )
         if json_data:
             data = json.loads(json_data)
@@ -175,7 +175,7 @@ class FormTable(QWidget):
 
     def set_new_value_in_pair(self, pair, new_value):
         self.__obs_manager.obj_l.debug_logger(
-            f"set_new_value_in_pair(self, pair, new_value): pair = {pair}, new_value = {new_value}"
+            f"set_new_value_in_pair(self, pair, new_value):\npair = {pair},\nnew_value = {new_value}"
         )
         pair["value"] = new_value
         print(pair)

@@ -52,7 +52,7 @@ class Project:
         Установка пути к project.db проекта.
         """
         self.__obs_manager.obj_l.debug_logger(
-            f"IN set_project_dirpaths(folder_path: str): folder_path = {folder_path}"
+            f"IN set_project_dirpaths(folder_path: str):\nfolder_path = {folder_path}"
         )
         # Установка пути к папке проекта
         self.__obs_manager.obj_dpm.set_project_dirpath(folder_path)

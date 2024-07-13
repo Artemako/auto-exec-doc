@@ -153,8 +153,21 @@ class TagsListDialogWindow(QDialog):
                     pair.get("id_tag")
                 )
         # TODO
-        # elif parameter == "form_template_page_tags":
-        #     data = self.__obs_manager.obj_pd.
+        elif type_table == "form_template_page_tags":
+            page = self.ui.combox_pages.currentData()
+            if page == "all_pages":
+                template = self.ui.combox_templates.currentData()
+                template_data = self.__obs_manager.obj_pd.get_template_data(template)
+                for pair in template_data:
+                    data += self.__obs_manager.obj_pd.get_tag_config_by_id(
+                        pair.get("id_tag")
+                    )
+            else:
+                page_data = self.__obs_manager.obj_pd.get_page_data(page)
+                for pair in page_data:
+                    data += self.__obs_manager.obj_pd.get_tag_config_by_id(
+                        pair.get("id_tag")
+                    )
         return data
 
     def get_group_node(self, combox_first_id_node):
@@ -288,7 +301,6 @@ class TagsListDialogWindow(QDialog):
     def show_tab_group(self):
         self.__obs_manager.obj_l.debug_logger("IN show_tab_group()")
         self.ui.tabwidget.setCurrentIndex(2)
-        # TODO combobox
         self.clear_and_fill_combobox_group()
         self.clear_and_fill_table("group_tags")
         pass
@@ -296,7 +308,6 @@ class TagsListDialogWindow(QDialog):
     def show_tab_form_template_page(self):
         self.__obs_manager.obj_l.debug_logger("IN show_tab_form_template_page()")
         self.ui.tabwidget.setCurrentIndex(3)
-        # TODO combobox
         self.clear_and_fill_combobox_form_template_page()
         self.clear_and_fill_table("form_template_page_tags")
         pass

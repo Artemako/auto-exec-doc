@@ -20,7 +20,7 @@ class StatusBar:
         Поставить сообщение в статусбар.
         """
         self.__statusbar.showMessage(message)
-        self.__obs_manager.obj_l.debug_logger(f"set_message_for_statusbar({message})")
+        self.__obs_manager.obj_l.debug_logger(f"set_message_for_statusbar(message):\nmessage = {message}")
 
 
 # obj_sb = StatusBar()

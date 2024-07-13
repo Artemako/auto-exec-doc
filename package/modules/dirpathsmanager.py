@@ -71,7 +71,7 @@ class DirPathManager:
         # self.__pdfs_filder_dirpath = None
 
     def set_new_dirpaths_for_project(self):
-        self.__obs_manager.obj_l.debug_logger("set_new_dirpaths_for_project()")
+        self.__obs_manager.obj_l.debug_logger("IN set_new_dirpaths_for_project()")
         # папка forms в проекте
         self.__forms_folder_dirpath = os.path.join(
             self.get_project_dirpath(), "forms"
@@ -114,12 +114,12 @@ class DirPathManager:
 
     def set_project_dirpath(self, dirpath: str):
         self.__project_dirpath = dirpath
-        self.__obs_manager.obj_l.debug_logger(f"set_project_dirpath(dirpath: str): dirpath = {dirpath}")
+        self.__obs_manager.obj_l.debug_logger(f"set_project_dirpath(dirpath: str):\ndirpath = {dirpath}")
 
     def set_db_project_dirpath(self, dirpath: str):
         self.__db_project_dirpath = dirpath
         self.__obs_manager.obj_l.debug_logger(
-            f"set_db_project_dirpath(dirpath: str): dirpath = {dirpath}"
+            f"set_db_project_dirpath(dirpath: str):\ndirpath = {dirpath}"
         )
 
     def get_main_dirpath(self) -> str:
@@ -187,7 +187,7 @@ class DirPathManager:
     def set_new_temp_dirpath(self):
         self.__temp_dirpath = tempfile.mkdtemp()
         self.__obs_manager.obj_l.debug_logger(
-            f"set_temp_dirpath(dirpath: str): __temp_dirpath = {self.__temp_dirpath}"
+            f"set_temp_dirpath(dirpath: str):\n__temp_dirpath = {self.__temp_dirpath}"
         )
 
 

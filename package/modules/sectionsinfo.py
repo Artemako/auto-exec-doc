@@ -24,7 +24,7 @@ class SectionsInfo:
         """
         Добавление секции для страницы.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN add_page_for_datas(page): page = {page}")
+        self.__obs_manager.obj_l.debug_logger(f"IN add_page_for_datas(page):\npage = {page}")
 
         data = self.__obs_manager.obj_pd.get_page_data(page)
         if data:
@@ -37,7 +37,7 @@ class SectionsInfo:
 
     def add_template_for_sections_info(self, template):
         """ """
-        self.__obs_manager.obj_l.debug_logger(f"IN add_template_for_datas(page): page = {template}")
+        self.__obs_manager.obj_l.debug_logger(f"IN add_template_for_datas(page):\npage = {template}")
         # TODO 
         data = self.__obs_manager.obj_pd.get_template_data(template)
         if data:
@@ -52,7 +52,7 @@ class SectionsInfo:
         """
         Добавление секции для вершины: группы или проекта.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN add_node_for_datas(node): node = {node}")
+        self.__obs_manager.obj_l.debug_logger(f"IN add_node_for_datas(node):\nnode = {node}")
 
         data = self.__obs_manager.obj_pd.get_node_data(node)
         if data:
@@ -76,7 +76,7 @@ class SectionsInfo:
         """ 
         Проход по всем вершинам и добавление секции для них.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN add_nodes_for_sections_info(node): node = {node}")
+        self.__obs_manager.obj_l.debug_logger(f"IN add_nodes_for_sections_info(node):\nnode = {node}")
         parent_node = node
         flag = True
         while flag:
@@ -108,7 +108,7 @@ class SectionsInfo:
                 self.save_image(id_tag, old_value, value)               
 
     def update_data_from_pair(self, section_type, id_pair, value):
-        self.__obs_manager.obj_l.debug_logger(f"IN update_data_with_pair(section_type, pair): section_type = {section_type}, id_pair = {id_pair}, value = {value}")
+        self.__obs_manager.obj_l.debug_logger(f"IN update_data_with_pair(section_type, pair):\nsection_type = {section_type},\nid_pair = {id_pair},\nvalue = {value}")
         old_value = None
         if section_type == "page":
             old_value = self.__obs_manager.obj_pd.get_page_pair_value_by_id(
@@ -123,7 +123,7 @@ class SectionsInfo:
         return old_value
 
     def save_image(self, id_tag, old_value, value):
-        self.__obs_manager.obj_l.debug_logger(f"IN save_image(id_tag, old_value, value): id_tag = {id_tag}, old_value = {old_value}, value = {value}")
+        self.__obs_manager.obj_l.debug_logger(f"IN save_image(id_tag, old_value, value):\nid_tag = {id_tag},\nold_value = {old_value},\nvalue = {value}")
         config_tag = self.__obs_manager.obj_pd.get_config_tag_by_id(
             id_tag
         )
