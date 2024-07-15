@@ -23,7 +23,13 @@ class Ui_NedTagDialogWindow(object):
     def setupUi(self, NedTagDialogWindow):
         if not NedTagDialogWindow.objectName():
             NedTagDialogWindow.setObjectName(u"NedTagDialogWindow")
-        NedTagDialogWindow.resize(472, 223)
+        NedTagDialogWindow.resize(500, 215)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(NedTagDialogWindow.sizePolicy().hasHeightForWidth())
+        NedTagDialogWindow.setSizePolicy(sizePolicy)
+        NedTagDialogWindow.setBaseSize(QSize(0, 0))
         self.verticalLayout = QVBoxLayout(NedTagDialogWindow)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.nametag = QLabel(NedTagDialogWindow)
@@ -71,11 +77,6 @@ class Ui_NedTagDialogWindow(object):
 
         self.verticalLayout.addWidget(self.combox_typetag)
 
-        self.additional_info = QWidget(NedTagDialogWindow)
-        self.additional_info.setObjectName(u"additional_info")
-
-        self.verticalLayout.addWidget(self.additional_info)
-
         self.line = QFrame(NedTagDialogWindow)
         self.line.setObjectName(u"line")
         self.line.setFrameShape(QFrame.HLine)
@@ -83,14 +84,20 @@ class Ui_NedTagDialogWindow(object):
 
         self.verticalLayout.addWidget(self.line)
 
+        self.vbl_additional_info = QVBoxLayout()
+        self.vbl_additional_info.setSpacing(0)
+        self.vbl_additional_info.setObjectName(u"vbl_additional_info")
+
+        self.verticalLayout.addLayout(self.vbl_additional_info)
+
+        self.verticalSpacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.verticalLayout.addItem(self.verticalSpacer)
+
         self.btn_nestag = QPushButton(NedTagDialogWindow)
         self.btn_nestag.setObjectName(u"btn_nestag")
 
         self.verticalLayout.addWidget(self.btn_nestag)
-
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.verticalLayout.addItem(self.verticalSpacer)
 
 
         self.retranslateUi(NedTagDialogWindow)

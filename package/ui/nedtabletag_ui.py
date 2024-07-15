@@ -23,9 +23,10 @@ class Ui_NedTableTag(object):
     def setupUi(self, NedTableTag):
         if not NedTableTag.objectName():
             NedTableTag.setObjectName(u"NedTableTag")
-        NedTableTag.resize(512, 251)
+        NedTableTag.resize(512, 132)
         self.verticalLayout = QVBoxLayout(NedTableTag)
         self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(0, 0, 0, -1)
         self.columns = QLabel(NedTableTag)
         self.columns.setObjectName(u"columns")
         self.columns.setMinimumSize(QSize(0, 0))

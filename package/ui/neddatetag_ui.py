@@ -16,18 +16,23 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QLabel, QLineEdit, QSizePolicy,
-    QSpacerItem, QVBoxLayout, QWidget)
+    QVBoxLayout, QWidget)
 
 class Ui_NedDateTag(object):
     def setupUi(self, NedDateTag):
         if not NedDateTag.objectName():
             NedDateTag.setObjectName(u"NedDateTag")
-        NedDateTag.resize(400, 68)
+        NedDateTag.resize(400, 44)
         self.verticalLayout = QVBoxLayout(NedDateTag)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.formatdate = QLabel(NedDateTag)
         self.formatdate.setObjectName(u"formatdate")
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.formatdate.sizePolicy().hasHeightForWidth())
+        self.formatdate.setSizePolicy(sizePolicy)
         self.formatdate.setMinimumSize(QSize(0, 0))
         self.formatdate.setMaximumSize(QSize(16777215, 16))
         self.formatdate.setStyleSheet(u"font-weight: bold;")
@@ -41,10 +46,6 @@ class Ui_NedDateTag(object):
         self.lineedit_format.setClearButtonEnabled(False)
 
         self.verticalLayout.addWidget(self.lineedit_format)
-
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.verticalLayout.addItem(self.verticalSpacer)
 
 
         self.retranslateUi(NedDateTag)
