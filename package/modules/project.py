@@ -200,8 +200,8 @@ class Project:
     def edit_tags(self):
         """ Редактирование тегов. """
         self.__obs_manager.obj_l.debug_logger("IN edit_tags()")
-        self.__obs_manager.obj_etdw = tagslistdialogwindow.TagsListDialogWindow(self.__obs_manager)
-        self.__obs_manager.obj_etdw.exec()
+        self.__obs_manager.obj_tldw = tagslistdialogwindow.TagsListDialogWindow(self.__obs_manager)
+        self.__obs_manager.obj_tldw.exec()
 
 
 

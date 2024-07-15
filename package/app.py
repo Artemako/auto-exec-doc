@@ -45,9 +45,9 @@ class ObjectsManager:
         self.obj_sed = None
         # components
         self.obj_dw = None
-        # components
         self.obj_mw = None
-        self.obj_etdw = None
+        self.obj_nedtdw = None
+        self.obj_tldw = None
 
     def initialize_all(self):
         """

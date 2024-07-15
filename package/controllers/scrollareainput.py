@@ -1,11 +1,11 @@
 import os
 
-import package.components.customsection as customsection
+import package.components.widgets.customsection as customsection
 
-import package.components.forms.formdate as formdate
-import package.components.forms.formimage as formimage
-import package.components.forms.formtable as formtable
-import package.components.forms.formtext as formtext
+import package.components.widgets.forms.formdate as formdate
+import package.components.widgets.forms.formimage as formimage
+import package.components.widgets.forms.formtable as formtable
+import package.components.widgets.forms.formtext as formtext
 
 from PySide6.QtWidgets import QLabel, QVBoxLayout, QPushButton, QSpacerItem, QSizePolicy
 

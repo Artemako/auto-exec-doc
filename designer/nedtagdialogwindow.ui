@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>NedTagDialogWindow</class>
+ <widget class="QDialog" name="NedTagDialogWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>472</width>
-    <height>224</height>
+    <height>223</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -126,7 +126,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="btn_addtag">
+    <widget class="QPushButton" name="btn_nestag">
      <property name="text">
       <string>Добавить тэг</string>
      </property>

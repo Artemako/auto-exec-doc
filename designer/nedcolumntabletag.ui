@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>NedColumnTableTag</class>
+ <widget class="QDialog" name="NedColumnTableTag">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -85,7 +85,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="btn_addsave">
+    <widget class="QPushButton" name="btn_ned">
      <property name="text">
       <string>Добавить тэг</string>
      </property>

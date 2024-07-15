@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'editdatetag.ui'
+## Form generated from reading UI file 'neddatetag.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.3
 ##
@@ -18,14 +18,14 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QLabel, QLineEdit, QSizePolicy,
     QSpacerItem, QVBoxLayout, QWidget)
 
-class Ui_Form(object):
-    def setupUi(self, Form):
-        if not Form.objectName():
-            Form.setObjectName(u"Form")
-        Form.resize(400, 68)
-        self.verticalLayout = QVBoxLayout(Form)
+class Ui_NedDateTag(object):
+    def setupUi(self, NedDateTag):
+        if not NedDateTag.objectName():
+            NedDateTag.setObjectName(u"NedDateTag")
+        NedDateTag.resize(400, 68)
+        self.verticalLayout = QVBoxLayout(NedDateTag)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.formatdate = QLabel(Form)
+        self.formatdate = QLabel(NedDateTag)
         self.formatdate.setObjectName(u"formatdate")
         self.formatdate.setMinimumSize(QSize(0, 0))
         self.formatdate.setMaximumSize(QSize(16777215, 16))
@@ -35,7 +35,7 @@ class Ui_Form(object):
 
         self.verticalLayout.addWidget(self.formatdate)
 
-        self.lineedit_format = QLineEdit(Form)
+        self.lineedit_format = QLineEdit(NedDateTag)
         self.lineedit_format.setObjectName(u"lineedit_format")
         self.lineedit_format.setClearButtonEnabled(False)
 
@@ -46,13 +46,13 @@ class Ui_Form(object):
         self.verticalLayout.addItem(self.verticalSpacer)
 
 
-        self.retranslateUi(Form)
+        self.retranslateUi(NedDateTag)
 
-        QMetaObject.connectSlotsByName(Form)
+        QMetaObject.connectSlotsByName(NedDateTag)
     # setupUi
 
-    def retranslateUi(self, Form):
-        Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.formatdate.setText(QCoreApplication.translate("Form", u"<html><head/><body><p>\u0424\u043e\u0440\u043c\u0430\u0442 \u0434\u0430\u0442\u044b</p></body></html>", None))
+    def retranslateUi(self, NedDateTag):
+        NedDateTag.setWindowTitle(QCoreApplication.translate("NedDateTag", u"Form", None))
+        self.formatdate.setText(QCoreApplication.translate("NedDateTag", u"<html><head/><body><p>\u0424\u043e\u0440\u043c\u0430\u0442 \u0434\u0430\u0442\u044b</p></body></html>", None))
     # retranslateUi
 
