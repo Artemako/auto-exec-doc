@@ -36,15 +36,15 @@ class Ui_NedTableTag(object):
 
         self.verticalLayout.addWidget(self.columns)
 
-        self.treeWidget = QTreeWidget(NedTableTag)
-        self.treeWidget.setObjectName(u"treeWidget")
+        self.treewidget = QTreeWidget(NedTableTag)
+        self.treewidget.setObjectName(u"treewidget")
 
-        self.verticalLayout.addWidget(self.treeWidget)
+        self.verticalLayout.addWidget(self.treewidget)
 
-        self.pushButton = QPushButton(NedTableTag)
-        self.pushButton.setObjectName(u"pushButton")
+        self.btn_addcol = QPushButton(NedTableTag)
+        self.btn_addcol.setObjectName(u"btn_addcol")
 
-        self.verticalLayout.addWidget(self.pushButton)
+        self.verticalLayout.addWidget(self.btn_addcol)
 
 
         self.retranslateUi(NedTableTag)
@@ -55,10 +55,10 @@ class Ui_NedTableTag(object):
     def retranslateUi(self, NedTableTag):
         NedTableTag.setWindowTitle(QCoreApplication.translate("NedTableTag", u"Form", None))
         self.columns.setText(QCoreApplication.translate("NedTableTag", u"<html><head/><body><p>\u0421\u0442\u043e\u043b\u0431\u0446\u044b</p></body></html>", None))
-        ___qtreewidgetitem = self.treeWidget.headerItem()
+        ___qtreewidgetitem = self.treewidget.headerItem()
         ___qtreewidgetitem.setText(2, QCoreApplication.translate("NedTableTag", u"\u041d\u043e\u0432\u044b\u0439 \u0441\u0442\u043e\u043b\u0431\u0435\u0446", None));
         ___qtreewidgetitem.setText(1, QCoreApplication.translate("NedTableTag", u"\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0441\u0442\u043e\u043b\u0431\u0446\u0430", None));
         ___qtreewidgetitem.setText(0, QCoreApplication.translate("NedTableTag", u"\u041f\u043e\u0440\u044f\u0434", None));
-        self.pushButton.setText(QCoreApplication.translate("NedTableTag", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0441\u0442\u043e\u043b\u0431\u0435\u0446", None))
+        self.btn_addcol.setText(QCoreApplication.translate("NedTableTag", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0441\u0442\u043e\u043b\u0431\u0435\u0446", None))
     # retranslateUi
 

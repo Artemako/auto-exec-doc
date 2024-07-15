@@ -27,6 +27,7 @@ class Ui_FormTableWidget(object):
         FormTableWidget.setMaximumSize(QSize(16777215, 16777215))
         self.horizontalLayout = QHBoxLayout(FormTableWidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.title = QLabel(FormTableWidget)

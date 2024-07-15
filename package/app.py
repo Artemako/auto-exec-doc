@@ -43,7 +43,7 @@ class ObjectsManager:
         self.obj_sai = None
         self.obj_sb = None
         self.obj_sed = None
-        # components
+        # components (windows)
         self.obj_dw = None
         self.obj_mw = None
         self.obj_nedtdw = None

@@ -21,17 +21,18 @@ class Obj:
 class TagsListDialogWindow(QDialog):
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
+        self.__obs_manager.obj_l.debug_logger("IN TagsListDialogWindow(obs_manager)")
         self.initalizate_tabs_objects()
         super(TagsListDialogWindow, self).__init__()
         self.ui = tagslistdialogwindow_ui.Ui_TagsListDialog()
         self.ui.setupUi(self)
-        self.ui.retranslateUi(self)
         # Подключаем действия
         self.connecting_actions()
         # отобразить первый таб
         self.show_tab_all_tags()
 
     def initalizate_tabs_objects(self):
+        self.__obs_manager.obj_l.debug_logger("IN initalizate_tabs_objects()")
         self.obj_all = Obj()
         self.obj_project = Obj()
         self.obj_group = Obj()
@@ -55,6 +56,7 @@ class TagsListDialogWindow(QDialog):
         # TODO
 
     def connecting_actions(self):
+        self.__obs_manager.obj_l.debug_logger("IN connecting_actions()")
         # смена tab
         self.ui.tabwidget.currentChanged.connect(self.on_tab_changed)
         # КОМБОБОКСЫ
@@ -312,7 +314,11 @@ class TagsListDialogWindow(QDialog):
             table_widget.setItem(row, 2, QTableWidgetItem(type_tag))
             # кнопки
             edit_button = QPushButton("Редактировать")
-            delete_button = QPushButton("Удалить")
+            delete_button = QPushButton()
+            if type_table == "all_tags":
+                delete_button.setText("Удалить")
+            else:
+                delete_button.setText("Убрать")
             edit_button.custom_data = item
             delete_button.custom_data = item
             # добавление кнопок в layout

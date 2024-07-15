@@ -25,6 +25,7 @@ class Ui_NedDateTag(object):
         NedDateTag.resize(400, 68)
         self.verticalLayout = QVBoxLayout(NedDateTag)
         self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.formatdate = QLabel(NedDateTag)
         self.formatdate.setObjectName(u"formatdate")
         self.formatdate.setMinimumSize(QSize(0, 0))

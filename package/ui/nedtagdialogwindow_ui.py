@@ -23,7 +23,7 @@ class Ui_NedTagDialogWindow(object):
     def setupUi(self, NedTagDialogWindow):
         if not NedTagDialogWindow.objectName():
             NedTagDialogWindow.setObjectName(u"NedTagDialogWindow")
-        NedTagDialogWindow.resize(472, 224)
+        NedTagDialogWindow.resize(472, 223)
         self.verticalLayout = QVBoxLayout(NedTagDialogWindow)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.nametag = QLabel(NedTagDialogWindow)

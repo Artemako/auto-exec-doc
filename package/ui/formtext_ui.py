@@ -31,6 +31,7 @@ class Ui_FormTextWidget(object):
         FormTextWidget.setMaximumSize(QSize(16777215, 16777215))
         self.horizontalLayout = QHBoxLayout(FormTextWidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.title = QLabel(FormTextWidget)

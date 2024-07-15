@@ -26,6 +26,7 @@ class Ui_FormDateWidget(object):
         FormDateWidget.setMaximumSize(QSize(16777215, 16777215))
         self.horizontalLayout = QHBoxLayout(FormDateWidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.title = QLabel(FormDateWidget)

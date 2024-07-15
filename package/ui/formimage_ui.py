@@ -27,6 +27,7 @@ class Ui_FormImageWidget(object):
         FormImageWidget.setMaximumSize(QSize(16777215, 16777215))
         self.verticalLayout = QVBoxLayout(FormImageWidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.title = QLabel(FormImageWidget)
         self.title.setObjectName(u"title")
         self.title.setMinimumSize(QSize(0, 0))

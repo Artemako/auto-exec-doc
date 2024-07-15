@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>NedTableTag</class>
- <widget class="QWidget" name="NedTableTag">
+ <class>NedDateTag</class>
+ <widget class="QWidget" name="NedDateTag">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>512</width>
-    <height>251</height>
+    <width>400</width>
+    <height>68</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
-    <widget class="QLabel" name="columns">
+    <widget class="QLabel" name="formatdate">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -32,7 +44,7 @@
       <string notr="true">font-weight: bold;</string>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Столбцы&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Формат даты&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::AutoText</enum>
@@ -43,30 +55,24 @@
     </widget>
    </item>
    <item>
-    <widget class="QTreeWidget" name="treeWidget">
-     <column>
-      <property name="text">
-       <string>Поряд</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Название столбца</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Новый столбец</string>
-      </property>
-     </column>
+    <widget class="QLineEdit" name="lineedit_format">
+     <property name="clearButtonEnabled">
+      <bool>false</bool>
+     </property>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton">
-     <property name="text">
-      <string>Добавить столбец</string>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
-    </widget>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>
