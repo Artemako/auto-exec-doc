@@ -15,14 +15,14 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QLabel, QLineEdit, QSizePolicy,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QLineEdit,
+    QSizePolicy, QVBoxLayout, QWidget)
 
 class Ui_NedDateTag(object):
     def setupUi(self, NedDateTag):
         if not NedDateTag.objectName():
             NedDateTag.setObjectName(u"NedDateTag")
-        NedDateTag.resize(400, 44)
+        NedDateTag.resize(400, 53)
         self.verticalLayout = QVBoxLayout(NedDateTag)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -46,6 +46,13 @@ class Ui_NedDateTag(object):
         self.lineedit_format.setClearButtonEnabled(False)
 
         self.verticalLayout.addWidget(self.lineedit_format)
+
+        self.line = QFrame(NedDateTag)
+        self.line.setObjectName(u"line")
+        self.line.setFrameShape(QFrame.HLine)
+        self.line.setFrameShadow(QFrame.Sunken)
+
+        self.verticalLayout.addWidget(self.line)
 
 
         self.retranslateUi(NedDateTag)

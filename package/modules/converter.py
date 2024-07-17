@@ -11,6 +11,7 @@ from mpire import WorkerPool
 # from docx2pdf import convert
 import comtypes.client
 import pythoncom
+import subprocess
 
 from pypdf import PdfWriter
 import datetime
@@ -22,6 +23,9 @@ class ElementPool:
     def __init__(self, value):
         self.value = value
 
+    def empty_function():
+        pass
+
     def get_value(self):
         return self.value
 
@@ -30,15 +34,33 @@ class Converter:
     # TODO
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
-        self.time = time.time()
+        self.t = threading.Thread()
 
-        self.t = threading.Thread(target=self.initialize_word)
+    def config_converter(self):
+        self.__obs_manager.obj_l.debug_logger("IN config_converter()")
+        app_converter = self.__obs_manager.obj_sd.get_app_converter()
+        if app_converter == "MSWORD":
+            self.run_thread_msword()
+        elif app_converter == "OPENOFFICE":
+            pass
+        elif app_converter == "LIBREOFFICE":
+            pass
+        else:
+            # TODO Выскачить сообщение, что конвертер не выбран
+            pass
+
+    def run_thread_msword(self):
+        if self.t.is_alive():
+            self.t.join()
+        self.t = threading.Thread(target=self.initialize_msword)
         self.t.start()
 
-    def initialize_word(self):
+    def initialize_msword(self):
+        self.__obs_manager.obj_l.debug_logger("IN initialize_word()")
         pythoncom.CoInitialize()
         self.__word = comtypes.client.CreateObject("Word.Application")
-        print("RESULT", time.time(), self.time, time.time() - self.time)
+        print("initialize_word is done")
+    
 
     def create_and_view_page_pdf(self, page):
         """
@@ -61,7 +83,7 @@ class Converter:
         )
         form_page_name = page.get("page_filename")
         docx_pdf_page_name = f"""page_{page.get("id_page")}_{datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')}"""
-        # TODO добыть информация для SectionInfo
+        # добыть информация для SectionInfo
         if not is_local:
             sections_info = self.__obs_manager.obj_si.get_sections_info()
         else:
@@ -234,20 +256,41 @@ class Converter:
         # преобразовать docx в pdf
         # convert(docx_path, pdf_path)
         self.convert_from_pdf_docx(docx_path, pdf_path)
-
         return pdf_path
 
     def convert_from_pdf_docx(self, docx_path, pdf_path):
         self.__obs_manager.obj_l.debug_logger(
             f"IN convert_from_pdf_docx(docx_path, pdf_path):\ndocx_path = {docx_path},\npdf_path = {pdf_path}"
         )
+        # TODO другие офисы
+        app_converter = self.__obs_manager.obj_sd.get_app_converter()
+        if app_converter == "MSWORD":
+            self.convert_from_pdf_docx_using_msword(docx_path, pdf_path)
+        elif app_converter == "OPENOFFICE":
+            ...
+        elif app_converter == "LIBREOFFICE":
+            self.convert_from_pdf_docx_using_libreoffice(docx_path, pdf_path)
+        else:
+            ...
 
+    def convert_from_pdf_docx_using_msword(self, docx_path, pdf_path):
+        self.__obs_manager.obj_l.debug_logger("IN convert_from_pdf_docx_using_msword(docx_path, pdf_path)")
         wdFormatPDF = 17
         word = comtypes.client.GetActiveObject("Word.Application")
         doc = word.Documents.Open(docx_path)
         doc.SaveAs(pdf_path, FileFormat=wdFormatPDF)
         doc.Close()
         # word.Quit()
+
+    def convert_from_pdf_docx_using_libreoffice(self, docx_path, pdf_path):
+        self.__obs_manager.obj_l.debug_logger("IN convert_from_pdf_docx_using_libreoffice(docx_path, pdf_path)")       
+        # Указание пути к LibreOffice 
+        libreoffice_path = "C:\Program Files\LibreOffice\program\soffice.exe"
+        # Команда для преобразования DOCX в PDF через LibreOffice
+        command = [libreoffice_path, '--headless', '--convert-to', 'pdf', '--outdir', pdf_path, docx_path]
+        # Запуск процесса LibreOffice с указанными параметрами
+        subprocess.run(command)
+
 
     def export_to_pdf(self, multipage_pdf_path) -> None:
         """

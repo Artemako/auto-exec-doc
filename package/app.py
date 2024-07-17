@@ -102,6 +102,8 @@ class App:
         self.obs_manager.obj_ffm.create_and_config_files_and_folders()
         # настроить БД
         self.obs_manager.obj_sd.create_and_config_db_settings()
+        # настроить concerter
+        self.obs_manager.obj_c.config_converter()
 
     def start_app(self):
         """

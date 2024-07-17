@@ -1,7 +1,6 @@
 import package.controllers.pagestemplate as pagestemplate
 
 class SectionsInfo:
-    # TODO Сделать отдел для группы и для формы (страница есть)
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager 
         self.__sections_info = []
@@ -13,7 +12,6 @@ class SectionsInfo:
     def update_sections_info(self, page):
         # обновить информацию, нужная для создания секций
         self.__sections_info.clear()
-        # TODO Тут явно переделать/добавить механику добавления информации для группы и для формы
         self.add_page_for_sections_info(page)
         template = self.__obs_manager.obj_pd.get_parent_template(page)
         self.add_template_for_sections_info(template)
@@ -38,7 +36,7 @@ class SectionsInfo:
     def add_template_for_sections_info(self, template):
         """ """
         self.__obs_manager.obj_l.debug_logger(f"IN add_template_for_datas(page):\npage = {template}")
-        # TODO 
+        
         data = self.__obs_manager.obj_pd.get_template_data(template)
         if data:
             section = {

@@ -2,6 +2,7 @@ from PySide6.QtWidgets import (
     QDialog,
     QTableWidget,
     QTableWidgetItem,
+    QAbstractItemView,
     QPushButton,
     QCheckBox,
     QHBoxLayout,
@@ -335,13 +336,15 @@ class TagsListDialogWindow(QDialog):
             table_widget.resizeColumnsToContents()
             # Запрет на редактирование
             table_widget.setEditTriggers(QTableWidget.NoEditTriggers)
-            # Обработчики событий
+            # Отключаем возможность выделения
+            table_widget.setSelectionMode(QAbstractItemView.NoSelection)
+            # table_widget событий
             # TODO Обработчики кнопок
             edit_button.clicked.connect(
                 partial(self.edit_tag, btn=edit_button)
             )
             delete_button.clicked.connect(
-                partial(self.delete_tag, btn=delete_button)
+                partial(self.delete_tag, btn=delete_button, type_table=type_table)
             )
 
     def create_tag(self):
@@ -350,15 +353,22 @@ class TagsListDialogWindow(QDialog):
         self.__obs_manager.obj_nedtdw.exec()
 
     def add_tag(self):
-        pass
-        # TODO добавление
+        # TODO ОКНО добавления
+        ...
 
     def edit_tag(self, btn):
         self.__obs_manager.obj_l.debug_logger(f"IN edit_tag(btn):\nbtn = {btn}")
         self.__obs_manager.obj_nedtdw = nedtagdialogwindow.NedTagDialogWindow(self.__obs_manager, "edit", btn.custom_data, )
         self.__obs_manager.obj_nedtdw.exec()
 
-    def delete_tag(self, btn):
-        self.__obs_manager.obj_l.debug_logger(f"IN delete_tag(btn):\nbtn = {btn}")
+    def delete_tag(self, btn, type_table):
+        self.__obs_manager.obj_l.debug_logger(f"IN delete_tag(btn, type_table):\nbtn = {btn}\ntype_table = {type_table}")
         # TODO удаление
+        print(f"btn.custom_data = {btn.custom_data}")
+        # if type_table == "all_tags":
+        #     self.__obs_manager.obj_pd.delete_tag(...)
+        #     self.clear_and_fill_table(type_table)
+        # else:
+        #     self.__obs_manager.obj_pd.delete_tag_from_group(...)
+        #     self.clear_and_fill_table(type_table)
        

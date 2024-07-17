@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QMainWindow
+from PySide6.QtWidgets import QMainWindow, QPushButton, QLabel
 from PySide6.QtPdf import QPdfDocument
 from PySide6.QtPdfWidgets import QPdfView
 from PySide6.QtGui import QShortcut, QKeySequence
@@ -14,6 +14,8 @@ class MainWindow(QMainWindow):
 
         # настройка pdfViewer
         self.config_pdf_view_in_mainwindow()
+        # настройка statusbar
+        self.config_statusbar_in_mainwindow()
         # настройка контроллеров
         self.config_controllers()
         # Подключаем действия
@@ -22,6 +24,22 @@ class MainWindow(QMainWindow):
     def config_pdf_view_in_mainwindow(self):
         self.m_document = QPdfDocument(self)
         self.ui.widget_pdf_view.setDocument(self.m_document)
+
+    def config_statusbar_in_mainwindow(self):
+        # статус работоспосбности конвертера
+        status_converter = QLabel("Статус конвертера: ...")
+        setattr(self.ui.status_bar, "status_converter", status_converter)
+        self.ui.status_bar.addPermanentWidget(status_converter)   
+        # выбранный конвертер
+        name_app_converter = QLabel("NONE")
+        setattr(self.ui.status_bar, "name_app_converter", name_app_converter)
+        self.ui.status_bar.addPermanentWidget(name_app_converter) 
+        # кнопка настройки конвертера
+        btn_setting_converter = QPushButton("Настройка конвертера")    
+        setattr(self.ui.status_bar, "btn_setting_converter", btn_setting_converter)
+        self.ui.status_bar.addPermanentWidget(btn_setting_converter) 
+        # TODO добавить активности для настройки конвертера    
+
           
     def config_controllers(self):
         """
@@ -98,4 +116,3 @@ class MainWindow(QMainWindow):
     
     def set_view_height(self, value):
         self.ui.widget_pdf_view.verticalScrollBar().setValue(value)
-

@@ -41,6 +41,7 @@ class NedTagDialogWindow(QDialog):
         self.ui.combox_typetag.currentIndexChanged.connect(
             self.on_combox_typetag_changed
         )
+        # TODO Save
 
     def on_combox_typetag_changed(self, index):
         self.__obs_manager.obj_l.debug_logger(
@@ -98,7 +99,7 @@ class NedTagDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger(
             f"IN config_additional_info(index):\nindex = {index}"
         )
-        # TODO
+        # TODO ???
         if index is None:
             index = self.find_index_by_type(self.__tag.get("type_tag"))
         self.clear_layout(self.ui.vbl_additional_info)

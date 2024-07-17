@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabwidget">
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -47,7 +47,7 @@
        <item>
         <widget class="QPushButton" name="btn_add_tag_to_project">
          <property name="text">
-          <string>Добавить тег</string>
+          <string>Добавить теги</string>
          </property>
         </widget>
        </item>
@@ -67,7 +67,7 @@
        <item>
         <widget class="QPushButton" name="btn_add_tag_to_group">
          <property name="text">
-          <string>Добавить тег</string>
+          <string>Добавить теги</string>
          </property>
         </widget>
        </item>
@@ -97,7 +97,7 @@
        <item>
         <widget class="QPushButton" name="btn_add_tag_to_template_or_page">
          <property name="text">
-          <string>Добавить тег</string>
+          <string>Добавить теги</string>
          </property>
         </widget>
        </item>

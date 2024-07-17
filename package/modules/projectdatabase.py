@@ -13,6 +13,8 @@ class ProjectDatabase:
         self.__obs_manager.obj_l.debug_logger("IN create_and_config_db_project()")
 
         if not os.path.exists(self.__obs_manager.obj_dpm.get_db_project_dirpath()):
+            # создать путь
+            os.mkdir(self.__obs_manager.obj_dpm.get_db_project_dirpath())
             # Добавляем данные в пустую БД
             self.add_tables_and_datas_to_empty_db_project()
 
@@ -258,19 +260,16 @@ COMMIT;
         conn.row_factory = sqlite3.Row
         return conn
 
-    def get_fetchall(self, cursor, conn):
+    def get_fetchall(self, cursor):
         self.__obs_manager.obj_l.debug_logger("get_fetchall(cursor, conn) -> list")
         cursor_result = cursor.fetchall()
         result = [dict(row) for row in cursor_result] if cursor_result else []
-        conn.close()
         return result
 
-    def get_fetchone(self, cursor, conn):
+    def get_fetchone(self, cursor):
         self.__obs_manager.obj_l.debug_logger("get_fetchone(cursor, conn) -> list")
         cursor_result = cursor.fetchone()
-        print(f"cursor_result = {cursor_result}")
         result = dict(cursor_result) if cursor_result else {}
-        conn.close()
         return result
 
     def get_project_node(self) -> object:
@@ -285,7 +284,8 @@ COMMIT;
         WHERE type_node = "PROJECT";
         """)
 
-        result = self.get_fetchone(cursor, conn)
+        result = self.get_fetchone(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_project_node() -> object:\nresult = {result}"
         )
@@ -303,7 +303,8 @@ COMMIT;
         WHERE type_node = "GROUP";
         """)
 
-        result = self.get_fetchall(cursor, conn)
+        result = self.get_fetchall(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_group_nodes() -> list:\nresult = {result}"
         )
@@ -318,7 +319,8 @@ COMMIT;
         WHERE type_node = "FORM";
         """)
 
-        result = self.get_fetchall(cursor, conn)
+        result = self.get_fetchall(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_form_nodes() -> list:\nresult = {result}"
         )
@@ -340,7 +342,8 @@ COMMIT;
             [parent_node.get("id_node")],
         )
 
-        result = self.get_fetchall(cursor, conn)
+        result = self.get_fetchall(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_childs(parent_node) -> list: parent_node = {parent_node}\nresult = {result}"
         )
@@ -360,7 +363,8 @@ COMMIT;
             [id_template],
         )
 
-        result = self.get_fetchone(cursor, conn)
+        result = self.get_fetchone(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_template_by_id(id_template) -> object: id_template = {id_template}\nresult = {result}"
         )
@@ -380,7 +384,8 @@ COMMIT;
             [form.get("id_node")],
         )
 
-        result = self.get_fetchall(cursor, conn)
+        result = self.get_fetchall(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_templates_by_form(form) -> list: form = {form}\nresult = {result}"
         )
@@ -400,7 +405,8 @@ COMMIT;
             [template.get("id_template")],
         )
 
-        result = self.get_fetchall(cursor, conn)
+        result = self.get_fetchall(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_pages_by_template(template) -> list: template = {template}\nresult = {result}"
         )
@@ -420,7 +426,8 @@ COMMIT;
             [page.get("id_parent_template")],
         )
 
-        result = self.get_fetchone(cursor, conn)
+        result = self.get_fetchone(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_parent_template() -> object\nresult = {result}"
         )
@@ -440,7 +447,8 @@ COMMIT;
             [template.get("id_parent_node")],
         )
 
-        result = self.get_fetchone(cursor, conn)
+        result = self.get_fetchone(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_parent_node() -> object\nresult = {result}"
         )
@@ -460,7 +468,8 @@ COMMIT;
             [node.get("id_parent")],
         )
 
-        result = self.get_fetchone(cursor, conn)
+        result = self.get_fetchone(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_node_parent(node) -> object: node = {node}\nresult = {result}"
         )
@@ -480,7 +489,8 @@ COMMIT;
             [id_node],
         )
 
-        result = self.get_fetchone(cursor, conn)
+        result = self.get_fetchone(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_node_by_id(id_node) -> object: id_node = {id_node}\nresult = {result}"
         )
@@ -499,7 +509,8 @@ COMMIT;
         """,
             [id_tag],
         )
-        result = self.get_fetchone(cursor, conn)
+        result = self.get_fetchone(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_config_tag(id_tag) -> list: id_tag = {id_tag}\nresult = {result}"
         )
@@ -518,7 +529,8 @@ COMMIT;
         """,
             [id_tag],
         )
-        result = self.get_fetchall(cursor, conn)
+        result = self.get_fetchall(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_config_date(id_tag) -> list: name_tag = {id_tag}\nresult = {result}"
         )
@@ -537,7 +549,8 @@ COMMIT;
         """,
             [id_tag],
         )
-        result = self.get_fetchall(cursor, conn)
+        result = self.get_fetchall(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_config_table(id_tag) -> list: id_tag = {id_tag}\nresult = {result}"
         )
@@ -578,7 +591,8 @@ COMMIT;
         """,
             [page.get("id_page")],
         )
-        result = self.get_fetchall(cursor, conn)
+        result = self.get_fetchall(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_page_data(page) -> list: page = {page}\nresult = {result}"
         )
@@ -595,7 +609,8 @@ COMMIT;
         SELECT * FROM Project_templates
         """
         )
-        result = self.get_fetchall(cursor, conn)
+        result = self.get_fetchall(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_templates() -> list:\nresult = {result}"
         )
@@ -615,7 +630,8 @@ COMMIT;
             [template.get("id_template")],
         )
 
-        result = self.get_fetchall(cursor, conn)
+        result = self.get_fetchall(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_template_data(template) -> list: template = {template}\nresult = {result}"
         )
@@ -635,7 +651,8 @@ COMMIT;
             [node.get("id_node")],
         )
 
-        result = self.get_fetchall(cursor, conn)
+        result = self.get_fetchall(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_node_data(node) -> list: node = {node}\nresult = {result}"
         )
@@ -697,7 +714,8 @@ COMMIT;
             [id_pair],
         )
 
-        result = self.get_fetchone(cursor, conn)
+        result = self.get_fetchone(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_page_pair_value_by_id(id_pair): id_pair = {id_pair}\nresult = {result}"
         )
@@ -717,7 +735,8 @@ COMMIT;
             [id_pair],
         )
 
-        result = self.get_fetchone(cursor, conn)
+        result = self.get_fetchone(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_node_pair_value_by_id(id_pair): id_pair = {id_pair}\nresult = {result}"
         )
@@ -756,7 +775,8 @@ COMMIT;
         SELECT * FROM Project_tag_config_list
         """
         )
-        result = self.get_fetchall(cursor, conn)
+        result = self.get_fetchall(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_project_tag_config() -> list\nresult = {result}"
         )
@@ -775,7 +795,8 @@ COMMIT;
         """,
             [id_tag],
         )
-        result = self.get_fetchall(cursor, conn)
+        result = self.get_fetchall(cursor)
+        conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"get_tag_config_by_id(id): id = {id_tag}\nresult = {result}"
         )

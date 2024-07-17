@@ -53,6 +53,7 @@ class PdfView:
 
         doc_location = QUrl.fromLocalFile(pdf_path)
         if doc_location.isLocalFile():
+            print(f"doc_location = {doc_location}")
             self.__document.load(doc_location.toLocalFile())
 
     # скроллинг по горизонтали работает с нажатой клавишей Alt

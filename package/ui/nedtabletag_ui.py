@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHeaderView, QLabel, QPushButton,
-    QSizePolicy, QTreeWidget, QTreeWidgetItem, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QFrame, QHeaderView, QLabel,
+    QPushButton, QSizePolicy, QTreeWidget, QTreeWidgetItem,
+    QVBoxLayout, QWidget)
 
 class Ui_NedTableTag(object):
     def setupUi(self, NedTableTag):
@@ -26,7 +26,7 @@ class Ui_NedTableTag(object):
         NedTableTag.resize(512, 132)
         self.verticalLayout = QVBoxLayout(NedTableTag)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(0, 0, 0, -1)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.columns = QLabel(NedTableTag)
         self.columns.setObjectName(u"columns")
         self.columns.setMinimumSize(QSize(0, 0))
@@ -46,6 +46,13 @@ class Ui_NedTableTag(object):
         self.btn_addcol.setObjectName(u"btn_addcol")
 
         self.verticalLayout.addWidget(self.btn_addcol)
+
+        self.line = QFrame(NedTableTag)
+        self.line.setObjectName(u"line")
+        self.line.setFrameShape(QFrame.HLine)
+        self.line.setFrameShadow(QFrame.Sunken)
+
+        self.verticalLayout.addWidget(self.line)
 
 
         self.retranslateUi(NedTableTag)
