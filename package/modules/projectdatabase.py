@@ -764,7 +764,7 @@ COMMIT;
         conn.close()
         
 
-    def get_project_tag_config(self) -> list:
+    def get_project_tag_config_list(self) -> list:
         """
         Запрос на получение тегов проекта.
         """
@@ -778,7 +778,7 @@ COMMIT;
         result = self.get_fetchall(cursor)
         conn.close()
         self.__obs_manager.obj_l.debug_logger(
-            f"get_project_tag_config() -> list\nresult = {result}"
+            f"get_project_tag_config_list() -> list\nresult = {result}"
         )
         return result
 
@@ -801,6 +801,26 @@ COMMIT;
             f"get_tag_config_by_id(id): id = {id_tag}\nresult = {result}"
         )
         return result
+
+    def delete_node_data(self, node):
+        """
+        Удаление всех тегов у вершины.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"delete_node_data(node): node = {node}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.executescript(
+        """
+        DELETE FROM Project_nodes_data
+        WHERE id_node = ?
+        """,
+            [node.get("id_node")],
+        )
+        conn.commit()
+        conn.close()
+
 
 
 # obj_pd = ProjectDatabase()

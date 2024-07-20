@@ -13,6 +13,7 @@ import comtypes.client
 import pythoncom
 import subprocess
 
+
 from pypdf import PdfWriter
 import datetime
 
@@ -41,8 +42,8 @@ class Converter:
         app_converter = self.__obs_manager.obj_sd.get_app_converter()
         if app_converter == "MSWORD":
             self.run_thread_msword()
-        elif app_converter == "OPENOFFICE":
-            pass
+        # elif app_converter == "OPENOFFICE":
+        #     pass
         elif app_converter == "LIBREOFFICE":
             pass
         else:
@@ -262,36 +263,42 @@ class Converter:
         self.__obs_manager.obj_l.debug_logger(
             f"IN convert_from_pdf_docx(docx_path, pdf_path):\ndocx_path = {docx_path},\npdf_path = {pdf_path}"
         )
-        # TODO другие офисы
         app_converter = self.__obs_manager.obj_sd.get_app_converter()
+        print(f"app_converter = {app_converter}")
         if app_converter == "MSWORD":
             self.convert_from_pdf_docx_using_msword(docx_path, pdf_path)
-        elif app_converter == "OPENOFFICE":
-            ...
+        # elif app_converter == "OPENOFFICE":
+        #     self.convert_from_pdf_docx_using_openoffice(docx_path, pdf_path)
         elif app_converter == "LIBREOFFICE":
             self.convert_from_pdf_docx_using_libreoffice(docx_path, pdf_path)
         else:
+            # TODO Подумать, что делать?
             ...
 
     def convert_from_pdf_docx_using_msword(self, docx_path, pdf_path):
         self.__obs_manager.obj_l.debug_logger("IN convert_from_pdf_docx_using_msword(docx_path, pdf_path)")
-        wdFormatPDF = 17
-        word = comtypes.client.GetActiveObject("Word.Application")
-        doc = word.Documents.Open(docx_path)
-        doc.SaveAs(pdf_path, FileFormat=wdFormatPDF)
-        doc.Close()
+        try:
+            wdFormatPDF = 17
+            word = comtypes.client.GetActiveObject("Word.Application")
+            doc = word.Documents.Open(docx_path)
+            doc.SaveAs(pdf_path, FileFormat=wdFormatPDF)
+            doc.Close()
+        except Exception:
+            # TODO Статус бар - подумать
+            self.__obs_manager.obj_l.error_logger("Error in convert_from_pdf_docx_using_msword(docx_path, pdf_path)")
         # word.Quit()
 
     def convert_from_pdf_docx_using_libreoffice(self, docx_path, pdf_path):
-        self.__obs_manager.obj_l.debug_logger("IN convert_from_pdf_docx_using_libreoffice(docx_path, pdf_path)")       
-        # Указание пути к LibreOffice 
-        libreoffice_path = "C:\Program Files\LibreOffice\program\soffice.exe"
-        # Команда для преобразования DOCX в PDF через LibreOffice
-        command = [libreoffice_path, '--headless', '--convert-to', 'pdf', '--outdir', pdf_path, docx_path]
-        # Запуск процесса LibreOffice с указанными параметрами
-        subprocess.run(command)
+        self.__obs_manager.obj_l.debug_logger("IN convert_from_pdf_docx_using_libreoffice(docx_path, pdf_path)")
+        try:       
+            libreoffice_path = "C:\Program Files\LibreOffice\program\soffice.exe"
+            command = [libreoffice_path, '--headless', '--convert-to', 'pdf', '--outdir', os.path.dirname(pdf_path), docx_path]
+            subprocess.run(command)
+        except Exception:
+            self.__obs_manager.obj_l.error_logger("Error in convert_from_pdf_docx_using_libreoffice(docx_path, pdf_path)")
 
 
+    
     def export_to_pdf(self, multipage_pdf_path) -> None:
         """
         Вызывается при нажатии на кнопку EXPORT после диалогового окна.
@@ -397,3 +404,5 @@ class Converter:
 
         merger.write(multipage_pdf_path)
         merger.close()
+
+

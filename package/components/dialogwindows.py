@@ -127,6 +127,15 @@ class DialogWindows:
 
         dialogwindow.exec()
 
+    def error_message(self, message: str):
+        """Диалоговое окно 'Ошибка'."""
+
+        self.__obs_manager.obj_l.debug_logger(f"IN error_message(message: str):\nmessage = {message}") 
+        dialogwindow = QMessageBox()
+        dialogwindow.setWindowTitle("Ошибка")
+        dialogwindow.setText(message)
+        dialogwindow.setIcon(QMessageBox.Critical)
+
 
     def select_name_and_dirpath_export_pdf(self) -> str:
         """Диалоговое окно 'Выберите имя и путь для экспорта в PDF'."""

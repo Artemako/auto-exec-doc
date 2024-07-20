@@ -48,6 +48,7 @@ class ObjectsManager:
         self.obj_mw = None
         self.obj_nedtdw = None
         self.obj_tldw = None
+        self.obj_csdw = None
 
     def initialize_all(self):
         """
@@ -114,8 +115,12 @@ class App:
             self.obs_manager.obj_dpm.get_templates_main_dirpath(),
         )
         self.app = QApplication(sys.argv)
+        # создание окна
         self.window = mainwindow.MainWindow(self.obs_manager)
         # подключение MainWindow к obs_manager
         self.obs_manager.obj_mw = self.window
         self.window.show()
-        sys.exit(self.app.exec())
+        # sys.exit(self.app.exec())
+        self.app.exec_()
+
+    

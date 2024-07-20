@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>825</width>
-    <height>297</height>
+    <width>1105</width>
+    <height>595</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,36 +19,18 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tab">
-      <attribute name="title">
-       <string>Все теги</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_8">
-       <item>
-        <widget class="QTableWidget" name="table_all_tags"/>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btn_create_tag">
-         <property name="text">
-          <string>Создать тег</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
      <widget class="QWidget" name="tab_project">
       <attribute name="title">
        <string>Проект</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
+      <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1">
        <item>
-        <widget class="QTableWidget" name="table_project_tags"/>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btn_add_tag_to_project">
-         <property name="text">
-          <string>Добавить теги</string>
+        <widget class="QSplitter" name="splitter_project">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
+         <widget class="QTableWidget" name="table_editor_project_tags"/>
+         <widget class="QTableWidget" name="table_project_tags"/>
         </widget>
        </item>
       </layout>
@@ -57,18 +39,17 @@
       <attribute name="title">
        <string>Группа</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_5">
+      <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <widget class="QComboBox" name="combox_groups"/>
        </item>
        <item>
-        <widget class="QTableWidget" name="table_group_tags"/>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btn_add_tag_to_group">
-         <property name="text">
-          <string>Добавить теги</string>
+        <widget class="QSplitter" name="splitter_group">
+         <property name="midLineWidth">
+          <number>0</number>
          </property>
+         <widget class="QTableWidget" name="table_editor_group_tags"/>
+         <widget class="QTableWidget" name="table_group_tags"/>
         </widget>
        </item>
       </layout>
@@ -77,9 +58,12 @@
       <attribute name="title">
        <string>Форма/Шаблон/Страница</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_6">
+      <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,1">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <layout class="QHBoxLayout" name="hl_combox" stretch="0,0,0">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetDefaultConstraint</enum>
+         </property>
          <item>
           <widget class="QComboBox" name="combox_forms"/>
          </item>
@@ -92,13 +76,12 @@
         </layout>
        </item>
        <item>
-        <widget class="QTableWidget" name="table_form_template_page_tags"/>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btn_add_tag_to_template_or_page">
-         <property name="text">
-          <string>Добавить теги</string>
+        <widget class="QSplitter" name="splitter_ftp">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
+         <widget class="QTableWidget" name="table_editor_ftp_tags"/>
+         <widget class="QTableWidget" name="table_ftp_tags"/>
         </widget>
        </item>
       </layout>
@@ -106,7 +89,7 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="hl_buttons">
      <item>
       <widget class="QPushButton" name="btn_save">
        <property name="text">

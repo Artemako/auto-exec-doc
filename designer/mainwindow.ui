@@ -64,6 +64,9 @@
            <layout class="QVBoxLayout" name="vbl_templates">
             <item>
              <widget class="QLabel" name="title_structure_execdoc">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
               <property name="text">
                <string>Название проекта</string>
               </property>
@@ -279,6 +282,7 @@
      <string>Инструменты</string>
     </property>
     <addaction name="action_edit_tags"/>
+    <addaction name="action_edit_templates"/>
    </widget>
    <addaction name="menu_file"/>
    <addaction name="menu_tools"/>
@@ -323,7 +327,7 @@
   <action name="action_new">
    <property name="icon">
     <iconset theme="document-new" resource="../resources.qrc">
-     <normaloff>:/icons/icons/add-file.svg</normaloff>:/icons/icons/add-file.svg</iconset>
+     <normaloff>:/icons/resources/icons/add-file.svg</normaloff>:/icons/resources/icons/add-file.svg</iconset>
    </property>
    <property name="text">
     <string>Новый</string>
@@ -335,7 +339,7 @@
   <action name="action_open">
    <property name="icon">
     <iconset resource="../resources.qrc">
-     <normaloff>:/icons/icons/open.svg</normaloff>:/icons/icons/open.svg</iconset>
+     <normaloff>:/icons/resources/icons/open.svg</normaloff>:/icons/resources/icons/open.svg</iconset>
    </property>
    <property name="text">
     <string>Открыть</string>
@@ -358,7 +362,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resources.qrc">
-     <normaloff>:/icons/icons/save.svg</normaloff>:/icons/icons/save.svg</iconset>
+     <normaloff>:/icons/resources/icons/save.svg</normaloff>:/icons/resources/icons/save.svg</iconset>
    </property>
    <property name="text">
     <string>Сохранить</string>
@@ -373,7 +377,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resources.qrc">
-     <normaloff>:/icons/icons/zoom-in.svg</normaloff>:/icons/icons/zoom-in.svg</iconset>
+     <normaloff>:/icons/resources/icons/zoom-in.svg</normaloff>:/icons/resources/icons/zoom-in.svg</iconset>
    </property>
    <property name="text">
     <string>Увеличить</string>
@@ -391,7 +395,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resources.qrc">
-     <normaloff>:/icons/icons/zoom-out.svg</normaloff>:/icons/icons/zoom-out.svg</iconset>
+     <normaloff>:/icons/resources/icons/zoom-out.svg</normaloff>:/icons/resources/icons/zoom-out.svg</iconset>
    </property>
    <property name="text">
     <string>Уменьшить</string>
@@ -412,7 +416,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resources.qrc">
-     <normaloff>:/icons/icons/text-editor.svg</normaloff>:/icons/icons/text-editor.svg</iconset>
+     <normaloff>:/icons/resources/icons/text-editor.svg</normaloff>:/icons/resources/icons/text-editor.svg</iconset>
    </property>
    <property name="text">
     <string>Редактор шаблонов</string>
@@ -430,7 +434,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resources.qrc">
-     <normaloff>:/icons/icons/zoom-fit-width.svg</normaloff>:/icons/icons/zoom-fit-width.svg</iconset>
+     <normaloff>:/icons/resources/icons/zoom-fit-width.svg</normaloff>:/icons/resources/icons/zoom-fit-width.svg</iconset>
    </property>
    <property name="text">
     <string>По ширине</string>
@@ -445,7 +449,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resources.qrc">
-     <normaloff>:/icons/icons/export.svg</normaloff>:/icons/icons/export.svg</iconset>
+     <normaloff>:/icons/resources/icons/export.svg</normaloff>:/icons/resources/icons/export.svg</iconset>
    </property>
    <property name="text">
     <string>Экспорт в PDF</string>
@@ -457,7 +461,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resources.qrc">
-     <normaloff>:/icons/icons/template.svg</normaloff>:/icons/icons/template.svg</iconset>
+     <normaloff>:/icons/resources/icons/template.svg</normaloff>:/icons/resources/icons/template.svg</iconset>
    </property>
    <property name="text">
     <string>Редактор шаблонов</string>

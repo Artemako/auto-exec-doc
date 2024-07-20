@@ -158,8 +158,6 @@ COMMIT;
         """
         Запрос значения app_converter из БД.
         """
-        self.__obs_manager.obj_l.debug_logger("IN get_app_converter()")
-
         conn = self.get_conn()
         cursor = conn.cursor()
 
@@ -167,6 +165,8 @@ COMMIT;
 
         result = self.get_fetchone(cursor)
         conn.close()
+        
+        self.__obs_manager.obj_l.debug_logger(f"get_app_converter():\nresult = {result}")
 
         if result is None:
             return None

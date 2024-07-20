@@ -13,9 +13,14 @@ class PdfView:
         self.__document = None
         self.__zoom = 1
 
-    def connect_pdfview(self, widget, m_document):
+    def connect_pdfview(self, widget):
         self.__widget_pdf_view = widget
-        self.__document = m_document
+        self.__document = None
+        self.config_pdf_view_in_mainwindow()
+
+    def config_pdf_view_in_mainwindow(self):
+        self.__document = QPdfDocument()
+        self.__widget_pdf_view.setDocument(self.__document)
 
     def zoom_in(self):
         self.__zoom += 0.1
@@ -41,7 +46,7 @@ class PdfView:
         self.__obs_manager.obj_l.debug_logger("set_zoom_custom()")
 
     def set_empty_pdf_view(self):
-        self.__document = self.__document.close()
+        self.__document = None
         self.__document = QPdfDocument()
         self.__widget_pdf_view.setDocument(self.__document)
         self.__obs_manager.obj_l.debug_logger("set_empty_pdf_view()")

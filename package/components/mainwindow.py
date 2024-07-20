@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QMainWindow, QPushButton, QLabel
 from PySide6.QtPdf import QPdfDocument
 from PySide6.QtPdfWidgets import QPdfView
 from PySide6.QtGui import QShortcut, QKeySequence
+from PySide6.QtCore import QTimer
 
 import package.ui.mainwindow_ui as mainwindow_ui
 
@@ -11,35 +12,10 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
         self.ui = mainwindow_ui.Ui_MainWindow()
         self.ui.setupUi(self)
-
-        # настройка pdfViewer
-        self.config_pdf_view_in_mainwindow()
-        # настройка statusbar
-        self.config_statusbar_in_mainwindow()
         # настройка контроллеров
         self.config_controllers()
         # Подключаем действия
-        self.connecting_actions()
-
-    def config_pdf_view_in_mainwindow(self):
-        self.m_document = QPdfDocument(self)
-        self.ui.widget_pdf_view.setDocument(self.m_document)
-
-    def config_statusbar_in_mainwindow(self):
-        # статус работоспосбности конвертера
-        status_converter = QLabel("Статус конвертера: ...")
-        setattr(self.ui.status_bar, "status_converter", status_converter)
-        self.ui.status_bar.addPermanentWidget(status_converter)   
-        # выбранный конвертер
-        name_app_converter = QLabel("NONE")
-        setattr(self.ui.status_bar, "name_app_converter", name_app_converter)
-        self.ui.status_bar.addPermanentWidget(name_app_converter) 
-        # кнопка настройки конвертера
-        btn_setting_converter = QPushButton("Настройка конвертера")    
-        setattr(self.ui.status_bar, "btn_setting_converter", btn_setting_converter)
-        self.ui.status_bar.addPermanentWidget(btn_setting_converter) 
-        # TODO добавить активности для настройки конвертера    
-
+        self.connecting_actions() 
           
     def config_controllers(self):
         """
@@ -61,14 +37,15 @@ class MainWindow(QMainWindow):
             self.ui.scrollarea_inputforms, self.ui.scrollarea_inputforms_layout
         )
         # ПОДКЛЮЧИТЬ PDF
-        self.__obs_manager.obj_pv.connect_pdfview(self.ui.widget_pdf_view, self.m_document)
+        self.__obs_manager.obj_pv.connect_pdfview(self.ui.widget_pdf_view)
 
-    def closeEvent(self, event):
-        self.__obs_manager.obj_l.debug_logger(f"IN closeEvent(self, event):\nevent = {event}")
+    def clear_before_end(self):
+        self.__obs_manager.obj_l.debug_logger("IN clear_before_end()")
         # удаление pdf из виджета pdfview
         self.__obs_manager.obj_pv.set_empty_pdf_view()
         # очистка временных файлов
         self.__obs_manager.obj_ffm.clear_temp_folder(True)
+        
 
     def connecting_actions(self):
         """
