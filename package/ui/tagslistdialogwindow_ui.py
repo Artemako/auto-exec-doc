@@ -19,12 +19,17 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QHBoxLayout,
     QHeaderView, QLayout, QPushButton, QSizePolicy,
     QSplitter, QTabWidget, QTableWidget, QTableWidgetItem,
     QVBoxLayout, QWidget)
+import resources_rc
 
 class Ui_TagsListDialog(object):
     def setupUi(self, TagsListDialog):
         if not TagsListDialog.objectName():
             TagsListDialog.setObjectName(u"TagsListDialog")
-        TagsListDialog.resize(1105, 595)
+        TagsListDialog.setWindowModality(Qt.ApplicationModal)
+        TagsListDialog.resize(1282, 720)
+        icon = QIcon()
+        icon.addFile(u":/icons/resources/icons/text-editor.svg", QSize(), QIcon.Normal, QIcon.Off)
+        TagsListDialog.setWindowIcon(icon)
         self.verticalLayout_2 = QVBoxLayout(TagsListDialog)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.tabwidget = QTabWidget(TagsListDialog)
@@ -59,6 +64,7 @@ class Ui_TagsListDialog(object):
         self.splitter_group = QSplitter(self.tab_group)
         self.splitter_group.setObjectName(u"splitter_group")
         self.splitter_group.setMidLineWidth(0)
+        self.splitter_group.setOrientation(Qt.Horizontal)
         self.table_editor_group_tags = QTableWidget(self.splitter_group)
         self.table_editor_group_tags.setObjectName(u"table_editor_group_tags")
         self.splitter_group.addWidget(self.table_editor_group_tags)
@@ -115,11 +121,17 @@ class Ui_TagsListDialog(object):
         self.hl_buttons.setObjectName(u"hl_buttons")
         self.btn_save = QPushButton(TagsListDialog)
         self.btn_save.setObjectName(u"btn_save")
+        icon1 = QIcon()
+        icon1.addFile(u":/icons/resources/icons/save.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_save.setIcon(icon1)
 
         self.hl_buttons.addWidget(self.btn_save)
 
         self.btn_close = QPushButton(TagsListDialog)
         self.btn_close.setObjectName(u"btn_close")
+        icon2 = QIcon()
+        icon2.addFile(u":/icons/resources/icons/close.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_close.setIcon(icon2)
 
         self.hl_buttons.addWidget(self.btn_close)
 
@@ -136,7 +148,7 @@ class Ui_TagsListDialog(object):
     # setupUi
 
     def retranslateUi(self, TagsListDialog):
-        TagsListDialog.setWindowTitle(QCoreApplication.translate("TagsListDialog", u"Dialog", None))
+        TagsListDialog.setWindowTitle(QCoreApplication.translate("TagsListDialog", u"\u0420\u0435\u0434\u0430\u043a\u0442\u043e\u0440 \u0442\u0435\u0433\u043e\u0432 \u043f\u0440\u043e\u0435\u043a\u0442\u0430", None))
         self.tabwidget.setTabText(self.tabwidget.indexOf(self.tab_project), QCoreApplication.translate("TagsListDialog", u"\u041f\u0440\u043e\u0435\u043a\u0442", None))
         self.tabwidget.setTabText(self.tabwidget.indexOf(self.tab_group), QCoreApplication.translate("TagsListDialog", u"\u0413\u0440\u0443\u043f\u043f\u0430", None))
         self.tabwidget.setTabText(self.tabwidget.indexOf(self.tab_form_template_page), QCoreApplication.translate("TagsListDialog", u"\u0424\u043e\u0440\u043c\u0430/\u0428\u0430\u0431\u043b\u043e\u043d/\u0421\u0442\u0440\u0430\u043d\u0438\u0446\u0430", None))

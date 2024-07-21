@@ -16,14 +16,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QFrame,
-    QLabel, QLineEdit, QPushButton, QSizePolicy,
-    QSpacerItem, QVBoxLayout, QWidget)
+    QHBoxLayout, QLabel, QLineEdit, QPushButton,
+    QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
+import resources_rc
 
 class Ui_NedTagDialogWindow(object):
     def setupUi(self, NedTagDialogWindow):
         if not NedTagDialogWindow.objectName():
             NedTagDialogWindow.setObjectName(u"NedTagDialogWindow")
-        NedTagDialogWindow.resize(500, 215)
+        NedTagDialogWindow.resize(530, 217)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -94,10 +95,23 @@ class Ui_NedTagDialogWindow(object):
 
         self.verticalLayout.addItem(self.verticalSpacer)
 
+        self.hl_addsaveclose = QHBoxLayout()
+        self.hl_addsaveclose.setObjectName(u"hl_addsaveclose")
         self.btn_nestag = QPushButton(NedTagDialogWindow)
         self.btn_nestag.setObjectName(u"btn_nestag")
 
-        self.verticalLayout.addWidget(self.btn_nestag)
+        self.hl_addsaveclose.addWidget(self.btn_nestag)
+
+        self.btn_close = QPushButton(NedTagDialogWindow)
+        self.btn_close.setObjectName(u"btn_close")
+        icon = QIcon()
+        icon.addFile(u":/icons/resources/icons/close.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_close.setIcon(icon)
+
+        self.hl_addsaveclose.addWidget(self.btn_close)
+
+
+        self.verticalLayout.addLayout(self.hl_addsaveclose)
 
 
         self.retranslateUi(NedTagDialogWindow)
@@ -113,5 +127,6 @@ class Ui_NedTagDialogWindow(object):
         self.lineedit_titletag.setText("")
         self.typetag.setText(QCoreApplication.translate("NedTagDialogWindow", u"<html><head/><body><p>\u0422\u0438\u043f \u0442\u044d\u0433\u0430</p></body></html>", None))
         self.btn_nestag.setText(QCoreApplication.translate("NedTagDialogWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0442\u044d\u0433", None))
+        self.btn_close.setText(QCoreApplication.translate("NedTagDialogWindow", u"\u0417\u0430\u043a\u0440\u044b\u0442\u044c", None))
     # retranslateUi
 

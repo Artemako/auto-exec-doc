@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>534</width>
+    <width>546</width>
     <height>120</height>
    </rect>
   </property>
@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Настройка конвертера</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -104,7 +104,7 @@
      <item>
       <widget class="QLabel" name="explanation">
        <property name="text">
-        <string>Выберите программу, установленную на данном устройстве, чтобы:
+        <string>Выберите программу, установленную на данном устройстве:
  - Для отображения результата в режиме реального времени
  - Для экспорта результата в PDF</string>
        </property>
@@ -128,6 +128,10 @@
        <property name="text">
         <string>Сохранить</string>
        </property>
+       <property name="icon">
+        <iconset resource="../resources.qrc">
+         <normaloff>:/icons/resources/icons/save.svg</normaloff>:/icons/resources/icons/save.svg</iconset>
+       </property>
       </widget>
      </item>
      <item>
@@ -135,12 +139,18 @@
        <property name="text">
         <string>Закрыть</string>
        </property>
+       <property name="icon">
+        <iconset resource="../resources.qrc">
+         <normaloff>:/icons/resources/icons/close.svg</normaloff>:/icons/resources/icons/close.svg</iconset>
+       </property>
       </widget>
      </item>
     </layout>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

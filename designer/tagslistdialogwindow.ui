@@ -2,16 +2,23 @@
 <ui version="4.0">
  <class>TagsListDialog</class>
  <widget class="QDialog" name="TagsListDialog">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1105</width>
-    <height>595</height>
+    <width>1282</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Редактор тегов проекта</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../resources.qrc">
+    <normaloff>:/icons/resources/icons/text-editor.svg</normaloff>:/icons/resources/icons/text-editor.svg</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -47,6 +54,9 @@
         <widget class="QSplitter" name="splitter_group">
          <property name="midLineWidth">
           <number>0</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
          <widget class="QTableWidget" name="table_editor_group_tags"/>
          <widget class="QTableWidget" name="table_group_tags"/>
@@ -95,6 +105,10 @@
        <property name="text">
         <string>Сохранить</string>
        </property>
+       <property name="icon">
+        <iconset resource="../resources.qrc">
+         <normaloff>:/icons/resources/icons/save.svg</normaloff>:/icons/resources/icons/save.svg</iconset>
+       </property>
       </widget>
      </item>
      <item>
@@ -102,12 +116,18 @@
        <property name="text">
         <string>Закрыть</string>
        </property>
+       <property name="icon">
+        <iconset resource="../resources.qrc">
+         <normaloff>:/icons/resources/icons/close.svg</normaloff>:/icons/resources/icons/close.svg</iconset>
+       </property>
       </widget>
      </item>
     </layout>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

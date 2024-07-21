@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>215</height>
+    <width>530</width>
+    <height>217</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -155,14 +155,31 @@
     </spacer>
    </item>
    <item>
-    <widget class="QPushButton" name="btn_nestag">
-     <property name="text">
-      <string>Добавить тэг</string>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="hl_addsaveclose">
+     <item>
+      <widget class="QPushButton" name="btn_nestag">
+       <property name="text">
+        <string>Добавить тэг</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_close">
+       <property name="text">
+        <string>Закрыть</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../resources.qrc">
+         <normaloff>:/icons/resources/icons/close.svg</normaloff>:/icons/resources/icons/close.svg</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

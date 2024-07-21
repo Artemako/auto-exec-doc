@@ -12,11 +12,17 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
         self.ui = mainwindow_ui.Ui_MainWindow()
         self.ui.setupUi(self)
+        # config
+        self.config()
         # настройка контроллеров
         self.config_controllers()
         # Подключаем действия
         self.connecting_actions() 
-          
+    
+    def config(self):
+        self.__obs_manager.obj_l.debug_logger("IN config()")
+        self.ui.centralwidget_splitter.setSizes([280, 460, 626])
+
     def config_controllers(self):
         """
         Method to configure controllers.

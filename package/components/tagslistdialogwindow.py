@@ -89,7 +89,6 @@ class TagsListDialogWindow(QDialog):
         self.ui.combox_pages.currentIndexChanged.connect(
             self.combox_pages_index_changed
         )
-        # TODO КНОПКИ
         self.ui.btn_close.clicked.connect(self.close)
         self.ui.btn_save.clicked.connect(self.save_changes)
         
@@ -275,7 +274,7 @@ class TagsListDialogWindow(QDialog):
 
     def clear_and_fill_combobox_template(self):
         self.__obs_manager.obj_l.debug_logger("IN clear_and_fill_combobox_template()")
-        # TODO Для определенного шаблона
+        # TODO ??? Для определенного шаблона
         form = self.ui.combox_forms.currentData()
         print(f"form = {form}")
         templates = self.__obs_manager.obj_pd.get_templates_by_form(form)
@@ -313,11 +312,12 @@ class TagsListDialogWindow(QDialog):
         self.clear_and_fill_table(type_table, editor=False)
         self.clear_and_fill_table(type_table, editor=True)
 
-
+    # TODO Разбить на функции
     def clear_and_fill_table(self, type_table, editor=False):
         self.__obs_manager.obj_l.debug_logger(
             f"IN clear_and_fill_table(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}"
         )
+        QICON_SIZE = 16
         # заполнение таблицы
         table_widget = self.get_table_by_parameters(type_table, editor)
         table_widget.setSortingEnabled(False)
@@ -341,10 +341,31 @@ class TagsListDialogWindow(QDialog):
             # setData для строки
             qtwt_name_tag = QTableWidgetItem(name_tag)
             qtwt_name_tag.setData(1001, item)
+            #
+            qtwt_title_tag = QTableWidgetItem(title_tag)
+            #
+            qtwt_type_tag = QTableWidgetItem(type_tag)
+            if type_tag == "TEXT":
+                qicon_type_tag = QIcon(":/icons/resources/icons/text.svg")
+                qicon_type_tag = qicon_type_tag.pixmap(QSize(QICON_SIZE, QICON_SIZE))
+                qtwt_type_tag.setIcon(qicon_type_tag)
+            elif type_tag == "DATE":
+                qicon_type_tag = QIcon(":/icons/resources/icons/calendar.svg")
+                qicon_type_tag = qicon_type_tag.pixmap(QSize(QICON_SIZE, QICON_SIZE))
+                qtwt_type_tag.setIcon(qicon_type_tag)
+            elif type_tag == "TABLE":
+                qicon_type_tag = QIcon(":/icons/resources/icons/table.svg")
+                qicon_type_tag = qicon_type_tag.pixmap(QSize(QICON_SIZE, QICON_SIZE))
+                qtwt_type_tag.setIcon(qicon_type_tag)
+            elif type_tag == "IMAGE":
+                qicon_type_tag = QIcon(":/icons/resources/icons/picture.svg")
+                qicon_type_tag = qicon_type_tag.pixmap(QSize(QICON_SIZE, QICON_SIZE))
+                qtwt_type_tag.setIcon(qicon_type_tag)
+            qtwt_type_tag.setText(type_tag)
             # Добавляем виджеты в ячейки таблицы
             table_widget.setItem(row, 0, qtwt_name_tag)
-            table_widget.setItem(row, 1, QTableWidgetItem(title_tag))
-            table_widget.setItem(row, 2, QTableWidgetItem(type_tag))
+            table_widget.setItem(row, 1, qtwt_title_tag)
+            table_widget.setItem(row, 2, qtwt_type_tag)
             # Настраиваем режимы изменения размера для заголовков
             header = table_widget.horizontalHeader()
             header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
@@ -363,12 +384,12 @@ class TagsListDialogWindow(QDialog):
                 # кнопки
                 edit_button = QPushButton()
                 qicon_edit_button = QIcon(":/icons/resources/icons/pen.svg")
-                qicon_edit_button = qicon_edit_button.pixmap(QSize(16, 16))
+                qicon_edit_button = qicon_edit_button.pixmap(QSize(QICON_SIZE, QICON_SIZE))
                 edit_button.setIcon(qicon_edit_button)
                 # 
                 delete_button = QPushButton()
                 qicon_delete_button = QIcon(":/icons/resources/icons/trash.svg")
-                qicon_delete_button = qicon_delete_button.pixmap(QSize(16, 16))
+                qicon_delete_button = qicon_delete_button.pixmap(QSize(QICON_SIZE, QICON_SIZE))
                 delete_button.setIcon(qicon_delete_button)   
                 #             
                 edit_button.custom_data = item
@@ -378,7 +399,7 @@ class TagsListDialogWindow(QDialog):
                 layout.addWidget(checkbtn)
                 layout.addWidget(edit_button)
                 layout.addWidget(delete_button)
-                layout.setContentsMargins(0, 0, 0, 0)
+                layout.setContentsMargins(4, 0, 0, 0)
                 widget = QWidget()
                 widget.setLayout(layout)
                 table_widget.setCellWidget(row, 4, widget)

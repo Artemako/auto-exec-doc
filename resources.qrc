@@ -1,14 +1,25 @@
 <RCC>
   <qresource prefix="icons">
+    <file>resources/icons/edit.svg</file>
+    <file>resources/icons/items-tree.svg</file>
+    <file>resources/icons/pen.svg</file>
+    <file>resources/icons/plus.svg</file>
+    <file>resources/icons/picture.svg</file>
+    <file>resources/icons/table.svg</file>
+    <file>resources/icons/table-add.svg</file>
+    <file>resources/icons/table-remove.svg</file>
+    <file>resources/icons/text.svg</file>
     <file>resources/icons/trash.svg</file>
     <file>resources/icons/add-file.svg</file>
     <file>resources/icons/export.svg</file>
     <file>resources/icons/open.svg</file>
     <file>resources/icons/save.svg</file>
+    <file>resources/icons/close.svg</file>
     <file>resources/icons/template.svg</file>
     <file>resources/icons/text-editor.svg</file>
     <file>resources/icons/zoom-fit-width.svg</file>
     <file>resources/icons/pen.svg</file>
+    <file>resources/icons/calendar.svg</file>
     <file>resources/icons/zoom-in.svg</file>
     <file>resources/icons/zoom-out.svg</file>
   </qresource>

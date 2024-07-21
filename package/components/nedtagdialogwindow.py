@@ -1,5 +1,6 @@
-from PySide6.QtWidgets import QDialog, QWidget, QLayout
-from PySide6.QtCore import QTimer
+from PySide6.QtWidgets import QDialog
+from PySide6.QtCore import QTimer, QSize
+from PySide6.QtGui import QIcon
 
 import package.ui.nedtagdialogwindow_ui as nedtagdialogwindow_ui
 
@@ -7,12 +8,15 @@ import package.components.widgets.nedtags.nedcolumntabletag as nedcolumntabletag
 import package.components.widgets.nedtags.neddatetag as neddatetag
 import package.components.widgets.nedtags.nedtabletag as nedtabletag
 
+import resources_rc
+
 
 class TagType:
-    def __init__(self, index, name_type_tag, type_tag):
+    def __init__(self, index, name_type_tag, type_tag, icon):
         self.index = index
         self.name_type_tag = name_type_tag
         self.type_tag = type_tag
+        self.icon = icon
 
 
 class NedTagDialogWindow(QDialog):
@@ -28,6 +32,7 @@ class NedTagDialogWindow(QDialog):
         self.ui.setupUi(self)
         self.ui.retranslateUi(self)
         # одноразовые действия
+        self.config_icons()
         self.config_combobox()
         self.config_by_type_window()
         self.config_maindata()
@@ -35,6 +40,29 @@ class NedTagDialogWindow(QDialog):
         self.update_additional_info()
         # подключаем действия
         self.connecting_actions()
+
+    def config_icons(self):
+        self.__obs_manager.obj_l.debug_logger("IN config_icons()")
+        QICON_SIZE = 16
+        # иконки типа тэга
+        self.qicon_text = QIcon(":/icons/resources/icons/text.svg")
+        self.qicon_date = QIcon(":/icons/resources/icons/calendar.svg")
+        self.qicon_table = QIcon(":/icons/resources/icons/table.svg")
+        self.qicon_image = QIcon(":/icons/resources/icons/picture.svg")
+        # прочее
+        self.qicon_save = QIcon(":/icons/resources/icons/save.svg")
+        self.qicon_close = QIcon(":/icons/resources/icons/close.svg")
+        self.qicon_add = QIcon(":/icons/resources/icons/plus.svg")
+        for elem in [
+            self.qicon_text,
+            self.qicon_date,
+            self.qicon_table,
+            self.qicon_image,
+            self.qicon_save,
+            self.qicon_close,
+            self.qicon_add
+        ]:
+            elem = elem.pixmap(QSize(QICON_SIZE, QICON_SIZE))
 
     def connecting_actions(self):
         self.__obs_manager.obj_l.debug_logger("IN connecting_actions()")
@@ -55,15 +83,18 @@ class NedTagDialogWindow(QDialog):
         self.ui.combox_typetag.clear()
         tag_types = self.get_tag_types()
         for tag in tag_types:
-            self.ui.combox_typetag.addItem(tag.name_type_tag, tag.type_tag)
+            self.ui.combox_typetag.addItem(tag.icon, tag.name_type_tag)
         self.ui.combox_typetag.blockSignals(False)
 
     def config_by_type_window(self):
         self.__obs_manager.obj_l.debug_logger("IN config_by_type_window()")
         if self.__type_window == "create":
             self.ui.btn_nestag.setText("Добавить тэг")
+            self.ui.btn_nestag.setIcon(self.qicon_add)
+
         elif self.__type_window == "edit":
             self.ui.btn_nestag.setText("Сохранить тэг")
+            self.ui.btn_nestag.setIcon(self.qicon_save)
 
     def config_maindata(self):
         self.__obs_manager.obj_l.debug_logger("IN fill_maindata()")
@@ -78,11 +109,12 @@ class NedTagDialogWindow(QDialog):
 
     def get_tag_types(self):
         self.__obs_manager.obj_l.debug_logger("IN get_tag_types()")
+        # tag_types
         tag_types = [
-            TagType(0, "Текст", "TEXT"),
-            TagType(1, "Дата", "DATE"),
-            TagType(2, "Таблица", "TABLE"),
-            TagType(3, "Изображение", "IMAGE"),
+            TagType(0, "Текст", "TEXT", self.qicon_text),
+            TagType(1, "Дата", "DATE", self.qicon_date),
+            TagType(2, "Таблица", "TABLE", self.qicon_table),
+            TagType(3, "Изображение", "IMAGE", self.qicon_image),
         ]
         return tag_types
 
@@ -95,7 +127,7 @@ class NedTagDialogWindow(QDialog):
             else:
                 self.clear_layout(item.layout())
 
-    def update_additional_info(self, index = None):
+    def update_additional_info(self, index=None):
         self.__obs_manager.obj_l.debug_logger(
             f"IN config_additional_info(index):\nindex = {index}"
         )
@@ -110,7 +142,7 @@ class NedTagDialogWindow(QDialog):
             new_widget = nedtabletag.NedTableTag(self.__obs_manager)
             self.ui.vbl_additional_info.addWidget(new_widget)
         elif index == 3:
-            new_widget = ...        
+            new_widget = ...
         QTimer.singleShot(0, self, lambda: self.resize_window())
 
     def resize_window(self):
@@ -119,11 +151,10 @@ class NedTagDialogWindow(QDialog):
         min_width = self.minimumWidth()
         # self.adjustSize()
         # self.adjustSize()
-        # self.resize(width, self.height())        
+        # self.resize(width, self.height())
         self.setMinimumWidth(width)
         self.adjustSize()
         self.setMinimumWidth(min_width)
-        
 
     def find_index_by_type(self, type_tag):
         self.__obs_manager.obj_l.debug_logger(
