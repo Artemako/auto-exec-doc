@@ -137,13 +137,15 @@ class Converter:
         self.__obs_manager.obj_l.debug_logger(
             f"IN type_tag_is_text(data_tag, name_tag, value):\ndata_tag = {data_tag},\nname_tag = {name_tag},\nvalue = {value}"
         )
-        data_tag[name_tag] = value
+        if value:
+            data_tag[str(name_tag)] = value
 
     def type_tag_is_date(self, data_tag, name_tag, value):
         self.__obs_manager.obj_l.debug_logger(
             f"IN type_tag_is_date(data_tag, name_tag, value):\ndata_tag = {data_tag},\nname_tag = {name_tag},\nvalue = {value}"
         )
-        data_tag[name_tag] = value
+        if value:
+            data_tag[str(name_tag)] = value
 
     def type_tag_is_image(self, data_tag, name_tag, value, docx_template):
         self.__obs_manager.obj_l.debug_logger(
@@ -158,7 +160,7 @@ class Converter:
                 )
             )
             image = InlineImage(docx_template, image_dirpath)
-            data_tag[name_tag] = image
+            data_tag[str(name_tag)] = image
 
     def type_tag_is_table(self, data_tag, name_tag, value, id_tag):
         self.__obs_manager.obj_l.debug_logger(
@@ -186,7 +188,7 @@ class Converter:
                     pt[order_to_tag_config_table.get(col)] = cell_value
                 table_values.append(pt)
         print(f"table_values = {table_values}")
-        data_tag[name_tag] = table_values
+        data_tag[str(name_tag)] = table_values
 
     def check_type_tag_and_fill_data_tag(self, pair, data_tag, docx_template):
         self.__obs_manager.obj_l.debug_logger(

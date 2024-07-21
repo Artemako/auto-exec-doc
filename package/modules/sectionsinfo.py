@@ -88,6 +88,7 @@ class SectionsInfo:
         """
         Cохранение информации в __sections_info в БД
         """
+        # FIXME: Сломалось сохранение
         self.__obs_manager.obj_l.debug_logger("IN save_data_to_database()")
         sections_info = self.__sections_info
         # перебор секций
@@ -108,16 +109,27 @@ class SectionsInfo:
     def update_data_from_pair(self, section_type, id_pair, value):
         self.__obs_manager.obj_l.debug_logger(f"IN update_data_with_pair(section_type, pair):\nsection_type = {section_type},\nid_pair = {id_pair},\nvalue = {value}")
         old_value = None
+        print(f"section_type = {section_type},\nid_pair = {id_pair},\nvalue = {value}")
         if section_type == "page":
             old_value = self.__obs_manager.obj_pd.get_page_pair_value_by_id(
                 id_pair
             )
-            self.__obs_manager.obj_pd.update_pages_data(id_pair, value)
-        elif section_type == "node":
+            self.__obs_manager.obj_pd.update_page_data(id_pair, value)
+        elif section_type == "template":
+            old_value = self.__obs_manager.obj_pd.get_template_pair_value_by_id(
+                id_pair
+            )
+            self.__obs_manager.obj_pd.update_template_data(id_pair, value)
+        elif section_type == "group":
             old_value = self.__obs_manager.obj_pd.get_node_pair_value_by_id(
                 id_pair
             )
-            self.__obs_manager.obj_pd.update_nodes_data(id_pair, value)
+            self.__obs_manager.obj_pd.update_node_data(id_pair, value)
+        elif section_type == "project":
+            old_value = self.__obs_manager.obj_pd.get_node_pair_value_by_id(
+                id_pair
+            )
+            self.__obs_manager.obj_pd.update_node_data(id_pair, value)
         return old_value
 
     def save_image(self, id_tag, old_value, value):

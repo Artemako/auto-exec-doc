@@ -658,12 +658,12 @@ COMMIT;
         )
         return result
 
-    def update_pages_data(self, id_pair, value):
+    def update_page_data(self, id_pair, value):
         """
         Запрос на обновление данных страницы в Project_pages_data.
         """
         self.__obs_manager.obj_l.debug_logger(
-            f"update_pages_data(id_pair, value): id_pair = {id_pair}, value = {value}"
+            f"update_page_data(id_pair, value): id_pair = {id_pair}, value = {value}"
         )
 
         conn = self.get_conn()
@@ -679,12 +679,33 @@ COMMIT;
         conn.commit()
         conn.close()
 
-    def update_nodes_data(self, id_pair, value):
+    def update_template_data(self, id_pair, value):
+        """
+        Запрос на обновление данных шаблона в Project_templates_data.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"update_template_data(id_pair, value): id_pair = {id_pair}, value = {value}"
+        )
+
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+        """
+        UPDATE Project_templates_data
+        SET value = ?
+        WHERE id_pair = ?
+        """,
+            [value, id_pair],
+        )
+        conn.commit()
+        conn.close()
+
+    def update_node_data(self, id_pair, value):
         """
         Запрос на обновление данных вершины в Project_nodes_data.
         """
         self.__obs_manager.obj_l.debug_logger(
-            f"update_nodes_data(id_pair, value): id_pair = {id_pair}, value = {value}"
+            f"update_node_data(id_pair, value): id_pair = {id_pair}, value = {value}"
         )
 
         conn = self.get_conn()
@@ -720,6 +741,29 @@ COMMIT;
             f"get_page_pair_value_by_id(id_pair): id_pair = {id_pair}\nresult = {result}"
         )
         return result
+
+
+    def get_template_pair_value_by_id(self, id_pair):
+        """
+        Запрос на получение значения по id_pair в Project_templates_data.
+        """
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+        """
+        SELECT value FROM Project_templates_data
+        WHERE id_pair = ?
+        """,
+            [id_pair],
+        )
+
+        result = self.get_fetchone(cursor)
+        conn.close()
+        self.__obs_manager.obj_l.debug_logger(
+            f"get_template_pair_value_by_id(id_pair): id_pair = {id_pair}\nresult = {result}"
+        )
+        return result
+
 
     def get_node_pair_value_by_id(self, id_pair):
         """
@@ -822,5 +866,134 @@ COMMIT;
         conn.close()
 
 
+    def insert_node_datas(self, node, pair_list):
+        """
+        Запрос на обновление данных вершины в Project_nodes_data.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"insert_node_datas(node, pair_list):\nnode = {node}\npair_list = {pair_list}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        for pair in pair_list:
+            cursor.execute(
+            """
+            INSERT INTO Project_nodes_data
+            (id_node, id_tag)
+            VALUES
+            (?, ?)
+            """,
+                [node.get("id_node"), pair.get("id_tag")],
+            )
+        conn.commit()
+        conn.close()
+
+    def insert_template_datas(self, template, pair_list):
+        """
+        Запрос на обновление данных вершины в Project_nodes_data.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"insert_template_datas(template, pair_list):\ntemplate = {template}\npair_list = {pair_list}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        for pair in pair_list:
+            cursor.execute(
+            """
+            INSERT INTO Project_templates_data
+            (id_template, id_tag)
+            VALUES
+            (?, ?)
+            """,
+                [template.get("id_template"), pair.get("id_tag")],
+            )
+        conn.commit()
+        conn.close()
+
+
+    def insert_page_datas(self, page, pair_list):
+        """
+        Запрос на обновление данных страницы в Project_pages_data.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"insert_page_datas(page, pair_list):\npage = {page}\npair_list = {pair_list}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        for pair in pair_list:
+            cursor.execute(
+            """
+            INSERT INTO Project_pages_data
+            (id_page, id_tag)
+            VALUES
+            (?, ?)
+            """,
+                [page.get("id_page"), pair.get("id_tag")],
+            )
+        conn.commit()
+        conn.close()
+
+    def delete_node_datas(self, node, pair_list):
+        """
+        Запрос на удаление данных вершины в Project_nodes_data.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"delete_node_datas(node, pair_list):\nnode = {node}\npair_list = {pair_list}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        for pair in pair_list:
+            cursor.execute(
+            """
+            DELETE FROM Project_nodes_data
+            WHERE id_node = ?
+            AND id_tag = ?
+            """,
+                [node.get("id_node"), pair.get("id_tag")],
+            )
+        conn.commit()
+        conn.close()
+
+    def delete_template_datas(self, template, pair_list):
+        """
+        Запрос на удаление данных вершины в Project_nodes_data.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"delete_template_datas(template, pair_list):\ntemplate = {template}\npair_list = {pair_list}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        for pair in pair_list:
+            cursor.execute(
+            """
+            DELETE FROM Project_templates_data
+            WHERE id_template = ?
+            AND id_tag = ?
+            """,
+                [template.get("id_template"), pair.get("id_tag")],
+            )
+        conn.commit()
+        conn.close()
+
+    def delete_page_datas(self, page, pair_list):
+        """
+        Запрос на удаление данных страницы в Project_pages_data.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"delete_page_datas(page, pair_list):\npage = {page}\npair_list = {pair_list}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        for pair in pair_list:
+            cursor.execute(
+            """
+            DELETE FROM Project_pages_data
+            WHERE id_page = ?
+            AND id_tag = ?
+            """,
+                [page.get("id_page"), pair.get("id_tag")],
+            )
+        conn.commit()
+        conn.close()    
 
 # obj_pd = ProjectDatabase()

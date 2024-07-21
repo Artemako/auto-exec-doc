@@ -108,6 +108,7 @@ class Project:
         """
         Сохранение проекта.
         """
+        
         self.__obs_manager.obj_l.debug_logger("IN save_project()")
         if self.__status_active and self.__obs_manager.obj_pt.is_page_template_selected():
             # сохранить в базу данных

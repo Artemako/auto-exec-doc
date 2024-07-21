@@ -320,6 +320,7 @@ class TagsListDialogWindow(QDialog):
         )
         # заполнение таблицы
         table_widget = self.get_table_by_parameters(type_table, editor)
+        table_widget.setSortingEnabled(False)
         table_widget.clear()
         # заголовки/столбцы
         if editor:
@@ -334,9 +335,9 @@ class TagsListDialogWindow(QDialog):
         header.setData(1000, data)
         table_widget.setRowCount(len(data))
         for row, item in enumerate(data):
-            name_tag = item["name_tag"]
-            title_tag = item["title_tag"]
-            type_tag = item["type_tag"]
+            name_tag = item.get("name_tag")
+            title_tag = item.get("title_tag")
+            type_tag = item.get("type_tag")
             # setData для строки
             qtwt_name_tag = QTableWidgetItem(name_tag)
             qtwt_name_tag.setData(1001, item)
@@ -419,11 +420,17 @@ class TagsListDialogWindow(QDialog):
         # else:
         #     self.__obs_manager.obj_pd.delete_tag_from_group(...)
         #     self.clear_and_fill_two_tables(type_table)
-       
-    def save_changes(self):
-        self.__obs_manager.obj_l.debug_logger("IN save_changes()")
+    
+
+    def get_current_data_table(self, type_table, editor=False):
+        table_widget = self.get_table_by_parameters(type_table, False)
+        header = table_widget.horizontalHeaderItem(0)
+        data = header.data(1000)
+        self.__obs_manager.obj_l.debug_logger(f"get_current_data_table(type_table, editor) -> list:\ntype_table = {type_table}\neditor = {editor}\ndata = {data}")
+        return data
+    
+    def get_new_data_editor_table(self, type_table):
         new_data = []
-        type_table = self.get_typetable()
         table_widget_editor = self.get_table_by_parameters(type_table, True)
         row_count = table_widget_editor.rowCount()
         for row in range(row_count):
@@ -432,38 +439,39 @@ class TagsListDialogWindow(QDialog):
             if checked:
                 item.pop("_checked")
                 new_data.append(item)
-        # TODO определить куда, удалить и вставить заново
-        print(f"new_data = {new_data}")        
-        # получить старые данные
-        table_widget = self.get_table_by_parameters(type_table, False)
-        header = table_widget.horizontalHeaderItem(0)
-        old_data = header.data(1000)
-        print(f"old_data = {old_data}")
-        # if type_table == "project_tags":
-            # TODO
-            # self.__obs_manager.obj_pd.delete_node_data(self.obj_project.project_node)
+        self.__obs_manager.obj_l.debug_logger(f"get_new_data_editor_table(type_table) -> list:\ntype_table = {type_table}\nnew_data = {new_data}")
+        return new_data
 
-        # elif type_table == "group_tags":
-        #     # TODO ???
-        #     group_node = self.ui.combox_groups.currentData()
-        #     node_data = self.__obs_manager.obj_pd.get_node_data(group_node)
-        #     for pair in node_data:
-        #         data += self.__obs_manager.obj_pd.get_tag_config_by_id(
-        #             pair.get("id_tag")
-        #         )
-        # elif type_table == "form_template_page_tags":
-        #     page = self.ui.combox_pages.currentData()
-        #     print(f"page = {page}")
-        #     if page == "all_pages":
-        #         template = self.ui.combox_templates.currentData()
-        #         template_data = self.__obs_manager.obj_pd.get_template_data(template)
-        #         for pair in template_data:
-        #             data += self.__obs_manager.obj_pd.get_tag_config_by_id(
-        #                 pair.get("id_tag")
-        #             )
-        #     else:
-        #         page_data = self.__obs_manager.obj_pd.get_page_data(page)
-        #         for pair in page_data:
-        #             data += self.__obs_manager.obj_pd.get_tag_config_by_id(
-        #                 pair.get("id_tag")
-        #             )
+    def save_changes(self):
+        self.__obs_manager.obj_l.debug_logger("IN save_changes()")
+        type_table = self.get_typetable()
+        # получить данные
+        new_data = self.get_new_data_editor_table(type_table)    
+        old_data = self.get_current_data_table(type_table, editor=False)
+        # данные для удаления 
+        ids_new_data = {item.get("id_tag") for item in new_data}
+        data_for_delete = [item for item in old_data if item.get("id_tag") not in ids_new_data]
+        # данные для добавления
+        ids_old_data = {item.get("id_tag") for item in old_data}
+        data_for_insert = [item for item in new_data if item.get("id_tag") not in ids_old_data]
+        # удаление и добавление
+        if type_table == "project_tags":
+            project_node = self.obj_project.project_node
+            self.__obs_manager.obj_pd.insert_node_datas(project_node, data_for_insert)
+            self.__obs_manager.obj_pd.delete_node_datas(project_node, data_for_delete)
+        elif type_table == "group_tags":
+            group_node = self.ui.combox_groups.currentData()
+            self.__obs_manager.obj_pd.insert_node_datas(group_node, data_for_insert)
+            self.__obs_manager.obj_pd.delete_node_datas(group_node, data_for_delete)
+        elif type_table == "form_template_page_tags":
+            page = self.ui.combox_pages.currentData()
+            if page == "all_pages":
+                template = self.ui.combox_templates.currentData()
+                self.__obs_manager.obj_pd.insert_template_datas(template, data_for_insert)
+                self.__obs_manager.obj_pd.delete_template_datas(template, data_for_delete)
+            else:
+                self.__obs_manager.obj_pd.insert_page_datas(page, data_for_insert)
+                self.__obs_manager.obj_pd.delete_page_datas(page, data_for_delete)
+
+        # обновление таблиц
+        self.clear_and_fill_two_tables(type_table)
