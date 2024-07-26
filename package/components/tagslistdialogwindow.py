@@ -60,7 +60,6 @@ class TagsListDialogWindow(QDialog):
             "list_of_form_node",
             self.__obs_manager.obj_pd.get_form_nodes(),
         )
-        # TODO
 
     def config(self):
         self.__obs_manager.obj_l.debug_logger("IN config()")
@@ -407,7 +406,6 @@ class TagsListDialogWindow(QDialog):
                 edit_button.clicked.connect(
                     partial(self.edit_tag, btn=edit_button)
                 )
-                # TODO delete_button
                 delete_button.clicked.connect(
                     partial(self.delete_tag, btn=delete_button, type_table=type_table)
                 )           
@@ -435,6 +433,8 @@ class TagsListDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger(f"IN delete_tag(btn, type_table):\nbtn = {btn}\ntype_table = {type_table}")
         # TODO удаление
         print(f"btn.custom_data = {btn.custom_data}")
+        question = self.__obs_manager.obj_dw.question_message("Вы действительно хотите удалить этот тег?")
+        print(f"question = {question}")
         # if type_table == "all_tags":
         #     self.__obs_manager.obj_pd.delete_tag(...)
         #     self.clear_and_fill_two_tables(type_table)

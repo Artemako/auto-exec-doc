@@ -1,16 +1,6 @@
 from PySide6.QtWidgets import QTreeWidgetItem
 from PySide6.QtCore import Qt
 
-
-class MyTreeWidgetItem(QTreeWidgetItem):
-    def __init__(self, parent=None, node=None):
-        super().__init__(parent)
-        self.node = node
-
-    def get_node(self):
-        return self.node
-
-
 class StructureExecDoc:
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
@@ -31,7 +21,7 @@ class StructureExecDoc:
         # Подключение сигналов
         self.__treewidget_structure_execdoc.currentItemChanged.connect(
             lambda current: self.__obs_manager.obj_pt.update_pages_template(
-                current.get_node()
+                current.data(0, Qt.UserRole)
             )
         )
         self.__treewidget_structure_execdoc.itemChanged.connect(
@@ -39,7 +29,7 @@ class StructureExecDoc:
         )
 
     def item_changed(self, item):
-        node = item.get_node()
+        node = item.data(0, Qt.UserRole)
         state = int(item.checkState(0) == Qt.Checked)
         self.set_state_included_for_child(node, item.checkState(0) == Qt.Checked)
         self.__obs_manager.obj_pd.set_included_for_node(node, state)
@@ -85,11 +75,14 @@ class StructureExecDoc:
         Поставить item в nodes_to_items.
         """
         self.__obs_manager.obj_l.debug_logger(f"IN set_item_in_nodes_to_items(node):\nnode = {node}")
+        tree_widget = self.__treewidget_structure_execdoc
         item = None
         if node.get("id_parent") == 0:
-            item = MyTreeWidgetItem(self.__treewidget_structure_execdoc, node)
+            item = QTreeWidgetItem(tree_widget)
+            item.setData(0, Qt.UserRole, node)
         else:
-            item = MyTreeWidgetItem(self.__nodes_to_items[node.get("id_parent")], node)
+            item = QTreeWidgetItem(self.__nodes_to_items[node.get("id_parent")])
+            item.setData(0, Qt.UserRole, node)
         item.setText(0, node.get("name_node"))
         # С галочкой по умолчанию
         item.setCheckState(0, Qt.Checked)

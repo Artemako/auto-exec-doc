@@ -1,8 +1,6 @@
 import os
 import time
 
-import package.components.tagslistdialogwindow as tagslistdialogwindow
-
 class Project:
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager 
@@ -197,12 +195,6 @@ class Project:
             end_time = time.time()
             self.__obs_manager.obj_l.debug_logger(f"export_to_pdf() -> time: {end_time - start_time}")
 
-
-    def edit_tags(self):
-        """ Редактирование тегов. """
-        self.__obs_manager.obj_l.debug_logger("IN edit_tags()")
-        self.__obs_manager.obj_tldw = tagslistdialogwindow.TagsListDialogWindow(self.__obs_manager)
-        self.__obs_manager.obj_tldw.exec()
 
 
 

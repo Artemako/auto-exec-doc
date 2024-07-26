@@ -47,7 +47,7 @@ class DialogWindows:
 
         dialogwindow.exec()
 
-
+    
     def select_folder_for_new_project(self) -> str:
         """Диалоговое окно выбора папки для нового проекта."""
 
@@ -124,8 +124,8 @@ class DialogWindows:
         dialogwindow.setWindowTitle("Предупреждение")
         dialogwindow.setText(message)
         dialogwindow.setIcon(QMessageBox.Warning)
-
-        dialogwindow.exec()
+        response = dialogwindow.exec()
+        return response
 
     def error_message(self, message: str):
         """Диалоговое окно 'Ошибка'."""
@@ -135,7 +135,20 @@ class DialogWindows:
         dialogwindow.setWindowTitle("Ошибка")
         dialogwindow.setText(message)
         dialogwindow.setIcon(QMessageBox.Critical)
+        response = dialogwindow.exec()
+        return response
 
+    def question_message(self, message: str):
+        """Диалоговое окно 'Вопрос'."""
+
+        self.__obs_manager.obj_l.debug_logger(f"IN question_message(message: str):\nmessage = {message}") 
+        dialogwindow = QMessageBox()
+        dialogwindow.setWindowTitle("Вопрос")
+        dialogwindow.setText(message)
+        dialogwindow.setIcon(QMessageBox.Question)
+        dialogwindow.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+        response = dialogwindow.exec()
+        return response == QMessageBox.Yes
 
     def select_name_and_dirpath_export_pdf(self) -> str:
         """Диалоговое окно 'Выберите имя и путь для экспорта в PDF'."""
@@ -160,5 +173,6 @@ class DialogWindows:
                 )
                 return None
             
+
 
 # obj_dw = DialogWindows()

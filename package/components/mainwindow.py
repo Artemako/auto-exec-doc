@@ -6,6 +6,10 @@ from PySide6.QtCore import QTimer
 
 import package.ui.mainwindow_ui as mainwindow_ui
 
+import package.components.tagslistdialogwindow as tagslistdialogwindow
+import package.components.nodeseditordialogwindow as nodeseditordialogwindow
+
+
 class MainWindow(QMainWindow):
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
@@ -22,6 +26,7 @@ class MainWindow(QMainWindow):
     def config(self):
         self.__obs_manager.obj_l.debug_logger("IN config()")
         self.ui.centralwidget_splitter.setSizes([280, 460, 626])
+        self.start_qt_actions()
 
     def config_controllers(self):
         """
@@ -75,11 +80,27 @@ class MainWindow(QMainWindow):
         )
 
         # TODO Добавить активности для редактирования
-        self.ui.action_edit_tags.triggered.connect(lambda: self.__obs_manager.obj_p.edit_tags())
+        self.ui.action_edit_tags.triggered.connect(lambda: self.edit_tags())
         #self.ui.action_edit_templates.triggered.connect(lambda: self.__obs_manager.obj_p.edit_templates())
+        self.ui.action_edit_composition.triggered.connect(
+            lambda: self.edit_composition()
+        )
 
         # shortcut = QShortcut(QKeySequence("R"), self)
         # shortcut.activated.connect(lambda: self.__obs_manager.obj_pdf_view.set_empty_pdf_view())
+
+    def start_qt_actions(self):
+        self.ui.action_new.setEnabled(True)
+        self.ui.action_open.setEnabled(True)
+        self.ui.action_save.setEnabled(False)
+        self.ui.action_saveas.setEnabled(False)
+        self.ui.action_export_to_pdf.setEnabled(False)
+        self.ui.action_edit_tags.setEnabled(False)
+        self.ui.action_edit_composition.setEnabled(False)
+        self.ui.action_edit_templates.setEnabled(False)
+        self.ui.action_zoomin.setEnabled(False)
+        self.ui.action_zoomout.setEnabled(False)
+        self.ui.action_zoomfitpage.setEnabled(False)
 
     def enable_qt_actions(self):
         """
@@ -89,6 +110,7 @@ class MainWindow(QMainWindow):
         self.ui.action_zoomin.setEnabled(True)
         self.ui.action_zoomout.setEnabled(True)
         self.ui.action_edit_tags.setEnabled(True)
+        self.ui.action_edit_composition.setEnabled(True)
         self.ui.action_zoomfitpage.setEnabled(True)
         self.ui.action_export_to_pdf.setEnabled(True)
         self.ui.action_edit_templates.setEnabled(True)
@@ -99,3 +121,17 @@ class MainWindow(QMainWindow):
     
     def set_view_height(self, value):
         self.ui.widget_pdf_view.verticalScrollBar().setValue(value)
+
+
+    def edit_tags(self):
+        """ Редактирование тегов. """
+        self.__obs_manager.obj_l.debug_logger("IN edit_tags()")
+        self.__obs_manager.obj_tldw = tagslistdialogwindow.TagsListDialogWindow(self.__obs_manager)
+        self.__obs_manager.obj_tldw.exec()
+
+
+    def edit_composition(self):
+        """ Редактирование композиции. """
+        self.__obs_manager.obj_l.debug_logger("IN edit_composition()")
+        self.__obs_manager.obj_tcdw = nodeseditordialogwindow.NodesEditorDialogWindow(self.__obs_manager)
+        self.__obs_manager.obj_tcdw.exec()

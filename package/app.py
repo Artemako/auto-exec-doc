@@ -48,6 +48,7 @@ class ObjectsManager:
         self.obj_mw = None
         self.obj_nedtdw = None
         self.obj_tldw = None
+        self.obj_tcdw = None
         self.obj_csdw = None
 
     def initialize_all(self):

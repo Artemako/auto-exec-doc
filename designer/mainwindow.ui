@@ -314,6 +314,7 @@
    <addaction name="separator"/>
    <addaction name="action_edit_tags"/>
    <addaction name="action_edit_templates"/>
+   <addaction name="action_edit_composition"/>
    <addaction name="separator"/>
    <addaction name="action_zoomin"/>
    <addaction name="action_zoomout"/>
@@ -440,7 +441,7 @@
     <string>По ширине</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::NoRole</enum>
+    <enum>QAction::TextHeuristicRole</enum>
    </property>
   </action>
   <action name="action_export_to_pdf">
@@ -467,7 +468,19 @@
     <string>Редактор шаблонов</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::NoRole</enum>
+    <enum>QAction::TextHeuristicRole</enum>
+   </property>
+  </action>
+  <action name="action_edit_composition">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/items-tree.svg</normaloff>:/icons/resources/icons/items-tree.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Редактор состава ИД</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::TextHeuristicRole</enum>
    </property>
   </action>
  </widget>
