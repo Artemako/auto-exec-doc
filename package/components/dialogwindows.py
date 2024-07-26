@@ -72,6 +72,29 @@ class DialogWindows:
                 return None
 
 
+    def select_folder_for_saveas_project(self) -> str:
+        """Диалоговое окно выбора папки для нового проекта."""
+
+        self.__obs_manager.obj_l.debug_logger("IN select_folder_for_new_project() -> str")
+
+        while True:
+            folder_path = QFileDialog.getExistingDirectory(
+                None,
+                "Выбор папки для сохранения проекта",
+                self.__obs_manager.obj_dpm.get_default_folder_projects_dirpath(),
+            )
+            if folder_path:
+                if not os.listdir(folder_path):
+                    self.__obs_manager.obj_l.debug_logger(
+                        f"select_folder_for_new_project() -> {folder_path}"
+                    )
+                    return folder_path
+                else:
+                    self.select_empty_folder()
+            else:
+                self.__obs_manager.obj_l.debug_logger(f"select_folder_for_new_project() -> {None}")
+                return None
+
     def select_folder_for_open_project(self) -> str:
         """Диалоговое окно выбора папки для открытия проекта."""
         while True:
@@ -148,7 +171,12 @@ class DialogWindows:
         dialogwindow.setIcon(QMessageBox.Question)
         dialogwindow.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
         response = dialogwindow.exec()
-        return response == QMessageBox.Yes
+        if response == QMessageBox.Yes:
+            return True
+        elif response == QMessageBox.No:
+            return False
+        else:
+            return None
 
     def select_name_and_dirpath_export_pdf(self) -> str:
         """Диалоговое окно 'Выберите имя и путь для экспорта в PDF'."""

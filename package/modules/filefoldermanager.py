@@ -12,36 +12,45 @@ class FileFolderManager:
         """
         Создание и конфигурация папок и файлов.
         """
-        self.__obs_manager.obj_l.debug_logger("IN create_and_config_files_and_folders()")
+        self.__obs_manager.obj_l.debug_logger(
+            "IN create_and_config_files_and_folders()"
+        )
         if not os.path.exists(
             self.__obs_manager.obj_dpm.get_default_folder_projects_dirpath()
         ):
-            os.mkdir(
-                self.__obs_manager.obj_dpm.get_default_folder_projects_dirpath()
-            )
+            os.mkdir(self.__obs_manager.obj_dpm.get_default_folder_projects_dirpath())
 
-    def create_folders_for_new_project(self):
+    def check_aed_file(self):
         """
-        Добавление в проект папок форм.
+        Создание файла aed.
         """
-        self.__obs_manager.obj_l.debug_logger("IN add_forms_folders_to_new_project()")
-
+        self.__obs_manager.obj_l.debug_logger("IN check_aed_file()")
         # создать указатель файл
-        aedfilename = f"{self.__obs_manager.obj_p.get_current_name()}.aed"
+        name_aed = self.__obs_manager.obj_p.get_current_name()
+        aedfilename = f"{name_aed}.aed"
         aedfilepath = os.path.join(
             self.__obs_manager.obj_dpm.get_project_dirpath(), aedfilename
         )
-        aedfile = open(aedfilepath, "a+")
-        # перевести в base64
-        message = f"{aedfilename} {aedfilepath} {datetime.datetime.now()}"
-        message_bytes = message.encode("utf-8")
-        base64_bytes = base64.b64encode(message_bytes)
-        base64_message = base64_bytes.decode("utf-8")
-        print(base64_message)
-        # записать в файл
-        aedfile.write(base64_message)
-        aedfile.close()
+        if not os.path.exists(aedfilepath):
+            aedfile = open(aedfilepath, "a+")
+            # перевести в base64
+            message = f"{aedfilename} {aedfilepath} {datetime.datetime.now()}"
+            message_bytes = message.encode("utf-8")
+            base64_bytes = base64.b64encode(message_bytes)
+            base64_message = base64_bytes.decode("utf-8")
+            print(base64_message)
+            # записать в файл
+            aedfile.write(base64_message)
+            aedfile.close()
 
+
+    def create_folders_and_aed_for_project(self):
+        """
+        Добавление в проект папок форм.
+        """
+        self.__obs_manager.obj_l.debug_logger("IN create_folders_and_aed_for_project()")
+        # файл project.aed
+        self.check_aed_file()
         # папка forms в проекте
         forms_folder_dirpath = self.__obs_manager.obj_dpm.get_forms_folder_dirpath()
 
@@ -49,9 +58,7 @@ class FileFolderManager:
             os.makedirs(forms_folder_dirpath)
 
         # папка images в проекте
-        image_folder_dirpath = (
-            self.__obs_manager.obj_dpm.get_images_folder_dirpath()
-        )
+        image_folder_dirpath = self.__obs_manager.obj_dpm.get_images_folder_dirpath()
 
         if not os.path.exists(image_folder_dirpath):
             os.makedirs(image_folder_dirpath)
@@ -72,9 +79,7 @@ class FileFolderManager:
         """
         self.__obs_manager.obj_l.debug_logger("IN copy_templates_to_forms_folder()")
 
-        templates_main_dirpath = (
-            self.__obs_manager.obj_dpm.get_templates_main_dirpath()
-        )
+        templates_main_dirpath = self.__obs_manager.obj_dpm.get_templates_main_dirpath()
         forms_folder_dirpath = self.__obs_manager.obj_dpm.get_forms_folder_dirpath()
 
         # копирование шаблонов в папку проекта forms
@@ -124,6 +129,20 @@ class FileFolderManager:
             os.remove(os.path.join(image_folder_dirpath, image_dirpath))
         except Exception as e:
             self.__obs_manager.obj_l.error_logger(e)
+
+
+    def copy_project_for_saveas(self, old_folder_path, new_folder_path):
+        self.__obs_manager.obj_l.debug_logger(
+            f"IN copy_project_for_saveas(old_folder_path, new_folder_path):\nold_folder_path = {old_folder_path},\nnew_folder_path = {new_folder_path}"
+        )
+        for f in os.listdir(old_folder_path):
+            src_path = os.path.join(old_folder_path, f)
+            dest_path = os.path.join(new_folder_path, f)
+            if os.path.isdir(src_path):
+                shutil.copytree(src_path, dest_path)
+            elif os.path.isfile(src_path):
+                if not f.endswith('.aed'):
+                    shutil.copy(src_path, dest_path)
 
 
 # obj_ffm = FileFolderManager()

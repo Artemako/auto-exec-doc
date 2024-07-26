@@ -88,7 +88,6 @@ class SectionsInfo:
         """
         Cохранение информации в __sections_info в БД
         """
-        # FIXME: Сломалось сохранение
         self.__obs_manager.obj_l.debug_logger("IN save_data_to_database()")
         sections_info = self.__sections_info
         # перебор секций

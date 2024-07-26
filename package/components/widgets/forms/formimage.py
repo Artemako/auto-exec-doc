@@ -47,7 +47,7 @@ class FormImage(QWidget):
     def set_new_value_in_pair(self, pair):
 
         image_dirpath = self.__obs_manager.obj_dw.select_image_for_formimage_in_project()
-        
+        # TODO Сделать удаление предыдущего изображения (при сохранении)
         if image_dirpath:
             # текст выбранного изображения
             self.ui.label.setText(os.path.basename(image_dirpath))  

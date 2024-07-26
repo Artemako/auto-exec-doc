@@ -93,7 +93,7 @@ class Project:
         # пути для проекта
         self.__obs_manager.obj_dpm.set_new_dirpaths_for_project()
         # добавляем папки форм в новый проект
-        self.__obs_manager.obj_ffm.create_folders_for_new_project()
+        self.__obs_manager.obj_ffm.create_folders_and_aed_for_project()
         self.__obs_manager.obj_ffm.copy_templates_to_forms_folder()
         # активируем проект
         self.set_true_actives_project()
@@ -106,17 +106,17 @@ class Project:
         """
         Сохранение проекта.
         """
-        
         self.__obs_manager.obj_l.debug_logger("IN save_project()")
-        if self.__status_active and self.__obs_manager.obj_pt.is_page_template_selected():
+        if self.__status_active:
             # сохранить в базу данных
             self.__obs_manager.obj_si.save_data_to_database()
-            # получить значение высоты страницы
-            saved_view_height = self.__obs_manager.obj_mw.get_view_height()
-            # сохранить в pdf
-            self.__obs_manager.obj_pt.current_page_to_pdf()
-            # восстановить высоту страницы
-            self.__obs_manager.obj_mw.set_view_height(saved_view_height)
+            if self.__obs_manager.obj_pt.is_page_template_selected():
+                # получить значение высоты страницы
+                saved_view_height = self.__obs_manager.obj_mw.get_view_height()
+                # сохранить в pdf
+                self.__obs_manager.obj_pt.current_page_to_pdf()
+                # восстановить высоту страницы
+                self.__obs_manager.obj_mw.set_view_height(saved_view_height)
             # настроить статус
             self.__status_save = True
             self.__obs_manager.obj_sb.set_message_for_statusbar(
@@ -129,6 +129,33 @@ class Project:
             self.__obs_manager.obj_dw.warning_message(
                 "Нечего сохранять.\nЛибо проект не открыт, либо форма не выбрана.",
             )
+
+    def saveas_project(self):
+        """
+        Сохранение проекта под новым именем или в новом месте.
+        """
+        self.__obs_manager.obj_l.debug_logger("IN saveas_project()")
+        if self.__status_active:
+            old_folder_path = self.__obs_manager.obj_dpm.get_project_dirpath()
+            # Запрашиваем новое имя или новую директорию для сохранения
+            new_folder_path = self.__obs_manager.obj_dw.select_folder_for_saveas_project()
+            if new_folder_path:
+                # Установка путей к новому проекту
+                self.set_project_dirpaths(new_folder_path)
+                # копирование проекта 
+                self.__obs_manager.obj_ffm.copy_project_for_saveas(
+                    old_folder_path, new_folder_path
+                )    
+                # открытие проекта
+                self.config_open_project()                          
+            else:
+                self.__obs_manager.obj_sb.set_message_for_statusbar("Сохранение отменено.")
+                self.__obs_manager.obj_dw.warning_message("Сохранение отменено.")
+        else:
+            self.__obs_manager.obj_sb.set_message_for_statusbar(
+                "Нечего сохранять. Либо проект не открыт, либо форма не выбрана."
+            )
+
 
     def open_project(self):
         """Открытие проекта."""
@@ -157,14 +184,14 @@ class Project:
         self.__obs_manager.obj_sed.update_structure_exec_doc()
         # пути для проекта
         self.__obs_manager.obj_dpm.set_new_dirpaths_for_project()
-        # добавляем папки в новый проект
-        self.__obs_manager.obj_ffm.create_folders_for_new_project()
 
         self.set_true_actives_project()
         # сообщение для статусбара
         self.__obs_manager.obj_sb.set_message_for_statusbar(
             f"Проект c именем {self.__current_name} открыт."
         )
+        # добавляем папки в новый проект
+        self.__obs_manager.obj_ffm.create_folders_and_aed_for_project()
 
     def open_recent_project(self):
         """Открытие недавнего проекта."""

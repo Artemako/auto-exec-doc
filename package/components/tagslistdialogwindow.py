@@ -7,7 +7,7 @@ from PySide6.QtWidgets import (
     QCheckBox,
     QHBoxLayout,
     QWidget,
-    QHeaderView
+    QHeaderView,
 )
 from PySide6.QtGui import QIcon
 from PySide6.QtCore import QSize
@@ -19,6 +19,7 @@ import package.components.nedtagdialogwindow as nedtagdialogwindow
 import package.ui.tagslistdialogwindow_ui as tagslistdialogwindow_ui
 
 import resources_rc
+
 
 class Obj:
     pass
@@ -90,17 +91,18 @@ class TagsListDialogWindow(QDialog):
         )
         self.ui.btn_close.clicked.connect(self.close)
         self.ui.btn_save.clicked.connect(self.save_changes)
-        
 
     def get_typetable(self):
-        self.__obs_manager.obj_l.debug_logger("IN get_typetable()")
+        type_table = None
         index = self.ui.tabwidget.currentIndex()
         if index == 0:
-            return "project_tags"
+            type_table = "project_tags"
         elif index == 1:
-            return "group_tags"
+            type_table = "group_tags"
         elif index == 2:
-            return "form_template_page_tags"
+            type_table = "form_template_page_tags"
+        self.__obs_manager.obj_l.debug_logger(f"get_typetable():\ntype_table = {type_table}")
+        return type_table
 
     def combox_groups_index_changed(self, index):
         self.__obs_manager.obj_l.debug_logger(
@@ -109,7 +111,6 @@ class TagsListDialogWindow(QDialog):
         # данные таблицы
         typetable = self.get_typetable()
         self.clear_and_fill_two_tables(typetable)
-
 
     def combox_forms_index_changed(self, index):
         self.__obs_manager.obj_l.debug_logger(
@@ -192,19 +193,18 @@ class TagsListDialogWindow(QDialog):
         return table_widget
 
     def get_data_by_parameters(self, type_table, editor):
-        self.__obs_manager.obj_l.debug_logger(
-            f"IN get_data_by_parameters(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}"
-        )
         # получение данных
         data = []
         if type_table == "project_tags":
             node_data = self.__obs_manager.obj_pd.get_node_data(
                 self.obj_project.project_node
             )
+            print(f"node_data = {node_data}")
             for pair in node_data:
                 data += self.__obs_manager.obj_pd.get_tag_config_by_id(
                     pair.get("id_tag")
                 )
+            print(f'data = {data}')
 
         elif type_table == "group_tags":
             # TODO ???
@@ -235,14 +235,21 @@ class TagsListDialogWindow(QDialog):
             cashe = dict()
             for pair in data:
                 cashe[pair.get("id_tag")] = pair
-            all_data = self.__obs_manager.obj_pd.get_project_tag_config_list()
+            all_data = self.__obs_manager.obj_pd.get_project_tags()
             for pair in all_data:
                 if cashe.get(pair.get("id_tag")):
                     pair["_checked"] = True
                 else:
                     pair["_checked"] = False
                 editor_data.append(pair)
+            self.__obs_manager.obj_l.debug_logger(
+                f"get_data_by_parameters(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}\neditor_data = {editor_data}"
+            )
             return editor_data
+
+        self.__obs_manager.obj_l.debug_logger(
+            f"get_data_by_parameters(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}\ndata = {data}"
+        )
         return data
 
     def clear_and_fill_combobox_group(self):
@@ -303,7 +310,6 @@ class TagsListDialogWindow(QDialog):
         self.ui.combox_pages.blockSignals(False)
         self.ui.combox_pages.show()
 
-
     def clear_and_fill_two_tables(self, type_table):
         self.__obs_manager.obj_l.debug_logger(
             f"IN clear_and_fill_two_tables(self, type_table):\ntype_table = {type_table}"
@@ -311,7 +317,6 @@ class TagsListDialogWindow(QDialog):
         self.clear_and_fill_table(type_table, editor=False)
         self.clear_and_fill_table(type_table, editor=True)
 
-    # TODO Разбить на функции
     def clear_and_fill_table(self, type_table, editor=False):
         self.__obs_manager.obj_l.debug_logger(
             f"IN clear_and_fill_table(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}"
@@ -324,7 +329,9 @@ class TagsListDialogWindow(QDialog):
         # заголовки/столбцы
         if editor:
             table_widget.setColumnCount(5)
-            table_widget.setHorizontalHeaderLabels(["Тег", "Описание", "Тип", "Вкл", "Действия"])
+            table_widget.setHorizontalHeaderLabels(
+                ["Тег", "Описание", "Тип", "Вкл", "Действия"]
+            )
         else:
             table_widget.setColumnCount(3)
             table_widget.setHorizontalHeaderLabels(["Тег", "Описание", "Тип"])
@@ -383,14 +390,18 @@ class TagsListDialogWindow(QDialog):
                 # кнопки
                 edit_button = QPushButton()
                 qicon_edit_button = QIcon(":/icons/resources/icons/pen.svg")
-                qicon_edit_button = qicon_edit_button.pixmap(QSize(QICON_SIZE, QICON_SIZE))
+                qicon_edit_button = qicon_edit_button.pixmap(
+                    QSize(QICON_SIZE, QICON_SIZE)
+                )
                 edit_button.setIcon(qicon_edit_button)
-                # 
+                #
                 delete_button = QPushButton()
                 qicon_delete_button = QIcon(":/icons/resources/icons/trash.svg")
-                qicon_delete_button = qicon_delete_button.pixmap(QSize(QICON_SIZE, QICON_SIZE))
-                delete_button.setIcon(qicon_delete_button)   
-                #             
+                qicon_delete_button = qicon_delete_button.pixmap(
+                    QSize(QICON_SIZE, QICON_SIZE)
+                )
+                delete_button.setIcon(qicon_delete_button)
+                #
                 edit_button.custom_data = item
                 delete_button.custom_data = item
                 # добавление кнопок в layout
@@ -403,12 +414,10 @@ class TagsListDialogWindow(QDialog):
                 widget.setLayout(layout)
                 table_widget.setCellWidget(row, 4, widget)
                 # обработчики
-                edit_button.clicked.connect(
-                    partial(self.edit_tag, btn=edit_button)
-                )
+                edit_button.clicked.connect(partial(self.edit_tag, btn=edit_button))
                 delete_button.clicked.connect(
                     partial(self.delete_tag, btn=delete_button, type_table=type_table)
-                )           
+                )
         # Включение сортировки
         table_widget.setSortingEnabled(True)
         # Изменение размеров столбцов
@@ -418,63 +427,76 @@ class TagsListDialogWindow(QDialog):
         # Отключаем возможность выделения
         table_widget.setSelectionMode(QAbstractItemView.NoSelection)
 
-
     def create_tag(self):
         self.__obs_manager.obj_l.debug_logger("IN create_tag()")
-        self.__obs_manager.obj_nedtdw = nedtagdialogwindow.NedTagDialogWindow(self.__obs_manager, "create")
+        self.__obs_manager.obj_nedtdw = nedtagdialogwindow.NedTagDialogWindow(
+            self.__obs_manager, "create"
+        )
         self.__obs_manager.obj_nedtdw.exec()
 
     def edit_tag(self, btn):
         self.__obs_manager.obj_l.debug_logger(f"IN edit_tag(btn):\nbtn = {btn}")
-        self.__obs_manager.obj_nedtdw = nedtagdialogwindow.NedTagDialogWindow(self.__obs_manager, "edit", btn.custom_data, )
+        self.__obs_manager.obj_nedtdw = nedtagdialogwindow.NedTagDialogWindow(
+            self.__obs_manager,
+            "edit",
+            btn.custom_data,
+        )
         self.__obs_manager.obj_nedtdw.exec()
 
     def delete_tag(self, btn, type_table):
-        self.__obs_manager.obj_l.debug_logger(f"IN delete_tag(btn, type_table):\nbtn = {btn}\ntype_table = {type_table}")
-        # TODO удаление
-        print(f"btn.custom_data = {btn.custom_data}")
-        question = self.__obs_manager.obj_dw.question_message("Вы действительно хотите удалить этот тег?")
-        print(f"question = {question}")
-        # if type_table == "all_tags":
-        #     self.__obs_manager.obj_pd.delete_tag(...)
-        #     self.clear_and_fill_two_tables(type_table)
-        # else:
-        #     self.__obs_manager.obj_pd.delete_tag_from_group(...)
-        #     self.clear_and_fill_two_tables(type_table)
-    
+        self.__obs_manager.obj_l.debug_logger(
+            f"IN delete_tag(btn, type_table):\nbtn = {btn}\ntype_table = {type_table}"
+        )
+        name_tag = btn.custom_data.get("name_tag")
+        question = self.__obs_manager.obj_dw.question_message(
+            f"Вы действительно хотите удалить этот тег ({name_tag})?"
+        )
+        if question:
+            self.__obs_manager.obj_pd.delete_tag(btn.custom_data)
+            self.clear_and_fill_two_tables(type_table)
 
     def get_current_data_table(self, type_table, editor=False):
         table_widget = self.get_table_by_parameters(type_table, False)
         header = table_widget.horizontalHeaderItem(0)
         data = header.data(1000)
-        self.__obs_manager.obj_l.debug_logger(f"get_current_data_table(type_table, editor) -> list:\ntype_table = {type_table}\neditor = {editor}\ndata = {data}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"get_current_data_table(type_table, editor) -> list:\ntype_table = {type_table}\neditor = {editor}\ndata = {data}"
+        )
         return data
-    
+
     def get_new_data_editor_table(self, type_table):
         new_data = []
         table_widget_editor = self.get_table_by_parameters(type_table, True)
         row_count = table_widget_editor.rowCount()
         for row in range(row_count):
             item = table_widget_editor.item(row, 0).data(1001)
-            checked = table_widget_editor.cellWidget(row, 4).findChild(QCheckBox).isChecked()
+            checked = (
+                table_widget_editor.cellWidget(row, 4).findChild(QCheckBox).isChecked()
+            )
             if checked:
                 item.pop("_checked")
                 new_data.append(item)
-        self.__obs_manager.obj_l.debug_logger(f"get_new_data_editor_table(type_table) -> list:\ntype_table = {type_table}\nnew_data = {new_data}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"get_new_data_editor_table(type_table) -> list:\ntype_table = {type_table}\nnew_data = {new_data}"
+        )
         return new_data
 
     def save_changes(self):
         self.__obs_manager.obj_l.debug_logger("IN save_changes()")
         type_table = self.get_typetable()
         # получить данные
-        new_data = self.get_new_data_editor_table(type_table)    
+        new_data = self.get_new_data_editor_table(type_table)
         old_data = self.get_current_data_table(type_table, editor=False)
-        # данные для удаления 
+        # данные для удаления
         ids_new_data = {item.get("id_tag") for item in new_data}
-        data_for_delete = [item for item in old_data if item.get("id_tag") not in ids_new_data]
+        data_for_delete = [
+            item for item in old_data if item.get("id_tag") not in ids_new_data
+        ]
         # данные для добавления
         ids_old_data = {item.get("id_tag") for item in old_data}
-        data_for_insert = [item for item in new_data if item.get("id_tag") not in ids_old_data]
+        data_for_insert = [
+            item for item in new_data if item.get("id_tag") not in ids_old_data
+        ]
         # удаление и добавление
         if type_table == "project_tags":
             project_node = self.obj_project.project_node
@@ -488,8 +510,12 @@ class TagsListDialogWindow(QDialog):
             page = self.ui.combox_pages.currentData()
             if page == "all_pages":
                 template = self.ui.combox_templates.currentData()
-                self.__obs_manager.obj_pd.insert_template_datas(template, data_for_insert)
-                self.__obs_manager.obj_pd.delete_template_datas(template, data_for_delete)
+                self.__obs_manager.obj_pd.insert_template_datas(
+                    template, data_for_insert
+                )
+                self.__obs_manager.obj_pd.delete_template_datas(
+                    template, data_for_delete
+                )
             else:
                 self.__obs_manager.obj_pd.insert_page_datas(page, data_for_insert)
                 self.__obs_manager.obj_pd.delete_page_datas(page, data_for_delete)

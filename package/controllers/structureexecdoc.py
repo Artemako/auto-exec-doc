@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QTreeWidgetItem
 from PySide6.QtCore import Qt
 
+
 class StructureExecDoc:
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
@@ -12,20 +13,21 @@ class StructureExecDoc:
         """
         Подключить tr_sed к контроллеру.
         """
-        self.__obs_manager.obj_l.debug_logger("IN connect_structureexecdoc(tr_sed, title_sed)")
+        self.__obs_manager.obj_l.debug_logger(
+            "IN connect_structureexecdoc(tr_sed, title_sed)"
+        )
         self.__treewidget_structure_execdoc = tr_sed
         self.__title_sed = title_sed
         # Очистить при запуске
         self.clear_sed()
 
-        # Подключение сигналов
         self.__treewidget_structure_execdoc.currentItemChanged.connect(
             lambda current: self.__obs_manager.obj_pt.update_pages_template(
-                current.data(0, Qt.UserRole)
+                current.data(0, Qt.UserRole) if current is not None else None
             )
         )
         self.__treewidget_structure_execdoc.itemChanged.connect(
-            lambda item: self.item_changed(item)
+            lambda item: self.item_changed(item) if item is not None else None
         )
 
     def item_changed(self, item):
@@ -61,7 +63,9 @@ class StructureExecDoc:
         """
         Проход по всем вершинам.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN dfs(parent_node):\nparent_node = {parent_node}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"IN dfs(parent_node):\nparent_node = {parent_node}"
+        )
         childs = self.__obs_manager.obj_pd.get_childs(parent_node)
         if childs:
             for child in childs:
@@ -74,7 +78,9 @@ class StructureExecDoc:
         """
         Поставить item в nodes_to_items.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN set_item_in_nodes_to_items(node):\nnode = {node}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"IN set_item_in_nodes_to_items(node):\nnode = {node}"
+        )
         tree_widget = self.__treewidget_structure_execdoc
         item = None
         if node.get("id_parent") == 0:
