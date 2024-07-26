@@ -94,18 +94,18 @@ class App:
         self.obs_manager.initialize_all()
         
         # настройка путей
-        self.obs_manager.obj_dpm.config_paths(
+        self.obs_manager.obj_dpm.setting_paths(
             self.current_directory
         )
         # настроить loggerpy
-        self.obs_manager.obj_l.config_logger()
+        self.obs_manager.obj_l.setting_logger()
         self.obs_manager.obj_l.debug_logger(f"self.current_directory = {self.current_directory}")
         # Проверка наличия папок.
-        self.obs_manager.obj_ffm.create_and_config_files_and_folders()
+        self.obs_manager.obj_ffm.create_and_setting_files_and_folders()
         # настроить БД
-        self.obs_manager.obj_sd.create_and_config_db_settings()
+        self.obs_manager.obj_sd.create_and_setting_db_settings()
         # настроить concerter
-        self.obs_manager.obj_c.config_converter()
+        self.obs_manager.obj_c.setting_converter()
 
     def start_app(self):
         """

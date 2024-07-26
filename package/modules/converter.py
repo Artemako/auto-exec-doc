@@ -32,13 +32,13 @@ class ElementPool:
 
 
 class Converter:
-    # TODO
+    # TODO Доделать конвертер + статусбар 
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
         self.t = threading.Thread()
 
-    def config_converter(self):
-        self.__obs_manager.obj_l.debug_logger("IN config_converter()")
+    def setting_converter(self):
+        self.__obs_manager.obj_l.debug_logger("IN setting_converter()")
         app_converter = self.__obs_manager.obj_sd.get_app_converter()
         if app_converter == "MSWORD":
             self.run_thread_msword()
@@ -151,7 +151,6 @@ class Converter:
         self.__obs_manager.obj_l.debug_logger(
             f"IN type_tag_is_image(data_tag, name_tag, value, docx_template):\ndata_tag = {data_tag},\nname_tag = {name_tag},\nvalue = {value},\ndocx_template = {docx_template}"
         )
-        # TODO контент для изображения
         if value:
             image_dirpath = os.path.abspath(
                 os.path.join(
@@ -159,6 +158,7 @@ class Converter:
                     value,
                 )
             )
+            # TODO контент для изображения
             image = InlineImage(docx_template, image_dirpath)
             data_tag[str(name_tag)] = image
 

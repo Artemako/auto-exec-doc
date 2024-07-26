@@ -7,11 +7,11 @@ class SettingsDatabase:
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager 
 
-    def create_and_config_db_settings(self):
+    def create_and_setting_db_settings(self):
         """
         Настройка базы данных перед использованием приложения
         """
-        self.__obs_manager.obj_l.debug_logger("IN create_and_config_db_settings()")
+        self.__obs_manager.obj_l.debug_logger("IN create_and_setting_db_settings()")
         if not os.path.exists(self.__obs_manager.obj_dpm.get_db_settings_dirpath()):
             # создать путь
             os.mkdir(self.__obs_manager.obj_dpm.get_db_settings_dirpath())
@@ -138,7 +138,7 @@ COMMIT;
             self.__obs_manager.obj_dpm.get_project_dirpath()
         )
         directory_project = self.__obs_manager.obj_dpm.get_project_dirpath()
-
+        print(f"name_project = {name_project}")
         # узнать, если проект в БД по имени и директории
         cursor.execute(
             "SELECT * FROM Projects WHERE name_project = ? AND directory_project = ?",
@@ -148,8 +148,8 @@ COMMIT;
 
         conn.commit()
         conn.close()
-
-        if result is None:
+        print(f"result = {result}")
+        if result == {}:
             self.add_new_project_to_db()
         else:
             self.update_project_to_db()
@@ -189,5 +189,23 @@ COMMIT;
 
         conn.commit()
         conn.close()
+
+    def get_last_projects(self) -> list:
+        """
+        Запрос последних пяти проектов из БД.
+        """
+        conn = self.get_conn()
+        cursor = conn.cursor()
+
+        cursor.execute(
+            "SELECT * FROM Projects ORDER BY date_last_open_project DESC LIMIT 5"
+        )
+
+        result = self.get_fetchall(cursor)
+        conn.close()
+
+        self.__obs_manager.obj_l.debug_logger(f"get_last_projects():\nresult = {result}")
+
+        return result
 
 # obj_sd = SettingsDatabase()

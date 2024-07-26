@@ -23,7 +23,7 @@ class DirPathManager:
         self.__images_folder_dirpath = ""
 
 
-    def config_paths(self, main_dirpath):
+    def setting_paths(self, main_dirpath):
         # путь к main.py
         self.__main_dirpath = main_dirpath
 

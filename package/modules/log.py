@@ -8,7 +8,7 @@ class Log:
         self.__obs_manager = obs_manager
         self.__logger = logging.getLogger("Main logger")
 
-    def config_logger(self):
+    def setting_logger(self):
         log_folder = self.__obs_manager.obj_dpm.get_logs_dirpath()
 
         log_file = os.path.join(

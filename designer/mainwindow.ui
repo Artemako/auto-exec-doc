@@ -266,10 +266,18 @@
     <property name="title">
      <string>Файл</string>
     </property>
+    <widget class="QMenu" name="menu_recent_projects">
+     <property name="title">
+      <string>Недавние проекты</string>
+     </property>
+    </widget>
     <addaction name="action_new"/>
     <addaction name="action_open"/>
+    <addaction name="menu_recent_projects"/>
+    <addaction name="separator"/>
     <addaction name="action_save"/>
     <addaction name="action_saveas"/>
+    <addaction name="separator"/>
     <addaction name="action_export_to_pdf"/>
    </widget>
    <widget class="QMenu" name="menu_help">

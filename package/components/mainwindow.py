@@ -1,13 +1,15 @@
 from PySide6.QtWidgets import QMainWindow, QPushButton, QLabel
 from PySide6.QtPdf import QPdfDocument
 from PySide6.QtPdfWidgets import QPdfView
-from PySide6.QtGui import QShortcut, QKeySequence
+from PySide6.QtGui import QShortcut, QKeySequence, QAction
 from PySide6.QtCore import QTimer
 
 import package.ui.mainwindow_ui as mainwindow_ui
 
 import package.components.tagslistdialogwindow as tagslistdialogwindow
 import package.components.nodeseditordialogwindow as nodeseditordialogwindow
+
+from functools import partial
 
 
 class MainWindow(QMainWindow):
@@ -27,6 +29,7 @@ class MainWindow(QMainWindow):
         self.__obs_manager.obj_l.debug_logger("IN config()")
         self.ui.centralwidget_splitter.setSizes([280, 460, 626])
         self.start_qt_actions()
+        self.update_menu_recent_projects()  
 
     def config_controllers(self):
         """
@@ -153,3 +156,20 @@ class MainWindow(QMainWindow):
         self.__obs_manager.obj_tcdw.exec()
         # TODO ??? обновить treewidget_structure_execdoc
         self.__obs_manager.obj_sed.update_structure_exec_doc()
+
+    def update_menu_recent_projects(self):
+        self.__obs_manager.obj_l.debug_logger("IN update_menu_recent_projects()")
+        self.ui.menu_recent_projects.clear()
+        last_projects = self.__obs_manager.obj_sd.get_last_projects()
+        for project in last_projects:
+            name_project = project.get("name_project")
+            action = self.ui.menu_recent_projects.addAction(name_project)
+            action.setData(project)
+            action.triggered.connect(partial(self.menu_recent_projects_action, action))
+
+    def menu_recent_projects_action(self, item):
+        self.__obs_manager.obj_l.debug_logger(
+            f"IN menu_recent_projects_action(item):\nitem = {item}"
+        )
+        project = item.data()
+        self.__obs_manager.obj_p.open_recent_project(project)

@@ -69,7 +69,16 @@ class NedTagDialogWindow(QDialog):
         self.ui.combox_typetag.currentIndexChanged.connect(
             self.on_combox_typetag_changed
         )
-        # TODO Save
+        self.ui.btn_close.clicked.connect(self.close)
+        self.ui.btn_nestag.clicked.connect(self.btn_nestag_clicked)
+        
+    def btn_nestag_clicked(self):
+        self.__obs_manager.obj_l.debug_logger("IN btn_nestag_clicked()")
+        # TODO Save (проверить на наличие дупликатов)
+        if self.__type_window == "create":
+            ...
+        elif self.__type_window == "edit":
+            ...
 
     def on_combox_typetag_changed(self, index):
         self.__obs_manager.obj_l.debug_logger(

@@ -8,12 +8,12 @@ class FileFolderManager:
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
 
-    def create_and_config_files_and_folders(self):
+    def create_and_setting_files_and_folders(self):
         """
         Создание и конфигурация папок и файлов.
         """
         self.__obs_manager.obj_l.debug_logger(
-            "IN create_and_config_files_and_folders()"
+            "IN create_and_setting_files_and_folders()"
         )
         if not os.path.exists(
             self.__obs_manager.obj_dpm.get_default_folder_projects_dirpath()
