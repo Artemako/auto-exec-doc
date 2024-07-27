@@ -104,25 +104,6 @@ class Converter:
                 self.__status_libreoffice
             )
 
-    def run_thread_msword(self):
-        if self.t.is_alive():
-            self.t.join()
-        self.t = threading.Thread(target=self.run_msword)
-        self.t.start()
-
-    def run_msword(self):
-        self.__obs_manager.obj_l.debug_logger("IN run_msword()")
-        try:
-            pythoncom.CoInitialize()
-            self.__status_msword = None
-            self.__msword = comtypes.client.CreateObject("Word.Application")
-            self.__status_msword = True
-        except Exception as e:
-            self.__obs_manager.obj_l.error_logger(f"Error in initialize_msword(): {e}")
-            self.__status_msword = False
-        if self.__obs_manager.obj_sb.get_is_active():
-            self.__obs_manager.obj_sb.update_status_msword_label(self.__status_msword)
-
     def create_and_view_page_pdf(self, page):
         """
         Вызывается при нажатии на кнопку Save.
