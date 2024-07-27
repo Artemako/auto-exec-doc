@@ -43,7 +43,6 @@ class NedTagDialogWindow(QDialog):
 
     def config_icons(self):
         self.__obs_manager.obj_l.debug_logger("IN config_icons()")
-        QICON_SIZE = 16
         # иконки типа тэга
         self.qicon_text = QIcon(":/icons/resources/icons/text.svg")
         self.qicon_date = QIcon(":/icons/resources/icons/calendar.svg")
@@ -62,7 +61,7 @@ class NedTagDialogWindow(QDialog):
             self.qicon_close,
             self.qicon_add
         ]:
-            elem = elem.pixmap(QSize(QICON_SIZE, QICON_SIZE))
+            elem = elem.pixmap(QSize(16, 16))
 
     def connecting_actions(self):
         self.__obs_manager.obj_l.debug_logger("IN connecting_actions()")
@@ -74,11 +73,22 @@ class NedTagDialogWindow(QDialog):
         
     def btn_nestag_clicked(self):
         self.__obs_manager.obj_l.debug_logger("IN btn_nestag_clicked()")
-        # TODO Save (проверить на наличие дупликатов)
         if self.__type_window == "create":
-            ...
+            self.add_new_tag()
         elif self.__type_window == "edit":
-            ...
+            self.save_edit_tag()
+
+    def add_new_tag(self):
+        self.__obs_manager.obj_l.debug_logger("IN add_new_tag()")
+        # TODO add_new_tag (проверить на наличие дупликатов) (при добавлении документа?)
+        # self.__tag = старая информация
+
+
+    def save_edit_tag(self):
+        self.__obs_manager.obj_l.debug_logger("IN save_edit_tag()")
+        # TODO Save (проверить на наличие дупликатов)
+        print(f"tag = {self.__tag}")
+        # self.__tag = старая информация
 
     def on_combox_typetag_changed(self, index):
         self.__obs_manager.obj_l.debug_logger(

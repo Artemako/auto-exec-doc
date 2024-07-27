@@ -52,3 +52,11 @@ class Log:
 
     def critical_logger(self, message: str):
         self.__logger.critical(f"\033[95m {message}\033[00m")
+
+    def disable_logging(self):
+        """Отключение логирования, удаление всех обработчиков."""
+        handlers = self.__logger.handlers[:]
+        for handler in handlers:
+            self.__logger.removeHandler(handler)
+            # Закрываем обработчик, чтобы освободить ресурсы
+            handler.close() 

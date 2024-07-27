@@ -24,7 +24,7 @@ class Ui_ConverterSettingsDialogWindow(object):
     def setupUi(self, ConverterSettingsDialogWindow):
         if not ConverterSettingsDialogWindow.objectName():
             ConverterSettingsDialogWindow.setObjectName(u"ConverterSettingsDialogWindow")
-        ConverterSettingsDialogWindow.resize(546, 120)
+        ConverterSettingsDialogWindow.resize(566, 120)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -53,11 +53,17 @@ class Ui_ConverterSettingsDialogWindow(object):
 
         self.radbtn_msword = QRadioButton(self.widget_converter)
         self.radbtn_msword.setObjectName(u"radbtn_msword")
+        icon = QIcon()
+        icon.addFile(u":/icons/resources/icons/msword.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.radbtn_msword.setIcon(icon)
 
         self.verticalLayout_2.addWidget(self.radbtn_msword)
 
         self.radbtn_libreoffice = QRadioButton(self.widget_converter)
         self.radbtn_libreoffice.setObjectName(u"radbtn_libreoffice")
+        icon1 = QIcon()
+        icon1.addFile(u":/icons/resources/icons/libreoffice.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.radbtn_libreoffice.setIcon(icon1)
 
         self.verticalLayout_2.addWidget(self.radbtn_libreoffice)
 
@@ -83,17 +89,17 @@ class Ui_ConverterSettingsDialogWindow(object):
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.btn_save = QPushButton(ConverterSettingsDialogWindow)
         self.btn_save.setObjectName(u"btn_save")
-        icon = QIcon()
-        icon.addFile(u":/icons/resources/icons/save.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_save.setIcon(icon)
+        icon2 = QIcon()
+        icon2.addFile(u":/icons/resources/icons/save.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_save.setIcon(icon2)
 
         self.horizontalLayout_3.addWidget(self.btn_save)
 
         self.btn_close = QPushButton(ConverterSettingsDialogWindow)
         self.btn_close.setObjectName(u"btn_close")
-        icon1 = QIcon()
-        icon1.addFile(u":/icons/resources/icons/close.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_close.setIcon(icon1)
+        icon3 = QIcon()
+        icon3.addFile(u":/icons/resources/icons/close.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_close.setIcon(icon3)
 
         self.horizontalLayout_3.addWidget(self.btn_close)
 

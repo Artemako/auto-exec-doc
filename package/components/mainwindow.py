@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
         self.__obs_manager.obj_l.debug_logger("IN config()")
         self.ui.centralwidget_splitter.setSizes([280, 460, 626])
         self.start_qt_actions()
-        self.update_menu_recent_projects()  
+        self.update_menu_recent_projects()
 
     def config_controllers(self):
         """

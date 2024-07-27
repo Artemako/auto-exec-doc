@@ -321,7 +321,6 @@ class TagsListDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger(
             f"IN clear_and_fill_table(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}"
         )
-        QICON_SIZE = 16
         # заполнение таблицы
         table_widget = self.get_table_by_parameters(type_table, editor)
         table_widget.setSortingEnabled(False)
@@ -353,19 +352,19 @@ class TagsListDialogWindow(QDialog):
             qtwt_type_tag = QTableWidgetItem(type_tag)
             if type_tag == "TEXT":
                 qicon_type_tag = QIcon(":/icons/resources/icons/text.svg")
-                qicon_type_tag = qicon_type_tag.pixmap(QSize(QICON_SIZE, QICON_SIZE))
+                qicon_type_tag = qicon_type_tag.pixmap(QSize(16, 16))
                 qtwt_type_tag.setIcon(qicon_type_tag)
             elif type_tag == "DATE":
                 qicon_type_tag = QIcon(":/icons/resources/icons/calendar.svg")
-                qicon_type_tag = qicon_type_tag.pixmap(QSize(QICON_SIZE, QICON_SIZE))
+                qicon_type_tag = qicon_type_tag.pixmap(QSize(16, 16))
                 qtwt_type_tag.setIcon(qicon_type_tag)
             elif type_tag == "TABLE":
                 qicon_type_tag = QIcon(":/icons/resources/icons/table.svg")
-                qicon_type_tag = qicon_type_tag.pixmap(QSize(QICON_SIZE, QICON_SIZE))
+                qicon_type_tag = qicon_type_tag.pixmap(QSize(16, 16))
                 qtwt_type_tag.setIcon(qicon_type_tag)
             elif type_tag == "IMAGE":
                 qicon_type_tag = QIcon(":/icons/resources/icons/picture.svg")
-                qicon_type_tag = qicon_type_tag.pixmap(QSize(QICON_SIZE, QICON_SIZE))
+                qicon_type_tag = qicon_type_tag.pixmap(QSize(16, 16))
                 qtwt_type_tag.setIcon(qicon_type_tag)
             qtwt_type_tag.setText(type_tag)
             # Добавляем виджеты в ячейки таблицы
@@ -391,14 +390,14 @@ class TagsListDialogWindow(QDialog):
                 edit_button = QPushButton()
                 qicon_edit_button = QIcon(":/icons/resources/icons/pen.svg")
                 qicon_edit_button = qicon_edit_button.pixmap(
-                    QSize(QICON_SIZE, QICON_SIZE)
+                    QSize(16, 16)
                 )
                 edit_button.setIcon(qicon_edit_button)
                 #
                 delete_button = QPushButton()
                 qicon_delete_button = QIcon(":/icons/resources/icons/trash.svg")
                 qicon_delete_button = qicon_delete_button.pixmap(
-                    QSize(QICON_SIZE, QICON_SIZE)
+                    QSize(16, 16)
                 )
                 delete_button.setIcon(qicon_delete_button)
                 #

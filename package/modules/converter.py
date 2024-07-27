@@ -1,9 +1,10 @@
+from PySide6.QtCore import QThread, Signal
+
 import os
 import json
 import copy
 from docxtpl import DocxTemplate, InlineImage
 
-import asyncio
 import threading
 
 from mpire import WorkerPool
@@ -17,8 +18,6 @@ import subprocess
 from pypdf import PdfWriter
 import datetime
 
-import time
-
 
 class ElementPool:
     def __init__(self, value):
@@ -31,37 +30,98 @@ class ElementPool:
         return self.value
 
 
+class MsWordThread(QThread):
+    # cигнал для обновления статуса (object - любые объекты, включая None)
+    status_changed = Signal(object)  
+
+    def __init__(self, obs_manager):
+        super().__init__()
+        self.__obs_manager = obs_manager
+        self.__status_msword = False
+
+    def run(self):
+        self.initialize_msword()
+
+    def initialize_msword(self):
+        self.__obs_manager.obj_l.debug_logger("IN MsWordThread initialize_msword()")
+        try:
+            pythoncom.CoInitialize()
+            self.__status_msword = None
+            self.status_changed.emit(self.__status_msword)
+            word = comtypes.client.CreateObject("Word.Application")
+            self.__status_msword = True
+        except Exception as e:
+            print(f"Error in initialize_msword(): {e}")
+            self.__status_msword = False
+        self.status_changed.emit(self.__status_msword)
+
+
 class Converter:
-    # TODO Доделать конвертер + статусбар 
+    # TODO Доделать конвертер + статусбар
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
-        self.t = threading.Thread()
+        self.__status_msword = False
+        self.__status_libreoffice = False
+        # экземпляр QThread
+        self.__msword_thread = MsWordThread(self.__obs_manager)  
 
     def setting_converter(self):
         self.__obs_manager.obj_l.debug_logger("IN setting_converter()")
-        app_converter = self.__obs_manager.obj_sd.get_app_converter()
-        if app_converter == "MSWORD":
-            self.run_thread_msword()
-        # elif app_converter == "OPENOFFICE":
-        #     pass
-        elif app_converter == "LIBREOFFICE":
-            pass
+        self.run_libreoffice()
+        # подключение сигнала к слоту и запуск потока
+        self.__msword_thread.status_changed.connect(self.update_status_msword)
+        self.__msword_thread.start()
+
+    def update_status_msword(self, status):
+        self.__obs_manager.obj_l.debug_logger(
+            f"update_status_msword(status):\nstatus = {status}"
+        )
+        self.__status_msword = status
+        if self.__obs_manager.obj_sb.get_is_active():
+            self.__obs_manager.obj_sb.update_status_msword_label(self.__status_msword)
+
+    def get_status_msword(self):
+        self.__obs_manager.obj_l.debug_logger(
+            f"get_status_msword():\nself.__status_msword = {self.__status_msword}"
+        )
+        return self.__status_msword
+
+    def get_status_libreoffice(self):
+        self.__obs_manager.obj_l.debug_logger(
+            f"get_status_libreoffice():\nself.__status_libreoffice = {self.__status_libreoffice}"
+        )
+        return self.__status_libreoffice   
+
+    def run_libreoffice(self):
+        self.__obs_manager.obj_l.debug_logger("IN run_libreoffice()")
+        self.__libreoffice_path = "C:\Program Files\LibreOffice\program\soffice.exe"
+        if os.path.exists(self.__libreoffice_path):
+            self.__status_libreoffice = True
         else:
-            # TODO Выскачить сообщение, что конвертер не выбран
-            pass
+            self.__status_libreoffice = False
+        if self.__obs_manager.obj_sb.get_is_active():
+            self.__obs_manager.obj_sb.update_status_libreoffice_label(
+                self.__status_libreoffice
+            )
 
     def run_thread_msword(self):
         if self.t.is_alive():
             self.t.join()
-        self.t = threading.Thread(target=self.initialize_msword)
+        self.t = threading.Thread(target=self.run_msword)
         self.t.start()
 
-    def initialize_msword(self):
-        self.__obs_manager.obj_l.debug_logger("IN initialize_word()")
-        pythoncom.CoInitialize()
-        self.__word = comtypes.client.CreateObject("Word.Application")
-        print("initialize_word is done")
-    
+    def run_msword(self):
+        self.__obs_manager.obj_l.debug_logger("IN run_msword()")
+        try:
+            pythoncom.CoInitialize()
+            self.__status_msword = None
+            self.__msword = comtypes.client.CreateObject("Word.Application")
+            self.__status_msword = True
+        except Exception as e:
+            self.__obs_manager.obj_l.error_logger(f"Error in initialize_msword(): {e}")
+            self.__status_msword = False
+        if self.__obs_manager.obj_sb.get_is_active():
+            self.__obs_manager.obj_sb.update_status_msword_label(self.__status_msword)
 
     def create_and_view_page_pdf(self, page):
         """
@@ -278,7 +338,9 @@ class Converter:
             ...
 
     def convert_from_pdf_docx_using_msword(self, docx_path, pdf_path):
-        self.__obs_manager.obj_l.debug_logger("IN convert_from_pdf_docx_using_msword(docx_path, pdf_path)")
+        self.__obs_manager.obj_l.debug_logger(
+            "IN convert_from_pdf_docx_using_msword(docx_path, pdf_path)"
+        )
         try:
             wdFormatPDF = 17
             word = comtypes.client.GetActiveObject("Word.Application")
@@ -287,20 +349,31 @@ class Converter:
             doc.Close()
         except Exception:
             # TODO Статус бар - подумать
-            self.__obs_manager.obj_l.error_logger("Error in convert_from_pdf_docx_using_msword(docx_path, pdf_path)")
+            self.__obs_manager.obj_l.error_logger(
+                "Error in convert_from_pdf_docx_using_msword(docx_path, pdf_path)"
+            )
         # word.Quit()
 
     def convert_from_pdf_docx_using_libreoffice(self, docx_path, pdf_path):
-        self.__obs_manager.obj_l.debug_logger("IN convert_from_pdf_docx_using_libreoffice(docx_path, pdf_path)")
-        try:       
-            libreoffice_path = "C:\Program Files\LibreOffice\program\soffice.exe"
-            command = [libreoffice_path, '--headless', '--convert-to', 'pdf', '--outdir', os.path.dirname(pdf_path), docx_path]
+        self.__obs_manager.obj_l.debug_logger(
+            "IN convert_from_pdf_docx_using_libreoffice(docx_path, pdf_path)"
+        )
+        try:
+            command = [
+                self.__libreoffice_path,
+                "--headless",
+                "--convert-to",
+                "pdf",
+                "--outdir",
+                os.path.dirname(pdf_path),
+                docx_path,
+            ]
             subprocess.run(command)
         except Exception:
-            self.__obs_manager.obj_l.error_logger("Error in convert_from_pdf_docx_using_libreoffice(docx_path, pdf_path)")
+            self.__obs_manager.obj_l.error_logger(
+                "Error in convert_from_pdf_docx_using_libreoffice(docx_path, pdf_path)"
+            )
 
-
-    
     def export_to_pdf(self, multipage_pdf_path) -> None:
         """
         Вызывается при нажатии на кнопку EXPORT после диалогового окна.
@@ -406,5 +479,3 @@ class Converter:
 
         merger.write(multipage_pdf_path)
         merger.close()
-
-

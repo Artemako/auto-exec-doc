@@ -1,12 +1,29 @@
-
-from PySide6.QtWidgets import QStatusBar, QLabel, QPushButton
+from PySide6.QtWidgets import (
+    QStatusBar,
+    QLabel,
+    QPushButton,
+    QHBoxLayout,
+    QWidget,
+    QStackedWidget,
+    QSpacerItem,
+    QSizePolicy,
+)
+from PySide6.QtGui import QIcon
+from PySide6.QtCore import Signal, Slot
 
 import package.components.convertersettingsdialogwindow as convertersettingsdialogwindow
+
+import resources_rc
+
 
 class StatusBar:
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
         self.__statusbar = None
+        self.__is_active = False
+
+    def get_is_active(self) -> bool:
+        return self.__is_active
 
     def connect_statusbar(self, statusbar):
         """
@@ -14,33 +31,146 @@ class StatusBar:
         """
         self.__obs_manager.obj_l.debug_logger("IN connect_statusbar(statusbar)")
         self.__statusbar = statusbar
+        self.__is_active = True
         self.config_statusbar()
         self.set_message_for_statusbar("Проект не открыт")
         self.update_name_app_converter()
         self.connecting_actions()
 
+    def config_update_statusbar(self):
+        self.__obs_manager.obj_l.debug_logger("IN config_update_statusbar()")
+        status_msword = self.__obs_manager.obj_c.get_status_msword()
+        self.update_status_msword_label(status_msword)
+        status_libreoffice = self.__obs_manager.obj_c.get_status_libreoffice()
+        self.update_status_libreoffice_label(status_libreoffice)
+
     def config_statusbar(self):
-        # статус работоспосбности конвертера
-        status_converter = QLabel("Статус конвертера: ...")
-        setattr(self.__statusbar, "status_converter", status_converter)
-        self.__statusbar.addPermanentWidget(status_converter)   
+        self.__obs_manager.obj_l.debug_logger("IN config_statusbar()")
+        # конфигурация
+        self.config_msword()
+        self.config_libreoffice()
         # выбранный конвертер
-        name_app_converter = QLabel("NONE")
-        setattr(self.__statusbar, "name_app_converter", name_app_converter)
-        self.__statusbar.addPermanentWidget(name_app_converter) 
+        self.__name_app_converter = QLabel("NONE")
+        self.__statusbar.addPermanentWidget(self.__name_app_converter)
         # кнопка настройки конвертера
-        btn_setting_converter = QPushButton("Настройка конвертера")    
-        setattr(self.__statusbar, "btn_setting_converter", btn_setting_converter)
-        self.__statusbar.addPermanentWidget(btn_setting_converter) 
-        # TODO добавить активности для настройки конвертера    
+        self.__btn_setting_converter = QPushButton("Настройка конвертера")
+        self.__statusbar.addPermanentWidget(self.__btn_setting_converter)
+        # обновить statusbar
+        self.config_update_statusbar()
+
+    def get_red_circle(self) -> QLabel:
+        icon = QIcon(":/icons/resources/icons/red-circle.svg")
+        label = QLabel()
+        label.setPixmap(icon.pixmap(8, 8))
+        self.__obs_manager.obj_l.debug_logger(
+            f"get_red_circle() -> QLabel:\nlabel = {label}"
+        )
+        return label
+
+    def get_yellow_circle(self) -> QLabel:
+        icon = QIcon(":/icons/resources/icons/yellow-circle.svg")
+        label = QLabel()
+        label.setPixmap(icon.pixmap(8, 8))
+        self.__obs_manager.obj_l.debug_logger(
+            f"get_yellow_circle() -> QLabel:\nlabel = {label}"
+        )
+        return label
+
+    def get_green_circle(self) -> QLabel:
+        icon = QIcon(":/icons/resources/icons/green-circle.svg")
+        label = QLabel()
+        label.setPixmap(icon.pixmap(8, 8))
+        self.__obs_manager.obj_l.debug_logger(
+            f"get_green_circle() -> QLabel:\nlabel = {label}"
+        )
+        return label
+
+    def config_msword(self):
+        self.__obs_manager.obj_l.debug_logger("IN config_msword()")
+        layout = QHBoxLayout()
+        # иконка приложения
+        icon = QIcon(":/icons/resources/icons/msword.svg")
+        label = QLabel()
+        label.setPixmap(icon.pixmap(16, 16))
+        layout.addWidget(label)
+        # иконка статуса
+        self.__red_msword = self.get_red_circle()
+        self.__yellow_msword = self.get_yellow_circle()
+        self.__green_msword = self.get_green_circle()
+        layout.addWidget(self.__red_msword)
+        layout.addWidget(self.__yellow_msword)
+        layout.addWidget(self.__green_msword)
+        # главный виджет
+        mw_msword = QWidget()
+        mw_msword.setLayout(layout)
+        mw_msword.setContentsMargins(0, 0, 0, 0)
+        self.__statusbar.addPermanentWidget(mw_msword)
+
+    def config_libreoffice(self):
+        self.__obs_manager.obj_l.debug_logger("IN config_libreoffice()")
+        layout = QHBoxLayout()
+        # иконка приложения
+        icon = QIcon(":/icons/resources/icons/libreoffice.svg")
+        label = QLabel()
+        label.setPixmap(icon.pixmap(16, 16))
+        layout.addWidget(label)
+        # иконка статуса
+        self.__red_libreoffice = self.get_red_circle()
+        self.__yellow_libreoffice = self.get_yellow_circle()
+        self.__green_libreoffice = self.get_green_circle()
+        layout.addWidget(self.__red_libreoffice)
+        layout.addWidget(self.__yellow_libreoffice)
+        layout.addWidget(self.__green_libreoffice)
+        # главный виджет
+        mw_libreoffice = QWidget()
+        mw_libreoffice.setLayout(layout)
+        mw_libreoffice.setContentsMargins(0, 0, 0, 0)
+        self.__statusbar.addPermanentWidget(mw_libreoffice)
 
     def set_message_for_statusbar(self, message: str):
         """
         Поставить сообщение в статусбар.
         """
         self.__statusbar.showMessage(message)
-        self.__obs_manager.obj_l.debug_logger(f"set_message_for_statusbar(message):\nmessage = {message}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"set_message_for_statusbar(message):\nmessage = {message}"
+        )
 
+    def update_status_msword_label(self, status_msword):
+        """Обновляется при запуске app"""
+        if status_msword:
+            self.__red_msword.setVisible(False)
+            self.__yellow_msword.setVisible(False)
+            self.__green_msword.setVisible(True)
+        elif status_msword is None:
+            self.__red_msword.setVisible(False)
+            self.__yellow_msword.setVisible(True)
+            self.__green_msword.setVisible(False)
+        else:
+            self.__red_msword.setVisible(True)
+            self.__yellow_msword.setVisible(False)
+            self.__green_msword.setVisible(False)
+        self.__obs_manager.obj_l.debug_logger(
+            f"update_status_status_msword_label(status_msword):\nstatus_msword = {status_msword}"
+        )
+
+    def update_status_libreoffice_label(self, status_libreoffice):
+        """Обновляется при запуске app"""
+        if status_libreoffice:
+            self.__red_libreoffice.setVisible(False)
+            self.__yellow_libreoffice.setVisible(False)
+            self.__green_libreoffice.setVisible(True)
+        elif status_libreoffice is None:
+            self.__red_libreoffice.setVisible(False)
+            self.__yellow_libreoffice.setVisible(True)
+            self.__green_libreoffice.setVisible(False)
+        else:
+            self.__red_libreoffice.setVisible(True)
+            self.__yellow_libreoffice.setVisible(False)
+            self.__green_libreoffice.setVisible(False)
+        self.__obs_manager.obj_l.debug_logger(
+            f"update_status_libreoffice_label(status_libreoffice):\nstatus_libreoffice = {status_libreoffice}"
+        )
 
     def update_name_app_converter(self):
         app_converter = self.__obs_manager.obj_sd.get_app_converter()
@@ -48,21 +178,23 @@ class StatusBar:
         name_app_converter = "None"
         if app_converter == "MSWORD":
             name_app_converter = "MS Word"
-        # elif app_converter == "OPENOFFICE":
-        #     name_app_converter = "OpenOffice"
         elif app_converter == "LIBREOFFICE":
             name_app_converter = "LibreOffice"
         print(f"name_app_converter = {name_app_converter}")
-        self.__statusbar.name_app_converter.setText(name_app_converter)
+        self.__name_app_converter.setText(name_app_converter)
         self.__obs_manager.obj_l.debug_logger("update_name_app_converter()")
 
     def connecting_actions(self):
         self.__obs_manager.obj_l.debug_logger("IN connecting_actions()")
-        self.__statusbar.btn_setting_converter.clicked.connect(self.show_converter_settings)
-        
+        self.__btn_setting_converter.clicked.connect(self.show_converter_settings)
+
     def show_converter_settings(self):
         self.__obs_manager.obj_l.debug_logger("IN show_converter_settings()")
-        self.__obs_manager.obj_csdw = convertersettingsdialogwindow.ConverterSettingsDialogWindow(self.__obs_manager)
+        self.__obs_manager.obj_csdw = (
+            convertersettingsdialogwindow.ConverterSettingsDialogWindow(
+                self.__obs_manager
+            )
+        )
         self.__obs_manager.obj_csdw.exec()
 
 

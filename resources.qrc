@@ -14,9 +14,14 @@
     <file>resources/icons/export.svg</file>
     <file>resources/icons/open.svg</file>
     <file>resources/icons/save.svg</file>
+    <file>resources/icons/libreoffice.svg</file>
+    <file>resources/icons/msword.svg</file>
     <file>resources/icons/close.svg</file>
     <file>resources/icons/template.svg</file>
     <file>resources/icons/text-editor.svg</file>
+    <file>resources/icons/green-circle.svg</file>
+    <file>resources/icons/red-circle.svg</file>
+    <file>resources/icons/yellow-circle.svg</file>
     <file>resources/icons/zoom-fit-width.svg</file>
     <file>resources/icons/pen.svg</file>
     <file>resources/icons/calendar.svg</file>
