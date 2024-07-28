@@ -5,6 +5,7 @@ import time
 class Project:
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
+        self.__obs_manager.obj_l.debug_logger("Project __init__()")
         # по умолчанию None
         self.__current_name = None
         # по умолчанию False
@@ -13,19 +14,19 @@ class Project:
 
     def get_current_name(self) -> str:
         self.__obs_manager.obj_l.debug_logger(
-            f"get_current_name() -> str: {self.__current_name}"
+            f"Project get_current_name() -> str: {self.__current_name}"
         )
         return self.__current_name
 
     def is_active_status(self) -> bool:
         self.__obs_manager.obj_l.debug_logger(
-            f"is_active_status() -> bool: {self.__status_active}"
+            f"Project is_active_status() -> bool: {self.__status_active}"
         )
         return self.__status_active
 
     def is_status_save(self) -> bool:
         self.__obs_manager.obj_l.debug_logger(
-            f"is_status_save() -> bool: {self.__status_save}"
+            f"Project is_status_save() -> bool: {self.__status_save}"
         )
         return self.__status_save
 
@@ -33,6 +34,7 @@ class Project:
         """
         Проверка текущего проекта до создания или открытия нового.
         """
+        self.__obs_manager.obj_l.debug_logger("Project check_project_before_new_or_open()")
         # появление диалогового окна, когда проект активен, но не сохранен
         if self.__status_active and not self.__status_save:
             answer = self.__obs_manager.obj_dw.save_active_project()
@@ -50,7 +52,7 @@ class Project:
         Установка пути к project.db проекта.
         """
         self.__obs_manager.obj_l.debug_logger(
-            f"IN set_project_dirpaths(folder_path: str):\nfolder_path = {folder_path}"
+            f"Project set_project_dirpaths(folder_path: str):\nfolder_path = {folder_path}"
         )
         # Установка пути к папке проекта
         self.__obs_manager.obj_dpm.set_project_dirpath(folder_path)
@@ -63,7 +65,7 @@ class Project:
         """
         Действие создание проекта.
         """
-        self.__obs_manager.obj_l.debug_logger("IN new_project()")
+        self.__obs_manager.obj_l.debug_logger("Project new_project()")
         # продолжить, если проверка успешна и не отменена
         if self.check_project_before_new_or_open():
             # выбор директории будущего проекта
@@ -74,7 +76,7 @@ class Project:
                 self.config_new_project()
 
     def clear_window_before_new_or_open_project(self):
-        self.__obs_manager.obj_l.debug_logger("IN clear_window_before_new_or_open_project()")
+        self.__obs_manager.obj_l.debug_logger("Project clear_window_before_new_or_open_project()")
         # очистка structureexecdoc
         self.__obs_manager.obj_sed.clear_sed()
         # очистка pages_template
@@ -89,7 +91,7 @@ class Project:
         """
         Конфигурация нового проекта.
         """
-        self.__obs_manager.obj_l.debug_logger("IN config_new_project()")
+        self.__obs_manager.obj_l.debug_logger("Project config_new_project()")
 
         self.__current_name = os.path.basename(
             self.__obs_manager.obj_dpm.get_project_dirpath()
@@ -119,7 +121,7 @@ class Project:
         """
         Сохранение проекта.
         """
-        self.__obs_manager.obj_l.debug_logger("IN save_project()")
+        self.__obs_manager.obj_l.debug_logger("Project save_project()")
         if self.__status_active:
             # сохранить в базу данных
             self.__obs_manager.obj_si.save_data_to_database()
@@ -147,7 +149,7 @@ class Project:
         """
         Сохранение проекта под новым именем или в новом месте.
         """
-        self.__obs_manager.obj_l.debug_logger("IN saveas_project()")
+        self.__obs_manager.obj_l.debug_logger("Project saveas_project()")
         if self.__status_active:
             old_folder_path = self.__obs_manager.obj_dpm.get_project_dirpath()
             # Запрашиваем новое имя или новую директорию для сохранения
@@ -175,7 +177,7 @@ class Project:
 
     def open_project(self):
         """Открытие проекта."""
-        self.__obs_manager.obj_l.debug_logger("IN open_project()")
+        self.__obs_manager.obj_l.debug_logger("Project open_project()")
         # продолжить, если проверка успешна и не отменена
         if self.check_project_before_new_or_open():
             # выбор директории будущего проекта
@@ -189,7 +191,7 @@ class Project:
         """
         Конфигурация открытого проекта.
         """
-        self.__obs_manager.obj_l.debug_logger("IN config_open_project()")
+        self.__obs_manager.obj_l.debug_logger("Project config_open_project()")
 
         self.__current_name = os.path.basename(
             self.__obs_manager.obj_dpm.get_project_dirpath()
@@ -215,7 +217,7 @@ class Project:
     def open_recent_project(self, project):
         """Открытие недавнего проекта."""
         self.__obs_manager.obj_l.debug_logger(
-            f"IN open_recent_project(project):\nproject = {project}"
+            f"Project open_recent_project(project):\nproject = {project}"
         )
         directory_project = project.get("directory_project")
         if os.path.exists(directory_project):
@@ -231,7 +233,7 @@ class Project:
         """
         Задает активность проекта.
         """
-        self.__obs_manager.obj_l.debug_logger("IN set_true_actives_project()")
+        self.__obs_manager.obj_l.debug_logger("Project set_true_actives_project()")
         self.__status_active = True
         self.__status_save = True
         # активировать qactions в статусбаре
@@ -241,7 +243,7 @@ class Project:
         """
         Экспорт проекта в pdf.
         """
-        self.__obs_manager.obj_l.debug_logger("IN export_to_pdf()")
+        self.__obs_manager.obj_l.debug_logger("Project export_to_pdf()")
         multipage_pdf_path = (
             self.__obs_manager.obj_dw.select_name_and_dirpath_export_pdf()
         )
@@ -253,7 +255,7 @@ class Project:
             self.__obs_manager.obj_c.export_to_pdf(multipage_pdf_path)
             end_time = time.time()
             self.__obs_manager.obj_l.debug_logger(
-                f"export_to_pdf() -> time: {end_time - start_time}"
+                f"Project export_to_pdf() -> time: {end_time - start_time}"
             )
 
 

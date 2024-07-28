@@ -5,6 +5,7 @@ from PySide6.QtCore import Qt
 class StructureExecDoc:
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
+        self.__obs_manager.obj_l.debug_logger("StructureExecDoc __init__()")
         self.__treewidget_structure_execdoc = None
         self.__title_sed = None
         self.__nodes_to_items = dict()
@@ -14,7 +15,7 @@ class StructureExecDoc:
         Подключить tr_sed к контроллеру.
         """
         self.__obs_manager.obj_l.debug_logger(
-            "IN connect_structureexecdoc(tr_sed, title_sed)"
+            "StructureExecDoc connect_structureexecdoc(tr_sed, title_sed)"
         )
         self.__treewidget_structure_execdoc = tr_sed
         self.__title_sed = title_sed
@@ -31,6 +32,9 @@ class StructureExecDoc:
         )
 
     def item_changed(self, item):
+        self.__obs_manager.obj_l.debug_logger(
+            f"StructureExecDoc item_changed(item):\nitem = {item}"
+        )
         node = item.data(0, Qt.UserRole)
         state = int(item.checkState(0) == Qt.Checked)
         self.set_state_included_for_child(node, item.checkState(0) == Qt.Checked)
@@ -40,16 +44,20 @@ class StructureExecDoc:
         """
         Очистить дерево
         """
-        self.__obs_manager.obj_l.debug_logger("IN clear_tr_sed()")
+        self.__obs_manager.obj_l.debug_logger("StructureExecDoc clear_tr_sed()")
+        self.__treewidget_structure_execdoc.blockSignals(True)
         self.__treewidget_structure_execdoc.clear()
         self.__treewidget_structure_execdoc.setHeaderLabels([""])
+        self.__treewidget_structure_execdoc.blockSignals(False)
         self.__title_sed.setText("Проект не выбран")
 
     def update_structure_exec_doc(self):
         """
         Создает структуру дерева ИД
         """
-        self.__obs_manager.obj_l.debug_logger("IN update_structure_exec_doc()")
+        self.__obs_manager.obj_l.debug_logger(
+            "StructureExecDoc update_structure_exec_doc()"
+        )
         # очистка
         self.clear_sed()
         # Задать название столбца
@@ -64,7 +72,7 @@ class StructureExecDoc:
         Проход по всем вершинам.
         """
         self.__obs_manager.obj_l.debug_logger(
-            f"IN dfs(parent_node):\nparent_node = {parent_node}"
+            f"StructureExecDoc dfs(parent_node):\nparent_node = {parent_node}"
         )
         childs = self.__obs_manager.obj_pd.get_childs(parent_node)
         if childs:
@@ -79,7 +87,7 @@ class StructureExecDoc:
         Поставить item в nodes_to_items.
         """
         self.__obs_manager.obj_l.debug_logger(
-            f"IN set_item_in_nodes_to_items(node):\nnode = {node}"
+            f"StructureExecDoc set_item_in_nodes_to_items(node):\nnode = {node}"
         )
         tree_widget = self.__treewidget_structure_execdoc
         item = None
@@ -96,7 +104,7 @@ class StructureExecDoc:
 
     def set_state_included_for_child(self, node, state):
         self.__obs_manager.obj_l.debug_logger(
-            f"""IN set_state_included_for_childs(node, state):\nid_node = {node.get("id_node")},\nstate = {state}"""
+            f"""StructureExecDoc set_state_included_for_childs(node, state):\nid_node = {node.get("id_node")},\nstate = {state}"""
         )
         item = self.__nodes_to_items.get(node.get("id_node"))
         if item:

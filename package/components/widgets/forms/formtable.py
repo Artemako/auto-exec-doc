@@ -10,6 +10,7 @@ import package.ui.formtable_ui as formtable_ui
 class FormTable(QWidget):
     def __init__(self, obs_manager, pair, config_tag, config_table):
         self.__obs_manager = obs_manager
+        self.__obs_manager.obj_l.debug_logger(f"FormTable(pair, config_tag, config_table):\npair = {pair},\nconfig_tag = {config_tag},\nconfig_table = {config_table}")
         super(FormTable, self).__init__()
         self.ui = formtable_ui.Ui_FormTableWidget()
         self.ui.setupUi(self)
@@ -68,10 +69,11 @@ class FormTable(QWidget):
 
     def show_context_menu(self, position):
         # Show the context menu at the mouse position
+        self.__obs_manager.obj_l.debug_logger(f"FormTable show_context_menu(position):\nposition = {position}")
         self.context_menu.exec_(self.ui.table.mapToGlobal(position))
 
     def add_row(self):
-        self.__obs_manager.obj_l.debug_logger("IN add_row()")
+        self.__obs_manager.obj_l.debug_logger("FormTable add_row()")
         row_count = self.ui.table.rowCount()
         self.ui.table.insertRow(row_count)
         for column in range(self.ui.table.columnCount()):
@@ -81,7 +83,7 @@ class FormTable(QWidget):
         
 
     def delete_row(self):
-        self.__obs_manager.obj_l.debug_logger("IN delete_row()")
+        self.__obs_manager.obj_l.debug_logger("FormTable delete_row()")
         current_row = self.ui.table.currentRow()
         if current_row >= 0:
             self.ui.table.removeRow(current_row)
@@ -96,7 +98,7 @@ class FormTable(QWidget):
         """
         Копирование значения в буфер обмена
         """
-        self.__obs_manager.obj_l.debug_logger("IN copy_values_to_clipboard()")
+        self.__obs_manager.obj_l.debug_logger("FormTable copy_values_to_clipboard()")
         selected_items = self.ui.table.selectedItems()
         # values = []
         # for item in selected_items:
@@ -124,7 +126,7 @@ class FormTable(QWidget):
         """
         Вставка значений из буфера обмена
         """
-        self.__obs_manager.obj_l.debug_logger("IN paste_values_from_clipboard()")
+        self.__obs_manager.obj_l.debug_logger("FormTable paste_values_from_clipboard()")
         clipboard = QApplication.clipboard()
         text = clipboard.text()
         rows = text.split("\n")
@@ -145,7 +147,7 @@ class FormTable(QWidget):
 
     def create_table_from_value(self, json_data):
         self.__obs_manager.obj_l.debug_logger(
-            f"create_table_from_value(self, json_data):\ndata = {json_data}"
+            f"FormTable create_table_from_value(self, json_data):\ndata = {json_data}"
         )
         if json_data:
             data = json.loads(json_data)
@@ -157,7 +159,7 @@ class FormTable(QWidget):
                     self.ui.table.setItem(row, column, item)
 
     def get_data_from_table(self) -> list:
-        self.__obs_manager.obj_l.debug_logger("IN to_json(self) -> list:")
+        self.__obs_manager.obj_l.debug_logger("FormTable to_json(self) -> list:")
         table_data = []
         for row in range(self.ui.table.rowCount()):
             print("row = ", row)
@@ -175,7 +177,7 @@ class FormTable(QWidget):
 
     def set_new_value_in_pair(self, pair, new_value):
         self.__obs_manager.obj_l.debug_logger(
-            f"set_new_value_in_pair(self, pair, new_value):\npair = {pair},\nnew_value = {new_value}"
+            f"FormTable set_new_value_in_pair(pair, new_value):\npair = {pair},\nnew_value = {new_value}"
         )
         pair["value"] = new_value
         print(pair)

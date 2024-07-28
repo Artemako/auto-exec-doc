@@ -1,0 +1,69 @@
+2024-07-28 23:07:12,075 - DEBUG - [34m Config logger[00m
+2024-07-28 23:07:12,076 - DEBUG - [34m self.current_directory = d:\work\project\AutoExecDoc[00m
+2024-07-28 23:07:12,076 - DEBUG - [34m IN create_and_setting_files_and_folders()[00m
+2024-07-28 23:07:12,076 - DEBUG - [34m get_default_folder_projects_dirpath() -> str: C:/Users/hayar/Documents\AutoExecDoc Projects[00m
+2024-07-28 23:07:12,076 - DEBUG - [34m IN create_and_setting_db_settings()[00m
+2024-07-28 23:07:12,077 - DEBUG - [34m get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-07-28 23:07:12,077 - DEBUG - [34m IN setting_converter()[00m
+2024-07-28 23:07:12,077 - DEBUG - [34m IN run_libreoffice()[00m
+2024-07-28 23:07:12,078 - DEBUG - [34m get_templates_main_dirpath() -> str: d:\work\project\AutoExecDoc\templates\main[00m
+2024-07-28 23:07:12,094 - DEBUG - [34m IN MsWordThread initialize_msword()[00m
+2024-07-28 23:07:12,114 - DEBUG - [34m IN config()[00m
+2024-07-28 23:07:12,116 - DEBUG - [34m IN update_menu_recent_projects()[00m
+2024-07-28 23:07:12,116 - DEBUG - [34m get_conn() -> object[00m
+2024-07-28 23:07:12,117 - DEBUG - [34m get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-07-28 23:07:12,117 - DEBUG - [34m get_fetchall(cursor, conn) -> list[00m
+2024-07-28 23:07:12,118 - DEBUG - [34m get_last_projects():
+result = [{'id_project': 11, 'name_project': 'newewe', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/newewe', 'date_create_project': '2024-07-26 22:41:56', 'date_last_open_project': '2024-07-28 23:04:45'}, {'id_project': 12, 'name_project': 'HAHAHAH', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/HAHAHAH', 'date_create_project': '2024-07-26 22:42:10', 'date_last_open_project': '2024-07-28 23:04:25'}, {'id_project': 10, 'name_project': 'gfgfgf', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/gfgfgf', 'date_create_project': '2024-07-26 18:54:25', 'date_last_open_project': '2024-07-28 23:00:39'}, {'id_project': 9, 'name_project': 'ffdff', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/ffdff', 'date_create_project': '2024-07-26 17:17:08', 'date_last_open_project': '2024-07-26 18:28:59'}, {'id_project': 8, 'name_project': '.,mnbvc', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/.,mnbvc', 'date_create_project': '2024-07-26 17:16:22', 'date_last_open_project': '2024-07-26 17:16:22'}][00m
+2024-07-28 23:07:12,119 - DEBUG - [34m IN config_controllers()[00m
+2024-07-28 23:07:12,120 - DEBUG - [34m IN connect_statusbar(statusbar)[00m
+2024-07-28 23:07:12,120 - DEBUG - [34m IN config_statusbar()[00m
+2024-07-28 23:07:12,121 - DEBUG - [34m IN config_msword()[00m
+2024-07-28 23:07:12,122 - DEBUG - [34m get_red_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x22276ebabd0) at 0x00000222781FF440>[00m
+2024-07-28 23:07:12,123 - DEBUG - [34m get_yellow_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x22276eb9790) at 0x000002227A673C00>[00m
+2024-07-28 23:07:12,124 - DEBUG - [34m get_green_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x22276eba990) at 0x000002227A673FC0>[00m
+2024-07-28 23:07:12,125 - DEBUG - [34m IN config_libreoffice()[00m
+2024-07-28 23:07:12,127 - DEBUG - [34m get_red_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x22276ebaff0) at 0x000002227A67F180>[00m
+2024-07-28 23:07:12,128 - DEBUG - [34m get_yellow_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x22276ebb170) at 0x000002227A67F2C0>[00m
+2024-07-28 23:07:12,129 - DEBUG - [34m get_green_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x22276ebb4d0) at 0x000002227A67F340>[00m
+2024-07-28 23:07:12,130 - DEBUG - [34m IN config_update_statusbar()[00m
+2024-07-28 23:07:12,131 - DEBUG - [34m get_status_msword():
+self.__status_msword = False[00m
+2024-07-28 23:07:12,131 - DEBUG - [34m update_status_status_msword_label(status_msword):
+status_msword = False[00m
+2024-07-28 23:07:12,131 - DEBUG - [34m get_status_libreoffice():
+self.__status_libreoffice = True[00m
+2024-07-28 23:07:12,132 - DEBUG - [34m update_status_libreoffice_label(status_libreoffice):
+status_libreoffice = True[00m
+2024-07-28 23:07:12,133 - DEBUG - [34m set_message_for_statusbar(message):
+message = Проект не открыт[00m
+2024-07-28 23:07:12,133 - DEBUG - [34m get_conn() -> object[00m
+2024-07-28 23:07:12,133 - DEBUG - [34m get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-07-28 23:07:12,134 - DEBUG - [34m get_fetchone(cursor, conn) -> list[00m
+2024-07-28 23:07:12,134 - DEBUG - [34m get_app_converter():
+result = {'value_setting': 'LIBREOFFICE'}[00m
+2024-07-28 23:07:12,135 - DEBUG - [34m update_name_app_converter()[00m
+2024-07-28 23:07:12,136 - DEBUG - [34m IN connecting_actions()[00m
+2024-07-28 23:07:12,136 - DEBUG - [34m IN connect_structureexecdoc(tr_sed, title_sed)[00m
+2024-07-28 23:07:12,136 - DEBUG - [34m IN clear_tr_sed()[00m
+2024-07-28 23:07:12,137 - DEBUG - [34m connect_pages_template(lw_pt, title_pt):
+lw_pt = <PySide6.QtWidgets.QListWidget(0x222749b0850, name="listwidget_pages_template") at 0x000002227820B640>,
+title_pt = <PySide6.QtWidgets.QLabel(0x22276e18e80, name="title_pages_template") at 0x000002227820B5C0>[00m
+2024-07-28 23:07:12,138 - DEBUG - [34m connect_inputforms(sa_if, sa_ifl):
+sa_if = <PySide6.QtWidgets.QScrollArea(0x22276e2a4b0, name="scrollarea_inputforms") at 0x000002227820BEC0>,
+sa_ifl = <PySide6.QtWidgets.QWidget(0x22276e27540, name="scrollarea_inputforms_layout") at 0x000002227A673180>[00m
+2024-07-28 23:07:12,139 - DEBUG - [34m IN connecting_actions()[00m
+2024-07-28 23:07:12,212 - DEBUG - [34m update_status_msword(status):
+status = None[00m
+2024-07-28 23:07:12,213 - DEBUG - [34m update_status_status_msword_label(status_msword):
+status_msword = None[00m
+2024-07-28 23:07:14,377 - DEBUG - [34m update_status_msword(status):
+status = True[00m
+2024-07-28 23:07:14,378 - DEBUG - [34m update_status_status_msword_label(status_msword):
+status_msword = True[00m

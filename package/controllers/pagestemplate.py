@@ -17,15 +17,16 @@ class MyListWidgetItem(QListWidgetItem):
 class PagesTemplate:
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
+        self.__obs_manager.obj_l.debug_logger("PagesTemplate __init__()")
         self.__listwidget_pages_template = None
         self.__title_pt = None
 
     def is_page_template_selected(self):
-        self.__obs_manager.obj_l.debug_logger("get_listwidget_pages_template()")
+        self.__obs_manager.obj_l.debug_logger("PagesTemplate get_listwidget_pages_template()")
         return self.__listwidget_pages_template.currentItem()
 
     def get_page_by_current_item(self):
-        self.__obs_manager.obj_l.debug_logger("get_page_by_current_item()")
+        self.__obs_manager.obj_l.debug_logger("PagesTemplate get_page_by_current_item()")
         current = self.__listwidget_pages_template.currentItem()
         if current is None:
             return None
@@ -37,7 +38,7 @@ class PagesTemplate:
         Подключить _listwidget_pages_template.
         """
         self.__obs_manager.obj_l.debug_logger(
-            f"IN connect_pages_template(lw_pt, title_pt):\nlw_pt = {lw_pt},\ntitle_pt = {title_pt}"
+            f"PagesTemplate connect_pages_template(lw_pt, title_pt):\nlw_pt = {lw_pt},\ntitle_pt = {title_pt}"
         )
         self.__listwidget_pages_template = lw_pt
         self.__title_pt = title_pt
@@ -53,7 +54,7 @@ class PagesTemplate:
         Слот для сигнала itemClicked.
         """
         self.__obs_manager.obj_l.debug_logger(
-            f"IN item_page_updated(current):\ncurrent = {current}"
+            f"PagesTemplate item_page_updated(current):\ncurrent = {current}"
         )
         page = current.get_page()
         # Обновить ScroolAreaInput
@@ -62,22 +63,14 @@ class PagesTemplate:
         self.__obs_manager.obj_c.create_and_view_page_pdf(page)
 
     def current_page_to_pdf(self):
-        self.__obs_manager.obj_l.debug_logger("IN current_page_to_pdf()")
+        self.__obs_manager.obj_l.debug_logger("PagesTemplate IN current_page_to_pdf()")
         current = self.__listwidget_pages_template.currentItem()
         page = current.get_page()
         self.__obs_manager.obj_c.create_and_view_page_pdf(page)
 
     def clear_pt(self):
+        self.__obs_manager.obj_l.debug_logger("PagesTemplate IN clear_pt()")
         self.__listwidget_pages_template.clear()
-        self.__title_pt.setText("Форма не выбрана")
-
-    def create_pages_template(self):
-        """
-        Создание _listwidget_pages_template.
-        """
-        self.__obs_manager.obj_l.debug_logger("IN create_pages_template()")
-
-        self.clear_pt()
         self.__title_pt.setText("Форма не выбрана")
 
     def update_pages_template(self, node):
@@ -85,7 +78,7 @@ class PagesTemplate:
         Обновить _listwidget_pages_template.
         """
         self.__obs_manager.obj_l.debug_logger(
-            f"IN update_pages_template(node):\nnode = {node}"
+            f"PagesTemplate update_pages_template(node):\nnode = {node}"
         )
 
         self.clear_pt()

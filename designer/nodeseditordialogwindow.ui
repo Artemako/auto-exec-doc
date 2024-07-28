@@ -42,27 +42,9 @@
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="hl_movebtns">
-         <item>
-          <widget class="QPushButton" name="btn_up">
-           <property name="text">
-            <string>Вверх</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_down">
-           <property name="text">
-            <string>Вниз</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btn_change_name">
+        <widget class="QPushButton" name="btn_edit">
          <property name="text">
-          <string>Изменить название</string>
+          <string>Изменить</string>
          </property>
         </widget>
        </item>

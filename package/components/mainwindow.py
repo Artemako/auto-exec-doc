@@ -26,7 +26,7 @@ class MainWindow(QMainWindow):
         self.connecting_actions()
 
     def config(self):
-        self.__obs_manager.obj_l.debug_logger("IN config()")
+        self.__obs_manager.obj_l.debug_logger("MainWindow config()")
         self.ui.centralwidget_splitter.setSizes([280, 460, 626])
         self.start_qt_actions()
         self.update_menu_recent_projects()
@@ -35,7 +35,7 @@ class MainWindow(QMainWindow):
         """
         Method to configure controllers.
         """
-        self.__obs_manager.obj_l.debug_logger("IN config_controllers()")
+        self.__obs_manager.obj_l.debug_logger("MainWindow config_controllers()")
         # настройка статус бара
         self.__obs_manager.obj_sb.connect_statusbar(self.ui.status_bar)
         # настройка structureexecdoc
@@ -54,7 +54,7 @@ class MainWindow(QMainWindow):
         self.__obs_manager.obj_pv.connect_pdfview(self.ui.widget_pdf_view)
 
     def clear_before_end(self):
-        self.__obs_manager.obj_l.debug_logger("IN clear_before_end()")
+        self.__obs_manager.obj_l.debug_logger("MainWindow clear_before_end()")
         # удаление pdf из виджета pdfview
         self.__obs_manager.obj_pv.set_empty_pdf_view()
         # очистка временных файлов
@@ -64,7 +64,7 @@ class MainWindow(QMainWindow):
         """
         Method to connect to various actions on the UI.
         """
-        self.__obs_manager.obj_l.debug_logger("IN connecting_actions()")
+        self.__obs_manager.obj_l.debug_logger("MainWindow connecting_actions()")
         self.ui.action_new.triggered.connect(
             lambda: self.__obs_manager.obj_p.new_project()
         )
@@ -96,7 +96,7 @@ class MainWindow(QMainWindow):
         self.ui.action_edit_tags.triggered.connect(lambda: self.edit_tags())
         # self.ui.action_edit_templates.triggered.connect(lambda: self.__obs_manager.obj_p.edit_templates())
         self.ui.action_edit_composition.triggered.connect(
-            lambda: self.edit_composition()
+            lambda: self.edit_structure_nodes()
         )
 
         # shortcut = QShortcut(QKeySequence("R"), self)
@@ -130,14 +130,18 @@ class MainWindow(QMainWindow):
         self.ui.action_edit_templates.setEnabled(True)
 
     def get_view_height(self):
+        self.__obs_manager.obj_l.debug_logger("MainWindow get_view_height()")
         return self.ui.widget_pdf_view.verticalScrollBar().value()
 
     def set_view_height(self, value):
+        self.__obs_manager.obj_l.debug_logger(
+            f"MainWindow set_view_height({value}):\nvalue = {value}"
+        )
         self.ui.widget_pdf_view.verticalScrollBar().setValue(value)
 
     def edit_tags(self):
         """Редактирование тегов."""
-        self.__obs_manager.obj_l.debug_logger("IN edit_tags()")
+        self.__obs_manager.obj_l.debug_logger("MainWindow edit_tags()")
         self.__obs_manager.obj_tldw = tagslistdialogwindow.TagsListDialogWindow(
             self.__obs_manager
         )
@@ -147,18 +151,20 @@ class MainWindow(QMainWindow):
         if page is not None:
             self.__obs_manager.obj_sai.update_scrollarea(page)
 
-    def edit_composition(self):
-        """Редактирование композиции."""
-        self.__obs_manager.obj_l.debug_logger("IN edit_composition()")
-        self.__obs_manager.obj_tcdw = nodeseditordialogwindow.NodesEditorDialogWindow(
+    def edit_structure_nodes(self):
+        """Редактирование структуры узлов."""
+        self.__obs_manager.obj_l.debug_logger("MainWindow edit_structure_nodes()")
+        self.__obs_manager.obj_nedw = nodeseditordialogwindow.NodesEditorDialogWindow(
             self.__obs_manager
         )
-        self.__obs_manager.obj_tcdw.exec()
+        self.__obs_manager.obj_nedw.exec()
         # TODO ??? обновить treewidget_structure_execdoc
         self.__obs_manager.obj_sed.update_structure_exec_doc()
 
     def update_menu_recent_projects(self):
-        self.__obs_manager.obj_l.debug_logger("IN update_menu_recent_projects()")
+        self.__obs_manager.obj_l.debug_logger(
+            "MainWindow update_menu_recent_projects()"
+        )
         self.ui.menu_recent_projects.clear()
         last_projects = self.__obs_manager.obj_sd.get_last_projects()
         for project in last_projects:
@@ -169,8 +175,7 @@ class MainWindow(QMainWindow):
 
     def menu_recent_projects_action(self, item):
         self.__obs_manager.obj_l.debug_logger(
-            f"IN menu_recent_projects_action(item):\nitem = {item}"
+            f"MainWindow menu_recent_projects_action(item):\nitem = {item}"
         )
         project = item.data()
         self.__obs_manager.obj_p.open_recent_project(project)
-

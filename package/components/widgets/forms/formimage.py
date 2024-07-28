@@ -11,7 +11,7 @@ class FormImage(QWidget):
     def __init__(self, obs_manager, pair, config_tag, config_image):
         self.__obs_manager = obs_manager
         self.__obs_manager.obj_l.debug_logger(
-            f"FormImage(self, pair, config_tag, config_image):\npair = {pair},\nconfig_tag = {config_tag},\nconfig_image = {config_image}"
+            f"FormImage __init__(self, pair, config_tag, config_image):\npair = {pair},\nconfig_tag = {config_tag},\nconfig_image = {config_image}"
         )
 
         super(FormImage, self).__init__()
@@ -45,7 +45,7 @@ class FormImage(QWidget):
         self.ui.select_button.clicked.connect(lambda: self.set_new_value_in_pair(pair))
 
     def set_new_value_in_pair(self, pair):
-
+        self.__obs_manager.obj_l.debug_logger(f"FormImage set_new_value_in_pair(self, pair): pair = {pair}")
         image_dirpath = self.__obs_manager.obj_dw.select_image_for_formimage_in_project()
         # TODO Сделать удаление предыдущего изображения (при сохранении)
         if image_dirpath:

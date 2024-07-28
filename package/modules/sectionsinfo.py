@@ -3,10 +3,11 @@ import package.controllers.pagestemplate as pagestemplate
 class SectionsInfo:
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager 
+        self.__obs_manager.obj_l.debug_logger("SectionsInfo __init__()")
         self.__sections_info = []
 
     def get_sections_info(self):
-        print(f"self.__sections_info = {self.__sections_info}")
+        self.__obs_manager.obj_l.debug_logger(f"SectionsInfo self.__sections_info = {self.__sections_info}")
         return self.__sections_info
 
     def update_sections_info(self, page):
@@ -22,7 +23,7 @@ class SectionsInfo:
         """
         Добавление секции для страницы.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN add_page_for_datas(page):\npage = {page}")
+        self.__obs_manager.obj_l.debug_logger(f"SectionsInfo add_page_for_datas(page):\npage = {page}")
 
         data = self.__obs_manager.obj_pd.get_page_data(page)
         if data:
@@ -35,7 +36,7 @@ class SectionsInfo:
 
     def add_template_for_sections_info(self, template):
         """ """
-        self.__obs_manager.obj_l.debug_logger(f"IN add_template_for_datas(page):\npage = {template}")
+        self.__obs_manager.obj_l.debug_logger(f"SectionsInfo add_template_for_datas(page):\npage = {template}")
         
         data = self.__obs_manager.obj_pd.get_template_data(template)
         if data:
@@ -50,7 +51,7 @@ class SectionsInfo:
         """
         Добавление секции для вершины: группы или проекта.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN add_node_for_datas(node):\nnode = {node}")
+        self.__obs_manager.obj_l.debug_logger(f"SectionsInfo add_node_for_datas(node):\nnode = {node}")
 
         data = self.__obs_manager.obj_pd.get_node_data(node)
         if data:
@@ -74,7 +75,7 @@ class SectionsInfo:
         """ 
         Проход по всем вершинам и добавление секции для них.
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN add_nodes_for_sections_info(node):\nnode = {node}")
+        self.__obs_manager.obj_l.debug_logger(f"SectionsInfo add_nodes_for_sections_info(node):\nnode = {node}")
         parent_node = node
         flag = True
         while flag:
@@ -88,7 +89,7 @@ class SectionsInfo:
         """
         Cохранение информации в __sections_info в БД
         """
-        self.__obs_manager.obj_l.debug_logger("IN save_data_to_database()")
+        self.__obs_manager.obj_l.debug_logger("SectionsInfo save_data_to_database()")
         sections_info = self.__sections_info
         # перебор секций
         for section_index, section_info in enumerate(sections_info):
@@ -106,7 +107,7 @@ class SectionsInfo:
                 self.save_image(id_tag, old_value, value)               
 
     def update_data_from_pair(self, section_type, id_pair, value):
-        self.__obs_manager.obj_l.debug_logger(f"IN update_data_with_pair(section_type, pair):\nsection_type = {section_type},\nid_pair = {id_pair},\nvalue = {value}")
+        self.__obs_manager.obj_l.debug_logger(f"SectionsInfo update_data_with_pair(section_type, pair):\nsection_type = {section_type},\nid_pair = {id_pair},\nvalue = {value}")
         old_value = None
         print(f"section_type = {section_type},\nid_pair = {id_pair},\nvalue = {value}")
         if section_type == "page":
@@ -132,7 +133,7 @@ class SectionsInfo:
         return old_value
 
     def save_image(self, id_tag, old_value, value):
-        self.__obs_manager.obj_l.debug_logger(f"IN save_image(id_tag, old_value, value):\nid_tag = {id_tag},\nold_value = {old_value},\nvalue = {value}")
+        self.__obs_manager.obj_l.debug_logger(f"SectionsInfo save_image(id_tag, old_value, value):\nid_tag = {id_tag},\nold_value = {old_value},\nvalue = {value}")
         config_tag = self.__obs_manager.obj_pd.get_config_tag_by_id(
             id_tag
         )

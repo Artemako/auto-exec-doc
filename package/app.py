@@ -49,7 +49,7 @@ class ObjectsManager:
         self.obj_nedtdw = None
         self.obj_nedndw = None
         self.obj_tldw = None
-        self.obj_tcdw = None
+        self.obj_nedw = None
         self.obj_csdw = None
 
     def initialize_all(self):
@@ -61,10 +61,10 @@ class ObjectsManager:
         self.initialize_components()
         
     def initialize_modules(self):
+        self.obj_l = log.Log(self)
         self.obj_c = converter.Converter(self)
         self.obj_dpm = dirpathsmanager.DirPathManager(self)
-        self.obj_ffm = filefoldermanager.FileFolderManager(self)
-        self.obj_l = log.Log(self)
+        self.obj_ffm = filefoldermanager.FileFolderManager(self)        
         self.obj_p = project.Project(self)
         self.obj_pd = projectdatabase.ProjectDatabase(self)
         self.obj_si = sectionsinfo.SectionsInfo(self)

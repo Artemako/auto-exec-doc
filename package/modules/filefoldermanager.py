@@ -7,13 +7,14 @@ import datetime
 class FileFolderManager:
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
+        self.__obs_manager.obj_l.debug_logger("FileFolderManager __init__()")
 
     def create_and_setting_files_and_folders(self):
         """
         Создание и конфигурация папок и файлов.
         """
         self.__obs_manager.obj_l.debug_logger(
-            "IN create_and_setting_files_and_folders()"
+            "FileFolderManager create_and_setting_files_and_folders()"
         )
         if not os.path.exists(
             self.__obs_manager.obj_dpm.get_default_folder_projects_dirpath()
@@ -24,7 +25,7 @@ class FileFolderManager:
         """
         Создание файла aed.
         """
-        self.__obs_manager.obj_l.debug_logger("IN check_aed_file()")
+        self.__obs_manager.obj_l.debug_logger("FileFolderManager check_aed_file()")
         # создать указатель файл
         name_aed = self.__obs_manager.obj_p.get_current_name()
         aedfilename = f"{name_aed}.aed"
@@ -48,7 +49,7 @@ class FileFolderManager:
         """
         Добавление в проект папок форм.
         """
-        self.__obs_manager.obj_l.debug_logger("IN create_folders_and_aed_for_project()")
+        self.__obs_manager.obj_l.debug_logger("FileFolderManager create_folders_and_aed_for_project()")
         # файл project.aed
         self.check_aed_file()
         # папка forms в проекте
@@ -77,7 +78,7 @@ class FileFolderManager:
         """
         Копирование шаблонов в папку forms.
         """
-        self.__obs_manager.obj_l.debug_logger("IN copy_templates_to_forms_folder()")
+        self.__obs_manager.obj_l.debug_logger("FileFolderManager copy_templates_to_forms_folder()")
 
         templates_main_dirpath = self.__obs_manager.obj_dpm.get_templates_main_dirpath()
         forms_folder_dirpath = self.__obs_manager.obj_dpm.get_forms_folder_dirpath()
@@ -94,7 +95,7 @@ class FileFolderManager:
         Очистка папки temp.
         """
         self.__obs_manager.obj_l.debug_logger(
-            f"IN clear_temp_folder(is_del_folder):\nis_del_folder = {is_del_folder},\ntemp_dirpath = {self.__obs_manager.obj_dpm.get_temp_dirpath()}"
+            f"FileFolderManager clear_temp_folder(is_del_folder):\nis_del_folder = {is_del_folder},\ntemp_dirpath = {self.__obs_manager.obj_dpm.get_temp_dirpath()}"
         )
         temp_dirpath = self.__obs_manager.obj_dpm.get_temp_dirpath()
         try:
@@ -105,7 +106,7 @@ class FileFolderManager:
             self.__obs_manager.obj_l.error_logger(e)
 
     def move_image_from_temp_to_project(self, name_image):
-        self.__obs_manager.obj_l.debug_logger("IN move_image_from_temp_to_project()")
+        self.__obs_manager.obj_l.debug_logger("FileFolderManager move_image_from_temp_to_project()")
         # путь к папке с шаблонами
         temp_dirpath = self.__obs_manager.obj_dpm.get_temp_dirpath()
         image_folder_dirpath = os.path.join(
@@ -120,7 +121,7 @@ class FileFolderManager:
             self.__obs_manager.obj_l.error_logger(e)
 
     def delete_image_from_project(self, image_dirpath):
-        self.__obs_manager.obj_l.debug_logger("IN delete_image_from_project()")
+        self.__obs_manager.obj_l.debug_logger("FileFolderManager delete_image_from_project()")
         # путь к папке с шаблонами
         image_folder_dirpath = os.path.join(
             self.__obs_manager.obj_dpm.get_project_dirpath(), "images"
@@ -133,7 +134,7 @@ class FileFolderManager:
 
     def copy_project_for_saveas(self, old_folder_path, new_folder_path):
         self.__obs_manager.obj_l.debug_logger(
-            f"IN copy_project_for_saveas(old_folder_path, new_folder_path):\nold_folder_path = {old_folder_path},\nnew_folder_path = {new_folder_path}"
+            f"FileFolderManager copy_project_for_saveas(old_folder_path, new_folder_path):\nold_folder_path = {old_folder_path},\nnew_folder_path = {new_folder_path}"
         )
         for f in os.listdir(old_folder_path):
             src_path = os.path.join(old_folder_path, f)

@@ -10,7 +10,7 @@ class FormDate(QWidget):
     def __init__(self, obs_manager, pair, config_tag, config_date):
         self.__obs_manager = obs_manager
         self.__obs_manager.obj_l.debug_logger(
-            f"FormDate(self, pair, config_tag, config_date):\npair = {pair},\nconfig_tag = {config_tag},\nconfig_date = {config_date}"
+            f"FormDate __init__(self, pair, config_tag, config_date):\npair = {pair},\nconfig_tag = {config_tag},\nconfig_date = {config_date}"
         )
 
         super(FormDate, self).__init__()
@@ -54,19 +54,19 @@ class FormDate(QWidget):
 
     def string_to_qdate(self, str_date, str_format) -> object:
         self.__obs_manager.obj_l.debug_logger(
-            f"string_to_date(self, str_date, str_format):\nstr_date = {str_date},\nstr_format = {str_format}"
+            f"FormDate string_to_date(self, str_date, str_format):\nstr_date = {str_date},\nstr_format = {str_format}"
         )
         return QDate.fromString(str_date, str_format)
 
     def qdate_to_string(self, date, str_format) -> str:
         self.__obs_manager.obj_l.debug_logger(
-            f"date_to_string(self, date) -> str:\ndate = {date}"
+            f"FormDate date_to_string(self, date) -> str:\ndate = {date}"
         )
         return str(date.toString(str_format))
 
     def set_new_value_in_pair(self, pair, new_value):
         self.__obs_manager.obj_l.debug_logger(
-            f"set_new_value_in_pair(self, pair, new_value):\npair = {pair},\nnew_value = {new_value}"
+            f"FormDate set_new_value_in_pair(self, pair, new_value):\npair = {pair},\nnew_value = {new_value}"
         )
         pair["value"] = new_value
         print(f"pair = {pair}")

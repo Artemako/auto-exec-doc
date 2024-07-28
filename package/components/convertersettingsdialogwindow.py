@@ -16,7 +16,7 @@ import package.ui.convertersettingsdialogwindow_ui as convertersettingsdialogwin
 class ConverterSettingsDialogWindow(QDialog):
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger("IN ConverterSettingsDialogWindow(obs_manager)")
+        self.__obs_manager.obj_l.debug_logger("ConverterSettingsDialogWindow __init__(obs_manager)")
         super(ConverterSettingsDialogWindow, self).__init__()
         self.ui = convertersettingsdialogwindow_ui.Ui_ConverterSettingsDialogWindow()
         self.ui.setupUi(self)
@@ -26,6 +26,7 @@ class ConverterSettingsDialogWindow(QDialog):
         self.connecting_actions()
 
     def config(self):
+        self.__obs_manager.obj_l.debug_logger("ConverterSettingsDialogWindow config()")
         # постоянный размер
         self.setFixedSize(self.sizeHint())
         app_converter = self.__obs_manager.obj_sd.get_app_converter()
@@ -37,7 +38,7 @@ class ConverterSettingsDialogWindow(QDialog):
             self.ui.radbtn_libreoffice.setChecked(True)
 
     def connecting_actions(self):
-        self.__obs_manager.obj_l.debug_logger("IN connecting_actions()")
+        self.__obs_manager.obj_l.debug_logger("ConverterSettingsDialogWindow connecting_actions()")
         self.ui.btn_close.clicked.connect(self.close_window)
         self.ui.btn_save.clicked.connect(self.save_converter)
 
@@ -49,12 +50,12 @@ class ConverterSettingsDialogWindow(QDialog):
         #     result = "OPENOFFICE"
         elif self.ui.radbtn_libreoffice.isChecked():
             result = "LIBREOFFICE"
-        self.__obs_manager.obj_l.debug_logger(f"get_active_radiobutton() -> str:\nresult = {result}")
+        self.__obs_manager.obj_l.debug_logger(f"ConverterSettingsDialogWindow get_active_radiobutton() -> str:\nresult = {result}")
         return result
 
 
     def save_converter(self):
-        self.__obs_manager.obj_l.debug_logger("IN save()")
+        self.__obs_manager.obj_l.debug_logger("ConverterSettingsDialogWindow save()")
         result = self.get_active_radiobutton()
         if result:
             self.__obs_manager.obj_sd.set_app_converter(result)
@@ -64,5 +65,5 @@ class ConverterSettingsDialogWindow(QDialog):
         
 
     def close_window(self):
-        self.__obs_manager.obj_l.debug_logger("IN close_window()")
+        self.__obs_manager.obj_l.debug_logger("ConverterSettingsDialogWindow close_window()")
         self.close()

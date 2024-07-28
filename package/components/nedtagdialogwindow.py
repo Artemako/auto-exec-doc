@@ -23,7 +23,7 @@ class NedTagDialogWindow(QDialog):
     def __init__(self, obs_manager, type_window, tag=None):
         self.__obs_manager = obs_manager
         self.__obs_manager.obj_l.debug_logger(
-            f"IN NedTagDialogWindow(obs_manager, type_window):\ntype_window = {type_window}\ntag = {tag}"
+            f"NedTagDialogWindow(obs_manager, type_window):\ntype_window = {type_window}\ntag = {tag}"
         )
         self.__type_window = type_window
         self.__tag = tag
@@ -41,7 +41,7 @@ class NedTagDialogWindow(QDialog):
         self.connecting_actions()
 
     def config_icons(self):
-        self.__obs_manager.obj_l.debug_logger("IN config_icons()")
+        self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow config_icons()")
         # иконки типа тэга
         self.qicon_text = QIcon(":/icons/resources/icons/text.svg")
         self.qicon_date = QIcon(":/icons/resources/icons/calendar.svg")
@@ -63,7 +63,7 @@ class NedTagDialogWindow(QDialog):
             elem = elem.pixmap(QSize(16, 16))
 
     def connecting_actions(self):
-        self.__obs_manager.obj_l.debug_logger("IN connecting_actions()")
+        self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow connecting_actions()")
         self.ui.combox_typetag.currentIndexChanged.connect(
             self.on_combox_typetag_changed
         )
@@ -71,32 +71,32 @@ class NedTagDialogWindow(QDialog):
         self.ui.btn_nestag.clicked.connect(self.btn_nestag_clicked)
         
     def btn_nestag_clicked(self):
-        self.__obs_manager.obj_l.debug_logger("IN btn_nestag_clicked()")
+        self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow btn_nestag_clicked()")
         if self.__type_window == "create":
             self.add_new_tag()
         elif self.__type_window == "edit":
             self.save_edit_tag()
 
     def add_new_tag(self):
-        self.__obs_manager.obj_l.debug_logger("IN add_new_tag()")
+        self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow add_new_tag()")
         # TODO add_new_tag (проверить на наличие дупликатов) (при добавлении документа?)
         # self.__tag = старая информация
 
 
     def save_edit_tag(self):
-        self.__obs_manager.obj_l.debug_logger("IN save_edit_tag()")
+        self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow save_edit_tag()")
         # TODO Save (проверить на наличие дупликатов)
         print(f"tag = {self.__tag}")
         # self.__tag = старая информация
 
     def on_combox_typetag_changed(self, index):
         self.__obs_manager.obj_l.debug_logger(
-            f"IN on_combox_typetag_changed(index):\nindex = {index}"
+            f"NedTagDialogWindow on_combox_typetag_changed(index):\nindex = {index}"
         )
         self.update_additional_info(index)
 
     def config_combobox(self):
-        self.__obs_manager.obj_l.debug_logger("IN config_combobox()")
+        self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow config_combobox()")
         self.ui.combox_typetag.blockSignals(True)
         self.ui.combox_typetag.clear()
         tag_types = self.get_tag_types()
@@ -105,7 +105,7 @@ class NedTagDialogWindow(QDialog):
         self.ui.combox_typetag.blockSignals(False)
 
     def config_by_type_window(self):
-        self.__obs_manager.obj_l.debug_logger("IN config_by_type_window()")
+        self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow config_by_type_window()")
         if self.__type_window == "create":
             self.ui.btn_nestag.setText("Добавить тэг")
             self.ui.btn_nestag.setIcon(self.qicon_add)
@@ -115,7 +115,7 @@ class NedTagDialogWindow(QDialog):
             self.ui.btn_nestag.setIcon(self.qicon_save)
 
     def config_maindata(self):
-        self.__obs_manager.obj_l.debug_logger("IN fill_maindata()")
+        self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow fill_maindata()")
         print(f"tag = {self.__tag}")
         if self.__tag:
             self.ui.lineedit_nametag.setText(self.__tag.get("name_tag"))
@@ -126,7 +126,7 @@ class NedTagDialogWindow(QDialog):
             self.ui.combox_typetag.blockSignals(False)
 
     def get_tag_types(self):
-        self.__obs_manager.obj_l.debug_logger("IN get_tag_types()")
+        self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow get_tag_types()")
         # tag_types
         tag_types = [
             TagType(0, "Текст", "TEXT", self.qicon_text),
@@ -147,7 +147,7 @@ class NedTagDialogWindow(QDialog):
 
     def update_additional_info(self, index=None):
         self.__obs_manager.obj_l.debug_logger(
-            f"IN config_additional_info(index):\nindex = {index}"
+            f"NedTagDialogWindow config_additional_info(index):\nindex = {index}"
         )
         # TODO ???
         if index is None:
@@ -164,7 +164,7 @@ class NedTagDialogWindow(QDialog):
         QTimer.singleShot(0, self, lambda: self.resize_window())
 
     def resize_window(self):
-        self.__obs_manager.obj_l.debug_logger("IN resize_window()")
+        self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow resize_window()")
         width = self.width()
         min_width = self.minimumWidth()
         # self.adjustSize()
@@ -176,7 +176,7 @@ class NedTagDialogWindow(QDialog):
 
     def find_index_by_type(self, type_tag):
         self.__obs_manager.obj_l.debug_logger(
-            f"IN find_index_by_type(type_tag):\ntype_tag = {type_tag}"
+            f"NedTagDialogWindow find_index_by_type(type_tag):\ntype_tag = {type_tag}"
         )
         tag_types = self.get_tag_types()
         for tag in tag_types:

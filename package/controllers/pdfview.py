@@ -9,51 +9,54 @@ import sys
 class PdfView:
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
+        self.__obs_manager.obj_l.debug_logger("PdfView __init__()")
         self.__widget_pdf_view = None
         self.__document = None
         self.__zoom = 1
 
     def connect_pdfview(self, widget):
+        self.__obs_manager.obj_l.debug_logger("PdfView connect_pdfview()")
         self.__widget_pdf_view = widget
         self.__document = None
         self.config_pdf_view_in_mainwindow()
 
     def config_pdf_view_in_mainwindow(self):
+        self.__obs_manager.obj_l.debug_logger("PdfView config_pdf_view_in_mainwindow()")
         self.__document = QPdfDocument()
         self.__widget_pdf_view.setDocument(self.__document)
 
     def zoom_in(self):
         self.__zoom += 0.1
         self.__widget_pdf_view.setZoomFactor(self.__zoom)
-        self.__obs_manager.obj_l.debug_logger(f"zoom_in():\nself.__zoom = {self.__zoom}")
+        self.__obs_manager.obj_l.debug_logger(f"PdfView zoom_in():\nself.__zoom = {self.__zoom}")
 
     def zoom_out(self):
         if self.__zoom >= 0:
             self.__zoom -= 0.1
         self.__widget_pdf_view.setZoomFactor(self.__zoom)
-        self.__obs_manager.obj_l.debug_logger(f"zoom_out():\nself.__zoom = {self.__zoom}")
+        self.__obs_manager.obj_l.debug_logger(f"PdfView zoom_out():\nself.__zoom = {self.__zoom}")
 
     def set_zoom_to_fit_width(self):
         self.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.FitToWidth)
-        self.__obs_manager.obj_l.debug_logger("set_zoom_to_fit_width()")
+        self.__obs_manager.obj_l.debug_logger("PdfView set_zoom_to_fit_width()")
 
     def set_zoom_to_fit_view(self):
         self.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.FitInView)
-        self.__obs_manager.obj_l.debug_logger("set_zoom_to_fit_view()")
+        self.__obs_manager.obj_l.debug_logger("PdfView set_zoom_to_fit_view()")
 
     def set_zoom_custom(self):
         self.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.Custom)
-        self.__obs_manager.obj_l.debug_logger("set_zoom_custom()")
+        self.__obs_manager.obj_l.debug_logger("PdfView set_zoom_custom()")
 
     def set_empty_pdf_view(self):
         self.__document = None
         self.__document = QPdfDocument()
         self.__widget_pdf_view.setDocument(self.__document)
-        self.__obs_manager.obj_l.debug_logger("set_empty_pdf_view()")
+        self.__obs_manager.obj_l.debug_logger("PdfView set_empty_pdf_view()")
 
     def load_and_show_pdf_document(self, pdf_path):
         self.__obs_manager.obj_l.debug_logger(
-            f"IN load_and_show_pdf_document(pdf_path):\npdf_path = {pdf_path}"
+            f"PdfView load_and_show_pdf_document(pdf_path):\npdf_path = {pdf_path}"
         )
 
         doc_location = QUrl.fromLocalFile(pdf_path)

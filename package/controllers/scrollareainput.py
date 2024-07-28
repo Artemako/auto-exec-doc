@@ -14,6 +14,7 @@ class ScroolAreaInput:
 
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
+        self.__obs_manager.obj_l.debug_logger("ScroolAreaInput __init__()")
         self.__scrollarea_input = None
         self.__scrollarea_input_layout = None
         
@@ -21,7 +22,7 @@ class ScroolAreaInput:
         """
         Подключить _scrollarea_input и _scrollarea_input_tags
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN connect_inputforms(sa_if, sa_ifl):\nsa_if = {sa_if},\nsa_ifl = {sa_ifl}")
+        self.__obs_manager.obj_l.debug_logger(f"ScroolAreaInput connect_inputforms(sa_if, sa_ifl):\nsa_if = {sa_if},\nsa_ifl = {sa_ifl}")
         self.__scrollarea_input = sa_if
         self.__scrollarea_input_layout = sa_ifl
 
@@ -29,7 +30,7 @@ class ScroolAreaInput:
         """
         Удаление всех виджетов в self
         """
-        self.__obs_manager.obj_l.debug_logger("IN delete_all_widgets_in_sa()")
+        self.__obs_manager.obj_l.debug_logger("ScroolAreaInput delete_all_widgets_in_sa()")
 
         layout = self.__scrollarea_input_layout.layout()
         while layout.count():
@@ -44,7 +45,7 @@ class ScroolAreaInput:
         """
         Определение типа/названия секции
         """
-        self.__obs_manager.obj_l.debug_logger(f"IN get_section_name(section_info):\nsection_info = {section_info}") 
+        self.__obs_manager.obj_l.debug_logger(f"ScroolAreaInput get_section_name(section_info):\nsection_info = {section_info}") 
         section_type = section_info.get("type")
         section_name = None
         if section_type == "page":
@@ -64,6 +65,7 @@ class ScroolAreaInput:
     def add_form_in_section(self, pair, section_layout):
         """
         Добавление формы в секцию в зависимости от типа контента.
+        НЕ ВКЛЮЧЕН В logger!!!
         """
         id_tag = pair.get("id_tag")
         # все свойства основного контента
@@ -97,7 +99,7 @@ class ScroolAreaInput:
 
     def add_sections_in_sa(self):
         """ """
-        self.__obs_manager.obj_l.debug_logger("IN add_sections_in_sa()")
+        self.__obs_manager.obj_l.debug_logger("ScroolAreaInput add_sections_in_sa()")
 
         sections_info = self.__obs_manager.obj_si.get_sections_info()
         # перебор секций
@@ -123,7 +125,7 @@ class ScroolAreaInput:
         """
         Обновление self
         """
-        self.__obs_manager.obj_l.debug_logger("IN update_scrollarea()")
+        self.__obs_manager.obj_l.debug_logger("ScroolAreaInput update_scrollarea()")
         # Очистка всего и вся 
         self.delete_all_widgets_in_sa()        
         # обновить информацию о секциях

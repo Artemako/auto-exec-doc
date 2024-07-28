@@ -15,16 +15,16 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QDialog, QHBoxLayout, QLabel,
-    QLineEdit, QPushButton, QSizePolicy, QSpacerItem,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QHBoxLayout,
+    QLabel, QLineEdit, QPushButton, QSizePolicy,
+    QSpacerItem, QVBoxLayout, QWidget)
 import resources_rc
 
 class Ui_NedNodeDialogWindow(object):
     def setupUi(self, NedNodeDialogWindow):
         if not NedNodeDialogWindow.objectName():
             NedNodeDialogWindow.setObjectName(u"NedNodeDialogWindow")
-        NedNodeDialogWindow.resize(465, 100)
+        NedNodeDialogWindow.resize(530, 130)
         self.verticalLayout = QVBoxLayout(NedNodeDialogWindow)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.namenode = QLabel(NedNodeDialogWindow)
@@ -41,6 +41,33 @@ class Ui_NedNodeDialogWindow(object):
         self.lineedit_namenode.setObjectName(u"lineedit_namenode")
 
         self.verticalLayout.addWidget(self.lineedit_namenode)
+
+        self.hl_placement = QHBoxLayout()
+        self.hl_placement.setObjectName(u"hl_placement")
+        self.label_placement = QLabel(NedNodeDialogWindow)
+        self.label_placement.setObjectName(u"label_placement")
+
+        self.hl_placement.addWidget(self.label_placement)
+
+        self.combox_parent = QComboBox(NedNodeDialogWindow)
+        self.combox_parent.setObjectName(u"combox_parent")
+
+        self.hl_placement.addWidget(self.combox_parent)
+
+        self.label = QLabel(NedNodeDialogWindow)
+        self.label.setObjectName(u"label")
+
+        self.hl_placement.addWidget(self.label)
+
+        self.combox_neighboor = QComboBox(NedNodeDialogWindow)
+        self.combox_neighboor.setObjectName(u"combox_neighboor")
+
+        self.hl_placement.addWidget(self.combox_neighboor)
+
+        self.hl_placement.setStretch(1, 1)
+        self.hl_placement.setStretch(3, 1)
+
+        self.verticalLayout.addLayout(self.hl_placement)
 
         self.hl_addsaveclose = QHBoxLayout()
         self.hl_addsaveclose.setObjectName(u"hl_addsaveclose")
@@ -74,6 +101,8 @@ class Ui_NedNodeDialogWindow(object):
         NedNodeDialogWindow.setWindowTitle(QCoreApplication.translate("NedNodeDialogWindow", u"Dialog", None))
         self.namenode.setText(QCoreApplication.translate("NedNodeDialogWindow", u"<html><head/><body><p>\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 ...</p></body></html>", None))
         self.lineedit_namenode.setText("")
+        self.label_placement.setText(QCoreApplication.translate("NedNodeDialogWindow", u"\u0420\u0430\u0441\u043f\u043e\u043b\u043e\u0436\u0438\u0442\u044c \u0432\u043d\u0443\u0442\u0440\u0438 ", None))
+        self.label.setText(QCoreApplication.translate("NedNodeDialogWindow", u"\u043f\u043e\u0441\u043b\u0435", None))
         self.btn_nestag.setText(QCoreApplication.translate("NedNodeDialogWindow", u"...", None))
         self.btn_close.setText(QCoreApplication.translate("NedNodeDialogWindow", u"\u0417\u0430\u043a\u0440\u044b\u0442\u044c", None))
     # retranslateUi

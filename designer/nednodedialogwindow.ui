@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>465</width>
-    <height>100</height>
+    <width>530</width>
+    <height>130</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -48,6 +48,23 @@
       <string/>
      </property>
     </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="hl_placement" stretch="0,1,1">
+     <item>
+      <widget class="QLabel" name="label_placement">
+       <property name="text">
+        <string>Расположить внутри </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="combox_parent"/>
+     </item>
+     <item>
+      <widget class="QComboBox" name="combox_neighboor"/>
+     </item>
+    </layout>
    </item>
    <item>
     <layout class="QHBoxLayout" name="hl_addsaveclose">
