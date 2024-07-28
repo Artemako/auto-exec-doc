@@ -47,6 +47,7 @@ class ObjectsManager:
         self.obj_dw = None
         self.obj_mw = None
         self.obj_nedtdw = None
+        self.obj_nedndw = None
         self.obj_tldw = None
         self.obj_tcdw = None
         self.obj_csdw = None

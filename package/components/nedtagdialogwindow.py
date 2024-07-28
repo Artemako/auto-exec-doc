@@ -30,7 +30,6 @@ class NedTagDialogWindow(QDialog):
         super(NedTagDialogWindow, self).__init__()
         self.ui = nedtagdialogwindow_ui.Ui_NedTagDialogWindow()
         self.ui.setupUi(self)
-        self.ui.retranslateUi(self)
         # одноразовые действия
         self.config_icons()
         self.config_combobox()

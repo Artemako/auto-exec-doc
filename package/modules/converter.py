@@ -43,7 +43,7 @@ class MsWordThread(QThread):
         self.initialize_msword()
 
     def initialize_msword(self):
-        self.__obs_manager.obj_l.debug_logger("IN MsWordThread initialize_msword()")
+        self.__obs_manager.obj_l.debug_logger("IN MsWordThread initialize_msword()")      
         try:
             pythoncom.CoInitialize()
             self.__status_msword = None

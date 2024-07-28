@@ -173,3 +173,4 @@ class MainWindow(QMainWindow):
         )
         project = item.data()
         self.__obs_manager.obj_p.open_recent_project(project)
+

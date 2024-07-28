@@ -70,9 +70,20 @@ class Project:
             folder_path = self.__obs_manager.obj_dw.select_folder_for_new_project()
             if folder_path:
                 self.set_project_dirpaths(folder_path)
+                self.clear_window_before_new_or_open_project()
                 self.config_new_project()
 
-    #TODO ОБНОВИТЬ MAINWINDOW ПОСЛЕ ОТКРЫТИЯ ПРОЕКТА
+    def clear_window_before_new_or_open_project(self):
+        self.__obs_manager.obj_l.debug_logger("IN clear_window_before_new_or_open_project()")
+        # очистка structureexecdoc
+        self.__obs_manager.obj_sed.clear_sed()
+        # очистка pages_template
+        self.__obs_manager.obj_pt.clear_pt()
+        # очистка pdfview
+        self.__obs_manager.obj_pv.set_empty_pdf_view()
+        # очистка inputforms
+        self.__obs_manager.obj_sai.delete_all_widgets_in_sa()
+    
 
     def config_new_project(self):
         """
@@ -171,6 +182,7 @@ class Project:
             folder_path = self.__obs_manager.obj_dw.select_folder_for_open_project()
             if folder_path:
                 self.set_project_dirpaths(folder_path)
+                self.clear_window_before_new_or_open_project()
                 self.config_open_project()
 
     def config_open_project(self):
@@ -208,6 +220,7 @@ class Project:
         directory_project = project.get("directory_project")
         if os.path.exists(directory_project):
             self.set_project_dirpaths(directory_project)
+            self.clear_window_before_new_or_open_project()
             self.config_open_project()
         else:
             self.__obs_manager.obj_dw.warning_message(

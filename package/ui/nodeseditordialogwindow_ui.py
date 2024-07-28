@@ -24,7 +24,7 @@ class Ui_NodesEditorDialogWindow(object):
     def setupUi(self, NodesEditorDialogWindow):
         if not NodesEditorDialogWindow.objectName():
             NodesEditorDialogWindow.setObjectName(u"NodesEditorDialogWindow")
-        NodesEditorDialogWindow.resize(500, 500)
+        NodesEditorDialogWindow.resize(573, 500)
         self.verticalLayout_2 = QVBoxLayout(NodesEditorDialogWindow)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.hl_main = QHBoxLayout()
@@ -48,6 +48,21 @@ class Ui_NodesEditorDialogWindow(object):
         self.btn_add_group.setObjectName(u"btn_add_group")
 
         self.vl_buttons.addWidget(self.btn_add_group)
+
+        self.hl_movebtns = QHBoxLayout()
+        self.hl_movebtns.setObjectName(u"hl_movebtns")
+        self.btn_up = QPushButton(NodesEditorDialogWindow)
+        self.btn_up.setObjectName(u"btn_up")
+
+        self.hl_movebtns.addWidget(self.btn_up)
+
+        self.btn_down = QPushButton(NodesEditorDialogWindow)
+        self.btn_down.setObjectName(u"btn_down")
+
+        self.hl_movebtns.addWidget(self.btn_down)
+
+
+        self.vl_buttons.addLayout(self.hl_movebtns)
 
         self.btn_change_name = QPushButton(NodesEditorDialogWindow)
         self.btn_change_name.setObjectName(u"btn_change_name")
@@ -112,6 +127,8 @@ class Ui_NodesEditorDialogWindow(object):
         NodesEditorDialogWindow.setWindowTitle(QCoreApplication.translate("NodesEditorDialogWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u043e\u0440 \u0441\u043e\u0441\u0442\u0430\u0432\u0430 \u0418\u0414", None))
         self.btn_add_form.setText(QCoreApplication.translate("NodesEditorDialogWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0444\u043e\u0440\u043c\u0443", None))
         self.btn_add_group.setText(QCoreApplication.translate("NodesEditorDialogWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0433\u0440\u0443\u043f\u043f\u0443", None))
+        self.btn_up.setText(QCoreApplication.translate("NodesEditorDialogWindow", u"\u0412\u0432\u0435\u0440\u0445", None))
+        self.btn_down.setText(QCoreApplication.translate("NodesEditorDialogWindow", u"\u0412\u043d\u0438\u0437", None))
         self.btn_change_name.setText(QCoreApplication.translate("NodesEditorDialogWindow", u"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u043d\u0430\u0437\u0432\u0430\u043d\u0438\u0435", None))
         self.btn_delete_item.setText(QCoreApplication.translate("NodesEditorDialogWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u044d\u043b\u0435\u043c\u0435\u043d\u0442", None))
         self.btn_save.setText(QCoreApplication.translate("NodesEditorDialogWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
