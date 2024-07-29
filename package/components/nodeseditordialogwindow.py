@@ -92,6 +92,7 @@ class NodesEditorDialogWindow(QDialog):
                 self.dfs(child)
 
     def get_childs(self, parent_node):
+        # сортировка была сделана при получении данных с БД
         childs = list(
             filter(
                 lambda node: node.get("id_parent") == parent_node.get("id_node"),
@@ -140,39 +141,46 @@ class NodesEditorDialogWindow(QDialog):
             "NodesEditorDialogWindow edit_current()"
         )
         tree_widget = self.ui.tw_nodes
-        # TODO ???
         current_item = tree_widget.currentItem()
-        if current_item:
+        if current_item is not None:
             node = current_item.data(0, Qt.UserRole)
-            self.ned_node_dw("edit", node.get("type_node"), node)
-            # TODO
+            result = self.ned_node_dw("edit", node.get("type_node"), node)
+            if result:
+                # TODO
+                ...
         else:
             self.__obs_manager.obj_dw.warning_message("Выберите элемент для редактирования!")
 
     def add_group(self):
         self.__obs_manager.obj_l.debug_logger("NodesEditorDialogWindow add_group()")
         # откртыь диалоговое окно
-        self.ned_node_dw("create", "GROUP")
+        result = self.ned_node_dw("create", "GROUP")
         # new_node = self.__obs_manager.obj_nedndw.get_data()
         # добавление
-        # TODO
+        if result:
+            # TODO
+            ...
 
     def add_form(self):
         self.__obs_manager.obj_l.debug_logger("NodesEditorDialogWindow add_form()")
         # откртыь диалоговое окно
-        self.ned_node_dw("create", "FORM")
+        result = self.ned_node_dw("create", "FORM")
         # new_node = self.__obs_manager.obj_nedndw.get_data()
         # добавление
-        # TODO
+        if result:
+            # TODO
+            ...
 
-    def ned_node_dw(self, type_window, type_node, node=None):
+    def ned_node_dw(self, type_window, type_node, node=None) -> bool:
         self.__obs_manager.obj_l.debug_logger(
             "NodesEditorDialogWindow ned_node_dw()"
         )
         self.__obs_manager.obj_nedndw = nednodedialogwindow.NedNodeDialogWindow(
             self.__obs_manager, type_window, type_node, self.__nodes, node
         )
-        self.__obs_manager.obj_nedndw.exec()
+        result = self.__obs_manager.obj_nedndw.exec()
+        return result == QDialog.Accepted
+            
 
     def delete_item(self):
         # TODO сделать удаление

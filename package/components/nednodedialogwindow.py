@@ -4,6 +4,8 @@ from PySide6.QtGui import QIcon
 
 import package.ui.nednodedialogwindow_ui as nednodedialogwindow_ui
 
+import copy
+
 import resources_rc
 
 
@@ -20,16 +22,8 @@ class NedNodeDialogWindow(QDialog):
         super(NedNodeDialogWindow, self).__init__()
         self.ui = nednodedialogwindow_ui.Ui_NedNodeDialogWindow()
         self.ui.setupUi(self)
-        # 
-        self.__data = {
-            "id_active_template": None,
-            "id_node": None,
-            "id_parent": None,
-            "included": None,
-            "name_node": None,
-            "order_node": None,
-            "type_node": None,
-        }
+        #   
+        self.__data = []
         # одноразовые действия
         self.config_maindata()
         self.config_placementdata()
@@ -58,12 +52,13 @@ class NedNodeDialogWindow(QDialog):
                 self.ui.namenode.setText("Название группы")
                 self.ui.btn_nestag.setText("Добавить группу")
         elif self.__type_window == "edit":
-            self.ui.namenode.setText(self.__node.get("name_node"))
             if self.__type_node == "FORM":
                 self.ui.namenode.setText("Название формы")
             elif self.__type_node == "GROUP":
                 self.ui.namenode.setText("Название группы")
             self.ui.btn_nestag.setText("Сохранить")
+            # заполняем форму
+            self.ui.lineedit_namenode.setText(self.__node.get("name_node"))
 
     def config_placementdata(self):
         # TODO
@@ -82,14 +77,15 @@ class NedNodeDialogWindow(QDialog):
         combobox.clear()
         current_index = 0
         project_and_group_nodes = self.get_project_and_group_nodes()
-        for index, node in enumerate(project_and_group_nodes):
-            combobox.addItem(node.get("name_node"), node)
-            if is_edit and node.get("id_node") == self.__node.get("id_parent"):
+        for index, prgr_node in enumerate(project_and_group_nodes):
+            combobox.addItem(prgr_node.get("name_node"), prgr_node)
+            if is_edit and prgr_node.get("id_node") == self.__node.get("id_parent"):
                 current_index = index
         combobox.setCurrentIndex(current_index)
         combobox.blockSignals(False)
 
     def get_childs(self, parent_node):
+        # сортировка была сделана при получении данных с БД
         childs = list(
             filter(lambda node: node.get("id_parent") == parent_node.get("id_node"), self.__nodes)
         )
@@ -110,10 +106,8 @@ class NedNodeDialogWindow(QDialog):
         for index, child_node in enumerate(childs_nodes):
             if self.__node.get("id_node") != child_node.get("id_node"): 
                 combobox.addItem("После " + child_node.get("name_node"), child_node)
-                print("СЮДА")
             else:
                 current_index = index
-                print("ТУДА", current_index)
         combobox.setCurrentIndex(current_index)
         combobox.blockSignals(False)
 
@@ -128,23 +122,79 @@ class NedNodeDialogWindow(QDialog):
             self.add_new_node()
         elif self.__type_window == "edit":
             self.save_edit_node()
-        self.close()
+        self.accept()
 
     def save_edit_node(self):
         self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow save_edit_node()")
-        self.__data["name_node"] = self.ui.namenode.text()
+        self.__data = []
+        self.edit_data_old_group()
+        print("old_group DATA")
+        for elem in self.__data:
+            print(elem)
+        self.edit_data_new_group()
+        print("new_group DATA")
+        for elem in self.__data:
+            print(elem)
+
+
+
+    def edit_data_old_group(self):
+        self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow edit_data_old_group()") 
+        # подготовка данных
+        flag_old = False
+        # обертка для функции        
+        old_parent_node = {
+            "id_node": self.__node.get("id_parent"),
+            "type_node": "WRAPPER"
+        }
+        old_childs_nodes = self.get_childs(old_parent_node) 
+        # цикл по старой группе
+        for index, child_node in enumerate(old_childs_nodes):
+            if flag_old:
+                child_node["order_node"] = index - 1
+                self.__data.append(child_node)
+            elif child_node.get("id_node") == self.__node.get("id_node"):
+                # убрать main из старой группы
+                flag_old = True
+                child_node["parent_node"] = -1
+
+    def edit_data_new_group(self):
+        self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow edit_data_new_group()")
+        # подготовка данных
+        parent_node = self.ui.combox_parent.currentData()   
+        childs_nodes = self.get_childs(parent_node)
+        # найти соседа в новой группе
+        neighboor_index = int()
+        neighboor_node = self.ui.combox_neighboor.currentData()        
+        if neighboor_node == "start":
+            neighboor_index = -1
+        else:
+            neighboor_index = int(neighboor_node.get("order_node"))
+        # выставляем новые значения для __node
+        self.__node["order_node"] = neighboor_index + 1
+        self.__node["parent_node"] = parent_node.get("id_node")
+        self.__node["name_node"] = self.ui.lineedit_namenode.text()
+        self.__data.append(self.__node)
+        # цикл по новой группе
+        print(f"neighboor_index = {neighboor_index}")
+        for index, child_node in enumerate(childs_nodes):
+            if neighboor_index < index:
+                child_node["order_node"] = index + 1
+                self.__data.append(child_node)
+
 
     def add_new_node(self):
         self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow add_new_node()")
-        self.__data = {
-            "id_active_template": None,
-            "id_node": None,
-            "id_parent": None,
-            "included": None,
-            "name_node": None,
-            "order_node": None,
-            "type_node": None,
-        }
-        self.__data["included"] = 1
-        self.__data["name_node"] = self.ui.namenode.text()
-        self.__data["type_node"] = self.__type_node
+        # TODO Местоположение  обработать __nodes
+        # self.__data = {
+        #     "id_active_template": None,
+        #     "id_node": None,
+        #     "id_parent": None,
+        #     "included": None,
+        #     "name_node": None,
+        #     "order_node": None,
+        #     "type_node": None,
+        # }
+        # self.__data["included"] = 1
+        # self.__data["name_node"] = self.ui.namenode.text()
+        # self.__data["type_node"] = self.__type_node
