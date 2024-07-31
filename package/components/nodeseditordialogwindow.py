@@ -37,24 +37,27 @@ class NodesEditorDialogWindow(QDialog):
         self.ui = nodeseditordialogwindow_ui.Ui_NodesEditorDialogWindow()
         self.ui.setupUi(self)
         #
-        self.config()
+        self.reconfig()
         #
         self.connecting_actions()
 
-    def config(self):
-        self.__obs_manager.obj_l.debug_logger("NodesEditorDialogWindow config()")
+    def reconfig(self):
+        self.__obs_manager.obj_l.debug_logger("NodesEditorDialogWindow reconfig()")
         #
         self.__nodes_to_items = dict()
         # очистка tw_nodes
+        self.ui.tw_nodes.blockSignals(True)
         self.ui.tw_nodes.clear()
-        self.ui.tw_nodes.setHeaderLabels(["Проект"])
-        self.ui.tw_nodes.expandAll()
+        self.ui.tw_nodes.setHeaderLabels(["Проект"])     
         # заполнения вершинами
         self.__nodes = self.__obs_manager.obj_pd.get_nodes()
         print(f"NodesEditorDialogWindow self.__nodes = {self.__nodes}")
         # запуск
         project_node = self.find_project_node()
         self.dfs(project_node)
+        # включение сигналов
+        self.ui.tw_nodes.expandAll()   
+        self.ui.tw_nodes.blockSignals(False)
 
     def find_project_node(self):
         self.__obs_manager.obj_l.debug_logger(
@@ -92,13 +95,14 @@ class NodesEditorDialogWindow(QDialog):
                 self.dfs(child)
 
     def get_childs(self, parent_node):
-        # сортировка была сделана при получении данных с БД
         childs = list(
             filter(
                 lambda node: node.get("id_parent") == parent_node.get("id_node"),
                 self.__nodes,
             )
         )
+        childs.sort(key=lambda node: int(node.get("order_node")))
+        
         self.__obs_manager.obj_l.debug_logger(
             f"NodesEditorDialogWindow get_childs(parent_node):\nparent_node = {parent_node}\nchilds = {childs}"
         )
@@ -122,8 +126,6 @@ class NodesEditorDialogWindow(QDialog):
             item = QTreeWidgetItem(self.__nodes_to_items[node.get("id_parent")])
             item.setData(0, Qt.UserRole, node)
         item.setText(0, self.get_text_by_node(node))
-        # С галочкой по умолчанию
-        item.setCheckState(0, Qt.Checked)
         self.__nodes_to_items[node.get("id_node")] = item
 
     def connecting_actions(self):
@@ -136,6 +138,23 @@ class NodesEditorDialogWindow(QDialog):
         self.ui.btn_close.clicked.connect(self.close)
         self.ui.btn_edit.clicked.connect(self.edit_current)
 
+    def update_edit_nodes(self):
+        self.__obs_manager.obj_l.debug_logger(
+            "NodesEditorDialogWindow update_bd()"
+        )
+        edit_nodes = self.__obs_manager.obj_nedndw.get_data()
+        # for edit_node in edit_nodes:
+        #     print(f"-> edit_node = {edit_node}")
+        for edit_node in edit_nodes:
+            id_node = edit_node.get("id_node")
+            if id_node == -1:
+                # print(f"ADD, edit_node = {edit_node}")
+                self.__obs_manager.obj_pd.add_node(edit_node)
+            else:
+                # update данные по id
+                # print(f"UPDATE, edit_node = {edit_node}")
+                self.__obs_manager.obj_pd.update_node(edit_node)
+
     def edit_current(self):
         self.__obs_manager.obj_l.debug_logger(
             "NodesEditorDialogWindow edit_current()"
@@ -146,30 +165,58 @@ class NodesEditorDialogWindow(QDialog):
             node = current_item.data(0, Qt.UserRole)
             result = self.ned_node_dw("edit", node.get("type_node"), node)
             if result:
-                # TODO
-                ...
+                # обновление данных в БД
+                self.update_edit_nodes()
+                # перерисовка
+                self.reconfig()
         else:
             self.__obs_manager.obj_dw.warning_message("Выберите элемент для редактирования!")
+
+    def delete_item(self):
+        # TODO уточнить перед удалением?
+        tree_widget = self.ui.tw_nodes
+        current_item = tree_widget.currentItem()
+        if current_item is not None:
+            node = current_item.data(0, Qt.UserRole)
+            type_node = node.get("type_node")
+            if type_node == "GROUP":
+                self.set_group_parent_for_childs_group()
+            self.__obs_manager.obj_pd.delete_node(node)
+            self.reconfig()
+            print("УДАЛЕНИЕ")
+
+    def set_group_parent_for_childs_group(self):
+        self.__obs_manager.obj_l.debug_logger(
+            "NodesEditorDialogWindow set_group_parent_for_childs_group()"
+        )
+
+        childs = self.get_childs(node)
+        if childs:
+            # TODO Подумать куда вставлять и какое значение order сделать
+            for child in childs:
+                self.__obs_manager.obj_pd.set_group_parent_for_child_group(node, child)
+        
+        
 
     def add_group(self):
         self.__obs_manager.obj_l.debug_logger("NodesEditorDialogWindow add_group()")
         # откртыь диалоговое окно
         result = self.ned_node_dw("create", "GROUP")
-        # new_node = self.__obs_manager.obj_nedndw.get_data()
-        # добавление
         if result:
-            # TODO
-            ...
+            # обновление данных в БД
+            self.update_edit_nodes()
+            # перерисовка
+            self.reconfig()
 
     def add_form(self):
         self.__obs_manager.obj_l.debug_logger("NodesEditorDialogWindow add_form()")
         # откртыь диалоговое окно
         result = self.ned_node_dw("create", "FORM")
-        # new_node = self.__obs_manager.obj_nedndw.get_data()
-        # добавление
         if result:
-            # TODO
-            ...
+            # обновление данных в БД
+            self.update_edit_nodes()
+            # перерисовка
+            self.reconfig()
 
     def ned_node_dw(self, type_window, type_node, node=None) -> bool:
         self.__obs_manager.obj_l.debug_logger(
@@ -182,6 +229,5 @@ class NodesEditorDialogWindow(QDialog):
         return result == QDialog.Accepted
             
 
-    def delete_item(self):
-        # TODO сделать удаление
-        pass
+
+        

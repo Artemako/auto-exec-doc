@@ -11,7 +11,9 @@ class ProjectDatabase:
         """
         Настройка базы данных перед использованием проекта
         """
-        self.__obs_manager.obj_l.debug_logger("ProjectDatabase create_and_config_db_project()")
+        self.__obs_manager.obj_l.debug_logger(
+            "ProjectDatabase create_and_config_db_project()"
+        )
 
         if not os.path.exists(self.__obs_manager.obj_dpm.get_db_project_dirpath()):
             # Добавляем данные в пустую БД
@@ -30,7 +32,7 @@ class ProjectDatabase:
         conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
         cursor = conn.cursor()
         cursor.executescript(
-        """
+            """
 BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS "Project_tag_config_date" (
 	"id_config"	INTEGER UNIQUE,
@@ -260,13 +262,17 @@ COMMIT;
         return conn
 
     def get_fetchall(self, cursor):
-        self.__obs_manager.obj_l.debug_logger("ProjectDatabase get_fetchall(cursor, conn) -> list")
+        self.__obs_manager.obj_l.debug_logger(
+            "ProjectDatabase get_fetchall(cursor, conn) -> list"
+        )
         cursor_result = cursor.fetchall()
         result = [dict(row) for row in cursor_result] if cursor_result else []
         return result
 
     def get_fetchone(self, cursor):
-        self.__obs_manager.obj_l.debug_logger("ProjectDatabase get_fetchone(cursor, conn) -> list")
+        self.__obs_manager.obj_l.debug_logger(
+            "ProjectDatabase get_fetchone(cursor, conn) -> list"
+        )
         cursor_result = cursor.fetchone()
         result = dict(cursor_result) if cursor_result else {}
         return result
@@ -295,7 +301,7 @@ COMMIT;
         """
         conn = self.get_conn()
         cursor = conn.cursor()
-        
+
         cursor.execute("""
         SELECT * FROM Project_nodes
         WHERE type_node = "PROJECT";
@@ -351,7 +357,7 @@ COMMIT;
         cursor = conn.cursor()
 
         cursor.execute(
-        """
+            """
         SELECT * FROM Project_nodes
         WHERE id_parent = ?
         ORDER BY order_node ASC
@@ -373,7 +379,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         SELECT * FROM Project_templates
         WHERE id_template = ?
         """,
@@ -394,7 +400,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         SELECT * FROM Project_templates
         WHERE id_parent_node = ?
         """,
@@ -415,7 +421,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         SELECT * FROM Project_pages
         WHERE id_parent_template = ?
         """,
@@ -436,7 +442,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         SELECT * FROM Project_templates
         WHERE id_template = ?
         """,
@@ -457,7 +463,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         SELECT * FROM Project_nodes
         WHERE id_node = ?
         """,
@@ -478,7 +484,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         SELECT * FROM Project_nodes
         WHERE id_node = ?
         """,
@@ -499,7 +505,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         SELECT * FROM Project_nodes
         WHERE id_node = ?
         """,
@@ -520,7 +526,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         SELECT * FROM Project_tags
         WHERE id_tag = ?
         """,
@@ -540,7 +546,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         SELECT * FROM Project_tag_config_date
         WHERE id_tag = ?
         """,
@@ -560,7 +566,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         SELECT * FROM Project_tag_config_table
         WHERE id_tag = ?
         """,
@@ -584,7 +590,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         UPDATE Project_nodes
         SET included = ?
         WHERE id_node = ?
@@ -594,7 +600,6 @@ COMMIT;
         conn.commit()
         conn.close()
 
-
     def get_page_data(self, page) -> list:
         """
         Запрос на получение данных страницы из Project_pages_data.
@@ -602,7 +607,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         SELECT * FROM Project_pages_data
         WHERE id_page = ?
         """,
@@ -622,7 +627,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         SELECT * FROM Project_templates
         """
         )
@@ -640,7 +645,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         SELECT * FROM Project_templates_data
         WHERE id_template = ?
         """,
@@ -661,7 +666,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         SELECT * FROM Project_nodes_data
         WHERE id_node = ?
         """,
@@ -686,7 +691,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         UPDATE Project_pages_data
         SET value = ?
         WHERE id_pair = ?
@@ -707,7 +712,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         UPDATE Project_templates_data
         SET value = ?
         WHERE id_pair = ?
@@ -728,7 +733,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         UPDATE Project_nodes_data
         SET value = ?
         WHERE id_pair = ?
@@ -745,7 +750,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         SELECT value FROM Project_pages_data
         WHERE id_pair = ?
         """,
@@ -759,7 +764,6 @@ COMMIT;
         )
         return result
 
-
     def get_template_pair_value_by_id(self, id_pair):
         """
         Запрос на получение значения по id_pair в Project_templates_data.
@@ -767,7 +771,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         SELECT value FROM Project_templates_data
         WHERE id_pair = ?
         """,
@@ -781,7 +785,6 @@ COMMIT;
         )
         return result
 
-
     def get_node_pair_value_by_id(self, id_pair):
         """
         Запрос на получение значения по id_pair в Project_nodes_data.
@@ -789,7 +792,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         SELECT value FROM Project_nodes_data
         WHERE id_pair = ?
         """,
@@ -813,7 +816,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.executescript(
-        """
+            """
         UPDATE Project_pages
         SET included = 1;
 
@@ -823,7 +826,6 @@ COMMIT;
         )
         conn.commit()
         conn.close()
-        
 
     def get_project_tags(self) -> list:
         """
@@ -832,7 +834,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         SELECT * FROM Project_tags
         """
         )
@@ -847,7 +849,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         SELECT * FROM Project_tags
         WHERE id_tag = ?
         """,
@@ -870,7 +872,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.executescript(
-        """
+            """
         DELETE FROM Project_nodes_data
         WHERE id_node = ?
         """,
@@ -878,7 +880,6 @@ COMMIT;
         )
         conn.commit()
         conn.close()
-
 
     def insert_node_datas(self, node, pair_list):
         """
@@ -891,7 +892,7 @@ COMMIT;
         cursor = conn.cursor()
         for pair in pair_list:
             cursor.execute(
-            """
+                """
             INSERT INTO Project_nodes_data
             (id_node, id_tag)
             VALUES
@@ -913,7 +914,7 @@ COMMIT;
         cursor = conn.cursor()
         for pair in pair_list:
             cursor.execute(
-            """
+                """
             INSERT INTO Project_templates_data
             (id_template, id_tag)
             VALUES
@@ -923,7 +924,6 @@ COMMIT;
             )
         conn.commit()
         conn.close()
-
 
     def insert_page_datas(self, page, pair_list):
         """
@@ -936,7 +936,7 @@ COMMIT;
         cursor = conn.cursor()
         for pair in pair_list:
             cursor.execute(
-            """
+                """
             INSERT INTO Project_pages_data
             (id_page, id_tag)
             VALUES
@@ -958,7 +958,7 @@ COMMIT;
         cursor = conn.cursor()
         for pair in pair_list:
             cursor.execute(
-            """
+                """
             DELETE FROM Project_nodes_data
             WHERE id_node = ?
             AND id_tag = ?
@@ -979,7 +979,7 @@ COMMIT;
         cursor = conn.cursor()
         for pair in pair_list:
             cursor.execute(
-            """
+                """
             DELETE FROM Project_templates_data
             WHERE id_template = ?
             AND id_tag = ?
@@ -1000,7 +1000,7 @@ COMMIT;
         cursor = conn.cursor()
         for pair in pair_list:
             cursor.execute(
-            """
+                """
             DELETE FROM Project_pages_data
             WHERE id_page = ?
             AND id_tag = ?
@@ -1008,7 +1008,7 @@ COMMIT;
                 [page.get("id_page"), pair.get("id_tag")],
             )
         conn.commit()
-        conn.close()    
+        conn.close()
 
     def delete_tag(self, tag):
         """
@@ -1020,14 +1020,91 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         DELETE FROM Project_tags
         WHERE id_tag = ?
         """,
             [tag.get("id_tag")],
         )
         conn.commit()
-        conn.close()    
+        conn.close()
+
+    def update_node(self, node):
+        """
+        Обновление данных вершины.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase update_node(node): node = {node}"
+        )
+
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        UPDATE Project_nodes
+        SET name_node = ?, id_parent = ?, order_node = ?, type_node = ?, id_active_template = ?, included = ?
+        WHERE id_node = ?
+        """,
+            [
+                node.get("name_node"),
+                node.get("id_parent"),
+                node.get("order_node"),
+                node.get("type_node"),
+                node.get("id_active_template"),
+                node.get("included"),
+                node.get("id_node"),
+            ],
+        )
+        conn.commit()
+        conn.close()
+
+    def add_node(self, edit_node):
+        """
+        Добавление вершины.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase add_node(edit_node): edit_node = {edit_node}"
+        )
+
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        INSERT INTO Project_nodes (id_active_template, id_parent, included, name_node, order_node, type_node)
+        VALUES (?, ?, ?, ?, ?, ?)
+        """,
+            [
+                edit_node.get("id_active_template"),
+                edit_node.get("id_parent"),
+                edit_node.get("included"),
+                edit_node.get("name_node"),
+                edit_node.get("order_node"),
+                edit_node.get("type_node"),
+            ],
+        )
+        conn.commit()
+        conn.close()
+
+    def delete_node(self, node):
+        """
+        Удаление вершины по объекту node.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase delete_node(node): node = {node}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+        """
+        DELETE FROM Project_nodes
+        WHERE id_node = ?
+        """,
+            [node.get("id_node")],
+        )
+        conn.commit()
+        conn.close()
+
+
 
 
 # obj_pd = ProjectDatabase()

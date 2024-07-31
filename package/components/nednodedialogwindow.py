@@ -22,7 +22,7 @@ class NedNodeDialogWindow(QDialog):
         super(NedNodeDialogWindow, self).__init__()
         self.ui = nednodedialogwindow_ui.Ui_NedNodeDialogWindow()
         self.ui.setupUi(self)
-        #   
+        #
         self.__data = []
         # одноразовые действия
         self.config_maindata()
@@ -40,7 +40,9 @@ class NedNodeDialogWindow(QDialog):
         for node in self.__nodes:
             if node.get("type_node") == "PROJECT" or node.get("type_node") == "GROUP":
                 nodes.append(node)
-        self.__obs_manager.obj_l.debug_logger(f"NedNodeDialogWindow get_project_and_group_nodes nodes = {nodes}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"NedNodeDialogWindow get_project_and_group_nodes nodes = {nodes}"
+        )
         return nodes
 
     def config_maindata(self):
@@ -69,9 +71,11 @@ class NedNodeDialogWindow(QDialog):
         elif self.__type_window == "edit":
             self.fill_combox_parent(True)
             self.fill_combox_neighboor(True)
-        
-    def fill_combox_parent(self, is_edit = False):
-        self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow fill_combox_parent()")
+
+    def fill_combox_parent(self, is_edit=False):
+        self.__obs_manager.obj_l.debug_logger(
+            "NedNodeDialogWindow fill_combox_parent()"
+        )
         combobox = self.ui.combox_parent
         combobox.blockSignals(True)
         combobox.clear()
@@ -87,14 +91,20 @@ class NedNodeDialogWindow(QDialog):
     def get_childs(self, parent_node):
         # сортировка была сделана при получении данных с БД
         childs = list(
-            filter(lambda node: node.get("id_parent") == parent_node.get("id_node"), self.__nodes)
+            filter(
+                lambda node: node.get("id_parent") == parent_node.get("id_node"),
+                self.__nodes,
+            )
         )
+        # сортировка тут нужна из-за reconfig()
+        childs.sort(key=lambda node: int(node.get("order_node")))
+
         self.__obs_manager.obj_l.debug_logger(
             f"NedNodeDialogWindow get_childs(parent_node):\nparent_node = {parent_node}\nchilds = {childs}"
         )
         return childs
 
-    def fill_combox_neighboor(self, is_edit = False):
+    def fill_combox_neighboor(self, is_edit=False):
         self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow combox_neighboor()")
         combobox = self.ui.combox_neighboor
         combobox.blockSignals(True)
@@ -103,11 +113,15 @@ class NedNodeDialogWindow(QDialog):
         parent_node = self.ui.combox_parent.currentData()
         combobox.addItem("- В начало -", "start")
         childs_nodes = self.get_childs(parent_node)
-        for index, child_node in enumerate(childs_nodes):
-            if self.__node.get("id_node") != child_node.get("id_node"): 
+        if self.__type_window == "create":
+            for index, child_node in enumerate(childs_nodes):
                 combobox.addItem("После " + child_node.get("name_node"), child_node)
-            else:
-                current_index = index
+        else:
+            for index, child_node in enumerate(childs_nodes):
+                if self.__node.get("id_node") != child_node.get("id_node"):
+                    combobox.addItem("После " + child_node.get("name_node"), child_node)
+                else:
+                    current_index = index
         combobox.setCurrentIndex(current_index)
         combobox.blockSignals(False)
 
@@ -128,26 +142,20 @@ class NedNodeDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow save_edit_node()")
         self.__data = []
         self.edit_data_old_group()
-        print("old_group DATA")
-        for elem in self.__data:
-            print(elem)
         self.edit_data_new_group()
-        print("new_group DATA")
-        for elem in self.__data:
-            print(elem)
-
-
 
     def edit_data_old_group(self):
-        self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow edit_data_old_group()") 
+        self.__obs_manager.obj_l.debug_logger(
+            "NedNodeDialogWindow edit_data_old_group()"
+        )
         # подготовка данных
         flag_old = False
-        # обертка для функции        
+        # обертка для функции
         old_parent_node = {
             "id_node": self.__node.get("id_parent"),
-            "type_node": "WRAPPER"
+            "type_node": "WRAPPER",
         }
-        old_childs_nodes = self.get_childs(old_parent_node) 
+        old_childs_nodes = self.get_childs(old_parent_node)
         # цикл по старой группе
         for index, child_node in enumerate(old_childs_nodes):
             if flag_old:
@@ -156,45 +164,53 @@ class NedNodeDialogWindow(QDialog):
             elif child_node.get("id_node") == self.__node.get("id_node"):
                 # убрать main из старой группы
                 flag_old = True
-                child_node["parent_node"] = -1
+                child_node["id_parent"] = -1
 
     def edit_data_new_group(self):
-        self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow edit_data_new_group()")
+        self.__obs_manager.obj_l.debug_logger(
+            "NedNodeDialogWindow edit_data_new_group()"
+        )
         # подготовка данных
-        parent_node = self.ui.combox_parent.currentData()   
+        parent_node = self.ui.combox_parent.currentData()
         childs_nodes = self.get_childs(parent_node)
         # найти соседа в новой группе
         neighboor_index = int()
-        neighboor_node = self.ui.combox_neighboor.currentData()        
+        neighboor_node = self.ui.combox_neighboor.currentData()
         if neighboor_node == "start":
             neighboor_index = -1
         else:
-            neighboor_index = int(neighboor_node.get("order_node"))
+            neighboor_index = int(neighboor_node.get("order_node")) - 1
         # выставляем новые значения для __node
         self.__node["order_node"] = neighboor_index + 1
-        self.__node["parent_node"] = parent_node.get("id_node")
+        self.__node["id_parent"] = parent_node.get("id_node")
         self.__node["name_node"] = self.ui.lineedit_namenode.text()
+        print(f"УРА self.__node = {self.__node}")
+        print(f"УРА parent_node = {parent_node}")
         self.__data.append(self.__node)
         # цикл по новой группе
         print(f"neighboor_index = {neighboor_index}")
         for index, child_node in enumerate(childs_nodes):
+            # print(f"index, child_node = {index}, {child_node}")
             if neighboor_index < index:
                 child_node["order_node"] = index + 1
+                # print("child_node = ", child_node)
                 self.__data.append(child_node)
-
 
     def add_new_node(self):
         self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow add_new_node()")
-        # TODO Местоположение  обработать __nodes
-        # self.__data = {
-        #     "id_active_template": None,
-        #     "id_node": None,
-        #     "id_parent": None,
-        #     "included": None,
-        #     "name_node": None,
-        #     "order_node": None,
-        #     "type_node": None,
-        # }
-        # self.__data["included"] = 1
-        # self.__data["name_node"] = self.ui.namenode.text()
-        # self.__data["type_node"] = self.__type_node
+        # подготовка данных
+        self.__node = {
+            "id_active_template": None,
+            "id_node": -1,
+            "id_parent": None,
+            "included": 1,
+            "name_node": None,
+            "order_node": None,
+            "type_node": self.__type_node,
+        }
+        # TODO "id_node": -1,
+        self.__data = []
+        self.edit_data_new_group()
+        print("DATA")
+        for item in self.__data:
+            print(sorted(item.items()))
