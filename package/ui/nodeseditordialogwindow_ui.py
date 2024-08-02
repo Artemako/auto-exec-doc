@@ -83,19 +83,11 @@ class Ui_NodesEditorDialogWindow(object):
 
         self.hl_saveclose = QHBoxLayout()
         self.hl_saveclose.setObjectName(u"hl_saveclose")
-        self.btn_save = QPushButton(NodesEditorDialogWindow)
-        self.btn_save.setObjectName(u"btn_save")
-        icon = QIcon()
-        icon.addFile(u":/icons/resources/icons/save.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_save.setIcon(icon)
-
-        self.hl_saveclose.addWidget(self.btn_save)
-
         self.btn_close = QPushButton(NodesEditorDialogWindow)
         self.btn_close.setObjectName(u"btn_close")
-        icon1 = QIcon()
-        icon1.addFile(u":/icons/resources/icons/close.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_close.setIcon(icon1)
+        icon = QIcon()
+        icon.addFile(u":/icons/resources/icons/close.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_close.setIcon(icon)
 
         self.hl_saveclose.addWidget(self.btn_close)
 
@@ -114,7 +106,6 @@ class Ui_NodesEditorDialogWindow(object):
         self.btn_add_group.setText(QCoreApplication.translate("NodesEditorDialogWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0433\u0440\u0443\u043f\u043f\u0443", None))
         self.btn_edit.setText(QCoreApplication.translate("NodesEditorDialogWindow", u"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c", None))
         self.btn_delete_item.setText(QCoreApplication.translate("NodesEditorDialogWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u044d\u043b\u0435\u043c\u0435\u043d\u0442", None))
-        self.btn_save.setText(QCoreApplication.translate("NodesEditorDialogWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
         self.btn_close.setText(QCoreApplication.translate("NodesEditorDialogWindow", u"\u0417\u0430\u043a\u0440\u044b\u0442\u044c", None))
     # retranslateUi
 

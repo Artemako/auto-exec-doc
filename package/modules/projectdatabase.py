@@ -456,7 +456,7 @@ COMMIT;
         )
         return result
 
-    def get_parent_node(self, template) -> object:
+    def get_parent_node_template(self, template) -> object:
         """
         Определение родителя parent_node для template.
         """
@@ -473,7 +473,7 @@ COMMIT;
         result = self.get_fetchone(cursor)
         conn.close()
         self.__obs_manager.obj_l.debug_logger(
-            f"ProjectDatabase get_parent_node() -> object\nresult = {result}"
+            f"ProjectDatabase get_parent_node_template() -> object\nresult = {result}"
         )
         return result
 
@@ -1105,6 +1105,46 @@ COMMIT;
         conn.close()
 
 
+    def set_group_parent_for_child_group(self, node, child_node):
+        """
+        Установка родительской вершины для дочерей группы.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase set_group_parent_for_child_group(node, child_node):\nnode = {node}\nchild_node = {child_node}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        UPDATE Project_nodes
+        SET id_parent = ?, order_node = ?
+        WHERE id_node = ?
+        """,
+            [node.get("id_parent"), node.get("order_node"), child_node.get("id_node")],
+        )
+        conn.commit()
+        conn.close()
+
+
+    def set_order_for_node(self, node, new_order):
+        """
+        Установка порядка для вершины.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase set_order_for_node(node, new_order):\nnode = {node}\nnew_order = {new_order}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        UPDATE Project_nodes
+        SET order_node = ?
+        WHERE id_node = ?
+        """,
+            [new_order, node.get("id_node")],
+        )
+        conn.commit()
+        conn.close()
 
 
 # obj_pd = ProjectDatabase()

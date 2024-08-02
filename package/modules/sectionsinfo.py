@@ -16,7 +16,7 @@ class SectionsInfo:
         self.add_page_for_sections_info(page)
         template = self.__obs_manager.obj_pd.get_parent_template(page)
         self.add_template_for_sections_info(template)
-        node = self.__obs_manager.obj_pd.get_parent_node(template)
+        node = self.__obs_manager.obj_pd.get_parent_node_template(template)
         self.add_nodes_for_sections_info(node)
     
     def add_page_for_sections_info(self, page):

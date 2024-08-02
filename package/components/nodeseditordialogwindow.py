@@ -16,17 +16,6 @@ import package.components.nednodedialogwindow as nednodedialogwindow
 
 import resources_rc
 
-node = {
-    "id_active_template": 1,
-    "id_node": 10,
-    "id_parent": 0,
-    "included": 1,
-    "name_node": "Титульный лист",
-    "order_node": "1",
-    "type_node": "FORM",
-}
-
-
 class NodesEditorDialogWindow(QDialog):
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
@@ -180,21 +169,34 @@ class NodesEditorDialogWindow(QDialog):
             node = current_item.data(0, Qt.UserRole)
             type_node = node.get("type_node")
             if type_node == "GROUP":
-                self.set_group_parent_for_childs_group()
-            self.__obs_manager.obj_pd.delete_node(node)
+                self.delete_group_node(node)
+            else:
+                self.__obs_manager.obj_pd.delete_node(node)
             self.reconfig()
             print("УДАЛЕНИЕ")
 
-    def set_group_parent_for_childs_group(self):
+    def delete_group_node(self, node):
         self.__obs_manager.obj_l.debug_logger(
-            "NodesEditorDialogWindow set_group_parent_for_childs_group()"
+            f"NodesEditorDialogWindow delete_group_node(node):\nnode = {node}"
         )
 
         childs = self.get_childs(node)
         if childs:
-            # TODO Подумать куда вставлять и какое значение order сделать
+            # переопределяем родительскую вершину для дочерних вершин
             for child in childs:
                 self.__obs_manager.obj_pd.set_group_parent_for_child_group(node, child)
+            # удаляем вершину из БД
+            self.__obs_manager.obj_pd.delete_node(node)
+            # перевыставляем order_node соседям вершины
+            parent_node = self.__obs_manager.obj_pd.get_node_parent(node)
+            parent_childs = self.__obs_manager.obj_pd.get_childs(parent_node)
+            if parent_childs:
+                for index, parent_child in enumerate(parent_childs):
+                    self.__obs_manager.obj_pd.set_order_for_node(parent_child, index)
+        else:
+            self.__obs_manager.obj_pd.delete_node(node) 
+        
+
         
         
 
