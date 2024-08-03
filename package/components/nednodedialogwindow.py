@@ -8,8 +8,8 @@ import copy
 
 import resources_rc
 
-# TODO Убрать фокус с кнопки Добавить и сохранить
-# TODO Для добавитть сделать автоматический подбор группы также как у едит
+# TODO ПОДУМАТЬ ПРО PDF 
+
 class NedNodeDialogWindow(QDialog):
     def __init__(self, obs_manager, type_window, type_node, nodes, node=None):
         self.__obs_manager = obs_manager
@@ -49,6 +49,7 @@ class NedNodeDialogWindow(QDialog):
         return nodes
 
     def config_maindata(self):
+        self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow config_maindata()")
         if self.__type_window == "create":
             if self.__type_node == "FORM":
                 self.ui.namenode.setText("Название формы")
@@ -66,16 +67,16 @@ class NedNodeDialogWindow(QDialog):
             self.ui.lineedit_namenode.setText(self.__node.get("name_node"))
 
     def config_placementdata(self):
-        # TODO
+        self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow config_placementdata()")
         # заполняем combobox'ы
         if self.__type_window == "create":
-            self.fill_combox_parent(False)
+            self.fill_combox_parent()
             self.fill_combox_neighboor()
         elif self.__type_window == "edit":
-            self.fill_combox_parent(True)
+            self.fill_combox_parent()
             self.fill_combox_neighboor()
 
-    def fill_combox_parent(self, is_edit=False):
+    def fill_combox_parent(self):
         self.__obs_manager.obj_l.debug_logger(
             "NedNodeDialogWindow fill_combox_parent()"
         )
@@ -86,12 +87,20 @@ class NedNodeDialogWindow(QDialog):
         project_and_group_nodes = self.get_project_and_group_nodes()
         for index, prgr_node in enumerate(project_and_group_nodes):
             combobox.addItem(prgr_node.get("name_node"), prgr_node)
-            if is_edit and prgr_node.get("id_node") == self.__node.get("id_parent"):
-                current_index = index
+            print(f"prgr_node = {prgr_node}")
+            print(f"self.__node = {self.__node}")
+            if self.__node:
+                if prgr_node.get("id_node") == self.__node.get("id_parent"):
+                    current_index = index
+                    print('TRUE prgr_node.get("id_node") == self.__node.get("id_parent")')
+                    print(f"current_index = {index}")
         combobox.setCurrentIndex(current_index)
         combobox.blockSignals(False)
 
     def get_childs(self, parent_node):
+        self.__obs_manager.obj_l.debug_logger(
+            f"NedNodeDialogWindow get_childs(parent_node):\nparent_node = {parent_node}"
+        )
         # сортировка была сделана при получении данных с БД
         childs = list(
             filter(
@@ -212,7 +221,7 @@ class NedNodeDialogWindow(QDialog):
             "order_node": None,
             "type_node": self.__type_node,
         }
-        # TODO "id_node": -1,
+        # 
         self.__data = []
         self.edit_data_new_group()
         print("DATA")

@@ -162,18 +162,22 @@ class NodesEditorDialogWindow(QDialog):
             self.__obs_manager.obj_dw.warning_message("Выберите элемент для редактирования!")
 
     def delete_item(self):
-        # TODO уточнить перед удалением?
         tree_widget = self.ui.tw_nodes
         current_item = tree_widget.currentItem()
         if current_item is not None:
             node = current_item.data(0, Qt.UserRole)
             type_node = node.get("type_node")
-            if type_node == "GROUP":
-                self.delete_group_node(node)
-            else:
-                self.__obs_manager.obj_pd.delete_node(node)
-            self.reconfig()
-            print("УДАЛЕНИЕ")
+            name_node = node.get("name_node")
+            result = self.__obs_manager.obj_dw.question_message(f"Вы точно хотите удалить {name_node}?")
+            if result:
+                if type_node == "GROUP":
+                    self.delete_group_node(node)
+                else:
+                    self.__obs_manager.obj_pd.delete_node(node)
+                self.reconfig()
+                print("УДАЛЕНИЕ")
+        else:
+            self.__obs_manager.obj_dw.warning_message("Выберите элемент для удаления!")
 
     def delete_group_node(self, node):
         self.__obs_manager.obj_l.debug_logger(
@@ -197,13 +201,17 @@ class NodesEditorDialogWindow(QDialog):
             self.__obs_manager.obj_pd.delete_node(node) 
         
 
-        
-        
 
     def add_group(self):
         self.__obs_manager.obj_l.debug_logger("NodesEditorDialogWindow add_group()")
-        # откртыь диалоговое окно
-        result = self.ned_node_dw("create", "GROUP")
+        tree_widget = self.ui.tw_nodes
+        current_item = tree_widget.currentItem()
+        result = False
+        if current_item is not None:
+            node = current_item.data(0, Qt.UserRole)
+            result = self.ned_node_dw("create", "GROUP", node)
+        else:
+            result = self.ned_node_dw("create", "GROUP")
         if result:
             # обновление данных в БД
             self.update_edit_nodes()
@@ -212,8 +220,14 @@ class NodesEditorDialogWindow(QDialog):
 
     def add_form(self):
         self.__obs_manager.obj_l.debug_logger("NodesEditorDialogWindow add_form()")
-        # откртыь диалоговое окно
-        result = self.ned_node_dw("create", "FORM")
+        tree_widget = self.ui.tw_nodes
+        current_item = tree_widget.currentItem()
+        result = False
+        if current_item is not None:
+            node = current_item.data(0, Qt.UserRole)
+            result = self.ned_node_dw("create", "FORM", node)
+        else:
+            result = self.ned_node_dw("create", "FORM")
         if result:
             # обновление данных в БД
             self.update_edit_nodes()

@@ -201,7 +201,6 @@ class DialogWindows:
                     f"DialogWindows select_name_and_dirpath_export_pdf() -> {None}"
                 )
                 return None
-            
-
+        
 
 # obj_dw = DialogWindows()

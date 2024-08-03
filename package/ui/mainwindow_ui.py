@@ -194,7 +194,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.widget_pdf_view = QPdfView(self.gb_center)
         self.widget_pdf_view.setObjectName(u"widget_pdf_view")
-        self.widget_pdf_view.setStyleSheet(u"background-color: rgb(255, 170, 0);")
+        self.widget_pdf_view.setStyleSheet(u"")
 
         self.horizontalLayout.addWidget(self.widget_pdf_view)
 

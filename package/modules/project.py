@@ -102,7 +102,6 @@ class Project:
         # настраиваем контроллеры
         # настраиваем структуру execdoc
         self.__obs_manager.obj_sed.update_structure_exec_doc()
-        self.__obs_manager.obj_pt.create_pages_template()
         # пути для проекта
         self.__obs_manager.obj_dpm.set_new_dirpaths_for_project()
         # добавляем папки форм в новый проект

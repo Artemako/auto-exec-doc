@@ -187,7 +187,7 @@
         <item>
          <widget class="QPdfView" name="widget_pdf_view" native="true">
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 170, 0);</string>
+           <string notr="true"/>
           </property>
          </widget>
         </item>
