@@ -1,7 +1,7 @@
 import sqlite3
 import os
 
-
+# TODO Materialized Path и его сортировка
 class ProjectDatabase:
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager

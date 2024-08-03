@@ -1,12 +1,5 @@
 from PySide6.QtWidgets import (
-    QDialog,
-    QTableWidget,
-    QTableWidgetItem,
-    QAbstractItemView,
-    QPushButton,
-    QCheckBox,
-    QHBoxLayout,
-    QWidget,
+    QDialog
 )
 
 from functools import partial

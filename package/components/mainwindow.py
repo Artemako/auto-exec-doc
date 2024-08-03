@@ -8,6 +8,7 @@ import package.ui.mainwindow_ui as mainwindow_ui
 
 import package.components.tagslistdialogwindow as tagslistdialogwindow
 import package.components.nodeseditordialogwindow as nodeseditordialogwindow
+import package.components.templateslistsialogwindow as templateslistsialogwindow
 
 from functools import partial
 
@@ -91,10 +92,8 @@ class MainWindow(QMainWindow):
             if checked
             else self.__obs_manager.obj_pv.set_zoom_custom()
         )
-
-        # TODO Добавить активности для редактирования
         self.ui.action_edit_tags.triggered.connect(lambda: self.edit_tags())
-        # self.ui.action_edit_templates.triggered.connect(lambda: self.__obs_manager.obj_p.edit_templates())
+        self.ui.action_edit_templates.triggered.connect(lambda: self.edit_templates())
         self.ui.action_edit_composition.triggered.connect(
             lambda: self.edit_structure_nodes()
         )
@@ -142,14 +141,22 @@ class MainWindow(QMainWindow):
     def edit_tags(self):
         """Редактирование тегов."""
         self.__obs_manager.obj_l.debug_logger("MainWindow edit_tags()")
-        self.__obs_manager.obj_tldw = tagslistdialogwindow.TagsListDialogWindow(
+        self.__obs_manager.obj_tagsldw = tagslistdialogwindow.TagsListDialogWindow(
             self.__obs_manager
         )
-        self.__obs_manager.obj_tldw.exec()
+        self.__obs_manager.obj_tagsldw.exec()
         # обновить скроллвью после изменения тегов
         page = self.__obs_manager.obj_pt.get_page_by_current_item()
         if page is not None:
             self.__obs_manager.obj_sai.update_scrollarea(page)
+
+    def edit_templates(self):
+        """Редактирование шаблонов."""
+        self.__obs_manager.obj_l.debug_logger("MainWindow edit_templates()")
+        self.__obs_manager.obj_templdw = templateslistsialogwindow.TemplatesListDialogWindow(
+            self.__obs_manager
+        )
+        self.__obs_manager.obj_templdw.exec()
 
     def edit_structure_nodes(self):
         """Редактирование структуры узлов."""
