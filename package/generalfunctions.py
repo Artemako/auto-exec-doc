@@ -45,5 +45,8 @@ class GeneralFunctions:
                 icons[key] = elem.pixmap(QSize(size, size))
             self.__icons_cache[key] = icons
             return icons
-            
+        
 
+    def print_array(self, array):
+        for i, elem in enumerate(array):
+            print(f"""i = {i} elem = {elem}""")

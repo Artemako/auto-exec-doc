@@ -9,6 +9,7 @@ import copy
 import resources_rc
 
 # TODO ПОДУМАТЬ ПРО PDF 
+# TODO ПУСТОЕ ИМЯ НЕ ДЛОЖНО БЫТЬ
 
 class NedNodeDialogWindow(QDialog):
     def __init__(self, obs_manager, type_window, type_node, nodes, node=None):
@@ -144,11 +145,14 @@ class NedNodeDialogWindow(QDialog):
 
     def action_nestag(self):
         self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow action_nestag()")
-        if self.__type_window == "create":
-            self.add_new_node()
-        elif self.__type_window == "edit":
-            self.save_edit_node()
-        self.accept()
+        if len(self.ui.lineedit_namenode.text()) > 0:
+            if self.__type_window == "create":
+                self.add_new_node()
+            elif self.__type_window == "edit":
+                self.save_edit_node()
+            self.accept()
+        else:
+            self.__obs_manager.obj_dw.warning_message("Заполните поле названия")
 
     def save_edit_node(self):
         self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow save_edit_node()")

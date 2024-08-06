@@ -21,10 +21,10 @@ class NedTemplateDialogWindow(QDialog):
         self.ui.setupUi(self)
         #
         self.__data = []
-        self.__icons = self.get_icons()
+        self.__icons = self.__obs_manager.obj_gf.get_icons()
         # одноразовые действия
         self.config_by_type_window()
-        # self.connecting_actions()
+        self.connecting_actions()
 
     def get_data(self):
         self.__obs_manager.obj_l.debug_logger(
@@ -39,11 +39,26 @@ class NedTemplateDialogWindow(QDialog):
         if self.__type_ned == "create":
             self.ui.label_nametemplate.setText("Название нового шаблона")
             self.ui.btn_nestag.setText("Добавить тэг")
-            self.ui.btn_nestag.setIcon(self.qicon_add)
+            self.ui.btn_nestag.setIcon(self.__icons.get("qicon_add"))
         elif self.__type_ned == "edit":
             self.ui.label_nametemplate.setText("Название шаблона")
             self.ui.lineedit_nametemplate.setText(self.__template.get("name_template"))
             self.ui.btn_nestag.setText("Сохранить тэг")
-            self.ui.btn_nestag.setIcon(self.qicon_save)
+            self.ui.btn_nestag.setIcon(self.__icons.get("qicon_save"))
 
-        
+    def connecting_actions(self):
+        self.__obs_manager.obj_l.debug_logger(
+            "NedTemplateDialogWindow connecting_actions()"
+        )
+        self.ui.btn_close.clicked.connect(self.close)
+        self.ui.btn_nestag.clicked.connect(self.btn_nestag_clicked)
+
+    def btn_nestag_clicked(self):
+        self.__obs_manager.obj_l.debug_logger(
+            "NedTemplateDialogWindow btn_nestag_clicked()"
+        )
+        self.__data = self.ui.lineedit_nametemplate.text()
+        if len(self.__data) > 0:
+            self.accept()
+        else:
+            self.__obs_manager.obj_dw.warning_message("Заполните поле названия")

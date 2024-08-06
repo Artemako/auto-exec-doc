@@ -1146,5 +1146,83 @@ COMMIT;
         conn.commit()
         conn.close()
 
+    def add_template(self, name_template, form):
+        """
+        Добавление шаблона.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase add_template(name_template, form):\nname_template = {name_template}\nform = {form}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        INSERT INTO Project_templates (name_template, id_parent_node)
+        VALUES (?, ?)
+        """,
+            [name_template, form.get("id_node")],
+        )
+        conn.commit()
+        conn.close()
+        
+
+    def set_new_name_for_template(self, template, name_template):
+        """
+        Установка нового имени шаблона.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase set_new_name_for_template(template, name_template):\ntemplate = {template}\nname_template = {name_template}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        UPDATE Project_templates
+        SET name_template = ?
+        WHERE id_template = ?
+        """,
+            [name_template, template.get("id_template")],
+        )
+        conn.commit()
+        conn.close()
+
+
+    def delete_template(self, template):
+        """
+        Удаление шаблона.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase delete_template(template):\ntemplate = {template}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        DELETE FROM Project_templates
+        WHERE id_template = ?
+        """,
+            [template.get("id_template")],
+        )
+        conn.commit()
+        conn.close()
+
+    def delete_template_all_data(self, template):
+        """
+        Удаление всех данных шаблона.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase delete_template_all_data(template):\ntemplate = {template}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        DELETE FROM Project_templates_data
+        WHERE id_template = ?
+        """,
+            [template.get("id_template")],
+        )
+        conn.commit()
+        conn.close()
 
 # obj_pd = ProjectDatabase()

@@ -50,10 +50,19 @@ class NedTagDialogWindow(QDialog):
         
     def btn_nestag_clicked(self):
         self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow btn_nestag_clicked()")
-        if self.__type_window == "create":
-            self.add_new_tag()
-        elif self.__type_window == "edit":
-            self.save_edit_tag()
+        le_nametag = self.ui.lineedit_nametag.text()
+        le_titletag = self.ui.lineedit_titletag.text()
+        if len(le_nametag) > 0 and len(le_titletag) > 0:
+            if self.__type_window == "create":
+                self.add_new_tag()
+            elif self.__type_window == "edit":
+                self.save_edit_tag()
+        elif le_nametag == "" and le_titletag == "":
+            self.__obs_manager.obj_dw.warning_message("Заполните все поля")
+        elif le_nametag == "":
+            self.__obs_manager.obj_dw.warning_message("Заполните поле тега")
+        elif le_titletag == "":
+            self.__obs_manager.obj_dw.warning_message("Заполните поле названия тега")
 
     def add_new_tag(self):
         self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow add_new_tag()")

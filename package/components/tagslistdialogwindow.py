@@ -221,11 +221,12 @@ class TagsListDialogWindow(QDialog):
             print(f"page = {page}")
             if page == "all_pages":
                 template = self.ui.combox_templates.currentData()
-                template_data = self.__obs_manager.obj_pd.get_template_data(template)
-                for pair in template_data:
-                    data += self.__obs_manager.obj_pd.get_tag_config_by_id(
-                        pair.get("id_tag")
-                    )
+                if template:
+                    template_data = self.__obs_manager.obj_pd.get_template_data(template)
+                    for pair in template_data:
+                        data += self.__obs_manager.obj_pd.get_tag_config_by_id(
+                            pair.get("id_tag")
+                        )
             else:
                 page_data = self.__obs_manager.obj_pd.get_page_data(page)
                 for pair in page_data:
@@ -297,12 +298,11 @@ class TagsListDialogWindow(QDialog):
 
     def clear_and_fill_combobox_page(self):
         self.__obs_manager.obj_l.debug_logger("TagsListDialogWindow clear_and_fill_combobox_page()")
-        print(f"index = {self.ui.combox_templates.currentIndex()}")
         template = self.ui.combox_templates.currentData()
-        print(f"template = {template}")
-        pages = self.__obs_manager.obj_pd.get_pages_by_template(template)
-        print(f"pages = {pages}")
-        #
+        pages = []
+        if template:
+            pages = self.__obs_manager.obj_pd.get_pages_by_template(template)
+        # очистка 
         self.ui.combox_pages.blockSignals(True)
         self.ui.combox_pages.clear()
         # пункт - Для всех страниц

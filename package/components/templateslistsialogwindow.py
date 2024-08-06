@@ -24,6 +24,13 @@ class TemplatesListDialogWindow(QDialog):
         # # подключаем деействия
         self.connecting_actions()
 
+    def reconfig(self):
+        self.__obs_manager.obj_l.debug_logger(
+            "TemplatesListDialogWindow reconfig()"
+        )
+        self.config_templates()
+        self.config_pages()
+
     def config_forms(self):
         self.__obs_manager.obj_l.debug_logger(
             "TemplatesListDialogWindow config_forms()"
@@ -122,7 +129,7 @@ class TemplatesListDialogWindow(QDialog):
         self.ui.combox_forms.currentIndexChanged.connect(
             self.combox_forms_index_changed
         )
-        self.ui.lw_templates.currentItemChanged.connect(self.config_pages())
+        self.ui.lw_templates.currentItemChanged.connect(self.config_pages)
 
     def combox_forms_index_changed(self):
         self.__obs_manager.obj_l.debug_logger(
@@ -135,11 +142,16 @@ class TemplatesListDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger(
             f"TemplatesListDialogWindow delete_item(btn):\ntype_window = {type_window}\n data = {data}"
         )
-        # todo
+        # todo ?
         if type_window == "TEMPLATE":
-            result = self.ned_temp_dw("create")
-            if result:
-                ...
+            item_template = self.ui.lw_templates.currentItem()
+            if item_template is not None:
+                template = item_template.data(0)
+                result = self.ned_temp_dw("edit", template)
+                if result:
+                    name_template = self.__obs_manager.obj_ned_temp_dw.get_data()
+                    self.__obs_manager.obj_pd.set_new_name_for_template(template, name_template)
+                    self.reconfig()
 
         elif type_window == "PAGE":
             ...
@@ -150,9 +162,14 @@ class TemplatesListDialogWindow(QDialog):
         )
         # todo
         if type_window == "TEMPLATE":
-            self.__obs_manager.obj_pd.delete_template(data)
+            name_template = data.get("name_template")
+            result = self.__obs_manager.obj_dw.question_message(f"Вы точно хотите удалить {name_template}?")
+            if result:
+                self.__obs_manager.obj_pd.delete_template(data)
+                self.__obs_manager.obj_pd.delete_template_all_data(data)
+                self.reconfig()
         elif type_window == "PAGE":
-            self.__obs_manager.obj_pd.delete_page(data)
+            ...
 
     def add_page(self):
         self.__obs_manager.obj_l.debug_logger("TemplatesListDialogWindow add_page()")
@@ -165,18 +182,17 @@ class TemplatesListDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger(
             "TemplatesListDialogWindow add_template()"
         )
-        # todo окно
-        # вызов окна
         result = self.ned_temp_dw("create")
         if result:
-            ...
-        # получение данных
-        # сохранение и обновление данных
+            name_template = self.__obs_manager.obj_ned_temp_dw.get_data()
+            form = self.ui.combox_forms.currentData()
+            self.__obs_manager.obj_pd.add_template(name_template, form)
+            self.reconfig()
 
-    def ned_temp_dw(self, type_ned) -> bool:
+    def ned_temp_dw(self, type_ned, template = None) -> bool:
         self.__obs_manager.obj_l.debug_logger("TemplatesListDialogWindow ned_temp_dw()")
         self.__obs_manager.obj_ned_temp_dw = (
-            nedtemplatedialogwindow.NedTemplateDialogWindow(self.__obs_manager, type_ned)
+            nedtemplatedialogwindow.NedTemplateDialogWindow(self.__obs_manager, type_ned, template)
         )
-        result = self.__obs_manager.obj_templdw.exec()
+        result = self.__obs_manager.obj_ned_temp_dw.exec()
         return result == QDialog.Accepted
