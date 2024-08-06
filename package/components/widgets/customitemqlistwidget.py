@@ -23,3 +23,19 @@ class CustomItemQListWidget(QWidget):
             self.ui.label_text.setText(self.__data.get("name_template"))
         elif self.__type_window == "PAGE":
             self.ui.label_text.setText(self.__data.get("page_name"))
+
+    def get_btn_edit(self):
+        self.__obs_manager.obj_l.debug_logger("CustomItemQListWidget get_btn_edit()")
+        return self.ui.btn_edit
+
+    def get_btn_delete(self):
+        self.__obs_manager.obj_l.debug_logger("CustomItemQListWidget get_btn_delete()")
+        return self.ui.btn_delete
+    
+    def get_type_window(self):
+        self.__obs_manager.obj_l.debug_logger(f"CustomItemQListWidget get_type_window():\nself.__type_window = {self.__type_window}")
+        return self.__type_window
+    
+    def get_data(self):
+        self.__obs_manager.obj_l.debug_logger(f"CustomItemQListWidget get_data():\nself.__data = {self.__data}")
+        return self.__data

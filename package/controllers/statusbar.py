@@ -33,6 +33,8 @@ class StatusBar:
         self.__obs_manager.obj_l.debug_logger("StatusBar connect_statusbar(statusbar)")
         self.__statusbar = statusbar
         self.__is_active = True
+        self.__icons_8 = self.__obs_manager.obj_gf.get_icons(8)
+        self.__icons_16 = self.__obs_manager.obj_gf.get_icons(16)
         self.config_statusbar()
         self.set_message_for_statusbar("Проект не открыт")
         self.update_name_app_converter()
@@ -60,27 +62,27 @@ class StatusBar:
         self.config_update_statusbar()
 
     def get_red_circle(self) -> QLabel:
-        icon = QIcon(":/icons/resources/icons/red-circle.svg")
+        icon = self.__icons_8.get("qicon_red_circle")
         label = QLabel()
-        label.setPixmap(icon.pixmap(8, 8))
+        label.setPixmap(icon)
         self.__obs_manager.obj_l.debug_logger(
             f"StatusBar get_red_circle() -> QLabel:\nlabel = {label}"
         )
         return label
 
     def get_yellow_circle(self) -> QLabel:
-        icon = QIcon(":/icons/resources/icons/yellow-circle.svg")
+        icon = self.__icons_8.get("qicon_yellow_circle")
         label = QLabel()
-        label.setPixmap(icon.pixmap(8, 8))
+        label.setPixmap(icon)
         self.__obs_manager.obj_l.debug_logger(
             f"StatusBar get_yellow_circle() -> QLabel:\nlabel = {label}"
         )
         return label
 
     def get_green_circle(self) -> QLabel:
-        icon = QIcon(":/icons/resources/icons/green-circle.svg")
+        icon = self.__icons_8.get("qicon_green_circle")
         label = QLabel()
-        label.setPixmap(icon.pixmap(8, 8))
+        label.setPixmap(icon)
         self.__obs_manager.obj_l.debug_logger(
             f"StatusBar get_green_circle() -> QLabel:\nlabel = {label}"
         )
@@ -90,9 +92,9 @@ class StatusBar:
         self.__obs_manager.obj_l.debug_logger("StatusBar config_msword()")
         layout = QHBoxLayout()
         # иконка приложения
-        icon = QIcon(":/icons/resources/icons/msword.svg")
+        icon = self.__icons_16.get("qicon_msword")
         label = QLabel()
-        label.setPixmap(icon.pixmap(16, 16))
+        label.setPixmap(icon)
         layout.addWidget(label)
         # иконка статуса
         self.__red_msword = self.get_red_circle()
@@ -111,9 +113,9 @@ class StatusBar:
         self.__obs_manager.obj_l.debug_logger("StatusBar config_libreoffice()")
         layout = QHBoxLayout()
         # иконка приложения
-        icon = QIcon(":/icons/resources/icons/libreoffice.svg")
+        icon = self.__icons_16.get("qicon_libreoffice")
         label = QLabel()
-        label.setPixmap(icon.pixmap(16, 16))
+        label.setPixmap(icon)
         layout.addWidget(label)
         # иконка статуса
         self.__red_libreoffice = self.get_red_circle()

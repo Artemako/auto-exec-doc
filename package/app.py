@@ -3,6 +3,8 @@ from PySide6.QtWidgets import QApplication
 
 import package.components.mainwindow as mainwindow
 
+import package.generalfunctions as generalfunctions
+
 # Импорт всех miodules
 import package.modules.converter as converter
 import package.modules.dirpathsmanager as dirpathsmanager
@@ -52,11 +54,13 @@ class ObjectsManager:
         self.obj_nedw = None
         self.obj_csdw = None
         self.obj_templdw = None
+        self.obj_nedtempdw = None
 
     def initialize_all(self):
         """
         Инициализация всех объектов, кроме MainWindow.
         """
+        self.obj_gf = generalfunctions.GeneralFunctions()
         self.initialize_modules()
         self.initialize_controllers()
         self.initialize_components()
@@ -94,7 +98,8 @@ class App:
         # настройка хранилища экземпляров модулей
         self.obs_manager = ObjectsManager()
         self.obs_manager.initialize_all()
-        
+        # общие функции 
+        self.obs_manager.obj_gf.setting(self.obs_manager)
         # настройка путей
         self.obs_manager.obj_dpm.setting_paths(
             self.current_directory
@@ -113,10 +118,6 @@ class App:
         """
         Запуск фронта.
         """
-        print(
-            "self.obs_manager.obj_dpm.get_templates_main_dirpath() =",
-            self.obs_manager.obj_dpm.get_templates_main_dirpath(),
-        )
         self.app = QApplication(sys.argv)
         # создание окна
         self.window = mainwindow.MainWindow(self.obs_manager)

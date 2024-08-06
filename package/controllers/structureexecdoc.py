@@ -23,23 +23,27 @@ class StructureExecDoc:
         self.clear_sed()
 
         self.__treewidget_structure_execdoc.currentItemChanged.connect(
-            lambda current: self.__obs_manager.obj_pt.update_pages_template(
-                current.data(0, Qt.UserRole) if current is not None else None
+            lambda current: current and self.__obs_manager.obj_pt.update_pages_template(
+                current.data(0, Qt.UserRole)
             )
         )
         self.__treewidget_structure_execdoc.itemChanged.connect(
-            lambda item: self.item_changed(item) if item is not None else None
+            lambda item: item and self.item_changed(item)
         )
 
     def item_changed(self, item):
         self.__obs_manager.obj_l.debug_logger(
             f"StructureExecDoc item_changed(item):\nitem = {item}"
         )
-        node = item.data(0, Qt.UserRole)
-        state = int(item.checkState(0) == Qt.Checked)
-        self.set_state_included_for_child(node, item.checkState(0) == Qt.Checked)
-        self.__obs_manager.obj_pd.set_included_for_node(node, state)
+        if item is not None:
+            self.__treewidget_structure_execdoc.blockSignals(True)
+            node = item.data(0, Qt.UserRole)
+            state = int(item.checkState(0) == Qt.Checked)
+            self.set_state_included_for_child(node, item.checkState(0) == Qt.Checked)
+            self.__obs_manager.obj_pd.set_included_for_node(node, state)
+            self.__treewidget_structure_execdoc.blockSignals(False)
 
+    
     def clear_sed(self):
         """
         Очистить дерево
@@ -89,6 +93,7 @@ class StructureExecDoc:
         self.__obs_manager.obj_l.debug_logger(
             f"StructureExecDoc set_item_in_nodes_to_items(node):\nnode = {node}"
         )
+        self.__treewidget_structure_execdoc.blockSignals(True)
         tree_widget = self.__treewidget_structure_execdoc
         item = None
         if node.get("id_parent") == 0:
@@ -101,13 +106,14 @@ class StructureExecDoc:
         # С галочкой по умолчанию
         item.setCheckState(0, Qt.Checked)
         self.__nodes_to_items[node.get("id_node")] = item
+        self.__treewidget_structure_execdoc.blockSignals(False)
 
     def set_state_included_for_child(self, node, state):
         self.__obs_manager.obj_l.debug_logger(
             f"""StructureExecDoc set_state_included_for_childs(node, state):\nid_node = {node.get("id_node")},\nstate = {state}"""
         )
         item = self.__nodes_to_items.get(node.get("id_node"))
-        if item:
+        if item is not None:
             item.setCheckState(0, Qt.Checked if state else Qt.Unchecked)
             childs = self.__obs_manager.obj_pd.get_childs(node)
             if childs:

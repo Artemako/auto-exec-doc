@@ -52,10 +52,10 @@ class NedNodeDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow config_maindata()")
         if self.__type_window == "create":
             if self.__type_node == "FORM":
-                self.ui.namenode.setText("Название формы")
+                self.ui.namenode.setText("Название новой формы")
                 self.ui.btn_nestag.setText("Добавить форму")
             elif self.__type_node == "GROUP":
-                self.ui.namenode.setText("Название группы")
+                self.ui.namenode.setText("Название новой группы")
                 self.ui.btn_nestag.setText("Добавить группу")
         elif self.__type_window == "edit":
             if self.__type_node == "FORM":

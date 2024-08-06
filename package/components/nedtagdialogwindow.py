@@ -31,7 +31,7 @@ class NedTagDialogWindow(QDialog):
         self.ui = nedtagdialogwindow_ui.Ui_NedTagDialogWindow()
         self.ui.setupUi(self)
         # одноразовые действия
-        self.config_icons()
+        self.__icons = self.__obs_manager.obj_gf.get_icons()
         self.config_combobox()
         self.config_by_type_window()
         self.config_maindata()
@@ -39,28 +39,6 @@ class NedTagDialogWindow(QDialog):
         self.update_additional_info()
         # подключаем действия
         self.connecting_actions()
-
-    def config_icons(self):
-        self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow config_icons()")
-        # иконки типа тэга
-        self.qicon_text = QIcon(":/icons/resources/icons/text.svg")
-        self.qicon_date = QIcon(":/icons/resources/icons/calendar.svg")
-        self.qicon_table = QIcon(":/icons/resources/icons/table.svg")
-        self.qicon_image = QIcon(":/icons/resources/icons/picture.svg")
-        # прочее
-        self.qicon_save = QIcon(":/icons/resources/icons/save.svg")
-        self.qicon_close = QIcon(":/icons/resources/icons/close.svg")
-        self.qicon_add = QIcon(":/icons/resources/icons/plus.svg")
-        for elem in [
-            self.qicon_text,
-            self.qicon_date,
-            self.qicon_table,
-            self.qicon_image,
-            self.qicon_save,
-            self.qicon_close,
-            self.qicon_add
-        ]:
-            elem = elem.pixmap(QSize(16, 16))
 
     def connecting_actions(self):
         self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow connecting_actions()")
@@ -108,11 +86,11 @@ class NedTagDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow config_by_type_window()")
         if self.__type_window == "create":
             self.ui.btn_nestag.setText("Добавить тэг")
-            self.ui.btn_nestag.setIcon(self.qicon_add)
+            self.ui.btn_nestag.setIcon(self.__icons.get("qicon_add"))
 
         elif self.__type_window == "edit":
             self.ui.btn_nestag.setText("Сохранить тэг")
-            self.ui.btn_nestag.setIcon(self.qicon_save)
+            self.ui.btn_nestag.setIcon(self.__icons.get("qicon_save"))
 
     def config_maindata(self):
         self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow fill_maindata()")
@@ -129,10 +107,10 @@ class NedTagDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow get_tag_types()")
         # tag_types
         tag_types = [
-            TagType(0, "Текст", "TEXT", self.qicon_text),
-            TagType(1, "Дата", "DATE", self.qicon_date),
-            TagType(2, "Таблица", "TABLE", self.qicon_table),
-            TagType(3, "Изображение", "IMAGE", self.qicon_image),
+            TagType(0, "Текст", "TEXT", self.__icons.get("qicon_text")),
+            TagType(1, "Дата", "DATE", self.__icons.get("qicon_date")),
+            TagType(2, "Таблица", "TABLE", self.__icons.get("qicon_table")),
+            TagType(3, "Изображение", "IMAGE", self.__icons.get("qicon_image")),
         ]
         return tag_types
 
