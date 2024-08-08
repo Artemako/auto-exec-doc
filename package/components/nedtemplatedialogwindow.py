@@ -9,18 +9,19 @@ import resources_rc
 # TODO ПОДУМАТЬ ПРО PDF 
 
 class NedTemplateDialogWindow(QDialog):
-    def __init__(self, obs_manager, type_ned, template=None):
+    def __init__(self, obs_manager, type_ned, templates, template=None):
         self.__obs_manager = obs_manager
         self.__type_ned = type_ned
+        self.__templates = templates
         self.__template = template
         self.__obs_manager.obj_l.debug_logger(
-            f"NedTemplateDialogWindow __init__(obs_manager, type_ned):\nself.__type_ned = {self.__type_ned}"
+            f"NedTemplateDialogWindow __init__(obs_manager, type_ned):\ntype_ned = {type_ned},\templates = {templates}\ntemplate = {template}"
         )
         super(NedTemplateDialogWindow, self).__init__()
         self.ui = nedtemplatedialogwindow_ui.Ui_NedTemplateDialogWindow()
         self.ui.setupUi(self)
         #
-        self.__data = []
+        self.__data = dict()
         self.__icons = self.__obs_manager.obj_gf.get_icons()
         # одноразовые действия
         self.config_by_type_window()
@@ -38,13 +39,34 @@ class NedTemplateDialogWindow(QDialog):
         )
         if self.__type_ned == "create":
             self.ui.label_nametemplate.setText("Название нового шаблона")
-            self.ui.btn_nestag.setText("Добавить тэг")
+            self.ui.btn_nestag.setText("Добавить шаблон")
             self.ui.btn_nestag.setIcon(self.__icons.get("qicon_add"))
+            # предложение включено
+            self.ui.label_copyfrom.setEnabled(True)
+            self.ui.combox_templates.setEnabled(True)
+            # заполнить комбобокс
+            self.config_combox_templates()
         elif self.__type_ned == "edit":
             self.ui.label_nametemplate.setText("Название шаблона")
             self.ui.lineedit_nametemplate.setText(self.__template.get("name_template"))
-            self.ui.btn_nestag.setText("Сохранить тэг")
+            self.ui.btn_nestag.setText("Сохранить шаблон")
             self.ui.btn_nestag.setIcon(self.__icons.get("qicon_save"))
+            # предложение отключено
+            self.ui.label_copyfrom.setEnabled(False)
+            self.ui.combox_templates.setEnabled(False)
+    
+    def config_combox_templates(self):
+        self.__obs_manager.obj_l.debug_logger(
+            "NedTemplateDialogWindow config_combox_templates()"
+        )
+        combobox = self.ui.combox_templates
+        combobox.blockSignals(True)
+        combobox.clear()
+        combobox.addItem("- Пустой шаблон -", "empty")
+        for elem in self.__templates:
+            combobox.addItem(elem.get("name_template"), elem)
+        combobox.blockSignals(False)
+
 
     def connecting_actions(self):
         self.__obs_manager.obj_l.debug_logger(
@@ -57,8 +79,14 @@ class NedTemplateDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger(
             "NedTemplateDialogWindow btn_nestag_clicked()"
         )
-        self.__data = self.ui.lineedit_nametemplate.text()
-        if len(self.__data) > 0:
+        nametemplate = self.ui.lineedit_nametemplate.text()
+        self.__data["name_template"] = nametemplate
+        # для create
+        if self.__type_ned == "create":
+            copytemplate = self.ui.combox_templates.currentData()
+            self.__data["copy_template"] = copytemplate
+        # проверка ОБЩАЯ
+        if len(nametemplate) > 0:
             self.accept()
         else:
             self.__obs_manager.obj_dw.warning_message("Заполните поле названия")

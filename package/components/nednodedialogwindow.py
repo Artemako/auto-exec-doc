@@ -61,9 +61,10 @@ class NedNodeDialogWindow(QDialog):
         elif self.__type_window == "edit":
             if self.__type_node == "FORM":
                 self.ui.namenode.setText("Название формы")
+                self.ui.btn_nestag.setText("Сохранить форму")
             elif self.__type_node == "GROUP":
                 self.ui.namenode.setText("Название группы")
-            self.ui.btn_nestag.setText("Сохранить")
+                self.ui.btn_nestag.setText("Сохранить группу")
             # заполняем форму
             self.ui.lineedit_namenode.setText(self.__node.get("name_node"))
 

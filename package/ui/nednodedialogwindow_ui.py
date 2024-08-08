@@ -15,18 +15,20 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QHBoxLayout,
-    QLabel, QLineEdit, QPushButton, QSizePolicy,
-    QSpacerItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QFrame,
+    QHBoxLayout, QLabel, QLineEdit, QPushButton,
+    QSizePolicy, QVBoxLayout, QWidget)
 import resources_rc
 
 class Ui_NedNodeDialogWindow(object):
     def setupUi(self, NedNodeDialogWindow):
         if not NedNodeDialogWindow.objectName():
             NedNodeDialogWindow.setObjectName(u"NedNodeDialogWindow")
-        NedNodeDialogWindow.resize(530, 130)
+        NedNodeDialogWindow.resize(530, 133)
+        NedNodeDialogWindow.setMaximumSize(QSize(16777215, 133))
         self.verticalLayout = QVBoxLayout(NedNodeDialogWindow)
         self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(-1, -1, -1, 9)
         self.namenode = QLabel(NedNodeDialogWindow)
         self.namenode.setObjectName(u"namenode")
         self.namenode.setMinimumSize(QSize(0, 0))
@@ -64,6 +66,13 @@ class Ui_NedNodeDialogWindow(object):
 
         self.verticalLayout.addLayout(self.hl_placement)
 
+        self.line = QFrame(NedNodeDialogWindow)
+        self.line.setObjectName(u"line")
+        self.line.setFrameShape(QFrame.HLine)
+        self.line.setFrameShadow(QFrame.Sunken)
+
+        self.verticalLayout.addWidget(self.line)
+
         self.hl_addsaveclose = QHBoxLayout()
         self.hl_addsaveclose.setObjectName(u"hl_addsaveclose")
         self.btn_nestag = QPushButton(NedNodeDialogWindow)
@@ -81,10 +90,6 @@ class Ui_NedNodeDialogWindow(object):
 
 
         self.verticalLayout.addLayout(self.hl_addsaveclose)
-
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.verticalLayout.addItem(self.verticalSpacer)
 
 
         self.retranslateUi(NedNodeDialogWindow)

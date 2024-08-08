@@ -14,7 +14,7 @@ class GeneralFunctions:
         self.__obs_manager.obj_l.debug_logger("GeneralFunctions setting(obs_manager)")
 
     def get_icons(self, size = 16) -> dict:
-        self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow config_icons()")
+        self.__obs_manager.obj_l.debug_logger(f"GeneralFunctions get_icons(size):\nsize = {size}")
         result = self.__icons_cache.get(size)
         if result:
             return result

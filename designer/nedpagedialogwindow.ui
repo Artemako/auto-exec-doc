@@ -1,36 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>NedTagDialogWindow</class>
- <widget class="QDialog" name="NedTagDialogWindow">
+ <class>NedPageDialogWindow</class>
+ <widget class="QDialog" name="NedPageDialogWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>530</width>
-    <height>211</height>
+    <width>451</width>
+    <height>369</height>
    </rect>
-  </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
-  </property>
-  <property name="baseSize">
-   <size>
-    <width>0</width>
-    <height>0</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,0,1,0">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <property name="bottomMargin">
     <number>9</number>
    </property>
    <item>
-    <widget class="QLabel" name="nametag">
+    <widget class="QLabel" name="label_namepage">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -47,7 +35,7 @@
       <string notr="true">font-weight: bold;</string>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Тег&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Название страницы&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::AutoText</enum>
@@ -58,14 +46,28 @@
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="lineedit_nametag">
+    <widget class="QLineEdit" name="lineedit_namepage">
      <property name="text">
       <string/>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="titletag">
+    <layout class="QHBoxLayout" name="hl_order" stretch="0,1">
+     <item>
+      <widget class="QLabel" name="label_after">
+       <property name="text">
+        <string>Расположить после </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="combox_neighboor"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_document">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -82,7 +84,7 @@
       <string notr="true">font-weight: bold;</string>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Название тэга&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Документ&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::AutoText</enum>
@@ -93,14 +95,35 @@
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="lineedit_titletag">
+    <layout class="QHBoxLayout" name="hl_docx">
+     <item>
+      <widget class="QPushButton" name="btn_select">
+       <property name="text">
+        <string>Выбрать документ</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_open_in_folder">
+       <property name="text">
+        <string>Открыть документ в проводнике</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_file">
+     <property name="styleSheet">
+      <string notr="true">font-style: italic;</string>
+     </property>
      <property name="text">
-      <string/>
+      <string>Выбранный файл</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="typetag">
+    <widget class="QLabel" name="label_tags">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -117,7 +140,7 @@
       <string notr="true">font-weight: bold;</string>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Тип тэга&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Найденные теги&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::AutoText</enum>
@@ -128,7 +151,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QComboBox" name="combox_typetag"/>
+    <widget class="QTableWidget" name="tw_tags"/>
    </item>
    <item>
     <widget class="Line" name="line">
@@ -138,18 +161,11 @@
     </widget>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="vbl_additional_info">
-     <property name="spacing">
-      <number>0</number>
-     </property>
-    </layout>
-   </item>
-   <item>
     <layout class="QHBoxLayout" name="hl_addsaveclose">
      <item>
       <widget class="QPushButton" name="btn_nestag">
        <property name="text">
-        <string>Добавить тэг</string>
+        <string>...</string>
        </property>
       </widget>
      </item>

@@ -15,18 +15,20 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QDialog, QHBoxLayout, QLabel,
-    QLineEdit, QPushButton, QSizePolicy, QSpacerItem,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QFrame,
+    QHBoxLayout, QLabel, QLineEdit, QPushButton,
+    QSizePolicy, QVBoxLayout, QWidget)
 import resources_rc
 
 class Ui_NedTemplateDialogWindow(object):
     def setupUi(self, NedTemplateDialogWindow):
         if not NedTemplateDialogWindow.objectName():
             NedTemplateDialogWindow.setObjectName(u"NedTemplateDialogWindow")
-        NedTemplateDialogWindow.resize(425, 100)
+        NedTemplateDialogWindow.resize(425, 133)
+        NedTemplateDialogWindow.setMaximumSize(QSize(16777215, 133))
         self.verticalLayout = QVBoxLayout(NedTemplateDialogWindow)
         self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(-1, -1, -1, 9)
         self.label_nametemplate = QLabel(NedTemplateDialogWindow)
         self.label_nametemplate.setObjectName(u"label_nametemplate")
         self.label_nametemplate.setMinimumSize(QSize(0, 0))
@@ -41,6 +43,29 @@ class Ui_NedTemplateDialogWindow(object):
         self.lineedit_nametemplate.setObjectName(u"lineedit_nametemplate")
 
         self.verticalLayout.addWidget(self.lineedit_nametemplate)
+
+        self.hl_copytemplate = QHBoxLayout()
+        self.hl_copytemplate.setObjectName(u"hl_copytemplate")
+        self.label_copyfrom = QLabel(NedTemplateDialogWindow)
+        self.label_copyfrom.setObjectName(u"label_copyfrom")
+
+        self.hl_copytemplate.addWidget(self.label_copyfrom)
+
+        self.combox_templates = QComboBox(NedTemplateDialogWindow)
+        self.combox_templates.setObjectName(u"combox_templates")
+
+        self.hl_copytemplate.addWidget(self.combox_templates)
+
+        self.hl_copytemplate.setStretch(1, 1)
+
+        self.verticalLayout.addLayout(self.hl_copytemplate)
+
+        self.line = QFrame(NedTemplateDialogWindow)
+        self.line.setObjectName(u"line")
+        self.line.setFrameShape(QFrame.HLine)
+        self.line.setFrameShadow(QFrame.Sunken)
+
+        self.verticalLayout.addWidget(self.line)
 
         self.hl_addsaveclose = QHBoxLayout()
         self.hl_addsaveclose.setObjectName(u"hl_addsaveclose")
@@ -60,10 +85,6 @@ class Ui_NedTemplateDialogWindow(object):
 
         self.verticalLayout.addLayout(self.hl_addsaveclose)
 
-        self.verticalSpacer = QSpacerItem(20, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.verticalLayout.addItem(self.verticalSpacer)
-
 
         self.retranslateUi(NedTemplateDialogWindow)
 
@@ -74,6 +95,7 @@ class Ui_NedTemplateDialogWindow(object):
         NedTemplateDialogWindow.setWindowTitle(QCoreApplication.translate("NedTemplateDialogWindow", u"Dialog", None))
         self.label_nametemplate.setText(QCoreApplication.translate("NedTemplateDialogWindow", u"<html><head/><body><p>\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 ...</p></body></html>", None))
         self.lineedit_nametemplate.setText("")
+        self.label_copyfrom.setText(QCoreApplication.translate("NedTemplateDialogWindow", u"\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0434\u0430\u043d\u043d\u044b\u0435 \u0441 ", None))
         self.btn_nestag.setText(QCoreApplication.translate("NedTemplateDialogWindow", u"...", None))
         self.btn_close.setText(QCoreApplication.translate("NedTemplateDialogWindow", u"\u0417\u0430\u043a\u0440\u044b\u0442\u044c", None))
     # retranslateUi

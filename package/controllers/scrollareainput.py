@@ -50,7 +50,7 @@ class ScroolAreaInput:
         section_name = None
         if section_type == "page":
             page = section_info.get("page")
-            section_name = page.get("page_name")
+            section_name = page.get("name_page")
         elif section_type == "template":
             template = section_info.get("template")
             section_name = template.get("name_template")

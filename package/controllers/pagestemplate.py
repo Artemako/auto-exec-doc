@@ -91,7 +91,7 @@ class PagesTemplate:
         for page in pages:
             print(f"page = {page}")
             item = MyListWidgetItem(page)
-            item.setText(page.get("page_name"))
+            item.setText(page.get("name_page"))
             self.__listwidget_pages_template.addItem(item)
 
 

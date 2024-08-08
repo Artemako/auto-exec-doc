@@ -22,7 +22,7 @@ class CustomItemQListWidget(QWidget):
         if self.__type_window == "TEMPLATE":
             self.ui.label_text.setText(self.__data.get("name_template"))
         elif self.__type_window == "PAGE":
-            self.ui.label_text.setText(self.__data.get("page_name"))
+            self.ui.label_text.setText(self.__data.get("name_page"))
 
     def get_btn_edit(self):
         self.__obs_manager.obj_l.debug_logger("CustomItemQListWidget get_btn_edit()")

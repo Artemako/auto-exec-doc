@@ -34,71 +34,11 @@ class ProjectDatabase:
         cursor.executescript(
             """
 BEGIN TRANSACTION;
-CREATE TABLE IF NOT EXISTS "Project_tag_config_date" (
-	"id_config"	INTEGER UNIQUE,
-	"id_tag"	INTEGER,
-	"type_config"	TEXT,
-	"value_config"	TEXT,
-	"note_config"	TEXT,
-	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag"),
-	PRIMARY KEY("id_config" AUTOINCREMENT)
-);
-CREATE TABLE IF NOT EXISTS "Project_tag_config_table" (
-	"id_config"	INTEGER UNIQUE,
-	"id_tag"	INTEGER,
-	"type_config"	TEXT,
-	"value_config"	TEXT,
-	"note_config"	TEXT,
-	"order_config"	INTEGER,
-	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag"),
-	PRIMARY KEY("id_config" AUTOINCREMENT)
-);
-CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
-	"id_pair"	INTEGER UNIQUE,
-	"id_node"	INTEGER,
-	"id_tag"	INTEGER,
-	"name_tag"	TEXT,
-	"value"	TEXT,
-	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag"),
-	FOREIGN KEY("id_node") REFERENCES "Project_nodes"("id_node"),
-	PRIMARY KEY("id_pair" AUTOINCREMENT)
-);
-CREATE TABLE IF NOT EXISTS "Project_pages_data" (
-	"id_pair"	INTEGER UNIQUE,
-	"id_page"	INTEGER,
-	"id_tag"	INTEGER,
-	"name_tag"	TEXT,
-	"value"	TEXT,
-	FOREIGN KEY("id_page") REFERENCES "Project_pages"("id_page"),
-	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag"),
-	PRIMARY KEY("id_pair" AUTOINCREMENT)
-);
-CREATE TABLE IF NOT EXISTS "Project_templates" (
-	"id_template"	INTEGER NOT NULL UNIQUE,
-	"name_template"	TEXT,
-	"id_parent_node"	INTEGER,
-	FOREIGN KEY("id_parent_node") REFERENCES "Project_nodes"("id_node"),
-	PRIMARY KEY("id_template" AUTOINCREMENT)
-);
-CREATE TABLE IF NOT EXISTS "Project_pages" (
-	"id_page"	INTEGER NOT NULL UNIQUE,
-	"id_parent_template"	INTEGER,
-	"page_name"	TEXT,
-	"page_filename"	TEXT,
-	"order_page"	INTEGER,
-	"included"	INTEGER NOT NULL DEFAULT 1,
-	FOREIGN KEY("id_parent_template") REFERENCES "Project_templates"("id_template"),
-	PRIMARY KEY("id_page" AUTOINCREMENT)
-);
-CREATE TABLE IF NOT EXISTS "Project_templates_data" (
-	"id_pair"	INTEGER UNIQUE,
-	"id_template"	INTEGER,
-	"id_tag"	INTEGER,
-	"name_tag"	TEXT,
-	"value"	TEXT,
-	FOREIGN KEY("id_template") REFERENCES "Project_templates"("id_template"),
-	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag"),
-	PRIMARY KEY("id_pair" AUTOINCREMENT)
+CREATE TABLE IF NOT EXISTS "Project_documents" (
+	"id_docx"	INTEGER NOT NULL UNIQUE,
+	"name_docx"	TEXT,
+	"filename_docx"	TEXT NOT NULL UNIQUE,
+	PRIMARY KEY("id_docx" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "Project_nodes" (
 	"id_node"	INTEGER NOT NULL UNIQUE,
@@ -108,8 +48,57 @@ CREATE TABLE IF NOT EXISTS "Project_nodes" (
 	"type_node"	TEXT,
 	"id_active_template"	INTEGER,
 	"included"	INTEGER NOT NULL DEFAULT 1,
-	FOREIGN KEY("id_active_template") REFERENCES "Project_templates"("id_template"),
-	PRIMARY KEY("id_node" AUTOINCREMENT)
+	PRIMARY KEY("id_node" AUTOINCREMENT),
+	FOREIGN KEY("id_active_template") REFERENCES "Project_templates"("id_template")
+);
+CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
+	"id_pair"	INTEGER UNIQUE,
+	"id_node"	INTEGER,
+	"id_tag"	INTEGER,
+	"name_tag"	TEXT,
+	"value"	TEXT,
+	PRIMARY KEY("id_pair" AUTOINCREMENT),
+	FOREIGN KEY("id_node") REFERENCES "Project_nodes"("id_node"),
+	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag")
+);
+CREATE TABLE IF NOT EXISTS "Project_pages" (
+	"id_page"	INTEGER NOT NULL UNIQUE,
+	"id_parent_template"	INTEGER,
+	"name_page"	TEXT,
+	"filename_page"	TEXT,
+	"order_page"	INTEGER,
+	"included"	INTEGER NOT NULL DEFAULT 1,
+	PRIMARY KEY("id_page" AUTOINCREMENT),
+	FOREIGN KEY("id_parent_template") REFERENCES "Project_templates"("id_template")
+);
+CREATE TABLE IF NOT EXISTS "Project_pages_data" (
+	"id_pair"	INTEGER UNIQUE,
+	"id_page"	INTEGER,
+	"id_tag"	INTEGER,
+	"name_tag"	TEXT,
+	"value"	TEXT,
+	PRIMARY KEY("id_pair" AUTOINCREMENT),
+	FOREIGN KEY("id_page") REFERENCES "Project_pages"("id_page"),
+	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag")
+);
+CREATE TABLE IF NOT EXISTS "Project_tag_config_date" (
+	"id_config"	INTEGER UNIQUE,
+	"id_tag"	INTEGER,
+	"type_config"	TEXT,
+	"value_config"	TEXT,
+	"note_config"	TEXT,
+	PRIMARY KEY("id_config" AUTOINCREMENT),
+	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag")
+);
+CREATE TABLE IF NOT EXISTS "Project_tag_config_table" (
+	"id_config"	INTEGER UNIQUE,
+	"id_tag"	INTEGER,
+	"type_config"	TEXT,
+	"value_config"	TEXT,
+	"note_config"	TEXT,
+	"order_config"	INTEGER,
+	PRIMARY KEY("id_config" AUTOINCREMENT),
+	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag")
 );
 CREATE TABLE IF NOT EXISTS "Project_tags" (
 	"id_tag"	INTEGER NOT NULL UNIQUE,
@@ -120,6 +109,65 @@ CREATE TABLE IF NOT EXISTS "Project_tags" (
 	"is_global"	INTEGER,
 	PRIMARY KEY("id_tag" AUTOINCREMENT)
 );
+CREATE TABLE IF NOT EXISTS "Project_templates" (
+	"id_template"	INTEGER NOT NULL UNIQUE,
+	"name_template"	TEXT,
+	"id_parent_node"	INTEGER,
+	PRIMARY KEY("id_template" AUTOINCREMENT),
+	FOREIGN KEY("id_parent_node") REFERENCES "Project_nodes"("id_node")
+);
+CREATE TABLE IF NOT EXISTS "Project_templates_data" (
+	"id_pair"	INTEGER UNIQUE,
+	"id_template"	INTEGER,
+	"id_tag"	INTEGER,
+	"name_tag"	TEXT,
+	"value"	TEXT,
+	PRIMARY KEY("id_pair" AUTOINCREMENT),
+	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag"),
+	FOREIGN KEY("id_template") REFERENCES "Project_templates"("id_template")
+);
+INSERT INTO "Project_nodes" VALUES (0,'Проект',NULL,'0','PROJECT',NULL,1);
+INSERT INTO "Project_nodes" VALUES (10,'Титульный лист',0,'1','FORM',1,1);
+INSERT INTO "Project_nodes" VALUES (11,'Реестр документации',0,'2','FORM',2,1);
+INSERT INTO "Project_nodes" VALUES (12,'Паспорт трассы',0,'3','GROUP',NULL,1);
+INSERT INTO "Project_nodes" VALUES (1201,'ПТ-1',12,'1','FORM',3,1);
+INSERT INTO "Project_nodes" VALUES (1202,'ПТ-2',12,'2','FORM',4,1);
+INSERT INTO "Project_nodes" VALUES (1203,'ПТ-3',12,'3','FORM',5,1);
+INSERT INTO "Project_nodes_data" VALUES (100,0,1003,'название_объекта',NULL);
+INSERT INTO "Project_nodes_data" VALUES (101,0,1004,'участок',NULL);
+INSERT INTO "Project_nodes_data" VALUES (102,0,1001,'название_компании',NULL);
+INSERT INTO "Project_nodes_data" VALUES (1000,10,1000,'организационно_правовая_форма',NULL);
+INSERT INTO "Project_nodes_data" VALUES (1001,10,1002,'адрес_компании',NULL);
+INSERT INTO "Project_nodes_data" VALUES (1004,10,1005,'номер_кабеля',NULL);
+INSERT INTO "Project_nodes_data" VALUES (1005,10,1006,'заказчик',NULL);
+INSERT INTO "Project_nodes_data" VALUES (1006,10,1008,'город',NULL);
+INSERT INTO "Project_nodes_data" VALUES (1007,10,1009,'год',NULL);
+INSERT INTO "Project_nodes_data" VALUES (1100,11,1101,'инж_про_ком_фио',NULL);
+INSERT INTO "Project_nodes_data" VALUES (1101,11,1208,'дата',NULL);
+INSERT INTO "Project_nodes_data" VALUES (1200,12,1101,'инж_про_ком_фио',NULL);
+INSERT INTO "Project_nodes_data" VALUES (1201,12,1208,'дата',NULL);
+INSERT INTO "Project_pages" VALUES (10,1,'Л.1. Титульный лист.','10',0,1);
+INSERT INTO "Project_pages" VALUES (11,1,'Л.2. Титульный лист.','11',1,1);
+INSERT INTO "Project_pages" VALUES (20,2,'Л.1. Реестр исполнительной документации ВОЛС.','20',0,1);
+INSERT INTO "Project_pages" VALUES (30,3,'Л.1. Паспорт трассы. Опись документов.','30',0,1);
+INSERT INTO "Project_pages" VALUES (40,4,'Л.1. Паспорт трассы волоконно-оптической линии связи на участке.','40',0,1);
+INSERT INTO "Project_pages" VALUES (50,5,'Л.1. Скелетная схема ВОЛП и основные данные цепей кабеля.','50',0,1);
+INSERT INTO "Project_pages_data" VALUES (100,10,1007,'строительно_монтажная_организация',NULL);
+INSERT INTO "Project_pages_data" VALUES (200,11,1100,'инж_про_ком',NULL);
+INSERT INTO "Project_pages_data" VALUES (201,11,1101,'инж_про_ком_фио',NULL);
+INSERT INTO "Project_pages_data" VALUES (202,11,1102,'гла_инж_компания',NULL);
+INSERT INTO "Project_pages_data" VALUES (203,11,1103,'гла_инж_фио',NULL);
+INSERT INTO "Project_pages_data" VALUES (300,20,1200,'реестр_ид_паспорт_трассы',NULL);
+INSERT INTO "Project_pages_data" VALUES (301,20,1201,'реестр_ид_эл_паспорт_трассы',NULL);
+INSERT INTO "Project_pages_data" VALUES (302,20,1202,'рабочая_документация',NULL);
+INSERT INTO "Project_pages_data" VALUES (400,30,1209,'пт_опись_документов',NULL);
+INSERT INTO "Project_pages_data" VALUES (500,40,1220,'кабеля',NULL);
+INSERT INTO "Project_pages_data" VALUES (501,40,1225,'общая_физ_длина',NULL);
+INSERT INTO "Project_pages_data" VALUES (502,40,1226,'общая_опт_длина',NULL);
+INSERT INTO "Project_pages_data" VALUES (503,40,1227,'год_прокладки_кабеля',NULL);
+INSERT INTO "Project_pages_data" VALUES (504,40,1228,'год_составления_паспорта',NULL);
+INSERT INTO "Project_pages_data" VALUES (505,40,1229,'отв_пред_орг_фио',NULL);
+INSERT INTO "Project_pages_data" VALUES (600,50,1230,'скелетная_схема_ВОЛП',NULL);
 INSERT INTO "Project_tag_config_date" VALUES (100,1208,'FORMAT','yyyy',NULL);
 INSERT INTO "Project_tag_config_date" VALUES (101,1009,'FORMAT','yyyy',NULL);
 INSERT INTO "Project_tag_config_date" VALUES (103,1227,'FORMAT','yyyy',NULL);
@@ -172,53 +220,6 @@ INSERT INTO "Project_tag_config_table" VALUES (504,1220,'CONTENT','марка','
 INSERT INTO "Project_tag_config_table" VALUES (505,1220,'CONTENT','длина_всего','',1);
 INSERT INTO "Project_tag_config_table" VALUES (506,1220,'CONTENT','длина_опт','',2);
 INSERT INTO "Project_tag_config_table" VALUES (507,1220,'CONTENT','инфо','',3);
-INSERT INTO "Project_nodes_data" VALUES (100,0,1003,'название_объекта',NULL);
-INSERT INTO "Project_nodes_data" VALUES (101,0,1004,'участок',NULL);
-INSERT INTO "Project_nodes_data" VALUES (102,0,1001,'название_компании',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1000,10,1000,'организационно_правовая_форма',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1001,10,1002,'адрес_компании',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1004,10,1005,'номер_кабеля',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1005,10,1006,'заказчик',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1006,10,1008,'город',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1007,10,1009,'год',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1100,11,1101,'инж_про_ком_фио',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1101,11,1208,'дата',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1200,12,1101,'инж_про_ком_фио',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1201,12,1208,'дата',NULL);
-INSERT INTO "Project_pages_data" VALUES (100,10,1007,'строительно_монтажная_организация',NULL);
-INSERT INTO "Project_pages_data" VALUES (200,11,1100,'инж_про_ком',NULL);
-INSERT INTO "Project_pages_data" VALUES (201,11,1101,'инж_про_ком_фио',NULL);
-INSERT INTO "Project_pages_data" VALUES (202,11,1102,'гла_инж_компания',NULL);
-INSERT INTO "Project_pages_data" VALUES (203,11,1103,'гла_инж_фио',NULL);
-INSERT INTO "Project_pages_data" VALUES (300,20,1200,'реестр_ид_паспорт_трассы',NULL);
-INSERT INTO "Project_pages_data" VALUES (301,20,1201,'реестр_ид_эл_паспорт_трассы',NULL);
-INSERT INTO "Project_pages_data" VALUES (302,20,1202,'рабочая_документация',NULL);
-INSERT INTO "Project_pages_data" VALUES (400,30,1209,'пт_опись_документов',NULL);
-INSERT INTO "Project_pages_data" VALUES (500,40,1220,'кабеля',NULL);
-INSERT INTO "Project_pages_data" VALUES (501,40,1225,'общая_физ_длина',NULL);
-INSERT INTO "Project_pages_data" VALUES (502,40,1226,'общая_опт_длина',NULL);
-INSERT INTO "Project_pages_data" VALUES (503,40,1227,'год_прокладки_кабеля',NULL);
-INSERT INTO "Project_pages_data" VALUES (504,40,1228,'год_составления_паспорта',NULL);
-INSERT INTO "Project_pages_data" VALUES (505,40,1229,'отв_пред_орг_фио',NULL);
-INSERT INTO "Project_pages_data" VALUES (600,50,1230,'скелетная_схема_ВОЛП',NULL);
-INSERT INTO "Project_templates" VALUES (1,'main',10);
-INSERT INTO "Project_templates" VALUES (2,'main',11);
-INSERT INTO "Project_templates" VALUES (3,'main',1201);
-INSERT INTO "Project_templates" VALUES (4,'main',1202);
-INSERT INTO "Project_templates" VALUES (5,'main',1203);
-INSERT INTO "Project_pages" VALUES (10,1,'Л.1. Титульный лист.','1-ТЛ-1',0,1);
-INSERT INTO "Project_pages" VALUES (11,1,'Л.2. Титульный лист.','1-ТЛ-2',1,1);
-INSERT INTO "Project_pages" VALUES (20,2,'Л.1. Реестр исполнительной документации ВОЛС.','2-РД-1',0,1);
-INSERT INTO "Project_pages" VALUES (30,3,'Л.1. Паспорт трассы. Опись документов.','3-ПТ1-1',0,1);
-INSERT INTO "Project_pages" VALUES (40,4,'Л.1. Паспорт трассы волоконно-оптической линии связи на участке.','3-ПТ2-1',0,1);
-INSERT INTO "Project_pages" VALUES (50,5,'Л.1. Скелетная схема ВОЛП и основные данные цепей кабеля.','3-ПТ3-1',0,1);
-INSERT INTO "Project_nodes" VALUES (0,'Проект',NULL,'0','PROJECT',NULL,1);
-INSERT INTO "Project_nodes" VALUES (10,'Титульный лист',0,'1','FORM',1,1);
-INSERT INTO "Project_nodes" VALUES (11,'Реестр документации',0,'2','FORM',2,1);
-INSERT INTO "Project_nodes" VALUES (12,'Паспорт трассы',0,'3','GROUP',NULL,1);
-INSERT INTO "Project_nodes" VALUES (1201,'ПТ-1',12,'1','FORM',3,1);
-INSERT INTO "Project_nodes" VALUES (1202,'ПТ-2',12,'2','FORM',4,1);
-INSERT INTO "Project_nodes" VALUES (1203,'ПТ-3',12,'3','FORM',5,1);
 INSERT INTO "Project_tags" VALUES (1000,'организационно_правовая_форма','TEXT','Организационно-правовая форма',NULL,0);
 INSERT INTO "Project_tags" VALUES (1001,'название_компании','TEXT','Название компании',NULL,0);
 INSERT INTO "Project_tags" VALUES (1002,'адрес_компании','TEXT','Адрес компании',NULL,0);
@@ -245,6 +246,11 @@ INSERT INTO "Project_tags" VALUES (1227,'год_прокладки_кабеля'
 INSERT INTO "Project_tags" VALUES (1228,'год_составления_паспорта','DATE','Год составления паспорта',NULL,0);
 INSERT INTO "Project_tags" VALUES (1229,'отв_пред_орг_фио ','TEXT','ФИО ответственного представителя организации',NULL,0);
 INSERT INTO "Project_tags" VALUES (1230,'скелетная_схема_ВОЛП','IMAGE','Скелетная схема ВОЛП',NULL,0);
+INSERT INTO "Project_templates" VALUES (1,'main',10);
+INSERT INTO "Project_templates" VALUES (2,'main',11);
+INSERT INTO "Project_templates" VALUES (3,'main',1201);
+INSERT INTO "Project_templates" VALUES (4,'main',1202);
+INSERT INTO "Project_templates" VALUES (5,'main',1203);
 COMMIT;
 
         """
@@ -434,6 +440,36 @@ COMMIT;
             f"ProjectDatabase get_pages_by_template(template) -> list: template = {template}\nresult = {result}"
         )
         return result
+
+    def insert_page(self, page) -> int:
+        """
+        Добавление page в таблицу Project_pages.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase insert_page(page) -> int: page = {page}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        INSERT INTO Project_pages
+        (id_parent_template, name_page, filename_page, order_page, included)
+        VALUES (?, ?, ?, ?, ?)
+        """,
+            [
+                page.get("id_parent_template"),
+                page.get("name_page"),
+                page.get("filename_page"),
+                page.get("order_page"),
+                page.get("included"),
+            ],
+        )
+        conn.commit()
+        primary_key = cursor.lastrowid
+        conn.close()
+        return primary_key
+        
+
 
     def get_parent_template(self, page) -> object:
         """
@@ -903,6 +939,27 @@ COMMIT;
         conn.commit()
         conn.close()
 
+    def insert_template_data(self, template, pair):
+        """
+        Запрос на вставку одной строки данных вершины в Project_templates_data.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase insert_template_data(template, pair):\ntemplate = {template}\npair = {pair}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        INSERT INTO Project_templates_data
+        (id_template, id_tag)
+        VALUES
+        (?, ?)
+        """,
+            [template.get("id_template"), pair.get("id_tag")],
+        )
+        conn.commit()
+        conn.close()
+
     def insert_template_datas(self, template, pair_list):
         """
         Запрос на обновление данных вершины в Project_nodes_data.
@@ -922,6 +979,27 @@ COMMIT;
             """,
                 [template.get("id_template"), pair.get("id_tag")],
             )
+        conn.commit()
+        conn.close()
+
+    def insert_page_data(self, page, pair):
+        """
+        Запрос на вставку одной строки данных вершины в Project_pages_data.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase insert_page_data(page, pair):\npage = {page}\npair = {pair}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        INSERT INTO Project_pages_data
+        (id_page, id_tag)
+        VALUES
+        (?, ?)
+        """,
+            [page.get("id_page"), pair.get("id_tag")],
+        )
         conn.commit()
         conn.close()
 
@@ -1146,7 +1224,7 @@ COMMIT;
         conn.commit()
         conn.close()
 
-    def add_template(self, name_template, form):
+    def add_template(self, name_template, form) -> int:
         """
         Добавление шаблона.
         """
@@ -1163,7 +1241,9 @@ COMMIT;
             [name_template, form.get("id_node")],
         )
         conn.commit()
+        primary_key = cursor.lastrowid
         conn.close()
+        return primary_key
         
 
     def set_new_name_for_template(self, template, name_template):

@@ -138,7 +138,29 @@ class DialogWindows:
                 )
                 return None
             
-    
+    def select_docx_file(self) -> str:
+        """Диалоговое окно выбора документа."""
+
+        self.__obs_manager.obj_l.debug_logger("DialogWindows select_docx_file() -> str")
+
+        while True:
+            docx_path = QFileDialog.getOpenFileName(
+                None,
+                "Выбор документа",
+                self.__obs_manager.obj_dpm.get_default_folder_projects_dirpath(),
+                "Документы (*.docx)",
+            )
+            if docx_path[0]:
+                self.__obs_manager.obj_l.debug_logger(
+                    f"DialogWindows select_docx_file() -> {docx_path[0]}"
+                )  
+                return docx_path[0]
+            else:
+                self.__obs_manager.obj_l.debug_logger(
+                    f"DialogWindows select_docx_file() -> {None}"
+                )
+                return None
+            
 
     def warning_message(self, message: str):
         """Диалоговое окно 'Предупреждение'."""

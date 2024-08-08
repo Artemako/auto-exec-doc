@@ -55,6 +55,7 @@ class ObjectsManager:
         self.obj_csdw = None
         self.obj_templdw = None
         self.obj_nedtempdw = None
+        self.obj_nedpagedw = None
 
     def initialize_all(self):
         """

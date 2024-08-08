@@ -44,12 +44,13 @@ class FileFolderManager:
             aedfile.write(base64_message)
             aedfile.close()
 
-
     def create_folders_and_aed_for_project(self):
         """
         Добавление в проект папок форм.
         """
-        self.__obs_manager.obj_l.debug_logger("FileFolderManager create_folders_and_aed_for_project()")
+        self.__obs_manager.obj_l.debug_logger(
+            "FileFolderManager create_folders_and_aed_for_project()"
+        )
         # файл project.aed
         self.check_aed_file()
         # папка forms в проекте
@@ -78,7 +79,9 @@ class FileFolderManager:
         """
         Копирование шаблонов в папку forms.
         """
-        self.__obs_manager.obj_l.debug_logger("FileFolderManager copy_templates_to_forms_folder()")
+        self.__obs_manager.obj_l.debug_logger(
+            "FileFolderManager copy_templates_to_forms_folder()"
+        )
 
         templates_main_dirpath = self.__obs_manager.obj_dpm.get_templates_main_dirpath()
         forms_folder_dirpath = self.__obs_manager.obj_dpm.get_forms_folder_dirpath()
@@ -106,12 +109,12 @@ class FileFolderManager:
             self.__obs_manager.obj_l.error_logger(e)
 
     def move_image_from_temp_to_project(self, name_image):
-        self.__obs_manager.obj_l.debug_logger("FileFolderManager move_image_from_temp_to_project()")
+        self.__obs_manager.obj_l.debug_logger(
+            "FileFolderManager move_image_from_temp_to_project()"
+        )
         # путь к папке с шаблонами
         temp_dirpath = self.__obs_manager.obj_dpm.get_temp_dirpath()
-        image_folder_dirpath = os.path.join(
-            self.__obs_manager.obj_dpm.get_project_dirpath(), "images"
-        )
+        image_folder_dirpath = self.__obs_manager.obj_dpm.get_images_folder_dirpath()
         try:
             shutil.move(
                 os.path.join(temp_dirpath, name_image),
@@ -121,16 +124,15 @@ class FileFolderManager:
             self.__obs_manager.obj_l.error_logger(e)
 
     def delete_image_from_project(self, image_dirpath):
-        self.__obs_manager.obj_l.debug_logger("FileFolderManager delete_image_from_project()")
-        # путь к папке с шаблонами
-        image_folder_dirpath = os.path.join(
-            self.__obs_manager.obj_dpm.get_project_dirpath(), "images"
+        self.__obs_manager.obj_l.debug_logger(
+            "FileFolderManager delete_image_from_project()"
         )
+        # путь к папке с шаблонами
+        image_folder_dirpath = self.__obs_manager.obj_dpm.get_images_folder_dirpath()
         try:
             os.remove(os.path.join(image_folder_dirpath, image_dirpath))
         except Exception as e:
             self.__obs_manager.obj_l.error_logger(e)
-
 
     def copy_project_for_saveas(self, old_folder_path, new_folder_path):
         self.__obs_manager.obj_l.debug_logger(
@@ -142,8 +144,48 @@ class FileFolderManager:
             if os.path.isdir(src_path):
                 shutil.copytree(src_path, dest_path)
             elif os.path.isfile(src_path):
-                if not f.endswith('.aed'):
+                if not f.endswith(".aed"):
                     shutil.copy(src_path, dest_path)
 
+    def copy_file(self, src_path, dest_path):
+        self.__obs_manager.obj_l.debug_logger(
+            f"FileFolderManager copy_file(src_path, dest_path):\nsrc_path = {src_path},\ndest_path = {dest_path}"
+        )
+        try:
+            shutil.copy(src_path, dest_path)
+        except Exception as e:
+            self.__obs_manager.obj_l.error_logger(e)
+
+    def docx_from_temp_to_forms(self, file_name, name_template):
+        self.__obs_manager.obj_l.debug_logger(
+            f"FileFolderManager docx_from_temp_to_forms(file_name, name_template):\nfile_name = {file_name},\nname_template = {name_template}"
+        )
+        # путь к temp, к папке с шаблонами
+        temp_dirpath = self.__obs_manager.obj_dpm.get_temp_dirpath()
+        forms_folder_dirpath = self.__obs_manager.obj_dpm.get_forms_folder_dirpath()
+        try:
+            name_template_dirpath = os.path.join(forms_folder_dirpath, name_template)
+            if not os.path.exists(name_template_dirpath):
+                os.mkdir(name_template_dirpath)
+            file_name_with_docx = file_name + ".docx"
+            shutil.move(
+                os.path.join(temp_dirpath, file_name_with_docx),
+                os.path.join(name_template_dirpath, file_name_with_docx),
+            )
+        except Exception as e:
+            self.__obs_manager.obj_l.error_logger(e)
+
+    def copynew_page_for_new_template(
+        self, old_page_filename
+    ):
+        self.__obs_manager.obj_l.debug_logger(
+            f"FileFolderManager copynew_page_for_new_template(old_page_filename):\nold_page_filename = {old_page_filename}"
+        )
+        forms_folder_dirpath = self.__obs_manager.obj_dpm.get_forms_folder_dirpath()
+        old_page_path = os.path.join(forms_folder_dirpath, old_page_filename + ".docx")
+        new_page_filename = f"docx_{id(old_page_path)%100}_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
+        new_page_path = os.path.join(forms_folder_dirpath, new_page_filename + ".docx")
+        self.copy_file(old_page_path, new_page_path)
+        return new_page_filename
 
 # obj_ffm = FileFolderManager()

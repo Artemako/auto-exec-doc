@@ -17,14 +17,14 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QFrame,
     QHBoxLayout, QLabel, QLineEdit, QPushButton,
-    QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
+    QSizePolicy, QVBoxLayout, QWidget)
 import resources_rc
 
 class Ui_NedTagDialogWindow(object):
     def setupUi(self, NedTagDialogWindow):
         if not NedTagDialogWindow.objectName():
             NedTagDialogWindow.setObjectName(u"NedTagDialogWindow")
-        NedTagDialogWindow.resize(530, 217)
+        NedTagDialogWindow.resize(530, 211)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -33,6 +33,7 @@ class Ui_NedTagDialogWindow(object):
         NedTagDialogWindow.setBaseSize(QSize(0, 0))
         self.verticalLayout = QVBoxLayout(NedTagDialogWindow)
         self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(-1, -1, -1, 9)
         self.nametag = QLabel(NedTagDialogWindow)
         self.nametag.setObjectName(u"nametag")
         self.nametag.setMinimumSize(QSize(0, 0))
@@ -91,10 +92,6 @@ class Ui_NedTagDialogWindow(object):
 
         self.verticalLayout.addLayout(self.vbl_additional_info)
 
-        self.verticalSpacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.verticalLayout.addItem(self.verticalSpacer)
-
         self.hl_addsaveclose = QHBoxLayout()
         self.hl_addsaveclose.setObjectName(u"hl_addsaveclose")
         self.btn_nestag = QPushButton(NedTagDialogWindow)
@@ -113,6 +110,7 @@ class Ui_NedTagDialogWindow(object):
 
         self.verticalLayout.addLayout(self.hl_addsaveclose)
 
+        self.verticalLayout.setStretch(7, 1)
 
         self.retranslateUi(NedTagDialogWindow)
 

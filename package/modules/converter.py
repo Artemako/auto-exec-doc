@@ -125,7 +125,8 @@ class Converter:
         self.__obs_manager.obj_l.debug_logger(
             f"Converter create_one_page_pdf(page):\npage = {page}"
         )
-        form_page_name = page.get("page_filename")
+        # было page.get("filename_page") вместо page.get("id_page")
+        form_page_name = page.get("id_page")
         docx_pdf_page_name = f"""page_{page.get("id_page")}_{datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')}"""
         # добыть информация для SectionInfo
         if not is_local:
@@ -148,7 +149,7 @@ class Converter:
             f"Converter get_form_page_fullname_and_docx_page_fullname(form_page_name, docx_pdf_page_name):\nform_page_name = {form_page_name},\ndocx_pdf_page_name = {docx_pdf_page_name}"
         )
         # получить docx_template
-        form_page_fullname = form_page_name + ".docx"
+        form_page_fullname = str(form_page_name) + ".docx"
         docx_page_fullname = docx_pdf_page_name + ".docx"
         return form_page_fullname, docx_page_fullname
 
@@ -316,9 +317,6 @@ class Converter:
         #     self.convert_from_pdf_docx_using_openoffice(docx_path, pdf_path)
         elif app_converter == "LIBREOFFICE":
             self.convert_from_pdf_docx_using_libreoffice(docx_path, pdf_path)
-        else:
-            # TODO Подумать, что делать?
-            ...
 
     def convert_from_pdf_docx_using_msword(self, docx_path, pdf_path):
         self.__obs_manager.obj_l.debug_logger(

@@ -308,7 +308,7 @@ class TagsListDialogWindow(QDialog):
         # пункт - Для всех страниц
         self.ui.combox_pages.addItem("- Для всех страниц -", "all_pages")
         for page in pages:
-            self.ui.combox_pages.addItem(page.get("page_name"), page)
+            self.ui.combox_pages.addItem(page.get("name_page"), page)
         self.ui.combox_pages.blockSignals(False)
         self.ui.combox_pages.show()
 
