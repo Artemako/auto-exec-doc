@@ -146,7 +146,6 @@ class TemplatesListDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger(
             f"TemplatesListDialogWindow delete_item(btn):\ntype_window = {type_window}\n data = {data}"
         )
-        # todo ???
         if type_window == "TEMPLATE":
             template = data
             result = self.ned_temp_dw("edit", template)
@@ -166,27 +165,74 @@ class TemplatesListDialogWindow(QDialog):
                 if item_template is not None:
                     template = item_template.data(0)
                     data = self.__obs_manager.obj_ned_temp_dw.get_data()
-                    # TODO Если поменялся документ то нужно его обновить (удаля старый)
-                    # TODO Проверить наличие пустых папок
+                    # Если поменялся документ то нужно его обновить (удаля старый)
+                    old_filename_page = page.get("filename_page")
+                    new_filename_page = data.get("filename_page")
+                    if old_filename_page != new_filename_page:
+                        self.__obs_manager.obj_ffm.delete_page_from_project(
+                            old_filename_page
+                        )
+                    # Если поменялся order
+                    old_order_page = page.get("order_page")
+                    new_order_page = data.get("order_page")
+                    if old_order_page != new_order_page:
+                        self.update_order_pages(page, new_order_page)
+                    self.update_page(data)
+                    self.reconfig()
+
+    def update_order_pages(self, editpage, new_order_page):
+        self.__obs_manager.obj_l.debug_logger(
+            f"TemplatesListDialogWindow update_order_pages(id_editpage, new_order_page):\editpage = {editpage}\nnew_order_page = {new_order_page}"
+        )
+        # подготовка данных
+        id_editpage = editpage.get("id_page")
+        pages = [page for page in self.__pages if page.get("id_page") != id_editpage]
+        pages = sorted(pages, key=lambda x: x.get("order_page"))
+        pages.insert(new_order_page, editpage)
+        # обновить значения
+        for index, page in enumerate(pages):
+            order_page = page.get("order_page")
+            if order_page != index:
+                self.__obs_manager.obj_pd.set_order_for_page(page, index)
 
     def delete_item(self, type_window, data):
         self.__obs_manager.obj_l.debug_logger(
             f"TemplatesListDialogWindow delete_item(btn):\ntype_window = {type_window}\n data = {data}"
         )
-        # todo
         if type_window == "TEMPLATE":
             name_template = data.get("name_template")
             result = self.__obs_manager.obj_dw.question_message(
                 f"Вы точно хотите удалить {name_template}?"
             )
             if result:
-                self.__obs_manager.obj_pd.get_pages_by_template(data)
+                self.delete_pages()
                 self.__obs_manager.obj_pd.delete_template(data)
                 self.__obs_manager.obj_pd.delete_template_all_data(data)
-                # todo удалить все страницы этого щаблона в forms
                 self.reconfig()
         elif type_window == "PAGE":
-            ...
+            name_page = data.get("name_page")
+            result = self.__obs_manager.obj_dw.question_message(
+                f"Вы точно хотите удалить {name_page}?"
+            )
+            if result:
+                self.delete_page(data)
+                self.reconfig()
+
+    def delete_pages(self):
+        self.__obs_manager.obj_l.debug_logger(
+            "TemplatesListDialogWindow delete_pages()"
+        )
+        pages = self.__pages
+        for page in pages:
+            self.delete_page(page)
+
+    def delete_page(self, page):
+        self.__obs_manager.obj_l.debug_logger(f"TemplatesListDialogWindow delete_page(page):\npage = {page}")
+        filename_page = page.get("filename_page")
+        self.__obs_manager.obj_ffm.delete_page_from_project(filename_page)
+        self.__obs_manager.obj_pd.delete_page(page)
+        self.__obs_manager.obj_pd.delete_all_page_data(page)
+            
 
     def add_page(self):
         self.__obs_manager.obj_l.debug_logger("TemplatesListDialogWindow add_page()")

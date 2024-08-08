@@ -175,9 +175,7 @@ class FileFolderManager:
         except Exception as e:
             self.__obs_manager.obj_l.error_logger(e)
 
-    def copynew_page_for_new_template(
-        self, old_page_filename
-    ):
+    def copynew_page_for_new_template(self, old_page_filename):
         self.__obs_manager.obj_l.debug_logger(
             f"FileFolderManager copynew_page_for_new_template(old_page_filename):\nold_page_filename = {old_page_filename}"
         )
@@ -187,5 +185,15 @@ class FileFolderManager:
         new_page_path = os.path.join(forms_folder_dirpath, new_page_filename + ".docx")
         self.copy_file(old_page_path, new_page_path)
         return new_page_filename
+
+    def delete_page_from_project(self, page_filename):
+        self.__obs_manager.obj_l.debug_logger(f"FileFolderManager delete_page_from_project(page_filename):\npage_filename = {page_filename}")
+        forms_folder_dirpath = self.__obs_manager.obj_dpm.get_forms_folder_dirpath()
+        page_path = os.path.join(forms_folder_dirpath, page_filename + ".docx")
+        try:
+            os.remove(page_path)
+        except Exception as e:
+            self.__obs_manager.obj_l.error_logger(e)
+
 
 # obj_ffm = FileFolderManager()

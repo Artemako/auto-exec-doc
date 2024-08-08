@@ -9,7 +9,6 @@ import copy
 import resources_rc
 
 # TODO ПОДУМАТЬ ПРО PDF 
-# TODO ПУСТОЕ ИМЯ НЕ ДЛОЖНО БЫТЬ
 
 class NedNodeDialogWindow(QDialog):
     def __init__(self, obs_manager, type_window, type_node, nodes, node=None):

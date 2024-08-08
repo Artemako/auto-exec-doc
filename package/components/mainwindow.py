@@ -165,7 +165,6 @@ class MainWindow(QMainWindow):
             self.__obs_manager
         )
         self.__obs_manager.obj_nedw.exec()
-        # TODO ??? обновить treewidget_structure_execdoc
         self.__obs_manager.obj_sed.update_structure_exec_doc()
 
     def update_menu_recent_projects(self):

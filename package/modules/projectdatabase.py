@@ -636,6 +636,46 @@ COMMIT;
         conn.commit()
         conn.close()
 
+    def delete_page(self, page):
+        """
+        Запрос на удаление страницы из Project_pages.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase delete_page(page): page = {page}"
+        )
+
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        DELETE FROM Project_pages
+        WHERE id_page = ?
+        """,
+            [page.get("id_page")],
+        )
+        conn.commit()
+        conn.close()
+
+    def delete_page_data(self, page):
+        """
+        Запрос на удаление данных страницы из Project_pages_data.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase delete_page_data(page): page = {page}"
+        )
+
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        DELETE FROM Project_pages_data
+        WHERE id_page = ?
+        """,
+            [page.get("id_page")],
+        )
+        conn.commit()
+        conn.close()
+
     def get_page_data(self, page) -> list:
         """
         Запрос на получение данных страницы из Project_pages_data.
@@ -715,6 +755,29 @@ COMMIT;
             f"ProjectDatabase get_node_data(node) -> list: node = {node}\nresult = {result}"
         )
         return result
+
+    def update_page(self, page):
+        """
+        Запрос на обновление страницы в Project_pages.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase update_page(page): page = {page}"
+        )
+
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        UPDATE Project_pages
+        SET name_page = ?, filename_page = ?
+        WHERE id_page = ?
+        """,
+            [page.get("name_page"), page.get("filename_page"), page.get("id_page")],
+        )
+        conn.commit()
+        conn.close()
+
+
 
     def update_page_data(self, id_pair, value):
         """
@@ -1220,6 +1283,26 @@ COMMIT;
         WHERE id_node = ?
         """,
             [new_order, node.get("id_node")],
+        )
+        conn.commit()
+        conn.close()
+
+    def set_order_for_page(self, page, new_order):
+        """
+        Установка порядка для страницы.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase set_order_for_page(page, new_order):\npage = {page}\nnew_order = {new_order}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        UPDATE Project_pages
+        SET order_page = ?
+        WHERE id_page = ?
+        """,
+            [new_order, page.get("id_page")],
         )
         conn.commit()
         conn.close()

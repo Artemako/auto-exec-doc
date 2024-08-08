@@ -283,7 +283,6 @@ class TagsListDialogWindow(QDialog):
 
     def clear_and_fill_combobox_template(self):
         self.__obs_manager.obj_l.debug_logger("TagsListDialogWindow clear_and_fill_combobox_template()")
-        # TODO ??? Для определенного шаблона
         form = self.ui.combox_forms.currentData()
         print(f"form = {form}")
         templates = self.__obs_manager.obj_pd.get_templates_by_form(form)
