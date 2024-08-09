@@ -16,29 +16,29 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QPushButton,
-    QSizePolicy, QSpacerItem, QWidget)
+    QSizePolicy, QWidget)
 import resources_rc
 
 class Ui_CustomItemQListWidget(object):
     def setupUi(self, CustomItemQListWidget):
         if not CustomItemQListWidget.objectName():
             CustomItemQListWidget.setObjectName(u"CustomItemQListWidget")
-        CustomItemQListWidget.resize(211, 30)
+        CustomItemQListWidget.resize(300, 28)
+        CustomItemQListWidget.setMinimumSize(QSize(0, 0))
+        CustomItemQListWidget.setMaximumSize(QSize(1515, 16777215))
         self.horizontalLayout = QHBoxLayout(CustomItemQListWidget)
         self.horizontalLayout.setSpacing(2)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(2, 2, 2, 2)
         self.label_text = QLabel(CustomItemQListWidget)
         self.label_text.setObjectName(u"label_text")
+        self.label_text.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout.addWidget(self.label_text)
 
-        self.horizontalSpacer = QSpacerItem(0, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout.addItem(self.horizontalSpacer)
-
         self.btn_edit = QPushButton(CustomItemQListWidget)
         self.btn_edit.setObjectName(u"btn_edit")
+        self.btn_edit.setMaximumSize(QSize(16777215, 16777215))
         icon = QIcon()
         icon.addFile(u":/icons/resources/icons/pen.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_edit.setIcon(icon)
@@ -47,12 +47,14 @@ class Ui_CustomItemQListWidget(object):
 
         self.btn_delete = QPushButton(CustomItemQListWidget)
         self.btn_delete.setObjectName(u"btn_delete")
+        self.btn_delete.setMaximumSize(QSize(16777215, 16777215))
         icon1 = QIcon()
         icon1.addFile(u":/icons/resources/icons/trash.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_delete.setIcon(icon1)
 
         self.horizontalLayout.addWidget(self.btn_delete)
 
+        self.horizontalLayout.setStretch(0, 1)
 
         self.retranslateUi(CustomItemQListWidget)
 
@@ -61,7 +63,7 @@ class Ui_CustomItemQListWidget(object):
 
     def retranslateUi(self, CustomItemQListWidget):
         CustomItemQListWidget.setWindowTitle(QCoreApplication.translate("CustomItemQListWidget", u"Form", None))
-        self.label_text.setText(QCoreApplication.translate("CustomItemQListWidget", u"TextLabel", None))
+        self.label_text.setText(QCoreApplication.translate("CustomItemQListWidget", u"224", None))
         self.btn_edit.setText("")
         self.btn_delete.setText("")
     # retranslateUi

@@ -1,4 +1,5 @@
-from PySide6.QtWidgets import QDialog, QListWidgetItem
+from PySide6.QtWidgets import QDialog, QListWidgetItem, QListWidget
+from PySide6.QtCore import Qt, QTimer
 
 from functools import partial
 
@@ -21,6 +22,8 @@ class TemplatesListDialogWindow(QDialog):
         #
         self.__templates = []
         self.__pages = []
+        self.__templates_items = []
+        self.__pages_items = []
         # конфигурация
         self.config_forms()
         self.config_templates()
@@ -54,6 +57,7 @@ class TemplatesListDialogWindow(QDialog):
         if form is not None:
             templates = self.__obs_manager.obj_pd.get_templates_by_form(form)
             self.__templates = templates
+            self.__templates_items = []
             print(f"form = {form}")
             print(f"templates = {templates}")
             list_widget = self.ui.lw_templates
@@ -67,11 +71,19 @@ class TemplatesListDialogWindow(QDialog):
                 item.setData(0, template)
                 # Указываем размер элемента
                 item.setSizeHint(custom_widget.sizeHint())
+                item.setSizeHint(item.sizeHint().boundedTo(list_widget.sizeHint()))
                 list_widget.addItem(item)
                 # Устанавливаем виджет для элемента
                 list_widget.setItemWidget(item, custom_widget)
                 # кнопки
                 self.config_buttons_for_item(custom_widget)
+                #
+                self.__templates_items.append(item)
+            list_widget.setCurrentRow(0)
+            # Отключаем ползунки
+            list_widget.setResizeMode(QListWidget.Adjust)
+            list_widget.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+            list_widget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
             list_widget.setCurrentRow(0)
             list_widget.blockSignals(False)
 
@@ -84,6 +96,7 @@ class TemplatesListDialogWindow(QDialog):
             template = item_template.data(0)
             pages = self.__obs_manager.obj_pd.get_pages_by_template(template)
             self.__pages = pages
+            self.__pages_items = []
             list_widget = self.ui.lw_pages
             list_widget.blockSignals(True)
             list_widget.clear()
@@ -95,11 +108,17 @@ class TemplatesListDialogWindow(QDialog):
                 item.setData(0, page)
                 # Указываем размер элемента
                 item.setSizeHint(custom_widget.sizeHint())
+                item.setSizeHint(item.sizeHint().boundedTo(list_widget.sizeHint()))
                 list_widget.addItem(item)
                 # Устанавливаем виджет для элемента
                 list_widget.setItemWidget(item, custom_widget)
                 # кнопки
                 self.config_buttons_for_item(custom_widget)
+                #
+                self.__pages_items.append(item)
+            list_widget.setResizeMode(QListWidget.Adjust)
+            list_widget.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+            list_widget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
             list_widget.setCurrentRow(0)
             list_widget.blockSignals(False)
 
@@ -134,6 +153,19 @@ class TemplatesListDialogWindow(QDialog):
             self.combox_forms_index_changed
         )
         self.ui.lw_templates.currentItemChanged.connect(self.config_pages)
+
+    def resizeEvent(self, event):
+        super(TemplatesListDialogWindow, self).resizeEvent(event)
+        self.resize_templates_items()
+        self.resize_pages_items()
+            
+    def resize_templates_items(self):
+        for item in self.__templates_items:
+            item.setSizeHint(item.sizeHint().boundedTo(self.ui.lw_templates.sizeHint()))
+
+    def resize_pages_items(self):
+        for item in self.__pages_items:
+            item.setSizeHint(item.sizeHint().boundedTo(self.ui.lw_pages.sizeHint()))
 
     def combox_forms_index_changed(self):
         self.__obs_manager.obj_l.debug_logger(

@@ -24,8 +24,9 @@ class Ui_TemplatesListDialogWindow(object):
     def setupUi(self, TemplatesListDialogWindow):
         if not TemplatesListDialogWindow.objectName():
             TemplatesListDialogWindow.setObjectName(u"TemplatesListDialogWindow")
-        TemplatesListDialogWindow.resize(350, 600)
-        TemplatesListDialogWindow.setMaximumSize(QSize(16777215, 16777215))
+        TemplatesListDialogWindow.resize(400, 600)
+        TemplatesListDialogWindow.setMinimumSize(QSize(400, 0))
+        TemplatesListDialogWindow.setMaximumSize(QSize(400, 16777215))
         self.verticalLayout_3 = QVBoxLayout(TemplatesListDialogWindow)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.label_form = QLabel(TemplatesListDialogWindow)
