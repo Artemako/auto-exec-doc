@@ -369,7 +369,7 @@ class TemplatesListDialogWindow(QDialog):
     def ned_page_dw(self, type_ned, page=None) -> bool:
         self.__obs_manager.obj_l.debug_logger("TemplatesListDialogWindow ned_page_dw()")
         self.__obs_manager.obj_ned_page_dw = nedpagedialogwindow.NedPageDialogWindow(
-            self.__obs_manager, type_ned, page
+            self.__obs_manager, type_ned, self.__pages, page
         )
         result = self.__obs_manager.obj_ned_page_dw.exec()
         return result == QDialog.Accepted
