@@ -44,7 +44,7 @@
       <string notr="true">font-weight: bold;</string>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Столбцы&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Атрибуты&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::AutoText</enum>
@@ -55,28 +55,12 @@
     </widget>
    </item>
    <item>
-    <widget class="QTreeWidget" name="treewidget">
-     <column>
-      <property name="text">
-       <string>Поряд</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Название столбца</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Новый столбец</string>
-      </property>
-     </column>
-    </widget>
+    <widget class="QTableView" name="tw_attrs"/>
    </item>
    <item>
-    <widget class="QPushButton" name="btn_addcol">
+    <widget class="QPushButton" name="btn_addattr">
      <property name="text">
-      <string>Добавить столбец</string>
+      <string>Добавить атрибут</string>
      </property>
     </widget>
    </item>

@@ -4,7 +4,6 @@ from PySide6.QtGui import QIcon
 
 import package.ui.nedtagdialogwindow_ui as nedtagdialogwindow_ui
 
-import package.components.widgets.nedtags.nedcolumntabletag as nedcolumntabletag
 import package.components.widgets.nedtags.neddatetag as neddatetag
 import package.components.widgets.nedtags.nedtabletag as nedtabletag
 
@@ -31,6 +30,8 @@ class NedTagDialogWindow(QDialog):
         self.ui = nedtagdialogwindow_ui.Ui_NedTagDialogWindow()
         self.ui.setupUi(self)
         # одноразовые действия
+        self.__additional_widget = None
+        self.__data = None
         self.__icons = self.__obs_manager.obj_gf.get_icons()
         self.config_combobox()
         self.config_by_type_window()
@@ -39,6 +40,10 @@ class NedTagDialogWindow(QDialog):
         self.update_additional_info()
         # подключаем действия
         self.connecting_actions()
+
+    def get_data(self):
+        self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow get_data()")
+        return self.__data
 
     def connecting_actions(self):
         self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow connecting_actions()")
@@ -68,13 +73,28 @@ class NedTagDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow add_new_tag()")
         # TODO add_new_tag (проверить на наличие дупликатов) (при добавлении документа?)
         # self.__tag = старая информация
-
+        
+        # TODO В зависимости от типа тега
+        
+        index = self.ui.combox_typetag.currentIndex()
+        if index == 0:
+            ...
+            # TagType(0, "Текст", "TEXT", self.__icons.get("qicon_text")),
+        elif index == 1:
+            ...
+            # TagType(1, "Дата", "DATE", self.__icons.get("qicon_date")),
+        elif index == 2:
+            ...
+            # TagType(2, "Таблица", "TABLE", self.__icons.get("qicon_table")),
+        elif index == 3:
+            ...
+            # TagType(3, "Изображение", "IMAGE", self.__icons.get("qicon_image")),
 
     def save_edit_tag(self):
         self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow save_edit_tag()")
         # TODO Save (проверить на наличие дупликатов)
-        print(f"tag = {self.__tag}")
         # self.__tag = старая информация
+        # TODO В зависимости от типа тега
 
     def on_combox_typetag_changed(self, index):
         self.__obs_manager.obj_l.debug_logger(
@@ -141,13 +161,14 @@ class NedTagDialogWindow(QDialog):
             index = self.find_index_by_type(self.__tag.get("type_tag"))
         self.clear_layout(self.ui.vbl_additional_info)
         if index == 1:
-            new_widget = neddatetag.NedDateTag(self.__obs_manager)
-            self.ui.vbl_additional_info.addWidget(new_widget)
+            self.__additional_widget = neddatetag.NedDateTag(self.__obs_manager)
+            self.ui.vbl_additional_info.addWidget(self.__additional_widget)
         elif index == 2:
-            new_widget = nedtabletag.NedTableTag(self.__obs_manager)
-            self.ui.vbl_additional_info.addWidget(new_widget)
-        elif index == 3:
-            new_widget = ...
+            self.__additional_widget = nedtabletag.NedTableTag(self.__obs_manager)
+            self.ui.vbl_additional_info.addWidget(self.__additional_widget)
+        # TODO Изображение
+        # elif index == 3:
+        #     new_widget = ...
         QTimer.singleShot(0, self, lambda: self.resize_window())
 
     def resize_window(self):

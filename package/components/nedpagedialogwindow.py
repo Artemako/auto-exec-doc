@@ -72,7 +72,6 @@ class NedPageDialogWindow(QDialog):
             self.ui.lineedit_namepage.setText(self.__page.get("name_page"))
 
     def reconfig_tw_tags(self):
-        # TODO TAGS
         self.__obs_manager.obj_l.debug_logger("NedPageDialogWindow reconfig_tw_tags()")
         tablewidget = self.ui.tw_tags
         tablewidget.blockSignals(True)
@@ -102,16 +101,28 @@ class NedPageDialogWindow(QDialog):
                 widget = QWidget()
                 widget.setLayout(layout)
                 #
-                if type_tag == "Переменная":
-                    add_button.setText("Добавить тег")
-                    add_button.clicked.connect(partial(self.add_tag, tag, value_tag))
-                    tablewidget.setCellWidget(row, 2, widget)
-                elif type_tag == "Блок" and value_tag:
-                    add_button.setText("Добавить блок")
-                    add_button.clicked.connect(partial(self.add_tag, tag, value_tag, is_block = True))
-                    tablewidget.setCellWidget(row, 2, widget)
                 tablewidget.setItem(row, 0, qtwt_name_tag)
                 tablewidget.setItem(row, 1, qtwt_status_tag)
+                #
+                if type_tag == "Переменная":
+                    result_bd = self.__obs_manager.obj_pd.get_tag_by_name(value_tag)
+                    result_tags_for_add = self.get_tag_by_name(value_tag)
+                    if result_bd or result_tags_for_add:
+                        tablewidget.setItem(row, 2, QTableWidgetItem("Имеется"))
+                    else:
+                        add_button.setText("Добавить тег")
+                        add_button.clicked.connect(partial(self.add_tag, tag, value_tag))
+                        tablewidget.setCellWidget(row, 2, widget)
+                elif type_tag == "Блок" and value_tag:
+                    result_bd = self.__obs_manager.obj_pd.get_tag_by_name(value_tag)
+                    result_tags_for_add = self.get_tag_by_name(value_tag)
+                    if result_bd or result_tags_for_add:
+                        tablewidget.setItem(row, 2, QTableWidgetItem("Имеется"))
+                    else:
+                        add_button.setText("Добавить блок")
+                        add_button.clicked.connect(partial(self.add_tag, tag, value_tag, is_block = True))
+                        tablewidget.setCellWidget(row, 2, widget)
+                
         # Настраиваем режимы изменения размера для заголовков
         header = tablewidget.horizontalHeader()
         header.setSectionResizeMode(0, QHeaderView.Stretch)
@@ -124,6 +135,16 @@ class NedPageDialogWindow(QDialog):
         tablewidget.setSelectionMode(QAbstractItemView.NoSelection) 
         #      
         tablewidget.blockSignals(False)
+
+    def get_tag_by_name(self, name_tag) -> dict:
+        self.__obs_manager.obj_l.debug_logger(f"NedPageDialogWindow get_tag_by_name(name_tag) -> dict:\nname_tag = {name_tag}")
+        tags = self.__tags_for_add
+        result = None
+        for tag in tags:
+            if tag.get("name_tag") == name_tag:
+                result = tag
+                break
+        return result
 
     def get_status_tag(self, tag : str) -> dict:
         self.__obs_manager.obj_l.debug_logger(f"NedPageDialogWindow get_status_tag(tag) -> dict:\ntag = {tag}")

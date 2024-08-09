@@ -3,8 +3,7 @@ from PySide6.QtWidgets import (
 )
 
 import package.ui.neddatetag_ui as neddatetag_ui
-
-
+# TODO РАБОТА С ДАТАМИ
 class NedDateTag(QWidget):
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager

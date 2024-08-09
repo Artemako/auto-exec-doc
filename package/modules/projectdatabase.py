@@ -177,49 +177,49 @@ INSERT INTO "Project_tag_config_table" VALUES (101,1200,'HEADER','Наимено
 INSERT INTO "Project_tag_config_table" VALUES (102,1200,'HEADER','Количество листов','',2);
 INSERT INTO "Project_tag_config_table" VALUES (103,1200,'HEADER','Номера страниц','',3);
 INSERT INTO "Project_tag_config_table" VALUES (104,1200,'HEADER','Примечание','',4);
-INSERT INTO "Project_tag_config_table" VALUES (110,1200,'CONTENT','форма','',0);
-INSERT INTO "Project_tag_config_table" VALUES (111,1200,'CONTENT','наименование_документа','',1);
-INSERT INTO "Project_tag_config_table" VALUES (112,1200,'CONTENT','кол_листов','',2);
-INSERT INTO "Project_tag_config_table" VALUES (113,1200,'CONTENT','номера_стр','',3);
-INSERT INTO "Project_tag_config_table" VALUES (114,1200,'CONTENT','примечание','',4);
+INSERT INTO "Project_tag_config_table" VALUES (110,1200,'ATTRIBUTE','форма','',0);
+INSERT INTO "Project_tag_config_table" VALUES (111,1200,'ATTRIBUTE','наименование_документа','',1);
+INSERT INTO "Project_tag_config_table" VALUES (112,1200,'ATTRIBUTE','кол_листов','',2);
+INSERT INTO "Project_tag_config_table" VALUES (113,1200,'ATTRIBUTE','номера_стр','',3);
+INSERT INTO "Project_tag_config_table" VALUES (114,1200,'ATTRIBUTE','примечание','',4);
 INSERT INTO "Project_tag_config_table" VALUES (200,1201,'HEADER','Форма','',0);
 INSERT INTO "Project_tag_config_table" VALUES (201,1201,'HEADER','Наименование','',1);
 INSERT INTO "Project_tag_config_table" VALUES (202,1201,'HEADER','Количество листов','',2);
 INSERT INTO "Project_tag_config_table" VALUES (203,1201,'HEADER','Номера страниц','',3);
 INSERT INTO "Project_tag_config_table" VALUES (204,1201,'HEADER','Примечание','',4);
-INSERT INTO "Project_tag_config_table" VALUES (205,1201,'CONTENT','форма','',0);
-INSERT INTO "Project_tag_config_table" VALUES (206,1201,'CONTENT','наименование_документа','',1);
-INSERT INTO "Project_tag_config_table" VALUES (207,1201,'CONTENT','кол_листов','',2);
-INSERT INTO "Project_tag_config_table" VALUES (208,1201,'CONTENT','номера_стр','',3);
-INSERT INTO "Project_tag_config_table" VALUES (209,1201,'CONTENT','примечание','',4);
+INSERT INTO "Project_tag_config_table" VALUES (205,1201,'ATTRIBUTE','форма','',0);
+INSERT INTO "Project_tag_config_table" VALUES (206,1201,'ATTRIBUTE','наименование_документа','',1);
+INSERT INTO "Project_tag_config_table" VALUES (207,1201,'ATTRIBUTE','кол_листов','',2);
+INSERT INTO "Project_tag_config_table" VALUES (208,1201,'ATTRIBUTE','номера_стр','',3);
+INSERT INTO "Project_tag_config_table" VALUES (209,1201,'ATTRIBUTE','примечание','',4);
 INSERT INTO "Project_tag_config_table" VALUES (300,1202,'HEADER','Форма','',0);
 INSERT INTO "Project_tag_config_table" VALUES (301,1202,'HEADER','Наименование','',1);
 INSERT INTO "Project_tag_config_table" VALUES (302,1202,'HEADER','Количество листов','',2);
 INSERT INTO "Project_tag_config_table" VALUES (303,1202,'HEADER','Номера страниц','',3);
 INSERT INTO "Project_tag_config_table" VALUES (304,1202,'HEADER','Примечание','',4);
-INSERT INTO "Project_tag_config_table" VALUES (305,1202,'CONTENT','форма','',0);
-INSERT INTO "Project_tag_config_table" VALUES (306,1202,'CONTENT','наименование_документа','',1);
-INSERT INTO "Project_tag_config_table" VALUES (307,1202,'CONTENT','кол_листов','',2);
-INSERT INTO "Project_tag_config_table" VALUES (308,1202,'CONTENT','номера_стр','',3);
-INSERT INTO "Project_tag_config_table" VALUES (309,1202,'CONTENT','примечание','',4);
+INSERT INTO "Project_tag_config_table" VALUES (305,1202,'ATTRIBUTE','форма','',0);
+INSERT INTO "Project_tag_config_table" VALUES (306,1202,'ATTRIBUTE','наименование_документа','',1);
+INSERT INTO "Project_tag_config_table" VALUES (307,1202,'ATTRIBUTE','кол_листов','',2);
+INSERT INTO "Project_tag_config_table" VALUES (308,1202,'ATTRIBUTE','номера_стр','',3);
+INSERT INTO "Project_tag_config_table" VALUES (309,1202,'ATTRIBUTE','примечание','',4);
 INSERT INTO "Project_tag_config_table" VALUES (400,1209,'HEADER','Номер формы','',0);
 INSERT INTO "Project_tag_config_table" VALUES (401,1209,'HEADER','Наименование документа','',1);
 INSERT INTO "Project_tag_config_table" VALUES (402,1209,'HEADER','Количество листов','',2);
 INSERT INTO "Project_tag_config_table" VALUES (403,1209,'HEADER','Номера страниц','',3);
 INSERT INTO "Project_tag_config_table" VALUES (404,1209,'HEADER','Примечания','',4);
-INSERT INTO "Project_tag_config_table" VALUES (405,1209,'CONTENT','номер_формы','',0);
-INSERT INTO "Project_tag_config_table" VALUES (406,1209,'CONTENT','наименование_документа','',1);
-INSERT INTO "Project_tag_config_table" VALUES (407,1209,'CONTENT','кол_листов','',2);
-INSERT INTO "Project_tag_config_table" VALUES (408,1209,'CONTENT','номера_стр','',3);
-INSERT INTO "Project_tag_config_table" VALUES (409,1209,'CONTENT','примечание','',4);
+INSERT INTO "Project_tag_config_table" VALUES (405,1209,'ATTRIBUTE','номер_формы','',0);
+INSERT INTO "Project_tag_config_table" VALUES (406,1209,'ATTRIBUTE','наименование_документа','',1);
+INSERT INTO "Project_tag_config_table" VALUES (407,1209,'ATTRIBUTE','кол_листов','',2);
+INSERT INTO "Project_tag_config_table" VALUES (408,1209,'ATTRIBUTE','номера_стр','',3);
+INSERT INTO "Project_tag_config_table" VALUES (409,1209,'ATTRIBUTE','примечание','',4);
 INSERT INTO "Project_tag_config_table" VALUES (500,1220,'HEADER','Марка кабеля','',0);
 INSERT INTO "Project_tag_config_table" VALUES (501,1220,'HEADER','Длина кабеля (всего) в м.','',1);
 INSERT INTO "Project_tag_config_table" VALUES (502,1220,'HEADER','Оптическая длина в м.','',2);
 INSERT INTO "Project_tag_config_table" VALUES (503,1220,'HEADER','Информация','',3);
-INSERT INTO "Project_tag_config_table" VALUES (504,1220,'CONTENT','марка','',0);
-INSERT INTO "Project_tag_config_table" VALUES (505,1220,'CONTENT','длина_всего','',1);
-INSERT INTO "Project_tag_config_table" VALUES (506,1220,'CONTENT','длина_опт','',2);
-INSERT INTO "Project_tag_config_table" VALUES (507,1220,'CONTENT','инфо','',3);
+INSERT INTO "Project_tag_config_table" VALUES (504,1220,'ATTRIBUTE','марка','',0);
+INSERT INTO "Project_tag_config_table" VALUES (505,1220,'ATTRIBUTE','длина_всего','',1);
+INSERT INTO "Project_tag_config_table" VALUES (506,1220,'ATTRIBUTE','длина_опт','',2);
+INSERT INTO "Project_tag_config_table" VALUES (507,1220,'ATTRIBUTE','инфо','',3);
 INSERT INTO "Project_tags" VALUES (1000,'организационно_правовая_форма','TEXT','Организационно-правовая форма',NULL,0);
 INSERT INTO "Project_tags" VALUES (1001,'название_компании','TEXT','Название компании',NULL,0);
 INSERT INTO "Project_tags" VALUES (1002,'адрес_компании','TEXT','Адрес компании',NULL,0);
@@ -1169,6 +1169,27 @@ COMMIT;
         )
         conn.commit()
         conn.close()
+
+    def get_tag_by_name(self, name_tag):
+        """
+        Запрос на получение данных тега в Project_tags.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase get_tag_by_name(name_tag):\nname_tag = {name_tag}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        SELECT *
+        FROM Project_tags
+        WHERE name_tag = ?
+        """,
+            [name_tag],
+        )
+        result = cursor.fetchone()
+        conn.close()
+        return result
 
     def update_node(self, node):
         """

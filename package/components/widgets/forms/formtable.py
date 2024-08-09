@@ -10,18 +10,21 @@ import package.ui.formtable_ui as formtable_ui
 class FormTable(QWidget):
     def __init__(self, obs_manager, pair, config_tag, config_table):
         self.__obs_manager = obs_manager
+        self.__pair = pair
+        self.__config_tag = config_tag
+        self.__config_table = config_table
         self.__obs_manager.obj_l.debug_logger(f"FormTable(pair, config_tag, config_table):\npair = {pair},\nconfig_tag = {config_tag},\nconfig_table = {config_table}")
         super(FormTable, self).__init__()
         self.ui = formtable_ui.Ui_FormTableWidget()
         self.ui.setupUi(self)
+        self.config()
+        self.connect_actions()
 
-        self.pair = pair
-
+    def config(self):
         # заголовок
-        self.ui.title.setText(config_tag["title_tag"])
-
+        self.ui.title.setText(self.__config_tag["title_tag"])
         # описание
-        description_tag = config_tag["description_tag"]
+        description_tag = self.__config_tag["description_tag"]
         if description_tag:
             self.ui.textbrowser.setHtml(description_tag)
         else:
@@ -30,22 +33,21 @@ class FormTable(QWidget):
         # ОСОБЕННОСТИ из self.config_table
         labels = []
         # content = []
-        for config in config_table:
+        for config in self.config_table:
             type_config = config.get("type_config")
             value_config = config.get("value_config")
+            # TODO
             if type_config == "HEADER":
                 labels.append(value_config)
-            # elif type_config == "CONTENT":
+            # elif type_config == "ATTRIBUTE":
             #     content.append(value_config)
         # создать столбцы таблицы
         self.ui.table.setColumnCount(len(labels))
         self.ui.table.setHorizontalHeaderLabels(labels)
         # поставить значения из таблицы
-        self.create_table_from_value(pair.get("value"))
-
+        self.create_table_from_value(self.pair.get("value"))
         # контекстное меню
         self.context_menu = QMenu(self)
-
         # Копировать - copy_values_to_clipboard
         self.copy_action = QAction("Копировать", self)
         self.copy_action.triggered.connect(lambda: self.copy_values_to_clipboard())
@@ -54,17 +56,16 @@ class FormTable(QWidget):
         self.paste_action = QAction("Вставить", self)
         self.paste_action.triggered.connect(lambda: self.paste_values_from_clipboard())
         self.context_menu.addAction(self.paste_action)
-
-
         # контекстное меню по правой кнопкой мыши по таблице.
         self.ui.table.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.ui.table.customContextMenuRequested.connect(self.show_context_menu)
 
-        # connect
+    def connect_actions(self):
+        self.__obs_manager.obj_l.debug_logger("FormTable connect_actions()")
         self.ui.add_button.clicked.connect(self.add_row)
         self.ui.delete_button.clicked.connect(self.delete_row)
         self.ui.table.cellChanged.connect(
-            lambda: self.set_new_value_in_pair(self.pair, self.get_data_from_table())
+            lambda: self.set_new_value_in_pair(self.__pair, self.get_data_from_table())
         )
 
     def show_context_menu(self, position):
@@ -79,7 +80,7 @@ class FormTable(QWidget):
         for column in range(self.ui.table.columnCount()):
             item = QTableWidgetItem()
             self.ui.table.setItem(row_count, column, item)
-        self.set_new_value_in_pair(self.pair, self.get_data_from_table())
+        self.set_new_value_in_pair(self.__pair, self.get_data_from_table())
         
 
     def delete_row(self):
@@ -87,7 +88,7 @@ class FormTable(QWidget):
         current_row = self.ui.table.currentRow()
         if current_row >= 0:
             self.ui.table.removeRow(current_row)
-        self.set_new_value_in_pair(self.pair, self.get_data_from_table())
+        self.set_new_value_in_pair(self.__pair, self.get_data_from_table())
 
     # def update_cell(self, row, column):
     #     item = self.ui.table.item(row, column)

@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QHeaderView, QLabel,
-    QPushButton, QSizePolicy, QSpacerItem, QTableWidget,
-    QTableWidgetItem, QTextBrowser, QVBoxLayout, QWidget)
+    QPushButton, QSizePolicy, QTableWidget, QTableWidgetItem,
+    QTextBrowser, QVBoxLayout, QWidget)
 
 class Ui_FormTableWidget(object):
     def setupUi(self, FormTableWidget):
@@ -55,10 +55,6 @@ class Ui_FormTableWidget(object):
         self.delete_button.setObjectName(u"delete_button")
 
         self.buttons_layout.addWidget(self.delete_button)
-
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.buttons_layout.addItem(self.horizontalSpacer)
 
 
         self.verticalLayout.addLayout(self.buttons_layout)

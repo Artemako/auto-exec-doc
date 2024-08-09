@@ -419,19 +419,25 @@ class TagsListDialogWindow(QDialog):
 
     def create_tag(self):
         self.__obs_manager.obj_l.debug_logger("TagsListDialogWindow create_tag()")
-        self.__obs_manager.obj_nedtdw = nedtagdialogwindow.NedTagDialogWindow(
-            self.__obs_manager, "create"
-        )
-        self.__obs_manager.obj_nedtdw.exec()
+        result = self.ned_tag_dw("create")
+        # TODO
+        if result:
+            ...
+
 
     def edit_tag(self, btn):
         self.__obs_manager.obj_l.debug_logger(f"TagsListDialogWindow edit_tag(btn):\nbtn = {btn}")
+        result = self.ned_tag_dw("edit", btn.custom_data)
+        # TODO 
+        if result:
+            ...
+
+    def ned_tag_dw(self, type_window, tag=None):
         self.__obs_manager.obj_nedtdw = nedtagdialogwindow.NedTagDialogWindow(
-            self.__obs_manager,
-            "edit",
-            btn.custom_data,
+            self.__obs_manager, type_window, tag
         )
-        self.__obs_manager.obj_nedtdw.exec()
+        result = self.__obs_manager.obj_nedtdw.exec()
+        return result == QDialog.Accepted
 
     def delete_tag(self, btn, type_table):
         self.__obs_manager.obj_l.debug_logger(

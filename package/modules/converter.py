@@ -216,7 +216,7 @@ class Converter:
         order_to_tag_config_table = dict()
         object_tag = dict()
         for config in config_table:
-            if config.get("type_config") == "CONTENT":
+            if config.get("type_config") == "ATTRIBUTE":
                 value_config = config.get("value_config")
                 order_config = config.get("order_config")
                 order_to_tag_config_table[order_config] = value_config

@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QHeaderView, QLabel,
-    QPushButton, QSizePolicy, QTreeWidget, QTreeWidgetItem,
-    QVBoxLayout, QWidget)
+    QPushButton, QSizePolicy, QTableView, QVBoxLayout,
+    QWidget)
 
 class Ui_NedTableTag(object):
     def setupUi(self, NedTableTag):
@@ -37,7 +37,7 @@ class Ui_NedTableTag(object):
 
         self.verticalLayout.addWidget(self.columns)
 
-        self.tw_attrs = QTreeWidget(NedTableTag)
+        self.tw_attrs = QTableView(NedTableTag)
         self.tw_attrs.setObjectName(u"tw_attrs")
 
         self.verticalLayout.addWidget(self.tw_attrs)

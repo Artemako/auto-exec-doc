@@ -4,7 +4,7 @@ from PySide6.QtWidgets import (
 
 import package.ui.nedtabletag_ui as nedtabletag_ui
 
-
+# TODO !!! РАБОТА С ТАБЛИЦАМИ
 class NedTableTag(QWidget):
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
