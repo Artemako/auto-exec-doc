@@ -161,10 +161,10 @@ class NedTagDialogWindow(QDialog):
             index = self.find_index_by_type(self.__tag.get("type_tag"))
         self.clear_layout(self.ui.vbl_additional_info)
         if index == 1:
-            self.__additional_widget = neddatetag.NedDateTag(self.__obs_manager)
+            self.__additional_widget = neddatetag.NedDateTag(self.__obs_manager, self.__type_window)
             self.ui.vbl_additional_info.addWidget(self.__additional_widget)
         elif index == 2:
-            self.__additional_widget = nedtabletag.NedTableTag(self.__obs_manager)
+            self.__additional_widget = nedtabletag.NedTableTag(self.__obs_manager, self.__type_window, self.__tag)
             self.ui.vbl_additional_info.addWidget(self.__additional_widget)
         # TODO Изображение
         # elif index == 3:

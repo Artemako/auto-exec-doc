@@ -447,46 +447,46 @@ class Converter:
                     # проход по дочерним вершинам
                     self.dfs(child, project_pages_objects, number_page)
 
-    def get_list_of_created_pdf_pages(self, project_pages_objects) -> list:
-        """
-        Проход по project_pages_objects для преобразования каждой страницы в docx, а потом в pdf
-        """
-        self.__obs_manager.obj_l.debug_logger(
-            f"Converter get_list_of_created_pdf_pages(project_pages_objects):\nproject_pages_objects = {project_pages_objects}"
-        )
+    # def get_list_of_created_pdf_pages(self, project_pages_objects) -> list:
+    #     """
+    #     Проход по project_pages_objects для преобразования каждой страницы в docx, а потом в pdf
+    #     """
+    #     self.__obs_manager.obj_l.debug_logger(
+    #         f"Converter get_list_of_created_pdf_pages(project_pages_objects):\nproject_pages_objects = {project_pages_objects}"
+    #     )
 
-        list_of_pdf_pages = list()
-        project_pages_objects_for_pool = list()
-        for object in project_pages_objects:
-            project_pages_objects_for_pool.append(ElementPool(object))
-        # с WorkerPool
-        with WorkerPool(n_jobs=1, use_dill=True) as pool:
-            results = pool.map(
-                self.process_object_of_project_pages_objects,
-                project_pages_objects_for_pool,
-            )
-        # без WorkerPool
-        # results = []
-        # for obj in project_pages_objects_for_pool:
-        #     result = self.process_object_of_project_pages_objects(obj)
-        #     results.append(result)
+    #     list_of_pdf_pages = list()
+    #     project_pages_objects_for_pool = list()
+    #     for object in project_pages_objects:
+    #         project_pages_objects_for_pool.append(ElementPool(object))
+    #     # с WorkerPool
+    #     with WorkerPool(n_jobs=1, use_dill=True) as pool:
+    #         results = pool.map(
+    #             self.process_object_of_project_pages_objects,
+    #             project_pages_objects_for_pool,
+    #         )
+    #     # без WorkerPool
+    #     # results = []
+    #     # for obj in project_pages_objects_for_pool:
+    #     #     result = self.process_object_of_project_pages_objects(obj)
+    #     #     results.append(result)
 
-        list_of_pdf_pages = [result for result in results if result]
-        return list_of_pdf_pages
+    #     list_of_pdf_pages = [result for result in results if result]
+    #     return list_of_pdf_pages
 
-    def process_object_of_project_pages_objects(self, object_for_pool) -> dict:
-        self.__obs_manager.obj_l.debug_logger(
-            f"Converter process_object_of_project_pages_objects(object_for_pool):\nobject_for_pool = {object_for_pool}"
-        )
-        object = object_for_pool.get_value()
-        object_type = object.get("type")
-        number_page = object.get("number_page")
-        if object_type == "page":
-            pdf_path = self.create_page_pdf(
-                object.get("page"), True
-            )
-            return {"number_page": number_page, "pdf_path": pdf_path}
-        return dict()
+    # def process_object_of_project_pages_objects(self, object_for_pool) -> dict:
+    #     self.__obs_manager.obj_l.debug_logger(
+    #         f"Converter process_object_of_project_pages_objects(object_for_pool):\nobject_for_pool = {object_for_pool}"
+    #     )
+    #     object = object_for_pool.get_value()
+    #     object_type = object.get("type")
+    #     number_page = object.get("number_page")
+    #     if object_type == "page":
+    #         pdf_path = self.create_page_pdf(
+    #             object.get("page"), True
+    #         )
+    #         return {"number_page": number_page, "pdf_path": pdf_path}
+    #     return dict()
 
     def merge_pdfs_and_create(self, multipage_pdf_path, list_of_pdf_pages):
         self.__obs_manager.obj_l.debug_logger(
@@ -505,3 +505,49 @@ class Converter:
 
         merger.write(multipage_pdf_path)
         merger.close()
+
+    # ПОЛЕ ЭКПИРИМЕНТА
+    # TODO Проверить его на работоспособностбь
+    def get_list_of_created_pdf_pages(self, project_pages_objects) -> list:
+        """
+        Проход по project_pages_objects для преобразования каждой страницы в docx, а потом в pdf
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"Converter get_list_of_created_pdf_pages(project_pages_objects):\nproject_pages_objects = {project_pages_objects}"
+        )
+        DELAY = 0.5
+
+        list_of_pdf_pages = list()
+        project_pages_objects_for_pool = [
+            ElementPool(obj) for obj in project_pages_objects
+        ]
+
+        with ThreadPoolExecutor() as executor:
+            futures = []
+            for obj in project_pages_objects_for_pool:
+                # Запускаем асинхронную задачу
+                future = executor.submit(
+                    self.process_object_of_project_pages_objects, obj
+                )
+                futures.append(future)
+                time.sleep(DELAY)  # Пауза перед запуском следующей задачи
+
+        # Собираем результаты
+        for future in futures:
+            result = future.result()
+            if result:
+                list_of_pdf_pages.append(result)
+
+        return list_of_pdf_pages
+
+    def process_object_of_project_pages_objects(self, object_for_pool) -> dict:
+        self.__obs_manager.obj_l.debug_logger(
+            f"Converter process_object_of_project_pages_objects(object_for_pool):\nobject_for_pool = {object_for_pool}"
+        )
+        object = object_for_pool.get_value()
+        object_type = object.get("type")
+        number_page = object.get("number_page")
+        if object_type == "page":
+            pdf_path = self.create_page_pdf(object.get("page"), True)
+            return {"number_page": number_page, "pdf_path": pdf_path}
+        return dict()

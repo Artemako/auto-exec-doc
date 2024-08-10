@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>512</width>
-    <height>132</height>
+    <height>254</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,17 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QLabel" name="columns">
+    <widget class="QLabel" name="label_typetable">
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Тип таблицы&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QComboBox" name="combox_typetable"/>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_rowcol">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -44,7 +54,7 @@
       <string notr="true">font-weight: bold;</string>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Атрибуты&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Строки/столбцы&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::AutoText</enum>
@@ -55,12 +65,12 @@
     </widget>
    </item>
    <item>
-    <widget class="QTableView" name="tw_attrs"/>
+    <widget class="QTableWidget" name="tw_attrs"/>
    </item>
    <item>
-    <widget class="QPushButton" name="btn_addattr">
+    <widget class="QPushButton" name="btn_addrowcol">
      <property name="text">
-      <string>Добавить атрибут</string>
+      <string>Добавить строку/столбец</string>
      </property>
     </widget>
    </item>

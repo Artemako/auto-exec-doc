@@ -243,9 +243,7 @@ class Project:
         Экспорт проекта в pdf.
         """
         self.__obs_manager.obj_l.debug_logger("Project export_to_pdf()")
-        multipage_pdf_path = (
-            self.__obs_manager.obj_dw.select_name_and_dirpath_export_pdf()
-        )
+        multipage_pdf_path = self.__obs_manager.obj_dw.select_name_and_dirpath_export_pdf()
         if multipage_pdf_path:
             start_time = time.time()
             self.__obs_manager.obj_sb.set_message_for_statusbar(

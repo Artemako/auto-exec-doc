@@ -1,6 +1,7 @@
 import sqlite3
 import os
 
+
 # TODO Materialized Path и его сортировка
 class ProjectDatabase:
     def __init__(self, obs_manager):
@@ -126,6 +127,7 @@ CREATE TABLE IF NOT EXISTS "Project_templates_data" (
 	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag"),
 	FOREIGN KEY("id_template") REFERENCES "Project_templates"("id_template")
 );
+INSERT INTO "Project_documents" VALUES (110,NULL,'');
 INSERT INTO "Project_nodes" VALUES (0,'Проект',NULL,'0','PROJECT',NULL,1);
 INSERT INTO "Project_nodes" VALUES (10,'Титульный лист',0,'1','FORM',1,1);
 INSERT INTO "Project_nodes" VALUES (11,'Реестр документации',0,'2','FORM',2,1);
@@ -172,54 +174,12 @@ INSERT INTO "Project_tag_config_date" VALUES (100,1208,'FORMAT','yyyy',NULL);
 INSERT INTO "Project_tag_config_date" VALUES (101,1009,'FORMAT','yyyy',NULL);
 INSERT INTO "Project_tag_config_date" VALUES (103,1227,'FORMAT','yyyy',NULL);
 INSERT INTO "Project_tag_config_date" VALUES (104,1228,'FORMAT','yyyy',NULL);
-INSERT INTO "Project_tag_config_table" VALUES (100,1200,'HEADER','Форма','',0);
-INSERT INTO "Project_tag_config_table" VALUES (101,1200,'HEADER','Наименование','',1);
-INSERT INTO "Project_tag_config_table" VALUES (102,1200,'HEADER','Количество листов','',2);
-INSERT INTO "Project_tag_config_table" VALUES (103,1200,'HEADER','Номера страниц','',3);
-INSERT INTO "Project_tag_config_table" VALUES (104,1200,'HEADER','Примечание','',4);
-INSERT INTO "Project_tag_config_table" VALUES (110,1200,'ATTRIBUTE','форма','',0);
-INSERT INTO "Project_tag_config_table" VALUES (111,1200,'ATTRIBUTE','наименование_документа','',1);
-INSERT INTO "Project_tag_config_table" VALUES (112,1200,'ATTRIBUTE','кол_листов','',2);
-INSERT INTO "Project_tag_config_table" VALUES (113,1200,'ATTRIBUTE','номера_стр','',3);
-INSERT INTO "Project_tag_config_table" VALUES (114,1200,'ATTRIBUTE','примечание','',4);
-INSERT INTO "Project_tag_config_table" VALUES (200,1201,'HEADER','Форма','',0);
-INSERT INTO "Project_tag_config_table" VALUES (201,1201,'HEADER','Наименование','',1);
-INSERT INTO "Project_tag_config_table" VALUES (202,1201,'HEADER','Количество листов','',2);
-INSERT INTO "Project_tag_config_table" VALUES (203,1201,'HEADER','Номера страниц','',3);
-INSERT INTO "Project_tag_config_table" VALUES (204,1201,'HEADER','Примечание','',4);
-INSERT INTO "Project_tag_config_table" VALUES (205,1201,'ATTRIBUTE','форма','',0);
-INSERT INTO "Project_tag_config_table" VALUES (206,1201,'ATTRIBUTE','наименование_документа','',1);
-INSERT INTO "Project_tag_config_table" VALUES (207,1201,'ATTRIBUTE','кол_листов','',2);
-INSERT INTO "Project_tag_config_table" VALUES (208,1201,'ATTRIBUTE','номера_стр','',3);
-INSERT INTO "Project_tag_config_table" VALUES (209,1201,'ATTRIBUTE','примечание','',4);
-INSERT INTO "Project_tag_config_table" VALUES (300,1202,'HEADER','Форма','',0);
-INSERT INTO "Project_tag_config_table" VALUES (301,1202,'HEADER','Наименование','',1);
-INSERT INTO "Project_tag_config_table" VALUES (302,1202,'HEADER','Количество листов','',2);
-INSERT INTO "Project_tag_config_table" VALUES (303,1202,'HEADER','Номера страниц','',3);
-INSERT INTO "Project_tag_config_table" VALUES (304,1202,'HEADER','Примечание','',4);
-INSERT INTO "Project_tag_config_table" VALUES (305,1202,'ATTRIBUTE','форма','',0);
-INSERT INTO "Project_tag_config_table" VALUES (306,1202,'ATTRIBUTE','наименование_документа','',1);
-INSERT INTO "Project_tag_config_table" VALUES (307,1202,'ATTRIBUTE','кол_листов','',2);
-INSERT INTO "Project_tag_config_table" VALUES (308,1202,'ATTRIBUTE','номера_стр','',3);
-INSERT INTO "Project_tag_config_table" VALUES (309,1202,'ATTRIBUTE','примечание','',4);
-INSERT INTO "Project_tag_config_table" VALUES (400,1209,'HEADER','Номер формы','',0);
-INSERT INTO "Project_tag_config_table" VALUES (401,1209,'HEADER','Наименование документа','',1);
-INSERT INTO "Project_tag_config_table" VALUES (402,1209,'HEADER','Количество листов','',2);
-INSERT INTO "Project_tag_config_table" VALUES (403,1209,'HEADER','Номера страниц','',3);
-INSERT INTO "Project_tag_config_table" VALUES (404,1209,'HEADER','Примечания','',4);
-INSERT INTO "Project_tag_config_table" VALUES (405,1209,'ATTRIBUTE','номер_формы','',0);
-INSERT INTO "Project_tag_config_table" VALUES (406,1209,'ATTRIBUTE','наименование_документа','',1);
-INSERT INTO "Project_tag_config_table" VALUES (407,1209,'ATTRIBUTE','кол_листов','',2);
-INSERT INTO "Project_tag_config_table" VALUES (408,1209,'ATTRIBUTE','номера_стр','',3);
-INSERT INTO "Project_tag_config_table" VALUES (409,1209,'ATTRIBUTE','примечание','',4);
-INSERT INTO "Project_tag_config_table" VALUES (500,1220,'HEADER','Марка кабеля','',0);
-INSERT INTO "Project_tag_config_table" VALUES (501,1220,'HEADER','Длина кабеля (всего) в м.','',1);
-INSERT INTO "Project_tag_config_table" VALUES (502,1220,'HEADER','Оптическая длина в м.','',2);
-INSERT INTO "Project_tag_config_table" VALUES (503,1220,'HEADER','Информация','',3);
-INSERT INTO "Project_tag_config_table" VALUES (504,1220,'ATTRIBUTE','марка','',0);
-INSERT INTO "Project_tag_config_table" VALUES (505,1220,'ATTRIBUTE','длина_всего','',1);
-INSERT INTO "Project_tag_config_table" VALUES (506,1220,'ATTRIBUTE','длина_опт','',2);
-INSERT INTO "Project_tag_config_table" VALUES (507,1220,'ATTRIBUTE','инфо','',3);
+INSERT INTO "Project_tag_config_table" VALUES (110,1200,'ROWCOL','форма',NULL,0);
+INSERT INTO "Project_tag_config_table" VALUES (111,1200,'ROWCOL','наименование_документа',NULL,1);
+INSERT INTO "Project_tag_config_table" VALUES (112,1200,'ROWCOL','кол_листов',NULL,2);
+INSERT INTO "Project_tag_config_table" VALUES (113,1200,'ROWCOL','номера_стр',NULL,3);
+INSERT INTO "Project_tag_config_table" VALUES (114,1200,'ROWCOL','примечание',NULL,4);
+INSERT INTO "Project_tag_config_table" VALUES (513,1200,'TYPETABLE','FULL',NULL,NULL);
 INSERT INTO "Project_tags" VALUES (1000,'организационно_правовая_форма','TEXT','Организационно-правовая форма',NULL,0);
 INSERT INTO "Project_tags" VALUES (1001,'название_компании','TEXT','Название компании',NULL,0);
 INSERT INTO "Project_tags" VALUES (1002,'адрес_компании','TEXT','Адрес компании',NULL,0);
@@ -252,7 +212,6 @@ INSERT INTO "Project_templates" VALUES (3,'main',1201);
 INSERT INTO "Project_templates" VALUES (4,'main',1202);
 INSERT INTO "Project_templates" VALUES (5,'main',1203);
 COMMIT;
-
         """
         )
         conn.commit()
@@ -441,6 +400,7 @@ COMMIT;
         )
         return result
 
+    
     def insert_page(self, page) -> int:
         """
         Добавление page в таблицу Project_pages.
@@ -468,8 +428,6 @@ COMMIT;
         primary_key = cursor.lastrowid
         conn.close()
         return primary_key
-        
-
 
     def get_parent_template(self, page) -> object:
         """
@@ -612,6 +570,47 @@ COMMIT;
         conn.close()
         self.__obs_manager.obj_l.debug_logger(
             f"ProjectDatabase get_config_table(id_tag) -> list: id_tag = {id_tag}\nresult = {result}"
+        )
+        return result
+
+    def get_rowcol_configs_table_by_tag(self, tag) -> list:
+        """
+        Запрос на получение типа конфигурации таблицы по тегу.
+        """
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        SELECT * FROM Project_tag_config_table
+        WHERE id_tag = ? and type_config = 'ROWCOL'
+        ORDER BY order_config
+        """,
+            [tag.get("id_tag")],
+        )
+        result = self.get_fetchall(cursor)
+        conn.close()
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase get_rowcol_configs_table_by_tag(tag) -> list:\ntag = {tag}\nresult = {result}"
+        )
+        return result
+
+    def get_typetable_configs_table_by_tag(self, tag) -> list:
+        """
+        Запрос на получение типа конфигурации таблицы по тегу.
+        """
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        SELECT * FROM Project_tag_config_table
+        WHERE id_tag = ? and type_config = 'TYPE_TABLE'
+        """,
+            [tag.get("id_tag")],
+        )
+        result = self.get_fetchone(cursor)
+        conn.close()
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase get_typetable_configs_table_by_tag(tag) -> list:\ntag = {tag}\nresult = {result}"
         )
         return result
 
@@ -776,8 +775,6 @@ COMMIT;
         )
         conn.commit()
         conn.close()
-
-
 
     def update_page_data(self, id_pair, value):
         """
@@ -1257,7 +1254,7 @@ COMMIT;
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
-        """
+            """
         DELETE FROM Project_nodes
         WHERE id_node = ?
         """,
@@ -1265,7 +1262,6 @@ COMMIT;
         )
         conn.commit()
         conn.close()
-
 
     def set_group_parent_for_child_group(self, node, child_node):
         """
@@ -1286,7 +1282,6 @@ COMMIT;
         )
         conn.commit()
         conn.close()
-
 
     def set_order_for_node(self, node, new_order):
         """
@@ -1348,7 +1343,6 @@ COMMIT;
         primary_key = cursor.lastrowid
         conn.close()
         return primary_key
-        
 
     def set_new_name_for_template(self, template, name_template):
         """
@@ -1369,7 +1363,6 @@ COMMIT;
         )
         conn.commit()
         conn.close()
-
 
     def delete_template(self, template):
         """
@@ -1408,5 +1401,6 @@ COMMIT;
         )
         conn.commit()
         conn.close()
+
 
 # obj_pd = ProjectDatabase()

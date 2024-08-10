@@ -33,13 +33,13 @@ class FormTable(QWidget):
         # ОСОБЕННОСТИ из self.config_table
         labels = []
         # content = []
-        for config in self.config_table:
+        for config in self.__config_table:
             type_config = config.get("type_config")
             value_config = config.get("value_config")
             # TODO
             if type_config == "HEADER":
                 labels.append(value_config)
-            # elif type_config == "ATTRIBUTE":
+            # elif type_config == "ROWCOL":
             #     content.append(value_config)
         # создать столбцы таблицы
         self.ui.table.setColumnCount(len(labels))
