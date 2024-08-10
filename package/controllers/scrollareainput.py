@@ -12,12 +12,14 @@ from PySide6.QtWidgets import QLabel, QVBoxLayout, QPushButton, QSpacerItem, QSi
 
 class ScroolAreaInput:
 
-    def __init__(self, obs_manager):
-        self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger("ScroolAreaInput __init__()")
+    def __init__(self):
         self.__scrollarea_input = None
         self.__scrollarea_input_layout = None
-        
+    
+    def setting_all_obs_manager(self, obs_manager):
+        self.__obs_manager = obs_manager
+        self.__obs_manager.obj_l.debug_logger("ScroolAreaInput setting_all_obs_manager()")
+
     def connect_inputforms(self, sa_if, sa_ifl):
         """
         Подключить _scrollarea_input и _scrollarea_input_tags

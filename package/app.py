@@ -3,7 +3,7 @@ from PySide6.QtWidgets import QApplication
 
 import package.components.mainwindow as mainwindow
 
-import package.generalfunctions as generalfunctions
+import package.controllers.icons as icons
 
 # Импорт всех miodules
 import package.modules.converter as converter
@@ -14,6 +14,7 @@ import package.modules.project as project
 import package.modules.projectdatabase as projectdatabase
 import package.modules.sectionsinfo as sectionsinfo
 import package.modules.settingsdatabase as settingsdatabase
+import package.modules.officepackets as officepackets
 
 # Импорт всех controllers
 import package.controllers.pagestemplate as pagestemplate
@@ -39,6 +40,7 @@ class ObjectsManager:
         self.obj_pd = None
         self.obj_si = None
         self.obj_sd = None
+        self.obj_ofp = None
         # controllers
         self.obj_pt = None
         self.obj_pv = None
@@ -61,36 +63,64 @@ class ObjectsManager:
         """
         Инициализация всех объектов, кроме MainWindow.
         """
-        self.obj_gf = generalfunctions.GeneralFunctions()
         self.initialize_modules()
         self.initialize_controllers()
         self.initialize_components()
         
     def initialize_modules(self):
-        self.obj_l = log.Log(self)
-        self.obj_c = converter.Converter(self)
-        self.obj_dpm = dirpathsmanager.DirPathManager(self)
-        self.obj_ffm = filefoldermanager.FileFolderManager(self)        
-        self.obj_p = project.Project(self)
-        self.obj_pd = projectdatabase.ProjectDatabase(self)
-        self.obj_si = sectionsinfo.SectionsInfo(self)
-        self.obj_sd = settingsdatabase.SettingsDatabase(self)
+        self.obj_l = log.Log()
+        self.obj_c = converter.Converter()
+        self.obj_dpm = dirpathsmanager.DirPathManager()
+        self.obj_ffm = filefoldermanager.FileFolderManager()        
+        self.obj_p = project.Project()
+        self.obj_pd = projectdatabase.ProjectDatabase()
+        self.obj_si = sectionsinfo.SectionsInfo()
+        self.obj_sd = settingsdatabase.SettingsDatabase()
+        self.obj_ofp = officepackets.OfficePackets()
 
     def initialize_controllers(self):
-        self.obj_pt = pagestemplate.PagesTemplate(self)
-        self.obj_pv = pdfview.PdfView(self)
-        self.obj_sai = scrollareainput.ScroolAreaInput(self)
-        self.obj_sb = statusbar.StatusBar(self)
-        self.obj_sed = structureexecdoc.StructureExecDoc(self)
+        self.obj_pt = pagestemplate.PagesTemplate()
+        self.obj_pv = pdfview.PdfView()
+        self.obj_sai = scrollareainput.ScroolAreaInput()
+        self.obj_sb = statusbar.StatusBar()
+        self.obj_sed = structureexecdoc.StructureExecDoc()
+        self.obj_icons = icons.Icons()
 
     def initialize_components(self):
-        self.obj_dw = dialogwindows.DialogWindows(self)
+        self.obj_dw = dialogwindows.DialogWindows()
 
 class App:
     def __init__(self, current_directory):
         self.current_directory = current_directory
         self.check_before_run()
         self.start_app()
+
+    def setting_obs_manager(self):
+        self.setting_obs_manager_for_modules()
+        self.setting_obs_manager_for_controllers()
+        self.setting_obs_manager_for_components()
+
+    def setting_obs_manager_for_modules(self):
+        self.obs_manager.obj_c.setting_obs_manager(self.obs_manager)
+        self.obs_manager.obj_dpm.setting_obs_manager(self.obs_manager)
+        self.obs_manager.obj_ffm.setting_obs_manager(self.obs_manager)
+        self.obs_manager.obj_l.setting_obs_manager(self.obs_manager)
+        self.obs_manager.obj_p.setting_all_obs_manager(self.obs_manager)
+        self.obs_manager.obj_pd.setting_obs_manager(self.obs_manager)
+        self.obs_manager.obj_si.setting_obs_manager(self.obs_manager)
+        self.obs_manager.obj_sd.setting_obs_manager(self.obs_manager)
+        self.obs_manager.obj_ofp.setting_all_obs_manager(self.obs_manager)
+
+    def setting_obs_manager_for_controllers(self):    
+        self.obs_manager.obj_pt.setting_all_obs_manager(self.obs_manager)
+        self.obs_manager.obj_pv.setting_all_obs_manager(self.obs_manager)
+        self.obs_manager.obj_sai.setting_all_obs_manager(self.obs_manager)
+        self.obs_manager.obj_sb.setting_all_obs_manager(self.obs_manager)
+        self.obs_manager.obj_sed.setting_all_obs_manager(self.obs_manager)
+        self.obs_manager.obj_icons.setting_all_obs_manager(self.obs_manager)
+
+    def setting_obs_manager_for_components(self):
+        self.obs_manager.obj_dw.setting_all_obs_manager(self.obs_manager)
 
     def check_before_run(self):
         """
@@ -99,8 +129,7 @@ class App:
         # настройка хранилища экземпляров модулей
         self.obs_manager = ObjectsManager()
         self.obs_manager.initialize_all()
-        # общие функции 
-        self.obs_manager.obj_gf.setting(self.obs_manager)
+        self.setting_obs_manager()
         # настройка путей
         self.obs_manager.obj_dpm.setting_paths(
             self.current_directory
@@ -112,8 +141,8 @@ class App:
         self.obs_manager.obj_ffm.create_and_setting_files_and_folders()
         # настроить БД
         self.obs_manager.obj_sd.create_and_setting_db_settings()
-        # настроить concerter
-        self.obs_manager.obj_c.setting_converter()
+        # настройка officepackets
+        self.obs_manager.obj_ofp.setting_office_packets()
 
     def start_app(self):
         """

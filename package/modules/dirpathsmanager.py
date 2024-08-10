@@ -4,11 +4,12 @@ import tempfile
 from PySide6.QtCore import QStandardPaths
 
 
+class ObjectsManagerDirPathManager:
+    def __init__(self, obs_manager):
+        self.obj_l = obs_manager.obj_l
 
 class DirPathManager:
-    def __init__(self, obs_manager):
-        self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger("DirPathManager.__init__()")
+    def __init__(self):
         self.__main_dirpath = ""
         self.__documents_dirpath = ""
         self.__temp_dirpath = ""
@@ -22,6 +23,10 @@ class DirPathManager:
         self.__templates_main_dirpath = ""
         self.__forms_folder_dirpath = ""
         self.__images_folder_dirpath = ""
+
+    def setting_obs_manager(self, obs_manager):
+        self.__obs_manager = ObjectsManagerDirPathManager(obs_manager)
+        self.__obs_manager.obj_l.debug_logger(f"DirPathManager setting_obs_manager():\nself.__obs_manager = {self.__obs_manager}")
 
 
     def setting_paths(self, main_dirpath):

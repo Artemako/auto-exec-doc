@@ -32,7 +32,7 @@ class NedTagDialogWindow(QDialog):
         # одноразовые действия
         self.__additional_widget = None
         self.__data = None
-        self.__icons = self.__obs_manager.obj_gf.get_icons()
+        self.__icons = self.__obs_manager.obj_icons.get_icons()
         self.config_combobox()
         self.config_by_type_window()
         self.config_maindata()

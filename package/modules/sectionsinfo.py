@@ -1,10 +1,16 @@
-import package.controllers.pagestemplate as pagestemplate
+class SectionsInfoObjectsManager:
+    def __init__(self, obs_manager):
+        self.obj_l = obs_manager.obj_l
+        self.obj_pd = obs_manager.obj_pd
+        self.obj_ffm = obs_manager.obj_ffm
 
 class SectionsInfo:
-    def __init__(self, obs_manager):
-        self.__obs_manager = obs_manager 
-        self.__obs_manager.obj_l.debug_logger("SectionsInfo __init__()")
+    def __init__(self):
         self.__sections_info = []
+
+    def setting_obs_manager(self, obs_manager):
+        self.__obs_manager = SectionsInfoObjectsManager(obs_manager)
+        self.__obs_manager.obj_l.debug_logger(f"SectionsInfo setting_obs_manager(): \nself.__obs_manager = {self.__obs_manager}")
 
     def get_sections_info(self):
         self.__obs_manager.obj_l.debug_logger(f"SectionsInfo self.__sections_info = {self.__sections_info}")

@@ -17,11 +17,13 @@ import resources_rc
 
 
 class StatusBar:
-    def __init__(self, obs_manager):
-        self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger("StatusBar __init__()")
+    def __init__(self):
         self.__statusbar = None
         self.__is_active = False
+
+    def setting_all_obs_manager(self, obs_manager):
+        self.__obs_manager = obs_manager
+        self.__obs_manager.obj_l.debug_logger("StatusBar setting_all_obs_manager()")
 
     def get_is_active(self) -> bool:
         return self.__is_active
@@ -33,8 +35,8 @@ class StatusBar:
         self.__obs_manager.obj_l.debug_logger("StatusBar connect_statusbar(statusbar)")
         self.__statusbar = statusbar
         self.__is_active = True
-        self.__icons_8 = self.__obs_manager.obj_gf.get_icons(8)
-        self.__icons_16 = self.__obs_manager.obj_gf.get_icons(16)
+        self.__icons_8 = self.__obs_manager.obj_icons.get_icons(8)
+        self.__icons_16 = self.__obs_manager.obj_icons.get_icons(16)
         self.config_statusbar()
         self.set_message_for_statusbar("Проект не открыт")
         self.update_name_app_converter()
@@ -42,9 +44,9 @@ class StatusBar:
 
     def config_update_statusbar(self):
         self.__obs_manager.obj_l.debug_logger("StatusBar config_update_statusbar()")
-        status_msword = self.__obs_manager.obj_c.get_status_msword()
+        status_msword = self.__obs_manager.obj_ofp.get_status_msword()
         self.update_status_msword_label(status_msword)
-        status_libreoffice = self.__obs_manager.obj_c.get_status_libreoffice()
+        status_libreoffice = self.__obs_manager.obj_ofp.get_status_libreoffice()
         self.update_status_libreoffice_label(status_libreoffice)
 
     def config_statusbar(self):

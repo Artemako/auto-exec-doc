@@ -4,10 +4,21 @@ import base64
 import datetime
 
 
-class FileFolderManager:
+class FileFolderManagerObjectsManager:
     def __init__(self, obs_manager):
-        self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger("FileFolderManager __init__()")
+        self.obj_l = obs_manager.obj_l
+        self.obj_dpm = obs_manager.obj_dpm
+        self.obj_sd = obs_manager.obj_sd
+
+
+class FileFolderManager:
+    def __init__(self):
+        pass
+
+    def setting_obs_manager(self, obs_manager):
+        self.__obs_manager = FileFolderManagerObjectsManager(obs_manager)
+        self.__obs_manager.obj_l.debug_logger(f"FileFolderManager setting_obs_manager():\nself.__obs_manager = {self.__obs_manager}")
+
 
     def create_and_setting_files_and_folders(self):
         """
@@ -27,7 +38,7 @@ class FileFolderManager:
         """
         self.__obs_manager.obj_l.debug_logger("FileFolderManager check_aed_file()")
         # создать указатель файл
-        name_aed = self.__obs_manager.obj_p.get_current_name()
+        name_aed = self.__obs_manager.obj_sd.get_project_current_name()
         aedfilename = f"{name_aed}.aed"
         aedfilepath = os.path.join(
             self.__obs_manager.obj_dpm.get_project_dirpath(), aedfilename
@@ -187,7 +198,9 @@ class FileFolderManager:
         return new_page_filename
 
     def delete_page_from_project(self, page_filename):
-        self.__obs_manager.obj_l.debug_logger(f"FileFolderManager delete_page_from_project(page_filename):\npage_filename = {page_filename}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"FileFolderManager delete_page_from_project(page_filename):\npage_filename = {page_filename}"
+        )
         forms_folder_dirpath = self.__obs_manager.obj_dpm.get_forms_folder_dirpath()
         page_path = os.path.join(forms_folder_dirpath, page_filename + ".docx")
         try:

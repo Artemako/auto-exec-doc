@@ -13,5 +13,9 @@ CREATE TABLE IF NOT EXISTS "Settings" (
 	"value_setting"	TEXT,
 	PRIMARY KEY("id_setting" AUTOINCREMENT)
 );
+INSERT INTO "Projects" VALUES (20,'gdgffdg','C:/Users/hayar/Documents/AutoExecDoc Projects/gdgffdg','2024-08-10 16:36:35','2024-08-10 16:54:21');
+INSERT INTO "Projects" VALUES (21,'dsdf','C:/Users/hayar/Documents/AutoExecDoc Projects/dsdf','2024-08-10 16:57:31','2024-08-10 21:16:56');
 INSERT INTO "Settings" VALUES (1,'app_converter','LIBREOFFICE');
+INSERT INTO "Settings" VALUES (2,'libreoffice_path','C:\Program Files\LibreOffice\program\soffice.exe');
+INSERT INTO "Settings" VALUES (3,'project_current_name',NULL);
 COMMIT;

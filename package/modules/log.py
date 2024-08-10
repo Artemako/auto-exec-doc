@@ -3,10 +3,17 @@ import datetime
 import os
 
 
-class Log:
+class LogObjectsManager:
     def __init__(self, obs_manager):
-        self.__obs_manager = obs_manager
+        self.obj_dpm = obs_manager.obj_dpm
+
+class Log:
+    def __init__(self):
+        self.__obs_manager = None
         self.__logger = logging.getLogger("Main logger")
+
+    def setting_obs_manager(self, obs_manager):
+        self.__obs_manager = LogObjectsManager(obs_manager)
 
     def setting_logger(self):
         log_folder = self.__obs_manager.obj_dpm.get_logs_dirpath()

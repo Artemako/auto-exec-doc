@@ -4,17 +4,16 @@ from PySide6.QtGui import QIcon
 
 import resources_rc
 
-class GeneralFunctions:
+class Icons:
     def __init__(self):
-        self.__obs_manager = None
         self.__icons_cache = dict()
 
-    def setting(self, obs_manager):
+    def setting_all_obs_manager(self, obs_manager):
         self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger("GeneralFunctions setting(obs_manager)")
+        self.__obs_manager.obj_l.debug_logger(f"Icons setting_obs_manager():\nself.__obs_manager = {self.__obs_manager}")
 
     def get_icons(self, size = 16) -> dict:
-        self.__obs_manager.obj_l.debug_logger(f"GeneralFunctions get_icons(size):\nsize = {size}")
+        self.__obs_manager.obj_l.debug_logger(f"Icons get_icons(size):\nsize = {size}")
         result = self.__icons_cache.get(size)
         if result:
             return result
@@ -45,8 +44,3 @@ class GeneralFunctions:
                 icons[key] = elem.pixmap(QSize(size, size))
             self.__icons_cache[key] = icons
             return icons
-        
-
-    def print_array(self, array):
-        for i, elem in enumerate(array):
-            print(f"""i = {i} elem = {elem}""")

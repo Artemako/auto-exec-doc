@@ -3,12 +3,14 @@ from PySide6.QtCore import Qt
 
 
 class StructureExecDoc:
-    def __init__(self, obs_manager):
-        self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger("StructureExecDoc __init__()")
+    def __init__(self):
         self.__treewidget_structure_execdoc = None
         self.__title_sed = None
         self.__nodes_to_items = dict()
+
+    def setting_all_obs_manager(self, obs_manager):
+        self.__obs_manager = obs_manager
+        self.__obs_manager.obj_l.debug_logger("StructureExecDoc setting_all_obs_manager()")
 
     def connect_structureexecdoc(self, tr_sed, title_sed):
         """
@@ -65,7 +67,7 @@ class StructureExecDoc:
         # очистка
         self.clear_sed()
         # Задать название столбца
-        title = f"{self.__obs_manager.obj_p.get_current_name()}"
+        title = f"{self.__obs_manager.obj_sd.get_project_current_name()}"
         self.__treewidget_structure_execdoc.setHeaderLabels(["Проект"])
         self.__title_sed.setText(title)
         # проход по вершинам

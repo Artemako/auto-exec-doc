@@ -3,20 +3,16 @@ import time
 
 
 class Project:
-    def __init__(self, obs_manager):
-        self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger("Project __init__()")
+    def __init__(self):
         # по умолчанию None
         self.__current_name = None
         # по умолчанию False
         self.__status_active = False
         self.__status_save = False
 
-    def get_current_name(self) -> str:
-        self.__obs_manager.obj_l.debug_logger(
-            f"Project get_current_name() -> str: {self.__current_name}"
-        )
-        return self.__current_name
+    def setting_all_obs_manager(self, obs_manager):
+        self.__obs_manager = obs_manager
+        self.__obs_manager.obj_l.debug_logger("Project setting_all_obs_manager()")
 
     def is_active_status(self) -> bool:
         self.__obs_manager.obj_l.debug_logger(
@@ -96,7 +92,8 @@ class Project:
         self.__current_name = os.path.basename(
             self.__obs_manager.obj_dpm.get_project_dirpath()
         )
-
+        self.__obj_sd.set_project_current_name(self.__current_name)
+        
         self.__obs_manager.obj_sd.add_new_project_to_db()
         self.__obs_manager.obj_pd.create_and_config_db_project()
         # настраиваем контроллеры
@@ -195,6 +192,7 @@ class Project:
         self.__current_name = os.path.basename(
             self.__obs_manager.obj_dpm.get_project_dirpath()
         )
+        self.__obs_manager.obj_sd.set_project_current_name(self.__current_name)
         # настраиваем базы данных
         self.__obs_manager.obj_sd.add_or_update_open_project_to_db()
         self.__obs_manager.obj_pd.create_and_config_db_project()
@@ -246,14 +244,41 @@ class Project:
         multipage_pdf_path = self.__obs_manager.obj_dw.select_name_and_dirpath_export_pdf()
         if multipage_pdf_path:
             start_time = time.time()
+            end_time = time.time()
             self.__obs_manager.obj_sb.set_message_for_statusbar(
                 "Процесс экспорта в PDF..."
             )
-            self.__obs_manager.obj_c.export_to_pdf(multipage_pdf_path)
-            end_time = time.time()
-            self.__obs_manager.obj_l.debug_logger(
-                f"Project export_to_pdf() -> time: {end_time - start_time}"
-            )
+            # проверка на доступность конвертера
+            flag_converter = False
+            app_converter = self.__obs_manager.obj_sd.get_app_converter()
+            status_msword = self.__obs_manager.obj_ofp.get_status_msword()
+            status_libreoffice = self.__obs_manager.obj_ofp.get_status_libreoffice()
+            if app_converter == "MSWORD" and status_msword:
+                flag_converter = True
+            elif app_converter == "LIBREOFFICE" and status_libreoffice:
+                flag_converter = True
+            if flag_converter:
+                result = self.__obs_manager.obj_c.export_to_pdf(multipage_pdf_path)
+                if not result:
+                    self.__obs_manager.obj_dw.warning_message(
+                        "Эскпорт отменён! Ошибка во время экспорта."
+                    )
+                    self.__obs_manager.obj_sb.set_message_for_statusbar(
+                        "Экспорт отменён! Ошибка во время экспорта."
+                    )
+                else:
+                    self.__obs_manager.obj_sb.set_message_for_statusbar(
+                        f"Экспорт завершен. Файл {multipage_pdf_path} готов."
+                    )
+                    # открыть pdf
+                    os.startfile(os.path.dirname(multipage_pdf_path))
+                self.__obs_manager.obj_l.debug_logger(
+                    f"Project export_to_pdf() -> time: {end_time - start_time}"
+                )
+            else:
+                self.__obs_manager.obj_dw.warning_message(
+                    "Эскпорт отменён! Выбранный конвертер не работает."
+                )
 
 
 # obj_p = Project()

@@ -34,7 +34,7 @@ class TagsListDialogWindow(QDialog):
         self.ui = tagslistdialogwindow_ui.Ui_TagsListDialog()
         self.ui.setupUi(self)
         # 
-        self.__icons = self.__obs_manager.obj_gf.get_icons()
+        self.__icons = self.__obs_manager.obj_icons.get_icons()
         # config
         self.config()
         # Подключаем действия

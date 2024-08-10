@@ -2,11 +2,17 @@ import sqlite3
 import datetime
 import os
 
+class SettingsDatabaseObjectsManager:
+    def __init__(self, obs_manager):
+        self.obj_l = obs_manager.obj_l
+        self.obj_dpm = obs_manager.obj_dpm
 
 class SettingsDatabase:
-    def __init__(self, obs_manager):
-        self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger("SettingsDatabase __init__()")
+    def __init__(self):
+        pass
+
+    def setting_obs_manager(self, obs_manager):
+        self.__obs_manager = SettingsDatabaseObjectsManager(obs_manager)
 
     def create_and_setting_db_settings(self):
         """
@@ -49,7 +55,11 @@ CREATE TABLE IF NOT EXISTS "Settings" (
 	"value_setting"	TEXT,
 	PRIMARY KEY("id_setting" AUTOINCREMENT)
 );
+INSERT INTO "Projects" VALUES (20,'gdgffdg','C:/Users/hayar/Documents/AutoExecDoc Projects/gdgffdg','2024-08-10 16:36:35','2024-08-10 16:54:21');
+INSERT INTO "Projects" VALUES (21,'dsdf','C:/Users/hayar/Documents/AutoExecDoc Projects/dsdf','2024-08-10 16:57:31','2024-08-10 21:16:56');
 INSERT INTO "Settings" VALUES (1,'app_converter','LIBREOFFICE');
+INSERT INTO "Settings" VALUES (2,'libreoffice_path','C:\Program Files\LibreOffice\program\soffice.exe');
+INSERT INTO "Settings" VALUES (3,'project_current_name',NULL);
 COMMIT;
         """)
 
@@ -88,18 +98,14 @@ COMMIT;
         self.__obs_manager.obj_l.debug_logger(
             "SettingsDatabase add_new_project_to_db()"
         )
-
         conn = self.get_conn()
         cursor = conn.cursor()
-
         name_project = os.path.basename(
             self.__obs_manager.obj_dpm.get_project_dirpath()
         )
         directory_project = self.__obs_manager.obj_dpm.get_project_dirpath()
-
         # текущее время для date_create_project и для date_last_open_project
         current_datetime = datetime.datetime.now().replace(microsecond=0)
-
         cursor.execute(
             "INSERT INTO Projects (name_project, directory_project, date_create_project, date_last_open_project) VALUES (?, ?, ?, ?)",
             (name_project, directory_project, current_datetime, current_datetime),
@@ -116,20 +122,16 @@ COMMIT;
 
         conn = self.get_conn()
         cursor = conn.cursor()
-
         name_project = os.path.basename(
             self.__obs_manager.obj_dpm.get_project_dirpath()
         )
         directory_project = self.__obs_manager.obj_dpm.get_project_dirpath()
-
         # текущее время для date_last_open_project
         current_datetime = datetime.datetime.now().replace(microsecond=0)
-
         cursor.execute(
             "UPDATE Projects SET date_last_open_project = ? WHERE name_project = ? AND directory_project = ?",
             (current_datetime, name_project, directory_project),
         )
-
         conn.commit()
         conn.close()
 
@@ -140,10 +142,8 @@ COMMIT;
         self.__obs_manager.obj_l.debug_logger(
             "SettingsDatabase add_or_update_open_project_to_db()"
         )
-
         conn = self.get_conn()
         cursor = conn.cursor()
-
         name_project = os.path.basename(
             self.__obs_manager.obj_dpm.get_project_dirpath()
         )
@@ -155,7 +155,6 @@ COMMIT;
             (name_project, directory_project),
         )
         result = self.get_fetchone(cursor)
-
         conn.commit()
         conn.close()
         print(f"result = {result}")
@@ -170,22 +169,15 @@ COMMIT;
         """
         conn = self.get_conn()
         cursor = conn.cursor()
-
         cursor.execute(
             "SELECT value_setting FROM Settings WHERE name_setting = 'app_converter'"
         )
-
         result = self.get_fetchone(cursor)
         conn.close()
-
         self.__obs_manager.obj_l.debug_logger(
             f"SettingsDatabase get_app_converter():\nresult = {result}"
         )
-
-        if result is None:
-            return None
-        else:
-            return result.get("value_setting")
+        return result.get("value_setting")
 
     def set_app_converter(self, app_converter: str):
         """
@@ -194,15 +186,12 @@ COMMIT;
         self.__obs_manager.obj_l.debug_logger(
             f"SettingsDatabase set_app_converter(app_converter):\napp_converter = {app_converter}"
         )
-
         conn = self.get_conn()
         cursor = conn.cursor()
-
         cursor.execute(
             "UPDATE Settings SET value_setting = ? WHERE name_setting = 'app_converter'",
             (app_converter,),
         )
-
         conn.commit()
         conn.close()
 
@@ -212,19 +201,58 @@ COMMIT;
         """
         conn = self.get_conn()
         cursor = conn.cursor()
-
         cursor.execute(
             "SELECT * FROM Projects ORDER BY date_last_open_project DESC LIMIT 5"
         )
-
         result = self.get_fetchall(cursor)
         conn.close()
-
         self.__obs_manager.obj_l.debug_logger(
             f"SettingsDatabase get_last_projects():\nresult = {result}"
         )
-
         return result
+
+
+    def get_libreoffice_path(self) -> str:
+        """
+        Запрос значения libreoffice_path из БД.
+        """
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT value_setting FROM Settings WHERE name_setting = 'libreoffice_path'"
+        )
+        result = self.get_fetchone(cursor)
+        conn.close()
+        self.__obs_manager.obj_l.debug_logger(
+            f"SettingsDatabase get_libreoffice_path():\nresult = {result}"
+        )
+        return result.get("value_setting")
+        
+    def get_project_current_name(self):
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT value_setting FROM Settings WHERE name_setting = 'project_current_name'"
+        )
+        result = self.get_fetchone(cursor)
+        conn.close()
+        self.__obs_manager.obj_l.debug_logger(
+            f"SettingsDatabase get_project_current_name():\nresult = {result}"
+        )
+        return result.get("value_setting")
+    
+    def set_project_current_name(self, project_name):
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            "UPDATE Settings SET value_setting = ? WHERE name_setting = 'project_current_name'",
+            (project_name,),
+        )
+        self.__obs_manager.obj_l.debug_logger(
+            f"SettingsDatabase set_project_current_name(project_name):\nproject_name = {project_name}"
+        )
+        conn.commit()
+        conn.close()
 
 
 # obj_sd = SettingsDatabase()

@@ -6,10 +6,11 @@ from PySide6.QtCore import Qt
 
 class DialogWindows:
 
-    def __init__(self, obs_manager):
-        self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger("DialogWindows __init__()")
+    def __init__(self):
+        pass
 
+    def setting_all_obs_manager(self, obs_manager):
+        self.__obs_manager = obs_manager
 
     def save_active_project(self) -> str:
         """Диалоговое окно 'Вы не сохранили текущий проект. Сохранить?'."""

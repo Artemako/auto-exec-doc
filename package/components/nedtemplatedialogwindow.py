@@ -22,7 +22,7 @@ class NedTemplateDialogWindow(QDialog):
         self.ui.setupUi(self)
         #
         self.__data = dict()
-        self.__icons = self.__obs_manager.obj_gf.get_icons()
+        self.__icons = self.__obs_manager.obj_icons.get_icons()
         # одноразовые действия
         self.config_by_type_window()
         self.connecting_actions()
