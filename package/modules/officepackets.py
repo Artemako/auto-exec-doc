@@ -57,7 +57,6 @@ class OfficePackets:
         self.__status_msword = status
         if self.__obs_manager.obj_sb.get_is_active():
             self.__obs_manager.obj_sb.update_status_msword_label(self.__status_msword)
-        self.__msword_thread = None
 
     def get_status_msword(self):
         self.__obs_manager.obj_l.debug_logger(

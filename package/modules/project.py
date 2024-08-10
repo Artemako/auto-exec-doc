@@ -225,6 +225,7 @@ class Project:
             self.__obs_manager.obj_dw.warning_message(
                 f"Проект с именем {project.get('name_project')} не существует."
             )
+            # TODO Удалить запись проекта из базы данных
 
     def set_true_actives_project(self):
         """
@@ -243,8 +244,6 @@ class Project:
         self.__obs_manager.obj_l.debug_logger("Project export_to_pdf()")
         multipage_pdf_path = self.__obs_manager.obj_dw.select_name_and_dirpath_export_pdf()
         if multipage_pdf_path:
-            start_time = time.time()
-            end_time = time.time()
             self.__obs_manager.obj_sb.set_message_for_statusbar(
                 "Процесс экспорта в PDF..."
             )
@@ -258,7 +257,9 @@ class Project:
             elif app_converter == "LIBREOFFICE" and status_libreoffice:
                 flag_converter = True
             if flag_converter:
+                start_time = time.time()
                 result = self.__obs_manager.obj_c.export_to_pdf(multipage_pdf_path)
+                end_time = time.time()
                 if not result:
                     self.__obs_manager.obj_dw.warning_message(
                         "Эскпорт отменён! Ошибка во время экспорта."

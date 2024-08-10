@@ -108,11 +108,9 @@ class PagesTemplate:
         self.__obs_manager.obj_l.debug_logger(
             f"PagesTemplate update_pages_template(node):\nnode = {node}"
         )
-
+        self.__listwidget_pages_template.blockSignals(True)
         self.clear_pt()
-
         self.__title_pt.setText(node.get("name_node"))
-
         id_active_template = node.get("id_active_template")
         template = self.__obs_manager.obj_pd.get_template_by_id(id_active_template)
         pages = self.__obs_manager.obj_pd.get_pages_by_template(template)
@@ -121,6 +119,7 @@ class PagesTemplate:
             item = MyListWidgetItem(page)
             item.setText(page.get("name_page"))
             self.__listwidget_pages_template.addItem(item)
+        self.__listwidget_pages_template.blockSignals(False)
 
 
 # obj_pt = PagesTemplate()

@@ -1,6 +1,7 @@
 import os
 import json
 import copy
+import functools
 from docxtpl import DocxTemplate, InlineImage
 
 import multiprocessing
@@ -22,7 +23,9 @@ class ConverterPool:
         object_type = object_for_pool.get("type")
         number_page = object_for_pool.get("number_page")
         if object_type == "page":
-            pdf_path = self.create_page_pdf(local_obs_manager, object_for_pool.get("page"), True)
+            pdf_path = self.create_page_pdf(
+                local_obs_manager, object_for_pool.get("page"), True
+            )
             return {"number_page": number_page, "pdf_path": pdf_path}
         return dict()
 
@@ -255,11 +258,11 @@ class ConverterPool:
             doc = word.Documents.Open(docx_path)
             doc.SaveAs(pdf_path, FileFormat=wdFormatPDF)
             doc.Close()
-        except Exception:
-            # TODO Статус бар - подумать
+        except Exception as e:
             local_obs_manager.obj_l.error_logger(
                 "Error in convert_from_pdf_docx_using_msword(docx_path, pdf_path)"
             )
+            print(e)
         # word.Quit()
 
     def convert_from_pdf_docx_using_libreoffice(
@@ -298,7 +301,7 @@ class ConverterObjectsManager:
 class Converter:
     def __init__(self):
         pass
-        
+
     def setting_obs_manager(self, obs_manager):
         self.__obs_manager = ConverterObjectsManager(obs_manager)
         self.__obs_manager.obj_l.debug_logger(
@@ -314,16 +317,12 @@ class Converter:
         )
         try:
             local_obs_manager = ConverterObjectsManager(self.__obs_manager)
-            local_converter_pool = ConverterPool()
-            pdf_path = local_converter_pool.create_page_pdf(local_obs_manager, page)
+            pdf_path = ConverterPool().create_page_pdf(local_obs_manager, page)
             return pdf_path
         except Exception as e:
-            self.__obs_manager.obj_l.error_logger(
-                "Error in create_one_page_pdf(page)"
-            )
+            self.__obs_manager.obj_l.error_logger("Error in create_one_page_pdf(page)")
             print(e)
             return None
-        
 
     def export_to_pdf(self, multipage_pdf_path) -> bool:
         """
@@ -414,47 +413,32 @@ class Converter:
         self.__obs_manager.obj_l.debug_logger(
             f"Converter get_list_of_created_pdf_pages(project_pages_objects):\nproject_pages_objects = {project_pages_objects}"
         )
-
         list_of_pdf_pages = list()
-
-        # multiprocessing.Queue()
-        # result_queue = multiprocessing.Queue()
-        # processes = []
-        # local_obs_manager = ConverterObjectsManager(self.__obs_manager)
-        # for key, value in local_obs_manager.__dict__.items():
-        #     print(f"{key}: {value}")
-        # # Создаем несколько процессов
-        # for page_object in project_pages_objects:
-        #     print(f"page_object = {page_object}")
-        #     process = multiprocessing.Process(
-        #         target=start_worker, args=(result_queue, local_obs_manager, page_object)
-        #     )
-        #     processes.append(process)
-        #     process.start()
-        # # Ждем завершения всех процессов
-        # for process in processes:
-        #     process.join()
-        # # Получаем результаты
-        # results = [result_queue.get() for _ in processes]
-
-        # args = [(ConverterObjectsManager(self.__obs_manager), obj) for obj in project_pages_objects]
-        # with multiprocessing.Pool(processes=1) as pool:
-        #     results = pool.map(functools.partial(ConverterPool().process_object_of_project_pages_objects), args)
-
+        # с multiprocessing.Pool
+        processes_number = int()
+        app_converter = self.__obs_manager.obj_sd.get_app_converter()
+        if app_converter == "MSWORD":
+            processes_number = max(1, multiprocessing.cpu_count() - 1)
+        else:
+            processes_number = 1
+        #
+        print(f"processes_number = {processes_number}")
+        args = [
+            (ConverterObjectsManager(self.__obs_manager), obj)
+            for obj in project_pages_objects
+        ]
+        with multiprocessing.Pool(processes=processes_number) as pool:
+            results = pool.map(
+                functools.partial(
+                    ConverterPool().process_object_of_project_pages_objects
+                ),
+                args,
+            )
         # без WorkerPool
-        results = []
-        for obj in project_pages_objects:
-            args = (ConverterObjectsManager(self.__obs_manager), obj)
-            result = ConverterPool().process_object_of_project_pages_objects(args)
-            results.append(result)
-
+        # results = []
+        # for obj in project_pages_objects:
+        #     args = (ConverterObjectsManager(self.__obs_manager), obj)
+        #     result = ConverterPool().process_object_of_project_pages_objects(args)
+        #     results.append(result)
         list_of_pdf_pages = [result for result in results if result]
         return list_of_pdf_pages
-
-
-def start_worker(result_queue, local_obs_manager, page_object):
-    local_obs_manager = ConverterObjectsManager(local_obs_manager)
-    result = ConverterPool().process_object_of_project_pages_objects(
-        (local_obs_manager, page_object)
-    )
-    result_queue.put(result)
