@@ -3,7 +3,7 @@ import json
 import copy
 import functools
 from docxtpl import DocxTemplate, InlineImage
-
+from docx.shared import Mm, Pt, Inches
 import multiprocessing
 
 import comtypes.client
@@ -119,7 +119,7 @@ class ConverterPool:
                     value,
                 )
             )
-            # TODO контент для изображения
+            # TODO контент для изображения Inches, Pt, Cm, Mm
             image = InlineImage(docx_template, image_dirpath)
             data_tag[str(name_tag)] = image
 
@@ -127,17 +127,22 @@ class ConverterPool:
         local_obs_manager.obj_l.debug_logger(
             f"Converter type_tag_is_table(data_tag, name_tag, value, id_tag):\ndata_tag = {data_tag},\nname_tag = {name_tag},\nvalue = {value},\nid_tag = {id_tag}"
         )
-        config_table = local_obs_manager.obj_pd.get_config_table_by_id(id_tag)
-        print(f"config_table = {config_table}")
+        current_tag = local_obs_manager.obj_pd.get_tag_by_id(id_tag)
+        config_tag = current_tag.get("config_tag")
+        config_dict = dict()        
+        if config_tag:
+            config_dict = json.loads(config_tag)
+        print(f"config_dict = {config_dict}")
         # узнать content в таблице
-        order_to_tag_config_table = dict()
+        order_to_tag_config_dict = dict()
         object_tag = dict()
-        for config in config_table:
-            if config.get("type_config") == "ROWCOL":
-                value_config = config.get("value_config")
-                order_config = config.get("order_config")
-                order_to_tag_config_table[order_config] = value_config
-                object_tag[value_config] = None
+        rowcols = config_dict.get("ROWCOLS")
+        for rowcol in rowcols:
+            value_config = rowcol.get("VALUE")
+            order_config = rowcol.get("ORDER")
+            order_to_tag_config_dict[order_config] = value_config
+            object_tag[value_config] = None
+                
         print(f"object_tag = {object_tag}")
         # заполнять data_tag
         table_values = []
@@ -146,7 +151,7 @@ class ConverterPool:
             for row, row_data in enumerate(table):
                 pt = copy.deepcopy(object_tag)
                 for col, cell_value in enumerate(row_data):
-                    pt[order_to_tag_config_table.get(col)] = cell_value
+                    pt[order_to_tag_config_dict.get(col)] = cell_value
                 table_values.append(pt)
         print(f"table_values = {table_values}")
         data_tag[str(name_tag)] = table_values
@@ -162,9 +167,9 @@ class ConverterPool:
         id_tag = pair.get("id_tag")
         name_tag = pair.get("name_tag")
         value = pair.get("value")
-        # config_tag
-        config_tag = local_obs_manager.obj_pd.get_config_tag_by_id(id_tag)
-        type_tag = config_tag.get("type_tag")
+        # current_tag
+        current_tag = local_obs_manager.obj_pd.get_tag_by_id(id_tag)
+        type_tag = current_tag.get("type_tag")
         if type_tag == "TEXT":
             self.type_tag_is_text(local_obs_manager, data_tag, name_tag, value)
         elif type_tag == "IMAGE":

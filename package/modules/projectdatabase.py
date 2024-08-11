@@ -91,30 +91,12 @@ CREATE TABLE IF NOT EXISTS "Project_pages_data" (
 	FOREIGN KEY("id_page") REFERENCES "Project_pages"("id_page"),
 	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag")
 );
-CREATE TABLE IF NOT EXISTS "Project_tag_config_date" (
-	"id_config"	INTEGER UNIQUE,
-	"id_tag"	INTEGER,
-	"type_config"	TEXT,
-	"value_config"	TEXT,
-	"note_config"	TEXT,
-	PRIMARY KEY("id_config" AUTOINCREMENT),
-	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag")
-);
-CREATE TABLE IF NOT EXISTS "Project_tag_config_table" (
-	"id_config"	INTEGER UNIQUE,
-	"id_tag"	INTEGER,
-	"type_config"	TEXT,
-	"value_config"	TEXT,
-	"note_config"	TEXT,
-	"order_config"	INTEGER,
-	PRIMARY KEY("id_config" AUTOINCREMENT),
-	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag")
-);
 CREATE TABLE IF NOT EXISTS "Project_tags" (
 	"id_tag"	INTEGER NOT NULL UNIQUE,
 	"name_tag"	TEXT NOT NULL UNIQUE,
 	"type_tag"	TEXT NOT NULL,
 	"title_tag"	TEXT,
+	"config_tag"	TEXT,
 	"description_tag"	TEXT,
 	"is_global"	INTEGER,
 	PRIMARY KEY("id_tag" AUTOINCREMENT)
@@ -179,42 +161,32 @@ INSERT INTO "Project_pages_data" VALUES (503,40,1227,'год_прокладки_
 INSERT INTO "Project_pages_data" VALUES (504,40,1228,'год_составления_паспорта',NULL);
 INSERT INTO "Project_pages_data" VALUES (505,40,1229,'отв_пред_орг_фио',NULL);
 INSERT INTO "Project_pages_data" VALUES (600,50,1230,'скелетная_схема_ВОЛП',NULL);
-INSERT INTO "Project_tag_config_date" VALUES (100,1208,'FORMAT','yyyy',NULL);
-INSERT INTO "Project_tag_config_date" VALUES (101,1009,'FORMAT','yyyy',NULL);
-INSERT INTO "Project_tag_config_date" VALUES (103,1227,'FORMAT','yyyy',NULL);
-INSERT INTO "Project_tag_config_date" VALUES (104,1228,'FORMAT','yyyy',NULL);
-INSERT INTO "Project_tag_config_table" VALUES (110,1200,'ROWCOL','форма',NULL,0);
-INSERT INTO "Project_tag_config_table" VALUES (111,1200,'ROWCOL','наименование_документа',NULL,1);
-INSERT INTO "Project_tag_config_table" VALUES (112,1200,'ROWCOL','кол_листов',NULL,2);
-INSERT INTO "Project_tag_config_table" VALUES (113,1200,'ROWCOL','номера_стр',NULL,3);
-INSERT INTO "Project_tag_config_table" VALUES (114,1200,'ROWCOL','примечание',NULL,4);
-INSERT INTO "Project_tag_config_table" VALUES (513,1200,'TYPETABLE','FULL',NULL,NULL);
-INSERT INTO "Project_tags" VALUES (1000,'организационно_правовая_форма','TEXT','Организационно-правовая форма',NULL,0);
-INSERT INTO "Project_tags" VALUES (1001,'название_компании','TEXT','Название компании',NULL,0);
-INSERT INTO "Project_tags" VALUES (1002,'адрес_компании','TEXT','Адрес компании',NULL,0);
-INSERT INTO "Project_tags" VALUES (1003,'название_объекта','TEXT','Название объекта',NULL,0);
-INSERT INTO "Project_tags" VALUES (1004,'участок','TEXT','Участок',NULL,0);
-INSERT INTO "Project_tags" VALUES (1005,'номер_кабеля','TEXT','Номер кабеля',NULL,0);
-INSERT INTO "Project_tags" VALUES (1006,'заказчик','TEXT','Заказчик',NULL,0);
-INSERT INTO "Project_tags" VALUES (1007,'строительно_монтажная_организация','TEXT','Строительно-монтажная организация',NULL,0);
-INSERT INTO "Project_tags" VALUES (1008,'город','TEXT','Город',NULL,0);
-INSERT INTO "Project_tags" VALUES (1009,'год','DATE','Год',NULL,0);
-INSERT INTO "Project_tags" VALUES (1100,'инж_про_ком','TEXT','Компания инженера-проектировщика',NULL,0);
-INSERT INTO "Project_tags" VALUES (1101,'инж_про_ком_фио','TEXT','ФИО инженера-проектировщика',NULL,0);
-INSERT INTO "Project_tags" VALUES (1102,'гла_инж_компания','TEXT','Компания главного инженера',NULL,0);
-INSERT INTO "Project_tags" VALUES (1103,'гла_инж_фио','TEXT','ФИО главного инженера',NULL,0);
-INSERT INTO "Project_tags" VALUES (1200,'реестр_ид_паспорт_трассы','TABLE','Реестр ИД ВОЛС. Паспорт трассы',NULL,0);
-INSERT INTO "Project_tags" VALUES (1201,'реестр_ид_эл_паспорт_трассы','TABLE','Реестр ИД ВОЛС. Электрический паспорт трассы',NULL,0);
-INSERT INTO "Project_tags" VALUES (1202,'рабочая_документация','TABLE','Реестр ИД ВОЛС. Рабочая документация',NULL,0);
-INSERT INTO "Project_tags" VALUES (1208,'дата','DATE','Дата',NULL,0);
-INSERT INTO "Project_tags" VALUES (1209,'пт_опись_документов','TABLE','Паспорт трассы. Опись документов.',NULL,0);
-INSERT INTO "Project_tags" VALUES (1220,'кабеля','TABLE','Кабеля.',NULL,0);
-INSERT INTO "Project_tags" VALUES (1225,'общая_физ_длина','TEXT','Общая физическая длина',NULL,0);
-INSERT INTO "Project_tags" VALUES (1226,'общая_опт_длина','TEXT','Общая оптическая длина',NULL,0);
-INSERT INTO "Project_tags" VALUES (1227,'год_прокладки_кабеля','DATE','Год прокладки кабеля',NULL,0);
-INSERT INTO "Project_tags" VALUES (1228,'год_составления_паспорта','DATE','Год составления паспорта',NULL,0);
-INSERT INTO "Project_tags" VALUES (1229,'отв_пред_орг_фио ','TEXT','ФИО ответственного представителя организации',NULL,0);
-INSERT INTO "Project_tags" VALUES (1230,'скелетная_схема_ВОЛП','IMAGE','Скелетная схема ВОЛП',NULL,0);
+INSERT INTO "Project_tags" VALUES (1000,'организационно_правовая_форма','TEXT','Организационно-правовая форма',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1001,'название_компании','TEXT','Название компании',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1002,'адрес_компании','TEXT','Адрес компании',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1003,'название_объекта','TEXT','Название объекта',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1004,'участок','TEXT','Участок',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1005,'номер_кабеля','TEXT','Номер кабеля',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1006,'заказчик','TEXT','Заказчик',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1007,'строительно_монтажная_организация','TEXT','Строительно-монтажная организация',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1008,'город','TEXT','Город',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1009,'год','DATE','Год',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1100,'инж_про_ком','TEXT','Компания инженера-проектировщика',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1101,'инж_про_ком_фио','TEXT','ФИО инженера-проектировщика',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1102,'гла_инж_компания','TEXT','Компания главного инженера',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1103,'гла_инж_фио','TEXT','ФИО главного инженера',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1200,'реестр_ид_паспорт_трассы','TABLE','Реестр ИД ВОЛС. Паспорт трассы',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1201,'реестр_ид_эл_паспорт_трассы','TABLE','Реестр ИД ВОЛС. Электрический паспорт трассы',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1202,'рабочая_документация','TABLE','Реестр ИД ВОЛС. Рабочая документация',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1208,'дата','DATE','Дата',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1209,'пт_опись_документов','TABLE','Паспорт трассы. Опись документов.',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1220,'кабеля','TABLE','Кабеля.',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1225,'общая_физ_длина','TEXT','Общая физическая длина',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1226,'общая_опт_длина','TEXT','Общая оптическая длина',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1227,'год_прокладки_кабеля','DATE','Год прокладки кабеля',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1228,'год_составления_паспорта','DATE','Год составления паспорта',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1229,'отв_пред_орг_фио ','TEXT','ФИО ответственного представителя организации',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1230,'скелетная_схема_ВОЛП','IMAGE','Скелетная схема ВОЛП',NULL,NULL,0);
 INSERT INTO "Project_templates" VALUES (1,'main',10);
 INSERT INTO "Project_templates" VALUES (2,'main',11);
 INSERT INTO "Project_templates" VALUES (3,'main',1201);
@@ -522,9 +494,9 @@ COMMIT;
         )
         return result
 
-    def get_config_tag_by_id(self, id_tag) -> object:
+    def get_tag_by_id(self, id_tag) -> object:
         """
-        Запрос на получение config_tag по имени формы.
+        Запрос на получение tag по id.
         """
         conn = self.get_conn()
         cursor = conn.cursor()
@@ -542,86 +514,6 @@ COMMIT;
         )
         return result
 
-    def get_config_date_by_id(self, id_tag) -> list:
-        """
-        Запрос на получение config_date по имени формы.
-        """
-        conn = self.get_conn()
-        cursor = conn.cursor()
-        cursor.execute(
-            """
-        SELECT * FROM Project_tag_config_date
-        WHERE id_tag = ?
-        """,
-            [id_tag],
-        )
-        result = self.get_fetchall(cursor)
-        conn.close()
-        self.__obs_manager.obj_l.debug_logger(
-            f"ProjectDatabase get_config_date(id_tag) -> list: name_tag = {id_tag}\nresult = {result}"
-        )
-        return result
-
-    def get_config_table_by_id(self, id_tag) -> list:
-        """
-        Запрос на получение config_table по имени формы.
-        """
-        conn = self.get_conn()
-        cursor = conn.cursor()
-        cursor.execute(
-            """
-        SELECT * FROM Project_tag_config_table
-        WHERE id_tag = ?
-        """,
-            [id_tag],
-        )
-        result = self.get_fetchall(cursor)
-        conn.close()
-        self.__obs_manager.obj_l.debug_logger(
-            f"ProjectDatabase get_config_table(id_tag) -> list: id_tag = {id_tag}\nresult = {result}"
-        )
-        return result
-
-    def get_rowcol_configs_table_by_tag(self, tag) -> list:
-        """
-        Запрос на получение типа конфигурации таблицы по тегу.
-        """
-        conn = self.get_conn()
-        cursor = conn.cursor()
-        cursor.execute(
-            """
-        SELECT * FROM Project_tag_config_table
-        WHERE id_tag = ? and type_config = 'ROWCOL'
-        ORDER BY order_config
-        """,
-            [tag.get("id_tag")],
-        )
-        result = self.get_fetchall(cursor)
-        conn.close()
-        self.__obs_manager.obj_l.debug_logger(
-            f"ProjectDatabase get_rowcol_configs_table_by_tag(tag) -> list:\ntag = {tag}\nresult = {result}"
-        )
-        return result
-
-    def get_typetable_configs_table_by_tag(self, tag) -> list:
-        """
-        Запрос на получение типа конфигурации таблицы по тегу.
-        """
-        conn = self.get_conn()
-        cursor = conn.cursor()
-        cursor.execute(
-            """
-        SELECT * FROM Project_tag_config_table
-        WHERE id_tag = ? and type_config = 'TYPE_TABLE'
-        """,
-            [tag.get("id_tag")],
-        )
-        result = self.get_fetchone(cursor)
-        conn.close()
-        self.__obs_manager.obj_l.debug_logger(
-            f"ProjectDatabase get_typetable_configs_table_by_tag(tag) -> list:\ntag = {tag}\nresult = {result}"
-        )
-        return result
 
     def set_included_for_node(self, node, state):
         """

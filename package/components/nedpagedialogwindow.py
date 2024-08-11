@@ -257,9 +257,14 @@ class NedPageDialogWindow(QDialog):
 
     def open_in_folder(self):
         self.__obs_manager.obj_l.debug_logger("NedPageDialogWindow open_in_folder()")
-        # docx_path = self.__page.get("filename_page")
-        # # TODO УЗНАТЬ ПУТЬ К ДОКУМЕНТУ ЧЕРЕЗ ШАБЛОН
-        # subprocess.Popen(f"explorer /select, {docx_path}")
+        # TODO ???
+        try:
+            docx_path = self.__page.get("filename_page")            
+            subprocess.Popen(["explorer", "/select,", docx_path])
+        except Exception as e:
+            self.__obs_manager.obj_dw.warning_message(f"Error: {e}")
+            print(e)
+
 
     def btn_nestag_clicked(self):
         self.__obs_manager.obj_l.debug_logger(

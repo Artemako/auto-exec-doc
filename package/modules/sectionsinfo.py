@@ -140,12 +140,13 @@ class SectionsInfo:
 
     def save_image(self, id_tag, old_value, value):
         self.__obs_manager.obj_l.debug_logger(f"SectionsInfo save_image(id_tag, old_value, value):\nid_tag = {id_tag},\nold_value = {old_value},\nvalue = {value}")
-        config_tag = self.__obs_manager.obj_pd.get_config_tag_by_id(
+        current_tag = self.__obs_manager.obj_pd.get_tag_by_id(
             id_tag
         )
         print(f"id_tag = {id_tag}\n")
-        print(f"config_tag = {config_tag}\n")
-        type_tag = config_tag.get("type_tag")
+        print(f"current_tag = {current_tag}\n")
+        # TODO Сделать удаление предыдущего изображения (при сохранении)
+        type_tag = current_tag.get("type_tag")
         if type_tag == "IMAGE":
             self.__obs_manager.obj_ffm.delete_image_from_project(
                 old_value

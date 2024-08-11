@@ -1,4 +1,5 @@
 import os
+import json
 
 import package.components.widgets.customsection as customsection
 
@@ -71,31 +72,28 @@ class ScroolAreaInput:
         """
         id_tag = pair.get("id_tag")
         # все свойства основного контента
-        config_tag = self.__obs_manager.obj_pd.get_config_tag_by_id(
+        current_tag = self.__obs_manager.obj_pd.get_tag_by_id(
             id_tag
         )
-        type_tag = config_tag.get("type_tag")
-
+        type_tag = current_tag.get("type_tag")
+        config_tag = current_tag.get("config_tag")
+        config_dict = dict()        
+        if config_tag:
+            config_dict = json.loads(config_tag)
         if type_tag == "TEXT":
-            item = formtext.FormText(self.__obs_manager, pair, config_tag)
+            item = formtext.FormText(self.__obs_manager, pair, current_tag)
             section_layout.addWidget(item)
 
         elif type_tag == "DATE":
-            config_date = self.__obs_manager.obj_pd.get_config_date_by_id(
-                id_tag
-            )
-            item = formdate.FormDate(self.__obs_manager, pair, config_tag, config_date)
+            item = formdate.FormDate(self.__obs_manager, pair, current_tag, config_dict)
             section_layout.addWidget(item)
 
         elif type_tag == "IMAGE":
-            # TODO config_image
-            config_image = []
-            item = formimage.FormImage(self.__obs_manager, pair, config_tag, config_image)
+            item = formimage.FormImage(self.__obs_manager, pair, current_tag, config_dict)
             section_layout.addWidget(item)
 
         elif type_tag == "TABLE":
-            config_table = self.__obs_manager.obj_pd.get_config_table_by_id(id_tag)
-            item = formtable.FormTable(self.__obs_manager, pair, config_tag, config_table)
+            item = formtable.FormTable(self.__obs_manager, pair, current_tag, config_dict)
             section_layout.addWidget(item)
 
 

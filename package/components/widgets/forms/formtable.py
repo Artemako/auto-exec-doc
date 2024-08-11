@@ -8,12 +8,12 @@ import package.ui.formtable_ui as formtable_ui
 
 
 class FormTable(QWidget):
-    def __init__(self, obs_manager, pair, config_tag, config_table):
+    def __init__(self, obs_manager, pair, current_tag, config_dict):
         self.__obs_manager = obs_manager
         self.__pair = pair
-        self.__config_tag = config_tag
-        self.__config_table = config_table
-        self.__obs_manager.obj_l.debug_logger(f"FormTable(pair, config_tag, config_table):\npair = {pair},\nconfig_tag = {config_tag},\nconfig_table = {config_table}")
+        self.__current_tag = current_tag
+        self.__config_dict = config_dict
+        self.__obs_manager.obj_l.debug_logger(f"FormTable(pair, current_tag, config_dict):\npair = {pair},\ncurrent_tag = {current_tag},\nconfig_dict = {config_dict}")
         super(FormTable, self).__init__()
         self.ui = formtable_ui.Ui_FormTableWidget()
         self.ui.setupUi(self)
@@ -22,25 +22,24 @@ class FormTable(QWidget):
 
     def config(self):
         # заголовок
-        self.ui.title.setText(self.__config_tag["title_tag"])
+        self.ui.title.setText(self.__current_tag.get("title_tag"))
         # описание
-        description_tag = self.__config_tag["description_tag"]
+        description_tag = self.__current_tag.get("description_tag")
         if description_tag:
             self.ui.textbrowser.setHtml(description_tag)
         else:
             self.ui.textbrowser.hide()
 
-        # ОСОБЕННОСТИ из self.config_table
+        # ОСОБЕННОСТИ из self.config_dict
         labels = []
         # content = []
-        for config in self.__config_table:
-            type_config = config.get("type_config")
-            value_config = config.get("value_config")
-            # TODO
-            if type_config == "HEADER":
-                labels.append(value_config)
-            # elif type_config == "ROWCOL":
-            #     content.append(value_config)
+        # TODO
+        headers = self.__config_dict.get("HEADERS")
+        for header in headers:
+            value_header = header.get("VALUE")
+            labels.append(value_header)
+        # TODO ROWCOL
+
         # создать столбцы таблицы
         self.ui.table.setColumnCount(len(labels))
         self.ui.table.setHorizontalHeaderLabels(labels)

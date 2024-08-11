@@ -92,7 +92,7 @@ class Project:
         self.__current_name = os.path.basename(
             self.__obs_manager.obj_dpm.get_project_dirpath()
         )
-        self.__obj_sd.set_project_current_name(self.__current_name)
+        self.__obs_manager.obj_sd.set_project_current_name(self.__current_name)
         
         self.__obs_manager.obj_sd.add_new_project_to_db()
         self.__obs_manager.obj_pd.create_and_config_db_project()
@@ -107,7 +107,7 @@ class Project:
         # активируем проект
         self.set_true_actives_project()
         # сообщение для статусбара
-        self.__obs_manager.obj_sb.set_message_for_statusbar(
+        self.__obs_manager.obj_sb.set_message(
             f"Проект c именем {self.__current_name} создан и открыт."
         )
         # обновляем меню
@@ -130,11 +130,11 @@ class Project:
                 self.__obs_manager.obj_mw.set_view_height(saved_view_height)
             # настроить статус
             self.__status_save = True
-            self.__obs_manager.obj_sb.set_message_for_statusbar(
+            self.__obs_manager.obj_sb.set_message(
                 f"Проект c именем {self.__current_name} сохранён."
             )
         else:
-            self.__obs_manager.obj_sb.set_message_for_statusbar(
+            self.__obs_manager.obj_sb.set_message(
                 "Нечего сохранять. Либо проект не открыт, либо форма не выбрана."
             )
             self.__obs_manager.obj_dw.warning_message(
@@ -162,12 +162,12 @@ class Project:
                 # открытие проекта
                 self.config_open_project()
             else:
-                self.__obs_manager.obj_sb.set_message_for_statusbar(
+                self.__obs_manager.obj_sb.set_message(
                     "Сохранение отменено."
                 )
                 self.__obs_manager.obj_dw.warning_message("Сохранение отменено.")
         else:
-            self.__obs_manager.obj_sb.set_message_for_statusbar(
+            self.__obs_manager.obj_sb.set_message(
                 "Нечего сохранять. Либо проект не открыт, либо форма не выбрана."
             )
 
@@ -203,7 +203,7 @@ class Project:
 
         self.set_true_actives_project()
         # сообщение для статусбара
-        self.__obs_manager.obj_sb.set_message_for_statusbar(
+        self.__obs_manager.obj_sb.set_message(
             f"Проект c именем {self.__current_name} открыт."
         )
         # добавляем папки в новый проект
@@ -225,7 +225,9 @@ class Project:
             self.__obs_manager.obj_dw.warning_message(
                 f"Проект с именем {project.get('name_project')} не существует."
             )
-            # TODO Удалить запись проекта из базы данных
+            # удаляем проект из БД и обновляем меню
+            self.__obs_manager.obj_sd.delete_project_from_db(project)
+            self.__obs_manager.obj_mw.update_menu_recent_projects()
 
     def set_true_actives_project(self):
         """
@@ -244,7 +246,7 @@ class Project:
         self.__obs_manager.obj_l.debug_logger("Project export_to_pdf()")
         multipage_pdf_path = self.__obs_manager.obj_dw.select_name_and_dirpath_export_pdf()
         if multipage_pdf_path:
-            self.__obs_manager.obj_sb.set_message_for_statusbar(
+            self.__obs_manager.obj_sb.set_message(
                 "Процесс экспорта в PDF..."
             )
             # проверка на доступность конвертера
@@ -264,11 +266,11 @@ class Project:
                     self.__obs_manager.obj_dw.warning_message(
                         "Эскпорт отменён! Ошибка во время экспорта."
                     )
-                    self.__obs_manager.obj_sb.set_message_for_statusbar(
+                    self.__obs_manager.obj_sb.set_message(
                         "Экспорт отменён! Ошибка во время экспорта."
                     )
                 else:
-                    self.__obs_manager.obj_sb.set_message_for_statusbar(
+                    self.__obs_manager.obj_sb.set_message(
                         f"Экспорт завершен. Файл {multipage_pdf_path} готов."
                     )
                     # открыть pdf

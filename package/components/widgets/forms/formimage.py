@@ -8,24 +8,31 @@ import package.ui.formimage_ui as formimage_ui
 
 
 class FormImage(QWidget):
-    def __init__(self, obs_manager, pair, config_tag, config_image):
+    def __init__(self, obs_manager, pair, current_tag, config_dict):
         self.__obs_manager = obs_manager
+        self.__pair = pair
+        self.__current_tag = current_tag
+        self.__config_dict = config_dict
         self.__obs_manager.obj_l.debug_logger(
-            f"FormImage __init__(self, pair, config_tag, config_image):\npair = {pair},\nconfig_tag = {config_tag},\nconfig_image = {config_image}"
+            f"FormImage __init__(self, pair, current_tag, config_dict):\npair = {pair},\ncurrent_tag = {current_tag},\nconfig_dict = {config_dict}"
         )
-
         super(FormImage, self).__init__()
         self.ui = formimage_ui.Ui_FormImageWidget()
         self.ui.setupUi(self)
+        #
+        self.config()
 
+    def config(self):
+        self.__obs_manager.obj_l.debug_logger("FormImage config()")
         # заголовок
-        self.ui.title.setText(config_tag["title_tag"])
+        self.ui.title.setText(self.__current_tag.get("title_tag"))
         # поле ввода
         self.ui.label.setText(
-            "Изображение успешно выбрано" if pair.get("value") else "Выберите изображение"
+            "Изображение успешно выбрано"
+            if self.__pair.get("value")
+            else "Выберите изображение"
         )
         # масштаб
-        # TODO Сделать масштаб изображения
         if True:
             for i in range(self.ui.scale_layout.count()):
                 widget = self.ui.scale_layout.itemAt(i).widget()
@@ -33,27 +40,29 @@ class FormImage(QWidget):
                     widget.hide()
 
         # описание
-        description_tag = config_tag["description_tag"]
+        description_tag = self.__current_tag.get("description_tag")
         if description_tag:
             self.ui.textbrowser.setHtml(description_tag)
         else:
             self.ui.textbrowser.hide()
 
         # CONFIG IMAGE
+        # TODO Сделать масштаб изображения
 
         # connect
-        self.ui.select_button.clicked.connect(lambda: self.set_new_value_in_pair(pair))
+        self.ui.select_button.clicked.connect(lambda: self.set_new_value_in_pair())
 
-    def set_new_value_in_pair(self, pair):
-        self.__obs_manager.obj_l.debug_logger(f"FormImage set_new_value_in_pair(self, pair): pair = {pair}")
-        image_dirpath = self.__obs_manager.obj_dw.select_image_for_formimage_in_project()
-        # TODO Сделать удаление предыдущего изображения (при сохранении)
+    def set_new_value_in_pair(self):
+        self.__obs_manager.obj_l.debug_logger("FormImage set_new_value_in_pair()")
+        image_dirpath = (
+            self.__obs_manager.obj_dw.select_image_for_formimage_in_project()
+        )
         if image_dirpath:
             # текст выбранного изображения
-            self.ui.label.setText(os.path.basename(image_dirpath))  
+            self.ui.label.setText(os.path.basename(image_dirpath))
             # имя нового изображения
             file_name = f"img_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
-            file_name_with_png = f"{file_name}.png"       
+            file_name_with_png = f"{file_name}.png"
 
             # путь к временной папке
             temp_dir = self.__obs_manager.obj_dpm.get_temp_dirpath()
@@ -65,4 +74,4 @@ class FormImage(QWidget):
             image.save(temp_file_path, "PNG")
             # Вывести путь к временному файлу
             print("Изображение сохранено в временную папку:", temp_file_path)
-            pair["value"] = file_name_with_png
+            self.__pair["value"] = file_name_with_png

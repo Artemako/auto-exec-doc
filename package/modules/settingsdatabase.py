@@ -254,5 +254,17 @@ COMMIT;
         conn.commit()
         conn.close()
 
+    def delete_project_from_db(self, project):
+        self.__obs_manager.obj_l.debug_logger(
+            f"SettingsDatabase delete_project_from_db(project):\nproject = {project}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            "DELETE FROM Projects WHERE name_project = ? AND directory_project = ?",
+            (project.get("name_project"), project.get("directory_project")),
+        )
+        conn.commit()
+        conn.close()
 
 # obj_sd = SettingsDatabase()

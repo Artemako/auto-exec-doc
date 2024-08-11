@@ -4,12 +4,8 @@ from PySide6.QtWidgets import (
     QPushButton,
     QHBoxLayout,
     QWidget,
-    QStackedWidget,
-    QSpacerItem,
-    QSizePolicy,
 )
-from PySide6.QtGui import QIcon
-from PySide6.QtCore import Signal, Slot
+from PySide6.QtCore import QTimer
 
 import package.components.convertersettingsdialogwindow as convertersettingsdialogwindow
 
@@ -35,10 +31,14 @@ class StatusBar:
         self.__obs_manager.obj_l.debug_logger("StatusBar connect_statusbar(statusbar)")
         self.__statusbar = statusbar
         self.__is_active = True
+        self.__timer = QTimer()
+        self.__timer_count = 0
+        #
         self.__icons_8 = self.__obs_manager.obj_icons.get_icons(8)
         self.__icons_16 = self.__obs_manager.obj_icons.get_icons(16)
+        #
         self.config_statusbar()
-        self.set_message_for_statusbar("Проект не открыт")
+        self.set_message("Проект не открыт")
         self.update_name_app_converter()
         self.connecting_actions()
 
@@ -132,14 +132,26 @@ class StatusBar:
         mw_libreoffice.setContentsMargins(0, 0, 0, 0)
         self.__statusbar.addPermanentWidget(mw_libreoffice)
 
-    def set_message_for_statusbar(self, message: str):
+    def set_message(self, message: str, duration: int = 5000):
         """
         Поставить сообщение в статусбар.
         """
-        self.__statusbar.showMessage(message)
         self.__obs_manager.obj_l.debug_logger(
-            f"StatusBar set_message_for_statusbar(message):\nmessage = {message}"
+            f"StatusBar set_message(message):\nmessage = {message}"
         )
+        if self.__timer.isActive():
+            self.__timer.stop()
+            self.__timer_count += 1
+        self.__statusbar.showMessage(message + " ." * self.__timer_count)
+        # Устанавливаем новый таймер для очистки сообщения
+        self.__timer.setSingleShot(True)
+        self.__timer.timeout.connect(self.clear_message)
+        self.__timer.start(duration) 
+
+    def clear_message(self):
+        self.__statusbar.clearMessage()
+        self.__timer_count = 0
+
 
     def update_status_msword_label(self, status_msword):
         """Обновляется при запуске app"""

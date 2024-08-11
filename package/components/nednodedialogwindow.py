@@ -142,7 +142,7 @@ class NedNodeDialogWindow(QDialog):
         self.ui.btn_nestag.clicked.connect(self.action_nestag)
         self.ui.btn_close.clicked.connect(self.close)
         self.ui.combox_parent.currentIndexChanged.connect(self.fill_combox_neighboor)
-
+        
     def action_nestag(self):
         self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow action_nestag()")
         if len(self.ui.lineedit_namenode.text()) > 0:

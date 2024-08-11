@@ -6,20 +6,20 @@ import package.controllers.scrollareainput as scrollareainput
 
 
 class FormText(QWidget):
-    def __init__(self, obs_manager, pair, config_tag):
+    def __init__(self, obs_manager, pair, current_tag):
         self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger(f"FormText __init__(pair, config_tag): pair = {pair},\nconfig_tag = {config_tag}")        
+        self.__obs_manager.obj_l.debug_logger(f"FormText __init__(pair, current_tag): pair = {pair},\ncurrent_tag = {current_tag}")        
         
         super(FormText, self).__init__()
         self.ui = formtext_ui.Ui_FormTextWidget()
         self.ui.setupUi(self)
 
         # заголовок
-        self.ui.title.setText(config_tag['title_tag'])
+        self.ui.title.setText(current_tag.get('title_tag'))
         # поле ввода
         self.ui.lineedit.setText(pair.get("value"))
         # описание
-        description_tag = config_tag['description_tag'] 
+        description_tag = current_tag.get('description_tag')
         if description_tag:
             self.ui.textbrowser.setHtml(description_tag)
         else:

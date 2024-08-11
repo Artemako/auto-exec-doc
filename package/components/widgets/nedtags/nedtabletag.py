@@ -1,25 +1,25 @@
-from PySide6.QtWidgets import (
-    QWidget
-)
+import json
+
+from PySide6.QtWidgets import QWidget
 from PySide6.QtCore import QTimer, QSize
 
 import package.ui.nedtabletag_ui as nedtabletag_ui
 
+
 # TODO !!! РАБОТА С ТАБЛИЦАМИ
 class NedTableTag(QWidget):
-    def __init__(self, obs_manager, type_window, tag = None):
+    def __init__(self, obs_manager, type_window, tag=None):
         self.__obs_manager = obs_manager
         self.__type_window = type_window
         self.__tag = tag
-        self.__obs_manager.obj_l.debug_logger("NedTableTag __init__(obs_manager, type_window)")
+        self.__obs_manager.obj_l.debug_logger(
+            "NedTableTag __init__(obs_manager, type_window)"
+        )
         super(NedTableTag, self).__init__()
         self.ui = nedtabletag_ui.Ui_NedTableTag()
         self.ui.setupUi(self)
         #
-        self.__data = {
-            "type_table": None,
-            "rowcol": None
-        }
+        self.__data = {"type_table": None, "rowcol": None}
         #
         self.config_combox_typetable()
         self.config_tw_attrs()
@@ -36,9 +36,9 @@ class NedTableTag(QWidget):
         self.ui.btn_addrowcol.clicked.connect(self.btn_addrowcol_clicked)
 
     def btn_addrowcol_clicked(self):
-        # TODO btn_addrowcol_clicked 
+        # TODO btn_addrowcol_clicked
         ...
-    
+
     def config_combox_typetable(self):
         self.__obs_manager.obj_l.debug_logger("NedTableTag config_combox_typetable()")
         combobox = self.ui.combox_typetable
@@ -49,14 +49,17 @@ class NedTableTag(QWidget):
         combobox.addItem("По столбцам", "COL")
         index = 0
         if self.__type_window == "edit":
-           typetable_config = self.__obs_manager.obj_pd.get_typetable_configs_table_by_tag(self.__tag)
-           typetable = typetable_config.get("type_config")
-           if typetable == "FULL":
-               index = 0
-           elif typetable == "ROW":
-               index = 1
-           elif typetable == "COL":
-               index = 2
+            config_tag = self.__tag.get("config_tag")
+            config_dict = dict()        
+            if config_tag:
+                config_dict = json.loads(config_tag)
+            typetable = config_dict.get("TYPETABLE")
+            if typetable == "FULL":
+                index = 0
+            elif typetable == "ROW":
+                index = 1
+            elif typetable == "COL":
+                index = 2
         combobox.setCurrentIndex(index)
         combobox.blockSignals(False)
 
@@ -82,17 +85,27 @@ class NedTableTag(QWidget):
             self.ui.btn_addrowcol.setText("Добавить столбцец")
             self.config_data_table()
 
+    def get_rowcols(self):
+        config_tag = self.__tag.get("config_tag")
+        config_dict = dict()
+        if config_tag:
+            config_dict = json.loads(config_tag)
+        rowcols = config_dict.get("ROWCOLS")
+        self.__obs_manager.obj_l.debug_logger(
+            f"NedTableTag get_rowcols(): result = {rowcols}"
+        )
+        return rowcols
+
     def config_data_table(self):
         self.__obs_manager.obj_l.debug_logger("NedTableTag config_data_table()")
         table_widget = self.ui.tw_attrs
         table_widget.blockSignals(True)
         table_widget.clear()
-        rowcol_configs = self.__obs_manager.obj_pd.get_rowcol_configs_table_by_tag(self.__tag)
-        table_widget.setRowCount(len(rowcol_configs))
-        for rowcol_config in rowcol_configs:
-            value_config = rowcol_config.get("value_config")
-            # TODO config_data_table
+        rowcols = self.get_rowcols()
+        if rowcols:
+            table_widget.setRowCount(len(rowcols))
+            for rowcol in rowcols:
+                value_config = rowcol.get("value_config")
+                # TODO config_data_table
 
         table_widget.blockSignals(False)
-            
-
