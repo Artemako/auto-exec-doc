@@ -142,7 +142,7 @@ class App:
         # настроить БД
         self.obs_manager.obj_sd.create_and_setting_db_settings()
         # настройка officepackets
-        self.obs_manager.obj_ofp.setting_office_packets()
+        self.obs_manager.obj_ofp.resetting_office_packets()
 
     def start_app(self):
         """

@@ -16,4 +16,4 @@ from PySide6.QtCore import QKeySequence
 setShortcut(QKeySequence("Ctrl+S"))
 
 self.__obs_manager.obj_sb.set_message(f"{self.windowTitle()}: сохранение прошло успешно!")
-"""
+""" 

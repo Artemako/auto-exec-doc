@@ -53,6 +53,7 @@ class ConverterSettingsDialogWindow(QDialog):
         result = self.get_active_radiobutton()
         if result:
             self.__obs_manager.obj_sd.set_app_converter(result)
+            self.__obs_manager.obj_ofp.resetting_office_packets()
             self.__obs_manager.obj_sb.set_message(f"{self.windowTitle()}: сохранение прошло успешно!")
         else:
             self.__obs_manager.obj_dw.error_message("Не выбран конвертер.")

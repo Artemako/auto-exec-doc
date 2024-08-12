@@ -124,7 +124,7 @@ class Project:
             if self.__obs_manager.obj_pt.is_page_template_selected():
                 # получить значение высоты страницы
                 saved_view_height = self.__obs_manager.obj_mw.get_view_height()
-                # сохранить в pdf
+                # сохранить в pdf (обработчик ошибок внутри obj_pt)
                 self.__obs_manager.obj_pt.current_page_to_pdf()
                 # восстановить высоту страницы
                 self.__obs_manager.obj_mw.set_view_height(saved_view_height)
@@ -260,21 +260,24 @@ class Project:
                 flag_converter = True
             if flag_converter:
                 start_time = time.time()
-                result = self.__obs_manager.obj_c.export_to_pdf(multipage_pdf_path)
-                end_time = time.time()
-                if not result:
+                try: 
+                    self.__obs_manager.obj_c.export_to_pdf(multipage_pdf_path)
+                except Exception as e:
                     self.__obs_manager.obj_dw.warning_message(
                         "Эскпорт отменён! Ошибка во время экспорта."
                     )
                     self.__obs_manager.obj_sb.set_message(
                         "Экспорт отменён! Ошибка во время экспорта."
                     )
-                else:
-                    self.__obs_manager.obj_sb.set_message(
-                        f"Экспорт завершен. Файл {multipage_pdf_path} готов."
-                    )
-                    # открыть pdf
-                    os.startfile(os.path.dirname(multipage_pdf_path))
+                    if app_converter == "MSWORD":
+                        self.__obs_manager.obj_ofp.terminate_msword()
+                        self.__obs_manager.obj_sb.update_status_msword_label(False)
+                end_time = time.time()
+                self.__obs_manager.obj_sb.set_message(
+                    f"Экспорт завершен. Файл {multipage_pdf_path} готов."
+                )
+                # открыть pdf
+                os.startfile(os.path.dirname(multipage_pdf_path))
                 self.__obs_manager.obj_l.debug_logger(
                     f"Project export_to_pdf() -> time: {end_time - start_time}"
                 )

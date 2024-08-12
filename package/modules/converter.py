@@ -13,7 +13,6 @@ import subprocess
 from pypdf import PdfWriter
 import datetime
 
-
 class ConverterPool:
     def process_object_of_project_pages_objects(self, args) -> dict:
         local_obs_manager, object_for_pool = args
@@ -34,7 +33,7 @@ class ConverterPool:
         Создать pdf страницы. Вернуть директорию.
         """
         local_obs_manager.obj_l.debug_logger(
-            f"Converter create_one_page_pdf(page):\npage = {page}"
+            f"Converter create_page_pdf(page):\npage = {page}"
         )
         # было page.get("filename_page") вместо page.get("id_page")
         form_page_name = page.get("id_page")
@@ -239,18 +238,21 @@ class ConverterPool:
         local_obs_manager.obj_l.debug_logger(
             f"Converter convert_from_pdf_docx(docx_path, pdf_path):\ndocx_path = {docx_path},\npdf_path = {pdf_path}"
         )
-        app_converter = local_obs_manager.obj_sd.get_app_converter()
-        if app_converter == "MSWORD":
-            self.convert_from_pdf_docx_using_msword(
-                local_obs_manager, docx_path, pdf_path
-            )
-        # elif app_converter == "OPENOFFICE":
-        #     self.convert_from_pdf_docx_using_openoffice(docx_path, pdf_path)
-        elif app_converter == "LIBREOFFICE":
-            self.convert_from_pdf_docx_using_libreoffice(
-                local_obs_manager, docx_path, pdf_path
-            )
-
+        try:
+            app_converter = local_obs_manager.obj_sd.get_app_converter()
+            if app_converter == "MSWORD":
+                self.convert_from_pdf_docx_using_msword(
+                    local_obs_manager, docx_path, pdf_path
+                )
+            # elif app_converter == "OPENOFFICE":
+            #     self.convert_from_pdf_docx_using_openoffice(docx_path, pdf_path)
+            elif app_converter == "LIBREOFFICE":
+                self.convert_from_pdf_docx_using_libreoffice(
+                    local_obs_manager, docx_path, pdf_path
+                )
+        except Exception as e:
+            raise e
+        
     def convert_from_pdf_docx_using_msword(
         self, local_obs_manager, docx_path, pdf_path
     ):
@@ -267,8 +269,7 @@ class ConverterPool:
             local_obs_manager.obj_l.error_logger(
                 "Error in convert_from_pdf_docx_using_msword(docx_path, pdf_path)"
             )
-            print(e)
-        # word.Quit()
+            raise Exception("MSWORD")
 
     def convert_from_pdf_docx_using_libreoffice(
         self, local_obs_manager, docx_path, pdf_path
@@ -288,10 +289,12 @@ class ConverterPool:
                 docx_path,
             ]
             subprocess.run(command)
-        except Exception:
+        except Exception as e:
             local_obs_manager.obj_l.error_logger(
                 "Error in convert_from_pdf_docx_using_libreoffice(docx_path, pdf_path)"
             )
+            raise Exception("LIBREOFFICE")
+
 
 
 class ConverterObjectsManager:
@@ -325,42 +328,33 @@ class Converter:
             pdf_path = ConverterPool().create_page_pdf(local_obs_manager, page)
             return pdf_path
         except Exception as e:
-            self.__obs_manager.obj_l.error_logger("Error in create_one_page_pdf(page)")
-            print(e)
-            return None
+            raise e
 
-    def export_to_pdf(self, multipage_pdf_path) -> bool:
+    def export_to_pdf(self, multipage_pdf_path):
         """
         Вызывается при нажатии на кнопку EXPORT после диалогового окна.
         """
         self.__obs_manager.obj_l.debug_logger(
             f"Converter export_to_pdf(multipage_pdf_path):\nmultipage_pdf_path = {multipage_pdf_path}"
         )
-        try:
-            # проход по всем вершинам дерева для заполенения project_pages_objects
-            project_pages_objects = list()
-            number_page = 0
-            self.dfs(
-                self.__obs_manager.obj_pd.get_project_node(),
-                project_pages_objects,
-                number_page,
-            )
-            self.__obs_manager.obj_l.debug_logger(
-                f"Converter project_pages_objects = {project_pages_objects}"
-            )
-            # проход по project_pages_objects для преобразования каждой страницы в docx, а потом в pdf
-            list_of_pdf_pages = self.get_list_of_created_pdf_pages(
-                project_pages_objects
-            )
-            print(f"list_of_pdf_pages = {list_of_pdf_pages}")
-            # объеденить несколько pdf файлов в один
-            self.merge_pdfs_and_create(multipage_pdf_path, list_of_pdf_pages)
-            return True
-        except Exception as e:
-            self.__obs_manager.obj_l.error_logger(
-                f"Converter export_to_pdf(multipage_pdf_path):\ne = {e}"
-            )
-            return False
+        # проход по всем вершинам дерева для заполенения project_pages_objects
+        project_pages_objects = list()
+        number_page = 0
+        self.dfs(
+            self.__obs_manager.obj_pd.get_project_node(),
+            project_pages_objects,
+            number_page,
+        )
+        self.__obs_manager.obj_l.debug_logger(
+            f"Converter project_pages_objects = {project_pages_objects}"
+        )
+        # проход по project_pages_objects для преобразования каждой страницы в docx, а потом в pdf
+        list_of_pdf_pages = self.get_list_of_created_pdf_pages(
+            project_pages_objects
+        )
+        print(f"list_of_pdf_pages = {list_of_pdf_pages}")
+        # объеденить несколько pdf файлов в один
+        self.merge_pdfs_and_create(multipage_pdf_path, list_of_pdf_pages)
 
     def dfs(self, parent_node, project_pages_objects, number_page):
         self.__obs_manager.obj_l.debug_logger(

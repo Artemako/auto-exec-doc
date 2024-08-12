@@ -55,11 +55,16 @@ class MainWindow(QMainWindow):
         self.__obs_manager.obj_pv.connect_pdfview(self.ui.widget_pdf_view)
 
     def clear_before_end(self):
-        self.__obs_manager.obj_l.debug_logger("MainWindow clear_before_end()")
+        self.__obs_manager.obj_l.debug_logger("MainWindow ()")
         # удаление pdf из виджета pdfview
         self.__obs_manager.obj_pv.set_empty_pdf_view()
         # очистка временных файлов
         self.__obs_manager.obj_ffm.clear_temp_folder(True)
+        # очистка word из памяти
+        self.__obs_manager.obj_ofp.terminate_msword()
+
+    def closeEvent(self, event):
+        self.clear_before_end()
 
     def connecting_actions(self):
         """

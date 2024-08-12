@@ -23,12 +23,25 @@ class MsWordThread(QThread):
             pythoncom.CoInitialize()
             self.__status_msword = None
             self.status_changed.emit(self.__status_msword)
-            word = comtypes.client.CreateObject("Word.Application")
-            self.__status_msword = True
+            try:
+                self.__word = comtypes.client.GetActiveObject("Word.Application")
+                self.__status_msword = True
+            except Exception as e:
+                print(f"Error in initialize_msword(): {e}")
+                self.__word = comtypes.client.CreateObject("Word.Application")
+                self.__status_msword = True
         except Exception as e:
             print(f"Error in initialize_msword(): {e}")
             self.__status_msword = False
         self.status_changed.emit(self.__status_msword)
+
+    def terminate_msword(self):
+        self.__obs_manager.obj_l.debug_logger("MsWordThread terminate_msword()")
+        try:
+            self.__word.Quit()
+        except Exception as e:
+            print(f"Error in terminate_msword(): {e}")
+        self.__status_msword = False
 
 
 class OfficePackets:
@@ -40,15 +53,20 @@ class OfficePackets:
         self.__obs_manager = obs_manager
         self.__obs_manager.obj_l.debug_logger("OfficePackets setting_all_obs_manager()")
 
-    def setting_office_packets(self):
-        self.__obs_manager.obj_l.debug_logger("OfficePackets setting_office_packets()")
+    def resetting_office_packets(self):
+        self.__obs_manager.obj_l.debug_logger("OfficePackets resetting_office_packets()")
         # экземпляр QThread
-        self.__msword_thread = MsWordThread(self.__obs_manager)
+        if not self.__status_msword:
+            self.__msword_thread = MsWordThread(self.__obs_manager)
+            # подключение сигнала к слоту и запуск потока
+            self.__msword_thread.status_changed.connect(self.update_status_msword)
+            self.__msword_thread.start()
+        else:
+            print("MsWordThread is already running")
         # проверка наличия LibreOffice
         self.run_libreoffice()
-        # подключение сигнала к слоту и запуск потока
-        self.__msword_thread.status_changed.connect(self.update_status_msword)
-        self.__msword_thread.start()
+        
+        
 
     def update_status_msword(self, status):
         self.__obs_manager.obj_l.debug_logger(
@@ -81,3 +99,10 @@ class OfficePackets:
             self.__obs_manager.obj_sb.update_status_libreoffice_label(
                 self.__status_libreoffice
             )
+
+    def terminate_msword(self):
+        self.__obs_manager.obj_l.debug_logger("OfficePackets terminate_msword()")
+        self.__msword_thread.terminate_msword()
+        self.__msword_thread.quit()
+        self.__msword_thread.wait()
+        self.__status_msword = False
