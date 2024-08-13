@@ -7,7 +7,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import QTimer
 
-import package.components.convertersettingsdialogwindow as convertersettingsdialogwindow
+import package.components.dialogwindow.convertersettingsdialogwindow as convertersettingsdialogwindow
 
 import resources_rc
 

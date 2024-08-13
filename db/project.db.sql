@@ -7,9 +7,9 @@ CREATE TABLE IF NOT EXISTS "Project_documents" (
 );
 CREATE TABLE IF NOT EXISTS "Project_nodes" (
 	"id_node"	INTEGER NOT NULL UNIQUE,
-	"name_node"	TEXT,
+	"name_node"	TEXT UNIQUE,
 	"id_parent"	INTEGER,
-	"order_node"	TEXT,
+	"order_node"	TEXT NOT NULL,
 	"type_node"	TEXT,
 	"id_active_template"	INTEGER,
 	"included"	INTEGER NOT NULL DEFAULT 1,
@@ -17,9 +17,9 @@ CREATE TABLE IF NOT EXISTS "Project_nodes" (
 	FOREIGN KEY("id_active_template") REFERENCES "Project_templates"("id_template")
 );
 CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
-	"id_pair"	INTEGER UNIQUE,
-	"id_node"	INTEGER,
-	"id_tag"	INTEGER,
+	"id_pair"	INTEGER NOT NULL UNIQUE,
+	"id_node"	INTEGER NOT NULL,
+	"id_tag"	INTEGER NOT NULL,
 	"name_tag"	TEXT,
 	"value"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
@@ -29,17 +29,17 @@ CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
 CREATE TABLE IF NOT EXISTS "Project_pages" (
 	"id_page"	INTEGER NOT NULL UNIQUE,
 	"id_parent_template"	INTEGER,
-	"name_page"	TEXT,
-	"filename_page"	TEXT,
-	"order_page"	INTEGER,
+	"name_page"	TEXT UNIQUE,
+	"filename_page"	TEXT UNIQUE,
+	"order_page"	INTEGER NOT NULL,
 	"included"	INTEGER NOT NULL DEFAULT 1,
 	PRIMARY KEY("id_page" AUTOINCREMENT),
 	FOREIGN KEY("id_parent_template") REFERENCES "Project_templates"("id_template")
 );
 CREATE TABLE IF NOT EXISTS "Project_pages_data" (
-	"id_pair"	INTEGER UNIQUE,
-	"id_page"	INTEGER,
-	"id_tag"	INTEGER,
+	"id_pair"	INTEGER NOT NULL UNIQUE,
+	"id_page"	INTEGER NOT NULL,
+	"id_tag"	INTEGER NOT NULL,
 	"name_tag"	TEXT,
 	"value"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS "Project_tags" (
 	"name_tag"	TEXT NOT NULL UNIQUE,
 	"type_tag"	TEXT NOT NULL,
 	"title_tag"	TEXT,
+	"order_tag"	INTEGER NOT NULL,
 	"config_tag"	TEXT,
 	"description_tag"	TEXT,
 	"is_global"	INTEGER,
@@ -64,9 +65,9 @@ CREATE TABLE IF NOT EXISTS "Project_templates" (
 	FOREIGN KEY("id_parent_node") REFERENCES "Project_nodes"("id_node")
 );
 CREATE TABLE IF NOT EXISTS "Project_templates_data" (
-	"id_pair"	INTEGER UNIQUE,
-	"id_template"	INTEGER,
-	"id_tag"	INTEGER,
+	"id_pair"	INTEGER NOT NULL UNIQUE,
+	"id_template"	INTEGER NOT NULL,
+	"id_tag"	INTEGER NOT NULL,
 	"name_tag"	TEXT,
 	"value"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
@@ -116,32 +117,32 @@ INSERT INTO "Project_pages_data" VALUES (503,40,1227,'год_прокладки_
 INSERT INTO "Project_pages_data" VALUES (504,40,1228,'год_составления_паспорта',NULL);
 INSERT INTO "Project_pages_data" VALUES (505,40,1229,'отв_пред_орг_фио',NULL);
 INSERT INTO "Project_pages_data" VALUES (600,50,1230,'скелетная_схема_ВОЛП',NULL);
-INSERT INTO "Project_tags" VALUES (1000,'организационно_правовая_форма','TEXT','Организационно-правовая форма',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1001,'название_компании','TEXT','Название компании',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1002,'адрес_компании','TEXT','Адрес компании',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1003,'название_объекта','TEXT','Название объекта',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1004,'участок','TEXT','Участок',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1005,'номер_кабеля','TEXT','Номер кабеля',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1006,'заказчик','TEXT','Заказчик',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1007,'строительно_монтажная_организация','TEXT','Строительно-монтажная организация',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1008,'город','TEXT','Город',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1009,'год','DATE','Год',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1100,'инж_про_ком','TEXT','Компания инженера-проектировщика',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1101,'инж_про_ком_фио','TEXT','ФИО инженера-проектировщика',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1102,'гла_инж_компания','TEXT','Компания главного инженера',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1103,'гла_инж_фио','TEXT','ФИО главного инженера',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1200,'реестр_ид_паспорт_трассы','TABLE','Реестр ИД ВОЛС. Паспорт трассы',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1201,'реестр_ид_эл_паспорт_трассы','TABLE','Реестр ИД ВОЛС. Электрический паспорт трассы',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1202,'рабочая_документация','TABLE','Реестр ИД ВОЛС. Рабочая документация',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1208,'дата','DATE','Дата',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1209,'пт_опись_документов','TABLE','Паспорт трассы. Опись документов.',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1220,'кабеля','TABLE','Кабеля.',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1225,'общая_физ_длина','TEXT','Общая физическая длина',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1226,'общая_опт_длина','TEXT','Общая оптическая длина',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1227,'год_прокладки_кабеля','DATE','Год прокладки кабеля',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1228,'год_составления_паспорта','DATE','Год составления паспорта',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1229,'отв_пред_орг_фио ','TEXT','ФИО ответственного представителя организации',NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1230,'скелетная_схема_ВОЛП','IMAGE','Скелетная схема ВОЛП',NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1000,'организационно_правовая_форма','TEXT','Организационно-правовая форма',0,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1001,'название_компании','TEXT','Название компании',1,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1002,'адрес_компании','TEXT','Адрес компании',2,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1003,'название_объекта','TEXT','Название объекта',3,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1004,'участок','TEXT','Участок',4,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1005,'номер_кабеля','TEXT','Номер кабеля',5,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1006,'заказчик','TEXT','Заказчик',6,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1007,'строительно_монтажная_организация','TEXT','Строительно-монтажная организация',7,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1008,'город','TEXT','Город',8,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1009,'год','DATE','Год',9,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1100,'инж_про_ком','TEXT','Компания инженера-проектировщика',10,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1101,'инж_про_ком_фио','TEXT','ФИО инженера-проектировщика',11,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1102,'гла_инж_компания','TEXT','Компания главного инженера',12,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1103,'гла_инж_фио','TEXT','ФИО главного инженера',13,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1200,'реестр_ид_паспорт_трассы','TABLE','Реестр ИД ВОЛС. Паспорт трассы',14,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1201,'реестр_ид_эл_паспорт_трассы','TABLE','Реестр ИД ВОЛС. Электрический паспорт трассы',15,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1202,'рабочая_документация','TABLE','Реестр ИД ВОЛС. Рабочая документация',16,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1208,'дата','DATE','Дата',17,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1209,'пт_опись_документов','TABLE','Паспорт трассы. Опись документов.',18,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1220,'кабеля','TABLE','Кабеля.',19,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1225,'общая_физ_длина','TEXT','Общая физическая длина',20,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1226,'общая_опт_длина','TEXT','Общая оптическая длина',21,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1227,'год_прокладки_кабеля','DATE','Год прокладки кабеля',22,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1228,'год_составления_паспорта','DATE','Год составления паспорта',23,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1229,'отв_пред_орг_фио ','TEXT','ФИО ответственного представителя организации',24,NULL,NULL,0);
+INSERT INTO "Project_tags" VALUES (1230,'скелетная_схема_ВОЛП','IMAGE','Скелетная схема ВОЛП',25,NULL,NULL,0);
 INSERT INTO "Project_templates" VALUES (1,'main',10);
 INSERT INTO "Project_templates" VALUES (2,'main',11);
 INSERT INTO "Project_templates" VALUES (3,'main',1201);

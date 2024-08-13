@@ -262,28 +262,32 @@ class Project:
                 start_time = time.time()
                 try: 
                     self.__obs_manager.obj_c.export_to_pdf(multipage_pdf_path)
+                    end_time = time.time()
+                    self.__obs_manager.obj_sb.set_message(
+                        f"Экспорт завершен. Файл {multipage_pdf_path} готов."
+                    )
+                    # открыть pdf
+                    os.startfile(os.path.dirname(multipage_pdf_path))
+                    self.__obs_manager.obj_l.debug_logger(
+                        f"Project export_to_pdf() -> time: {end_time - start_time}"
+                    )
                 except Exception as e:
                     self.__obs_manager.obj_dw.warning_message(
-                        "Эскпорт отменён! Ошибка во время экспорта."
+                        "Экспорт отменён! Выбранный конвертер не работает."
                     )
                     self.__obs_manager.obj_sb.set_message(
-                        "Экспорт отменён! Ошибка во время экспорта."
+                        "Экспорт отменён! Выбранный конвертер не работает."
                     )
                     if app_converter == "MSWORD":
                         self.__obs_manager.obj_ofp.terminate_msword()
                         self.__obs_manager.obj_sb.update_status_msword_label(False)
-                end_time = time.time()
-                self.__obs_manager.obj_sb.set_message(
-                    f"Экспорт завершен. Файл {multipage_pdf_path} готов."
-                )
-                # открыть pdf
-                os.startfile(os.path.dirname(multipage_pdf_path))
-                self.__obs_manager.obj_l.debug_logger(
-                    f"Project export_to_pdf() -> time: {end_time - start_time}"
-                )
+                
             else:
                 self.__obs_manager.obj_dw.warning_message(
                     "Эскпорт отменён! Выбранный конвертер не работает."
+                )
+                self.__obs_manager.obj_sb.set_message(
+                    "Экспорт отменён! Выбранный конвертер не работает."
                 )
 
 

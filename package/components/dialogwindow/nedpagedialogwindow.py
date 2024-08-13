@@ -17,7 +17,6 @@ import package.ui.nedpagedialogwindow_ui as nedpagedialogwindow_ui
 import os
 from pathlib import Path
 import datetime
-import subprocess
 import re
 from docx import Document
 from functools import partial
@@ -58,13 +57,13 @@ class NedPageDialogWindow(QDialog):
         )
         if self.__type_ned == "create":
             self.ui.btn_select.setText("Выбрать документ")
-            self.ui.btn_open_in_folder.setEnabled(False)
+            self.ui.btn_open_docx.setEnabled(False)
             self.ui.label_file.setText("Файл не выбран")
             self.ui.btn_nestag.setText("Добавить страницу")
             self.ui.btn_nestag.setIcon(self.__icons.get("qicon_add"))
         elif self.__type_ned == "edit":
             self.ui.btn_select.setText("Выбрать новый документ")
-            self.ui.btn_open_in_folder.setEnabled(True)
+            self.ui.btn_open_docx.setEnabled(True)
             self.ui.label_file.setText(self.__page.get("filename_page"))
             self.__page_filename = self.__page.get("filename_page")
             self.ui.btn_nestag.setText("Сохранить страницу")
@@ -233,7 +232,7 @@ class NedPageDialogWindow(QDialog):
             "NedPageDialogWindow connecting_actions()"
         )
         self.ui.btn_select.clicked.connect(self.select_file)
-        self.ui.btn_open_in_folder.clicked.connect(self.open_in_folder)
+        self.ui.btn_open_docx.clicked.connect(self.open_docx)
         self.ui.btn_nestag.clicked.connect(self.btn_nestag_clicked)
         self.ui.btn_close.clicked.connect(self.close)
 
@@ -255,14 +254,25 @@ class NedPageDialogWindow(QDialog):
             #
             self.reconfig_tw_tags()
 
-    def open_in_folder(self):
-        self.__obs_manager.obj_l.debug_logger("NedPageDialogWindow open_in_folder()")
-        # TODO ???
+    def open_docx(self):
+        self.__obs_manager.obj_l.debug_logger("NedPageDialogWindow open_docx()")
         try:
-            docx_path = self.__page.get("filename_page")            
-            subprocess.Popen(["explorer", "/select,", docx_path])
+            # название docx
+            filename_page = self.__page.get("filename_page") 
+            # путь к документу
+            forms_folder_dirpath = self.__obs_manager.obj_dpm.get_forms_folder_dirpath()
+            docx_path = os.path.join(
+                forms_folder_dirpath, filename_page + ".docx"
+            )
+            # открытие
+            if os.path.exists(docx_path):
+                try:
+                    os.startfile(docx_path)
+                except OSError:
+                    raise Exception("Не удалось открыть.")
         except Exception as e:
             self.__obs_manager.obj_dw.warning_message(f"Error: {e}")
+            self.__obs_manager.obj_dw.warning_message("Открыть не удалось.")
             print(e)
 
 

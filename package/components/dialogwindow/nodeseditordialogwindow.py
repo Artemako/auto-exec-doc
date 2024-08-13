@@ -12,7 +12,7 @@ from PySide6.QtGui import QIcon
 
 import package.ui.nodeseditordialogwindow_ui as nodeseditordialogwindow_ui
 
-import package.components.nednodedialogwindow as nednodedialogwindow
+import package.components.dialogwindow.nednodedialogwindow as nednodedialogwindow
 
 import resources_rc
 
@@ -29,6 +29,7 @@ class NodesEditorDialogWindow(QDialog):
         self.reconfig()
         #
         self.connecting_actions()
+   
 
     def reconfig(self):
         self.__obs_manager.obj_l.debug_logger("NodesEditorDialogWindow reconfig()")
@@ -107,11 +108,9 @@ class NodesEditorDialogWindow(QDialog):
         tree_widget = self.ui.tw_nodes
         item = None
         if node.get("id_parent") == 0:
-            print("QTreeWidgetItem(tree_widget)")
             item = QTreeWidgetItem(tree_widget)
             item.setData(0, Qt.UserRole, node)
         else:
-            print('QTreeWidgetItem(self.__nodes_to_items[node.get("id_parent")])')
             item = QTreeWidgetItem(self.__nodes_to_items[node.get("id_parent")])
             item.setData(0, Qt.UserRole, node)
         item.setText(0, self.get_text_by_node(node))
@@ -188,7 +187,7 @@ class NodesEditorDialogWindow(QDialog):
         if childs:
             # переопределяем родительскую вершину для дочерних вершин
             for child in childs:
-                self.__obs_manager.obj_pd.set_group_parent_for_child_group(node, child)
+                self.__obs_manager.obj_pd.set_new_parent_for_child_node(node, child)
             # удаляем вершину из БД
             self.__obs_manager.obj_pd.delete_node(node)
             # перевыставляем order_node соседям вершины

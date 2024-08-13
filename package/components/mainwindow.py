@@ -6,9 +6,9 @@ from PySide6.QtCore import QTimer
 
 import package.ui.mainwindow_ui as mainwindow_ui
 
-import package.components.tagslistdialogwindow as tagslistdialogwindow
-import package.components.nodeseditordialogwindow as nodeseditordialogwindow
-import package.components.templateslistsialogwindow as templateslistsialogwindow
+import package.components.dialogwindow.tagslistdialogwindow as tagslistdialogwindow
+import package.components.dialogwindow.nodeseditordialogwindow as nodeseditordialogwindow
+import package.components.dialogwindow.templateslistsialogwindow as templateslistsialogwindow
 
 from functools import partial
 

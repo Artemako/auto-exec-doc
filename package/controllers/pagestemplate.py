@@ -105,8 +105,10 @@ class PagesTemplate:
         self.create_and_view_current_page(page)
 
     def clear_pt(self):
-        self.__obs_manager.obj_l.debug_logger("PagesTemplate IN clear_pt()")
+        self.__obs_manager.obj_l.debug_logger("PagesTemplate clear_pt()")
+        self.__listwidget_pages_template.blockSignals(True)  
         self.__listwidget_pages_template.clear()
+        self.__listwidget_pages_template.blockSignals(False)  
         self.__title_pt.setText("Форма не выбрана")
 
     def update_pages_template(self, node):
@@ -116,8 +118,8 @@ class PagesTemplate:
         self.__obs_manager.obj_l.debug_logger(
             f"PagesTemplate update_pages_template(node):\nnode = {node}"
         )
-        self.__listwidget_pages_template.blockSignals(True)
         self.clear_pt()
+        self.__listwidget_pages_template.blockSignals(True)        
         self.__title_pt.setText(node.get("name_node"))
         id_active_template = node.get("id_active_template")
         template = self.__obs_manager.obj_pd.get_template_by_id(id_active_template)

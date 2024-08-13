@@ -14,7 +14,7 @@ from PySide6.QtCore import QSize
 
 from functools import partial
 
-import package.components.nedtagdialogwindow as nedtagdialogwindow
+import package.components.dialogwindow.nedtagdialogwindow as nedtagdialogwindow
 
 import package.ui.tagslistdialogwindow_ui as tagslistdialogwindow_ui
 
@@ -33,7 +33,7 @@ class TagsListDialogWindow(QDialog):
         super(TagsListDialogWindow, self).__init__()
         self.ui = tagslistdialogwindow_ui.Ui_TagsListDialog()
         self.ui.setupUi(self)
-        # 
+        #
         self.__icons = self.__obs_manager.obj_icons.get_icons()
         # config
         self.config()
@@ -203,7 +203,7 @@ class TagsListDialogWindow(QDialog):
             )
             print(f"node_data = {node_data}")
             for pair in node_data:
-                data += self.__obs_manager.obj_pd.get_tag_config_by_id(
+                data += self.__obs_manager.obj_pd.get_tag_by_id(
                     pair.get("id_tag")
                 )
             print(f'data = {data}')
@@ -213,7 +213,7 @@ class TagsListDialogWindow(QDialog):
             group_node = self.ui.combox_groups.currentData()
             node_data = self.__obs_manager.obj_pd.get_node_data(group_node)
             for pair in node_data:
-                data += self.__obs_manager.obj_pd.get_tag_config_by_id(
+                data += self.__obs_manager.obj_pd.get_tag_by_id(
                     pair.get("id_tag")
                 )
         elif type_table == "form_template_page_tags":
@@ -224,13 +224,13 @@ class TagsListDialogWindow(QDialog):
                 if template:
                     template_data = self.__obs_manager.obj_pd.get_template_data(template)
                     for pair in template_data:
-                        data += self.__obs_manager.obj_pd.get_tag_config_by_id(
+                        data += self.__obs_manager.obj_pd.get_tag_by_id(
                             pair.get("id_tag")
                         )
             else:
                 page_data = self.__obs_manager.obj_pd.get_page_data(page)
                 for pair in page_data:
-                    data += self.__obs_manager.obj_pd.get_tag_config_by_id(
+                    data += self.__obs_manager.obj_pd.get_tag_by_id(
                         pair.get("id_tag")
                     )
         if editor:
@@ -322,6 +322,7 @@ class TagsListDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger(
             f"TagsListDialogWindow clear_and_fill_table(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}"
         )
+        # TODO кнопки вверх и вниз
         # заполнение таблицы
         table_widget = self.get_table_by_parameters(type_table, editor)
         table_widget.setSortingEnabled(False)
@@ -420,17 +421,22 @@ class TagsListDialogWindow(QDialog):
     def create_tag(self):
         self.__obs_manager.obj_l.debug_logger("TagsListDialogWindow create_tag()")
         result = self.ned_tag_dw("create")
-        # TODO
+        # TODO create_tag - обработать и сохранить изменения в БД
         if result:
             ...
-
+            # получить data
+            # обработать и сохранить изменения в БД
+            # обновить таблицу
 
     def edit_tag(self, btn):
         self.__obs_manager.obj_l.debug_logger(f"TagsListDialogWindow edit_tag(btn):\nbtn = {btn}")
         result = self.ned_tag_dw("edit", btn.custom_data)
-        # TODO 
+        # TODO edit_tag - обработать и сохранить изменения в БД
         if result:
             ...
+            # получить data
+            # обработать и сохранить изменения в БД
+            # обновить таблицу
 
     def ned_tag_dw(self, type_window, tag=None):
         self.__obs_manager.obj_nedtdw = nedtagdialogwindow.NedTagDialogWindow(

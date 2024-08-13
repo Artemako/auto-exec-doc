@@ -19,15 +19,23 @@ class NedTableTag(QWidget):
         self.ui = nedtabletag_ui.Ui_NedTableTag()
         self.ui.setupUi(self)
         #
-        self.__data = {"type_table": None, "rowcol": None}
+        self.__config_tag = self.__tag.get("config_tag")
+        self.__config_dict = dict()
+        if self.__config_tag:
+            self.__config_dict = json.loads(self.__config_tag)
+        #
+        self.__data = {"TYPETABLE": None, "ROWCOL": None}
         #
         self.config_combox_typetable()
         self.config_tw_attrs()
         #
         self.connecting_actions()
 
-    def get_data(self):
-        self.__obs_manager.obj_l.debug_logger("NedTableTag get_data()")
+    def get_save_data(self):
+        self.save_data()
+        self.__obs_manager.obj_l.debug_logger(
+            f"NedTableTag get_data():\nself.__data = {self.__data}"
+        )
         return self.__data
 
     def connecting_actions(self):
@@ -50,7 +58,7 @@ class NedTableTag(QWidget):
         index = 0
         if self.__type_window == "edit":
             config_tag = self.__tag.get("config_tag")
-            config_dict = dict()        
+            config_dict = dict()
             if config_tag:
                 config_dict = json.loads(config_tag)
             typetable = config_dict.get("TYPETABLE")
@@ -86,11 +94,7 @@ class NedTableTag(QWidget):
             self.config_data_table()
 
     def get_rowcols(self):
-        config_tag = self.__tag.get("config_tag")
-        config_dict = dict()
-        if config_tag:
-            config_dict = json.loads(config_tag)
-        rowcols = config_dict.get("ROWCOLS")
+        rowcols = self.__config_dict.get("ROWCOLS")
         self.__obs_manager.obj_l.debug_logger(
             f"NedTableTag get_rowcols(): result = {rowcols}"
         )
@@ -105,7 +109,12 @@ class NedTableTag(QWidget):
         if rowcols:
             table_widget.setRowCount(len(rowcols))
             for rowcol in rowcols:
-                value_config = rowcol.get("value_config")
+                value_config = rowcol.get("VALUE")
                 # TODO config_data_table
 
         table_widget.blockSignals(False)
+
+
+    def save_data(self):
+        # TODO save_data
+        self.__obs_manager.obj_l.debug_logger("NedTableTag save_data()")

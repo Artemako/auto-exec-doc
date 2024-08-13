@@ -24,7 +24,7 @@ import package.controllers.statusbar as statusbar
 import package.controllers.structureexecdoc as structureexecdoc
 
 # Импорт всех components
-import package.components.dialogwindows as dialogwindows
+import package.components.dialogwindow.dialogwindows as dialogwindows
 
 class ObjectsManager:
     """

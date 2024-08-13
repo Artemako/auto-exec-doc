@@ -77,10 +77,10 @@ class Ui_NedPageDialogWindow(object):
 
         self.hl_docx.addWidget(self.btn_select)
 
-        self.btn_open_in_folder = QPushButton(NedPageDialogWindow)
-        self.btn_open_in_folder.setObjectName(u"btn_open_in_folder")
+        self.btn_open_docx = QPushButton(NedPageDialogWindow)
+        self.btn_open_docx.setObjectName(u"btn_open_docx")
 
-        self.hl_docx.addWidget(self.btn_open_in_folder)
+        self.hl_docx.addWidget(self.btn_open_docx)
 
 
         self.verticalLayout.addLayout(self.hl_docx)
@@ -144,7 +144,7 @@ class Ui_NedPageDialogWindow(object):
         self.label_after.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u0420\u0430\u0441\u043f\u043e\u043b\u043e\u0436\u0438\u0442\u044c \u043f\u043e\u0441\u043b\u0435 ", None))
         self.label_document.setText(QCoreApplication.translate("NedPageDialogWindow", u"<html><head/><body><p>\u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442</p></body></html>", None))
         self.btn_select.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u0412\u044b\u0431\u0440\u0430\u0442\u044c \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442", None))
-        self.btn_open_in_folder.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442 \u0432 \u043f\u0440\u043e\u0432\u043e\u0434\u043d\u0438\u043a\u0435", None))
+        self.btn_open_docx.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u0438 \u0438\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442", None))
         self.label_file.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u0412\u044b\u0431\u0440\u0430\u043d\u043d\u044b\u0439 \u0444\u0430\u0439\u043b", None))
         self.label_tags.setText(QCoreApplication.translate("NedPageDialogWindow", u"<html><head/><body><p>\u041d\u0430\u0439\u0434\u0435\u043d\u043d\u044b\u0435 \u0442\u0435\u0433\u0438</p></body></html>", None))
         self.btn_nestag.setText(QCoreApplication.translate("NedPageDialogWindow", u"...", None))
