@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QWidget
 
 import package.ui.formtext_ui as formtext_ui
 
-import package.controllers.scrollareainput as scrollareainput
+import package.controllers.sainputforms as sainputforms
 
 
 class FormText(QWidget):

@@ -10,7 +10,7 @@ from PySide6.QtWidgets import (
     QHeaderView,
 )
 from PySide6.QtGui import QIcon
-from PySide6.QtCore import QSize
+from PySide6.QtCore import QSize, Qt
 
 from functools import partial
 
@@ -25,10 +25,18 @@ class Obj:
     pass
 
 
+class NumericItem(QTableWidgetItem):
+    def __lt__(self, other):
+        return self.data(Qt.UserRole) < other.data(Qt.UserRole)
+
+
 class TagsListDialogWindow(QDialog):
+
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger("TagsListDialogWindow __init__(obs_manager)")
+        self.__obs_manager.obj_l.debug_logger(
+            "TagsListDialogWindow __init__(obs_manager)"
+        )
         self.initalizate_tabs_objects()
         super(TagsListDialogWindow, self).__init__()
         self.ui = tagslistdialogwindow_ui.Ui_TagsListDialog()
@@ -43,7 +51,9 @@ class TagsListDialogWindow(QDialog):
         self.show_tab_project()
 
     def initalizate_tabs_objects(self):
-        self.__obs_manager.obj_l.debug_logger("TagsListDialogWindow initalizate_tabs_objects()")
+        self.__obs_manager.obj_l.debug_logger(
+            "TagsListDialogWindow initalizate_tabs_objects()"
+        )
         self.obj_project = Obj()
         self.obj_group = Obj()
         self.obj_form_template_page = Obj()
@@ -71,7 +81,9 @@ class TagsListDialogWindow(QDialog):
         self.ui.splitter_project.setSizes([500, 300])
 
     def connecting_actions(self):
-        self.__obs_manager.obj_l.debug_logger("TagsListDialogWindow connecting_actions()")
+        self.__obs_manager.obj_l.debug_logger(
+            "TagsListDialogWindow connecting_actions()"
+        )
         # смена tab
         self.ui.tabwidget.currentChanged.connect(self.on_tab_changed)
         # КОМБОБОКСЫ
@@ -103,7 +115,9 @@ class TagsListDialogWindow(QDialog):
             type_table = "group_tags"
         elif index == 2:
             type_table = "form_template_page_tags"
-        self.__obs_manager.obj_l.debug_logger(f"TagsListDialogWindow get_typetable():\ntype_table = {type_table}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"TagsListDialogWindow get_typetable():\ntype_table = {type_table}"
+        )
         return type_table
 
     def combox_groups_index_changed(self, index):
@@ -154,7 +168,9 @@ class TagsListDialogWindow(QDialog):
         pass
 
     def show_tab_form_template_page(self):
-        self.__obs_manager.obj_l.debug_logger("TagsListDialogWindow show_tab_form_template_page()")
+        self.__obs_manager.obj_l.debug_logger(
+            "TagsListDialogWindow show_tab_form_template_page()"
+        )
         self.ui.tabwidget.setCurrentIndex(2)
         self.clear_and_fill_combobox_form_template_page()
         self.clear_and_fill_two_tables("form_template_page_tags")
@@ -203,35 +219,33 @@ class TagsListDialogWindow(QDialog):
             )
             print(f"node_data = {node_data}")
             for pair in node_data:
-                data += self.__obs_manager.obj_pd.get_tag_by_id(
-                    pair.get("id_tag")
-                )
-            print(f'data = {data}')
+                data.append(self.__obs_manager.obj_pd.get_tag_by_id(pair.get("id_tag")))
+            print(f"data = {data}")
 
         elif type_table == "group_tags":
             # TODO ???
             group_node = self.ui.combox_groups.currentData()
             node_data = self.__obs_manager.obj_pd.get_node_data(group_node)
             for pair in node_data:
-                data += self.__obs_manager.obj_pd.get_tag_by_id(
-                    pair.get("id_tag")
-                )
+                data.append(self.__obs_manager.obj_pd.get_tag_by_id(pair.get("id_tag")))
         elif type_table == "form_template_page_tags":
             page = self.ui.combox_pages.currentData()
             print(f"page = {page}")
             if page == "all_pages":
                 template = self.ui.combox_templates.currentData()
                 if template:
-                    template_data = self.__obs_manager.obj_pd.get_template_data(template)
+                    template_data = self.__obs_manager.obj_pd.get_template_data(
+                        template
+                    )
                     for pair in template_data:
-                        data += self.__obs_manager.obj_pd.get_tag_by_id(
-                            pair.get("id_tag")
+                        data.append(
+                            self.__obs_manager.obj_pd.get_tag_by_id(pair.get("id_tag"))
                         )
             else:
                 page_data = self.__obs_manager.obj_pd.get_page_data(page)
                 for pair in page_data:
-                    data += self.__obs_manager.obj_pd.get_tag_by_id(
-                        pair.get("id_tag")
+                    data.append(
+                        self.__obs_manager.obj_pd.get_tag_by_id(pair.get("id_tag"))
                     )
         if editor:
             editor_data = []
@@ -256,7 +270,9 @@ class TagsListDialogWindow(QDialog):
         return data
 
     def clear_and_fill_combobox_group(self):
-        self.__obs_manager.obj_l.debug_logger("TagsListDialogWindow clear_and_fill_combobox_group()")
+        self.__obs_manager.obj_l.debug_logger(
+            "TagsListDialogWindow clear_and_fill_combobox_group()"
+        )
         self.ui.combox_groups.blockSignals(True)
         self.ui.combox_groups.clear()
         for group_node in self.obj_group.list_of_group_node:
@@ -273,7 +289,9 @@ class TagsListDialogWindow(QDialog):
         self.clear_and_fill_combobox_page()
 
     def clear_and_fill_combobox_form(self):
-        self.__obs_manager.obj_l.debug_logger("TagsListDialogWindow clear_and_fill_combobox_form()")
+        self.__obs_manager.obj_l.debug_logger(
+            "TagsListDialogWindow clear_and_fill_combobox_form()"
+        )
         self.ui.combox_forms.blockSignals(True)
         self.ui.combox_forms.clear()
         for form_node in self.obj_form_template_page.list_of_form_node:
@@ -282,7 +300,9 @@ class TagsListDialogWindow(QDialog):
         self.ui.combox_forms.show()
 
     def clear_and_fill_combobox_template(self):
-        self.__obs_manager.obj_l.debug_logger("TagsListDialogWindow clear_and_fill_combobox_template()")
+        self.__obs_manager.obj_l.debug_logger(
+            "TagsListDialogWindow clear_and_fill_combobox_template()"
+        )
         form = self.ui.combox_forms.currentData()
         print(f"form = {form}")
         templates = self.__obs_manager.obj_pd.get_templates_by_form(form)
@@ -296,12 +316,14 @@ class TagsListDialogWindow(QDialog):
         self.ui.combox_templates.show()
 
     def clear_and_fill_combobox_page(self):
-        self.__obs_manager.obj_l.debug_logger("TagsListDialogWindow clear_and_fill_combobox_page()")
+        self.__obs_manager.obj_l.debug_logger(
+            "TagsListDialogWindow clear_and_fill_combobox_page()"
+        )
         template = self.ui.combox_templates.currentData()
         pages = []
         if template:
             pages = self.__obs_manager.obj_pd.get_pages_by_template(template)
-        # очистка 
+        # очистка
         self.ui.combox_pages.blockSignals(True)
         self.ui.combox_pages.clear()
         # пункт - Для всех страниц
@@ -328,30 +350,34 @@ class TagsListDialogWindow(QDialog):
         table_widget.setSortingEnabled(False)
         table_widget.clear()
         # заголовки/столбцы
+        table_widget.verticalHeader().hide()
         if editor:
-            table_widget.setColumnCount(5)
-            table_widget.setHorizontalHeaderLabels(
-                ["Тег", "Описание", "Тип", "Вкл", "Действия"]
-            )
+            headers = ["№", "Тег", "Описание", "Тип", "Вкл", "Действия"]
+            table_widget.setColumnCount(len(headers))
+            table_widget.setHorizontalHeaderLabels(headers)
         else:
-            table_widget.setColumnCount(3)
-            table_widget.setHorizontalHeaderLabels(["Тег", "Описание", "Тип"])
+            headers = ["№", "Тег", "Описание", "Тип"]
+            table_widget.setColumnCount(len(headers))
+            table_widget.setHorizontalHeaderLabels(headers)
         # данные
         data = self.get_data_by_parameters(type_table, editor)
         header = table_widget.horizontalHeaderItem(0)
         header.setData(1000, data)
         table_widget.setRowCount(len(data))
         for row, item in enumerate(data):
+            # получение данных
+            order_tag = item.get("order_tag") + 1
             name_tag = item.get("name_tag")
             title_tag = item.get("title_tag")
             type_tag = item.get("type_tag")
             # setData для строки
+            qtwt_order_tag = NumericItem(str(order_tag))
+            qtwt_order_tag.setData(Qt.UserRole, order_tag)
             qtwt_name_tag = QTableWidgetItem(name_tag)
             qtwt_name_tag.setData(1001, item)
-            #
             qtwt_title_tag = QTableWidgetItem(title_tag)
-            #
             qtwt_type_tag = QTableWidgetItem(type_tag)
+            #
             if type_tag == "TEXT":
                 qicon_type_tag = self.__icons.get("qicon_text")
                 qtwt_type_tag.setIcon(qicon_type_tag)
@@ -366,14 +392,10 @@ class TagsListDialogWindow(QDialog):
                 qtwt_type_tag.setIcon(qicon_type_tag)
             qtwt_type_tag.setText(type_tag)
             # Добавляем виджеты в ячейки таблицы
-            table_widget.setItem(row, 0, qtwt_name_tag)
-            table_widget.setItem(row, 1, qtwt_title_tag)
-            table_widget.setItem(row, 2, qtwt_type_tag)
-            # Настраиваем режимы изменения размера для заголовков
-            header = table_widget.horizontalHeader()
-            header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
-            header.setSectionResizeMode(1, QHeaderView.Stretch)
-            header.setSectionResizeMode(2, QHeaderView.ResizeToContents)
+            table_widget.setItem(row, 0, qtwt_order_tag)
+            table_widget.setItem(row, 1, qtwt_name_tag)
+            table_widget.setItem(row, 2, qtwt_title_tag)
+            table_widget.setItem(row, 3, qtwt_type_tag)
             if editor:
                 # checkbox
                 checkbtn = QCheckBox(text="вкл.")
@@ -383,7 +405,7 @@ class TagsListDialogWindow(QDialog):
                 checkbtn.setChecked(is_checked)
                 # Добавляем значение для сортировки
                 sort_value = "ДА" if is_checked else "НЕТ"
-                table_widget.setItem(row, 3, QTableWidgetItem(sort_value))
+                table_widget.setItem(row, 4, QTableWidgetItem(sort_value))
                 # кнопки
                 edit_button = QPushButton()
                 qicon_edit_button = self.__icons.get("qicon_pen")
@@ -403,12 +425,18 @@ class TagsListDialogWindow(QDialog):
                 layout.setContentsMargins(4, 0, 0, 0)
                 widget = QWidget()
                 widget.setLayout(layout)
-                table_widget.setCellWidget(row, 4, widget)
+                table_widget.setCellWidget(row, 5, widget)
                 # обработчики
                 edit_button.clicked.connect(partial(self.edit_tag, btn=edit_button))
                 delete_button.clicked.connect(
                     partial(self.delete_tag, btn=delete_button, type_table=type_table)
                 )
+        # Настраиваем режимы изменения размера для заголовков
+        header = table_widget.horizontalHeader()
+        header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(1, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(2, QHeaderView.Stretch)
+        header.setSectionResizeMode(3, QHeaderView.ResizeToContents)
         # Включение сортировки
         table_widget.setSortingEnabled(True)
         # Изменение размеров столбцов
@@ -429,7 +457,9 @@ class TagsListDialogWindow(QDialog):
             # обновить таблицу
 
     def edit_tag(self, btn):
-        self.__obs_manager.obj_l.debug_logger(f"TagsListDialogWindow edit_tag(btn):\nbtn = {btn}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"TagsListDialogWindow edit_tag(btn):\nbtn = {btn}"
+        )
         result = self.ned_tag_dw("edit", btn.custom_data)
         # TODO edit_tag - обработать и сохранить изменения в БД
         if result:
@@ -471,9 +501,9 @@ class TagsListDialogWindow(QDialog):
         table_widget_editor = self.get_table_by_parameters(type_table, True)
         row_count = table_widget_editor.rowCount()
         for row in range(row_count):
-            item = table_widget_editor.item(row, 0).data(1001)
+            item = table_widget_editor.item(row, 1).data(1001)
             checked = (
-                table_widget_editor.cellWidget(row, 4).findChild(QCheckBox).isChecked()
+                table_widget_editor.cellWidget(row, 5).findChild(QCheckBox).isChecked()
             )
             if checked:
                 item.pop("_checked")

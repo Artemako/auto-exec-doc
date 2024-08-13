@@ -40,15 +40,19 @@ class MainWindow(QMainWindow):
         # настройка статус бара
         self.__obs_manager.obj_sb.connect_statusbar(self.ui.status_bar)
         # настройка structureexecdoc
-        self.__obs_manager.obj_sed.connect_structureexecdoc(
+        self.__obs_manager.obj_twsed.connect_structureexecdoc(
             self.ui.treewidget_structure_execdoc, self.ui.title_structure_execdoc
         )
         # настройка pagestemplate
-        self.__obs_manager.obj_pt.connect_pages_template(
-            self.ui.listwidget_pages_template, self.ui.title_pages_template
+        self.__obs_manager.obj_lwpt.connect_pages_template(
+            self.ui.listwidget_pages_template
+        )
+        # настройка comboboxtemplates
+        self.__obs_manager.obj_comboxts.connect_combox_templates(
+            self.ui.combox_templates
         )
         # настройка inputforms
-        self.__obs_manager.obj_sai.connect_inputforms(
+        self.__obs_manager.obj_saif.connect_inputforms(
             self.ui.scrollarea_inputforms, self.ui.scrollarea_inputforms_layout
         )
         # ПОДКЛЮЧИТЬ PDF
@@ -151,9 +155,9 @@ class MainWindow(QMainWindow):
         )
         self.__obs_manager.obj_tagsldw.exec()
         # обновить скроллвью после изменения тегов
-        page = self.__obs_manager.obj_pt.get_page_by_current_item()
+        page = self.__obs_manager.obj_lwpt.get_page_by_current_item()
         if page is not None:
-            self.__obs_manager.obj_sai.update_scrollarea(page)
+            self.__obs_manager.obj_saif.update_scrollarea(page)
 
     def edit_templates(self):
         """Редактирование шаблонов."""
@@ -170,7 +174,7 @@ class MainWindow(QMainWindow):
             self.__obs_manager
         )
         self.__obs_manager.obj_nedw.exec()
-        self.__obs_manager.obj_sed.update_structure_exec_doc()
+        self.__obs_manager.obj_twsed.update_structure_exec_doc()
 
     def update_menu_recent_projects(self):
         self.__obs_manager.obj_l.debug_logger(

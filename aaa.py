@@ -35,7 +35,7 @@ class NedPageDialogWindow(QDialog):
         self.ui = nedpagedialogwindow_ui.Ui_NedPageDialogWindow()
         self.ui.setupUi(self)
         #
-        self.__page_filename = str()
+        self.__filename_page = None
         self.__data = {
             "id_parent_template": None,
             "name_page": None,
@@ -48,7 +48,7 @@ class NedPageDialogWindow(QDialog):
         # одноразовые действия
         self.config_by_type_window()
         self.config_combox_neighboor()
-        self.reconfig_tw_tags()
+        self.config_tw_tags()
         self.connecting_actions()
 
     def config_by_type_window(self):
@@ -65,28 +65,32 @@ class NedPageDialogWindow(QDialog):
             self.ui.btn_select.setText("Выбрать новый документ")
             self.ui.btn_open_docx.setEnabled(True)
             self.ui.label_file.setText(self.__page.get("filename_page"))
-            self.__page_filename = self.__page.get("filename_page")
+            self.__filename_page = self.__page.get("filename_page")
             self.ui.btn_nestag.setText("Сохранить страницу")
             self.ui.btn_nestag.setIcon(self.__icons.get("qicon_save"))
             self.ui.lineedit_namepage.setText(self.__page.get("name_page"))
 
+    def config_tw_tags(self):
+        self.__obs_manager.obj_l.debug_logger("NedPageDialogWindow config_tw_tags()")
+        if self.__type_ned == "edit":
+            self.reconfig_tw_tags()
 
     def reconfig_tw_tags(self):
         self.__obs_manager.obj_l.debug_logger("NedPageDialogWindow reconfig_tw_tags()")
-        if self.__type_ned == "edit":
-            tablewidget = self.ui.tw_tags
-            tablewidget.blockSignals(True)
-            tablewidget.clearContents()
-            tablewidget.setRowCount(0)
-            if self.__page_filename:
-                forms_folder_dirpath = self.__obs_manager.obj_dpm.get_forms_folder_dirpath()
-                docx_path = os.path.join(
-                    forms_folder_dirpath, self.__page_filename + ".docx"
-                )
-                jinja_tags = self.extract_jinja_tags(docx_path)
-                if jinja_tags:
-                    self.fill_tw_tags(jinja_tags)
-            tablewidget.blockSignals(False)
+        tablewidget = self.ui.tw_tags
+        tablewidget.blockSignals(True)
+        tablewidget.clearContents()
+        tablewidget.setRowCount(0)
+        filename_page = self.__page.get("filename_page")
+        if filename_page:
+            forms_folder_dirpath = self.__obs_manager.obj_dpm.get_forms_folder_dirpath()
+            docx_path = os.path.join(
+                forms_folder_dirpath, filename_page + ".docx"
+            )
+            jinja_tags = self.extract_jinja_tags(docx_path)
+            if jinja_tags:
+                self.fill_tw_tags(jinja_tags)
+        tablewidget.blockSignals(False)
 
     def fill_tw_tags(self, jinja_tags):
         self.__obs_manager.obj_l.debug_logger(f"NedPageDialogWindow fill_tw_tags(jinja_tags):\njinja_tags = {jinja_tags}")
@@ -140,6 +144,7 @@ class NedPageDialogWindow(QDialog):
         tablewidget.resizeColumnsToContents()
         tablewidget.setEditTriggers(QTableWidget.NoEditTriggers)
         tablewidget.setSelectionMode(QAbstractItemView.NoSelection) 
+        
 
     def get_tag_by_name(self, name_tag) -> dict:
         self.__obs_manager.obj_l.debug_logger(f"NedPageDialogWindow get_tag_by_name(name_tag) -> dict:\nname_tag = {name_tag}")
@@ -246,7 +251,7 @@ class NedPageDialogWindow(QDialog):
             self.ui.label_file.setText(os.path.basename(docx_path))
             #
             file_name = f"docx_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
-            self.__page_filename = file_name
+            self.__page["filename_page"] = file_name
             file_name_with_docx = f"{file_name}.docx"
             # путь к временной папке
             temp_dir = self.__obs_manager.obj_dpm.get_temp_dirpath()
@@ -284,15 +289,15 @@ class NedPageDialogWindow(QDialog):
             "NedPageDialogWindow btn_nestag_clicked()"
         )
         if self.__type_ned == "create":
-            filename_page = self.__page_filename
+            
             namepage = self.ui.lineedit_namepage.text()
-            if len(namepage) > 0 and len(filename_page) > 0:
+            if len(namepage) > 0 and len(self.__filename_page) > 0:
                 self.__data["name_page"] = namepage
-                self.__data["filename_page"] = filename_page
+                self.__data["filename_page"] = self.__filename_page
                 self.accept()
             elif namepage == "":
                 self.__obs_manager.obj_dw.warning_message("Заполните поле названия")
-            elif filename_page is None or len(filename_page) == 0:
+            elif len(self.__filename_page) == 0:
                 self.__obs_manager.obj_dw.warning_message("Выберите документ")
             else:
                 self.__obs_manager.obj_dw.warning_message(

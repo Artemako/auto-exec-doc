@@ -74,13 +74,15 @@ class Project:
     def clear_window_before_new_or_open_project(self):
         self.__obs_manager.obj_l.debug_logger("Project clear_window_before_new_or_open_project()")
         # очистка structureexecdoc
-        self.__obs_manager.obj_sed.clear_sed()
+        self.__obs_manager.obj_twsed.clear_sed()
+        # очистка comboxts
+        self.__obs_manager.obj_comboxts.clear_comboxts()
         # очистка pages_template
-        self.__obs_manager.obj_pt.clear_pt()
+        self.__obs_manager.obj_lwpt.clear_pt()
         # очистка pdfview
         self.__obs_manager.obj_pv.set_empty_pdf_view()
         # очистка inputforms
-        self.__obs_manager.obj_sai.delete_all_widgets_in_sa()
+        self.__obs_manager.obj_saif.delete_all_widgets_in_sa()
     
 
     def config_new_project(self):
@@ -98,7 +100,7 @@ class Project:
         self.__obs_manager.obj_pd.create_and_config_db_project()
         # настраиваем контроллеры
         # настраиваем структуру execdoc
-        self.__obs_manager.obj_sed.update_structure_exec_doc()
+        self.__obs_manager.obj_twsed.update_structure_exec_doc()
         # пути для проекта
         self.__obs_manager.obj_dpm.set_new_dirpaths_for_project()
         # добавляем папки форм в новый проект
@@ -121,11 +123,11 @@ class Project:
         if self.__status_active:
             # сохранить в базу данных
             self.__obs_manager.obj_si.save_data_to_database()
-            if self.__obs_manager.obj_pt.is_page_template_selected():
+            if self.__obs_manager.obj_lwpt.is_page_template_selected():
                 # получить значение высоты страницы
                 saved_view_height = self.__obs_manager.obj_mw.get_view_height()
-                # сохранить в pdf (обработчик ошибок внутри obj_pt)
-                self.__obs_manager.obj_pt.current_page_to_pdf()
+                # сохранить в pdf (обработчик ошибок внутри obj_lwpt)
+                self.__obs_manager.obj_lwpt.current_page_to_pdf()
                 # восстановить высоту страницы
                 self.__obs_manager.obj_mw.set_view_height(saved_view_height)
             # настроить статус
@@ -197,7 +199,7 @@ class Project:
         self.__obs_manager.obj_sd.add_or_update_open_project_to_db()
         self.__obs_manager.obj_pd.create_and_config_db_project()
         # настраиваем структуру execdoc
-        self.__obs_manager.obj_sed.update_structure_exec_doc()
+        self.__obs_manager.obj_twsed.update_structure_exec_doc()
         # пути для проекта
         self.__obs_manager.obj_dpm.set_new_dirpaths_for_project()
 

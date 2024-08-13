@@ -62,6 +62,7 @@ class NodesEditorDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger(
             f"NodesEditorDialogWindow get_text_by_node(node):\nnode = {node}"
         )
+        # TODO подумать про иконки
         text = str()
         if node.get("type_node") == "FORM":
             text = "Ф: " + node.get("name_node")

@@ -11,7 +11,7 @@ import package.components.widgets.forms.formtext as formtext
 from PySide6.QtWidgets import QLabel, QVBoxLayout, QPushButton, QSpacerItem, QSizePolicy
 
 
-class ScroolAreaInput:
+class SAInputForms:
 
     def __init__(self):
         self.__scrollarea_input = None
@@ -19,13 +19,13 @@ class ScroolAreaInput:
     
     def setting_all_obs_manager(self, obs_manager):
         self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger("ScroolAreaInput setting_all_obs_manager()")
+        self.__obs_manager.obj_l.debug_logger("SAInputForms setting_all_obs_manager()")
 
     def connect_inputforms(self, sa_if, sa_ifl):
         """
         Подключить _scrollarea_input и _scrollarea_input_tags
         """
-        self.__obs_manager.obj_l.debug_logger(f"ScroolAreaInput connect_inputforms(sa_if, sa_ifl):\nsa_if = {sa_if},\nsa_ifl = {sa_ifl}")
+        self.__obs_manager.obj_l.debug_logger(f"SAInputForms connect_inputforms(sa_if, sa_ifl):\nsa_if = {sa_if},\nsa_ifl = {sa_ifl}")
         self.__scrollarea_input = sa_if
         self.__scrollarea_input_layout = sa_ifl
 
@@ -33,7 +33,7 @@ class ScroolAreaInput:
         """
         Удаление всех виджетов в self
         """
-        self.__obs_manager.obj_l.debug_logger("ScroolAreaInput delete_all_widgets_in_sa()")
+        self.__obs_manager.obj_l.debug_logger("SAInputForms delete_all_widgets_in_sa()")
 
         layout = self.__scrollarea_input_layout.layout()
         while layout.count():
@@ -48,7 +48,7 @@ class ScroolAreaInput:
         """
         Определение типа/названия секции
         """
-        self.__obs_manager.obj_l.debug_logger(f"ScroolAreaInput get_section_name(section_info):\nsection_info = {section_info}") 
+        self.__obs_manager.obj_l.debug_logger(f"SAInputForms get_section_name(section_info):\nsection_info = {section_info}") 
         section_type = section_info.get("type")
         section_name = None
         if section_type == "page":
@@ -99,7 +99,7 @@ class ScroolAreaInput:
 
     def add_sections_in_sa(self):
         """ """
-        self.__obs_manager.obj_l.debug_logger("ScroolAreaInput add_sections_in_sa()")
+        self.__obs_manager.obj_l.debug_logger("SAInputForms add_sections_in_sa()")
 
         sections_info = self.__obs_manager.obj_si.get_sections_info()
         # перебор секций
@@ -125,7 +125,7 @@ class ScroolAreaInput:
         """
         Обновление self
         """
-        self.__obs_manager.obj_l.debug_logger("ScroolAreaInput update_scrollarea()")
+        self.__obs_manager.obj_l.debug_logger("SAInputForms update_scrollarea()")
         # Очистка всего и вся 
         self.delete_all_widgets_in_sa()        
         # обновить информацию о секциях
@@ -137,4 +137,4 @@ class ScroolAreaInput:
 
 
 
-# obj_sai = ScroolAreaInput()
+# obj_saif = SAInputForms()

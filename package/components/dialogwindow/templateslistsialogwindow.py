@@ -154,6 +154,15 @@ class TemplatesListDialogWindow(QDialog):
         )
         self.ui.lw_templates.currentItemChanged.connect(self.config_pages)
 
+
+    def closeEvent(self, event):
+        self.__obs_manager.obj_l.debug_logger(
+            "TemplatesListDialogWindow closeEvent()"
+        )
+        node = self.__obs_manager.obj_twsed.get_current_node()
+        self.__obs_manager.obj_comboxts.update_combox_templates(node) 
+        self.close()
+
     def resizeEvent(self, event):
         super(TemplatesListDialogWindow, self).resizeEvent(event)
         self.resize_templates_items()

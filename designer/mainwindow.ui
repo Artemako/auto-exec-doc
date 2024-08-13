@@ -51,22 +51,10 @@
        <enum>Qt::Horizontal</enum>
       </property>
       <widget class="QGroupBox" name="gb_left">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>250</width>
-         <height>0</height>
-        </size>
-       </property>
        <property name="title">
         <string>Структура проекта</string>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_8">
+       <layout class="QVBoxLayout" name="verticalLayout_8" stretch="0">
         <item>
          <widget class="QSplitter" name="gb_left_splitter">
           <property name="orientation">
@@ -135,9 +123,19 @@
           <widget class="QWidget" name="verticalLayoutWidget_2">
            <layout class="QVBoxLayout" name="vbl_pages">
             <item>
-             <widget class="QLabel" name="title_pages_template">
+             <widget class="QLabel" name="label_current_template">
               <property name="text">
-               <string>Название шаблона.</string>
+               <string>Шаблон</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="combox_templates"/>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_pages_template">
+              <property name="text">
+               <string>Страницы шаблона</string>
               </property>
              </widget>
             </item>
@@ -181,9 +179,9 @@
         </size>
        </property>
        <property name="title">
-        <string>Текущий результат</string>
+        <string>Результат в режиме реального времени</string>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout">
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="0">
         <item>
          <widget class="QPdfView" name="widget_pdf_view" native="true">
           <property name="styleSheet">
@@ -215,7 +213,7 @@
        <property name="flat">
         <bool>false</bool>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0">
         <item>
          <widget class="QScrollArea" name="scrollarea_inputforms">
           <property name="sizePolicy">
@@ -244,7 +242,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>679</width>
+             <width>261</width>
              <height>643</height>
             </rect>
            </property>

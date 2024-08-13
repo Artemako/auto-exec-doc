@@ -558,12 +558,12 @@ COMMIT;
         conn.commit()
         conn.close()
 
-    def delete_page_data(self, page):
+    def delete_all_page_data(self, page):
         """
         Запрос на удаление данных страницы из Project_pages_data.
         """
         self.__obs_manager.obj_l.debug_logger(
-            f"ProjectDatabase delete_page_data(page): page = {page}"
+            f"ProjectDatabase delete_all_page_data(page): page = {page}"
         )
 
         conn = self.get_conn()
@@ -615,6 +615,7 @@ COMMIT;
             f"ProjectDatabase get_templates() -> list:\nresult = {result}"
         )
         return result
+    
 
     def get_template_data(self, template) -> list:
         """
@@ -637,7 +638,7 @@ COMMIT;
         )
         return result
 
-    def get_node_data(self, node) -> list:
+    def get_node_data(self, node) -> object:
         """
         Запрос на получение данных вершины из Project_nodes_data.
         """
@@ -1289,5 +1290,24 @@ COMMIT;
         conn.commit()
         conn.close()
 
+    def set_active_template_for_node_by_id(self, id_node, id_template):
+        """
+        Установка активного шаблона для вершины.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase set_active_template_for_node_by_id(id_node, id_template):\nid_node = {id_node}\nid_template = {id_template}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        UPDATE Project_nodes
+        SET id_active_template = ?
+        WHERE id_node = ?
+        """,
+            [id_template, id_node],
+        )
+        conn.commit()
+        conn.close()
 
 # obj_pd = ProjectDatabase()
