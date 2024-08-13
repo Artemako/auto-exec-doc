@@ -26,6 +26,8 @@ class NodesEditorDialogWindow(QDialog):
         self.ui = nodeseditordialogwindow_ui.Ui_NodesEditorDialogWindow()
         self.ui.setupUi(self)
         #
+        self.__icons = self.__obs_manager.obj_icons.get_icons()
+        #
         self.reconfig()
         #
         self.connecting_actions()
@@ -58,17 +60,20 @@ class NodesEditorDialogWindow(QDialog):
                 return node
         return None
 
-    def get_text_by_node(self, node):
+    def set_text_and_icon_for_item_by_node(self, item, node):
         self.__obs_manager.obj_l.debug_logger(
-            f"NodesEditorDialogWindow get_text_by_node(node):\nnode = {node}"
+            f"NodesEditorDialogWindow get_text_by_node(item, node):\nitem = {item},\nnode = {node}"
         )
-        # TODO подумать про иконки
-        text = str()
+        # иконки
         if node.get("type_node") == "FORM":
-            text = "Ф: " + node.get("name_node")
+            icon = self.__icons.get("form")
+            icon = item.setIcon(0, icon)
         elif node.get("type_node") == "GROUP":
-            text = "ГР: " + node.get("name_node")
-        return text
+            icon = self.__icons.get("group")
+            icon = item.setIcon(0, icon)
+        # текст
+        text = node.get("name_node")
+        item.setText(0, text)
 
     def dfs(self, parent_node):
         """
@@ -114,7 +119,7 @@ class NodesEditorDialogWindow(QDialog):
         else:
             item = QTreeWidgetItem(self.__nodes_to_items[node.get("id_parent")])
             item.setData(0, Qt.UserRole, node)
-        item.setText(0, self.get_text_by_node(node))
+        self.set_text_and_icon_for_item_by_node(item, node)
         self.__nodes_to_items[node.get("id_node")] = item
 
     def connecting_actions(self):

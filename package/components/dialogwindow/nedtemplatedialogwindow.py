@@ -40,7 +40,7 @@ class NedTemplateDialogWindow(QDialog):
         if self.__type_ned == "create":
             self.ui.label_nametemplate.setText("Название нового шаблона")
             self.ui.btn_nestag.setText("Добавить шаблон")
-            self.ui.btn_nestag.setIcon(self.__icons.get("qicon_add"))
+            self.ui.btn_nestag.setIcon(self.__icons.get("add"))
             # предложение включено
             self.ui.label_copyfrom.setEnabled(True)
             self.ui.combox_templates.setEnabled(True)
@@ -50,7 +50,7 @@ class NedTemplateDialogWindow(QDialog):
             self.ui.label_nametemplate.setText("Название шаблона")
             self.ui.lineedit_nametemplate.setText(self.__template.get("name_template"))
             self.ui.btn_nestag.setText("Сохранить шаблон")
-            self.ui.btn_nestag.setIcon(self.__icons.get("qicon_save"))
+            self.ui.btn_nestag.setIcon(self.__icons.get("save"))
             # предложение отключено
             self.ui.label_copyfrom.setEnabled(False)
             self.ui.combox_templates.setEnabled(False)

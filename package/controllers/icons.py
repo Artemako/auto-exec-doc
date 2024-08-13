@@ -20,25 +20,29 @@ class Icons:
         else:
             icons = dict()
             # типы тэгов
-            icons["qicon_text"] = QIcon(":/icons/resources/icons/text.svg")
-            icons["qicon_date"] = QIcon(":/icons/resources/icons/calendar.svg")
-            icons["qicon_table"] = QIcon(":/icons/resources/icons/table.svg")
-            icons["qicon_image"] = QIcon(":/icons/resources/icons/picture.svg")
+            icons["text"] = QIcon(":/icons/resources/icons/text.svg")
+            icons["date"] = QIcon(":/icons/resources/icons/calendar.svg")
+            icons["table"] = QIcon(":/icons/resources/icons/table.svg")
+            icons["image"] = QIcon(":/icons/resources/icons/picture.svg")
             # прочее
-            icons["qicon_save"] = QIcon(":/icons/resources/icons/save.svg")
-            icons["qicon_close"] = QIcon(":/icons/resources/icons/close.svg")
-            icons["qicon_add"] = QIcon(":/icons/resources/icons/plus.svg")
+            icons["save"] = QIcon(":/icons/resources/icons/save.svg")
+            icons["close"] = QIcon(":/icons/resources/icons/close.svg")
+            icons["add"] = QIcon(":/icons/resources/icons/plus.svg")
             # круги 
-            icons["qicon_red_circle"] = QIcon(":/icons/resources/icons/red-circle.svg")
-            icons["qicon_yellow_circle"] = QIcon(":/icons/resources/icons/yellow-circle.svg")
-            icons["qicon_green_circle"] = QIcon(":/icons/resources/icons/green-circle.svg")
+            icons["red_circle"] = QIcon(":/icons/resources/icons/red-circle.svg")
+            icons["yellow_circle"] = QIcon(":/icons/resources/icons/yellow-circle.svg")
+            icons["green_circle"] = QIcon(":/icons/resources/icons/green-circle.svg")
             # word, libreoffice
-            icons["qicon_libreoffice"] = QIcon(":/icons/resources/icons/libreoffice.svg")
-            icons["qicon_msword"] = QIcon(":/icons/resources/icons/msword.svg")
+            icons["libreoffice"] = QIcon(":/icons/resources/icons/libreoffice.svg")
+            icons["msword"] = QIcon(":/icons/resources/icons/msword.svg")
             # ручка и корзина
-            icons["qicon_pen"] = QIcon(":/icons/resources/icons/pen.svg")
-            icons["qicon_trash"] = QIcon(":/icons/resources/icons/trash.svg")
-
+            icons["pen"] = QIcon(":/icons/resources/icons/pen.svg")
+            icons["trash"] = QIcon(":/icons/resources/icons/trash.svg")
+            # группа и форма
+            icons["form"] = QIcon(":/icons/resources/icons/file-text.svg")
+            icons["group"] = QIcon(":/icons/resources/icons/folder.svg")
+            # страница
+            icons["page"] = QIcon(":/icons/resources/icons/page.svg")
             #
             for key, elem in icons.items():
                 icons[key] = elem.pixmap(QSize(size, size))

@@ -11,6 +11,7 @@
     <file>resources/icons/text.svg</file>
     <file>resources/icons/trash.svg</file>
     <file>resources/icons/add-file.svg</file>
+    <file>resources/icons/page.svg</file>
     <file>resources/icons/export.svg</file>
     <file>resources/icons/open.svg</file>
     <file>resources/icons/save.svg</file>
@@ -26,6 +27,8 @@
     <file>resources/icons/pen.svg</file>
     <file>resources/icons/calendar.svg</file>
     <file>resources/icons/zoom-in.svg</file>
+    <file>resources/icons/file-text.svg</file>
+    <file>resources/icons/folder.svg</file>
     <file>resources/icons/zoom-out.svg</file>
   </qresource>
 </RCC>

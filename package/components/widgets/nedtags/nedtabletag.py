@@ -44,7 +44,7 @@ class NedTableTag(QWidget):
         self.ui.btn_addrowcol.clicked.connect(self.btn_addrowcol_clicked)
 
     def btn_addrowcol_clicked(self):
-        # TODO btn_addrowcol_clicked
+        # TODO btn_addrowcol_clicked (окно добавления/изменения)
         ...
 
     def config_combox_typetable(self):

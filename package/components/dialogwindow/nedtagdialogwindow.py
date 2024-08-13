@@ -134,11 +134,11 @@ class NedTagDialogWindow(QDialog):
         )
         if self.__type_window == "create":
             self.ui.btn_nestag.setText("Добавить тэг")
-            self.ui.btn_nestag.setIcon(self.__icons.get("qicon_add"))
+            self.ui.btn_nestag.setIcon(self.__icons.get("add"))
 
         elif self.__type_window == "edit":
             self.ui.btn_nestag.setText("Сохранить тэг")
-            self.ui.btn_nestag.setIcon(self.__icons.get("qicon_save"))
+            self.ui.btn_nestag.setIcon(self.__icons.get("save"))
 
     def config_maindata(self):
         self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow fill_maindata()")
@@ -155,10 +155,10 @@ class NedTagDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow get_tag_types()")
         # tag_types
         tag_types = [
-            TagType(0, "Текст", "TEXT", self.__icons.get("qicon_text")),
-            TagType(1, "Дата", "DATE", self.__icons.get("qicon_date")),
-            TagType(2, "Таблица", "TABLE", self.__icons.get("qicon_table")),
-            TagType(3, "Изображение", "IMAGE", self.__icons.get("qicon_image")),
+            TagType(0, "Текст", "TEXT", self.__icons.get("text")),
+            TagType(1, "Дата", "DATE", self.__icons.get("date")),
+            TagType(2, "Таблица", "TABLE", self.__icons.get("table")),
+            TagType(3, "Изображение", "IMAGE", self.__icons.get("image")),
         ]
         return tag_types
 

@@ -64,7 +64,7 @@ class StatusBar:
         self.config_update_statusbar()
 
     def get_red_circle(self) -> QLabel:
-        icon = self.__icons_8.get("qicon_red_circle")
+        icon = self.__icons_8.get("red_circle")
         label = QLabel()
         label.setPixmap(icon)
         self.__obs_manager.obj_l.debug_logger(
@@ -73,7 +73,7 @@ class StatusBar:
         return label
 
     def get_yellow_circle(self) -> QLabel:
-        icon = self.__icons_8.get("qicon_yellow_circle")
+        icon = self.__icons_8.get("yellow_circle")
         label = QLabel()
         label.setPixmap(icon)
         self.__obs_manager.obj_l.debug_logger(
@@ -82,7 +82,7 @@ class StatusBar:
         return label
 
     def get_green_circle(self) -> QLabel:
-        icon = self.__icons_8.get("qicon_green_circle")
+        icon = self.__icons_8.get("green_circle")
         label = QLabel()
         label.setPixmap(icon)
         self.__obs_manager.obj_l.debug_logger(
@@ -94,7 +94,7 @@ class StatusBar:
         self.__obs_manager.obj_l.debug_logger("StatusBar config_msword()")
         layout = QHBoxLayout()
         # иконка приложения
-        icon = self.__icons_16.get("qicon_msword")
+        icon = self.__icons_16.get("msword")
         label = QLabel()
         label.setPixmap(icon)
         layout.addWidget(label)
@@ -115,7 +115,7 @@ class StatusBar:
         self.__obs_manager.obj_l.debug_logger("StatusBar config_libreoffice()")
         layout = QHBoxLayout()
         # иконка приложения
-        icon = self.__icons_16.get("qicon_libreoffice")
+        icon = self.__icons_16.get("libreoffice")
         label = QLabel()
         label.setPixmap(icon)
         layout.addWidget(label)

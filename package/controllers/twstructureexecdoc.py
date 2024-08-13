@@ -6,6 +6,7 @@ class TWStructureExecDoc:
     def __init__(self):
         self.__tw = None
         self.__title_sed = None
+        self.__icons = None
         self.__nodes_to_items = dict()
         self.__expanded_states = dict()
 
@@ -14,6 +15,7 @@ class TWStructureExecDoc:
         self.__obs_manager.obj_l.debug_logger(
             "TWStructureExecDoc setting_all_obs_manager()"
         )
+
 
     def connect_structureexecdoc(self, tr_sed, title_sed):
         """
@@ -24,6 +26,7 @@ class TWStructureExecDoc:
         )
         self.__tw = tr_sed
         self.__title_sed = title_sed
+        self.__icons = self.__obs_manager.obj_icons.get_icons()
         # Очистить при запуске
         self.clear_sed()
 
@@ -116,7 +119,7 @@ class TWStructureExecDoc:
         # добавляем вершину
         item = self.add_item_in_tree_widget(node)
         # текст в зависимости от типа
-        self.set_text_for_item(item, node)
+        self.set_text_and_icon_for_item_by_node(item, node)
         # раскрытие вершины
         self.set_expanded_for_item(item, node)
         # С галочкой по умолчанию
@@ -137,17 +140,21 @@ class TWStructureExecDoc:
             item.setData(0, Qt.UserRole, node)
         return item
 
-    def set_text_for_item(self, item, node):
+
+    def set_text_and_icon_for_item_by_node(self, item, node):
         self.__obs_manager.obj_l.debug_logger(
-            f"TWStructureExecDoc set_text_for_item(item, node):\nitem = {item},\nnode = {node}"
+            f"TWStructureExecDoc get_text_by_node(item, node):\nitem = {item},\nnode = {node}"
         )
-        name_node = node.get("name_node")
+        # иконки
         if node.get("type_node") == "FORM":
-            item.setText(0, "Ф: " + name_node)
+            icon = self.__icons.get("form")
+            icon = item.setIcon(0, icon)
         elif node.get("type_node") == "GROUP":
-            item.setText(0, "ГР: " + name_node)
-        else:
-            item.setText(0, name_node)
+            icon = self.__icons.get("group")
+            icon = item.setIcon(0, icon)
+        # текст
+        text = node.get("name_node")
+        item.setText(0, text)
 
     def set_expanded_for_item(self, item, node):
         self.__obs_manager.obj_l.debug_logger(

@@ -16,42 +16,46 @@ class MyListWidgetItem(QListWidgetItem):
 
 class LWPagesTemplate:
     def __init__(self):
-        self.__listwidget_pages_template = None
+        self.__lw_pages_template = None
         self.__title_pt = None
+        self.__icons = None
 
     def setting_all_obs_manager(self, obs_manager):
         self.__obs_manager = obs_manager
         self.__obs_manager.obj_l.debug_logger("LWPagesTemplate setting_all_obs_manager()")
 
+    def connect_pages_template(self, lw_pt):
+        """
+        Подключить _lw_pages_template.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"LWPagesTemplate connect_pages_template(lw_pt):\nlw_pt = {lw_pt}"
+        )
+        self.__lw_pages_template = lw_pt
+        self.__icons = self.__obs_manager.obj_icons.get_icons()
+        self.clear_pt()
+
+        # Подключение сигналов
+        self.__lw_pages_template.itemClicked.connect(
+            lambda current: self.item_page_updated(current)
+        )
+
     def is_page_template_selected(self):
         self.__obs_manager.obj_l.debug_logger(
-            "LWPagesTemplate get_listwidget_pages_template()"
+            "LWPagesTemplate get_lw_pages_template()"
         )
-        return self.__listwidget_pages_template.currentItem()
+        return self.__lw_pages_template.currentItem()
 
     def get_page_by_current_item(self):
         self.__obs_manager.obj_l.debug_logger(
             "LWPagesTemplate get_page_by_current_item()"
         )
-        current = self.__listwidget_pages_template.currentItem()
+        current = self.__lw_pages_template.currentItem()
         if current is None:
             return None
         return current.get_page()
 
-    def connect_pages_template(self, lw_pt):
-        """
-        Подключить _listwidget_pages_template.
-        """
-        self.__obs_manager.obj_l.debug_logger(
-            f"LWPagesTemplate connect_pages_template(lw_pt):\nlw_pt = {lw_pt}"
-        )
-        self.__listwidget_pages_template = lw_pt
-        self.clear_pt()
 
-        # Подключение сигналов
-        self.__listwidget_pages_template.itemClicked.connect(
-            lambda current: self.item_page_updated(current)
-        )
 
     def item_page_updated(self, current):
         """
@@ -99,33 +103,34 @@ class LWPagesTemplate:
 
     def current_page_to_pdf(self):
         self.__obs_manager.obj_l.debug_logger("LWPagesTemplate IN current_page_to_pdf()")
-        current = self.__listwidget_pages_template.currentItem()
+        current = self.__lw_pages_template.currentItem()
         page = current.get_page()
         self.create_and_view_current_page(page)
 
     def clear_pt(self):
         self.__obs_manager.obj_l.debug_logger("LWPagesTemplate clear_pt()")
-        self.__listwidget_pages_template.blockSignals(True)  
-        self.__listwidget_pages_template.clear()
-        self.__listwidget_pages_template.blockSignals(False)  
+        self.__lw_pages_template.blockSignals(True)  
+        self.__lw_pages_template.clear()
+        self.__lw_pages_template.blockSignals(False)  
 
     def update_pages_template(self, template):
         """
-        Обновить _listwidget_pages_template.
+        Обновить _lw_pages_template.
         """
         self.__obs_manager.obj_l.debug_logger(
             f"LWPagesTemplate update_pages_template(template):\ntemplate = {template}"
         )
         self.clear_pt()
-        self.__listwidget_pages_template.blockSignals(True)   
+        self.__lw_pages_template.blockSignals(True)   
         if template:     
             pages = self.__obs_manager.obj_pd.get_pages_by_template(template)
             for page in pages:
                 print(f"page = {page}")
                 item = MyListWidgetItem(page)
                 item.setText(page.get("name_page"))
-                self.__listwidget_pages_template.addItem(item)
-        self.__listwidget_pages_template.blockSignals(False)
+                item.setIcon(self.__icons.get("page"))
+                self.__lw_pages_template.addItem(item)
+        self.__lw_pages_template.blockSignals(False)
 
 
 # obj_lwpt = LWPagesTemplate()

@@ -9,16 +9,13 @@ from PySide6.QtWidgets import (
     QWidget,
     QHeaderView,
 )
-from PySide6.QtGui import QIcon
-from PySide6.QtCore import QSize, Qt
+from PySide6.QtCore import Qt
 
 from functools import partial
 
 import package.components.dialogwindow.nedtagdialogwindow as nedtagdialogwindow
 
 import package.ui.tagslistdialogwindow_ui as tagslistdialogwindow_ui
-
-import resources_rc
 
 
 class Obj:
@@ -221,9 +218,7 @@ class TagsListDialogWindow(QDialog):
             for pair in node_data:
                 data.append(self.__obs_manager.obj_pd.get_tag_by_id(pair.get("id_tag")))
             print(f"data = {data}")
-
         elif type_table == "group_tags":
-            # TODO ???
             group_node = self.ui.combox_groups.currentData()
             node_data = self.__obs_manager.obj_pd.get_node_data(group_node)
             for pair in node_data:
@@ -344,7 +339,6 @@ class TagsListDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger(
             f"TagsListDialogWindow clear_and_fill_table(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}"
         )
-        # TODO кнопки вверх и вниз
         # заполнение таблицы
         table_widget = self.get_table_by_parameters(type_table, editor)
         table_widget.setSortingEnabled(False)
@@ -379,16 +373,16 @@ class TagsListDialogWindow(QDialog):
             qtwt_type_tag = QTableWidgetItem(type_tag)
             #
             if type_tag == "TEXT":
-                qicon_type_tag = self.__icons.get("qicon_text")
+                qicon_type_tag = self.__icons.get("text")
                 qtwt_type_tag.setIcon(qicon_type_tag)
             elif type_tag == "DATE":
-                qicon_type_tag = self.__icons.get("qicon_date")
+                qicon_type_tag = self.__icons.get("date")
                 qtwt_type_tag.setIcon(qicon_type_tag)
             elif type_tag == "TABLE":
-                qicon_type_tag = self.__icons.get("qicon_table")
+                qicon_type_tag = self.__icons.get("table")
                 qtwt_type_tag.setIcon(qicon_type_tag)
             elif type_tag == "IMAGE":
-                qicon_type_tag = self.__icons.get("qicon_table")
+                qicon_type_tag = self.__icons.get("table")
                 qtwt_type_tag.setIcon(qicon_type_tag)
             qtwt_type_tag.setText(type_tag)
             # Добавляем виджеты в ячейки таблицы
@@ -408,11 +402,11 @@ class TagsListDialogWindow(QDialog):
                 table_widget.setItem(row, 4, QTableWidgetItem(sort_value))
                 # кнопки
                 edit_button = QPushButton()
-                qicon_edit_button = self.__icons.get("qicon_pen")
+                qicon_edit_button = self.__icons.get("pen")
                 edit_button.setIcon(qicon_edit_button)
                 #
                 delete_button = QPushButton()
-                qicon_delete_button = self.__icons.get("qicon_trash")
+                qicon_delete_button = self.__icons.get("trash")
                 delete_button.setIcon(qicon_delete_button)
                 #
                 edit_button.custom_data = item

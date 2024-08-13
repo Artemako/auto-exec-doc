@@ -60,14 +60,14 @@ class NedPageDialogWindow(QDialog):
             self.ui.btn_open_docx.setEnabled(False)
             self.ui.label_file.setText("Файл не выбран")
             self.ui.btn_nestag.setText("Добавить страницу")
-            self.ui.btn_nestag.setIcon(self.__icons.get("qicon_add"))
+            self.ui.btn_nestag.setIcon(self.__icons.get("add"))
         elif self.__type_ned == "edit":
             self.ui.btn_select.setText("Выбрать новый документ")
             self.ui.btn_open_docx.setEnabled(True)
             self.ui.label_file.setText(self.__page.get("filename_page"))
             self.__page_filename = self.__page.get("filename_page")
             self.ui.btn_nestag.setText("Сохранить страницу")
-            self.ui.btn_nestag.setIcon(self.__icons.get("qicon_save"))
+            self.ui.btn_nestag.setIcon(self.__icons.get("save"))
             self.ui.lineedit_namepage.setText(self.__page.get("name_page"))
 
 

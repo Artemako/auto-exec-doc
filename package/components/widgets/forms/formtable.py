@@ -33,7 +33,6 @@ class FormTable(QWidget):
         # ОСОБЕННОСТИ из self.config_dict
         labels = []
         # content = []
-        # TODO
         headers = self.__config_dict.get("HEADERS")
         for header in headers:
             value_header = header.get("VALUE")

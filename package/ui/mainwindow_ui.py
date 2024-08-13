@@ -173,14 +173,14 @@ class Ui_MainWindow(object):
 
         self.vbl_pages.addWidget(self.label_pages_template)
 
-        self.listwidget_pages_template = QListWidget(self.verticalLayoutWidget_2)
-        __qlistwidgetitem = QListWidgetItem(self.listwidget_pages_template)
+        self.lw_pages_template = QListWidget(self.verticalLayoutWidget_2)
+        __qlistwidgetitem = QListWidgetItem(self.lw_pages_template)
         __qlistwidgetitem.setCheckState(Qt.Checked);
-        __qlistwidgetitem1 = QListWidgetItem(self.listwidget_pages_template)
+        __qlistwidgetitem1 = QListWidgetItem(self.lw_pages_template)
         __qlistwidgetitem1.setCheckState(Qt.Checked);
-        self.listwidget_pages_template.setObjectName(u"listwidget_pages_template")
+        self.lw_pages_template.setObjectName(u"lw_pages_template")
 
-        self.vbl_pages.addWidget(self.listwidget_pages_template)
+        self.vbl_pages.addWidget(self.lw_pages_template)
 
         self.gb_left_splitter.addWidget(self.verticalLayoutWidget_2)
 
@@ -349,13 +349,13 @@ class Ui_MainWindow(object):
         self.label_current_template.setText(QCoreApplication.translate("MainWindow", u"\u0428\u0430\u0431\u043b\u043e\u043d", None))
         self.label_pages_template.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0442\u0440\u0430\u043d\u0438\u0446\u044b \u0448\u0430\u0431\u043b\u043e\u043d\u0430", None))
 
-        __sortingEnabled1 = self.listwidget_pages_template.isSortingEnabled()
-        self.listwidget_pages_template.setSortingEnabled(False)
-        ___qlistwidgetitem = self.listwidget_pages_template.item(0)
+        __sortingEnabled1 = self.lw_pages_template.isSortingEnabled()
+        self.lw_pages_template.setSortingEnabled(False)
+        ___qlistwidgetitem = self.lw_pages_template.item(0)
         ___qlistwidgetitem.setText(QCoreApplication.translate("MainWindow", u"\u041b\u0438\u0441\u0442 1", None));
-        ___qlistwidgetitem1 = self.listwidget_pages_template.item(1)
+        ___qlistwidgetitem1 = self.lw_pages_template.item(1)
         ___qlistwidgetitem1.setText(QCoreApplication.translate("MainWindow", u"\u041b\u0438\u0441\u0442 2", None));
-        self.listwidget_pages_template.setSortingEnabled(__sortingEnabled1)
+        self.lw_pages_template.setSortingEnabled(__sortingEnabled1)
 
         self.gb_center.setTitle(QCoreApplication.translate("MainWindow", u"\u0420\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442 \u0432 \u0440\u0435\u0436\u0438\u043c\u0435 \u0440\u0435\u0430\u043b\u044c\u043d\u043e\u0433\u043e \u0432\u0440\u0435\u043c\u0435\u043d\u0438", None))
         self.gb_right.setTitle(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u043e\u0434 ", None))

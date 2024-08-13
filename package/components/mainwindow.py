@@ -45,7 +45,7 @@ class MainWindow(QMainWindow):
         )
         # настройка pagestemplate
         self.__obs_manager.obj_lwpt.connect_pages_template(
-            self.ui.listwidget_pages_template
+            self.ui.lw_pages_template
         )
         # настройка comboboxtemplates
         self.__obs_manager.obj_comboxts.connect_combox_templates(
