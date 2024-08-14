@@ -31,4 +31,45 @@
     <file>resources/icons/folder.svg</file>
     <file>resources/icons/zoom-out.svg</file>
   </qresource>
+  <qresource prefix="style-png">
+    <file>resources/style-png/up_arrow_disabled.png</file>
+    <file>resources/style-png/Hmovetoolbar.png</file>
+    <file>resources/style-png/stylesheet-branch-end.png</file>
+    <file>resources/style-png/branch_closed-on.png</file>
+    <file>resources/style-png/stylesheet-vline.png</file>
+    <file>resources/style-png/branch_closed.png</file>
+    <file>resources/style-png/branch_open-on.png</file>
+    <file>resources/style-png/transparent.png</file>
+    <file>resources/style-png/right_arrow_disabled.png</file>
+    <file>resources/style-png/sizegrip.png</file>
+    <file>resources/style-png/close.png</file>
+    <file>resources/style-png/close-hover.png</file>
+    <file>resources/style-png/close-pressed.png</file>
+    <file>resources/style-png/down_arrow.png</file>
+    <file>resources/style-png/Vmovetoolbar.png</file>
+    <file>resources/style-png/left_arrow.png</file>
+    <file>resources/style-png/stylesheet-branch-more.png</file>
+    <file>resources/style-png/up_arrow.png</file>
+    <file>resources/style-png/right_arrow.png</file>
+    <file>resources/style-png/left_arrow_disabled.png</file>
+    <file>resources/style-png/Hsepartoolbar.png</file>
+    <file>resources/style-png/branch_open.png</file>
+    <file>resources/style-png/Vsepartoolbar.png</file>
+    <file>resources/style-png/down_arrow_disabled.png</file>
+    <file>resources/style-png/undock.png</file>
+    <file>resources/style-png/checkbox_checked_disabled.png</file>
+    <file>resources/style-png/checkbox_checked_focus.png</file>
+    <file>resources/style-png/checkbox_checked.png</file>
+    <file>resources/style-png/checkbox_indeterminate.png</file>
+    <file>resources/style-png/checkbox_indeterminate_focus.png</file>
+    <file>resources/style-png/checkbox_unchecked_disabled.png</file>
+    <file>resources/style-png/checkbox_unchecked_focus.png</file>
+    <file>resources/style-png/checkbox_unchecked.png</file>
+    <file>resources/style-png/radio_checked_disabled.png</file>
+    <file>resources/style-png/radio_checked_focus.png</file>
+    <file>resources/style-png/radio_checked.png</file>
+    <file>resources/style-png/radio_unchecked_disabled.png</file>
+    <file>resources/style-png/radio_unchecked_focus.png</file>
+    <file>resources/style-png/radio_unchecked.png</file>
+  </qresource>
 </RCC>

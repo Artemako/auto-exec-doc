@@ -1,5 +1,5 @@
-from PySide6.QtWidgets import QDialog
-from PySide6.QtCore import QTimer, QSize
+
+from PySide6.QtCore import QSize
 from PySide6.QtGui import QIcon
 
 import resources_rc

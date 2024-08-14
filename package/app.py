@@ -25,7 +25,7 @@ import package.controllers.twstructureexecdoc as twstructureexecdoc
 import package.controllers.comboxtemplates as comboxtemplates
 
 # Импорт всех components
-import package.components.style as style
+import package.controllers.style as style
 import package.components.dialogwindow.dialogwindows as dialogwindows
 
 class ObjectsManager:
