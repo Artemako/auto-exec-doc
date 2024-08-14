@@ -34,6 +34,8 @@ class NedPageDialogWindow(QDialog):
         super(NedPageDialogWindow, self).__init__()
         self.ui = nedpagedialogwindow_ui.Ui_NedPageDialogWindow()
         self.ui.setupUi(self)
+        # СТИЛЬ
+        self.__obs_manager.obj_style.set_style_for(self)
         #
         self.__page_filename = str()
         self.__data = {

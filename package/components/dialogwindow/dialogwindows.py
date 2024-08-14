@@ -7,6 +7,7 @@ from PySide6.QtCore import Qt
 class DialogWindows:
 
     def __init__(self):
+        self.__dw = None
         pass
 
     def setting_all_obs_manager(self, obs_manager):
@@ -16,17 +17,17 @@ class DialogWindows:
         """Диалоговое окно 'Вы не сохранили текущий проект. Сохранить?'."""
 
         self.__obs_manager.obj_l.debug_logger("DialogWindows save_active_project() -> str")
+        self.__dw = QMessageBox()
+        self.__obs_manager.obj_style.set_style_for(self)
+        self.__dw.setWindowTitle("Сохранение текущего проекта")
+        self.__dw.setText("Вы не сохранили текущий проект. Сохранить?")
+        self.__dw.setIcon(QMessageBox.Warning)
 
-        dialogwindow = QMessageBox()
-        dialogwindow.setWindowTitle("Сохранение текущего проекта")
-        dialogwindow.setText("Вы не сохранили текущий проект. Сохранить?")
-        dialogwindow.setIcon(QMessageBox.Warning)
-
-        dialogwindow.setStandardButtons(
+        self.__dw.setStandardButtons(
             QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel
         )
 
-        return_value = dialogwindow.exec()
+        return_value = self.__dw.exec()
 
         self.__obs_manager.obj_l.debug_logger(f"DialogWindows save_active_project() -> return_value = {return_value}")
 
@@ -42,12 +43,13 @@ class DialogWindows:
 
         self.__obs_manager.obj_l.debug_logger("DialogWindows select_empty_folder()")
 
-        dialogwindow = QMessageBox()
-        dialogwindow.setWindowTitle("Ошибка")
-        dialogwindow.setText("Пожалуйста, выберите пустую папку.")
-        dialogwindow.setIcon(QMessageBox.Critical)
+        self.__dw = QMessageBox()
+        self.__obs_manager.obj_style.set_style_for(self)
+        self.__dw.setWindowTitle("Ошибка")
+        self.__dw.setText("Пожалуйста, выберите пустую папку.")
+        self.__dw.setIcon(QMessageBox.Critical)
 
-        dialogwindow.exec()
+        self.__dw.exec()
 
     
     def select_folder_for_new_project(self) -> str:
@@ -167,34 +169,37 @@ class DialogWindows:
         """Диалоговое окно 'Предупреждение'."""
 
         self.__obs_manager.obj_l.debug_logger(f"DialogWindows warning_message(message: str):\nmessage = {message}") 
-        dialogwindow = QMessageBox()
-        dialogwindow.setWindowTitle("Предупреждение")
-        dialogwindow.setText(message)
-        dialogwindow.setIcon(QMessageBox.Warning)
-        response = dialogwindow.exec()
+        self.__dw = QMessageBox()
+        self.__obs_manager.obj_style.set_style_for(self)
+        self.__dw.setWindowTitle("Предупреждение")
+        self.__dw.setText(message)
+        self.__dw.setIcon(QMessageBox.Warning)
+        response = self.__dw.exec()
         return response
 
     def error_message(self, message: str):
         """Диалоговое окно 'Ошибка'."""
 
         self.__obs_manager.obj_l.debug_logger(f"DialogWindows error_message(message: str):\nmessage = {message}") 
-        dialogwindow = QMessageBox()
-        dialogwindow.setWindowTitle("Ошибка")
-        dialogwindow.setText(message)
-        dialogwindow.setIcon(QMessageBox.Critical)
-        response = dialogwindow.exec()
+        self.__dw = QMessageBox()
+        self.__obs_manager.obj_style.set_style_for(self)
+        self.__dw.setWindowTitle("Ошибка")
+        self.__dw.setText(message)
+        self.__dw.setIcon(QMessageBox.Critical)
+        response = self.__dw.exec()
         return response
 
     def question_message(self, message: str):
         """Диалоговое окно 'Вопрос'."""
 
         self.__obs_manager.obj_l.debug_logger(f"DialogWindows question_message(message: str):\nmessage = {message}") 
-        dialogwindow = QMessageBox()
-        dialogwindow.setWindowTitle("Вопрос")
-        dialogwindow.setText(message)
-        dialogwindow.setIcon(QMessageBox.Question)
-        dialogwindow.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
-        response = dialogwindow.exec()
+        self.__dw = QMessageBox()
+        self.__obs_manager.obj_style.set_style_for(self)
+        self.__dw.setWindowTitle("Вопрос")
+        self.__dw.setText(message)
+        self.__dw.setIcon(QMessageBox.Question)
+        self.__dw.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+        response = self.__dw.exec()
         if response == QMessageBox.Yes:
             return True
         elif response == QMessageBox.No:

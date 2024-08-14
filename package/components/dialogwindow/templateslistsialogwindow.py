@@ -19,6 +19,8 @@ class TemplatesListDialogWindow(QDialog):
         super(TemplatesListDialogWindow, self).__init__()
         self.ui = templateslistsialogwindow_ui.Ui_TemplatesListDialogWindow()
         self.ui.setupUi(self)
+        # СТИЛЬ
+        self.__obs_manager.obj_style.set_style_for(self)
         #
         self.__templates = []
         self.__pages = []

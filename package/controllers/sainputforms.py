@@ -106,7 +106,7 @@ class SAInputForms:
         for section_info in sections_info:
             section_name = self.get_section_name(section_info)
             # Создание секции виджета
-            section = customsection.Section(section_name)
+            section = customsection.Section(self.__obs_manager, section_name)
             section_layout = QVBoxLayout()
             # data секции
             section_data = section_info.get("data")

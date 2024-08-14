@@ -18,6 +18,8 @@ class FormDate(QWidget):
         super(FormDate, self).__init__()
         self.ui = formdate_ui.Ui_FormDateWidget()
         self.ui.setupUi(self)
+        # СТИЛЬ
+        self.__obs_manager.obj_style.set_style_for(self)
         #
         self.__str_format = "dd.MM.yyyy"
         #

@@ -13,7 +13,9 @@ class FormText(QWidget):
         super(FormText, self).__init__()
         self.ui = formtext_ui.Ui_FormTextWidget()
         self.ui.setupUi(self)
-
+        # СТИЛЬ
+        self.__obs_manager.obj_style.set_style_for(self)
+        
         # заголовок
         self.ui.title.setText(current_tag.get('title_tag'))
         # поле ввода

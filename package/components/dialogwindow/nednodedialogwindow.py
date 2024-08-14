@@ -23,6 +23,8 @@ class NedNodeDialogWindow(QDialog):
         super(NedNodeDialogWindow, self).__init__()
         self.ui = nednodedialogwindow_ui.Ui_NedNodeDialogWindow()
         self.ui.setupUi(self)
+        # СТИЛЬ
+        self.__obs_manager.obj_style.set_style_for(self)
         #
         self.__data = []
         # одноразовые действия

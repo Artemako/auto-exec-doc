@@ -18,6 +18,8 @@ class NedTableTag(QWidget):
         super(NedTableTag, self).__init__()
         self.ui = nedtabletag_ui.Ui_NedTableTag()
         self.ui.setupUi(self)
+        # СТИЛЬ
+        self.__obs_manager.obj_style.set_style_for(self)
         #
         self.__config_tag = self.__tag.get("config_tag")
         self.__config_dict = dict()

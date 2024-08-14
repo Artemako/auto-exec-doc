@@ -29,6 +29,8 @@ class NedTagDialogWindow(QDialog):
         super(NedTagDialogWindow, self).__init__()
         self.ui = nedtagdialogwindow_ui.Ui_NedTagDialogWindow()
         self.ui.setupUi(self)
+        # СТИЛЬ
+        self.__obs_manager.obj_style.set_style_for(self)
         # одноразовые действия
         self.__additional_widget = None
         self.__data = None

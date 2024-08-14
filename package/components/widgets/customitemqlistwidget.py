@@ -15,6 +15,8 @@ class CustomItemQListWidget(QWidget):
         super(CustomItemQListWidget, self).__init__()
         self.ui = customitemqlistwidget_ui.Ui_CustomItemQListWidget()
         self.ui.setupUi(self)
+        # СТИЛЬ
+        self.__obs_manager.obj_style.set_style_for(self)
         # конфигурация
         self.config()
         # # подключаем деействия

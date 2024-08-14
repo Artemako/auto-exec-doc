@@ -228,7 +228,7 @@ class Ui_MainWindow(object):
         self.scrollarea_inputforms_layout = QWidget()
         self.scrollarea_inputforms_layout.setObjectName(u"scrollarea_inputforms_layout")
         self.scrollarea_inputforms_layout.setGeometry(QRect(0, 0, 261, 643))
-        self.scrollarea_inputforms_layout.setMouseTracking(False)
+        self.scrollarea_inputforms_layout.setMouseTracking(True)
         self.verticalLayout_5 = QVBoxLayout(self.scrollarea_inputforms_layout)
         self.verticalLayout_5.setSpacing(6)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")

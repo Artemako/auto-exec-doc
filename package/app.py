@@ -25,6 +25,7 @@ import package.controllers.twstructureexecdoc as twstructureexecdoc
 import package.controllers.comboxtemplates as comboxtemplates
 
 # Импорт всех components
+import package.components.style as style
 import package.components.dialogwindow.dialogwindows as dialogwindows
 
 class ObjectsManager:
@@ -50,6 +51,7 @@ class ObjectsManager:
         self.obj_twsed = None
         self.obj_comboxts = None
         # components (windows)
+        self.obj_style = None
         self.obj_dw = None
         self.obj_mw = None
         self.obj_nedtdw = None
@@ -90,6 +92,7 @@ class ObjectsManager:
         self.obj_comboxts = comboxtemplates.ComboxTemplates()
 
     def initialize_components(self):
+        self.obj_style = style.Style()
         self.obj_dw = dialogwindows.DialogWindows()
 
 class App:

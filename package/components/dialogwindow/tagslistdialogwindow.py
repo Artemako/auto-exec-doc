@@ -38,6 +38,8 @@ class TagsListDialogWindow(QDialog):
         super(TagsListDialogWindow, self).__init__()
         self.ui = tagslistdialogwindow_ui.Ui_TagsListDialog()
         self.ui.setupUi(self)
+        # СТИЛЬ
+        self.__obs_manager.obj_style.set_style_for(self)
         #
         self.__icons = self.__obs_manager.obj_icons.get_icons()
         # config

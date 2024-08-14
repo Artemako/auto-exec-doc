@@ -15,6 +15,8 @@ class NedDateTag(QWidget):
         super(NedDateTag, self).__init__()
         self.ui = neddatetag_ui.Ui_NedDateTag()
         self.ui.setupUi(self)
+        # СТИЛЬ
+        self.__obs_manager.obj_style.set_style_for(self)
         #
         self.__config_tag = self.__tag.get("config_tag")
         self.__config_dict = dict()

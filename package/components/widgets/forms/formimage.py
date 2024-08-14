@@ -19,6 +19,8 @@ class FormImage(QWidget):
         super(FormImage, self).__init__()
         self.ui = formimage_ui.Ui_FormImageWidget()
         self.ui.setupUi(self)
+        # СТИЛЬ
+        self.__obs_manager.obj_style.set_style_for(self)
         #
         self.config()
 

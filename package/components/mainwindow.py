@@ -19,6 +19,8 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
         self.ui = mainwindow_ui.Ui_MainWindow()
         self.ui.setupUi(self)
+        # СТИЛЬ
+        self.__obs_manager.obj_style.set_style_for(self)
         # config
         self.config()
         # настройка контроллеров

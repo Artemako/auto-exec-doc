@@ -6,6 +6,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 from PySide6.QtCore import QTimer
+from PySide6.QtGui import Qt
 
 import package.components.dialogwindow.convertersettingsdialogwindow as convertersettingsdialogwindow
 
@@ -54,11 +55,16 @@ class StatusBar:
         # конфигурация
         self.config_msword()
         self.config_libreoffice()
+        #
+        self.__statusbar.layout().setSpacing(4)
         # выбранный конвертер
         self.__name_app_converter = QLabel("NONE")
+        self.__name_app_converter.setAlignment(Qt.AlignCenter)
+        self.__name_app_converter.setContentsMargins(4, 0, 4, 0)
         self.__statusbar.addPermanentWidget(self.__name_app_converter)
         # кнопка настройки конвертера
         self.__btn_setting_converter = QPushButton("Настройка конвертера")
+        self.__btn_setting_converter.setContentsMargins(4, 0, 4, 0)
         self.__statusbar.addPermanentWidget(self.__btn_setting_converter)
         # обновить statusbar
         self.config_update_statusbar()
@@ -105,10 +111,11 @@ class StatusBar:
         layout.addWidget(self.__red_msword)
         layout.addWidget(self.__yellow_msword)
         layout.addWidget(self.__green_msword)
+        layout.setContentsMargins(0, 0, 0, 0)
         # главный виджет
         mw_msword = QWidget()
         mw_msword.setLayout(layout)
-        mw_msword.setContentsMargins(0, 0, 0, 0)
+        mw_msword.setContentsMargins(4, 0, 4, 0)
         self.__statusbar.addPermanentWidget(mw_msword)
 
     def config_libreoffice(self):
@@ -126,10 +133,11 @@ class StatusBar:
         layout.addWidget(self.__red_libreoffice)
         layout.addWidget(self.__yellow_libreoffice)
         layout.addWidget(self.__green_libreoffice)
+        layout.setContentsMargins(0, 0, 0, 0)
         # главный виджет
         mw_libreoffice = QWidget()
         mw_libreoffice.setLayout(layout)
-        mw_libreoffice.setContentsMargins(0, 0, 0, 0)
+        mw_libreoffice.setContentsMargins(4, 0, 4, 0)
         self.__statusbar.addPermanentWidget(mw_libreoffice)
 
     def set_message(self, message: str, duration: int = 5000):

@@ -15,13 +15,15 @@ class NedImageTag(QWidget):
         super(NedImageTag, self).__init__()
         self.ui = nedimagetag_ui.Ui_NedImageTag()
         self.ui.setupUi(self)
+        # СТИЛЬ
+        self.__obs_manager.obj_style.set_style_for(self)
         #
         self.__config_tag = self.__tag.get("config_tag")
         self.__config_dict = dict()
         if self.__config_tag:
             self.__config_dict = json.loads(self.__config_tag)
         # 
-        # SIZINGMODE = [По ширине, по высоте, обрезать, растянуть]
+        # SIZINGMODE = [Отстутсвует, По ширине, по высоте, обрезать, растянуть]
         self.__data = {
             "UNIT": None,
             "SIZINGMODE": None,

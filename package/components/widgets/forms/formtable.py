@@ -17,6 +17,9 @@ class FormTable(QWidget):
         super(FormTable, self).__init__()
         self.ui = formtable_ui.Ui_FormTableWidget()
         self.ui.setupUi(self)
+        # СТИЛЬ
+        self.__obs_manager.obj_style.set_style_for(self)
+        #
         self.config()
         self.connect_actions()
 

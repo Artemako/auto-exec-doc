@@ -25,6 +25,8 @@ class NodesEditorDialogWindow(QDialog):
         super(NodesEditorDialogWindow, self).__init__()
         self.ui = nodeseditordialogwindow_ui.Ui_NodesEditorDialogWindow()
         self.ui.setupUi(self)
+        # СТИЛЬ
+        self.__obs_manager.obj_style.set_style_for(self)
         #
         self.__icons = self.__obs_manager.obj_icons.get_icons()
         #

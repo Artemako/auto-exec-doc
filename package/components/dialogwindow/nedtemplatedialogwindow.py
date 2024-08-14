@@ -20,6 +20,8 @@ class NedTemplateDialogWindow(QDialog):
         super(NedTemplateDialogWindow, self).__init__()
         self.ui = nedtemplatedialogwindow_ui.Ui_NedTemplateDialogWindow()
         self.ui.setupUi(self)
+        # СТИЛЬ
+        self.__obs_manager.obj_style.set_style_for(self)
         #
         self.__data = dict()
         self.__icons = self.__obs_manager.obj_icons.get_icons()
