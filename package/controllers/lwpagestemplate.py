@@ -92,10 +92,7 @@ class LWPagesTemplate:
             if app_converter == "MSWORD":
                 self.__obs_manager.obj_ofp.terminate_msword()
                 self.__obs_manager.obj_sb.update_status_msword_label(False)
-            # сообщение
-            self.__obs_manager.obj_dw.warning_message(
-                "Отображение недоступно! Выбранный конвертер не работает."
-            )
+            # сообщение warning_message уже есть ВЫШЕ
             return None
         if pdf_path:
             self.__obs_manager.obj_pv.load_and_show_pdf_document(pdf_path)

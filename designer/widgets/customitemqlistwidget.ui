@@ -67,7 +67,7 @@
      </property>
      <property name="icon">
       <iconset resource="../../resources.qrc">
-       <normaloff>:/icons/resources/icons/pen.svg</normaloff>:/icons/resources/icons/pen.svg</iconset>
+       <normaloff>:/white-icons/resources/white-icons/pen.svg</normaloff>:/white-icons/resources/white-icons/pen.svg</iconset>
      </property>
     </widget>
    </item>
@@ -84,7 +84,7 @@
      </property>
      <property name="icon">
       <iconset resource="../../resources.qrc">
-       <normaloff>:/icons/resources/icons/trash.svg</normaloff>:/icons/resources/icons/trash.svg</iconset>
+       <normaloff>:/white-icons/resources/white-icons/trash.svg</normaloff>:/white-icons/resources/white-icons/trash.svg</iconset>
      </property>
     </widget>
    </item>

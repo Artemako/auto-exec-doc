@@ -104,21 +104,24 @@ class SAInputForms:
         sections_info = self.__obs_manager.obj_si.get_sections_info()
         # перебор секций
         for section_info in sections_info:
-            section_name = self.get_section_name(section_info)
-            # Создание секции виджета
-            section = customsection.Section(self.__obs_manager, section_name)
-            section_layout = QVBoxLayout()
-            # data секции
-            section_data = section_info.get("data")
-            # перебор пар в section_data секции
-            for pair in section_data:
-                self.add_form_in_section(pair, section_layout)
-            # Добавление виджета в секцию
-            section.setContentLayout(section_layout)
-            self.__scrollarea_input_layout.layout().insertWidget(0, section)
+            try:
+                section_name = self.get_section_name(section_info)
+                # Создание секции виджета
+                section = customsection.Section(self.__obs_manager, section_name)
+                section_layout = QVBoxLayout()
+                # data секции
+                section_data = section_info.get("data")
+                # перебор пар в section_data секции
+                for pair in section_data:
+                    self.add_form_in_section(pair, section_layout)
+                # Добавление виджета в секцию
+                section.setContentLayout(section_layout)
+                self.__scrollarea_input_layout.layout().insertWidget(0, section)
+            except Exception as e:
+                self.__obs_manager.obj_l.debug_logger(f"Error in add_sections_in_sa(): {e}")
         # Добавление SpacerItem в конец
         self.__scrollarea_input_layout.layout().addItem(
-            QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+            QSpacerItem(0, 0, QSizePolicy.Minimum, QSizePolicy.Expanding)
         )
 
     def update_scrollarea(self, page):

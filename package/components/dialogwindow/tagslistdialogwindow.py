@@ -418,7 +418,7 @@ class TagsListDialogWindow(QDialog):
                 layout.addWidget(checkbtn)
                 layout.addWidget(edit_button)
                 layout.addWidget(delete_button)
-                layout.setContentsMargins(4, 0, 0, 0)
+                layout.setContentsMargins(4, 0, 4, 0)
                 widget = QWidget()
                 widget.setLayout(layout)
                 table_widget.setCellWidget(row, 5, widget)

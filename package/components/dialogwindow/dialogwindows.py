@@ -18,7 +18,7 @@ class DialogWindows:
 
         self.__obs_manager.obj_l.debug_logger("DialogWindows save_active_project() -> str")
         self.__dw = QMessageBox()
-        self.__obs_manager.obj_style.set_style_for(self)
+        self.__obs_manager.obj_style.set_style_for(self.__dw)
         self.__dw.setWindowTitle("Сохранение текущего проекта")
         self.__dw.setText("Вы не сохранили текущий проект. Сохранить?")
         self.__dw.setIcon(QMessageBox.Warning)
@@ -26,6 +26,8 @@ class DialogWindows:
         self.__dw.setStandardButtons(
             QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel
         )
+        self.__dw.setButtonText(QMessageBox.Yes, "Да")
+        self.__dw.setButtonText(QMessageBox.No, "Нет")
 
         return_value = self.__dw.exec()
 
@@ -44,7 +46,7 @@ class DialogWindows:
         self.__obs_manager.obj_l.debug_logger("DialogWindows select_empty_folder()")
 
         self.__dw = QMessageBox()
-        self.__obs_manager.obj_style.set_style_for(self)
+        self.__obs_manager.obj_style.set_style_for(self.__dw)
         self.__dw.setWindowTitle("Ошибка")
         self.__dw.setText("Пожалуйста, выберите пустую папку.")
         self.__dw.setIcon(QMessageBox.Critical)
@@ -170,7 +172,7 @@ class DialogWindows:
 
         self.__obs_manager.obj_l.debug_logger(f"DialogWindows warning_message(message: str):\nmessage = {message}") 
         self.__dw = QMessageBox()
-        self.__obs_manager.obj_style.set_style_for(self)
+        self.__obs_manager.obj_style.set_style_for(self.__dw)
         self.__dw.setWindowTitle("Предупреждение")
         self.__dw.setText(message)
         self.__dw.setIcon(QMessageBox.Warning)
@@ -182,7 +184,7 @@ class DialogWindows:
 
         self.__obs_manager.obj_l.debug_logger(f"DialogWindows error_message(message: str):\nmessage = {message}") 
         self.__dw = QMessageBox()
-        self.__obs_manager.obj_style.set_style_for(self)
+        self.__obs_manager.obj_style.set_style_for(self.__dw)
         self.__dw.setWindowTitle("Ошибка")
         self.__dw.setText(message)
         self.__dw.setIcon(QMessageBox.Critical)
@@ -194,11 +196,13 @@ class DialogWindows:
 
         self.__obs_manager.obj_l.debug_logger(f"DialogWindows question_message(message: str):\nmessage = {message}") 
         self.__dw = QMessageBox()
-        self.__obs_manager.obj_style.set_style_for(self)
+        self.__obs_manager.obj_style.set_style_for(self.__dw)
         self.__dw.setWindowTitle("Вопрос")
         self.__dw.setText(message)
         self.__dw.setIcon(QMessageBox.Question)
         self.__dw.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+        self.__dw.setButtonText(QMessageBox.Yes, "Да")
+        self.__dw.setButtonText(QMessageBox.No, "Нет")
         response = self.__dw.exec()
         if response == QMessageBox.Yes:
             return True

@@ -36,19 +36,20 @@ class ComboxTemplates:
     def update_combox_templates(self, node):
         self.clear_comboxts()
         self.__combox_templates.blockSignals(True)
-        id_node = node.get("id_node")
-        id_active_template = node.get("id_active_template")
-        wrap_node = {
-            "id_node": id_node
-        }
-        templates = self.__obs_manager.obj_pd.get_templates_by_form(wrap_node)
-        index = 0
-        for i, template in enumerate(templates):
-            if template.get("id_template") == id_active_template:
-                index = i
-            self.__combox_templates.addItem(template.get("name_template"), template)
-        self.__combox_templates.setCurrentIndex(index)
-        # обновить cтраницы
-        current_template = self.__combox_templates.itemData(index)
-        self.__obs_manager.obj_lwpt.update_pages_template(current_template)
+        if node:
+            id_node = node.get("id_node")
+            id_active_template = node.get("id_active_template")
+            wrap_node = {
+                "id_node": id_node
+            }
+            templates = self.__obs_manager.obj_pd.get_templates_by_form(wrap_node)
+            index = 0
+            for i, template in enumerate(templates):
+                if template.get("id_template") == id_active_template:
+                    index = i
+                self.__combox_templates.addItem(template.get("name_template"), template)
+            self.__combox_templates.setCurrentIndex(index)
+            # обновить cтраницы
+            current_template = self.__combox_templates.itemData(index)
+            self.__obs_manager.obj_lwpt.update_pages_template(current_template)
         self.__combox_templates.blockSignals(False)  

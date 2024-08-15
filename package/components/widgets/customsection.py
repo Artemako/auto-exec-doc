@@ -40,6 +40,8 @@ class Section(QWidget):
         headerLine.setFrameShape(QFrame.HLine)
         headerLine.setFrameShadow(QFrame.Sunken)
         headerLine.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Maximum)
+        headerLine.setStyleSheet("QFrame { background-color: #3F3F46; }")
+
 
         self.contentArea.setStyleSheet("QScrollArea { border: none; }")
         self.contentArea.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)

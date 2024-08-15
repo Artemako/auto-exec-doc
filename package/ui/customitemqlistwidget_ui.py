@@ -40,7 +40,7 @@ class Ui_CustomItemQListWidget(object):
         self.btn_edit.setObjectName(u"btn_edit")
         self.btn_edit.setMaximumSize(QSize(16777215, 16777215))
         icon = QIcon()
-        icon.addFile(u":/icons/resources/icons/pen.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/white-icons/resources/white-icons/pen.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_edit.setIcon(icon)
 
         self.horizontalLayout.addWidget(self.btn_edit)
@@ -49,7 +49,7 @@ class Ui_CustomItemQListWidget(object):
         self.btn_delete.setObjectName(u"btn_delete")
         self.btn_delete.setMaximumSize(QSize(16777215, 16777215))
         icon1 = QIcon()
-        icon1.addFile(u":/icons/resources/icons/trash.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(u":/white-icons/resources/white-icons/trash.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_delete.setIcon(icon1)
 
         self.horizontalLayout.addWidget(self.btn_delete)
