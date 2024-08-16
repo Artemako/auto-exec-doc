@@ -129,10 +129,15 @@ class NodesEditorDialogWindow(QDialog):
             "NodesEditorDialogWindow config_actions()"
         )
         self.ui.btn_add_form.clicked.connect(self.add_form)
+        self.ui.btn_add_form.setShortcut("Ctrl+F")
         self.ui.btn_add_group.clicked.connect(self.add_group)
+        self.ui.btn_add_group.setShortcut("Ctrl+G")
         self.ui.btn_delete_item.clicked.connect(self.delete_item)
+        self.ui.btn_delete_item.setShortcut("Ctrl+D")
         self.ui.btn_close.clicked.connect(self.close)
+        self.ui.btn_close.setShortcut("Ctrl+Q")
         self.ui.btn_edit.clicked.connect(self.edit_current)
+        self.ui.btn_edit.setShortcut("Ctrl+E")
 
     def update_edit_nodes(self):
         self.__obs_manager.obj_l.debug_logger(
@@ -142,14 +147,15 @@ class NodesEditorDialogWindow(QDialog):
         # for edit_node in edit_nodes:
         #     print(f"-> edit_node = {edit_node}")
         for edit_node in edit_nodes:
-            id_node = edit_node.get("id_node")
-            if id_node == -1:
-                # print(f"ADD, edit_node = {edit_node}")
-                self.__obs_manager.obj_pd.add_node(edit_node)
-            else:
-                # update данные по id
-                # print(f"UPDATE, edit_node = {edit_node}")
-                self.__obs_manager.obj_pd.update_node(edit_node)
+            if edit_node != "WRAPPER":
+                id_node = edit_node.get("id_node")
+                if id_node == -111:
+                    # print(f"ADD, edit_node = {edit_node}")
+                    self.__obs_manager.obj_pd.add_node(edit_node)
+                else:
+                    # update данные по id
+                    # print(f"UPDATE, edit_node = {edit_node}")
+                    self.__obs_manager.obj_pd.update_node(edit_node)
 
     def edit_current(self):
         self.__obs_manager.obj_l.debug_logger(

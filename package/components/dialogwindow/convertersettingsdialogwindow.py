@@ -37,6 +37,9 @@ class ConverterSettingsDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger("ConverterSettingsDialogWindow connecting_actions()")
         self.ui.btn_close.clicked.connect(self.close_window)
         self.ui.btn_save.clicked.connect(self.save_converter)
+        self.ui.btn_save.setShortcut("Ctrl+S")
+        self.ui.btn_close.setShortcut("Ctrl+Q")
+
 
     def get_active_radiobutton(self) -> str:
         result = None

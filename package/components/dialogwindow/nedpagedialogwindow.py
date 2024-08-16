@@ -239,7 +239,9 @@ class NedPageDialogWindow(QDialog):
         self.ui.btn_select.clicked.connect(self.select_file)
         self.ui.btn_open_docx.clicked.connect(self.open_docx)
         self.ui.btn_nestag.clicked.connect(self.btn_nestag_clicked)
+        self.ui.btn_nestag.setShortcut("Ctrl+S")
         self.ui.btn_close.clicked.connect(self.close)
+        self.ui.btn_close.setShortcut("Ctrl+Q")
 
     def select_file(self):
         docx_path = self.__obs_manager.obj_dw.select_docx_file()
@@ -288,6 +290,7 @@ class NedPageDialogWindow(QDialog):
         if self.__type_ned == "create":
             filename_page = self.__page_filename
             namepage = self.ui.lineedit_namepage.text()
+            # TODO Уникальность имени!!!
             if len(namepage) > 0 and len(filename_page) > 0:
                 self.__data["name_page"] = namepage
                 self.__data["filename_page"] = filename_page

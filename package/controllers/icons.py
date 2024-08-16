@@ -12,7 +12,18 @@ class Icons:
         self.__obs_manager = obs_manager
         self.__obs_manager.obj_l.debug_logger(f"Icons setting_obs_manager():\nself.__obs_manager = {self.__obs_manager}")
 
-    def get_icons(self, size = 16) -> dict:
+    def get_key_icon_by_type_tag(self, type_tag):
+        self.__obs_manager.obj_l.debug_logger(f"Icons get_key_icon_by_type_tag(type_tag):\ntype_tag = {type_tag}")
+        if type_tag == "TEXT":
+            return "text"
+        elif type_tag == "DATE":
+            return "date"
+        elif type_tag == "TABLE":
+            return "table"
+        elif type_tag == "IMAGE":
+            return "image"
+        
+    def get_icons(self, size = 12) -> dict:
         self.__obs_manager.obj_l.debug_logger(f"Icons get_icons(size):\nsize = {size}")
         result = self.__icons_cache.get(size)
         if result:
@@ -45,6 +56,9 @@ class Icons:
             icons["page"] = QIcon(":/white-icons/resources/white-icons/page.svg")
             #
             for key, elem in icons.items():
-                icons[key] = elem.pixmap(QSize(size, size))
+                if key in ["red_circle", "yellow_circle", "green_circle"]:
+                    icons[key] = icons[key].pixmap(QSize(size / 2, size / 2))
+                else:
+                    icons[key] = elem.pixmap(QSize(size, size))
             self.__icons_cache[size] = icons
             return icons

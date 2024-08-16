@@ -23,13 +23,20 @@ class Ui_FormTableWidget(object):
     def setupUi(self, FormTableWidget):
         if not FormTableWidget.objectName():
             FormTableWidget.setObjectName(u"FormTableWidget")
-        FormTableWidget.resize(429, 220)
+        FormTableWidget.resize(429, 202)
         FormTableWidget.setMaximumSize(QSize(16777215, 16777215))
-        self.horizontalLayout = QHBoxLayout(FormTableWidget)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout = QVBoxLayout()
+        self.verticalLayout = QVBoxLayout(FormTableWidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.hl = QHBoxLayout()
+        self.hl.setSpacing(9)
+        self.hl.setObjectName(u"hl")
+        self.label_typetag = QLabel(FormTableWidget)
+        self.label_typetag.setObjectName(u"label_typetag")
+        self.label_typetag.setAlignment(Qt.AlignCenter)
+
+        self.hl.addWidget(self.label_typetag)
+
         self.title = QLabel(FormTableWidget)
         self.title.setObjectName(u"title")
         self.title.setMinimumSize(QSize(0, 0))
@@ -37,7 +44,11 @@ class Ui_FormTableWidget(object):
         self.title.setStyleSheet(u"font-weight: bold;")
         self.title.setTextFormat(Qt.AutoText)
 
-        self.verticalLayout.addWidget(self.title)
+        self.hl.addWidget(self.title)
+
+        self.hl.setStretch(1, 1)
+
+        self.verticalLayout.addLayout(self.hl)
 
         self.table = QTableWidget(FormTableWidget)
         self.table.setObjectName(u"table")
@@ -73,9 +84,6 @@ class Ui_FormTableWidget(object):
         self.verticalLayout.addWidget(self.textbrowser)
 
 
-        self.horizontalLayout.addLayout(self.verticalLayout)
-
-
         self.retranslateUi(FormTableWidget)
 
         QMetaObject.connectSlotsByName(FormTableWidget)
@@ -83,6 +91,7 @@ class Ui_FormTableWidget(object):
 
     def retranslateUi(self, FormTableWidget):
         FormTableWidget.setWindowTitle(QCoreApplication.translate("FormTableWidget", u"Form", None))
+        self.label_typetag.setText(QCoreApplication.translate("FormTableWidget", u"\u0418\u041a", None))
         self.title.setText(QCoreApplication.translate("FormTableWidget", u"<html><head/><body><p>\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a</p></body></html>", None))
         self.add_button.setText(QCoreApplication.translate("FormTableWidget", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0441\u0442\u0440\u043e\u043a\u0443/\u0441\u0442\u043e\u043b\u0431\u0435\u0446", None))
         self.delete_button.setText(QCoreApplication.translate("FormTableWidget", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0441\u0442\u0440\u043e\u043a\u0443/\u0441\u0442\u043e\u043b\u0431\u0435\u0446", None))

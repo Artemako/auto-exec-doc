@@ -148,8 +148,11 @@ class TemplatesListDialogWindow(QDialog):
         )
         # кнопки
         self.ui.btn_close.clicked.connect(self.close)
+        self.ui.btn_close.setShortcut("Ctrl+Q")
         self.ui.btn_add_page.clicked.connect(self.add_page)
+        self.ui.btn_add_page.setShortcut("Ctrl+P")
         self.ui.btn_add_template.clicked.connect(self.add_template)
+        self.ui.btn_add_template.setShortcut("Ctrl+T")
         # смена индекса
         self.ui.combox_forms.currentIndexChanged.connect(
             self.combox_forms_index_changed

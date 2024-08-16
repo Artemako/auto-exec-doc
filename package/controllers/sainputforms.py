@@ -109,6 +109,7 @@ class SAInputForms:
                 # Создание секции виджета
                 section = customsection.Section(self.__obs_manager, section_name)
                 section_layout = QVBoxLayout()
+                section_layout.setSpacing(9)
                 # data секции
                 section_data = section_info.get("data")
                 # перебор пар в section_data секции
@@ -118,7 +119,7 @@ class SAInputForms:
                 section.setContentLayout(section_layout)
                 self.__scrollarea_input_layout.layout().insertWidget(0, section)
             except Exception as e:
-                self.__obs_manager.obj_l.debug_logger(f"Error in add_sections_in_sa(): {e}")
+                self.__obs_manager.obj_l.error_logger(f"Error in add_sections_in_sa(): {e}")
         # Добавление SpacerItem в конец
         self.__scrollarea_input_layout.layout().addItem(
             QSpacerItem(0, 0, QSizePolicy.Minimum, QSizePolicy.Expanding)

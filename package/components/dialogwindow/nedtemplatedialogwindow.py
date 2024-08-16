@@ -75,7 +75,9 @@ class NedTemplateDialogWindow(QDialog):
             "NedTemplateDialogWindow connecting_actions()"
         )
         self.ui.btn_close.clicked.connect(self.close)
+        self.ui.btn_close.setShortcut("Ctrl+Q")
         self.ui.btn_nestag.clicked.connect(self.btn_nestag_clicked)
+        self.ui.btn_nestag.setShortcut("Ctrl+S")
 
     def btn_nestag_clicked(self):
         self.__obs_manager.obj_l.debug_logger(

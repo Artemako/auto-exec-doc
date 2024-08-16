@@ -106,10 +106,14 @@ class LWPagesTemplate:
 
     def clear_pt(self):
         self.__obs_manager.obj_l.debug_logger("LWPagesTemplate clear_pt()")
-        self.__lw_pages_template.blockSignals(True)  
-        self.__lw_pages_template.clear()
-        self.__lw_pages_template.blockSignals(False)  
-
+        try:
+            if self.__lw_pages_template is not None:
+                self.__lw_pages_template.blockSignals(True)  
+                self.__lw_pages_template.clear()
+                self.__lw_pages_template.blockSignals(False)  
+        except Exception as e:
+            self.__obs_manager.obj_l.error_logger(f"Error in clear_pt(): {e}")
+        
     def update_pages_template(self, template):
         """
         Обновить _lw_pages_template.

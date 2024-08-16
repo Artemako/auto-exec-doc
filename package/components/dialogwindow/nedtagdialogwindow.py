@@ -55,13 +55,15 @@ class NedTagDialogWindow(QDialog):
             self.on_combox_typetag_changed
         )
         self.ui.btn_close.clicked.connect(self.close)
+        self.ui.btn_close.setShortcut("Ctrl+Q")
         self.ui.btn_nestag.clicked.connect(self.btn_nestag_clicked)
+        self.ui.btn_nestag.setShortcut("Ctrl+S")
 
     def btn_nestag_clicked(self):
         self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow btn_nestag_clicked()")
         le_nametag = self.ui.lineedit_nametag.text()
         le_titletag = self.ui.lineedit_titletag.text()
-        # проверка на пустоту
+        # проверка на пустоту (уникальность присутствует)
         if len(le_nametag) > 0 and len(le_titletag) > 0:
             if self.__type_window == "create":
                 self.add_new_tag()

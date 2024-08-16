@@ -77,6 +77,7 @@ class MainWindow(QMainWindow):
         Method to connect to various actions on the UI.
         """
         self.__obs_manager.obj_l.debug_logger("MainWindow connecting_actions()")
+        # QAction имеет шорткаты в Qt Designer
         self.ui.action_new.triggered.connect(
             lambda: self.__obs_manager.obj_p.new_project()
         )
@@ -108,9 +109,6 @@ class MainWindow(QMainWindow):
         self.ui.action_edit_composition.triggered.connect(
             lambda: self.edit_structure_nodes()
         )
-
-        # shortcut = QShortcut(QKeySequence("R"), self)
-        # shortcut.activated.connect(lambda: self.__obs_manager.obj_pdf_view.set_empty_pdf_view())
 
     def start_qt_actions(self):
         self.ui.action_new.setEnabled(True)

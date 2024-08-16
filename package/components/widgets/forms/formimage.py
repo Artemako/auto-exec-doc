@@ -19,6 +19,8 @@ class FormImage(QWidget):
         super(FormImage, self).__init__()
         self.ui = formimage_ui.Ui_FormImageWidget()
         self.ui.setupUi(self)
+        # ИКОНКИ
+        self.__icons = self.__obs_manager.obj_icons.get_icons()
         # СТИЛЬ
         self.__obs_manager.obj_style.set_style_for(self)
         #
@@ -26,6 +28,10 @@ class FormImage(QWidget):
 
     def config(self):
         self.__obs_manager.obj_l.debug_logger("FormImage config()")
+        # тип тега
+        key_icon = self.__obs_manager.obj_icons.get_key_icon_by_type_tag(self.__current_tag.get("type_tag"))
+        qicon_type_tag = self.__icons.get(key_icon)
+        self.ui.label_typetag.setPixmap(qicon_type_tag)
         # заголовок
         self.ui.title.setText(self.__current_tag.get("title_tag"))
         # поле ввода

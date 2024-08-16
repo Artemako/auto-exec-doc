@@ -28,7 +28,6 @@ class NumericItem(QTableWidgetItem):
 
 
 class TagsListDialogWindow(QDialog):
-
     def __init__(self, obs_manager):
         self.__obs_manager = obs_manager
         self.__obs_manager.obj_l.debug_logger(
@@ -103,7 +102,9 @@ class TagsListDialogWindow(QDialog):
             self.combox_pages_index_changed
         )
         self.ui.btn_close.clicked.connect(self.close)
+        self.ui.btn_close.setShortcut("Ctrl+Q")
         self.ui.btn_save.clicked.connect(self.save_changes)
+        self.ui.btn_save.setShortcut("Ctrl+S")
 
     def get_typetable(self):
         type_table = None
@@ -373,19 +374,10 @@ class TagsListDialogWindow(QDialog):
             qtwt_name_tag.setData(1001, item)
             qtwt_title_tag = QTableWidgetItem(title_tag)
             qtwt_type_tag = QTableWidgetItem(type_tag)
-            #
-            if type_tag == "TEXT":
-                qicon_type_tag = self.__icons.get("text")
-                qtwt_type_tag.setIcon(qicon_type_tag)
-            elif type_tag == "DATE":
-                qicon_type_tag = self.__icons.get("date")
-                qtwt_type_tag.setIcon(qicon_type_tag)
-            elif type_tag == "TABLE":
-                qicon_type_tag = self.__icons.get("table")
-                qtwt_type_tag.setIcon(qicon_type_tag)
-            elif type_tag == "IMAGE":
-                qicon_type_tag = self.__icons.get("table")
-                qtwt_type_tag.setIcon(qicon_type_tag)
+            # Иконка и текст в зависимости от типа тега
+            key_icon = self.__obs_manager.obj_icons.get_key_icon_by_type_tag(type_tag)
+            qicon_type_tag = self.__icons.get(key_icon)
+            qtwt_type_tag.setIcon(qicon_type_tag)
             qtwt_type_tag.setText(type_tag)
             # Добавляем виджеты в ячейки таблицы
             table_widget.setItem(row, 0, qtwt_order_tag)

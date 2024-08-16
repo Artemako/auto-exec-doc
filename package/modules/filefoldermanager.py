@@ -76,6 +76,7 @@ class FileFolderManager:
         if not os.path.exists(image_folder_dirpath):
             os.makedirs(image_folder_dirpath)
 
+        # TODO папка с pdfs
         # # папка с pdfs
         # pdfs_folder_dirpath = dirpathsmanager.obj_dpm.get_pdfs_folder_dirpath()
 

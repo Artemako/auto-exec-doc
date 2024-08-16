@@ -95,15 +95,22 @@ class ConverterPool:
         local_obs_manager.obj_l.debug_logger(
             f"Converter type_tag_is_text(data_tag, name_tag, value):\ndata_tag = {data_tag},\nname_tag = {name_tag},\nvalue = {value}"
         )
-        if value:
-            data_tag[str(name_tag)] = value
+        try:
+            if value:
+                data_tag[str(name_tag)] = value
+        except Exception as e: 
+            self.__obs_manager.obj_l.error_logger(f"Error in type_tag_is_text: {e}")
+            
 
     def type_tag_is_date(self, local_obs_manager, data_tag, name_tag, value):
         local_obs_manager.obj_l.debug_logger(
             f"Converter type_tag_is_date(data_tag, name_tag, value):\ndata_tag = {data_tag},\nname_tag = {name_tag},\nvalue = {value}"
         )
-        if value:
-            data_tag[str(name_tag)] = value
+        try:
+            if value:
+                data_tag[str(name_tag)] = value
+        except Exception as e: 
+            self.__obs_manager.obj_l.error_logger(f"Error in type_tag_is_date: {e}")
 
     def type_tag_is_image(
         self, local_obs_manager, data_tag, name_tag, value, docx_template
@@ -111,49 +118,56 @@ class ConverterPool:
         local_obs_manager.obj_l.debug_logger(
             f"Converter type_tag_is_image(data_tag, name_tag, value, docx_template):\ndata_tag = {data_tag},\nname_tag = {name_tag},\nvalue = {value},\ndocx_template = {docx_template}"
         )
-        if value:
-            image_dirpath = os.path.abspath(
-                os.path.join(
-                    local_obs_manager.obj_dpm.get_images_folder_dirpath(),
-                    value,
+        try:
+            if value:
+                image_dirpath = os.path.abspath(
+                    os.path.join(
+                        local_obs_manager.obj_dpm.get_images_folder_dirpath(),
+                        value,
+                    )
                 )
-            )
-            # TODO контент для изображения Inches, Pt, Cm, Mm
-            image = InlineImage(docx_template, image_dirpath)
-            data_tag[str(name_tag)] = image
+                # TODO контент для изображения Inches, Pt, Cm, Mm
+                image = InlineImage(docx_template, image_dirpath)
+                data_tag[str(name_tag)] = image
+        except Exception as e: 
+            self.__obs_manager.obj_l.error_logger(f"Error in type_tag_is_image: {e}")
 
     def type_tag_is_table(self, local_obs_manager, data_tag, name_tag, value, id_tag):
         local_obs_manager.obj_l.debug_logger(
             f"Converter type_tag_is_table(data_tag, name_tag, value, id_tag):\ndata_tag = {data_tag},\nname_tag = {name_tag},\nvalue = {value},\nid_tag = {id_tag}"
         )
-        current_tag = local_obs_manager.obj_pd.get_tag_by_id(id_tag)
-        config_tag = current_tag.get("config_tag")
-        config_dict = dict()        
-        if config_tag:
-            config_dict = json.loads(config_tag)
-        print(f"config_dict = {config_dict}")
-        # узнать content в таблице
-        order_to_tag_config_dict = dict()
-        object_tag = dict()
-        rowcols = config_dict.get("ROWCOLS")
-        for rowcol in rowcols:
-            value_config = rowcol.get("VALUE")
-            order_config = rowcol.get("ORDER")
-            order_to_tag_config_dict[order_config] = value_config
-            object_tag[value_config] = None
-                
-        print(f"object_tag = {object_tag}")
-        # заполнять data_tag
-        table_values = []
-        if value:
-            table = json.loads(value)
-            for row, row_data in enumerate(table):
-                pt = copy.deepcopy(object_tag)
-                for col, cell_value in enumerate(row_data):
-                    pt[order_to_tag_config_dict.get(col)] = cell_value
-                table_values.append(pt)
-        print(f"table_values = {table_values}")
-        data_tag[str(name_tag)] = table_values
+        try:
+            if value:
+                current_tag = local_obs_manager.obj_pd.get_tag_by_id(id_tag)
+                config_tag = current_tag.get("config_tag")
+                config_dict = dict()        
+                if config_tag:
+                    config_dict = json.loads(config_tag)
+                print(f"config_dict = {config_dict}")
+                # узнать content в таблице
+                order_to_tag_config_dict = dict()
+                object_tag = dict()
+                rowcols = config_dict.get("ROWCOLS")
+                for rowcol in rowcols:
+                    value_config = rowcol.get("VALUE")
+                    order_config = rowcol.get("ORDER")
+                    order_to_tag_config_dict[order_config] = value_config
+                    object_tag[value_config] = None
+                        
+                print(f"object_tag = {object_tag}")
+                # заполнять data_tag
+                table_values = []
+                if value:
+                    table = json.loads(value)
+                    for row, row_data in enumerate(table):
+                        pt = copy.deepcopy(object_tag)
+                        for col, cell_value in enumerate(row_data):
+                            pt[order_to_tag_config_dict.get(col)] = cell_value
+                        table_values.append(pt)
+                print(f"table_values = {table_values}")
+                data_tag[str(name_tag)] = table_values
+        except Exception as e: 
+            self.__obs_manager.obj_l.error_logger(f"Error in type_tag_is_table: {e}")
 
     def check_type_tag_and_fill_data_tag(
         self, local_obs_manager, pair, data_tag, docx_template

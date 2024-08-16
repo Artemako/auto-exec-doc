@@ -7,13 +7,9 @@ from PySide6.QtGui import QFont
 
 class Style:
 
-    def __init__(self):
-        self.__font = QFont()
-        # TODO Не забыть про ресурс для шрифта
-        self.__font.setFamily("Open Sans")
+    # TODO: Ресурс шрифта
         
     def set_style_for(self, widget):
-        widget.setFont(self.__font)
         widget.setStyleSheet(qss)
 
 
@@ -27,6 +23,7 @@ qss = """
     Source: https://github.com/nikolay-borzov/modorganizer-themes
 ****************************************
 */
+
 /* For some reason applying background-color or border fixes paddings properties */
 QListWidget::item {
     border-width: 0;
@@ -41,6 +38,10 @@ QListWidget::item {
 /* Make `background-color` work for :hover, :focus and :pressed states */
 QToolButton {
     border: none;
+}
+
+* {
+    font-family: Open Sans;
 }
 
 /* Main Window */
@@ -327,10 +328,13 @@ QPushButton {
 
 QPushButton:hover,
 QPushButton:checked,
-QPushButton:focus,
 QAbstractSpinBox::up-button:hover,
 QAbstractSpinBox::down-button:hover {
     background-color: #007acc;
+}
+
+QPushButton:focus {
+    border-color: #007acc;
 }
 
 QPushButton:pressed,

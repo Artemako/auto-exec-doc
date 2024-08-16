@@ -90,9 +90,9 @@ class DirPathManager:
         )
 
         # папка pdfs в проекте
-        # self.__pdfs_filder_dirpath = os.path.join(
-        #     self.get_project_dirpath(), "pdfs"
-        # )
+        self.__pdfs_filder_dirpath = os.path.join(
+            self.get_project_dirpath(), "pdfs"
+        )
 
     def get_forms_folder_dirpath(self) -> str:
         self.__obs_manager.obj_l.debug_logger(
@@ -106,12 +106,11 @@ class DirPathManager:
         )
         return self.__images_folder_dirpath
 
-    #
-    # def get_pdfs_folder_dirpath(self) -> str:
-    #     self.__obs_manager.obj_l.debug_logger(
-    #         f"get_pdfs_folder_dirpath() -> str: {self.__pdfs_filder_dirpath}"
-    #     )
-    #     return self.__pdfs_filder_dirpath
+    def get_pdfs_folder_dirpath(self) -> str:
+        self.__obs_manager.obj_l.debug_logger(
+            f"get_pdfs_folder_dirpath() -> str: {self.__pdfs_filder_dirpath}"
+        )
+        return self.__pdfs_filder_dirpath
 
     def get_templates_main_dirpath(self) -> str:
         self.__obs_manager.obj_l.debug_logger(

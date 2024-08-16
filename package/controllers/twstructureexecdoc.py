@@ -71,10 +71,11 @@ class TWStructureExecDoc:
         Очистить дерево
         """
         self.__obs_manager.obj_l.debug_logger("TWStructureExecDoc clear_tr_sed()")
-        self.__tw.blockSignals(True)
-        self.__tw.clear()
-        self.__tw.setHeaderLabels([""])
-        self.__tw.blockSignals(False)
+        if self.__tw is not None:
+            self.__tw.blockSignals(True)
+            self.__tw.clear()
+            self.__tw.setHeaderLabels([""])
+            self.__tw.blockSignals(False)
         self.__title_sed.setText("Проект не выбран")
 
     def update_structure_exec_doc(self):

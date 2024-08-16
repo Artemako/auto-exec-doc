@@ -11,9 +11,7 @@ def main():
 if __name__ == "__main__":
     main()
 
-# lol = """
-# from PySide6.QtCore import QKeySequence
-# setShortcut(QKeySequence("Ctrl+S"))
-
+# setShortcut("Ctrl+S")
+# setShortcut("Ctrl+Q")
+# self.__obs_manager.obj_sb.set_message(f"{self.windowTitle()}: добавление прошло успешно!")
 # self.__obs_manager.obj_sb.set_message(f"{self.windowTitle()}: сохранение прошло успешно!")
-# """ 

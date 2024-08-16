@@ -35,8 +35,7 @@ class StatusBar:
         self.__timer = QTimer()
         self.__timer_count = 0
         #
-        self.__icons_8 = self.__obs_manager.obj_icons.get_icons(8)
-        self.__icons_16 = self.__obs_manager.obj_icons.get_icons(16)
+        self.__icons = self.__obs_manager.obj_icons.get_icons()
         #
         self.config_statusbar()
         self.set_message("Проект не открыт")
@@ -70,7 +69,7 @@ class StatusBar:
         self.config_update_statusbar()
 
     def get_red_circle(self) -> QLabel:
-        icon = self.__icons_8.get("red_circle")
+        icon = self.__icons.get("red_circle")
         label = QLabel()
         label.setPixmap(icon)
         self.__obs_manager.obj_l.debug_logger(
@@ -79,7 +78,7 @@ class StatusBar:
         return label
 
     def get_yellow_circle(self) -> QLabel:
-        icon = self.__icons_8.get("yellow_circle")
+        icon = self.__icons.get("yellow_circle")
         label = QLabel()
         label.setPixmap(icon)
         self.__obs_manager.obj_l.debug_logger(
@@ -88,7 +87,7 @@ class StatusBar:
         return label
 
     def get_green_circle(self) -> QLabel:
-        icon = self.__icons_8.get("green_circle")
+        icon = self.__icons.get("green_circle")
         label = QLabel()
         label.setPixmap(icon)
         self.__obs_manager.obj_l.debug_logger(
@@ -100,7 +99,7 @@ class StatusBar:
         self.__obs_manager.obj_l.debug_logger("StatusBar config_msword()")
         layout = QHBoxLayout()
         # иконка приложения
-        icon = self.__icons_16.get("msword")
+        icon = self.__icons.get("msword")
         label = QLabel()
         label.setPixmap(icon)
         layout.addWidget(label)
@@ -122,7 +121,7 @@ class StatusBar:
         self.__obs_manager.obj_l.debug_logger("StatusBar config_libreoffice()")
         layout = QHBoxLayout()
         # иконка приложения
-        icon = self.__icons_16.get("libreoffice")
+        icon = self.__icons.get("libreoffice")
         label = QLabel()
         label.setPixmap(icon)
         layout.addWidget(label)

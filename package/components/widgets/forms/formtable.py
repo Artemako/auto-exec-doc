@@ -17,6 +17,8 @@ class FormTable(QWidget):
         super(FormTable, self).__init__()
         self.ui = formtable_ui.Ui_FormTableWidget()
         self.ui.setupUi(self)
+        # ИКОНКИ
+        self.__icons = self.__obs_manager.obj_icons.get_icons()
         # СТИЛЬ
         self.__obs_manager.obj_style.set_style_for(self)
         #
@@ -24,6 +26,10 @@ class FormTable(QWidget):
         self.connect_actions()
 
     def config(self):
+        # тип тега
+        key_icon = self.__obs_manager.obj_icons.get_key_icon_by_type_tag(self.__current_tag.get("type_tag"))
+        qicon_type_tag = self.__icons.get(key_icon)
+        self.ui.label_typetag.setPixmap(qicon_type_tag)
         # заголовок
         self.ui.title.setText(self.__current_tag.get("title_tag"))
         # описание

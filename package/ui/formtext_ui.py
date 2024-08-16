@@ -22,18 +22,25 @@ class Ui_FormTextWidget(object):
     def setupUi(self, FormTextWidget):
         if not FormTextWidget.objectName():
             FormTextWidget.setObjectName(u"FormTextWidget")
-        FormTextWidget.resize(460, 139)
+        FormTextWidget.resize(465, 121)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(FormTextWidget.sizePolicy().hasHeightForWidth())
         FormTextWidget.setSizePolicy(sizePolicy)
         FormTextWidget.setMaximumSize(QSize(16777215, 16777215))
-        self.horizontalLayout = QHBoxLayout(FormTextWidget)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout = QVBoxLayout()
+        self.verticalLayout = QVBoxLayout(FormTextWidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.hl = QHBoxLayout()
+        self.hl.setSpacing(9)
+        self.hl.setObjectName(u"hl")
+        self.label_typetag = QLabel(FormTextWidget)
+        self.label_typetag.setObjectName(u"label_typetag")
+        self.label_typetag.setAlignment(Qt.AlignCenter)
+
+        self.hl.addWidget(self.label_typetag)
+
         self.title = QLabel(FormTextWidget)
         self.title.setObjectName(u"title")
         self.title.setMinimumSize(QSize(0, 0))
@@ -42,7 +49,11 @@ class Ui_FormTextWidget(object):
         self.title.setTextFormat(Qt.AutoText)
         self.title.setScaledContents(False)
 
-        self.verticalLayout.addWidget(self.title)
+        self.hl.addWidget(self.title)
+
+        self.hl.setStretch(1, 1)
+
+        self.verticalLayout.addLayout(self.hl)
 
         self.lineedit = QLineEdit(FormTextWidget)
         self.lineedit.setObjectName(u"lineedit")
@@ -58,9 +69,6 @@ class Ui_FormTextWidget(object):
         self.verticalLayout.addWidget(self.textbrowser)
 
 
-        self.horizontalLayout.addLayout(self.verticalLayout)
-
-
         self.retranslateUi(FormTextWidget)
 
         QMetaObject.connectSlotsByName(FormTextWidget)
@@ -68,6 +76,7 @@ class Ui_FormTextWidget(object):
 
     def retranslateUi(self, FormTextWidget):
         FormTextWidget.setWindowTitle(QCoreApplication.translate("FormTextWidget", u"Form", None))
+        self.label_typetag.setText(QCoreApplication.translate("FormTextWidget", u"\u0418\u041a", None))
         self.title.setText(QCoreApplication.translate("FormTextWidget", u"<html><head/><body><p>\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a</p></body></html>", None))
         self.lineedit.setText("")
         self.textbrowser.setHtml(QCoreApplication.translate("FormTextWidget", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
