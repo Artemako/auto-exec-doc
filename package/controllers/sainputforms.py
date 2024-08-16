@@ -133,9 +133,10 @@ class SAInputForms:
         # Очистка всего и вся 
         self.delete_all_widgets_in_sa()        
         # обновить информацию о секциях
-        self.__obs_manager.obj_si.update_sections_info(page)
-        # Добавление новых секций в self
-        self.add_sections_in_sa()
+        if page is not None:
+            self.__obs_manager.obj_si.update_sections_info(page)
+            # Добавление новых секций в self
+            self.add_sections_in_sa()
 
 
 

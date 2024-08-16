@@ -204,6 +204,7 @@ class NodesEditorDialogWindow(QDialog):
                 self.__obs_manager.obj_pd.set_new_parent_for_child_node(node, child)
             # удаляем вершину из БД
             self.__obs_manager.obj_pd.delete_node(node)
+            # дети не должны удаляться так как не прописан для id_parent ON DELETE CASCADE
             # перевыставляем order_node соседям вершины
             parent_node = self.__obs_manager.obj_pd.get_node_parent(node)
             parent_childs = self.__obs_manager.obj_pd.get_childs(parent_node)

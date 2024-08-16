@@ -139,7 +139,7 @@ class StatusBar:
         mw_libreoffice.setContentsMargins(4, 0, 4, 0)
         self.__statusbar.addPermanentWidget(mw_libreoffice)
 
-    def set_message(self, message: str, duration: int = 5000):
+    def set_message(self, message: str, duration: int = 3000):
         """
         Поставить сообщение в статусбар.
         """

@@ -56,7 +56,7 @@ class TemplatesListDialogWindow(QDialog):
             "TemplatesListDialogWindow config_templates()"
         )
         form = self.ui.combox_forms.currentData()
-        if form is not None:
+        if form:
             templates = self.__obs_manager.obj_pd.get_templates_by_form(form)
             self.__templates = templates
             self.__templates_items = []
@@ -160,14 +160,6 @@ class TemplatesListDialogWindow(QDialog):
         self.ui.lw_templates.currentItemChanged.connect(self.config_pages)
 
 
-    def closeEvent(self, event):
-        self.__obs_manager.obj_l.debug_logger(
-            "TemplatesListDialogWindow closeEvent()"
-        )
-        node = self.__obs_manager.obj_twsed.get_current_node()
-        self.__obs_manager.obj_comboxts.update_combox_templates(node) 
-        self.close()
-
     def resizeEvent(self, event):
         super(TemplatesListDialogWindow, self).resizeEvent(event)
         self.resize_templates_items()
@@ -253,7 +245,6 @@ class TemplatesListDialogWindow(QDialog):
             if result:
                 self.delete_pages()
                 self.__obs_manager.obj_pd.delete_template(data)
-                self.__obs_manager.obj_pd.delete_template_all_data(data)
                 self.reconfig()
         elif type_window == "PAGE":
             name_page = data.get("name_page")
@@ -277,7 +268,6 @@ class TemplatesListDialogWindow(QDialog):
         filename_page = page.get("filename_page")
         self.__obs_manager.obj_ffm.delete_page_from_project(filename_page)
         self.__obs_manager.obj_pd.delete_page(page)
-        self.__obs_manager.obj_pd.delete_all_page_data(page)
             
 
     def add_page(self):
@@ -328,22 +318,23 @@ class TemplatesListDialogWindow(QDialog):
             copy_template = data.get("copy_template")
             # добавить
             form = self.ui.combox_forms.currentData()
-            id_new_template = self.__obs_manager.obj_pd.add_template(
-                name_template, form
-            )
-            # копирование
-            if copy_template != "empty":
-                id_copy_template = copy_template.get("id_template")
-                new_template = {
-                    "id_template": id_new_template,
-                    "name_template": name_template,
-                    "id_parent_node": form.get("id_node"),
-                }
-                old_template = self.__obs_manager.obj_pd.get_template_by_id(
-                    id_copy_template
+            if form:
+                id_new_template = self.__obs_manager.obj_pd.add_template(
+                    name_template, form
                 )
-                self.copy_template(old_template, new_template)
-            self.reconfig()
+                # копирование
+                if copy_template != "empty":
+                    id_copy_template = copy_template.get("id_template")
+                    new_template = {
+                        "id_template": id_new_template,
+                        "name_template": name_template,
+                        "id_parent_node": form.get("id_node"),
+                    }
+                    old_template = self.__obs_manager.obj_pd.get_template_by_id(
+                        id_copy_template
+                    )
+                    self.copy_template(old_template, new_template)
+                self.reconfig()
 
     def copy_template(self, old_template, new_template):
         self.copy_template_templates_data(old_template, new_template)

@@ -1,14 +1,13 @@
 from PySide6.QtWidgets import (
     QWidget
 )
-from PySide6.QtGui import QFont
 
+
+import resources_rc
 
 
 class Style:
 
-    # TODO: Ресурс шрифта
-        
     def set_style_for(self, widget):
         widget.setStyleSheet(qss)
 

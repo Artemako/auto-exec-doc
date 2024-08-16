@@ -6,6 +6,10 @@
     <file>resources/color-icons/red-circle.svg</file>
     <file>resources/color-icons/yellow-circle.svg</file>
   </qresource>
+  <qresource prefix="fonts">
+    <file>resources/fonts/OpenSans-Italic-VariableFont_wdth,wght.ttf</file>
+    <file>resources/fonts/OpenSans-VariableFont_wdth,wght.ttf</file>
+  </qresource>
   <qresource prefix="png">
     <file>resources/png/branch-closed.png</file>
     <file>resources/png/branch-open.png</file>

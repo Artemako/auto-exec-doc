@@ -9,7 +9,6 @@ import copy
 import resources_rc
 
 # TODO ПОДУМАТЬ ПРО PDF 
-# TODO ПРОВЕРКА НА ИМЯ 
 
 class NedNodeDialogWindow(QDialog):
     def __init__(self, obs_manager, type_window, type_node, nodes, node=None):
@@ -127,17 +126,18 @@ class NedNodeDialogWindow(QDialog):
         combobox.clear()
         current_index = 0
         parent_node = self.ui.combox_parent.currentData()
-        combobox.addItem("- В начало -", "start")
-        childs_nodes = self.get_childs(parent_node)
-        if self.__type_window == "create":
-            for index, child_node in enumerate(childs_nodes):
-                combobox.addItem("После " + child_node.get("name_node"), child_node)
-        else:
-            for index, child_node in enumerate(childs_nodes):
-                if self.__node.get("id_node") != child_node.get("id_node"):
+        if parent_node:
+            combobox.addItem("- В начало -", "start")
+            childs_nodes = self.get_childs(parent_node)
+            if self.__type_window == "create":
+                for index, child_node in enumerate(childs_nodes):
                     combobox.addItem("После " + child_node.get("name_node"), child_node)
-                else:
-                    current_index = index
+            else:
+                for index, child_node in enumerate(childs_nodes):
+                    if self.__node.get("id_node") != child_node.get("id_node"):
+                        combobox.addItem("После " + child_node.get("name_node"), child_node)
+                    else:
+                        current_index = index
         combobox.setCurrentIndex(current_index)
         combobox.blockSignals(False)
 
@@ -150,16 +150,32 @@ class NedNodeDialogWindow(QDialog):
         
     def action_nestag(self):
         self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow action_nestag()")
-        # TODO Проверка на уникальность имя
-        name = self.ui.lineedit_namenode.text()
-        if len(name) > 0:
+        name_node = self.ui.lineedit_namenode.text()
+        if len(name_node) > 0:
+            node_by_name = self.__obs_manager.obj_pd.get_node_by_name(name_node)
+            print(f"node_by_name = {node_by_name}")
             if self.__type_window == "create":
-                self.add_new_node()
+                if not node_by_name:
+                    self.add_new_node()
+                    self.accept()
+                else:
+                    msg = "Другая вершина с таким именем уже существует!"
+                    self.__obs_manager.obj_dw.warning_message(msg)
+                
             elif self.__type_window == "edit":
-                self.save_edit_node()
-            self.accept()
+                if not node_by_name:
+                    self.save_edit_node()
+                    self.accept()
+                elif self.__node.get("name_node") == name_node:
+                    # ↑ если имя тега не изменилось
+                    self.save_edit_node()
+                    self.accept()
+                else:
+                    msg = "Другая вершина с таким именем уже существует!"
+                    self.__obs_manager.obj_dw.warning_message(msg)
         else:
-            self.__obs_manager.obj_dw.warning_message("Заполните поле названия")
+            msg = "Заполните поле названия!"
+            self.__obs_manager.obj_dw.warning_message(msg)
 
     def save_edit_node(self):
         self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow save_edit_node()")
@@ -198,36 +214,38 @@ class NedNodeDialogWindow(QDialog):
             edit_old_nodes = self.get_edit_old_nodes_when_is_edit(id_old_parent_node)
         # для create
         new_parent_node = self.ui.combox_parent.currentData()
-        id_new_parent_node = new_parent_node.get("id_node")
-        # проверка на одинаковых родитилей
-        childs_nodes = []
-        if id_new_parent_node == id_old_parent_node:
-            childs_nodes = edit_old_nodes
-        else:
-            # не забудем про изменения в старой группе
-            for node in edit_old_nodes:
-                self.__data.append(node)
-            # новая группа
-            childs_nodes = self.get_childs(new_parent_node)
-        # сосед в новой группе
-        neighboor_node = self.ui.combox_neighboor.currentData()
-        # вставка вершины в группу
-        self.__node["name_node"] = self.ui.lineedit_namenode.text()
-        self.__node["id_parent"] = new_parent_node.get("id_node")
-        if neighboor_node == "start":
-            # вставить в самое начало
-            childs_nodes.insert(0, self.__node)
-        else:
-            # вставить после соседа
-            neighboor_index = int(neighboor_node.get("order_node")) + 1
-            childs_nodes.insert(neighboor_index, self.__node)
-        # цикл по новой группе
-        index = 0
-        for child_node in childs_nodes:
-            if child_node != "WRAPPER":
-                child_node["order_node"] = index
-                self.__data.append(child_node)
-                index += 1
+        if new_parent_node:
+            id_new_parent_node = new_parent_node.get("id_node")
+            # проверка на одинаковых родитилей
+            childs_nodes = []
+            if id_new_parent_node == id_old_parent_node:
+                childs_nodes = edit_old_nodes
+            else:
+                # не забудем про изменения в старой группе
+                for node in edit_old_nodes:
+                    self.__data.append(node)
+                # новая группа
+                childs_nodes = self.get_childs(new_parent_node)
+            # сосед в новой группе
+            neighboor_node = self.ui.combox_neighboor.currentData()
+            if neighboor_node:
+                # вставка вершины в группу
+                self.__node["name_node"] = self.ui.lineedit_namenode.text()
+                self.__node["id_parent"] = new_parent_node.get("id_node")
+                if neighboor_node == "start":
+                    # вставить в самое начало
+                    childs_nodes.insert(0, self.__node)
+                else:
+                    # вставить после соседа
+                    neighboor_index = int(neighboor_node.get("order_node")) + 1
+                    childs_nodes.insert(neighboor_index, self.__node)
+                # цикл по новой группе
+                index = 0
+                for child_node in childs_nodes:
+                    if child_node != "WRAPPER":
+                        child_node["order_node"] = index
+                        self.__data.append(child_node)
+                        index += 1
         
 
     def add_new_node(self):

@@ -1,5 +1,7 @@
 import sys
+
 from PySide6.QtWidgets import QApplication
+from PySide6.QtGui import QFontDatabase
 
 import package.components.mainwindow as mainwindow
 
@@ -161,6 +163,9 @@ class App:
         """
         try:
             self.app = QApplication(sys.argv)
+            # настройка шрифтов
+            self.__font_1_id = QFontDatabase.addApplicationFont(":/fonts/resources/fonts/OpenSans-Italic-VariableFont_wdth,wght.ttf")
+            self.__font_2_id = QFontDatabase.addApplicationFont(":/fonts/resources/fonts/OpenSans-VariableFont_wdth,wght.ttf")
             # создание окна
             self.window = mainwindow.MainWindow(self.obs_manager)
             # подключение MainWindow к obs_manager

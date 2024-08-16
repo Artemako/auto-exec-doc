@@ -1,10 +1,4 @@
 BEGIN TRANSACTION;
-CREATE TABLE IF NOT EXISTS "Project_documents" (
-	"id_docx"	INTEGER NOT NULL UNIQUE,
-	"name_docx"	TEXT,
-	"filename_docx"	TEXT NOT NULL UNIQUE,
-	PRIMARY KEY("id_docx" AUTOINCREMENT)
-);
 CREATE TABLE IF NOT EXISTS "Project_nodes" (
 	"id_node"	INTEGER NOT NULL UNIQUE,
 	"name_node"	TEXT UNIQUE,
@@ -14,7 +8,7 @@ CREATE TABLE IF NOT EXISTS "Project_nodes" (
 	"id_active_template"	INTEGER,
 	"included"	INTEGER NOT NULL DEFAULT 1,
 	PRIMARY KEY("id_node" AUTOINCREMENT),
-	FOREIGN KEY("id_active_template") REFERENCES "Project_templates"("id_template")
+	FOREIGN KEY("id_active_template") REFERENCES "Project_templates"("id_template") ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
 	"id_pair"	INTEGER NOT NULL UNIQUE,
@@ -23,8 +17,8 @@ CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
 	"name_tag"	TEXT,
 	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
-	FOREIGN KEY("id_node") REFERENCES "Project_nodes"("id_node"),
-	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag")
+	FOREIGN KEY("id_node") REFERENCES "Project_nodes"("id_node") ON DELETE CASCADE,
+	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag") ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "Project_pages" (
 	"id_page"	INTEGER NOT NULL UNIQUE,
@@ -34,7 +28,7 @@ CREATE TABLE IF NOT EXISTS "Project_pages" (
 	"order_page"	INTEGER NOT NULL,
 	"included"	INTEGER NOT NULL DEFAULT 1,
 	PRIMARY KEY("id_page" AUTOINCREMENT),
-	FOREIGN KEY("id_parent_template") REFERENCES "Project_templates"("id_template")
+	FOREIGN KEY("id_parent_template") REFERENCES "Project_templates"("id_template") ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "Project_pages_data" (
 	"id_pair"	INTEGER NOT NULL UNIQUE,
@@ -43,8 +37,8 @@ CREATE TABLE IF NOT EXISTS "Project_pages_data" (
 	"name_tag"	TEXT,
 	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
-	FOREIGN KEY("id_page") REFERENCES "Project_pages"("id_page"),
-	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag")
+	FOREIGN KEY("id_page") REFERENCES "Project_pages"("id_page") ON DELETE CASCADE,
+	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag") ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "Project_tags" (
 	"id_tag"	INTEGER NOT NULL UNIQUE,
@@ -62,7 +56,7 @@ CREATE TABLE IF NOT EXISTS "Project_templates" (
 	"name_template"	TEXT,
 	"id_parent_node"	INTEGER,
 	PRIMARY KEY("id_template" AUTOINCREMENT),
-	FOREIGN KEY("id_parent_node") REFERENCES "Project_nodes"("id_node")
+	FOREIGN KEY("id_parent_node") REFERENCES "Project_nodes"("id_node") ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "Project_templates_data" (
 	"id_pair"	INTEGER NOT NULL UNIQUE,
@@ -71,10 +65,9 @@ CREATE TABLE IF NOT EXISTS "Project_templates_data" (
 	"name_tag"	TEXT,
 	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
-	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag"),
-	FOREIGN KEY("id_template") REFERENCES "Project_templates"("id_template")
+	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag") ON DELETE CASCADE,
+	FOREIGN KEY("id_template") REFERENCES "Project_templates"("id_template") ON DELETE CASCADE
 );
-INSERT INTO "Project_documents" VALUES (110,NULL,'');
 INSERT INTO "Project_nodes" VALUES (0,'Проект',NULL,'0','PROJECT',NULL,1);
 INSERT INTO "Project_nodes" VALUES (10,'Титульный лист',0,'1','FORM',1,1);
 INSERT INTO "Project_nodes" VALUES (11,'Реестр документации',0,'2','FORM',2,1);

@@ -287,22 +287,23 @@ class NedPageDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger(
             "NedPageDialogWindow btn_nestag_clicked()"
         )
-        if self.__type_ned == "create":
-            filename_page = self.__page_filename
-            namepage = self.ui.lineedit_namepage.text()
-            # TODO Уникальность имени!!!
-            if len(namepage) > 0 and len(filename_page) > 0:
+        
+        filename_page = self.__page_filename
+        namepage = self.ui.lineedit_namepage.text()
+        # TODO Уникальность имени!!!
+        if len(namepage) > 0 and len(filename_page) > 0:
+            if self.__type_ned == "create":
+                ...
                 self.__data["name_page"] = namepage
                 self.__data["filename_page"] = filename_page
                 self.accept()
-            elif namepage == "":
-                self.__obs_manager.obj_dw.warning_message("Заполните поле названия")
-            elif filename_page is None or len(filename_page) == 0:
-                self.__obs_manager.obj_dw.warning_message("Выберите документ")
-            else:
-                self.__obs_manager.obj_dw.warning_message(
-                    "Заполните поле названия и выберите документ"
-                )
-        elif self.__type_ned == "edit":
-            self.__data = self.__page
-            # TODO edit
+            elif self.__type_ned == "edit":
+                self.__data = self.__page                
+        elif namepage == "":
+            self.__obs_manager.obj_dw.warning_message("Заполните поле названия")
+        elif filename_page is None or len(filename_page) == 0:
+            self.__obs_manager.obj_dw.warning_message("Выберите документ")
+        else:
+            self.__obs_manager.obj_dw.warning_message(
+                "Заполните поле названия и выберите документ"
+            )

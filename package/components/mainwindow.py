@@ -154,10 +154,7 @@ class MainWindow(QMainWindow):
             self.__obs_manager
         )
         self.__obs_manager.obj_tagsldw.exec()
-        # обновить скроллвью после изменения тегов
-        page = self.__obs_manager.obj_lwpt.get_page_by_current_item()
-        if page is not None:
-            self.__obs_manager.obj_saif.update_scrollarea(page)
+        self.update_main_window()
 
     def edit_templates(self):
         """Редактирование шаблонов."""
@@ -166,6 +163,7 @@ class MainWindow(QMainWindow):
             self.__obs_manager
         )
         self.__obs_manager.obj_templdw.exec()
+        self.update_main_window()
 
     def edit_structure_nodes(self):
         """Редактирование структуры узлов."""
@@ -174,7 +172,23 @@ class MainWindow(QMainWindow):
             self.__obs_manager
         )
         self.__obs_manager.obj_nedw.exec()
+        self.update_main_window()
+        
+
+    def update_main_window(self):
+        self.__obs_manager.obj_l.debug_logger("MainWindow update_main_window()")
+        # дерево
         self.__obs_manager.obj_twsed.update_structure_exec_doc()
+        # combox_templates + lw_pages_template (внутри combox_templates)
+        node = self.__obs_manager.obj_twsed.get_current_node()
+        self.__obs_manager.obj_comboxts.update_combox_templates(node) 
+        # widget_pdf_view
+        # self.__obs_manager.obj_pv.set_empty_pdf_view()
+        # scrollarea_inputforms
+        page = self.__obs_manager.obj_lwpt.get_page_by_current_item()
+        self.__obs_manager.obj_saif.update_scrollarea(page)
+        
+        
 
     def update_menu_recent_projects(self):
         self.__obs_manager.obj_l.debug_logger(

@@ -88,7 +88,8 @@ class NedTemplateDialogWindow(QDialog):
         # для create
         if self.__type_ned == "create":
             copytemplate = self.ui.combox_templates.currentData()
-            self.__data["copy_template"] = copytemplate
+            if copytemplate:
+                self.__data["copy_template"] = copytemplate
         # проверка ОБЩАЯ
         if len(nametemplate) > 0:
             self.accept()

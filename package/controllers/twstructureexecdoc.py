@@ -9,6 +9,7 @@ class TWStructureExecDoc:
         self.__icons = None
         self.__nodes_to_items = dict()
         self.__expanded_states = dict()
+        self.__last_current_node = None
 
     def setting_all_obs_manager(self, obs_manager):
         self.__obs_manager = obs_manager
@@ -85,6 +86,8 @@ class TWStructureExecDoc:
         self.__obs_manager.obj_l.debug_logger(
             "TWStructureExecDoc update_structure_exec_doc()"
         )
+        #
+        self.__last_current_node = self.get_current_node()
         # очистка
         self.clear_sed()
         # Задать название столбца
@@ -92,7 +95,8 @@ class TWStructureExecDoc:
         self.__tw.setHeaderLabels(["Проект"])
         self.__title_sed.setText(title)
         # проход по вершинам
-        self.dfs(self.__obs_manager.obj_pd.get_project_node())
+        self.dfs(self.__obs_manager.obj_pd.get_project_node()) 
+            
 
     def dfs(self, parent_node):
         """
@@ -126,6 +130,10 @@ class TWStructureExecDoc:
         # С галочкой по умолчанию
         item.setCheckState(0, Qt.Checked)
         self.__nodes_to_items[node.get("id_node")] = item
+        # если было до clear
+        if self.__last_current_node is not None:
+            if self.__last_current_node.get("id_node") == node.get("id_node"):
+                self.__tw.setCurrentItem(item)
         self.__tw.blockSignals(False)
 
     def add_item_in_tree_widget(self, node) -> object:

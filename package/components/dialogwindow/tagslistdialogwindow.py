@@ -223,13 +223,16 @@ class TagsListDialogWindow(QDialog):
             print(f"data = {data}")
         elif type_table == "group_tags":
             group_node = self.ui.combox_groups.currentData()
-            node_data = self.__obs_manager.obj_pd.get_node_data(group_node)
-            for pair in node_data:
-                data.append(self.__obs_manager.obj_pd.get_tag_by_id(pair.get("id_tag")))
+            # проверка на наличия групп
+            if group_node:
+                node_data = self.__obs_manager.obj_pd.get_node_data(group_node)
+                for pair in node_data:
+                    data.append(self.__obs_manager.obj_pd.get_tag_by_id(pair.get("id_tag")))
         elif type_table == "form_template_page_tags":
             page = self.ui.combox_pages.currentData()
-            print(f"page = {page}")
-            if page == "all_pages":
+            if page is None:
+                pass
+            elif page == "all_pages":
                 template = self.ui.combox_templates.currentData()
                 if template:
                     template_data = self.__obs_manager.obj_pd.get_template_data(
@@ -302,9 +305,9 @@ class TagsListDialogWindow(QDialog):
             "TagsListDialogWindow clear_and_fill_combobox_template()"
         )
         form = self.ui.combox_forms.currentData()
-        print(f"form = {form}")
-        templates = self.__obs_manager.obj_pd.get_templates_by_form(form)
-        print(f"templates = {templates}")
+        templates = []
+        if form:
+            templates = self.__obs_manager.obj_pd.get_templates_by_form(form)
         #
         self.ui.combox_templates.blockSignals(True)
         self.ui.combox_templates.clear()
@@ -363,6 +366,7 @@ class TagsListDialogWindow(QDialog):
         table_widget.setRowCount(len(data))
         for row, item in enumerate(data):
             # получение данных
+            print(f"item = {item}")
             order_tag = item.get("order_tag") + 1
             name_tag = item.get("name_tag")
             title_tag = item.get("title_tag")
@@ -524,18 +528,22 @@ class TagsListDialogWindow(QDialog):
             self.__obs_manager.obj_pd.delete_node_datas(project_node, data_for_delete)
         elif type_table == "group_tags":
             group_node = self.ui.combox_groups.currentData()
-            self.__obs_manager.obj_pd.insert_node_datas(group_node, data_for_insert)
-            self.__obs_manager.obj_pd.delete_node_datas(group_node, data_for_delete)
+            if group_node:
+                self.__obs_manager.obj_pd.insert_node_datas(group_node, data_for_insert)
+                self.__obs_manager.obj_pd.delete_node_datas(group_node, data_for_delete)
         elif type_table == "form_template_page_tags":
             page = self.ui.combox_pages.currentData()
-            if page == "all_pages":
+            if page is None:
+                pass
+            elif page == "all_pages":
                 template = self.ui.combox_templates.currentData()
-                self.__obs_manager.obj_pd.insert_template_datas(
-                    template, data_for_insert
-                )
-                self.__obs_manager.obj_pd.delete_template_datas(
-                    template, data_for_delete
-                )
+                if template:
+                    self.__obs_manager.obj_pd.insert_template_datas(
+                        template, data_for_insert
+                    )
+                    self.__obs_manager.obj_pd.delete_template_datas(
+                        template, data_for_delete
+                    )
             else:
                 self.__obs_manager.obj_pd.insert_page_datas(page, data_for_insert)
                 self.__obs_manager.obj_pd.delete_page_datas(page, data_for_delete)

@@ -34,6 +34,7 @@ class ComboxTemplates:
         self.__combox_templates.blockSignals(False)
 
     def update_combox_templates(self, node):
+        self.__obs_manager.obj_l.debug_logger(f"ComboxTemplates update_combox_templates(node):\nnode = {node}")
         self.clear_comboxts()
         self.__combox_templates.blockSignals(True)
         if node:
@@ -52,4 +53,6 @@ class ComboxTemplates:
             # обновить cтраницы
             current_template = self.__combox_templates.itemData(index)
             self.__obs_manager.obj_lwpt.update_pages_template(current_template)
+        else:
+            self.__obs_manager.obj_lwpt.update_pages_template(None)
         self.__combox_templates.blockSignals(False)  

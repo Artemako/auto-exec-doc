@@ -41,12 +41,6 @@ class ProjectDatabase:
         cursor.executescript(
             """
 BEGIN TRANSACTION;
-CREATE TABLE IF NOT EXISTS "Project_documents" (
-	"id_docx"	INTEGER NOT NULL UNIQUE,
-	"name_docx"	TEXT,
-	"filename_docx"	TEXT NOT NULL UNIQUE,
-	PRIMARY KEY("id_docx" AUTOINCREMENT)
-);
 CREATE TABLE IF NOT EXISTS "Project_nodes" (
 	"id_node"	INTEGER NOT NULL UNIQUE,
 	"name_node"	TEXT UNIQUE,
@@ -56,7 +50,7 @@ CREATE TABLE IF NOT EXISTS "Project_nodes" (
 	"id_active_template"	INTEGER,
 	"included"	INTEGER NOT NULL DEFAULT 1,
 	PRIMARY KEY("id_node" AUTOINCREMENT),
-	FOREIGN KEY("id_active_template") REFERENCES "Project_templates"("id_template")
+	FOREIGN KEY("id_active_template") REFERENCES "Project_templates"("id_template") ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
 	"id_pair"	INTEGER NOT NULL UNIQUE,
@@ -65,8 +59,8 @@ CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
 	"name_tag"	TEXT,
 	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
-	FOREIGN KEY("id_node") REFERENCES "Project_nodes"("id_node"),
-	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag")
+	FOREIGN KEY("id_node") REFERENCES "Project_nodes"("id_node") ON DELETE CASCADE,
+	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag") ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "Project_pages" (
 	"id_page"	INTEGER NOT NULL UNIQUE,
@@ -76,7 +70,7 @@ CREATE TABLE IF NOT EXISTS "Project_pages" (
 	"order_page"	INTEGER NOT NULL,
 	"included"	INTEGER NOT NULL DEFAULT 1,
 	PRIMARY KEY("id_page" AUTOINCREMENT),
-	FOREIGN KEY("id_parent_template") REFERENCES "Project_templates"("id_template")
+	FOREIGN KEY("id_parent_template") REFERENCES "Project_templates"("id_template") ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "Project_pages_data" (
 	"id_pair"	INTEGER NOT NULL UNIQUE,
@@ -85,8 +79,8 @@ CREATE TABLE IF NOT EXISTS "Project_pages_data" (
 	"name_tag"	TEXT,
 	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
-	FOREIGN KEY("id_page") REFERENCES "Project_pages"("id_page"),
-	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag")
+	FOREIGN KEY("id_page") REFERENCES "Project_pages"("id_page") ON DELETE CASCADE,
+	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag") ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "Project_tags" (
 	"id_tag"	INTEGER NOT NULL UNIQUE,
@@ -104,7 +98,7 @@ CREATE TABLE IF NOT EXISTS "Project_templates" (
 	"name_template"	TEXT,
 	"id_parent_node"	INTEGER,
 	PRIMARY KEY("id_template" AUTOINCREMENT),
-	FOREIGN KEY("id_parent_node") REFERENCES "Project_nodes"("id_node")
+	FOREIGN KEY("id_parent_node") REFERENCES "Project_nodes"("id_node") ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "Project_templates_data" (
 	"id_pair"	INTEGER NOT NULL UNIQUE,
@@ -113,10 +107,9 @@ CREATE TABLE IF NOT EXISTS "Project_templates_data" (
 	"name_tag"	TEXT,
 	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
-	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag"),
-	FOREIGN KEY("id_template") REFERENCES "Project_templates"("id_template")
+	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag") ON DELETE CASCADE,
+	FOREIGN KEY("id_template") REFERENCES "Project_templates"("id_template") ON DELETE CASCADE
 );
-INSERT INTO "Project_documents" VALUES (110,NULL,'');
 INSERT INTO "Project_nodes" VALUES (0,'Проект',NULL,'0','PROJECT',NULL,1);
 INSERT INTO "Project_nodes" VALUES (10,'Титульный лист',0,'1','FORM',1,1);
 INSERT INTO "Project_nodes" VALUES (11,'Реестр документации',0,'2','FORM',2,1);
@@ -546,6 +539,7 @@ COMMIT;
 
         conn = self.get_conn()
         cursor = conn.cursor()
+        cursor.execute("PRAGMA foreign_keys = ON")
         cursor.execute(
             """
         DELETE FROM Project_pages
@@ -556,25 +550,6 @@ COMMIT;
         conn.commit()
         conn.close()
 
-    def delete_all_page_data(self, page):
-        """
-        Запрос на удаление данных страницы из Project_pages_data.
-        """
-        self.__obs_manager.obj_l.debug_logger(
-            f"ProjectDatabase delete_all_page_data(page): page = {page}"
-        )
-
-        conn = self.get_conn()
-        cursor = conn.cursor()
-        cursor.execute(
-            """
-        DELETE FROM Project_pages_data
-        WHERE id_page = ?
-        """,
-            [page.get("id_page")],
-        )
-        conn.commit()
-        conn.close()
 
     def get_page_data(self, page) -> list:
         """
@@ -844,25 +819,6 @@ COMMIT;
         )
         return result
 
-    def delete_node_data(self, node):
-        """
-        Удаление всех тегов у вершины.
-        """
-        self.__obs_manager.obj_l.debug_logger(
-            f"ProjectDatabase delete_node_data(node): node = {node}"
-        )
-        conn = self.get_conn()
-        cursor = conn.cursor()
-        cursor.executescript(
-            """
-        DELETE FROM Project_nodes_data
-        WHERE id_node = ?
-        """,
-            [node.get("id_node")],
-        )
-        conn.commit()
-        conn.close()
-
     def insert_node_datas(self, node, pair_list):
         """
         Запрос на обновление данных вершины в Project_nodes_data.
@@ -1043,6 +999,7 @@ COMMIT;
         )
         conn = self.get_conn()
         cursor = conn.cursor()
+        cursor.execute("PRAGMA foreign_keys = ON")
         cursor.execute(
             """
         DELETE FROM Project_tags
@@ -1055,7 +1012,7 @@ COMMIT;
 
     def get_tag_by_name(self, name_tag):
         """
-        Запрос на получение данных тега в Project_tags.
+        Запрос на получение тега по имени в Project_tags.
         """
         self.__obs_manager.obj_l.debug_logger(
             f"ProjectDatabase get_tag_by_name(name_tag):\nname_tag = {name_tag}"
@@ -1070,7 +1027,28 @@ COMMIT;
         """,
             [name_tag],
         )
-        result = cursor.fetchone()
+        result = self.get_fetchone(cursor)
+        conn.close()
+        return result
+    
+    def get_node_by_name(self, name_node):
+        """
+        Запрос на получение вершины по имени в Project_nodes.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase get_node_by_name(name_node):\nname_node = {name_node}"
+        )
+        conn = self.get_conn()  
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        SELECT *
+        FROM Project_nodes
+        WHERE name_node = ?
+        """,
+            [name_node],
+        )
+        result = self.get_fetchone(cursor)
         conn.close()
         return result
 
@@ -1139,6 +1117,7 @@ COMMIT;
         )
         conn = self.get_conn()
         cursor = conn.cursor()
+        cursor.execute("PRAGMA foreign_keys = ON")
         cursor.execute(
             """
         DELETE FROM Project_nodes
@@ -1259,28 +1238,10 @@ COMMIT;
         )
         conn = self.get_conn()
         cursor = conn.cursor()
+        cursor.execute("PRAGMA foreign_keys = ON")
         cursor.execute(
             """
         DELETE FROM Project_templates
-        WHERE id_template = ?
-        """,
-            [template.get("id_template")],
-        )
-        conn.commit()
-        conn.close()
-
-    def delete_template_all_data(self, template):
-        """
-        Удаление всех данных шаблона.
-        """
-        self.__obs_manager.obj_l.debug_logger(
-            f"ProjectDatabase delete_template_all_data(template):\ntemplate = {template}"
-        )
-        conn = self.get_conn()
-        cursor = conn.cursor()
-        cursor.execute(
-            """
-        DELETE FROM Project_templates_data
         WHERE id_template = ?
         """,
             [template.get("id_template")],

@@ -102,8 +102,8 @@ class Project:
         self.__obs_manager.obj_sd.add_new_project_to_db()
         self.__obs_manager.obj_pd.create_and_config_db_project()
         # настраиваем контроллеры
-        # настраиваем структуру execdoc
-        self.__obs_manager.obj_twsed.update_structure_exec_doc()
+        # обновляем окно
+        self.__obs_manager.obj_mw.update_main_window()
         # пути для проекта
         self.__obs_manager.obj_dpm.set_new_dirpaths_for_project()
         # добавляем папки форм в новый проект
@@ -199,8 +199,8 @@ class Project:
         # настраиваем базы данных
         self.__obs_manager.obj_sd.add_or_update_open_project_to_db()
         self.__obs_manager.obj_pd.create_and_config_db_project()
-        # настраиваем структуру execdoc
-        self.__obs_manager.obj_twsed.update_structure_exec_doc()
+        # обновляем окно
+        self.__obs_manager.obj_mw.update_main_window()
         # пути для проекта
         self.__obs_manager.obj_dpm.set_new_dirpaths_for_project()
 
