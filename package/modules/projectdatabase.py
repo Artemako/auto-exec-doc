@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
 	"id_node"	INTEGER NOT NULL,
 	"id_tag"	INTEGER NOT NULL,
 	"name_tag"	TEXT,
-	"value"	TEXT,
+	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
 	FOREIGN KEY("id_node") REFERENCES "Project_nodes"("id_node"),
 	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag")
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS "Project_pages_data" (
 	"id_page"	INTEGER NOT NULL,
 	"id_tag"	INTEGER NOT NULL,
 	"name_tag"	TEXT,
-	"value"	TEXT,
+	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
 	FOREIGN KEY("id_page") REFERENCES "Project_pages"("id_page"),
 	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag")
@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS "Project_templates_data" (
 	"id_template"	INTEGER NOT NULL,
 	"id_tag"	INTEGER NOT NULL,
 	"name_tag"	TEXT,
-	"value"	TEXT,
+	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
 	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag"),
 	FOREIGN KEY("id_template") REFERENCES "Project_templates"("id_template")
@@ -191,6 +191,7 @@ INSERT INTO "Project_templates" VALUES (3,'main',1201);
 INSERT INTO "Project_templates" VALUES (4,'main',1202);
 INSERT INTO "Project_templates" VALUES (5,'main',1203);
 COMMIT;
+
 
         """
         )
@@ -677,12 +678,12 @@ COMMIT;
         conn.commit()
         conn.close()
 
-    def update_page_data(self, id_pair, value):
+    def update_page_data(self, id_pair, value_pair):
         """
         Запрос на обновление данных страницы в Project_pages_data.
         """
         self.__obs_manager.obj_l.debug_logger(
-            f"ProjectDatabase update_page_data(id_pair, value): id_pair = {id_pair}, value = {value}"
+            f"ProjectDatabase update_page_data(id_pair, value_pair): id_pair = {id_pair}, value_pair = {value_pair}"
         )
 
         conn = self.get_conn()
@@ -690,20 +691,20 @@ COMMIT;
         cursor.execute(
             """
         UPDATE Project_pages_data
-        SET value = ?
+        SET value_pair = ?
         WHERE id_pair = ?
         """,
-            [value, id_pair],
+            [value_pair, id_pair],
         )
         conn.commit()
         conn.close()
 
-    def update_template_data(self, id_pair, value):
+    def update_template_data(self, id_pair, value_pair):
         """
         Запрос на обновление данных шаблона в Project_templates_data.
         """
         self.__obs_manager.obj_l.debug_logger(
-            f"ProjectDatabase update_template_data(id_pair, value): id_pair = {id_pair}, value = {value}"
+            f"ProjectDatabase update_template_data(id_pair, value_pair): id_pair = {id_pair}, value_pair = {value_pair}"
         )
 
         conn = self.get_conn()
@@ -711,20 +712,20 @@ COMMIT;
         cursor.execute(
             """
         UPDATE Project_templates_data
-        SET value = ?
+        SET value_pair = ?
         WHERE id_pair = ?
         """,
-            [value, id_pair],
+            [value_pair, id_pair],
         )
         conn.commit()
         conn.close()
 
-    def update_node_data(self, id_pair, value):
+    def update_node_data(self, id_pair, value_pair):
         """
         Запрос на обновление данных вершины в Project_nodes_data.
         """
         self.__obs_manager.obj_l.debug_logger(
-            f"ProjectDatabase update_node_data(id_pair, value): id_pair = {id_pair}, value = {value}"
+            f"ProjectDatabase update_node_data(id_pair, value_pair): id_pair = {id_pair}, value_pair = {value_pair}"
         )
 
         conn = self.get_conn()
@@ -732,15 +733,15 @@ COMMIT;
         cursor.execute(
             """
         UPDATE Project_nodes_data
-        SET value = ?
+        SET value_pair = ?
         WHERE id_pair = ?
         """,
-            [value, id_pair],
+            [value_pair, id_pair],
         )
         conn.commit()
         conn.close()
 
-    def get_page_pair_value_by_id(self, id_pair):
+    def get_page_value_pair_by_id_pair(self, id_pair):
         """
         Запрос на получение значения по id_pair в Project_pages_data.
         """
@@ -748,7 +749,7 @@ COMMIT;
         cursor = conn.cursor()
         cursor.execute(
             """
-        SELECT value FROM Project_pages_data
+        SELECT value_pair FROM Project_pages_data
         WHERE id_pair = ?
         """,
             [id_pair],
@@ -757,11 +758,11 @@ COMMIT;
         result = self.get_fetchone(cursor)
         conn.close()
         self.__obs_manager.obj_l.debug_logger(
-            f"ProjectDatabase get_page_pair_value_by_id(id_pair): id_pair = {id_pair}\nresult = {result}"
+            f"ProjectDatabase get_page_value_pair_by_id_pair(id_pair): id_pair = {id_pair}\nresult = {result}"
         )
         return result
 
-    def get_template_pair_value_by_id(self, id_pair):
+    def get_template_value_pair_by_id_pair(self, id_pair):
         """
         Запрос на получение значения по id_pair в Project_templates_data.
         """
@@ -769,7 +770,7 @@ COMMIT;
         cursor = conn.cursor()
         cursor.execute(
             """
-        SELECT value FROM Project_templates_data
+        SELECT value_pair FROM Project_templates_data
         WHERE id_pair = ?
         """,
             [id_pair],
@@ -778,11 +779,11 @@ COMMIT;
         result = self.get_fetchone(cursor)
         conn.close()
         self.__obs_manager.obj_l.debug_logger(
-            f"ProjectDatabase get_template_pair_value_by_id(id_pair): id_pair = {id_pair}\nresult = {result}"
+            f"ProjectDatabase get_template_value_pair_by_id_pair(id_pair): id_pair = {id_pair}\nresult = {result}"
         )
         return result
 
-    def get_node_pair_value_by_id(self, id_pair):
+    def get_node_value_pair_by_id_pair(self, id_pair):
         """
         Запрос на получение значения по id_pair в Project_nodes_data.
         """
@@ -790,7 +791,7 @@ COMMIT;
         cursor = conn.cursor()
         cursor.execute(
             """
-        SELECT value FROM Project_nodes_data
+        SELECT value_pair FROM Project_nodes_data
         WHERE id_pair = ?
         """,
             [id_pair],
@@ -799,7 +800,7 @@ COMMIT;
         result = self.get_fetchone(cursor)
         conn.close()
         self.__obs_manager.obj_l.debug_logger(
-            f"ProjectDatabase get_node_pair_value_by_id(id_pair): id_pair = {id_pair}\nresult = {result}"
+            f"ProjectDatabase get_node_value_pair_by_id_pair(id_pair): id_pair = {id_pair}\nresult = {result}"
         )
         return result
 

@@ -37,7 +37,7 @@ class FormImage(QWidget):
         # поле ввода
         self.ui.label.setText(
             "Изображение успешно выбрано"
-            if self.__pair.get("value")
+            if self.__pair.get("value_pair")
             else "Выберите изображение"
         )
         # масштаб
@@ -82,4 +82,4 @@ class FormImage(QWidget):
             image.save(temp_file_path, "PNG")
             # Вывести путь к временному файлу
             print("Изображение сохранено в временную папку:", temp_file_path)
-            self.__pair["value"] = file_name_with_png
+            self.__pair["value_pair"] = file_name_with_png

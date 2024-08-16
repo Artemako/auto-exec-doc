@@ -137,10 +137,11 @@ class FileFolderManager:
 
     def delete_image_from_project(self, image_dirpath):
         self.__obs_manager.obj_l.debug_logger(
-            "FileFolderManager delete_image_from_project()"
+            f"FileFolderManager delete_image_from_project(image_dirpath):\nimage_dirpath = {image_dirpath}"
         )
         # путь к папке с шаблонами
         image_folder_dirpath = self.__obs_manager.obj_dpm.get_images_folder_dirpath()
+        print(f"image_folder_dirpath = {image_folder_dirpath}")
         try:
             os.remove(os.path.join(image_folder_dirpath, image_dirpath))
         except Exception as e:
@@ -193,7 +194,8 @@ class FileFolderManager:
         )
         forms_folder_dirpath = self.__obs_manager.obj_dpm.get_forms_folder_dirpath()
         old_page_path = os.path.join(forms_folder_dirpath, old_page_filename + ".docx")
-        new_page_filename = f"docx_{id(old_page_path)%100}_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
+        # генерируем новый id для новой страницы
+        new_page_filename = f"docx_{id(old_page_path)%1000}_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
         new_page_path = os.path.join(forms_folder_dirpath, new_page_filename + ".docx")
         self.copy_file(old_page_path, new_page_path)
         return new_page_filename

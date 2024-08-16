@@ -52,7 +52,7 @@ class FormTable(QWidget):
         self.ui.table.setColumnCount(len(labels))
         self.ui.table.setHorizontalHeaderLabels(labels)
         # поставить значения из таблицы
-        self.create_table_from_value(self.pair.get("value"))
+        self.create_table_from_value(self.pair.get("value_pair"))
         # контекстное меню
         self.context_menu = QMenu(self)
         # Копировать - copy_values_to_clipboard
@@ -187,5 +187,5 @@ class FormTable(QWidget):
         self.__obs_manager.obj_l.debug_logger(
             f"FormTable set_new_value_in_pair(pair, new_value):\npair = {pair},\nnew_value = {new_value}"
         )
-        pair["value"] = new_value
+        pair["value_pair"] = new_value
         print(pair)

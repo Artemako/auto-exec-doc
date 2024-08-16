@@ -107,7 +107,7 @@ class SectionsInfo:
             # перебор пар в section_data секции
             for pair_index, pair in enumerate(section_data):
                 id_pair = pair.get("id_pair")
-                value = pair.get("value")
+                value = pair.get("value_pair")
                 old_value = self.update_data_from_pair(section_type, id_pair, value)
                 id_tag = pair.get("id_tag")
                 self.save_image(id_tag, old_value, value)               
@@ -117,26 +117,27 @@ class SectionsInfo:
         old_value = None
         print(f"section_type = {section_type},\nid_pair = {id_pair},\nvalue = {value}")
         if section_type == "page":
-            old_value = self.__obs_manager.obj_pd.get_page_pair_value_by_id(
+            old_value = self.__obs_manager.obj_pd.get_page_value_pair_by_id_pair(
                 id_pair
             )
             self.__obs_manager.obj_pd.update_page_data(id_pair, value)
         elif section_type == "template":
-            old_value = self.__obs_manager.obj_pd.get_template_pair_value_by_id(
+            old_value = self.__obs_manager.obj_pd.get_template_value_pair_by_id_pair(
                 id_pair
             )
             self.__obs_manager.obj_pd.update_template_data(id_pair, value)
         elif section_type == "group":
-            old_value = self.__obs_manager.obj_pd.get_node_pair_value_by_id(
+            old_value = self.__obs_manager.obj_pd.get_node_value_pair_by_id_pair(
                 id_pair
             )
             self.__obs_manager.obj_pd.update_node_data(id_pair, value)
         elif section_type == "project":
-            old_value = self.__obs_manager.obj_pd.get_node_pair_value_by_id(
+            old_value = self.__obs_manager.obj_pd.get_node_value_pair_by_id_pair(
                 id_pair
             )
             self.__obs_manager.obj_pd.update_node_data(id_pair, value)
-        return old_value
+        # так как old_value = {'value_pair': 'img_20240816184801.png'}
+        return old_value.get("value_pair")
 
     def save_image(self, id_tag, old_value, value):
         self.__obs_manager.obj_l.debug_logger(f"SectionsInfo save_image(id_tag, old_value, value):\nid_tag = {id_tag},\nold_value = {old_value},\nvalue = {value}")
@@ -145,7 +146,6 @@ class SectionsInfo:
         )
         print(f"id_tag = {id_tag}\n")
         print(f"current_tag = {current_tag}\n")
-        # TODO Сделать удаление предыдущего изображения (при сохранении)
         type_tag = current_tag.get("type_tag")
         if type_tag == "IMAGE":
             self.__obs_manager.obj_ffm.delete_image_from_project(

@@ -30,7 +30,9 @@ class Project:
         """
         Проверка текущего проекта до создания или открытия нового.
         """
-        self.__obs_manager.obj_l.debug_logger("Project check_project_before_new_or_open()")
+        self.__obs_manager.obj_l.debug_logger(
+            "Project check_project_before_new_or_open()"
+        )
         # появление диалогового окна, когда проект активен, но не сохранен
         if self.__status_active and not self.__status_save:
             answer = self.__obs_manager.obj_dw.save_active_project()
@@ -72,7 +74,9 @@ class Project:
                 self.config_new_project()
 
     def clear_window_before_new_or_open_project(self):
-        self.__obs_manager.obj_l.debug_logger("Project clear_window_before_new_or_open_project()")
+        self.__obs_manager.obj_l.debug_logger(
+            "Project clear_window_before_new_or_open_project()"
+        )
         # очистка structureexecdoc
         self.__obs_manager.obj_twsed.clear_sed()
         # очистка comboxts
@@ -83,7 +87,6 @@ class Project:
         self.__obs_manager.obj_pv.set_empty_pdf_view()
         # очистка inputforms
         self.__obs_manager.obj_saif.delete_all_widgets_in_sa()
-    
 
     def config_new_project(self):
         """
@@ -95,7 +98,7 @@ class Project:
             self.__obs_manager.obj_dpm.get_project_dirpath()
         )
         self.__obs_manager.obj_sd.set_project_current_name(self.__current_name)
-        
+
         self.__obs_manager.obj_sd.add_new_project_to_db()
         self.__obs_manager.obj_pd.create_and_config_db_project()
         # настраиваем контроллеры
@@ -164,9 +167,7 @@ class Project:
                 # открытие проекта
                 self.config_open_project()
             else:
-                self.__obs_manager.obj_sb.set_message(
-                    "Сохранение отменено."
-                )
+                self.__obs_manager.obj_sb.set_message("Сохранение отменено.")
                 self.__obs_manager.obj_dw.warning_message("Сохранение отменено.")
         else:
             self.__obs_manager.obj_sb.set_message(
@@ -212,6 +213,7 @@ class Project:
         self.__obs_manager.obj_ffm.create_folders_and_aed_for_project()
         # обновляем меню
         self.__obs_manager.obj_mw.update_menu_recent_projects()
+        # TODO Подумать про оцищения от мусора
 
     def open_recent_project(self, project):
         """Открытие недавнего проекта."""
@@ -246,11 +248,11 @@ class Project:
         Экспорт проекта в pdf.
         """
         self.__obs_manager.obj_l.debug_logger("Project export_to_pdf()")
-        multipage_pdf_path = self.__obs_manager.obj_dw.select_name_and_dirpath_export_pdf()
+        multipage_pdf_path = (
+            self.__obs_manager.obj_dw.select_name_and_dirpath_export_pdf()
+        )
         if multipage_pdf_path:
-            self.__obs_manager.obj_sb.set_message(
-                "Процесс экспорта в PDF..."
-            )
+            self.__obs_manager.obj_sb.set_message("Процесс экспорта в PDF...")
             # проверка на доступность конвертера
             flag_converter = False
             app_converter = self.__obs_manager.obj_sd.get_app_converter()
@@ -262,7 +264,7 @@ class Project:
                 flag_converter = True
             if flag_converter:
                 start_time = time.time()
-                try: 
+                try:
                     self.__obs_manager.obj_c.export_to_pdf(multipage_pdf_path)
                     end_time = time.time()
                     self.__obs_manager.obj_sb.set_message(
@@ -273,24 +275,25 @@ class Project:
                     self.__obs_manager.obj_l.debug_logger(
                         f"Project export_to_pdf() -> time: {end_time - start_time}"
                     )
-                except Exception as e:
-                    self.__obs_manager.obj_dw.warning_message(
-                        "Экспорт отменён! Выбранный конвертер не работает."
-                    )
-                    self.__obs_manager.obj_sb.set_message(
-                        "Экспорт отменён! Выбранный конвертер не работает."
-                    )
-                    if app_converter == "MSWORD":
-                        self.__obs_manager.obj_ofp.terminate_msword()
-                        self.__obs_manager.obj_sb.update_status_msword_label(False)
-                
+                    
+                except self.__obs_manager.obj_ers.MsWordError:
+                    msg = "Экспорт отменён! Выбранный конвертер перестал работать."
+                    self.__obs_manager.obj_dw.warning_message(msg)
+                    self.__obs_manager.obj_sb.set_message(msg)
+                    self.__obs_manager.obj_ofp.terminate_msword()
+                    self.__obs_manager.obj_sb.update_status_msword_label(False)
+
+                except self.__obs_manager.obj_ers.LibreOfficeError:
+                    msg = "Экспорт отменён! Выбранный конвертер перестал работать."
+                    self.__obs_manager.obj_dw.warning_message(msg)
+                    self.__obs_manager.obj_sb.set_message(msg)
+                    self.__obs_manager.obj_ofp.terminate_libreoffice()
+                    self.__obs_manager.obj_sb.update_status_libreoffice_label(False)
+
             else:
-                self.__obs_manager.obj_dw.warning_message(
-                    "Эскпорт отменён! Выбранный конвертер не работает."
-                )
-                self.__obs_manager.obj_sb.set_message(
-                    "Экспорт отменён! Выбранный конвертер не работает."
-                )
+                msg = "Экспорт отменён! Выбранный конвертер не работает."
+                self.__obs_manager.obj_dw.warning_message(msg)
+                self.__obs_manager.obj_sb.set_message(msg)
 
 
 # obj_p = Project()

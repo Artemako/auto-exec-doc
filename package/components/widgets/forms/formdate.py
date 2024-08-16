@@ -52,7 +52,7 @@ class FormDate(QWidget):
             self.__str_format = format_date
 
         # поле ввода
-        value = self.__pair.get("value")
+        value = self.__pair.get("value_pair")
         if value:
             self.ui.dateedit.setDate(self.string_to_qdate(value, self.__str_format))
         else:
@@ -81,5 +81,5 @@ class FormDate(QWidget):
         self.__obs_manager.obj_l.debug_logger(
             f"FormDate set_new_value_in_pair(self, pair, new_value):\nnew_value = {new_value}"
         )
-        self.__pair["value"] = new_value
+        self.__pair["value_pair"] = new_value
         print(f"pair = {self.__pair}")

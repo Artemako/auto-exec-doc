@@ -54,7 +54,6 @@ class PdfView:
         self.__obs_manager.obj_l.debug_logger("PdfView set_zoom_custom()")
 
     def set_empty_pdf_view(self):
-        self.__document = None
         self.__document = QPdfDocument()
         self.__widget_pdf_view.setDocument(self.__document)
         self.__obs_manager.obj_l.debug_logger("PdfView set_empty_pdf_view()")

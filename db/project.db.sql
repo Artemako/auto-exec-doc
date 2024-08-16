@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
 	"id_node"	INTEGER NOT NULL,
 	"id_tag"	INTEGER NOT NULL,
 	"name_tag"	TEXT,
-	"value"	TEXT,
+	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
 	FOREIGN KEY("id_node") REFERENCES "Project_nodes"("id_node"),
 	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag")
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS "Project_pages_data" (
 	"id_page"	INTEGER NOT NULL,
 	"id_tag"	INTEGER NOT NULL,
 	"name_tag"	TEXT,
-	"value"	TEXT,
+	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
 	FOREIGN KEY("id_page") REFERENCES "Project_pages"("id_page"),
 	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag")
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS "Project_templates_data" (
 	"id_template"	INTEGER NOT NULL,
 	"id_tag"	INTEGER NOT NULL,
 	"name_tag"	TEXT,
-	"value"	TEXT,
+	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
 	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag"),
 	FOREIGN KEY("id_template") REFERENCES "Project_templates"("id_template")

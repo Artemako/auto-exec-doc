@@ -179,7 +179,7 @@ class ConverterPool:
         id_page = pair.get("id_page")
         id_tag = pair.get("id_tag")
         name_tag = pair.get("name_tag")
-        value = pair.get("value")
+        value = pair.get("value_pair")
         # current_tag
         current_tag = local_obs_manager.obj_pd.get_tag_by_id(id_tag)
         type_tag = current_tag.get("type_tag")
@@ -252,20 +252,17 @@ class ConverterPool:
         local_obs_manager.obj_l.debug_logger(
             f"Converter convert_from_pdf_docx(docx_path, pdf_path):\ndocx_path = {docx_path},\npdf_path = {pdf_path}"
         )
-        try:
-            app_converter = local_obs_manager.obj_sd.get_app_converter()
-            if app_converter == "MSWORD":
-                self.convert_from_pdf_docx_using_msword(
-                    local_obs_manager, docx_path, pdf_path
-                )
-            # elif app_converter == "OPENOFFICE":
-            #     self.convert_from_pdf_docx_using_openoffice(docx_path, pdf_path)
-            elif app_converter == "LIBREOFFICE":
-                self.convert_from_pdf_docx_using_libreoffice(
-                    local_obs_manager, docx_path, pdf_path
-                )
-        except Exception as e:
-            raise e
+        app_converter = local_obs_manager.obj_sd.get_app_converter()
+        if app_converter == "MSWORD":
+            self.convert_from_pdf_docx_using_msword(
+                local_obs_manager, docx_path, pdf_path
+            )
+        # elif app_converter == "OPENOFFICE":
+        #     self.convert_from_pdf_docx_using_openoffice(docx_path, pdf_path)
+        elif app_converter == "LIBREOFFICE":
+            self.convert_from_pdf_docx_using_libreoffice(
+                local_obs_manager, docx_path, pdf_path
+            )
         
     def convert_from_pdf_docx_using_msword(
         self, local_obs_manager, docx_path, pdf_path
@@ -283,7 +280,7 @@ class ConverterPool:
             local_obs_manager.obj_l.error_logger(
                 "Error in convert_from_pdf_docx_using_msword(docx_path, pdf_path)"
             )
-            raise Exception("MSWORD")
+            raise local_obs_manager.obj_ers.MsWordError(e)
 
     def convert_from_pdf_docx_using_libreoffice(
         self, local_obs_manager, docx_path, pdf_path
@@ -307,7 +304,7 @@ class ConverterPool:
             local_obs_manager.obj_l.error_logger(
                 "Error in convert_from_pdf_docx_using_libreoffice(docx_path, pdf_path)"
             )
-            raise Exception("LIBREOFFICE")
+            raise local_obs_manager.obj_ers.LibreOfficeError(e)
 
 
 
@@ -318,6 +315,8 @@ class ConverterObjectsManager:
         self.obj_pd = obs_manager.obj_pd
         self.obj_si = obs_manager.obj_si
         self.obj_sd = obs_manager.obj_sd
+        # общее
+        self.obj_ers = obs_manager.obj_ers
 
 
 class Converter:
@@ -337,12 +336,9 @@ class Converter:
         self.__obs_manager.obj_l.debug_logger(
             f"Converter create_one_page_pdf(page) -> str:\npage = {page}"
         )
-        try:
-            local_obs_manager = ConverterObjectsManager(self.__obs_manager)
-            pdf_path = ConverterPool().create_page_pdf(local_obs_manager, page)
-            return pdf_path
-        except Exception as e:
-            raise e
+        local_obs_manager = ConverterObjectsManager(self.__obs_manager)
+        pdf_path = ConverterPool().create_page_pdf(local_obs_manager, page)
+        return pdf_path
 
     def export_to_pdf(self, multipage_pdf_path):
         """

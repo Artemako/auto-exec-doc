@@ -22,7 +22,9 @@ class LWPagesTemplate:
 
     def setting_all_obs_manager(self, obs_manager):
         self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger("LWPagesTemplate setting_all_obs_manager()")
+        self.__obs_manager.obj_l.debug_logger(
+            "LWPagesTemplate setting_all_obs_manager()"
+        )
 
     def connect_pages_template(self, lw_pt):
         """
@@ -41,9 +43,7 @@ class LWPagesTemplate:
         )
 
     def is_page_template_selected(self):
-        self.__obs_manager.obj_l.debug_logger(
-            "LWPagesTemplate get_lw_pages_template()"
-        )
+        self.__obs_manager.obj_l.debug_logger("LWPagesTemplate get_lw_pages_template()")
         return self.__lw_pages_template.currentItem()
 
     def get_page_by_current_item(self):
@@ -54,8 +54,6 @@ class LWPagesTemplate:
         if current is None:
             return None
         return current.get_page()
-
-
 
     def item_page_updated(self, current):
         """
@@ -82,24 +80,44 @@ class LWPagesTemplate:
         elif app_converter == "LIBREOFFICE" and status_libreoffice:
             pass
         else:
-            self.__obs_manager.obj_dw.warning_message(
-                "Отображение недоступно! Выбранный конвертер не работает. Сохранение при этом доступно. "
-            )
+            msg = "Отображение недоступно! Выбранный конвертер не работает. Сохранение при этом доступно."
+            self.__obs_manager.obj_dw.warning_message(msg)
+            self.__obs_manager.obj_sb.set_message(msg)
+
         pdf_path = str()
         try:
             pdf_path = self.__obs_manager.obj_c.create_one_page_pdf(page)
+        except self.__obs_manager.obj_ers.MsWordError:
+            self.__obs_manager.obj_ofp.terminate_msword()
+            self.__obs_manager.obj_sb.update_status_msword_label(False)
+            msg = "Отображение недоступно! Выбранный конвертер перестал работать. Сохранение при этом доступно."
+            self.__obs_manager.obj_dw.warning_message(msg)
+            self.__obs_manager.obj_sb.set_message(msg)
+
+        except self.__obs_manager.obj_ers.LibreOfficeError:
+            self.__obs_manager.obj_ofp.terminate_libreoffice()
+            self.__obs_manager.obj_sb.update_status_libreoffice_label(False)
+            msg = "Отображение недоступно! Выбранный конвертер перестал работать. Сохранение при этом доступно."
+            self.__obs_manager.obj_dw.warning_message(msg)
+            self.__obs_manager.obj_sb.set_message(msg)
+
         except Exception as e:
-            if app_converter == "MSWORD":
-                self.__obs_manager.obj_ofp.terminate_msword()
-                self.__obs_manager.obj_sb.update_status_msword_label(False)
-            # сообщение warning_message уже есть ВЫШЕ
-            return None
+            self.__obs_manager.obj_l.error_logger(
+                f"Error in create_and_view_current_page(page): {e}"
+            )
+            # msg = "Ош"
+            # self.__obs_manager.obj_dw.warning_message(msg)
+            # self.__obs_manager.obj_sb.set_message(msg)
+
         if pdf_path:
             self.__obs_manager.obj_pv.load_and_show_pdf_document(pdf_path)
-        
+        else:
+            self.__obs_manager.obj_pv.set_empty_pdf_view()
 
     def current_page_to_pdf(self):
-        self.__obs_manager.obj_l.debug_logger("LWPagesTemplate IN current_page_to_pdf()")
+        self.__obs_manager.obj_l.debug_logger(
+            "LWPagesTemplate IN current_page_to_pdf()"
+        )
         current = self.__lw_pages_template.currentItem()
         page = current.get_page()
         self.create_and_view_current_page(page)
@@ -108,12 +126,12 @@ class LWPagesTemplate:
         self.__obs_manager.obj_l.debug_logger("LWPagesTemplate clear_pt()")
         try:
             if self.__lw_pages_template is not None:
-                self.__lw_pages_template.blockSignals(True)  
+                self.__lw_pages_template.blockSignals(True)
                 self.__lw_pages_template.clear()
-                self.__lw_pages_template.blockSignals(False)  
+                self.__lw_pages_template.blockSignals(False)
         except Exception as e:
             self.__obs_manager.obj_l.error_logger(f"Error in clear_pt(): {e}")
-        
+
     def update_pages_template(self, template):
         """
         Обновить _lw_pages_template.
@@ -122,8 +140,8 @@ class LWPagesTemplate:
             f"LWPagesTemplate update_pages_template(template):\ntemplate = {template}"
         )
         self.clear_pt()
-        self.__lw_pages_template.blockSignals(True)   
-        if template:     
+        self.__lw_pages_template.blockSignals(True)
+        if template:
             pages = self.__obs_manager.obj_pd.get_pages_by_template(template)
             for page in pages:
                 print(f"page = {page}")
@@ -132,6 +150,5 @@ class LWPagesTemplate:
                 item.setIcon(self.__icons.get("page"))
                 self.__lw_pages_template.addItem(item)
         self.__lw_pages_template.blockSignals(False)
-
 
 # obj_lwpt = LWPagesTemplate()

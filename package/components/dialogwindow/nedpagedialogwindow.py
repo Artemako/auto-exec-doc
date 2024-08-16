@@ -248,7 +248,7 @@ class NedPageDialogWindow(QDialog):
         if docx_path:
             # текст
             self.ui.label_file.setText(os.path.basename(docx_path))
-            #
+            # образуем название документа
             file_name = f"docx_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
             self.__page_filename = file_name
             file_name_with_docx = f"{file_name}.docx"

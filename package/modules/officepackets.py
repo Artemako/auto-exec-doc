@@ -40,8 +40,9 @@ class MsWordThread(QThread):
         try:
             self.__word.Quit()
         except Exception as e:
-            print(f"Error in terminate_msword(): {e}")
-        self.__status_msword = False
+            self.__status_msword = False
+            raise e
+        
 
 
 class OfficePackets:
@@ -67,7 +68,6 @@ class OfficePackets:
         self.run_libreoffice()
         
         
-
     def update_status_msword(self, status):
         self.__obs_manager.obj_l.debug_logger(
             f"OfficePackets update_status_msword(status):\nstatus = {status}"
@@ -102,7 +102,14 @@ class OfficePackets:
 
     def terminate_msword(self):
         self.__obs_manager.obj_l.debug_logger("OfficePackets terminate_msword()")
-        self.__msword_thread.terminate_msword()
+        try:
+            self.__msword_thread.terminate_msword()
+        except Exception as e:
+            self.__obs_manager.obj_l.error_logger("Error in OfficePackets.terminate_msword():\n" + str(e))
         self.__msword_thread.quit()
         self.__msword_thread.wait()
         self.__status_msword = False
+
+    def terminate_libreoffice(self):
+        self.__obs_manager.obj_l.debug_logger("OfficePackets terminate_libreoffice()")
+        self.__status_libreoffice = False

@@ -30,7 +30,7 @@ class FormText(QWidget):
         # заголовок 
         self.ui.title.setText(self.__current_tag.get('title_tag'))
         # поле ввода
-        self.ui.lineedit.setText(self.__pair.get("value"))
+        self.ui.lineedit.setText(self.__pair.get("value_pair"))
         # описание
         description_tag = self.__current_tag.get('description_tag')
         if description_tag:
@@ -43,4 +43,4 @@ class FormText(QWidget):
 
     def set_new_value_in_pair(self, new_value):
         self.__obs_manager.obj_l.debug_logger(f"FormText set_new_value_in_pair(pair, new_value):\nnew_value = {new_value}")
-        self.__pair["value"] = new_value
+        self.__pair["value_pair"] = new_value
