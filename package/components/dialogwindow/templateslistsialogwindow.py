@@ -29,23 +29,22 @@ class TemplatesListDialogWindow(QDialog):
         # конфигурация
         self.config_lws()
         # 
-        self.config_forms()
-        self.config_templates()
-        self.config_pages()
+        self.reconfig("REFORM")
         # # подключаем деействия
         self.connecting_actions()
 
-    def reconfig(self, type_reconfig = ""):
+    def reconfig(self, type_reconfig = "", open_form = None, open_template = None, open_page = None):
         self.__obs_manager.obj_l.debug_logger(f"TemplatesListDialogWindow reconfig(type_reconfig): type_reconfig = {type_reconfig}")
         if type_reconfig == "REFORM":
-            self.config_forms()
-            self.config_templates()
-            self.config_pages()
+            self.config_forms(open_form)
+            self.config_templates(open_template)
+            self.config_pages(open_page)
         elif type_reconfig == "RETEMPLATE":
-            self.config_templates()
-            self.config_pages()
+            self.config_templates(open_template)
+            self.config_pages(open_page)
         elif type_reconfig == "REPAGE":
-            self.config_pages()
+            self.config_pages(open_page)
+
 
     def config_lws(self):
         self.__obs_manager.obj_l.debug_logger("TemplatesListDialogWindow config_lws()")
@@ -55,7 +54,7 @@ class TemplatesListDialogWindow(QDialog):
             list_widget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
 
-    def config_forms(self):
+    def config_forms(self, open_form = None):
         self.__obs_manager.obj_l.debug_logger(
             "TemplatesListDialogWindow config_forms()"
         )
@@ -68,11 +67,17 @@ class TemplatesListDialogWindow(QDialog):
             combobox.addItem(form.get("name_node"), form)
         #
         if combobox.count() > 0:
-            combobox.setCurrentIndex(0)
-
+            if open_form:
+                index_form = next((i for i, form in enumerate(forms) if form.get("id_node") == open_form.get("id_node")), 0)
+                if index_form is not None:
+                    combobox.setCurrentIndex(index_form)
+                else:
+                    combobox.setCurrentIndex(0)
+            else:
+                combobox.setCurrentIndex(0)
         combobox.blockSignals(False)
 
-    def config_templates(self):
+    def config_templates(self, open_template = None):
         self.__obs_manager.obj_l.debug_logger(
             "TemplatesListDialogWindow config_templates()"
         )
@@ -105,11 +110,15 @@ class TemplatesListDialogWindow(QDialog):
                 self.__templates_items.append(item)
             #
             if self.__templates_items:
-                list_widget.setCurrentItem(self.__templates_items[0])
+                if open_template:
+                    index_template = next((i for i, template in enumerate(templates) if template.get("id_template") == open_template.get("id_template")), 0)
+                    list_widget.setCurrentRow(index_template)
+                else:
+                    list_widget.setCurrentRow(0)
 
             list_widget.blockSignals(False)
 
-    def config_pages(self):
+    def config_pages(self, open_page = None):
         self.__obs_manager.obj_l.debug_logger(
             "TemplatesListDialogWindow config_pages()"
         )
@@ -143,7 +152,11 @@ class TemplatesListDialogWindow(QDialog):
                 self.__pages_items.append(item)
             #
             if self.__pages_items:
-                list_widget.setCurrentItem(self.__pages_items[0])
+                if open_page:
+                    index_template = next((i for i, page in enumerate(pages) if page.get("id_page") == open_page.get("id_page")), 0)
+                    list_widget.setCurrentRow(index_template)
+                elif self.__templates_items:
+                    list_widget.setCurrentRow(0)
 
             list_widget.blockSignals(False)
 
@@ -211,7 +224,7 @@ class TemplatesListDialogWindow(QDialog):
                     template, name_template
                 )
                 # order у template остутсвует
-                self.reconfig("RETEMPLATE")
+                self.reconfig("RETEMPLATE", None, data, None)
 
         elif type_window == "PAGE":
             page = data
@@ -235,7 +248,7 @@ class TemplatesListDialogWindow(QDialog):
                         self.__obs_manager.obj_ffm.delete_page_from_project(
                             old_filename_page
                         )
-                    self.reconfig("REPAGE")
+                    self.reconfig("REPAGE", None, None, data)
 
     def update_order_pages(self, editpage, new_order_page):
         self.__obs_manager.obj_l.debug_logger(

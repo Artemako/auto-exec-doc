@@ -96,9 +96,6 @@ class Ui_TemplatesListDialogWindow(object):
 
         self.btn_close = QPushButton(TemplatesListDialogWindow)
         self.btn_close.setObjectName(u"btn_close")
-        icon = QIcon()
-        icon.addFile(u":/icons/resources/icons/close.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_close.setIcon(icon)
 
         self.verticalLayout_3.addWidget(self.btn_close)
 
