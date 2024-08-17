@@ -43,6 +43,7 @@ class TagsListDialogWindow(QDialog):
         self.__icons = self.__obs_manager.obj_icons.get_icons()
         # config
         self.config()
+        self.config_tws()
         # Подключаем действия
         self.connecting_actions()
         # отобразить первый таб
@@ -344,13 +345,21 @@ class TagsListDialogWindow(QDialog):
         self.clear_and_fill_table(type_table, editor=False)
         self.clear_and_fill_table(type_table, editor=True)
 
-    def clear_and_fill_table(self, type_table, editor=False):
+    def config_tws(self):
         self.__obs_manager.obj_l.debug_logger(
-            f"TagsListDialogWindow clear_and_fill_table(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}"
+            "TagsListDialogWindow config_tws()"
         )
-        # заполнение таблицы
-        table_widget = self.get_table_by_parameters(type_table, editor)
-        table_widget.clear()
+        tws_no_editor = [self.ui.table_project_tags, self.ui.table_group_tags, self.ui.table_ftp_tags]
+        tws_editor = [self.ui.table_editor_project_tags, self.ui.table_editor_group_tags, self.ui.table_editor_ftp_tags]
+        for tw in tws_no_editor:
+            self.config_tw(tw, editor=False)
+        for tw in tws_editor:
+            self.config_tw(tw, editor=True)
+
+    def config_tw(self, table_widget, editor):
+        self.__obs_manager.obj_l.debug_logger(
+            f"TagsListDialogWindow config_tw(self, tw):\ntable_widget = {table_widget}"
+        )
         # заголовки/столбцы
         table_widget.verticalHeader().hide()
         if editor:
@@ -361,6 +370,36 @@ class TagsListDialogWindow(QDialog):
             headers = ["№", "Тег", "Описание", "Тип"]
             table_widget.setColumnCount(len(headers))
             table_widget.setHorizontalHeaderLabels(headers)
+        #
+        table_widget.setRowCount(0)
+        # Настраиваем режимы изменения размера для заголовков
+        header = table_widget.horizontalHeader()
+        header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(1, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(2, QHeaderView.Stretch)
+        header.setSectionResizeMode(3, QHeaderView.ResizeToContents)
+        if editor:
+            header.setSectionResizeMode(4, QHeaderView.ResizeToContents)
+            header.setSectionResizeMode(5, QHeaderView.ResizeToContents)
+        # Включение сортировки
+        table_widget.setSortingEnabled(True)
+        # Запрет на редактирование
+        table_widget.setEditTriggers(QTableWidget.NoEditTriggers)
+        # Отключаем возможность выделения
+        table_widget.setSelectionMode(QAbstractItemView.NoSelection)
+        # table_widget.sortByColumn(0, Qt.AscendingOrder)
+        
+
+
+    def clear_and_fill_table(self, type_table, editor=False):
+        self.__obs_manager.obj_l.debug_logger(
+            f"TagsListDialogWindow clear_and_fill_table(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}"
+        )
+        # заполнение таблицы
+        table_widget = self.get_table_by_parameters(type_table, editor)
+        table_widget.clearContents()
+        table_widget.setRowCount(0)
+        table_widget.setSortingEnabled(False)
         # данные
         data = self.get_data_by_parameters(type_table, editor)
         header = table_widget.horizontalHeaderItem(0)
@@ -368,7 +407,8 @@ class TagsListDialogWindow(QDialog):
         table_widget.setRowCount(len(data))
         for row, item in enumerate(data):
             # получение данных
-            print(f"item = {item}")
+            if not editor:
+                print(f"NOT editor item = {item}")
             order_tag = item.get("order_tag") + 1
             name_tag = item.get("name_tag")
             title_tag = item.get("title_tag")
@@ -425,21 +465,11 @@ class TagsListDialogWindow(QDialog):
                 delete_button.clicked.connect(
                     partial(self.delete_tag, btn=delete_button, type_table=type_table)
                 )
-        # Настраиваем режимы изменения размера для заголовков
-        header = table_widget.horizontalHeader()
-        header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(1, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(2, QHeaderView.Stretch)
-        header.setSectionResizeMode(3, QHeaderView.ResizeToContents)
-        # Включение сортировки
+        # включить сортировку после заполнения данных
         table_widget.setSortingEnabled(True)
+        table_widget.sortByColumn(0, Qt.AscendingOrder)
         # Изменение размеров столбцов
         table_widget.resizeColumnsToContents()
-        # Запрет на редактирование
-        table_widget.setEditTriggers(QTableWidget.NoEditTriggers)
-        # Отключаем возможность выделения
-        table_widget.setSelectionMode(QAbstractItemView.NoSelection)
-        table_widget.sortByColumn(0, Qt.AscendingOrder)
 
     def create_tag(self):
         self.__obs_manager.obj_l.debug_logger("TagsListDialogWindow create_tag()")

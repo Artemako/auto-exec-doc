@@ -3,8 +3,6 @@ from PySide6.QtWidgets import (
 )
 
 
-import resources_rc
-
 
 class Style:
 
@@ -669,16 +667,13 @@ QHeaderView::section:last {
 
 QHeaderView::up-arrow {
     image: url(:/png/resources/png/sort-asc.png);
-    margin-bottom: -37px;
+    width: 0px;
 }
 
-DownloadListView QHeaderView::up-arrow {
-    margin-bottom: -47px;
-}
 
 QHeaderView::down-arrow {
     image: url(:/png/resources/png/sort-desc.png);
-    margin-bottom: 0;
+    width: 0px;
 }
 
 /* Context menus, toolbar drop-downs #QMenu    */
@@ -945,3 +940,55 @@ QToolBar QToolButton:checked {
 }
 
 """
+
+
+from PySide6.QtWidgets import QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QApplication
+
+import sys
+
+
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+        self.setStyleSheet(qss)
+        self.setWindowTitle("Custom with Sorting Table")
+
+
+        # Основной виджет с QVBoxLayout
+        centralWidget = QWidget()
+        self.setCentralWidget(centralWidget)
+        layout = QVBoxLayout(centralWidget)
+
+        # Создание таблицы
+        self.tableWidget = QTableWidget()
+        self.tableWidget.setRowCount(5)  # Устанавливаем количество строк
+        self.tableWidget.setColumnCount(3)  # Устанавливаем количество колонок
+
+        # Установка заголовков
+        self.tableWidget.setHorizontalHeaderLabels(['Column 1', 'Column 2', 'Column 3'])
+
+        # Заполнение таблицы данными
+        for row in range(5):
+            for column in range(3):
+                item = QTableWidgetItem(f'Item {row},{column}')
+                self.tableWidget.setItem(row, column, item)
+
+        # Включение сортировки
+        self.tableWidget.setSortingEnabled(True)
+
+        # Добавление таблицы в компоновку
+        layout.addWidget(self.tableWidget)
+
+        self.resize(400, 300)
+
+# Запуск приложения
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    mainWin = MainWindow()
+    mainWin.show()
+    sys.exit(app.exec())
+
