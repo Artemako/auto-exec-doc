@@ -12,6 +12,7 @@ class DirPathManager:
     def __init__(self):
         self.__main_dirpath = ""
         self.__documents_dirpath = ""
+        self.__pictures_dirpath = ""
         self.__temp_dirpath = ""
         self.__default_folder_projects_dirpath = ""
         self.__db_settings_dirpath = ""
@@ -23,6 +24,9 @@ class DirPathManager:
         self.__templates_main_dirpath = ""
         self.__forms_folder_dirpath = ""
         self.__images_folder_dirpath = ""
+        self.__global_documents_dirpath = ""
+        self.__global_images_dirpath = ""
+
 
     def setting_obs_manager(self, obs_manager):
         self.__obs_manager = ObjectsManagerDirPathManager(obs_manager)
@@ -37,6 +41,10 @@ class DirPathManager:
         # путь к Документы
         self.__documents_dirpath = QStandardPaths.writableLocation(
             QStandardPaths.StandardLocation.DocumentsLocation
+        )
+        # путь к Изображения
+        self.__pictures_dirpath = QStandardPaths.writableLocation(
+            QStandardPaths.StandardLocation.PicturesLocation
         )
 
         # путь к папке с Temp
@@ -73,9 +81,11 @@ class DirPathManager:
             self.__templates_dirpath, "main"
         )
 
+        # путь к папке с формами (по умолчанию проект не загружен поэтому и пусто)
         self.__forms_folder_dirpath = None
         self.__images_folder_dirpath = None
-        # self.__pdfs_filder_dirpath = None
+        self.__pdfs_filder_dirpath = None
+
 
     def set_new_dirpaths_for_project(self):
         self.__obs_manager.obj_l.debug_logger("DirPathManager set_new_dirpaths_for_project()")
@@ -139,6 +149,12 @@ class DirPathManager:
             f"DirPathManager get_documents_dirpath() -> str: {self.__documents_dirpath}"
         )
         return self.__documents_dirpath
+
+    def get_pictures_dirpath(self) -> str:
+        self.__obs_manager.obj_l.debug_logger(
+            f"DirPathManager get_pictures_dirpath() -> str: {self.__pictures_dirpath}"
+        )
+        return self.__pictures_dirpath
 
     def get_folder_in_documents_dirpath(self) -> str:
         self.__obs_manager.obj_l.debug_logger(

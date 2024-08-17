@@ -9,7 +9,6 @@ class TWStructureExecDoc:
         self.__icons = None
         self.__nodes_to_items = dict()
         self.__expanded_states = dict()
-        self.__last_current_node = None
 
     def setting_all_obs_manager(self, obs_manager):
         self.__obs_manager = obs_manager
@@ -87,7 +86,8 @@ class TWStructureExecDoc:
             "TWStructureExecDoc update_structure_exec_doc()"
         )
         #
-        self.__last_current_node = self.get_current_node()
+        open_node = self.get_current_node()
+        self.__open_node_flag = False
         # очистка
         self.clear_sed()
         # Задать название столбца
@@ -95,25 +95,28 @@ class TWStructureExecDoc:
         self.__tw.setHeaderLabels(["Проект"])
         self.__title_sed.setText(title)
         # проход по вершинам
-        self.dfs(self.__obs_manager.obj_pd.get_project_node()) 
+        self.dfs(self.__obs_manager.obj_pd.get_project_node(), open_node) 
+        # 
+        if self.__tw.topLevelItemCount() > 0 and not self.__open_node_flag:
+            self.__tw.setCurrentItem(self.__tw.topLevelItem(0))
             
 
-    def dfs(self, parent_node):
+    def dfs(self, parent_node, open_node = None):
         """
         Проход по всем вершинам.
         """
         self.__obs_manager.obj_l.debug_logger(
-            f"TWStructureExecDoc dfs(parent_node):\nparent_node = {parent_node}"
+            f"TWStructureExecDoc dfs(parent_node):\nparent_node = {parent_node}\n open_node = {open_node}"
         )
         childs = self.__obs_manager.obj_pd.get_childs(parent_node)
         if childs:
             for child in childs:
                 # действие
-                self.set_item_in_nodes_to_items(child)
+                self.set_item_in_nodes_to_items(child, open_node)
                 # проход по дочерним вершинам
-                self.dfs(child)
+                self.dfs(child, open_node)
 
-    def set_item_in_nodes_to_items(self, node):
+    def set_item_in_nodes_to_items(self, node, open_node = None):
         """
         Поставить item в nodes_to_items.
         """
@@ -131,9 +134,10 @@ class TWStructureExecDoc:
         item.setCheckState(0, Qt.Checked)
         self.__nodes_to_items[node.get("id_node")] = item
         # если было до clear
-        if self.__last_current_node is not None:
-            if self.__last_current_node.get("id_node") == node.get("id_node"):
-                self.__tw.setCurrentItem(item)
+        if open_node and open_node.get("id_node") == node.get("id_node"):
+            self.__tw.setCurrentItem(item)
+            self.__open_node_flag = True
+        #
         self.__tw.blockSignals(False)
 
     def add_item_in_tree_widget(self, node) -> object:

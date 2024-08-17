@@ -349,11 +349,10 @@ class Converter:
         )
         # проход по всем вершинам дерева для заполенения project_pages_objects
         project_pages_objects = list()
-        number_page = 0
+        self.__number_page = 0
         self.dfs(
             self.__obs_manager.obj_pd.get_project_node(),
-            project_pages_objects,
-            number_page,
+            project_pages_objects
         )
         self.__obs_manager.obj_l.debug_logger(
             f"Converter project_pages_objects = {project_pages_objects}"
@@ -366,9 +365,9 @@ class Converter:
         # объеденить несколько pdf файлов в один
         self.merge_pdfs_and_create(multipage_pdf_path, list_of_pdf_pages)
 
-    def dfs(self, parent_node, project_pages_objects, number_page):
+    def dfs(self, parent_node, project_pages_objects):
         self.__obs_manager.obj_l.debug_logger(
-            f"Converter dfs(node, project_pages_objects):\nparent_node = {parent_node},\nnumber_page = {number_page}"
+            f"Converter dfs(node, project_pages_objects):\nparent_node = {parent_node}"
         )
         childs = self.__obs_manager.obj_pd.get_childs(parent_node)
         if childs:
@@ -389,13 +388,13 @@ class Converter:
                             object = {
                                 "type": "page",
                                 "page": page,
-                                "number_page": number_page,
+                                "number_page": self.__number_page,
                             }
                             print(f"object = {object}")
                             project_pages_objects.append(object)
-                            number_page += 1
+                            self.__number_page += 1
                     # проход по дочерним вершинам
-                    self.dfs(child, project_pages_objects, number_page)
+                    self.dfs(child, project_pages_objects)
 
     def merge_pdfs_and_create(self, multipage_pdf_path, list_of_pdf_pages):
         self.__obs_manager.obj_l.debug_logger(

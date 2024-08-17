@@ -146,7 +146,7 @@ class DialogWindows:
             image_path = QFileDialog.getOpenFileName(
                 None,
                 "Выбор изображения",
-                self.__obs_manager.obj_dpm.get_default_folder_projects_dirpath(),
+                self.__obs_manager.obj_dpm.get_pictures_dirpath(),
                 "Изображения (*.png *.jpg *.jpeg, *.bmp, *.tiff)",
             )
             if image_path[0]:
@@ -169,7 +169,7 @@ class DialogWindows:
             docx_path = QFileDialog.getOpenFileName(
                 None,
                 "Выбор документа",
-                self.__obs_manager.obj_dpm.get_default_folder_projects_dirpath(),
+                self.__obs_manager.obj_dpm.get_documents_dirpath(),
                 "Документы (*.docx)",
             )
             if docx_path[0]:
@@ -241,7 +241,7 @@ class DialogWindows:
             multipage_pdf_path = QFileDialog.getSaveFileName(
                 None,
                 "Выберите имя и путь для экспорта в PDF",
-                self.__obs_manager.obj_dpm.get_default_folder_projects_dirpath(),
+                self.__obs_manager.obj_dpm.get_documents_dirpath(),
                 "PDF (*.pdf)",
             )
             if multipage_pdf_path[0]:

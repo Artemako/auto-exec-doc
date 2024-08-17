@@ -34,23 +34,28 @@ class NodesEditorDialogWindow(QDialog):
         self.setWindowFlag(Qt.WindowMinimizeButtonHint, True)
         self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
 
-    def reconfig(self):
+    def reconfig(self, open_node = None):
         self.__obs_manager.obj_l.debug_logger("NodesEditorDialogWindow reconfig()")
         #
+        tree_widget = self.ui.tw_nodes
         self.__nodes_to_items = dict()
+        self.__open_node_flag = False
         # очистка tw_nodes
-        self.ui.tw_nodes.blockSignals(True)
-        self.ui.tw_nodes.clear()
-        self.ui.tw_nodes.setHeaderLabels(["Проект"])     
+        tree_widget.blockSignals(True)
+        tree_widget.clear()
+        tree_widget.setHeaderLabels(["Проект"])     
         # заполнения вершинами
         self.__nodes = self.__obs_manager.obj_pd.get_nodes()
         print(f"NodesEditorDialogWindow self.__nodes = {self.__nodes}")
-        # запуск
+        # запуск 
         project_node = self.find_project_node()
-        self.dfs(project_node)
+        self.dfs(project_node, open_node)
+        #
+        if tree_widget.topLevelItemCount() > 0 and not self.__open_node_flag:
+            tree_widget.setCurrentItem(tree_widget.topLevelItem(0))
         # включение сигналов
-        self.ui.tw_nodes.expandAll()   
-        self.ui.tw_nodes.blockSignals(False)
+        tree_widget.expandAll()   
+        tree_widget.blockSignals(False)
 
     def find_project_node(self):
         self.__obs_manager.obj_l.debug_logger(
@@ -76,20 +81,20 @@ class NodesEditorDialogWindow(QDialog):
         text = node.get("name_node")
         item.setText(0, text)
 
-    def dfs(self, parent_node):
+    def dfs(self, parent_node, open_node = None):
         """
         АНАЛОГ (почти). Проход по всем вершинам.
         """
         self.__obs_manager.obj_l.debug_logger(
-            f"NodesEditorDialogWindow dfs(parent_node):\nparent_node = {parent_node}"
+            f"NodesEditorDialogWindow dfs(parent_node, open_node):\nparent_node = {parent_node}\nopen_node = {open_node}"
         )
         childs = self.get_childs(parent_node)
         if childs:
             for child in childs:
                 # действие
-                self.set_item_in_nodes_to_items(child)
+                self.set_item_in_nodes_to_items(child, open_node)
                 # проход по дочерним вершинам
-                self.dfs(child)
+                self.dfs(child, open_node)
 
     def get_childs(self, parent_node):
         childs = list(
@@ -105,12 +110,12 @@ class NodesEditorDialogWindow(QDialog):
         )
         return childs
 
-    def set_item_in_nodes_to_items(self, node):
+    def set_item_in_nodes_to_items(self, node, open_node = None):
         """
         АНАЛОГ. Поставить item в nodes_to_items.
         """
         self.__obs_manager.obj_l.debug_logger(
-            f"NodesEditorDialogWindow set_item_in_nodes_to_items(node):\nnode = {node}"
+            f"NodesEditorDialogWindow set_item_in_nodes_to_items(node):\nnode = {node}\nopen_node = {open_node}"
         )
         tree_widget = self.ui.tw_nodes
         item = None
@@ -122,6 +127,10 @@ class NodesEditorDialogWindow(QDialog):
             item.setData(0, Qt.UserRole, node)
         self.set_text_and_icon_for_item_by_node(item, node)
         self.__nodes_to_items[node.get("id_node")] = item
+        # Выбор
+        if open_node and node.get("id_node") == open_node.get("id_node"):
+            tree_widget.setCurrentItem(item)
+            self.__open_node_flag = True
 
     def connecting_actions(self):
         self.__obs_manager.obj_l.debug_logger(
@@ -169,7 +178,7 @@ class NodesEditorDialogWindow(QDialog):
                 # обновление данных в БД
                 self.update_edit_nodes()
                 # перерисовка
-                self.reconfig()
+                self.reconfig(node)
         else:
             self.__obs_manager.obj_dw.warning_message("Выберите элемент для редактирования!")
 
@@ -186,7 +195,7 @@ class NodesEditorDialogWindow(QDialog):
                     self.delete_group_node(node)
                 else:
                     self.__obs_manager.obj_pd.delete_node(node)
-                self.reconfig()
+                self.reconfig(node)
                 print("УДАЛЕНИЕ")
         else:
             self.__obs_manager.obj_dw.warning_message("Выберите элемент для удаления!")
@@ -236,6 +245,7 @@ class NodesEditorDialogWindow(QDialog):
         tree_widget = self.ui.tw_nodes
         current_item = tree_widget.currentItem()
         result = False
+        node = None
         if current_item is not None:
             node = current_item.data(0, Qt.UserRole)
             result = self.ned_node_dw("create", "FORM", node)
@@ -245,7 +255,7 @@ class NodesEditorDialogWindow(QDialog):
             # обновление данных в БД
             self.update_edit_nodes()
             # перерисовка
-            self.reconfig()
+            self.reconfig(node)
 
     def ned_node_dw(self, type_window, type_node, node=None) -> bool:
         self.__obs_manager.obj_l.debug_logger(

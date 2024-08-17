@@ -5,7 +5,7 @@ from functools import partial
 
 import package.ui.templateslistsialogwindow_ui as templateslistsialogwindow_ui
 
-import package.components.dialogwindow.nedtemplatedialogwindow as nedtemplatedialogwindow
+import package.components.dialogwindow.neddw.nedtemplatedialogwindow as nedtemplatedialogwindow
 import package.components.dialogwindow.neddw.nedpagedialogwindow as nedpagedialogwindow
 import package.components.widgets.customitemqlistwidget as customitemqlistwidget
 
