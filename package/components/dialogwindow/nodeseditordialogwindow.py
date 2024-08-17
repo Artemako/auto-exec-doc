@@ -6,7 +6,7 @@ from PySide6.QtCore import Qt
 
 import package.ui.nodeseditordialogwindow_ui as nodeseditordialogwindow_ui
 
-import package.components.dialogwindow.nednodedialogwindow as nednodedialogwindow
+import package.components.dialogwindow.neddw.nednodedialogwindow as nednodedialogwindow
 
 class NodesEditorDialogWindow(QDialog):
     def __init__(self, obs_manager):

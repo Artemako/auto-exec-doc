@@ -13,7 +13,7 @@ from PySide6.QtCore import Qt
 
 from functools import partial
 
-import package.components.dialogwindow.nedtagdialogwindow as nedtagdialogwindow
+import package.components.dialogwindow.neddw.nedtagdialogwindow as nedtagdialogwindow
 
 import package.ui.tagslistdialogwindow_ui as tagslistdialogwindow_ui
 

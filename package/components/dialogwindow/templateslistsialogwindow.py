@@ -6,7 +6,7 @@ from functools import partial
 import package.ui.templateslistsialogwindow_ui as templateslistsialogwindow_ui
 
 import package.components.dialogwindow.nedtemplatedialogwindow as nedtemplatedialogwindow
-import package.components.dialogwindow.nedpagedialogwindow as nedpagedialogwindow
+import package.components.dialogwindow.neddw.nedpagedialogwindow as nedpagedialogwindow
 import package.components.widgets.customitemqlistwidget as customitemqlistwidget
 
 
@@ -27,9 +27,11 @@ class TemplatesListDialogWindow(QDialog):
         self.__templates_items = []
         self.__pages_items = []
         # конфигурация
-        self.config_forms()
-        self.config_templates()
-        self.config_pages()
+        self.config_lws()
+        # 
+        self.config_forms(is_start = True)
+        self.config_templates(is_start = True)
+        self.config_pages(is_start = True)
         # # подключаем деействия
         self.connecting_actions()
 
@@ -38,7 +40,15 @@ class TemplatesListDialogWindow(QDialog):
         self.config_templates()
         self.config_pages()
 
-    def config_forms(self):
+    def config_lws(self):
+        self.__obs_manager.obj_l.debug_logger("TemplatesListDialogWindow config_lws()")
+        for list_widget in [self.ui.lw_templates, self.ui.lw_pages]:
+            list_widget.setResizeMode(QListWidget.Adjust)
+            list_widget.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+            list_widget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+
+
+    def config_forms(self, is_start = False):
         self.__obs_manager.obj_l.debug_logger(
             "TemplatesListDialogWindow config_forms()"
         )
@@ -48,9 +58,11 @@ class TemplatesListDialogWindow(QDialog):
         combobox.clear()
         for index, form in enumerate(forms):
             combobox.addItem(form.get("name_node"), form)
+        if is_start:
+            combobox.setCurrentIndex(0)
         combobox.blockSignals(False)
 
-    def config_templates(self):
+    def config_templates(self, is_start = False):
         self.__obs_manager.obj_l.debug_logger(
             "TemplatesListDialogWindow config_templates()"
         )
@@ -80,15 +92,12 @@ class TemplatesListDialogWindow(QDialog):
                 self.config_buttons_for_item(custom_widget)
                 #
                 self.__templates_items.append(item)
-            list_widget.setCurrentRow(0)
-            # Отключаем ползунки
-            list_widget.setResizeMode(QListWidget.Adjust)
-            list_widget.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-            list_widget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-            list_widget.setCurrentRow(0)
+
+            if is_start:
+                list_widget.setCurrentRow(0)
             list_widget.blockSignals(False)
 
-    def config_pages(self):
+    def config_pages(self, is_start = False):
         self.__obs_manager.obj_l.debug_logger(
             "TemplatesListDialogWindow config_pages()"
         )
@@ -118,10 +127,9 @@ class TemplatesListDialogWindow(QDialog):
                 self.config_buttons_for_item(custom_widget)
                 #
                 self.__pages_items.append(item)
-            list_widget.setResizeMode(QListWidget.Adjust)
-            list_widget.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-            list_widget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-            list_widget.setCurrentRow(0)
+
+            if is_start:
+                list_widget.setCurrentRow(0)
             list_widget.blockSignals(False)
 
     def config_buttons_for_item(self, item_widget):
