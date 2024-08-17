@@ -17,7 +17,6 @@ class MyListWidgetItem(QListWidgetItem):
 class LWPagesTemplate:
     def __init__(self):
         self.__lw_pages_template = None
-        self.__title_pt = None
         self.__icons = None
 
     def setting_all_obs_manager(self, obs_manager):
@@ -75,6 +74,7 @@ class LWPagesTemplate:
         app_converter = self.__obs_manager.obj_sd.get_app_converter()
         status_msword = self.__obs_manager.obj_ofp.get_status_msword()
         status_libreoffice = self.__obs_manager.obj_ofp.get_status_libreoffice()
+        is_convert_flag = True
         if app_converter == "MSWORD" and status_msword:
             pass
         elif app_converter == "LIBREOFFICE" and status_libreoffice:
@@ -83,31 +83,30 @@ class LWPagesTemplate:
             msg = "Отображение недоступно! Выбранный конвертер не работает. Сохранение при этом доступно."
             self.__obs_manager.obj_dw.warning_message(msg)
             self.__obs_manager.obj_sb.set_message(msg)
-
+            is_convert_flag = False
         pdf_path = str()
         try:
             pdf_path = self.__obs_manager.obj_c.create_one_page_pdf(page)
         except self.__obs_manager.obj_ers.MsWordError:
             self.__obs_manager.obj_ofp.terminate_msword()
             self.__obs_manager.obj_sb.update_status_msword_label(False)
-            msg = "Отображение недоступно! Выбранный конвертер перестал работать. Сохранение при этом доступно."
-            self.__obs_manager.obj_dw.warning_message(msg)
-            self.__obs_manager.obj_sb.set_message(msg)
+            if is_convert_flag:
+                msg = "Отображение недоступно! Выбранный конвертер перестал работать. Сохранение при этом доступно."
+                self.__obs_manager.obj_dw.warning_message(msg)
+                self.__obs_manager.obj_sb.set_message(msg)
 
         except self.__obs_manager.obj_ers.LibreOfficeError:
             self.__obs_manager.obj_ofp.terminate_libreoffice()
             self.__obs_manager.obj_sb.update_status_libreoffice_label(False)
-            msg = "Отображение недоступно! Выбранный конвертер перестал работать. Сохранение при этом доступно."
-            self.__obs_manager.obj_dw.warning_message(msg)
-            self.__obs_manager.obj_sb.set_message(msg)
+            if is_convert_flag:
+                msg = "Отображение недоступно! Выбранный конвертер перестал работать. Сохранение при этом доступно."
+                self.__obs_manager.obj_dw.warning_message(msg)
+                self.__obs_manager.obj_sb.set_message(msg)
 
         except Exception as e:
             self.__obs_manager.obj_l.error_logger(
                 f"Error in create_and_view_current_page(page): {e}"
             )
-            # msg = "Ош"
-            # self.__obs_manager.obj_dw.warning_message(msg)
-            # self.__obs_manager.obj_sb.set_message(msg)
 
         if pdf_path:
             self.__obs_manager.obj_pv.load_and_show_pdf_document(pdf_path)

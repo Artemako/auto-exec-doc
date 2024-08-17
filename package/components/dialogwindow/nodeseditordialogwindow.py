@@ -1,20 +1,12 @@
 from PySide6.QtWidgets import (
     QDialog,
-    QWidget,
-    QVBoxLayout,
-    QPushButton,
-    QTreeWidget,
-    QTreeWidgetItem,
-    QMessageBox,
+    QTreeWidgetItem
 )
-from PySide6.QtCore import QSize, Qt
-from PySide6.QtGui import QIcon
+from PySide6.QtCore import Qt
 
 import package.ui.nodeseditordialogwindow_ui as nodeseditordialogwindow_ui
 
 import package.components.dialogwindow.nednodedialogwindow as nednodedialogwindow
-
-import resources_rc
 
 class NodesEditorDialogWindow(QDialog):
     def __init__(self, obs_manager):
@@ -30,10 +22,17 @@ class NodesEditorDialogWindow(QDialog):
         #
         self.__icons = self.__obs_manager.obj_icons.get_icons()
         #
+        self.config()
         self.reconfig()
         #
         self.connecting_actions()
    
+
+    def config(self):
+        self.__obs_manager.obj_l.debug_logger("NodesEditorDialogWindow config()")
+        # свернуть/развернуть окно
+        self.setWindowFlag(Qt.WindowMinimizeButtonHint, True)
+        self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
 
     def reconfig(self):
         self.__obs_manager.obj_l.debug_logger("NodesEditorDialogWindow reconfig()")

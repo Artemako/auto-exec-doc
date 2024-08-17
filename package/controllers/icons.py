@@ -7,21 +7,22 @@ import resources_rc
 class Icons:
     def __init__(self):
         self.__icons_cache = dict()
+        self.__type_tag_to_key_icon = {
+            "TEXT": "text",
+            "DATE": "date",
+            "TABLE": "table",
+            "IMAGE": "image"
+        }
 
     def setting_all_obs_manager(self, obs_manager):
         self.__obs_manager = obs_manager
         self.__obs_manager.obj_l.debug_logger(f"Icons setting_obs_manager():\nself.__obs_manager = {self.__obs_manager}")
 
     def get_key_icon_by_type_tag(self, type_tag):
-        self.__obs_manager.obj_l.debug_logger(f"Icons get_key_icon_by_type_tag(type_tag):\ntype_tag = {type_tag}")
-        if type_tag == "TEXT":
-            return "text"
-        elif type_tag == "DATE":
-            return "date"
-        elif type_tag == "TABLE":
-            return "table"
-        elif type_tag == "IMAGE":
-            return "image"
+        """
+        БЕЗ logger
+        """
+        return self.__type_tag_to_key_icon.get(type_tag)
         
     def get_icons(self, size = 12) -> dict:
         self.__obs_manager.obj_l.debug_logger(f"Icons get_icons(size):\nsize = {size}")

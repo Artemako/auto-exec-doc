@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import (
     QDialog
 )
+from PySide6.QtCore import Qt
 
 from functools import partial
 
@@ -32,6 +33,9 @@ class ConverterSettingsDialogWindow(QDialog):
         #     self.ui.radbtn_openoffice.setChecked(True)
         elif app_converter == "LIBREOFFICE":
             self.ui.radbtn_libreoffice.setChecked(True)
+        # свернуть/развернуть окно
+        self.setWindowFlag(Qt.WindowMinimizeButtonHint, True)
+        self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
 
     def connecting_actions(self):
         self.__obs_manager.obj_l.debug_logger("ConverterSettingsDialogWindow connecting_actions()")

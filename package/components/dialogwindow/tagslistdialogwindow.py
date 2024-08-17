@@ -7,7 +7,7 @@ from PySide6.QtWidgets import (
     QCheckBox,
     QHBoxLayout,
     QWidget,
-    QHeaderView,
+    QHeaderView
 )
 from PySide6.QtCore import Qt
 
@@ -77,6 +77,9 @@ class TagsListDialogWindow(QDialog):
         self.ui.splitter_ftp.setSizes([500, 300])
         self.ui.splitter_group.setSizes([500, 300])
         self.ui.splitter_project.setSizes([500, 300])
+        # свернуть/развернуть окно
+        self.setWindowFlag(Qt.WindowMinimizeButtonHint, True)
+        self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
 
     def connecting_actions(self):
         self.__obs_manager.obj_l.debug_logger(
@@ -347,7 +350,6 @@ class TagsListDialogWindow(QDialog):
         )
         # заполнение таблицы
         table_widget = self.get_table_by_parameters(type_table, editor)
-        table_widget.setSortingEnabled(False)
         table_widget.clear()
         # заголовки/столбцы
         table_widget.verticalHeader().hide()
@@ -437,6 +439,7 @@ class TagsListDialogWindow(QDialog):
         table_widget.setEditTriggers(QTableWidget.NoEditTriggers)
         # Отключаем возможность выделения
         table_widget.setSelectionMode(QAbstractItemView.NoSelection)
+        table_widget.sortByColumn(0, Qt.AscendingOrder)
 
     def create_tag(self):
         self.__obs_manager.obj_l.debug_logger("TagsListDialogWindow create_tag()")

@@ -4,18 +4,14 @@ from PySide6.QtWidgets import (
     QTableWidgetItem,
     QAbstractItemView,
     QPushButton,
-    QSizePolicy,
     QHBoxLayout,
     QWidget,
     QHeaderView
 )
-from PySide6.QtCore import QTimer, QSize
-from PySide6.QtGui import QIcon
 
 import package.ui.nedpagedialogwindow_ui as nedpagedialogwindow_ui
 
 import os
-from pathlib import Path
 import datetime
 import re
 from docx import Document
@@ -46,12 +42,12 @@ class NedPageDialogWindow(QDialog):
             "included": 1,
         }
         self.__tags_for_add = []
-        self.__icons = self.__obs_manager.obj_icons.get_icons()
         # одноразовые действия
         self.config_by_type_window()
         self.config_combox_neighboor()
         self.reconfig_tw_tags()
         self.connecting_actions()
+
 
     def config_by_type_window(self):
         self.__obs_manager.obj_l.debug_logger(
@@ -62,14 +58,12 @@ class NedPageDialogWindow(QDialog):
             self.ui.btn_open_docx.setEnabled(False)
             self.ui.label_file.setText("Файл не выбран")
             self.ui.btn_nestag.setText("Добавить страницу")
-            self.ui.btn_nestag.setIcon(self.__icons.get("add"))
         elif self.__type_ned == "edit":
             self.ui.btn_select.setText("Выбрать новый документ")
             self.ui.btn_open_docx.setEnabled(True)
             self.ui.label_file.setText(self.__page.get("filename_page"))
             self.__page_filename = self.__page.get("filename_page")
             self.ui.btn_nestag.setText("Сохранить страницу")
-            self.ui.btn_nestag.setIcon(self.__icons.get("save"))
             self.ui.lineedit_namepage.setText(self.__page.get("name_page"))
 
 

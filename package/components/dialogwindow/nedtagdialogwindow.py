@@ -1,14 +1,10 @@
 from PySide6.QtWidgets import QDialog
-from PySide6.QtCore import QTimer, QSize
-from PySide6.QtGui import QIcon
+from PySide6.QtCore import QTimer
 
 import package.ui.nedtagdialogwindow_ui as nedtagdialogwindow_ui
 
 import package.components.widgets.nedtags.neddatetag as neddatetag
 import package.components.widgets.nedtags.nedtabletag as nedtabletag
-
-import resources_rc
-
 
 class TagType:
     def __init__(self, index, name_type_tag, type_tag, icon):
@@ -35,6 +31,7 @@ class NedTagDialogWindow(QDialog):
         self.__additional_widget = None
         self.__data = None
         self.__icons = self.__obs_manager.obj_icons.get_icons()
+        #
         self.config_combobox()
         self.config_by_type_window()
         self.config_maindata()
@@ -138,11 +135,9 @@ class NedTagDialogWindow(QDialog):
         )
         if self.__type_window == "create":
             self.ui.btn_nestag.setText("Добавить тэг")
-            self.ui.btn_nestag.setIcon(self.__icons.get("add"))
 
         elif self.__type_window == "edit":
             self.ui.btn_nestag.setText("Сохранить тэг")
-            self.ui.btn_nestag.setIcon(self.__icons.get("save"))
 
     def config_maindata(self):
         self.__obs_manager.obj_l.debug_logger("NedTagDialogWindow fill_maindata()")

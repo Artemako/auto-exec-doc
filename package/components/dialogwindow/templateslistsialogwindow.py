@@ -33,6 +33,7 @@ class TemplatesListDialogWindow(QDialog):
         # # подключаем деействия
         self.connecting_actions()
 
+
     def reconfig(self):
         self.__obs_manager.obj_l.debug_logger("TemplatesListDialogWindow reconfig()")
         self.config_templates()

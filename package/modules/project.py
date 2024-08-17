@@ -128,11 +128,11 @@ class Project:
             self.__obs_manager.obj_si.save_data_to_database()
             if self.__obs_manager.obj_lwpt.is_page_template_selected():
                 # получить значение высоты страницы
-                saved_view_height = self.__obs_manager.obj_mw.get_view_height()
+                saved_view_height = self.__obs_manager.obj_pv.get_view_height()
                 # сохранить в pdf (обработчик ошибок внутри obj_lwpt)
                 self.__obs_manager.obj_lwpt.current_page_to_pdf()
                 # восстановить высоту страницы
-                self.__obs_manager.obj_mw.set_view_height(saved_view_height)
+                self.__obs_manager.obj_pv.set_view_height(saved_view_height)
             # настроить статус
             self.__status_save = True
             self.__obs_manager.obj_sb.set_message(

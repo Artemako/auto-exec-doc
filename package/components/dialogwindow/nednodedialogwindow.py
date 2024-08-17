@@ -1,12 +1,6 @@
 from PySide6.QtWidgets import QDialog
-from PySide6.QtCore import QTimer, QSize
-from PySide6.QtGui import QIcon
 
 import package.ui.nednodedialogwindow_ui as nednodedialogwindow_ui
-
-import copy
-
-import resources_rc
 
 # TODO ПОДУМАТЬ ПРО PDF 
 
@@ -49,6 +43,7 @@ class NedNodeDialogWindow(QDialog):
             f"NedNodeDialogWindow get_project_and_group_nodes nodes = {nodes}"
         )
         return nodes
+
 
     def config_maindata(self):
         self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow config_maindata()")

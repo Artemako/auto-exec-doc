@@ -1,10 +1,6 @@
 from PySide6.QtWidgets import QDialog
-from PySide6.QtCore import QTimer, QSize
-from PySide6.QtGui import QIcon
 
 import package.ui.nedtemplatedialogwindow_ui as nedtemplatedialogwindow_ui
-
-import resources_rc
 
 # TODO ПОДУМАТЬ ПРО PDF 
 
@@ -24,7 +20,6 @@ class NedTemplateDialogWindow(QDialog):
         self.__obs_manager.obj_style.set_style_for(self)
         #
         self.__data = dict()
-        self.__icons = self.__obs_manager.obj_icons.get_icons()
         # одноразовые действия
         self.config_by_type_window()
         self.connecting_actions()
@@ -42,7 +37,6 @@ class NedTemplateDialogWindow(QDialog):
         if self.__type_ned == "create":
             self.ui.label_nametemplate.setText("Название нового шаблона")
             self.ui.btn_nestag.setText("Добавить шаблон")
-            self.ui.btn_nestag.setIcon(self.__icons.get("add"))
             # предложение включено
             self.ui.label_copyfrom.setEnabled(True)
             self.ui.combox_templates.setEnabled(True)
@@ -52,7 +46,6 @@ class NedTemplateDialogWindow(QDialog):
             self.ui.label_nametemplate.setText("Название шаблона")
             self.ui.lineedit_nametemplate.setText(self.__template.get("name_template"))
             self.ui.btn_nestag.setText("Сохранить шаблон")
-            self.ui.btn_nestag.setIcon(self.__icons.get("save"))
             # предложение отключено
             self.ui.label_copyfrom.setEnabled(False)
             self.ui.combox_templates.setEnabled(False)
