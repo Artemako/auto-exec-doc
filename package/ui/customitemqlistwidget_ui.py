@@ -29,7 +29,7 @@ class Ui_CustomItemQListWidget(object):
         self.horizontalLayout = QHBoxLayout(CustomItemQListWidget)
         self.horizontalLayout.setSpacing(2)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalLayout.setContentsMargins(2, 2, 2, 2)
+        self.horizontalLayout.setContentsMargins(4, 2, 2, 2)
         self.label_text = QLabel(CustomItemQListWidget)
         self.label_text.setObjectName(u"label_text")
         self.label_text.setMaximumSize(QSize(16777215, 16777215))

@@ -274,17 +274,7 @@ class TagsListDialogWindow(QDialog):
         )
         return data
 
-    def clear_and_fill_combobox_group(self):
-        self.__obs_manager.obj_l.debug_logger(
-            "TagsListDialogWindow clear_and_fill_combobox_group()"
-        )
-        self.ui.combox_groups.blockSignals(True)
-        self.ui.combox_groups.clear()
-        for group_node in self.obj_group.list_of_group_node:
-            self.ui.combox_groups.addItem(group_node.get("name_node"), group_node)
-        self.ui.combox_groups.blockSignals(False)
-        self.ui.combox_groups.show()
-
+    
     def clear_and_fill_combobox_form_template_page(self):
         self.__obs_manager.obj_l.debug_logger(
             "TagsListDialogWindow clear_and_fill_combobox_form_template_page()"
@@ -293,14 +283,41 @@ class TagsListDialogWindow(QDialog):
         self.clear_and_fill_combobox_template()
         self.clear_and_fill_combobox_page()
 
+
+    def clear_and_fill_combobox_group(self):
+        self.__obs_manager.obj_l.debug_logger(
+            "TagsListDialogWindow clear_and_fill_combobox_group()"
+        )
+        current_text = self.ui.combox_groups.currentText()
+        #
+        self.ui.combox_groups.blockSignals(True)
+        self.ui.combox_groups.clear()
+        for group_node in self.obj_group.list_of_group_node:
+            self.ui.combox_groups.addItem(group_node.get("name_node"), group_node)
+        #
+        index = self.ui.combox_groups.findText(current_text)
+        if index != -1:
+            self.ui.combox_groups.setCurrentIndex(index)
+        #
+        self.ui.combox_groups.blockSignals(False)
+        self.ui.combox_groups.show()
+
+
     def clear_and_fill_combobox_form(self):
         self.__obs_manager.obj_l.debug_logger(
             "TagsListDialogWindow clear_and_fill_combobox_form()"
         )
+        current_text = self.ui.combox_forms.currentText()
+        #
         self.ui.combox_forms.blockSignals(True)
         self.ui.combox_forms.clear()
         for form_node in self.obj_form_template_page.list_of_form_node:
             self.ui.combox_forms.addItem(form_node.get("name_node"), form_node)
+        #
+        index = self.ui.combox_forms.findText(current_text)
+        if index != -1:
+            self.ui.combox_forms.setCurrentIndex(index)
+        #
         self.ui.combox_forms.blockSignals(False)
         self.ui.combox_forms.show()
 
@@ -308,6 +325,8 @@ class TagsListDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger(
             "TagsListDialogWindow clear_and_fill_combobox_template()"
         )
+        current_text = self.ui.combox_templates.currentText()
+        #
         form = self.ui.combox_forms.currentData()
         templates = []
         if form:
@@ -317,6 +336,11 @@ class TagsListDialogWindow(QDialog):
         self.ui.combox_templates.clear()
         for template in templates:
             self.ui.combox_templates.addItem(template.get("name_template"), template)
+        #
+        index = self.ui.combox_templates.findText(current_text)
+        if index != -1:
+            self.ui.combox_templates.setCurrentIndex(index)
+        #
         self.ui.combox_templates.blockSignals(False)
         self.ui.combox_templates.show()
 
@@ -324,6 +348,8 @@ class TagsListDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger(
             "TagsListDialogWindow clear_and_fill_combobox_page()"
         )
+        current_text = self.ui.combox_pages.currentText()
+        #
         template = self.ui.combox_templates.currentData()
         pages = []
         if template:
@@ -335,6 +361,11 @@ class TagsListDialogWindow(QDialog):
         self.ui.combox_pages.addItem("- Для всех страниц -", "all_pages")
         for page in pages:
             self.ui.combox_pages.addItem(page.get("name_page"), page)
+        #
+        index = self.ui.combox_pages.findText(current_text)
+        if index != -1:
+            self.ui.combox_pages.setCurrentIndex(index)
+        #
         self.ui.combox_pages.blockSignals(False)
         self.ui.combox_pages.show()
 

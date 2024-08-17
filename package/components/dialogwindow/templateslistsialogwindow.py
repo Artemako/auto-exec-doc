@@ -29,16 +29,23 @@ class TemplatesListDialogWindow(QDialog):
         # конфигурация
         self.config_lws()
         # 
-        self.config_forms(is_start = True)
-        self.config_templates(is_start = True)
-        self.config_pages(is_start = True)
+        self.config_forms()
+        self.config_templates()
+        self.config_pages()
         # # подключаем деействия
         self.connecting_actions()
 
-    def reconfig(self):
-        self.__obs_manager.obj_l.debug_logger("TemplatesListDialogWindow reconfig()")
-        self.config_templates()
-        self.config_pages()
+    def reconfig(self, type_reconfig = ""):
+        self.__obs_manager.obj_l.debug_logger(f"TemplatesListDialogWindow reconfig(type_reconfig): type_reconfig = {type_reconfig}")
+        if type_reconfig == "REFORM":
+            self.config_forms()
+            self.config_templates()
+            self.config_pages()
+        elif type_reconfig == "RETEMPLATE":
+            self.config_templates()
+            self.config_pages()
+        elif type_reconfig == "REPAGE":
+            self.config_pages()
 
     def config_lws(self):
         self.__obs_manager.obj_l.debug_logger("TemplatesListDialogWindow config_lws()")
@@ -48,21 +55,24 @@ class TemplatesListDialogWindow(QDialog):
             list_widget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
 
-    def config_forms(self, is_start = False):
+    def config_forms(self):
         self.__obs_manager.obj_l.debug_logger(
             "TemplatesListDialogWindow config_forms()"
         )
+        #
         forms = self.__obs_manager.obj_pd.get_form_nodes()
         combobox = self.ui.combox_forms
         combobox.blockSignals(True)
         combobox.clear()
         for index, form in enumerate(forms):
             combobox.addItem(form.get("name_node"), form)
-        if is_start:
+        #
+        if combobox.count() > 0:
             combobox.setCurrentIndex(0)
+
         combobox.blockSignals(False)
 
-    def config_templates(self, is_start = False):
+    def config_templates(self):
         self.__obs_manager.obj_l.debug_logger(
             "TemplatesListDialogWindow config_templates()"
         )
@@ -74,6 +84,7 @@ class TemplatesListDialogWindow(QDialog):
             print(f"form = {form}")
             print(f"templates = {templates}")
             list_widget = self.ui.lw_templates
+            #
             list_widget.blockSignals(True)
             list_widget.clear()
             for template in templates:
@@ -92,23 +103,26 @@ class TemplatesListDialogWindow(QDialog):
                 self.config_buttons_for_item(custom_widget)
                 #
                 self.__templates_items.append(item)
+            #
+            if self.__templates_items:
+                list_widget.setCurrentItem(self.__templates_items[0])
 
-            if is_start:
-                list_widget.setCurrentRow(0)
             list_widget.blockSignals(False)
 
-    def config_pages(self, is_start = False):
+    def config_pages(self):
         self.__obs_manager.obj_l.debug_logger(
             "TemplatesListDialogWindow config_pages()"
         )
         item_template = self.ui.lw_templates.currentItem()
         if item_template is not None:
+            print("if item_template is not None:")
             template = item_template.data(0)
             # сортированный список страниц
             pages = self.__obs_manager.obj_pd.get_pages_by_template(template)
             self.__pages = pages
             self.__pages_items = []
             list_widget = self.ui.lw_pages
+            #
             list_widget.blockSignals(True)
             list_widget.clear()
             for page in pages:
@@ -127,9 +141,10 @@ class TemplatesListDialogWindow(QDialog):
                 self.config_buttons_for_item(custom_widget)
                 #
                 self.__pages_items.append(item)
+            #
+            if self.__pages_items:
+                list_widget.setCurrentItem(self.__pages_items[0])
 
-            if is_start:
-                list_widget.setCurrentRow(0)
             list_widget.blockSignals(False)
 
     def config_buttons_for_item(self, item_widget):
@@ -163,9 +178,9 @@ class TemplatesListDialogWindow(QDialog):
         self.ui.btn_add_template.setShortcut("Ctrl+T")
         # смена индекса
         self.ui.combox_forms.currentIndexChanged.connect(
-            self.combox_forms_index_changed
+            lambda index: self.reconfig("RETEMPLATE")
         )
-        self.ui.lw_templates.currentItemChanged.connect(self.config_pages)
+        self.ui.lw_templates.currentItemChanged.connect(lambda item: self.reconfig("REPAGE"))
 
     def resizeEvent(self, event):
         super(TemplatesListDialogWindow, self).resizeEvent(event)
@@ -179,13 +194,7 @@ class TemplatesListDialogWindow(QDialog):
     def resize_pages_items(self):
         for item in self.__pages_items:
             item.setSizeHint(item.sizeHint().boundedTo(self.ui.lw_pages.sizeHint()))
-
-    def combox_forms_index_changed(self):
-        self.__obs_manager.obj_l.debug_logger(
-            "TemplatesListDialogWindow combox_forms_index_changed()"
-        )
-        self.config_templates()
-        self.config_pages()
+        
 
     def edit_item(self, type_window, data):
         self.__obs_manager.obj_l.debug_logger(
@@ -202,7 +211,7 @@ class TemplatesListDialogWindow(QDialog):
                     template, name_template
                 )
                 # order у template остутсвует
-                self.reconfig()
+                self.reconfig("RETEMPLATE")
 
         elif type_window == "PAGE":
             page = data
@@ -226,7 +235,7 @@ class TemplatesListDialogWindow(QDialog):
                         self.__obs_manager.obj_ffm.delete_page_from_project(
                             old_filename_page
                         )
-                    self.reconfig()
+                    self.reconfig("REPAGE")
 
     def update_order_pages(self, editpage, new_order_page):
         self.__obs_manager.obj_l.debug_logger(
@@ -253,9 +262,9 @@ class TemplatesListDialogWindow(QDialog):
                 f"Вы точно хотите удалить {name_template}?"
             )
             if result:
-                self.delete_pages()
+                # self.delete_pages()
                 self.__obs_manager.obj_pd.delete_template(data)
-                self.reconfig()
+                self.reconfig("RETEMPLATE")
         elif type_window == "PAGE":
             name_page = data.get("name_page")
             result = self.__obs_manager.obj_dw.question_message(
@@ -263,15 +272,8 @@ class TemplatesListDialogWindow(QDialog):
             )
             if result:
                 self.delete_page(data)
-                self.reconfig()
+                self.reconfig("REPAGE")
 
-    def delete_pages(self):
-        self.__obs_manager.obj_l.debug_logger(
-            "TemplatesListDialogWindow delete_pages()"
-        )
-        pages = self.__pages
-        for page in pages:
-            self.delete_page(page)
 
     def delete_page(self, page):
         self.__obs_manager.obj_l.debug_logger(
@@ -309,7 +311,7 @@ class TemplatesListDialogWindow(QDialog):
                 # обновляем order
                 page_for_order = self.__obs_manager.obj_pd.get_page_by_id(primary_key)
                 self.update_order_pages(page_for_order, order_page)                
-                self.reconfig()
+                self.reconfig("REPAGE")
 
     def add_template(self):
         self.__obs_manager.obj_l.debug_logger(
@@ -338,7 +340,7 @@ class TemplatesListDialogWindow(QDialog):
                         id_copy_template
                     )
                     self.copy_template(old_template, new_template)
-                self.reconfig()
+                self.reconfig("RETEMPLATE")
 
     def copy_template(self, old_template, new_template):
         self.copy_template_templates_data(old_template, new_template)
