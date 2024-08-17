@@ -676,6 +676,7 @@ QHeaderView::down-arrow {
     width: 0px;
 }
 
+
 /* Context menus, toolbar drop-downs #QMenu    */
 QMenu {
     background-color: #1a1a1c;
