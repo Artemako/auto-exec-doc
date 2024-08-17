@@ -33,7 +33,6 @@ class TemplatesListDialogWindow(QDialog):
         # # подключаем деействия
         self.connecting_actions()
 
-
     def reconfig(self):
         self.__obs_manager.obj_l.debug_logger("TemplatesListDialogWindow reconfig()")
         self.config_templates()
@@ -43,7 +42,6 @@ class TemplatesListDialogWindow(QDialog):
         self.__obs_manager.obj_l.debug_logger(
             "TemplatesListDialogWindow config_forms()"
         )
-        # TODO Подумать про сортировку (алфавит?)
         forms = self.__obs_manager.obj_pd.get_form_nodes()
         combobox = self.ui.combox_forms
         combobox.blockSignals(True)
@@ -97,6 +95,7 @@ class TemplatesListDialogWindow(QDialog):
         item_template = self.ui.lw_templates.currentItem()
         if item_template is not None:
             template = item_template.data(0)
+            # сортированный список страниц
             pages = self.__obs_manager.obj_pd.get_pages_by_template(template)
             self.__pages = pages
             self.__pages_items = []
@@ -160,12 +159,11 @@ class TemplatesListDialogWindow(QDialog):
         )
         self.ui.lw_templates.currentItemChanged.connect(self.config_pages)
 
-
     def resizeEvent(self, event):
         super(TemplatesListDialogWindow, self).resizeEvent(event)
         self.resize_templates_items()
         self.resize_pages_items()
-            
+
     def resize_templates_items(self):
         for item in self.__templates_items:
             item.setSizeHint(item.sizeHint().boundedTo(self.ui.lw_templates.sizeHint()))
@@ -189,11 +187,13 @@ class TemplatesListDialogWindow(QDialog):
             template = data
             result = self.ned_temp_dw("edit", template)
             if result:
-                data = self.__obs_manager.obj_ned_temp_dw.get_data()
+                # СТРАНИЦА obj_nedtempdw
+                data = self.__obs_manager.obj_nedtempdw.get_data()
                 name_template = data.get("name_template")
                 self.__obs_manager.obj_pd.set_new_name_for_template(
                     template, name_template
                 )
+                # order у template остутсвует
                 self.reconfig()
 
         elif type_window == "PAGE":
@@ -203,7 +203,14 @@ class TemplatesListDialogWindow(QDialog):
                 item_template = self.ui.lw_templates.currentItem()
                 if item_template is not None:
                     template = item_template.data(0)
-                    data = self.__obs_manager.obj_ned_temp_dw.get_data()
+                    # СТРАНИЦА obj_nedpagedw
+                    data = self.__obs_manager.obj_nedpagedw.get_data()
+                    # Обновить в БД страницу
+                    self.__obs_manager.obj_pd.set_new_name_and_filename_for_page(
+                        page, data.get("name_page"), data.get("filename_page")
+                    )
+                    # обновить order
+                    self.update_order_pages(data, data.get("order_page"))
                     # Если поменялся документ то нужно его обновить (удаля старый)
                     old_filename_page = page.get("filename_page")
                     new_filename_page = data.get("filename_page")
@@ -211,28 +218,22 @@ class TemplatesListDialogWindow(QDialog):
                         self.__obs_manager.obj_ffm.delete_page_from_project(
                             old_filename_page
                         )
-                    # Если поменялся order
-                    old_order_page = page.get("order_page")
-                    new_order_page = data.get("order_page")
-                    if old_order_page != new_order_page:
-                        self.update_order_pages(page, new_order_page)
-                    self.update_page(data)
                     self.reconfig()
 
     def update_order_pages(self, editpage, new_order_page):
         self.__obs_manager.obj_l.debug_logger(
-            f"TemplatesListDialogWindow update_order_pages(id_editpage, new_order_page):\editpage = {editpage}\nnew_order_page = {new_order_page}"
+            f"TemplatesListDialogWindow update_order_pages(editpage, new_order_page):\n editpage = {editpage}\n new_order_page = {new_order_page}"
         )
         # подготовка данных
-        id_editpage = editpage.get("id_page")
+        id_editpage = editpage.get("id_page", -111)
         pages = [page for page in self.__pages if page.get("id_page") != id_editpage]
         pages = sorted(pages, key=lambda x: x.get("order_page"))
         pages.insert(new_order_page, editpage)
         # обновить значения
         for index, page in enumerate(pages):
-            order_page = page.get("order_page")
-            if order_page != index:
-                self.__obs_manager.obj_pd.set_order_for_page(page, index)
+            # order_page = page.get("order_page")
+            self.__obs_manager.obj_pd.set_order_for_page(page, index)
+
 
     def delete_item(self, type_window, data):
         self.__obs_manager.obj_l.debug_logger(
@@ -265,11 +266,12 @@ class TemplatesListDialogWindow(QDialog):
             self.delete_page(page)
 
     def delete_page(self, page):
-        self.__obs_manager.obj_l.debug_logger(f"TemplatesListDialogWindow delete_page(page):\npage = {page}")
+        self.__obs_manager.obj_l.debug_logger(
+            f"TemplatesListDialogWindow delete_page(page):\npage = {page}"
+        )
         filename_page = page.get("filename_page")
         self.__obs_manager.obj_ffm.delete_page_from_project(filename_page)
         self.__obs_manager.obj_pd.delete_page(page)
-            
 
     def add_page(self):
         self.__obs_manager.obj_l.debug_logger("TemplatesListDialogWindow add_page()")
@@ -280,33 +282,26 @@ class TemplatesListDialogWindow(QDialog):
                 template = item_template.data(0)
                 name_template = template.get("name_template")
                 id_parent_template = template.get("id_template")
-                #
-                data = self.__obs_manager.obj_ned_temp_dw.get_data()
+                data = self.__obs_manager.obj_nedpagedw.get_data()
                 filename_page = data.get("filename_page")
                 name_page = data.get("name_page")
                 self.__obs_manager.obj_ffm.docx_from_temp_to_forms(
                     filename_page, name_template
                 )
-                order_page = self.get_max_order_page() + 1
+                order_page = data.get("order_page")
                 new_page = {
                     "id_parent_template": id_parent_template,
                     "name_page": name_page,
                     "filename_page": filename_page,
-                    "order_page": order_page,
+                    "order_page": -111,
                     "included": 1,
                 }
-                self.__obs_manager.obj_pd.insert_page(new_page)
+                # добавляем вершину
+                primary_key = self.__obs_manager.obj_pd.insert_page(new_page)
+                # обновляем order
+                page_for_order = self.__obs_manager.obj_pd.get_page_by_id(primary_key)
+                self.update_order_pages(page_for_order, order_page)                
                 self.reconfig()
-
-    def get_max_order_page(self) -> int:
-        self.__obs_manager.obj_l.debug_logger(
-            "TemplatesListDialogWindow get_max_order_page()"
-        )
-        max_value = 0
-        for page in self.__pages:
-            if page.get("order_page") > max_value:
-                max_value = page.get("order_page")
-        return max_value
 
     def add_template(self):
         self.__obs_manager.obj_l.debug_logger(
@@ -314,7 +309,7 @@ class TemplatesListDialogWindow(QDialog):
         )
         result = self.ned_temp_dw("create")
         if result:
-            data = self.__obs_manager.obj_ned_temp_dw.get_data()
+            data = self.__obs_manager.obj_nedtempdw.get_data()
             name_template = data.get("name_template")
             copy_template = data.get("copy_template")
             # добавить
@@ -396,18 +391,18 @@ class TemplatesListDialogWindow(QDialog):
 
     def ned_temp_dw(self, type_ned, template=None) -> bool:
         self.__obs_manager.obj_l.debug_logger("TemplatesListDialogWindow ned_temp_dw()")
-        self.__obs_manager.obj_ned_temp_dw = (
+        self.__obs_manager.obj_nedtempdw = (
             nedtemplatedialogwindow.NedTemplateDialogWindow(
                 self.__obs_manager, type_ned, self.__templates, template
             )
         )
-        result = self.__obs_manager.obj_ned_temp_dw.exec()
+        result = self.__obs_manager.obj_nedtempdw.exec()
         return result == QDialog.Accepted
 
     def ned_page_dw(self, type_ned, page=None) -> bool:
         self.__obs_manager.obj_l.debug_logger("TemplatesListDialogWindow ned_page_dw()")
-        self.__obs_manager.obj_ned_page_dw = nedpagedialogwindow.NedPageDialogWindow(
+        self.__obs_manager.obj_nedpagedw = nedpagedialogwindow.NedPageDialogWindow(
             self.__obs_manager, type_ned, self.__pages, page
         )
-        result = self.__obs_manager.obj_ned_page_dw.exec()
+        result = self.__obs_manager.obj_nedpagedw.exec()
         return result == QDialog.Accepted

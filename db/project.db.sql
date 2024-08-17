@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS "Project_nodes" (
 	"id_active_template"	INTEGER,
 	"included"	INTEGER NOT NULL DEFAULT 1,
 	PRIMARY KEY("id_node" AUTOINCREMENT),
+	UNIQUE("name_node"),
 	FOREIGN KEY("id_active_template") REFERENCES "Project_templates"("id_template") ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
@@ -49,7 +50,8 @@ CREATE TABLE IF NOT EXISTS "Project_tags" (
 	"config_tag"	TEXT,
 	"description_tag"	TEXT,
 	"is_global"	INTEGER,
-	PRIMARY KEY("id_tag" AUTOINCREMENT)
+	PRIMARY KEY("id_tag" AUTOINCREMENT),
+	UNIQUE("name_tag")
 );
 CREATE TABLE IF NOT EXISTS "Project_templates" (
 	"id_template"	INTEGER NOT NULL UNIQUE,

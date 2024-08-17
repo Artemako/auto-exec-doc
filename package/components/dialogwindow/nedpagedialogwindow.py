@@ -48,6 +48,9 @@ class NedPageDialogWindow(QDialog):
         self.reconfig_tw_tags()
         self.connecting_actions()
 
+    def get_data(self):
+        self.__obs_manager.obj_l.debug_logger(f"NedPageDialogWindow get_data():\nself.__data = {self.__data}")
+        return self.__data
 
     def config_by_type_window(self):
         self.__obs_manager.obj_l.debug_logger(
@@ -215,9 +218,9 @@ class NedPageDialogWindow(QDialog):
         combobox.clear()
         current_index = 0
         flag = True
-        combobox.addItem("- В начало -", "start")
+        combobox.addItem("- В начало -", "START")
         for index, page in enumerate(self.__pages):
-            if self.__page.get("id_page") == page.get("id_page"):
+            if self.__page and self.__page.get("id_page") == page.get("id_page"):
                 flag = False
             else:
                 combobox.addItem(page.get("name_page"), page)
@@ -251,7 +254,7 @@ class NedPageDialogWindow(QDialog):
             # путь к временному файлу
             temp_file_path = os.path.join(temp_dir, file_name_with_docx)
             # копирование
-            self.__obs_manager.obj_dpm.copy_file(docx_path, temp_file_path)
+            self.__obs_manager.obj_ffm.copy_file(docx_path, temp_file_path)
             #
             self.reconfig_tw_tags()
 
@@ -277,6 +280,13 @@ class NedPageDialogWindow(QDialog):
             print(e)
 
 
+    def find_page_by_namepage_in_pages(self, namepage) -> object:
+        self.__obs_manager.obj_l.debug_logger(f"NedPageDialogWindow find_page_by_namepage_in_pages(namepage):\nnamepage = {namepage}")
+        for current_page in self.__pages:
+            if current_page.get("name_page") == namepage:
+                return current_page
+        return None
+
     def btn_nestag_clicked(self):
         self.__obs_manager.obj_l.debug_logger(
             "NedPageDialogWindow btn_nestag_clicked()"
@@ -284,15 +294,39 @@ class NedPageDialogWindow(QDialog):
         
         filename_page = self.__page_filename
         namepage = self.ui.lineedit_namepage.text()
-        # TODO Уникальность имени!!!
         if len(namepage) > 0 and len(filename_page) > 0:
+            # поиск по имени
+            find_page = self.find_page_by_namepage_in_pages(namepage)
+            # выбранный сосед
+            neighboor_page = self.ui.combox_neighboor.currentData()
+            order_page = 0 if neighboor_page == "START" else neighboor_page.get("order_page") + 1
+            #
             if self.__type_ned == "create":
-                ...
-                self.__data["name_page"] = namepage
-                self.__data["filename_page"] = filename_page
-                self.accept()
+                if find_page is None:
+                    self.__data["name_page"] = namepage
+                    self.__data["filename_page"] = filename_page
+                    self.__data["order_page"] = order_page
+                    self.accept()
+                else:
+                    msg = "Другая страница с таким именем уже существует!"
+                    self.__obs_manager.obj_dw.warning_message(msg)
+
             elif self.__type_ned == "edit":
-                self.__data = self.__page                
+                if find_page is None:
+                    self.__data = self.__page
+                    self.__data["name_page"] = namepage
+                    self.__data["filename_page"] = filename_page
+                    self.__data["order_page"] = order_page
+                    self.accept()     
+                elif namepage == self.__page.get("name_page"):
+                    self.__data = self.__page
+                    self.__data["name_page"] = namepage
+                    self.__data["filename_page"] = filename_page
+                    self.__data["order_page"] = order_page
+                    self.accept()
+                else:
+                    msg = "Другая страница с таким именем уже существует!"
+                    self.__obs_manager.obj_dw.warning_message(msg)       
         elif namepage == "":
             self.__obs_manager.obj_dw.warning_message("Заполните поле названия")
         elif filename_page is None or len(filename_page) == 0:

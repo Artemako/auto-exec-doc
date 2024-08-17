@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS "Project_nodes" (
 	"id_active_template"	INTEGER,
 	"included"	INTEGER NOT NULL DEFAULT 1,
 	PRIMARY KEY("id_node" AUTOINCREMENT),
+	UNIQUE("name_node"),
 	FOREIGN KEY("id_active_template") REFERENCES "Project_templates"("id_template") ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
@@ -91,7 +92,8 @@ CREATE TABLE IF NOT EXISTS "Project_tags" (
 	"config_tag"	TEXT,
 	"description_tag"	TEXT,
 	"is_global"	INTEGER,
-	PRIMARY KEY("id_tag" AUTOINCREMENT)
+	PRIMARY KEY("id_tag" AUTOINCREMENT),
+	UNIQUE("name_tag")
 );
 CREATE TABLE IF NOT EXISTS "Project_templates" (
 	"id_template"	INTEGER NOT NULL UNIQUE,
@@ -184,8 +186,6 @@ INSERT INTO "Project_templates" VALUES (3,'main',1201);
 INSERT INTO "Project_templates" VALUES (4,'main',1202);
 INSERT INTO "Project_templates" VALUES (5,'main',1203);
 COMMIT;
-
-
         """
         )
         conn.commit()
@@ -363,6 +363,7 @@ COMMIT;
             """
         SELECT * FROM Project_pages
         WHERE id_parent_template = ?
+        ORDER BY order_page
         """,
             [template.get("id_template")],
         )
@@ -507,6 +508,26 @@ COMMIT;
         )
         return result
 
+    def get_page_by_id(self, id_page) -> object:
+        """
+        Запрос на получение page по id.
+        """
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        SELECT * FROM Project_pages
+        WHERE id_page = ?
+        """,
+            [id_page],
+        )
+
+        result = self.get_fetchone(cursor)
+        conn.close()
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase get_page_by_id(id_page) -> object: id_page = {id_page}\nresult = {result}"
+        )
+        return result
 
     def set_included_for_node(self, node, state):
         """
@@ -1268,5 +1289,26 @@ COMMIT;
         )
         conn.commit()
         conn.close()
+
+    def set_new_name_and_filename_for_page(self, page, name_page, filename_page):
+        """
+        Установка нового имени и имени файла для страницы.
+        """
+        self.__obs_manager.obj_l.debug_logger(
+            f"ProjectDatabase set_new_name_and_filename_for_page(page, name_page, filename_page):\npage = {page}\nname_page = {name_page}\nfilename_page = {filename_page}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        UPDATE Project_pages
+        SET name_page = ?, filename_page = ?
+        WHERE id_page = ?
+        """,
+            [name_page, filename_page, page.get("id_page")],
+        )
+        conn.commit()
+        conn.close()
+
 
 # obj_pd = ProjectDatabase()
