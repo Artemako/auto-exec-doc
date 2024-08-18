@@ -10,16 +10,16 @@ from PySide6.QtWidgets import (
 
 
 class Section(QWidget):
-    def __init__(self, obs_manager, section_name = "Секция"):
+    def __init__(self, osbm, section_name = "Секция"):
         """
         References:
             # Adapted from c++ version
             http://stackoverflow.com/questions/32476006/how-to-make-an-expandable-collapsable-section-widget-in-qt
         """
-        self.__obs_manager = obs_manager
+        self.__osbm = osbm
         super(Section, self).__init__(None)
 
-        self.__obs_manager.obj_style.set_style_for(self)
+        self.__osbm.obj_style.set_style_for(self)
 
         self.animationDuration = 50
         self.toggleAnimation = QtCore.QParallelAnimationGroup()

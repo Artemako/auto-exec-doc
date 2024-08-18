@@ -17,15 +17,15 @@ class SAInputForms:
         self.__scrollarea_input = None
         self.__scrollarea_input_layout = None
     
-    def setting_all_obs_manager(self, obs_manager):
-        self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger("SAInputForms setting_all_obs_manager()")
+    def setting_all_osbm(self, osbm):
+        self.__osbm = osbm
+        self.__osbm.obj_logg.debug_logger("SAInputForms setting_all_osbm()")
 
     def connect_inputforms(self, sa_if, sa_ifl):
         """
         Подключить _scrollarea_input и _scrollarea_input_tags
         """
-        self.__obs_manager.obj_l.debug_logger(f"SAInputForms connect_inputforms(sa_if, sa_ifl):\nsa_if = {sa_if},\nsa_ifl = {sa_ifl}")
+        self.__osbm.obj_logg.debug_logger(f"SAInputForms connect_inputforms(sa_if, sa_ifl):\nsa_if = {sa_if},\nsa_ifl = {sa_ifl}")
         self.__scrollarea_input = sa_if
         self.__scrollarea_input_layout = sa_ifl
 
@@ -33,7 +33,7 @@ class SAInputForms:
         """
         Удаление всех виджетов в self
         """
-        self.__obs_manager.obj_l.debug_logger("SAInputForms delete_all_widgets_in_sa()")
+        self.__osbm.obj_logg.debug_logger("SAInputForms delete_all_widgets_in_sa()")
 
         layout = self.__scrollarea_input_layout.layout()
         while layout.count():
@@ -48,7 +48,7 @@ class SAInputForms:
         """
         Определение типа/названия секции
         """
-        self.__obs_manager.obj_l.debug_logger(f"SAInputForms get_section_name(section_info):\nsection_info = {section_info}") 
+        self.__osbm.obj_logg.debug_logger(f"SAInputForms get_section_name(section_info):\nsection_info = {section_info}") 
         section_type = section_info.get("type")
         section_name = None
         if section_type == "page":
@@ -72,7 +72,7 @@ class SAInputForms:
         """
         id_tag = pair.get("id_tag")
         # все свойства основного контента
-        current_tag = self.__obs_manager.obj_pd.get_tag_by_id(
+        current_tag = self.__osbm.obj_prodb.get_tag_by_id(
             id_tag
         )
         type_tag = current_tag.get("type_tag")
@@ -81,33 +81,33 @@ class SAInputForms:
         if config_tag:
             config_dict = json.loads(config_tag)
         if type_tag == "TEXT":
-            item = formtext.FormText(self.__obs_manager, pair, current_tag)
+            item = formtext.FormText(self.__osbm, pair, current_tag)
             section_layout.addWidget(item)
 
         elif type_tag == "DATE":
-            item = formdate.FormDate(self.__obs_manager, pair, current_tag, config_dict)
+            item = formdate.FormDate(self.__osbm, pair, current_tag, config_dict)
             section_layout.addWidget(item)
 
         elif type_tag == "IMAGE":
-            item = formimage.FormImage(self.__obs_manager, pair, current_tag, config_dict)
+            item = formimage.FormImage(self.__osbm, pair, current_tag, config_dict)
             section_layout.addWidget(item)
 
         elif type_tag == "TABLE":
-            item = formtable.FormTable(self.__obs_manager, pair, current_tag, config_dict)
+            item = formtable.FormTable(self.__osbm, pair, current_tag, config_dict)
             section_layout.addWidget(item)
 
 
     def add_sections_in_sa(self):
         """ """
-        self.__obs_manager.obj_l.debug_logger("SAInputForms add_sections_in_sa()")
+        self.__osbm.obj_logg.debug_logger("SAInputForms add_sections_in_sa()")
 
-        sections_info = self.__obs_manager.obj_si.get_sections_info()
+        sections_info = self.__osbm.obj_seci.get_sections_info()
         # перебор секций
         for section_info in sections_info:
             try:
                 section_name = self.get_section_name(section_info)
                 # Создание секции виджета
-                section = customsection.Section(self.__obs_manager, section_name)
+                section = customsection.Section(self.__osbm, section_name)
                 section_layout = QVBoxLayout()
                 section_layout.setSpacing(9)
                 # data секции
@@ -119,7 +119,7 @@ class SAInputForms:
                 section.setContentLayout(section_layout)
                 self.__scrollarea_input_layout.layout().insertWidget(0, section)
             except Exception as e:
-                self.__obs_manager.obj_l.error_logger(f"Error in add_sections_in_sa(): {e}")
+                self.__osbm.obj_logg.error_logger(f"Error in add_sections_in_sa(): {e}")
         # Добавление SpacerItem в конец
         self.__scrollarea_input_layout.layout().addItem(
             QSpacerItem(0, 0, QSizePolicy.Minimum, QSizePolicy.Expanding)
@@ -129,12 +129,12 @@ class SAInputForms:
         """
         Обновление self
         """
-        self.__obs_manager.obj_l.debug_logger("SAInputForms update_scrollarea()")
+        self.__osbm.obj_logg.debug_logger("SAInputForms update_scrollarea()")
         # Очистка всего и вся 
         self.delete_all_widgets_in_sa()        
         # обновить информацию о секциях
         if page is not None:
-            self.__obs_manager.obj_si.update_sections_info(page)
+            self.__osbm.obj_seci.update_sections_info(page)
             # Добавление новых секций в self
             self.add_sections_in_sa()
 

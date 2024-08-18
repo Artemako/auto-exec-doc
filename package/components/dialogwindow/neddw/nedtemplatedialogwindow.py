@@ -5,19 +5,19 @@ import package.ui.nedtemplatedialogwindow_ui as nedtemplatedialogwindow_ui
 # TODO ПОДУМАТЬ ПРО PDF 
 
 class NedTemplateDialogWindow(QDialog):
-    def __init__(self, obs_manager, type_ned, templates, template=None):
-        self.__obs_manager = obs_manager
+    def __init__(self, osbm, type_ned, templates, template=None):
+        self.__osbm = osbm
         self.__type_ned = type_ned
         self.__templates = templates
         self.__template = template
-        self.__obs_manager.obj_l.debug_logger(
-            f"NedTemplateDialogWindow __init__(obs_manager, type_ned):\ntype_ned = {type_ned},\templates = {templates}\ntemplate = {template}"
+        self.__osbm.obj_logg.debug_logger(
+            f"NedTemplateDialogWindow __init__(osbm, type_ned):\ntype_ned = {type_ned},\templates = {templates}\ntemplate = {template}"
         )
         super(NedTemplateDialogWindow, self).__init__()
         self.ui = nedtemplatedialogwindow_ui.Ui_NedTemplateDialogWindow()
         self.ui.setupUi(self)
         # СТИЛЬ
-        self.__obs_manager.obj_style.set_style_for(self)
+        self.__osbm.obj_style.set_style_for(self)
         #
         self.__data = dict()
         # одноразовые действия
@@ -25,13 +25,13 @@ class NedTemplateDialogWindow(QDialog):
         self.connecting_actions()
 
     def get_data(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"NedTemplateDialogWindow get_data():\nself.__data = {self.__data}"
         )
         return self.__data
 
     def config_by_type_window(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "NedTemplateDialogWindow config_by_type_window()"
         )
         if self.__type_ned == "create":
@@ -51,7 +51,7 @@ class NedTemplateDialogWindow(QDialog):
             self.ui.combox_templates.setEnabled(False)
     
     def config_combox_templates(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "NedTemplateDialogWindow config_combox_templates()"
         )
         combobox = self.ui.combox_templates
@@ -64,7 +64,7 @@ class NedTemplateDialogWindow(QDialog):
 
 
     def connecting_actions(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "NedTemplateDialogWindow connecting_actions()"
         )
         self.ui.btn_close.clicked.connect(self.close)
@@ -73,7 +73,7 @@ class NedTemplateDialogWindow(QDialog):
         self.ui.btn_nestag.setShortcut("Ctrl+S")
 
     def btn_nestag_clicked(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "NedTemplateDialogWindow btn_nestag_clicked()"
         )
         nametemplate = self.ui.lineedit_nametemplate.text()
@@ -87,4 +87,4 @@ class NedTemplateDialogWindow(QDialog):
         if len(nametemplate) > 0:
             self.accept()
         else:
-            self.__obs_manager.obj_dw.warning_message("Заполните поле названия")
+            self.__osbm.obj_dw.warning_message("Заполните поле названия")

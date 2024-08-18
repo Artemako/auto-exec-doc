@@ -28,19 +28,19 @@ class NumericItem(QTableWidgetItem):
 
 # TODO Сделать open_...
 class TagsListDialogWindow(QDialog):
-    def __init__(self, obs_manager):
-        self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger(
-            "TagsListDialogWindow __init__(obs_manager)"
+    def __init__(self, osbm):
+        self.__osbm = osbm
+        self.__osbm.obj_logg.debug_logger(
+            "TagsListDialogWindow __init__(osbm)"
         )
         self.initalizate_tabs_objects()
         super(TagsListDialogWindow, self).__init__()
         self.ui = tagslistdialogwindow_ui.Ui_TagsListDialog()
         self.ui.setupUi(self)
         # СТИЛЬ
-        self.__obs_manager.obj_style.set_style_for(self)
+        self.__osbm.obj_style.set_style_for(self)
         #
-        self.__icons = self.__obs_manager.obj_icons.get_icons()
+        self.__icons = self.__osbm.obj_icons.get_icons()
         # config
         self.config()
         self.config_tws()
@@ -50,31 +50,31 @@ class TagsListDialogWindow(QDialog):
         self.show_tab_project()
 
     def initalizate_tabs_objects(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "TagsListDialogWindow initalizate_tabs_objects()"
         )
-        self.obj_project = Obj()
+        self.obj_projroject = Obj()
         self.obj_group = Obj()
         self.obj_form_template_page = Obj()
         # Списки с данными
         setattr(
-            self.obj_project,
+            self.obj_projroject,
             "project_node",
-            self.__obs_manager.obj_pd.get_project_node(),
+            self.__osbm.obj_prodb.get_project_node(),
         )
         setattr(
             self.obj_group,
             "list_of_group_node",
-            self.__obs_manager.obj_pd.get_group_nodes(),
+            self.__osbm.obj_prodb.get_group_nodes(),
         )
         setattr(
             self.obj_form_template_page,
             "list_of_form_node",
-            self.__obs_manager.obj_pd.get_form_nodes(),
+            self.__osbm.obj_prodb.get_form_nodes(),
         )
 
     def config(self):
-        self.__obs_manager.obj_l.debug_logger("TagsListDialogWindow config()")
+        self.__osbm.obj_logg.debug_logger("TagsListDialogWindow config()")
         self.ui.splitter_ftp.setSizes([500, 300])
         self.ui.splitter_group.setSizes([500, 300])
         self.ui.splitter_project.setSizes([500, 300])
@@ -83,7 +83,7 @@ class TagsListDialogWindow(QDialog):
         self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
 
     def connecting_actions(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "TagsListDialogWindow connecting_actions()"
         )
         # смена tab
@@ -119,13 +119,13 @@ class TagsListDialogWindow(QDialog):
             type_table = "group_tags"
         elif index == 2:
             type_table = "form_template_page_tags"
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TagsListDialogWindow get_typetable():\ntype_table = {type_table}"
         )
         return type_table
 
     def combox_groups_index_changed(self, index):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"combox_groups_index_changed(index):\nindex = {index}"
         )
         # данные таблицы
@@ -133,7 +133,7 @@ class TagsListDialogWindow(QDialog):
         self.caf_two_tables(typetable)
 
     def combox_forms_index_changed(self, index):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TagsListDialogWindow combox_forms_index_changed(index):\nindex = {index}"
         )
         self.caf_combobox_template()
@@ -143,7 +143,7 @@ class TagsListDialogWindow(QDialog):
         self.caf_two_tables(typetable)
 
     def combox_templates_index_changed(self, index):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TagsListDialogWindow combox_templates_index_changed(index):\nindex = {index}"
         )
         self.caf_combobox_page()
@@ -152,7 +152,7 @@ class TagsListDialogWindow(QDialog):
         self.caf_two_tables(typetable)
 
     def combox_pages_index_changed(self, index):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TagsListDialogWindow combox_pages_index_changed(index):\nindex = {index}"
         )
         # данные таблицы
@@ -160,19 +160,19 @@ class TagsListDialogWindow(QDialog):
         self.caf_two_tables(typetable)
 
     def show_tab_project(self):
-        self.__obs_manager.obj_l.debug_logger("TagsListDialogWindow show_tab_project()")
+        self.__osbm.obj_logg.debug_logger("TagsListDialogWindow show_tab_project()")
         self.ui.tabwidget.setCurrentIndex(0)
         self.caf_two_tables("project_tags")
 
     def show_tab_group(self):
-        self.__obs_manager.obj_l.debug_logger("TagsListDialogWindow show_tab_group()")
+        self.__osbm.obj_logg.debug_logger("TagsListDialogWindow show_tab_group()")
         self.ui.tabwidget.setCurrentIndex(1)
         self.caf_combobox_group()
         self.caf_two_tables("group_tags")
         pass
 
     def show_tab_form_template_page(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "TagsListDialogWindow show_tab_form_template_page()"
         )
         self.ui.tabwidget.setCurrentIndex(2)
@@ -181,7 +181,7 @@ class TagsListDialogWindow(QDialog):
         pass
 
     def on_tab_changed(self, index):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TagsListDialogWindow on_tab_changed(self, index):\nindex = {index}"
         )
         if index == 0:
@@ -192,7 +192,7 @@ class TagsListDialogWindow(QDialog):
             self.show_tab_form_template_page()
 
     def get_table_by_parameters(self, type_table, editor):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TagsListDialogWindow get_table_by_parameters(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}"
         )
         # получение таблицы
@@ -218,20 +218,20 @@ class TagsListDialogWindow(QDialog):
         # получение данных
         data = []
         if type_table == "project_tags":
-            node_data = self.__obs_manager.obj_pd.get_node_data(
-                self.obj_project.project_node
+            node_data = self.__osbm.obj_prodb.get_node_data(
+                self.obj_projroject.project_node
             )
             print(f"node_data = {node_data}")
             for pair in node_data:
-                data.append(self.__obs_manager.obj_pd.get_tag_by_id(pair.get("id_tag")))
+                data.append(self.__osbm.obj_prodb.get_tag_by_id(pair.get("id_tag")))
             print(f"data = {data}")
         elif type_table == "group_tags":
             group_node = self.ui.combox_groups.currentData()
             # проверка на наличия групп
             if group_node:
-                node_data = self.__obs_manager.obj_pd.get_node_data(group_node)
+                node_data = self.__osbm.obj_prodb.get_node_data(group_node)
                 for pair in node_data:
-                    data.append(self.__obs_manager.obj_pd.get_tag_by_id(pair.get("id_tag")))
+                    data.append(self.__osbm.obj_prodb.get_tag_by_id(pair.get("id_tag")))
         elif type_table == "form_template_page_tags":
             page = self.ui.combox_pages.currentData()
             if page is None:
@@ -239,44 +239,44 @@ class TagsListDialogWindow(QDialog):
             elif page == "all_pages":
                 template = self.ui.combox_templates.currentData()
                 if template:
-                    template_data = self.__obs_manager.obj_pd.get_template_data(
+                    template_data = self.__osbm.obj_prodb.get_template_data(
                         template
                     )
                     for pair in template_data:
                         data.append(
-                            self.__obs_manager.obj_pd.get_tag_by_id(pair.get("id_tag"))
+                            self.__osbm.obj_prodb.get_tag_by_id(pair.get("id_tag"))
                         )
             else:
-                page_data = self.__obs_manager.obj_pd.get_page_data(page)
+                page_data = self.__osbm.obj_prodb.get_page_data(page)
                 for pair in page_data:
                     data.append(
-                        self.__obs_manager.obj_pd.get_tag_by_id(pair.get("id_tag"))
+                        self.__osbm.obj_prodb.get_tag_by_id(pair.get("id_tag"))
                     )
         if editor:
             editor_data = []
             cashe = dict()
             for pair in data:
                 cashe[pair.get("id_tag")] = pair
-            all_data = self.__obs_manager.obj_pd.get_project_tags()
+            all_data = self.__osbm.obj_prodb.get_project_tags()
             for pair in all_data:
                 if cashe.get(pair.get("id_tag")):
                     pair["_checked"] = True
                 else:
                     pair["_checked"] = False
                 editor_data.append(pair)
-            self.__obs_manager.obj_l.debug_logger(
+            self.__osbm.obj_logg.debug_logger(
                 f"TagsListDialogWindow get_data_by_parameters(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}\neditor_data = {editor_data}"
             )
             return editor_data
 
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TagsListDialogWindow get_data_by_parameters(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}\ndata = {data}"
         )
         return data
 
     
     def caf_combobox_form_template_page(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "TagsListDialogWindow caf_combobox_form_template_page()"
         )
         self.caf_combobox_form()
@@ -285,7 +285,7 @@ class TagsListDialogWindow(QDialog):
 
 
     def caf_combobox_group(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "TagsListDialogWindow caf_combobox_group()"
         )
         current_text = self.ui.combox_groups.currentText()
@@ -304,7 +304,7 @@ class TagsListDialogWindow(QDialog):
 
 
     def caf_combobox_form(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "TagsListDialogWindow caf_combobox_form()"
         )
         current_text = self.ui.combox_forms.currentText()
@@ -322,7 +322,7 @@ class TagsListDialogWindow(QDialog):
         self.ui.combox_forms.show()
 
     def caf_combobox_template(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "TagsListDialogWindow caf_combobox_template()"
         )
         current_text = self.ui.combox_templates.currentText()
@@ -330,7 +330,7 @@ class TagsListDialogWindow(QDialog):
         form = self.ui.combox_forms.currentData()
         templates = []
         if form:
-            templates = self.__obs_manager.obj_pd.get_templates_by_form(form)
+            templates = self.__osbm.obj_prodb.get_templates_by_form(form)
         #
         self.ui.combox_templates.blockSignals(True)
         self.ui.combox_templates.clear()
@@ -345,7 +345,7 @@ class TagsListDialogWindow(QDialog):
         self.ui.combox_templates.show()
 
     def caf_combobox_page(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "TagsListDialogWindow caf_combobox_page()"
         )
         current_text = self.ui.combox_pages.currentText()
@@ -353,7 +353,7 @@ class TagsListDialogWindow(QDialog):
         template = self.ui.combox_templates.currentData()
         pages = []
         if template:
-            pages = self.__obs_manager.obj_pd.get_pages_by_template(template)
+            pages = self.__osbm.obj_prodb.get_pages_by_template(template)
         # очистка
         self.ui.combox_pages.blockSignals(True)
         self.ui.combox_pages.clear()
@@ -373,14 +373,14 @@ class TagsListDialogWindow(QDialog):
         """
         Логика такая же, что и в reconfig в других QDialogs.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TagsListDialogWindow caf_two_tables(self, type_table):\ntype_table = {type_table}"
         )
         self.caf_table(type_table, editor=False)
         self.caf_table(type_table, editor=True)
 
     def config_tws(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "TagsListDialogWindow config_tws()"
         )
         tws_no_editor = [self.ui.table_project_tags, self.ui.table_group_tags, self.ui.table_ftp_tags]
@@ -391,7 +391,7 @@ class TagsListDialogWindow(QDialog):
             self.config_tw(tw, editor=True)
 
     def config_tw(self, table_widget, editor):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TagsListDialogWindow config_tw(self, tw):\ntable_widget = {table_widget}"
         )
         # заголовки/столбцы
@@ -426,7 +426,7 @@ class TagsListDialogWindow(QDialog):
 
 
     def caf_table(self, type_table, editor=False):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TagsListDialogWindow caf_table(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}"
         )
         # заполнение таблицы
@@ -455,7 +455,7 @@ class TagsListDialogWindow(QDialog):
             qtwt_title_tag = QTableWidgetItem(title_tag)
             qtwt_type_tag = QTableWidgetItem(type_tag)
             # Иконка и текст в зависимости от типа тега
-            key_icon = self.__obs_manager.obj_icons.get_key_icon_by_type_tag(type_tag)
+            key_icon = self.__osbm.obj_icons.get_key_icon_by_type_tag(type_tag)
             qicon_type_tag = self.__icons.get(key_icon)
             qtwt_type_tag.setIcon(qicon_type_tag)
             qtwt_type_tag.setText(type_tag)
@@ -506,7 +506,7 @@ class TagsListDialogWindow(QDialog):
         table_widget.resizeColumnsToContents()
 
     def create_tag(self):
-        self.__obs_manager.obj_l.debug_logger("TagsListDialogWindow create_tag()")
+        self.__osbm.obj_logg.debug_logger("TagsListDialogWindow create_tag()")
         result = self.ned_tag_dw("create")
         # TODO create_tag - обработать и сохранить изменения в БД
         if result:
@@ -516,7 +516,7 @@ class TagsListDialogWindow(QDialog):
             # обновить таблицу
 
     def edit_tag(self, btn):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TagsListDialogWindow edit_tag(btn):\nbtn = {btn}"
         )
         result = self.ned_tag_dw("edit", btn.custom_data)
@@ -528,29 +528,29 @@ class TagsListDialogWindow(QDialog):
             # обновить таблицу
 
     def ned_tag_dw(self, type_window, tag=None):
-        self.__obs_manager.obj_nedtdw = nedtagdialogwindow.NedTagDialogWindow(
-            self.__obs_manager, type_window, tag
+        self.__osbm.obj_nedtdw = nedtagdialogwindow.NedTagDialogWindow(
+            self.__osbm, type_window, tag
         )
-        result = self.__obs_manager.obj_nedtdw.exec()
+        result = self.__osbm.obj_nedtdw.exec()
         return result == QDialog.Accepted
 
     def delete_tag(self, btn, type_table):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TagsListDialogWindow delete_tag(btn, type_table):\nbtn = {btn}\ntype_table = {type_table}"
         )
         name_tag = btn.custom_data.get("name_tag")
-        question = self.__obs_manager.obj_dw.question_message(
+        question = self.__osbm.obj_dw.question_message(
             f"Вы действительно хотите удалить этот тег ({name_tag})?"
         )
         if question:
-            self.__obs_manager.obj_pd.delete_tag(btn.custom_data)
+            self.__osbm.obj_prodb.delete_tag(btn.custom_data)
             self.caf_two_tables(type_table)
 
     def get_current_data_table(self, type_table, editor=False):
         table_widget = self.get_table_by_parameters(type_table, False)
         header = table_widget.horizontalHeaderItem(0)
         data = header.data(1000)
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TagsListDialogWindow get_current_data_table(type_table, editor) -> list:\ntype_table = {type_table}\neditor = {editor}\ndata = {data}"
         )
         return data
@@ -567,13 +567,13 @@ class TagsListDialogWindow(QDialog):
             if checked:
                 item.pop("_checked")
                 new_data.append(item)
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TagsListDialogWindow get_new_data_editor_table(type_table) -> list:\ntype_table = {type_table}\nnew_data = {new_data}"
         )
         return new_data
 
     def save_changes(self):
-        self.__obs_manager.obj_l.debug_logger("TagsListDialogWindow save_changes()")
+        self.__osbm.obj_logg.debug_logger("TagsListDialogWindow save_changes()")
         type_table = self.get_typetable()
         # получить данные
         new_data = self.get_new_data_editor_table(type_table)
@@ -590,14 +590,14 @@ class TagsListDialogWindow(QDialog):
         ]
         # удаление и добавление
         if type_table == "project_tags":
-            project_node = self.obj_project.project_node
-            self.__obs_manager.obj_pd.insert_node_datas(project_node, data_for_insert)
-            self.__obs_manager.obj_pd.delete_node_datas(project_node, data_for_delete)
+            project_node = self.obj_projroject.project_node
+            self.__osbm.obj_prodb.insert_node_datas(project_node, data_for_insert)
+            self.__osbm.obj_prodb.delete_node_datas(project_node, data_for_delete)
         elif type_table == "group_tags":
             group_node = self.ui.combox_groups.currentData()
             if group_node:
-                self.__obs_manager.obj_pd.insert_node_datas(group_node, data_for_insert)
-                self.__obs_manager.obj_pd.delete_node_datas(group_node, data_for_delete)
+                self.__osbm.obj_prodb.insert_node_datas(group_node, data_for_insert)
+                self.__osbm.obj_prodb.delete_node_datas(group_node, data_for_delete)
         elif type_table == "form_template_page_tags":
             page = self.ui.combox_pages.currentData()
             if page is None:
@@ -605,15 +605,15 @@ class TagsListDialogWindow(QDialog):
             elif page == "all_pages":
                 template = self.ui.combox_templates.currentData()
                 if template:
-                    self.__obs_manager.obj_pd.insert_template_datas(
+                    self.__osbm.obj_prodb.insert_template_datas(
                         template, data_for_insert
                     )
-                    self.__obs_manager.obj_pd.delete_template_datas(
+                    self.__osbm.obj_prodb.delete_template_datas(
                         template, data_for_delete
                     )
             else:
-                self.__obs_manager.obj_pd.insert_page_datas(page, data_for_insert)
-                self.__obs_manager.obj_pd.delete_page_datas(page, data_for_delete)
+                self.__osbm.obj_prodb.insert_page_datas(page, data_for_insert)
+                self.__osbm.obj_prodb.delete_page_datas(page, data_for_delete)
 
         # обновление таблиц
         self.caf_two_tables(type_table)

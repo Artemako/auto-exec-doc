@@ -3,27 +3,27 @@ import datetime
 import os
 
 class SettingsDatabaseObjectsManager:
-    def __init__(self, obs_manager):
-        self.obj_l = obs_manager.obj_l
-        self.obj_dpm = obs_manager.obj_dpm
+    def __init__(self, osbm):
+        self.obj_logg = osbm.obj_logg
+        self.obj_dirm = osbm.obj_dirm
 
 class SettingsDatabase:
     def __init__(self):
         pass
 
-    def setting_obs_manager(self, obs_manager):
-        self.__obs_manager = SettingsDatabaseObjectsManager(obs_manager)
+    def setting_osbm(self, osbm):
+        self.__osbm = SettingsDatabaseObjectsManager(osbm)
 
     def create_and_setting_db_settings(self):
         """
         Настройка базы данных перед использованием приложения
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "SettingsDatabase create_and_setting_db_settings()"
         )
-        if not os.path.exists(self.__obs_manager.obj_dpm.get_db_settings_dirpath()):
+        if not os.path.exists(self.__osbm.obj_dirm.get_db_settings_dirpath()):
             # создать путь
-            os.mkdir(self.__obs_manager.obj_dpm.get_db_settings_dirpath())
+            os.mkdir(self.__osbm.obj_dirm.get_db_settings_dirpath())
             # Добавляем данные в пустую БД
             self.add_tables_and_datas_to_empty_db_settings()
 
@@ -33,10 +33,10 @@ class SettingsDatabase:
         """
         Добавление таблиц и данных в БД программы.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "SettingsDatabase add_tables_and_datas_to_empty_db_settings()"
         )
-        conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_settings_dirpath())
+        conn = sqlite3.connect(self.__osbm.obj_dirm.get_db_settings_dirpath())
         cursor = conn.cursor()
 
         cursor.executescript("""
@@ -70,13 +70,13 @@ COMMIT;
         """
         Запрос курсора.
         """
-        self.__obs_manager.obj_l.debug_logger("SettingsDatabase get_conn() -> object")
-        conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_settings_dirpath())
+        self.__osbm.obj_logg.debug_logger("SettingsDatabase get_conn() -> object")
+        conn = sqlite3.connect(self.__osbm.obj_dirm.get_db_settings_dirpath())
         conn.row_factory = sqlite3.Row
         return conn
 
     def get_fetchall(self, cursor):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "SettingsDatabase get_fetchall(cursor, conn) -> list"
         )
         cursor_result = cursor.fetchall()
@@ -84,7 +84,7 @@ COMMIT;
         return result
 
     def get_fetchone(self, cursor):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "SettingsDatabase get_fetchone(cursor, conn) -> list"
         )
         cursor_result = cursor.fetchone()
@@ -95,15 +95,15 @@ COMMIT;
         """
         Добавление в БД новый проекта.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "SettingsDatabase add_new_project_to_db()"
         )
         conn = self.get_conn()
         cursor = conn.cursor()
         name_project = os.path.basename(
-            self.__obs_manager.obj_dpm.get_project_dirpath()
+            self.__osbm.obj_dirm.get_project_dirpath()
         )
-        directory_project = self.__obs_manager.obj_dpm.get_project_dirpath()
+        directory_project = self.__osbm.obj_dirm.get_project_dirpath()
         # текущее время для date_create_project и для date_last_open_project
         current_datetime = datetime.datetime.now().replace(microsecond=0)
         cursor.execute(
@@ -118,14 +118,14 @@ COMMIT;
         """
         Обновление проекта в БД.
         """
-        self.__obs_manager.obj_l.debug_logger("SettingsDatabase update_project_to_db()")
+        self.__osbm.obj_logg.debug_logger("SettingsDatabase update_project_to_db()")
 
         conn = self.get_conn()
         cursor = conn.cursor()
         name_project = os.path.basename(
-            self.__obs_manager.obj_dpm.get_project_dirpath()
+            self.__osbm.obj_dirm.get_project_dirpath()
         )
-        directory_project = self.__obs_manager.obj_dpm.get_project_dirpath()
+        directory_project = self.__osbm.obj_dirm.get_project_dirpath()
         # текущее время для date_last_open_project
         current_datetime = datetime.datetime.now().replace(microsecond=0)
         cursor.execute(
@@ -139,15 +139,15 @@ COMMIT;
         """
         Добавление или обновление открытого проекта в БД.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "SettingsDatabase add_or_update_open_project_to_db()"
         )
         conn = self.get_conn()
         cursor = conn.cursor()
         name_project = os.path.basename(
-            self.__obs_manager.obj_dpm.get_project_dirpath()
+            self.__osbm.obj_dirm.get_project_dirpath()
         )
-        directory_project = self.__obs_manager.obj_dpm.get_project_dirpath()
+        directory_project = self.__osbm.obj_dirm.get_project_dirpath()
         print(f"name_project = {name_project}")
         # узнать, если проект в БД по имени и директории
         cursor.execute(
@@ -174,7 +174,7 @@ COMMIT;
         )
         result = self.get_fetchone(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"SettingsDatabase get_app_converter():\nresult = {result}"
         )
         return result.get("value_setting")
@@ -183,7 +183,7 @@ COMMIT;
         """
         Установка значения app_converter в БД.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"SettingsDatabase set_app_converter(app_converter):\napp_converter = {app_converter}"
         )
         conn = self.get_conn()
@@ -206,7 +206,7 @@ COMMIT;
         )
         result = self.get_fetchall(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"SettingsDatabase get_last_projects():\nresult = {result}"
         )
         return result
@@ -223,7 +223,7 @@ COMMIT;
         )
         result = self.get_fetchone(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"SettingsDatabase get_libreoffice_path():\nresult = {result}"
         )
         return result.get("value_setting")
@@ -236,7 +236,7 @@ COMMIT;
         )
         result = self.get_fetchone(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"SettingsDatabase get_project_current_name():\nresult = {result}"
         )
         return result.get("value_setting")
@@ -248,14 +248,14 @@ COMMIT;
             "UPDATE Settings SET value_setting = ? WHERE name_setting = 'project_current_name'",
             (project_name,),
         )
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"SettingsDatabase set_project_current_name(project_name):\nproject_name = {project_name}"
         )
         conn.commit()
         conn.close()
 
     def delete_project_from_db(self, project):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"SettingsDatabase delete_project_from_db(project):\nproject = {project}"
         )
         conn = self.get_conn()
@@ -267,4 +267,4 @@ COMMIT;
         conn.commit()
         conn.close()
 
-# obj_sd = SettingsDatabase()
+# obj_setdb = SettingsDatabase()

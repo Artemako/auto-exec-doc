@@ -37,22 +37,22 @@ class ObjectsManager:
     """
     def __init__(self):
         # modules
-        self.obj_c = None
-        self.obj_dpm = None
-        self.obj_ffm = None
-        self.obj_l = None
-        self.obj_p = None
-        self.obj_pd = None
-        self.obj_si = None
-        self.obj_sd = None
-        self.obj_ofp = None
+        self.obj_conv = None
+        self.obj_dirm = None
+        self.obj_film = None
+        self.obj_logg = None
+        self.obj_proj = None
+        self.obj_prodb = None
+        self.obj_seci = None
+        self.obj_setdb = None
+        self.obj_offp = None
         # controllers
         self.obj_lwpt = None
-        self.obj_pv = None
+        self.obj_pdfv = None
         self.obj_saif = None
-        self.obj_sb = None
+        self.obj_stab = None
         self.obj_twsed = None
-        self.obj_comboxts = None
+        self.obj_comt = None
         # components (windows)
         self.obj_style = None
         self.obj_dw = None
@@ -61,7 +61,7 @@ class ObjectsManager:
         self.obj_nedndw = None
         self.obj_tagsldw = None
         self.obj_nedw = None
-        self.obj_csdw = None
+        self.obj_convsdw = None
         self.obj_templdw = None
         self.obj_nedtempdw = None
         self.obj_nedpagedw = None
@@ -78,24 +78,24 @@ class ObjectsManager:
         self.obj_ers = errors.Errors()
         
     def initialize_modules(self):
-        self.obj_l = log.Log()
-        self.obj_c = converter.Converter()
-        self.obj_dpm = dirpathsmanager.DirPathManager()
-        self.obj_ffm = filefoldermanager.FileFolderManager()        
-        self.obj_p = project.Project()
-        self.obj_pd = projectdatabase.ProjectDatabase()
-        self.obj_si = sectionsinfo.SectionsInfo()
-        self.obj_sd = settingsdatabase.SettingsDatabase()
-        self.obj_ofp = officepackets.OfficePackets()        
+        self.obj_logg = log.Log()
+        self.obj_conv = converter.Converter()
+        self.obj_dirm = dirpathsmanager.DirPathManager()
+        self.obj_film = filefoldermanager.FileFolderManager()        
+        self.obj_proj = project.Project()
+        self.obj_prodb = projectdatabase.ProjectDatabase()
+        self.obj_seci = sectionsinfo.SectionsInfo()
+        self.obj_setdb = settingsdatabase.SettingsDatabase()
+        self.obj_offp = officepackets.OfficePackets()        
 
     def initialize_controllers(self):
         self.obj_lwpt = lwpagestemplate.LWPagesTemplate()
-        self.obj_pv = pdfview.PdfView()
+        self.obj_pdfv = pdfview.PdfView()
         self.obj_saif = sainputforms.SAInputForms()
-        self.obj_sb = statusbar.StatusBar()
+        self.obj_stab = statusbar.StatusBar()
         self.obj_twsed = twstructureexecdoc.TWStructureExecDoc()
         self.obj_icons = icons.Icons()
-        self.obj_comboxts = comboxtemplates.ComboxTemplates()
+        self.obj_comt = comboxtemplates.ComboxTemplates()
 
     def initialize_components(self):
         self.obj_style = style.Style()
@@ -107,55 +107,55 @@ class App:
         self.check_before_run()
         self.start_app()
 
-    def setting_obs_manager(self):
-        self.setting_obs_manager_for_modules()
-        self.setting_obs_manager_for_controllers()
-        self.setting_obs_manager_for_components()
+    def setting_osbm(self):
+        self.setting_osbm_for_modules()
+        self.setting_osbm_for_controllers()
+        self.setting_osbm_for_components()
 
-    def setting_obs_manager_for_modules(self):
-        self.obs_manager.obj_c.setting_obs_manager(self.obs_manager)
-        self.obs_manager.obj_dpm.setting_obs_manager(self.obs_manager)
-        self.obs_manager.obj_ffm.setting_obs_manager(self.obs_manager)
-        self.obs_manager.obj_l.setting_obs_manager(self.obs_manager)
-        self.obs_manager.obj_p.setting_all_obs_manager(self.obs_manager)
-        self.obs_manager.obj_pd.setting_obs_manager(self.obs_manager)
-        self.obs_manager.obj_si.setting_obs_manager(self.obs_manager)
-        self.obs_manager.obj_sd.setting_obs_manager(self.obs_manager)
-        self.obs_manager.obj_ofp.setting_all_obs_manager(self.obs_manager)
+    def setting_osbm_for_modules(self):
+        self.osbm.obj_conv.setting_osbm(self.osbm)
+        self.osbm.obj_dirm.setting_osbm(self.osbm)
+        self.osbm.obj_film.setting_osbm(self.osbm)
+        self.osbm.obj_logg.setting_osbm(self.osbm)
+        self.osbm.obj_proj.setting_all_osbm(self.osbm)
+        self.osbm.obj_prodb.setting_osbm(self.osbm)
+        self.osbm.obj_seci.setting_osbm(self.osbm)
+        self.osbm.obj_setdb.setting_osbm(self.osbm)
+        self.osbm.obj_offp.setting_all_osbm(self.osbm)
 
-    def setting_obs_manager_for_controllers(self):    
-        self.obs_manager.obj_lwpt.setting_all_obs_manager(self.obs_manager)
-        self.obs_manager.obj_pv.setting_all_obs_manager(self.obs_manager)
-        self.obs_manager.obj_saif.setting_all_obs_manager(self.obs_manager)
-        self.obs_manager.obj_sb.setting_all_obs_manager(self.obs_manager)
-        self.obs_manager.obj_twsed.setting_all_obs_manager(self.obs_manager)
-        self.obs_manager.obj_icons.setting_all_obs_manager(self.obs_manager)
-        self.obs_manager.obj_comboxts.setting_all_obs_manager(self.obs_manager)
+    def setting_osbm_for_controllers(self):    
+        self.osbm.obj_lwpt.setting_all_osbm(self.osbm)
+        self.osbm.obj_pdfv.setting_all_osbm(self.osbm)
+        self.osbm.obj_saif.setting_all_osbm(self.osbm)
+        self.osbm.obj_stab.setting_all_osbm(self.osbm)
+        self.osbm.obj_twsed.setting_all_osbm(self.osbm)
+        self.osbm.obj_icons.setting_all_osbm(self.osbm)
+        self.osbm.obj_comt.setting_all_osbm(self.osbm)
 
-    def setting_obs_manager_for_components(self):
-        self.obs_manager.obj_dw.setting_all_obs_manager(self.obs_manager)
+    def setting_osbm_for_components(self):
+        self.osbm.obj_dw.setting_all_osbm(self.osbm)
 
     def check_before_run(self):
         """
         Проверить и наcтроить до запуска.
         """
         # настройка хранилища экземпляров модулей
-        self.obs_manager = ObjectsManager()
-        self.obs_manager.initialize_all()
-        self.setting_obs_manager()
+        self.osbm = ObjectsManager()
+        self.osbm.initialize_all()
+        self.setting_osbm()
         # настройка путей
-        self.obs_manager.obj_dpm.setting_paths(
+        self.osbm.obj_dirm.setting_paths(
             self.current_directory
         )
         # настроить loggerpy
-        self.obs_manager.obj_l.setting_logger()
-        self.obs_manager.obj_l.debug_logger(f"self.current_directory = {self.current_directory}")
+        self.osbm.obj_logg.setting_logger()
+        self.osbm.obj_logg.debug_logger(f"self.current_directory = {self.current_directory}")
         # Проверка наличия папок.
-        self.obs_manager.obj_ffm.create_and_setting_files_and_folders()
+        self.osbm.obj_film.create_and_setting_files_and_folders()
         # настроить БД
-        self.obs_manager.obj_sd.create_and_setting_db_settings()
+        self.osbm.obj_setdb.create_and_setting_db_settings()
         # настройка officepackets
-        self.obs_manager.obj_ofp.resetting_office_packets()
+        self.osbm.obj_offp.resetting_office_packets()
 
     def start_app(self):
         """
@@ -167,13 +167,13 @@ class App:
             self.__font_1_id = QFontDatabase.addApplicationFont(":/fonts/resources/fonts/OpenSans-Italic-VariableFont_wdth,wght.ttf")
             self.__font_2_id = QFontDatabase.addApplicationFont(":/fonts/resources/fonts/OpenSans-VariableFont_wdth,wght.ttf")
             # создание окна
-            self.window = mainwindow.MainWindow(self.obs_manager)
-            # подключение MainWindow к obs_manager
-            self.obs_manager.obj_mw = self.window
+            self.window = mainwindow.MainWindow(self.osbm)
+            # подключение MainWindow к osbm
+            self.osbm.obj_mw = self.window
             self.window.show()
             # sys.exit(self.app.exec())
             self.app.exec_()
         except Exception as e:
-            self.obs_manager.obj_l.error_logger(f"Error: {e}")
+            self.osbm.obj_logg.error_logger(f"Error: {e}")
 
     

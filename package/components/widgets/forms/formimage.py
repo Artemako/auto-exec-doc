@@ -8,28 +8,28 @@ import package.ui.formimage_ui as formimage_ui
 
 
 class FormImage(QWidget):
-    def __init__(self, obs_manager, pair, current_tag, config_dict):
-        self.__obs_manager = obs_manager
+    def __init__(self, osbm, pair, current_tag, config_dict):
+        self.__osbm = osbm
         self.__pair = pair
         self.__current_tag = current_tag
         self.__config_dict = config_dict
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"FormImage __init__(self, pair, current_tag, config_dict):\npair = {pair},\ncurrent_tag = {current_tag},\nconfig_dict = {config_dict}"
         )
         super(FormImage, self).__init__()
         self.ui = formimage_ui.Ui_FormImageWidget()
         self.ui.setupUi(self)
         # ИКОНКИ
-        self.__icons = self.__obs_manager.obj_icons.get_icons()
+        self.__icons = self.__osbm.obj_icons.get_icons()
         # СТИЛЬ
-        self.__obs_manager.obj_style.set_style_for(self)
+        self.__osbm.obj_style.set_style_for(self)
         #
         self.config()
 
     def config(self):
-        self.__obs_manager.obj_l.debug_logger("FormImage config()")
+        self.__osbm.obj_logg.debug_logger("FormImage config()")
         # тип тега
-        key_icon = self.__obs_manager.obj_icons.get_key_icon_by_type_tag(self.__current_tag.get("type_tag"))
+        key_icon = self.__osbm.obj_icons.get_key_icon_by_type_tag(self.__current_tag.get("type_tag"))
         qicon_type_tag = self.__icons.get(key_icon)
         self.ui.label_typetag.setPixmap(qicon_type_tag)
         # заголовок
@@ -61,9 +61,9 @@ class FormImage(QWidget):
         self.ui.select_button.clicked.connect(lambda: self.set_new_value_in_pair())
 
     def set_new_value_in_pair(self):
-        self.__obs_manager.obj_l.debug_logger("FormImage set_new_value_in_pair()")
+        self.__osbm.obj_logg.debug_logger("FormImage set_new_value_in_pair()")
         image_dirpath = (
-            self.__obs_manager.obj_dw.select_image_for_formimage_in_project()
+            self.__osbm.obj_dw.select_image_for_formimage_in_project()
         )
         if image_dirpath:
             # текст выбранного изображения
@@ -73,7 +73,7 @@ class FormImage(QWidget):
             file_name_with_png = f"{file_name}.png"
 
             # путь к временной папке
-            temp_dir = self.__obs_manager.obj_dpm.get_temp_dirpath()
+            temp_dir = self.__osbm.obj_dirm.get_temp_dirpath()
             # Путь к временному файлу
             temp_file_path = os.path.join(temp_dir, file_name_with_png)
             # Открыть изображение

@@ -39,17 +39,17 @@ class MsWordThread(QThread):
     # cигнал для обновления статуса (object - любые объекты, включая None)
     status_changed = Signal(object)
 
-    def __init__(self, obs_manager):
+    def __init__(self, osbm):
         super().__init__()
-        self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger("MsWordThread __init__()")
+        self.__osbm = osbm
+        self.__osbm.obj_logg.debug_logger("MsWordThread __init__()")
         self.__status_msword = False
 
     def run(self):
         self.initialize_msword()
 
     def initialize_msword(self):
-        self.__obs_manager.obj_l.debug_logger("MsWordThread initialize_msword()")
+        self.__osbm.obj_logg.debug_logger("MsWordThread initialize_msword()")
         try:
             pythoncom.CoInitialize()
             self.__status_msword = None
@@ -64,51 +64,51 @@ class MsWordThread(QThread):
 
 class Converter:
     # TODO Доделать конвертер + статусбар
-    def __init__(self, obs_manager):
-        self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger("Converter __init__()")
+    def __init__(self, osbm):
+        self.__osbm = osbm
+        self.__osbm.obj_logg.debug_logger("Converter __init__()")
         self.__status_msword = False
         self.__status_libreoffice = False
         self.__app_converter = None
         # экземпляр QThread
-        self.__msword_thread = MsWordThread(self.__obs_manager)
+        self.__msword_thread = MsWordThread(self.__osbm)
 
     def setting_converter(self):
-        self.__obs_manager.obj_l.debug_logger("Converter setting_converter()")
+        self.__osbm.obj_logg.debug_logger("Converter setting_converter()")
         self.run_libreoffice()
         # подключение сигнала к слоту и запуск потока
         self.__msword_thread.status_changed.connect(self.update_status_msword)
         self.__msword_thread.start()
 
     def update_status_msword(self, status):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"Converter update_status_msword(status):\nstatus = {status}"
         )
         self.__status_msword = status
-        if self.__obs_manager.obj_sb.get_is_active():
-            self.__obs_manager.obj_sb.update_status_msword_label(self.__status_msword)
+        if self.__osbm.obj_stab.get_is_active():
+            self.__osbm.obj_stab.update_status_msword_label(self.__status_msword)
 
     def get_status_msword(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"Converter get_status_msword():\nself.__status_msword = {self.__status_msword}"
         )
         return self.__status_msword
 
     def get_status_libreoffice(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"Converter get_status_libreoffice():\nself.__status_libreoffice = {self.__status_libreoffice}"
         )
         return self.__status_libreoffice
 
     def run_libreoffice(self):
-        self.__obs_manager.obj_l.debug_logger("Converter run_libreoffice()")
+        self.__osbm.obj_logg.debug_logger("Converter run_libreoffice()")
         self.__libreoffice_path = "C:\Program Files\LibreOffice\program\soffice.exe"
         if os.path.exists(self.__libreoffice_path):
             self.__status_libreoffice = True
         else:
             self.__status_libreoffice = False
-        if self.__obs_manager.obj_sb.get_is_active():
-            self.__obs_manager.obj_sb.update_status_libreoffice_label(
+        if self.__osbm.obj_stab.get_is_active():
+            self.__osbm.obj_stab.update_status_libreoffice_label(
                 self.__status_libreoffice
             )
 
@@ -116,28 +116,28 @@ class Converter:
         """
         Вызывается при нажатии на кнопку Save.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"Converter create_one_page_pdf(page):\npage = {page}"
         )
-        self.__app_converter = self.__obs_manager.obj_sd.get_app_converter()
+        self.__app_converter = self.__osbm.obj_setdb.get_app_converter()
         if self.__app_converter == "MSWORD" and self.__status_msword:
             pass
         elif self.__app_converter == "LIBREOFFICE" and self.__status_libreoffice:
             pass
         else:
-            self.__obs_manager.obj_dw.warning_message(
+            self.__osbm.obj_dw.warning_message(
                 "Отображение недоступно! Выбранный конвертер не работает."
             )
         # создать pdf
         pdf_path = self.create_page_pdf(page)
         # открыть pdf
-        self.__obs_manager.obj_pv.load_and_show_pdf_document(pdf_path)
+        self.__osbm.obj_pdfv.load_and_show_pdf_document(pdf_path)
 
     def create_page_pdf(self, page, is_local: bool = False) -> str:
         """
         Создать pdf страницы. Вернуть директорию.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"Converter create_one_page_pdf(page):\npage = {page}"
         )
         # было page.get("filename_page") вместо page.get("id_page")
@@ -145,9 +145,9 @@ class Converter:
         docx_pdf_page_name = f"""page_{page.get("id_page")}_{datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')}"""
         # добыть информация для SectionInfo
         if not is_local:
-            sections_info = self.__obs_manager.obj_si.get_sections_info()
+            sections_info = self.__osbm.obj_seci.get_sections_info()
         else:
-            object = sectionsinfo.SectionsInfo(self.__obs_manager)
+            object = sectionsinfo.SectionsInfo(self.__osbm)
             object.update_sections_info(page)
             sections_info = object.get_sections_info()
             print(f"sections_info = {sections_info}")
@@ -161,7 +161,7 @@ class Converter:
     def get_form_page_fullname_and_docx_page_fullname(
         self, form_page_name, docx_pdf_page_name
     ):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"Converter get_form_page_fullname_and_docx_page_fullname(form_page_name, docx_pdf_page_name):\nform_page_name = {form_page_name},\ndocx_pdf_page_name = {docx_pdf_page_name}"
         )
         # получить docx_template
@@ -170,14 +170,14 @@ class Converter:
         return form_page_fullname, docx_page_fullname
 
     def get_template_path_and_docx_path(self, form_page_fullname, docx_page_fullname):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"Converter get_template_path_and_docx_path(form_page_fullname, docx_page_fullname):\nform_page_fullname = {form_page_fullname},\ndocx_page_fullname = {docx_page_fullname}"
         )
         # путь к шаблону в папке forms проекта
         template_path = os.path.normpath(
             os.path.abspath(
                 os.path.join(
-                    self.__obs_manager.obj_dpm.get_forms_folder_dirpath(),
+                    self.__osbm.obj_dirm.get_forms_folder_dirpath(),
                     form_page_fullname,
                 )
             )
@@ -186,7 +186,7 @@ class Converter:
         docx_path = os.path.normpath(
             os.path.abspath(
                 os.path.join(
-                    self.__obs_manager.obj_dpm.get_temp_dirpath(),
+                    self.__osbm.obj_dirm.get_temp_dirpath(),
                     docx_page_fullname,
                 )
             )
@@ -194,27 +194,27 @@ class Converter:
         return template_path, docx_path
 
     def type_tag_is_text(self, data_tag, name_tag, value):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"Converter type_tag_is_text(data_tag, name_tag, value):\ndata_tag = {data_tag},\nname_tag = {name_tag},\nvalue = {value}"
         )
         if value:
             data_tag[str(name_tag)] = value
 
     def type_tag_is_date(self, data_tag, name_tag, value):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"Converter type_tag_is_date(data_tag, name_tag, value):\ndata_tag = {data_tag},\nname_tag = {name_tag},\nvalue = {value}"
         )
         if value:
             data_tag[str(name_tag)] = value
 
     def type_tag_is_image(self, data_tag, name_tag, value, docx_template):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"Converter type_tag_is_image(data_tag, name_tag, value, docx_template):\ndata_tag = {data_tag},\nname_tag = {name_tag},\nvalue = {value},\ndocx_template = {docx_template}"
         )
         if value:
             image_dirpath = os.path.abspath(
                 os.path.join(
-                    self.__obs_manager.obj_dpm.get_images_folder_dirpath(),
+                    self.__osbm.obj_dirm.get_images_folder_dirpath(),
                     value,
                 )
             )
@@ -223,10 +223,10 @@ class Converter:
             data_tag[str(name_tag)] = image
 
     def type_tag_is_table(self, data_tag, name_tag, value, id_tag):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"Converter type_tag_is_table(data_tag, name_tag, value, id_tag):\ndata_tag = {data_tag},\nname_tag = {name_tag},\nvalue = {value},\nid_tag = {id_tag}"
         )
-        config_table = self.__obs_manager.obj_pd.get_config_table_by_id(id_tag)
+        config_table = self.__osbm.obj_prodb.get_config_table_by_id(id_tag)
         print(f"config_table = {config_table}")
         # узнать content в таблице
         order_to_tag_config_table = dict()
@@ -251,7 +251,7 @@ class Converter:
         data_tag[str(name_tag)] = table_values
 
     def check_type_tag_and_fill_data_tag(self, pair, data_tag, docx_template):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"Converter check_type_tag_and_fill_data_tag(pair, data_tag, docx_template):\npair = {pair},\ndata_tag = {data_tag},\ndocx_template = {docx_template}"
         )
         id_pair = pair.get("id_pair")
@@ -260,7 +260,7 @@ class Converter:
         name_tag = pair.get("name_tag")
         value = pair.get("value")
         # config_tag
-        config_tag = self.__obs_manager.obj_pd.get_config_tag_by_id(id_tag)
+        config_tag = self.__osbm.obj_prodb.get_config_tag_by_id(id_tag)
         type_tag = config_tag.get("type_tag")
         if type_tag == "TEXT":
             self.type_tag_is_text(data_tag, name_tag, value)
@@ -272,7 +272,7 @@ class Converter:
             self.type_tag_is_table(data_tag, name_tag, value, id_tag)
 
     def create_docx_page(self, sections_info, form_page_name, docx_pdf_page_name):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"Converter create_docx_page(sections_info, form_page_name, docx_pdf_page_name):\nsections_info = {sections_info},\nform_page_name = {form_page_name},\ndocx_pdf_page_name = {docx_pdf_page_name}"
         )
         form_page_fullname, docx_page_fullname = (
@@ -299,7 +299,7 @@ class Converter:
         docx_template.save(docx_path)
 
     def create_pdf_from_docx_page(self, docx_pdf_page_name) -> str:
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"Converter create_pdf_from_docx_page(docx_pdf_page_name) -> str:\ndocx_pdf_page_name = {docx_pdf_page_name}"
         )
         # пути к docx и к pdf
@@ -307,13 +307,13 @@ class Converter:
         pdf_page_fullname = docx_pdf_page_name + ".pdf"
         docx_path = os.path.abspath(
             os.path.join(
-                self.__obs_manager.obj_dpm.get_temp_dirpath(), docx_page_fullname
+                self.__osbm.obj_dirm.get_temp_dirpath(), docx_page_fullname
             )
         )
         # путь к pdf в temp проекта
         pdf_path = os.path.abspath(
             os.path.join(
-                self.__obs_manager.obj_dpm.get_temp_dirpath(), pdf_page_fullname
+                self.__osbm.obj_dirm.get_temp_dirpath(), pdf_page_fullname
             )
         )
         # преобразовать docx в pdf
@@ -322,7 +322,7 @@ class Converter:
         return pdf_path
 
     def convert_from_pdf_docx(self, docx_path, pdf_path):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"Converter convert_from_pdf_docx(docx_path, pdf_path):\ndocx_path = {docx_path},\npdf_path = {pdf_path}"
         )
         if self.__app_converter == "MSWORD":
@@ -333,7 +333,7 @@ class Converter:
             self.convert_from_pdf_docx_using_libreoffice(docx_path, pdf_path)
 
     def convert_from_pdf_docx_using_msword(self, docx_path, pdf_path):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "Converter convert_from_pdf_docx_using_msword(docx_path, pdf_path)"
         )
         try:
@@ -344,13 +344,13 @@ class Converter:
             doc.Close()
         except Exception:
             # TODO Статус бар - подумать
-            self.__obs_manager.obj_l.error_logger(
+            self.__osbm.obj_logg.error_logger(
                 "Error in convert_from_pdf_docx_using_msword(docx_path, pdf_path)"
             )
         # word.Quit()
 
     def convert_from_pdf_docx_using_libreoffice(self, docx_path, pdf_path):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "Converter convert_from_pdf_docx_using_libreoffice(docx_path, pdf_path)"
         )
         try:
@@ -365,7 +365,7 @@ class Converter:
             ]
             subprocess.run(command)
         except Exception:
-            self.__obs_manager.obj_l.error_logger(
+            self.__osbm.obj_logg.error_logger(
                 "Error in convert_from_pdf_docx_using_libreoffice(docx_path, pdf_path)"
             )
 
@@ -373,12 +373,12 @@ class Converter:
         """
         Вызывается при нажатии на кнопку EXPORT после диалогового окна.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"Converter export_to_pdf(multipage_pdf_path):\nmultipage_pdf_path = {multipage_pdf_path}"
         )
         # проверка на доступность конвертера
         flag_export = False
-        self.__app_converter = self.__obs_manager.obj_sd.get_app_converter()
+        self.__app_converter = self.__osbm.obj_setdb.get_app_converter()
         if self.__app_converter == "MSWORD" and self.__status_msword:
             flag_export = True
         elif self.__app_converter == "LIBREOFFICE" and self.__status_libreoffice:
@@ -388,11 +388,11 @@ class Converter:
             project_pages_objects = list()
             number_page = 0
             self.dfs(
-                self.__obs_manager.obj_pd.get_project_node(),
+                self.__osbm.obj_prodb.get_project_node(),
                 project_pages_objects,
                 number_page,
             )
-            self.__obs_manager.obj_l.debug_logger(
+            self.__osbm.obj_logg.debug_logger(
                 f"Converter project_pages_objects = {project_pages_objects}"
             )
             # проход по project_pages_objects для преобразования каждой страницы в docx, а потом в pdf
@@ -403,24 +403,24 @@ class Converter:
             # объеденить несколько pdf файлов в один
             self.merge_pdfs_and_create(multipage_pdf_path, list_of_pdf_pages)
             # закрыть диалоговое окно
-            self.__obs_manager.obj_sb.set_message_for_statusbar(
+            self.__osbm.obj_stab.set_message_for_statusbar(
                 f"Экспорт завершен. Файл {multipage_pdf_path} готов."
             )
             # открыть pdf
             os.startfile(os.path.dirname(multipage_pdf_path))
-            self.__obs_manager.obj_sb.set_message_for_statusbar(
+            self.__osbm.obj_stab.set_message_for_statusbar(
                 "Преобразование завершено."
             )
         else:
-            self.__obs_manager.obj_dw.warning_message(
+            self.__osbm.obj_dw.warning_message(
                 "Эскпорт отменён! Выбранный конвертер не работает."
             )
 
     def dfs(self, parent_node, project_pages_objects, number_page):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"Converter dfs(node, project_pages_objects):\nparent_node = {parent_node},\nnumber_page = {number_page}"
         )
-        childs = self.__obs_manager.obj_pd.get_childs(parent_node)
+        childs = self.__osbm.obj_prodb.get_childs(parent_node)
         if childs:
             for child in childs:
                 # TODO подумать про PDF node, загруженный пользователем
@@ -432,7 +432,7 @@ class Converter:
                     id_active_template = child.get("id_active_template")
                     if id_active_template:
                         template = {"id_template": id_active_template}
-                        pages = self.__obs_manager.obj_pd.get_pages_by_template(
+                        pages = self.__osbm.obj_prodb.get_pages_by_template(
                             template
                         )
                         for page in pages:
@@ -451,7 +451,7 @@ class Converter:
     #     """
     #     Проход по project_pages_objects для преобразования каждой страницы в docx, а потом в pdf
     #     """
-    #     self.__obs_manager.obj_l.debug_logger(
+    #     self.__osbm.obj_logg.debug_logger(
     #         f"Converter get_list_of_created_pdf_pages(project_pages_objects):\nproject_pages_objects = {project_pages_objects}"
     #     )
 
@@ -475,7 +475,7 @@ class Converter:
     #     return list_of_pdf_pages
 
     # def process_object_of_project_pages_objects(self, object_for_pool) -> dict:
-    #     self.__obs_manager.obj_l.debug_logger(
+    #     self.__osbm.obj_logg.debug_logger(
     #         f"Converter process_object_of_project_pages_objects(object_for_pool):\nobject_for_pool = {object_for_pool}"
     #     )
     #     object = object_for_pool.get_value()
@@ -489,7 +489,7 @@ class Converter:
     #     return dict()
 
     def merge_pdfs_and_create(self, multipage_pdf_path, list_of_pdf_pages):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"Converter merge_pdfs(multipage_pdf_path, list_of_pdf_pages):\nmultipage_pdf_path = {multipage_pdf_path},\nlist_of_pdf_pages = {list_of_pdf_pages}"
         )
         # объединить несколько pdf файлов в один
@@ -499,7 +499,7 @@ class Converter:
             if os.path.exists(pdf_path):
                 merger.append(pdf_path)
             else:
-                self.__obs_manager.obj_l.error_logger(
+                self.__osbm.obj_logg.error_logger(
                     f"Converter merge_pdfs(multipage_pdf_path, list_of_pdf_pages):\npdf_path = {pdf_path} не существует."
                 )
 
@@ -512,7 +512,7 @@ class Converter:
         """
         Проход по project_pages_objects для преобразования каждой страницы в docx, а потом в pdf
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"Converter get_list_of_created_pdf_pages(project_pages_objects):\nproject_pages_objects = {project_pages_objects}"
         )
         DELAY = 0.5
@@ -541,7 +541,7 @@ class Converter:
         return list_of_pdf_pages
 
     def process_object_of_project_pages_objects(self, object_for_pool) -> dict:
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"Converter process_object_of_project_pages_objects(object_for_pool):\nobject_for_pool = {object_for_pool}"
         )
         object = object_for_pool.get_value()

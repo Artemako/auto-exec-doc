@@ -8,26 +8,26 @@ import package.ui.formtable_ui as formtable_ui
 
 
 class FormTable(QWidget):
-    def __init__(self, obs_manager, pair, current_tag, config_dict):
-        self.__obs_manager = obs_manager
+    def __init__(self, osbm, pair, current_tag, config_dict):
+        self.__osbm = osbm
         self.__pair = pair
         self.__current_tag = current_tag
         self.__config_dict = config_dict
-        self.__obs_manager.obj_l.debug_logger(f"FormTable(pair, current_tag, config_dict):\npair = {pair},\ncurrent_tag = {current_tag},\nconfig_dict = {config_dict}")
+        self.__osbm.obj_logg.debug_logger(f"FormTable(pair, current_tag, config_dict):\npair = {pair},\ncurrent_tag = {current_tag},\nconfig_dict = {config_dict}")
         super(FormTable, self).__init__()
         self.ui = formtable_ui.Ui_FormTableWidget()
         self.ui.setupUi(self)
         # ИКОНКИ
-        self.__icons = self.__obs_manager.obj_icons.get_icons()
+        self.__icons = self.__osbm.obj_icons.get_icons()
         # СТИЛЬ
-        self.__obs_manager.obj_style.set_style_for(self)
+        self.__osbm.obj_style.set_style_for(self)
         #
         self.config()
         self.connect_actions()
 
     def config(self):
         # тип тега
-        key_icon = self.__obs_manager.obj_icons.get_key_icon_by_type_tag(self.__current_tag.get("type_tag"))
+        key_icon = self.__osbm.obj_icons.get_key_icon_by_type_tag(self.__current_tag.get("type_tag"))
         qicon_type_tag = self.__icons.get(key_icon)
         self.ui.label_typetag.setPixmap(qicon_type_tag)
         # заголовок
@@ -68,7 +68,7 @@ class FormTable(QWidget):
         self.ui.table.customContextMenuRequested.connect(self.show_context_menu)
 
     def connect_actions(self):
-        self.__obs_manager.obj_l.debug_logger("FormTable connect_actions()")
+        self.__osbm.obj_logg.debug_logger("FormTable connect_actions()")
         self.ui.add_button.clicked.connect(self.add_row)
         self.ui.delete_button.clicked.connect(self.delete_row)
         self.ui.table.cellChanged.connect(
@@ -77,11 +77,11 @@ class FormTable(QWidget):
 
     def show_context_menu(self, position):
         # Show the context menu at the mouse position
-        self.__obs_manager.obj_l.debug_logger(f"FormTable show_context_menu(position):\nposition = {position}")
+        self.__osbm.obj_logg.debug_logger(f"FormTable show_context_menu(position):\nposition = {position}")
         self.context_menu.exec_(self.ui.table.mapToGlobal(position))
 
     def add_row(self):
-        self.__obs_manager.obj_l.debug_logger("FormTable add_row()")
+        self.__osbm.obj_logg.debug_logger("FormTable add_row()")
         row_count = self.ui.table.rowCount()
         self.ui.table.insertRow(row_count)
         for column in range(self.ui.table.columnCount()):
@@ -91,7 +91,7 @@ class FormTable(QWidget):
         
 
     def delete_row(self):
-        self.__obs_manager.obj_l.debug_logger("FormTable delete_row()")
+        self.__osbm.obj_logg.debug_logger("FormTable delete_row()")
         current_row = self.ui.table.currentRow()
         if current_row >= 0:
             self.ui.table.removeRow(current_row)
@@ -106,7 +106,7 @@ class FormTable(QWidget):
         """
         Копирование значения в буфер обмена
         """
-        self.__obs_manager.obj_l.debug_logger("FormTable copy_values_to_clipboard()")
+        self.__osbm.obj_logg.debug_logger("FormTable copy_values_to_clipboard()")
         selected_items = self.ui.table.selectedItems()
         # values = []
         # for item in selected_items:
@@ -134,7 +134,7 @@ class FormTable(QWidget):
         """
         Вставка значений из буфера обмена
         """
-        self.__obs_manager.obj_l.debug_logger("FormTable paste_values_from_clipboard()")
+        self.__osbm.obj_logg.debug_logger("FormTable paste_values_from_clipboard()")
         clipboard = QApplication.clipboard()
         text = clipboard.text()
         rows = text.split("\n")
@@ -154,7 +154,7 @@ class FormTable(QWidget):
 
 
     def create_table_from_value(self, json_data):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"FormTable create_table_from_value(self, json_data):\ndata = {json_data}"
         )
         if json_data:
@@ -167,7 +167,7 @@ class FormTable(QWidget):
                     self.ui.table.setItem(row, column, item)
 
     def get_data_from_table(self) -> list:
-        self.__obs_manager.obj_l.debug_logger("FormTable to_json(self) -> list:")
+        self.__osbm.obj_logg.debug_logger("FormTable to_json(self) -> list:")
         table_data = []
         for row in range(self.ui.table.rowCount()):
             print("row = ", row)
@@ -184,7 +184,7 @@ class FormTable(QWidget):
         return json.dumps(table_data)
 
     def set_new_value_in_pair(self, pair, new_value):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"FormTable set_new_value_in_pair(pair, new_value):\npair = {pair},\nnew_value = {new_value}"
         )
         pair["value_pair"] = new_value

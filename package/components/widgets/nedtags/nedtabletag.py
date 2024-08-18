@@ -8,18 +8,18 @@ import package.ui.nedtabletag_ui as nedtabletag_ui
 
 # TODO !!! РАБОТА С ТАБЛИЦАМИ
 class NedTableTag(QWidget):
-    def __init__(self, obs_manager, type_window, tag=None):
-        self.__obs_manager = obs_manager
+    def __init__(self, osbm, type_window, tag=None):
+        self.__osbm = osbm
         self.__type_window = type_window
         self.__tag = tag
-        self.__obs_manager.obj_l.debug_logger(
-            "NedTableTag __init__(obs_manager, type_window)"
+        self.__osbm.obj_logg.debug_logger(
+            "NedTableTag __init__(osbm, type_window)"
         )
         super(NedTableTag, self).__init__()
         self.ui = nedtabletag_ui.Ui_NedTableTag()
         self.ui.setupUi(self)
         # СТИЛЬ
-        self.__obs_manager.obj_style.set_style_for(self)
+        self.__osbm.obj_style.set_style_for(self)
         #
         self.__config_tag = self.__tag.get("config_tag")
         self.__config_dict = dict()
@@ -35,13 +35,13 @@ class NedTableTag(QWidget):
 
     def get_save_data(self):
         self.save_data()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"NedTableTag get_data():\nself.__data = {self.__data}"
         )
         return self.__data
 
     def connecting_actions(self):
-        self.__obs_manager.obj_l.debug_logger("NedTableTag connecting_actions()")
+        self.__osbm.obj_logg.debug_logger("NedTableTag connecting_actions()")
         self.ui.combox_typetable.currentIndexChanged.connect(self.config_tw_attrs)
         self.ui.btn_addrowcol.clicked.connect(self.btn_addrowcol_clicked)
 
@@ -50,7 +50,7 @@ class NedTableTag(QWidget):
         ...
 
     def config_combox_typetable(self):
-        self.__obs_manager.obj_l.debug_logger("NedTableTag config_combox_typetable()")
+        self.__osbm.obj_logg.debug_logger("NedTableTag config_combox_typetable()")
         combobox = self.ui.combox_typetable
         combobox.blockSignals(True)
         combobox.clear()
@@ -74,7 +74,7 @@ class NedTableTag(QWidget):
         combobox.blockSignals(False)
 
     def config_tw_attrs(self):
-        self.__obs_manager.obj_l.debug_logger("NedTableTag config_tw_attrs()")
+        self.__osbm.obj_logg.debug_logger("NedTableTag config_tw_attrs()")
         typetable = self.ui.combox_typetable.currentData()
         if typetable == "FULL":
             self.ui.label_rowcol.setEnabled(False)
@@ -97,13 +97,13 @@ class NedTableTag(QWidget):
 
     def get_rowcols(self):
         rowcols = self.__config_dict.get("ROWCOLS")
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"NedTableTag get_rowcols(): result = {rowcols}"
         )
         return rowcols
 
     def config_data_table(self):
-        self.__obs_manager.obj_l.debug_logger("NedTableTag config_data_table()")
+        self.__osbm.obj_logg.debug_logger("NedTableTag config_data_table()")
         table_widget = self.ui.tw_attrs
         table_widget.blockSignals(True)
         table_widget.clear()
@@ -119,4 +119,4 @@ class NedTableTag(QWidget):
 
     def save_data(self):
         # TODO save_data
-        self.__obs_manager.obj_l.debug_logger("NedTableTag save_data()")
+        self.__osbm.obj_logg.debug_logger("NedTableTag save_data()")

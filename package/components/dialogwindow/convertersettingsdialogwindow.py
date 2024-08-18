@@ -8,14 +8,14 @@ from functools import partial
 import package.ui.convertersettingsdialogwindow_ui as convertersettingsdialogwindow_ui
 
 class ConverterSettingsDialogWindow(QDialog):
-    def __init__(self, obs_manager):
-        self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger("ConverterSettingsDialogWindow __init__(obs_manager)")
+    def __init__(self, osbm):
+        self.__osbm = osbm
+        self.__osbm.obj_logg.debug_logger("ConverterSettingsDialogWindow __init__(osbm)")
         super(ConverterSettingsDialogWindow, self).__init__()
         self.ui = convertersettingsdialogwindow_ui.Ui_ConverterSettingsDialogWindow()
         self.ui.setupUi(self)
         # СТИЛЬ
-        self.__obs_manager.obj_style.set_style_for(self)
+        self.__osbm.obj_style.set_style_for(self)
         # конфигурация
         self.config()
         # подключаем деействия
@@ -23,10 +23,10 @@ class ConverterSettingsDialogWindow(QDialog):
 
 
     def config(self):
-        self.__obs_manager.obj_l.debug_logger("ConverterSettingsDialogWindow config()")
+        self.__osbm.obj_logg.debug_logger("ConverterSettingsDialogWindow config()")
         # постоянный размер
         self.setFixedSize(self.sizeHint())
-        app_converter = self.__obs_manager.obj_sd.get_app_converter()
+        app_converter = self.__osbm.obj_setdb.get_app_converter()
         if app_converter == "MSWORD":
             self.ui.radbtn_msword.setChecked(True)
         # elif app_converter == "OPENOFFICE":
@@ -38,7 +38,7 @@ class ConverterSettingsDialogWindow(QDialog):
         self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
 
     def connecting_actions(self):
-        self.__obs_manager.obj_l.debug_logger("ConverterSettingsDialogWindow connecting_actions()")
+        self.__osbm.obj_logg.debug_logger("ConverterSettingsDialogWindow connecting_actions()")
         self.ui.btn_close.clicked.connect(self.close_window)
         self.ui.btn_save.clicked.connect(self.save_converter)
         self.ui.btn_save.setShortcut("Ctrl+S")
@@ -53,22 +53,22 @@ class ConverterSettingsDialogWindow(QDialog):
         #     result = "OPENOFFICE"
         elif self.ui.radbtn_libreoffice.isChecked():
             result = "LIBREOFFICE"
-        self.__obs_manager.obj_l.debug_logger(f"ConverterSettingsDialogWindow get_active_radiobutton() -> str:\nresult = {result}")
+        self.__osbm.obj_logg.debug_logger(f"ConverterSettingsDialogWindow get_active_radiobutton() -> str:\nresult = {result}")
         return result
 
 
     def save_converter(self):
-        self.__obs_manager.obj_l.debug_logger("ConverterSettingsDialogWindow save()")
+        self.__osbm.obj_logg.debug_logger("ConverterSettingsDialogWindow save()")
         result = self.get_active_radiobutton()
         if result:
-            self.__obs_manager.obj_sd.set_app_converter(result)
-            self.__obs_manager.obj_ofp.resetting_office_packets()
-            self.__obs_manager.obj_sb.set_message(f"{self.windowTitle()}: сохранение прошло успешно!")
+            self.__osbm.obj_setdb.set_app_converter(result)
+            self.__osbm.obj_offp.resetting_office_packets()
+            self.__osbm.obj_stab.set_message(f"{self.windowTitle()}: сохранение прошло успешно!")
         else:
-            self.__obs_manager.obj_dw.error_message("Не выбран конвертер.")
-        self.__obs_manager.obj_sb.update_name_app_converter()
+            self.__osbm.obj_dw.error_message("Не выбран конвертер.")
+        self.__osbm.obj_stab.update_name_app_converter()
         
 
     def close_window(self):
-        self.__obs_manager.obj_l.debug_logger("ConverterSettingsDialogWindow close_window()")
+        self.__osbm.obj_logg.debug_logger("ConverterSettingsDialogWindow close_window()")
         self.close()

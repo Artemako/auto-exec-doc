@@ -107,7 +107,7 @@ class DraggableTreeWidget(QTreeWidget):
 
 
     def drop_changed(self, item):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"NodesEditorDialogWindow drop_changed(item):\nitem = {item}"
         )
         # узнать вершину
@@ -117,7 +117,7 @@ class DraggableTreeWidget(QTreeWidget):
         # родитель
         parent_item = item.parent()
         if parent_item is None:
-            parent_node = self.__obs_manager.obj_pd.get_project_node()
+            parent_node = self.__osbm.obj_prodb.get_project_node()
         else:
             parent_node = parent_item.data(0, Qt.UserRole)
         id_parent_node = parent_node.get("id_node")
@@ -131,7 +131,7 @@ class DraggableTreeWidget(QTreeWidget):
     
 
     def update_order_for_parent_item_childs(self, parent_item, parent_node):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"NodesEditorDialogWindow update_order_for_parent_item_childs(parent_item, parent_node):\nparent_item = {parent_item}\nparent_node = {parent_node}"
         )
         # получить дочерние элементы
@@ -143,17 +143,17 @@ class DraggableTreeWidget(QTreeWidget):
         for index, child_item in enumerate(children_items):
             child_node = child_item.data(0, Qt.UserRole)
             # поставить родителя и порядок
-            self.__obs_manager.obj_pd.set_new_parent_for_child_node(parent_node, child_node)
-            self.__obs_manager.obj_pd.set_order_for_node(child_node, index)
+            self.__osbm.obj_prodb.set_new_parent_for_child_node(parent_node, child_node)
+            self.__osbm.obj_prodb.set_order_for_node(child_node, index)
 
     def update_order_for_old_parent_node_childs(self, old_id_parent):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"NodesEditorDialogWindow update_order_for_old_parent_node_childs(old_id_parent):\nold_id_parent = {old_id_parent}"
         )
         parent_node = {
             "id_node": old_id_parent,
         }
-        childs_nodes = self.__obs_manager.obj_pd.get_childs(parent_node)
+        childs_nodes = self.__osbm.obj_prodb.get_childs(parent_node)
         for index, child_node in enumerate(childs_nodes):
             # поставить порядок
-            self.__obs_manager.obj_pd.set_order_for_node(child_node, index)
+            self.__osbm.obj_prodb.set_order_for_node(child_node, index)

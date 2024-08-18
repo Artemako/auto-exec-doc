@@ -2,27 +2,27 @@ import sqlite3
 import os
 
 class ProjectDatabaseObjectsManager:
-    def __init__(self, obs_manager):
-        self.obj_l = obs_manager.obj_l
-        self.obj_dpm = obs_manager.obj_dpm
+    def __init__(self, osbm):
+        self.obj_logg = osbm.obj_logg
+        self.obj_dirm = osbm.obj_dirm
 
 class ProjectDatabase:
     def __init__(self):
         pass
     
-    def setting_obs_manager(self, obs_manager):
-        self.__obs_manager = ProjectDatabaseObjectsManager(obs_manager)
-        self.__obs_manager.obj_l.debug_logger(f"ProjectDatabase setting_obs_manager():\nself.__obs_manager = {self.__obs_manager}")
+    def setting_osbm(self, osbm):
+        self.__osbm = ProjectDatabaseObjectsManager(osbm)
+        self.__osbm.obj_logg.debug_logger(f"ProjectDatabase setting_osbm():\nself.__osbm = {self.__osbm}")
 
     def create_and_config_db_project(self):
         """
         Настройка базы данных перед использованием проекта
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "ProjectDatabase create_and_config_db_project()"
         )
 
-        if not os.path.exists(self.__obs_manager.obj_dpm.get_db_project_dirpath()):
+        if not os.path.exists(self.__osbm.obj_dirm.get_db_project_dirpath()):
             # Добавляем данные в пустую БД
             self.add_tables_and_datas_to_empty_db_project()
 
@@ -33,10 +33,10 @@ class ProjectDatabase:
         """
         Добавление таблиц и данных в БД программы при запуске.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "ProjectDatabase add_tables_and_datas_to_empty_db_project()"
         )
-        conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
+        conn = sqlite3.connect(self.__osbm.obj_dirm.get_db_project_dirpath())
         cursor = conn.cursor()
         cursor.executescript(
             """
@@ -195,13 +195,13 @@ COMMIT;
         """
         Запрос курсора.
         """
-        self.__obs_manager.obj_l.debug_logger("ProjectDatabase get_conn() -> object")
-        conn = sqlite3.connect(self.__obs_manager.obj_dpm.get_db_project_dirpath())
+        self.__osbm.obj_logg.debug_logger("ProjectDatabase get_conn() -> object")
+        conn = sqlite3.connect(self.__osbm.obj_dirm.get_db_project_dirpath())
         conn.row_factory = sqlite3.Row
         return conn
 
     def get_fetchall(self, cursor):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "ProjectDatabase get_fetchall(cursor, conn) -> list"
         )
         cursor_result = cursor.fetchall()
@@ -209,7 +209,7 @@ COMMIT;
         return result
 
     def get_fetchone(self, cursor):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "ProjectDatabase get_fetchone(cursor, conn) -> list"
         )
         cursor_result = cursor.fetchone()
@@ -229,7 +229,7 @@ COMMIT;
 
         result = self.get_fetchall(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_nodes() -> list:\nresult = {result}"
         )
         return result
@@ -248,7 +248,7 @@ COMMIT;
 
         result = self.get_fetchone(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_project_node() -> object:\nresult = {result}"
         )
         return result
@@ -267,7 +267,7 @@ COMMIT;
 
         result = self.get_fetchall(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_group_nodes() -> list:\nresult = {result}"
         )
         return result
@@ -283,7 +283,7 @@ COMMIT;
 
         result = self.get_fetchall(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_form_nodes() -> list:\nresult = {result}"
         )
         return result
@@ -306,7 +306,7 @@ COMMIT;
 
         result = self.get_fetchall(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_childs(parent_node) -> list: parent_node = {parent_node}\nresult = {result}"
         )
         return result
@@ -327,7 +327,7 @@ COMMIT;
 
         result = self.get_fetchone(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_template_by_id(id_template) -> object: id_template = {id_template}\nresult = {result}"
         )
         return result
@@ -348,7 +348,7 @@ COMMIT;
 
         result = self.get_fetchall(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_templates_by_form(form) -> list: form = {form}\nresult = {result}"
         )
         return result
@@ -370,7 +370,7 @@ COMMIT;
 
         result = self.get_fetchall(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_pages_by_template(template) -> list: template = {template}\nresult = {result}"
         )
         return result
@@ -380,7 +380,7 @@ COMMIT;
         """
         Добавление page в таблицу Project_pages.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase insert_page(page) -> int: page = {page}"
         )
         conn = self.get_conn()
@@ -420,7 +420,7 @@ COMMIT;
 
         result = self.get_fetchone(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_parent_template() -> object\nresult = {result}"
         )
         return result
@@ -441,7 +441,7 @@ COMMIT;
 
         result = self.get_fetchone(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_parent_node_template() -> object\nresult = {result}"
         )
         return result
@@ -462,7 +462,7 @@ COMMIT;
 
         result = self.get_fetchone(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_node_parent(node) -> object: node = {node}\nresult = {result}"
         )
         return result
@@ -483,7 +483,7 @@ COMMIT;
 
         result = self.get_fetchone(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_node_by_id(id_node) -> object: id_node = {id_node}\nresult = {result}"
         )
         return result
@@ -503,7 +503,7 @@ COMMIT;
         )
         result = self.get_fetchone(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_config_tag(id_tag) -> list: id_tag = {id_tag}\nresult = {result}"
         )
         return result
@@ -524,7 +524,7 @@ COMMIT;
 
         result = self.get_fetchone(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_page_by_id(id_page) -> object: id_page = {id_page}\nresult = {result}"
         )
         return result
@@ -533,7 +533,7 @@ COMMIT;
         """
         Запрос на установку включенности для вершины.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase set_included_for_node(node, state): node = {node}, state = {state}"
         )
 
@@ -554,7 +554,7 @@ COMMIT;
         """
         Запрос на удаление страницы из Project_pages.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase delete_page(page): page = {page}"
         )
 
@@ -587,7 +587,7 @@ COMMIT;
         )
         result = self.get_fetchall(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_page_data(page) -> list: page = {page}\nresult = {result}"
         )
         return result
@@ -605,7 +605,7 @@ COMMIT;
         )
         result = self.get_fetchall(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_templates() -> list:\nresult = {result}"
         )
         return result
@@ -627,7 +627,7 @@ COMMIT;
 
         result = self.get_fetchall(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_template_data(template) -> list: template = {template}\nresult = {result}"
         )
         return result
@@ -648,7 +648,7 @@ COMMIT;
 
         result = self.get_fetchall(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_node_data(node) -> list: node = {node}\nresult = {result}"
         )
         return result
@@ -657,7 +657,7 @@ COMMIT;
         """
         Запрос на обновление страницы в Project_pages.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase update_page(page): page = {page}"
         )
 
@@ -678,7 +678,7 @@ COMMIT;
         """
         Запрос на обновление данных страницы в Project_pages_data.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase update_page_data(id_pair, value_pair): id_pair = {id_pair}, value_pair = {value_pair}"
         )
 
@@ -699,7 +699,7 @@ COMMIT;
         """
         Запрос на обновление данных шаблона в Project_templates_data.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase update_template_data(id_pair, value_pair): id_pair = {id_pair}, value_pair = {value_pair}"
         )
 
@@ -720,7 +720,7 @@ COMMIT;
         """
         Запрос на обновление данных вершины в Project_nodes_data.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase update_node_data(id_pair, value_pair): id_pair = {id_pair}, value_pair = {value_pair}"
         )
 
@@ -753,7 +753,7 @@ COMMIT;
 
         result = self.get_fetchone(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_page_value_pair_by_id_pair(id_pair): id_pair = {id_pair}\nresult = {result}"
         )
         return result
@@ -774,7 +774,7 @@ COMMIT;
 
         result = self.get_fetchone(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_template_value_pair_by_id_pair(id_pair): id_pair = {id_pair}\nresult = {result}"
         )
         return result
@@ -795,7 +795,7 @@ COMMIT;
 
         result = self.get_fetchone(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_node_value_pair_by_id_pair(id_pair): id_pair = {id_pair}\nresult = {result}"
         )
         return result
@@ -804,7 +804,7 @@ COMMIT;
         """
         Установка всех included = True
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "ProjectDatabase set_all_included_in_db_project_to_true()"
         )
         conn = self.get_conn()
@@ -835,7 +835,7 @@ COMMIT;
         )
         result = self.get_fetchall(cursor)
         conn.close()
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_project_tags() -> list\nresult = {result}"
         )
         return result
@@ -844,7 +844,7 @@ COMMIT;
         """
         Запрос на обновление данных вершины в Project_nodes_data.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase insert_node_datas(node, pair_list):\nnode = {node}\npair_list = {pair_list}"
         )
         conn = self.get_conn()
@@ -866,7 +866,7 @@ COMMIT;
         """
         Запрос на вставку одной строки данных вершины в Project_templates_data.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase insert_template_data(template, pair):\ntemplate = {template}\npair = {pair}"
         )
         conn = self.get_conn()
@@ -887,7 +887,7 @@ COMMIT;
         """
         Запрос на обновление данных вершины в Project_nodes_data.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase insert_template_datas(template, pair_list):\ntemplate = {template}\npair_list = {pair_list}"
         )
         conn = self.get_conn()
@@ -909,7 +909,7 @@ COMMIT;
         """
         Запрос на вставку одной строки данных вершины в Project_pages_data.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase insert_page_data(page, pair):\npage = {page}\npair = {pair}"
         )
         conn = self.get_conn()
@@ -930,7 +930,7 @@ COMMIT;
         """
         Запрос на обновление данных страницы в Project_pages_data.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase insert_page_datas(page, pair_list):\npage = {page}\npair_list = {pair_list}"
         )
         conn = self.get_conn()
@@ -952,7 +952,7 @@ COMMIT;
         """
         Запрос на удаление данных вершины в Project_nodes_data.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase delete_node_datas(node, pair_list):\nnode = {node}\npair_list = {pair_list}"
         )
         conn = self.get_conn()
@@ -973,7 +973,7 @@ COMMIT;
         """
         Запрос на удаление данных вершины в Project_nodes_data.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase delete_template_datas(template, pair_list):\ntemplate = {template}\npair_list = {pair_list}"
         )
         conn = self.get_conn()
@@ -994,7 +994,7 @@ COMMIT;
         """
         Запрос на удаление данных страницы в Project_pages_data.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase delete_page_datas(page, pair_list):\npage = {page}\npair_list = {pair_list}"
         )
         conn = self.get_conn()
@@ -1015,7 +1015,7 @@ COMMIT;
         """
         Запрос на удаление данных тега в Project_tags.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase delete_tag(tag):\ntag = {tag}"
         )
         conn = self.get_conn()
@@ -1035,7 +1035,7 @@ COMMIT;
         """
         Запрос на получение тега по имени в Project_tags.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_tag_by_name(name_tag):\nname_tag = {name_tag}"
         )
         conn = self.get_conn()
@@ -1056,7 +1056,7 @@ COMMIT;
         """
         Запрос на получение вершины по имени в Project_nodes.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_node_by_name(name_node):\nname_node = {name_node}"
         )
         conn = self.get_conn()  
@@ -1077,7 +1077,7 @@ COMMIT;
         """
         Обновление данных вершины.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase update_node(node): node = {node}"
         )
 
@@ -1106,7 +1106,7 @@ COMMIT;
         """
         Добавление вершины.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase add_node(edit_node): edit_node = {edit_node}"
         )
 
@@ -1133,7 +1133,7 @@ COMMIT;
         """
         Удаление вершины по объекту node.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase delete_node(node): node = {node}"
         )
         conn = self.get_conn()
@@ -1153,7 +1153,7 @@ COMMIT;
         """
         Установка родительской вершины для дочерей группы.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase set_new_parent_for_child_node(current_node, child_node):\nnode = {current_node}\nchild_node = {child_node}"
         )
         conn = self.get_conn()
@@ -1173,7 +1173,7 @@ COMMIT;
         """
         Установка порядка для вершины.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase set_order_for_node(node, new_order):\nnode = {node}\nnew_order = {new_order}"
         )
         conn = self.get_conn()
@@ -1193,7 +1193,7 @@ COMMIT;
         """
         Установка порядка для страницы.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase set_order_for_page(page, new_order):\npage = {page}\nnew_order = {new_order}"
         )
         conn = self.get_conn()
@@ -1213,7 +1213,7 @@ COMMIT;
         """
         Добавление шаблона.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase add_template(name_template, form):\nname_template = {name_template}\nform = {form}"
         )
         conn = self.get_conn()
@@ -1234,7 +1234,7 @@ COMMIT;
         """
         Установка нового имени шаблона.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase set_new_name_for_template(template, name_template):\ntemplate = {template}\nname_template = {name_template}"
         )
         conn = self.get_conn()
@@ -1254,7 +1254,7 @@ COMMIT;
         """
         Удаление шаблона.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase delete_template(template):\ntemplate = {template}"
         )
         conn = self.get_conn()
@@ -1274,7 +1274,7 @@ COMMIT;
         """
         Установка активного шаблона для вершины.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase set_active_template_for_node_by_id(id_node, id_template):\nid_node = {id_node}\nid_template = {id_template}"
         )
         conn = self.get_conn()
@@ -1294,7 +1294,7 @@ COMMIT;
         """
         Установка нового имени и имени файла для страницы.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase set_new_name_and_filename_for_page(page, name_page, filename_page):\npage = {page}\nname_page = {name_page}\nfilename_page = {filename_page}"
         )
         conn = self.get_conn()
@@ -1311,4 +1311,4 @@ COMMIT;
         conn.close()
 
 
-# obj_pd = ProjectDatabase()
+# obj_prodb = ProjectDatabase()

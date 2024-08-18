@@ -14,18 +14,18 @@ class PdfView:
         self.__document = None
         self.__zoom = 1
 
-    def setting_all_obs_manager(self, obs_manager):
-        self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger("PdfView setting_all_obs_manager()")
+    def setting_all_osbm(self, osbm):
+        self.__osbm = osbm
+        self.__osbm.obj_logg.debug_logger("PdfView setting_all_osbm()")
 
     def connect_pdfview(self, widget):
-        self.__obs_manager.obj_l.debug_logger("PdfView connect_pdfview()")
+        self.__osbm.obj_logg.debug_logger("PdfView connect_pdfview()")
         self.__widget_pdf_view = widget
         self.__document = None
         self.config_pdf_view_in_mainwindow()
 
     def config_pdf_view_in_mainwindow(self):
-        self.__obs_manager.obj_l.debug_logger("PdfView config_pdf_view_in_mainwindow()")
+        self.__osbm.obj_logg.debug_logger("PdfView config_pdf_view_in_mainwindow()")
         self.__document = QPdfDocument()
         self.__widget_pdf_view.setDocument(self.__document)
 
@@ -33,43 +33,43 @@ class PdfView:
         if (self.__zoom + DELTA_ZOOM) < MAX_ZOOM:
             self.__zoom += DELTA_ZOOM
             self.__widget_pdf_view.setZoomFactor(self.__zoom)
-            self.__obs_manager.obj_l.debug_logger(f"PdfView zoom_in():\nself.__zoom = {self.__zoom}")
+            self.__osbm.obj_logg.debug_logger(f"PdfView zoom_in():\nself.__zoom = {self.__zoom}")
 
     def zoom_out(self):
         if (self.__zoom - DELTA_ZOOM) > MIN_ZOOM:
             self.__zoom -= DELTA_ZOOM
             self.__widget_pdf_view.setZoomFactor(self.__zoom)
-            self.__obs_manager.obj_l.debug_logger(f"PdfView zoom_out():\nself.__zoom = {self.__zoom}")
+            self.__osbm.obj_logg.debug_logger(f"PdfView zoom_out():\nself.__zoom = {self.__zoom}")
 
     def set_zoom_to_fit_width(self):
         self.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.FitToWidth)
-        self.__obs_manager.obj_l.debug_logger("PdfView set_zoom_to_fit_width()")
+        self.__osbm.obj_logg.debug_logger("PdfView set_zoom_to_fit_width()")
 
     def set_zoom_to_fit_view(self):
         self.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.FitInView)
-        self.__obs_manager.obj_l.debug_logger("PdfView set_zoom_to_fit_view()")
+        self.__osbm.obj_logg.debug_logger("PdfView set_zoom_to_fit_view()")
 
     def set_zoom_custom(self):
         self.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.Custom)
-        self.__obs_manager.obj_l.debug_logger("PdfView set_zoom_custom()")
+        self.__osbm.obj_logg.debug_logger("PdfView set_zoom_custom()")
 
     def set_empty_pdf_view(self):
         self.__document = QPdfDocument()
         self.__widget_pdf_view.setDocument(self.__document)
-        self.__obs_manager.obj_l.debug_logger("PdfView set_empty_pdf_view()")
+        self.__osbm.obj_logg.debug_logger("PdfView set_empty_pdf_view()")
 
     def get_view_height(self):
-        self.__obs_manager.obj_l.debug_logger("PdfView get_view_height()")
+        self.__osbm.obj_logg.debug_logger("PdfView get_view_height()")
         return self.__widget_pdf_view.verticalScrollBar().value()
 
     def set_view_height(self, value):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"PdfView set_view_height({value}):\nvalue = {value}"
         )
         self.__widget_pdf_view.verticalScrollBar().setValue(value)
 
     def load_and_show_pdf_document(self, pdf_path):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"PdfView load_and_show_pdf_document(pdf_path):\npdf_path = {pdf_path}"
         )
 
@@ -81,4 +81,4 @@ class PdfView:
     # скроллинг по горизонтали работает с нажатой клавишей Alt
 
 
-# obj_pv = PdfView()
+# obj_pdfv = PdfView()

@@ -10,10 +10,10 @@ class TWStructureExecDoc:
         self.__nodes_to_items = dict()
         self.__expanded_states = dict()
 
-    def setting_all_obs_manager(self, obs_manager):
-        self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger(
-            "TWStructureExecDoc setting_all_obs_manager()"
+    def setting_all_osbm(self, osbm):
+        self.__osbm = osbm
+        self.__osbm.obj_logg.debug_logger(
+            "TWStructureExecDoc setting_all_osbm()"
         )
 
 
@@ -21,12 +21,12 @@ class TWStructureExecDoc:
         """
         Подключить tr_sed к контроллеру.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "TWStructureExecDoc connect_structureexecdoc(tr_sed, title_sed)"
         )
         self.__tw = tr_sed
         self.__title_sed = title_sed
-        self.__icons = self.__obs_manager.obj_icons.get_icons()
+        self.__icons = self.__osbm.obj_icons.get_icons()
         # Очистить при запуске
         self.clear_sed()
 
@@ -39,7 +39,7 @@ class TWStructureExecDoc:
         self.__tw.itemCollapsed.connect(self.on_item_collapsed)
 
     def get_current_node(self):
-        self.__obs_manager.obj_l.debug_logger("TWStructureExecDoc get_current_node()")
+        self.__osbm.obj_logg.debug_logger("TWStructureExecDoc get_current_node()")
         current_item = self.__tw.currentItem()
         if current_item is None:
             return None
@@ -47,15 +47,15 @@ class TWStructureExecDoc:
             return current_item.data(0, Qt.UserRole)
 
     def current_item_changed(self, current):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TWStructureExecDoc current_item_changed(current):\ncurrent = {current}"
         )
         node = current.data(0, Qt.UserRole)
         # обновить combobox -> страницы
-        self.__obs_manager.obj_comboxts.update_combox_templates(node)
+        self.__osbm.obj_comt.update_combox_templates(node)
 
     def item_changed(self, item):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TWStructureExecDoc item_changed(item):\nitem = {item}"
         )
         if item is not None:
@@ -63,14 +63,14 @@ class TWStructureExecDoc:
             node = item.data(0, Qt.UserRole)
             state = int(item.checkState(0) == Qt.Checked)
             self.set_state_included_for_child(node, item.checkState(0) == Qt.Checked)
-            self.__obs_manager.obj_pd.set_included_for_node(node, state)
+            self.__osbm.obj_prodb.set_included_for_node(node, state)
             self.__tw.blockSignals(False)
 
     def clear_sed(self):
         """
         Очистить дерево
         """
-        self.__obs_manager.obj_l.debug_logger("TWStructureExecDoc clear_tr_sed()")
+        self.__osbm.obj_logg.debug_logger("TWStructureExecDoc clear_tr_sed()")
         if self.__tw is not None:
             self.__tw.blockSignals(True)
             self.__tw.clear()
@@ -82,7 +82,7 @@ class TWStructureExecDoc:
         """
         Создает структуру дерева ИД
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "TWStructureExecDoc update_structure_exec_doc()"
         )
         #
@@ -91,11 +91,11 @@ class TWStructureExecDoc:
         # очистка
         self.clear_sed()
         # Задать название столбца
-        title = f"{self.__obs_manager.obj_sd.get_project_current_name()}"
+        title = f"{self.__osbm.obj_setdb.get_project_current_name()}"
         self.__tw.setHeaderLabels(["Проект"])
         self.__title_sed.setText(title)
         # проход по вершинам
-        self.dfs(self.__obs_manager.obj_pd.get_project_node(), open_node) 
+        self.dfs(self.__osbm.obj_prodb.get_project_node(), open_node) 
         # 
         if self.__tw.topLevelItemCount() > 0 and not self.__open_node_flag:
             self.__tw.setCurrentItem(self.__tw.topLevelItem(0))
@@ -105,10 +105,10 @@ class TWStructureExecDoc:
         """
         Проход по всем вершинам.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TWStructureExecDoc dfs(parent_node):\nparent_node = {parent_node}\n open_node = {open_node}"
         )
-        childs = self.__obs_manager.obj_pd.get_childs(parent_node)
+        childs = self.__osbm.obj_prodb.get_childs(parent_node)
         if childs:
             for child in childs:
                 # действие
@@ -120,7 +120,7 @@ class TWStructureExecDoc:
         """
         Поставить item в nodes_to_items.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TWStructureExecDoc set_item_in_nodes_to_items(node):\nnode = {node}"
         )
         self.__tw.blockSignals(True)
@@ -141,7 +141,7 @@ class TWStructureExecDoc:
         self.__tw.blockSignals(False)
 
     def add_item_in_tree_widget(self, node) -> object:
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TWStructureExecDoc add_item_in_tree_widget(node):\nnode = {node}"
         )
         item = None
@@ -155,7 +155,7 @@ class TWStructureExecDoc:
 
 
     def set_text_and_icon_for_item_by_node(self, item, node):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TWStructureExecDoc get_text_by_node(item, node):\nitem = {item},\nnode = {node}"
         )
         # иконки
@@ -170,7 +170,7 @@ class TWStructureExecDoc:
         item.setText(0, text)
 
     def set_expanded_for_item(self, item, node):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"TWStructureExecDoc set_expanded_for_item(item, node):\nitem = {item},\nnode = {node}"
         )
         id_node = node.get("id_node")
@@ -182,13 +182,13 @@ class TWStructureExecDoc:
             item.setExpanded(False)
 
     def set_state_included_for_child(self, node, state):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"""TWStructureExecDoc set_state_included_for_childs(node, state):\nid_node = {node.get("id_node")},\nstate = {state}"""
         )
         item = self.__nodes_to_items.get(node.get("id_node"))
         if item is not None:
             item.setCheckState(0, Qt.Checked if state else Qt.Unchecked)
-            childs = self.__obs_manager.obj_pd.get_childs(node)
+            childs = self.__osbm.obj_prodb.get_childs(node)
             if childs:
                 for child in childs:
                     self.set_state_included_for_child(child, state)

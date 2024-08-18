@@ -5,10 +5,10 @@ import package.ui.nednodedialogwindow_ui as nednodedialogwindow_ui
 # TODO ПОДУМАТЬ ПРО PDF 
 
 class NedNodeDialogWindow(QDialog):
-    def __init__(self, obs_manager, type_window, type_node, nodes, node=None):
-        self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger(
-            f"NedNodeDialogWindow __init__(obs_manager, type_window, type_node, nodes, node):\ntype_window = {type_window}\ntype_node = {type_node}\nnodes = {nodes}\nnode = {node}"
+    def __init__(self, osbm, type_window, type_node, nodes, node=None):
+        self.__osbm = osbm
+        self.__osbm.obj_logg.debug_logger(
+            f"NedNodeDialogWindow __init__(osbm, type_window, type_node, nodes, node):\ntype_window = {type_window}\ntype_node = {type_node}\nnodes = {nodes}\nnode = {node}"
         )
         self.__type_window = type_window
         self.__type_node = type_node
@@ -18,7 +18,7 @@ class NedNodeDialogWindow(QDialog):
         self.ui = nednodedialogwindow_ui.Ui_NedNodeDialogWindow()
         self.ui.setupUi(self)
         # СТИЛЬ
-        self.__obs_manager.obj_style.set_style_for(self)
+        self.__osbm.obj_style.set_style_for(self)
         #
         self.__data = []
         # одноразовые действия
@@ -27,7 +27,7 @@ class NedNodeDialogWindow(QDialog):
         self.connecting_actions()
 
     def get_data(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"NedNodeDialogWindow get_data():\nself.__data = {self.__data}"
         )
         return self.__data
@@ -39,14 +39,14 @@ class NedNodeDialogWindow(QDialog):
                 nodes.append(node)
         # сортирока
         nodes.sort(key=lambda node: int(node.get("order_node")))
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"NedNodeDialogWindow get_project_and_group_nodes nodes = {nodes}"
         )
         return nodes
 
 
     def config_maindata(self):
-        self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow config_maindata()")
+        self.__osbm.obj_logg.debug_logger("NedNodeDialogWindow config_maindata()")
         if self.__type_window == "create":
             if self.__type_node == "FORM":
                 self.ui.namenode.setText("Название новой формы")
@@ -65,13 +65,13 @@ class NedNodeDialogWindow(QDialog):
             self.ui.lineedit_namenode.setText(self.__node.get("name_node"))
 
     def config_placementdata(self):
-        self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow config_placementdata()")
+        self.__osbm.obj_logg.debug_logger("NedNodeDialogWindow config_placementdata()")
         # заполняем combobox'ы
         self.fill_combox_parent()
         self.fill_combox_neighboor()
 
     def fill_combox_parent(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "NedNodeDialogWindow fill_combox_parent()"
         )
         combobox = self.ui.combox_parent
@@ -96,7 +96,7 @@ class NedNodeDialogWindow(QDialog):
         combobox.blockSignals(False)
 
     def get_childs(self, parent_node):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"NedNodeDialogWindow get_childs(parent_node):\nparent_node = {parent_node}"
         )
         # сортировка была сделана при получении данных с БД
@@ -109,13 +109,13 @@ class NedNodeDialogWindow(QDialog):
         # сортировка тут нужна из-за reconfig()
         childs.sort(key=lambda node: int(node.get("order_node")))
 
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"NedNodeDialogWindow get_childs(parent_node):\nparent_node = {parent_node}\nchilds = {childs}"
         )
         return childs
 
     def fill_combox_neighboor(self):
-        self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow combox_neighboor()")
+        self.__osbm.obj_logg.debug_logger("NedNodeDialogWindow combox_neighboor()")
         combobox = self.ui.combox_neighboor
         combobox.blockSignals(True)
         combobox.clear()
@@ -144,10 +144,10 @@ class NedNodeDialogWindow(QDialog):
         self.ui.combox_parent.currentIndexChanged.connect(self.fill_combox_neighboor)
         
     def action_nestag(self):
-        self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow action_nestag()")
+        self.__osbm.obj_logg.debug_logger("NedNodeDialogWindow action_nestag()")
         name_node = self.ui.lineedit_namenode.text()
         if len(name_node) > 0:
-            node_by_name = self.__obs_manager.obj_pd.get_node_by_name(name_node)
+            node_by_name = self.__osbm.obj_prodb.get_node_by_name(name_node)
             print(f"node_by_name = {node_by_name}")
             if self.__type_window == "create":
                 if not node_by_name:
@@ -155,7 +155,7 @@ class NedNodeDialogWindow(QDialog):
                     self.accept()
                 else:
                     msg = "Другая вершина с таким именем уже существует!"
-                    self.__obs_manager.obj_dw.warning_message(msg)
+                    self.__osbm.obj_dw.warning_message(msg)
                 
             elif self.__type_window == "edit":
                 if not node_by_name:
@@ -167,18 +167,18 @@ class NedNodeDialogWindow(QDialog):
                     self.accept()
                 else:
                     msg = "Другая вершина с таким именем уже существует!"
-                    self.__obs_manager.obj_dw.warning_message(msg)
+                    self.__osbm.obj_dw.warning_message(msg)
         else:
             msg = "Заполните поле названия!"
-            self.__obs_manager.obj_dw.warning_message(msg)
+            self.__osbm.obj_dw.warning_message(msg)
 
     def save_edit_node(self):
-        self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow save_edit_node()")
+        self.__osbm.obj_logg.debug_logger("NedNodeDialogWindow save_edit_node()")
         self.__data = []
         self.edit_data(True)
 
     def get_edit_old_nodes_when_is_edit(self, id_old_parent_node) -> list:
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"NedNodeDialogWindow get_edit_old_nodes_when_is_edit(id_old_parent_node):\nid_old_parent_node = {id_old_parent_node}"
         )
         edit_old_nodes = []
@@ -200,7 +200,7 @@ class NedNodeDialogWindow(QDialog):
         return edit_old_nodes
 
     def edit_data(self, is_edit = True): 
-        self.__obs_manager.obj_l.debug_logger(f"NedNodeDialogWindow edit_data(is_edit):\nis_edit = {is_edit}")
+        self.__osbm.obj_logg.debug_logger(f"NedNodeDialogWindow edit_data(is_edit):\nis_edit = {is_edit}")
         #
         id_old_parent_node = self.__node.get("id_parent")
         edit_old_nodes = []
@@ -244,7 +244,7 @@ class NedNodeDialogWindow(QDialog):
         
 
     def add_new_node(self):
-        self.__obs_manager.obj_l.debug_logger("NedNodeDialogWindow add_new_node()")
+        self.__osbm.obj_logg.debug_logger("NedNodeDialogWindow add_new_node()")
         # подготовка данных
         self.__node = {
             "id_active_template": None,

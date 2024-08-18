@@ -14,9 +14,9 @@ class Icons:
             "IMAGE": "image"
         }
 
-    def setting_all_obs_manager(self, obs_manager):
-        self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger(f"Icons setting_obs_manager():\nself.__obs_manager = {self.__obs_manager}")
+    def setting_all_osbm(self, osbm):
+        self.__osbm = osbm
+        self.__osbm.obj_logg.debug_logger(f"Icons setting_osbm():\nself.__osbm = {self.__osbm}")
 
     def get_key_icon_by_type_tag(self, type_tag):
         """
@@ -25,7 +25,7 @@ class Icons:
         return self.__type_tag_to_key_icon.get(type_tag)
         
     def get_icons(self, size = 12) -> dict:
-        self.__obs_manager.obj_l.debug_logger(f"Icons get_icons(size):\nsize = {size}")
+        self.__osbm.obj_logg.debug_logger(f"Icons get_icons(size):\nsize = {size}")
         result = self.__icons_cache.get(size)
         if result:
             return result

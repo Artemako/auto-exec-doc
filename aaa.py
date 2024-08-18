@@ -23,13 +23,13 @@ from functools import partial
 
 
 class NedPageDialogWindow(QDialog):
-    def __init__(self, obs_manager, type_ned, pages, page=None):
-        self.__obs_manager = obs_manager
+    def __init__(self, osbm, type_ned, pages, page=None):
+        self.__osbm = osbm
         self.__type_ned = type_ned
         self.__pages = pages
         self.__page = page
-        self.__obs_manager.obj_l.debug_logger(
-            f"NedPageDialogWindow __init__(obs_manager, type_ned, page):\ntype_ned = {self.__type_ned}\npages = {self.__pages}\npage = {self.__page}"
+        self.__osbm.obj_logg.debug_logger(
+            f"NedPageDialogWindow __init__(osbm, type_ned, page):\ntype_ned = {self.__type_ned}\npages = {self.__pages}\npage = {self.__page}"
         )
         super(NedPageDialogWindow, self).__init__()
         self.ui = nedpagedialogwindow_ui.Ui_NedPageDialogWindow()
@@ -44,7 +44,7 @@ class NedPageDialogWindow(QDialog):
             "included": 1,
         }
         self.__tags_for_add = []
-        self.__icons = self.__obs_manager.obj_icons.get_icons()
+        self.__icons = self.__osbm.obj_icons.get_icons()
         # одноразовые действия
         self.config_by_type_window()
         self.config_combox_neighboor()
@@ -52,7 +52,7 @@ class NedPageDialogWindow(QDialog):
         self.connecting_actions()
 
     def config_by_type_window(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "NedPageDialogWindow config_by_type_window()"
         )
         if self.__type_ned == "create":
@@ -71,19 +71,19 @@ class NedPageDialogWindow(QDialog):
             self.ui.lineedit_namepage.setText(self.__page.get("name_page"))
 
     def config_tw_tags(self):
-        self.__obs_manager.obj_l.debug_logger("NedPageDialogWindow config_tw_tags()")
+        self.__osbm.obj_logg.debug_logger("NedPageDialogWindow config_tw_tags()")
         if self.__type_ned == "edit":
             self.reconfig_tw_tags()
 
     def reconfig_tw_tags(self):
-        self.__obs_manager.obj_l.debug_logger("NedPageDialogWindow reconfig_tw_tags()")
+        self.__osbm.obj_logg.debug_logger("NedPageDialogWindow reconfig_tw_tags()")
         tablewidget = self.ui.tw_tags
         tablewidget.blockSignals(True)
         tablewidget.clearContents()
         tablewidget.setRowCount(0)
         filename_page = self.__page.get("filename_page")
         if filename_page:
-            forms_folder_dirpath = self.__obs_manager.obj_dpm.get_forms_folder_dirpath()
+            forms_folder_dirpath = self.__osbm.obj_dirm.get_forms_folder_dirpath()
             docx_path = os.path.join(
                 forms_folder_dirpath, filename_page + ".docx"
             )
@@ -93,7 +93,7 @@ class NedPageDialogWindow(QDialog):
         tablewidget.blockSignals(False)
 
     def fill_tw_tags(self, jinja_tags):
-        self.__obs_manager.obj_l.debug_logger(f"NedPageDialogWindow fill_tw_tags(jinja_tags):\njinja_tags = {jinja_tags}")
+        self.__osbm.obj_logg.debug_logger(f"NedPageDialogWindow fill_tw_tags(jinja_tags):\njinja_tags = {jinja_tags}")
         tablewidget = self.ui.tw_tags
         tablewidget.setColumnCount(3)
         tablewidget.setHorizontalHeaderLabels(["Тег", "Вид тега", "Действия"])
@@ -117,7 +117,7 @@ class NedPageDialogWindow(QDialog):
             tablewidget.setItem(row, 1, qtwt_status_tag)
             #
             if type_tag == "Переменная":
-                result_bd = self.__obs_manager.obj_pd.get_tag_by_name(value_tag)
+                result_bd = self.__osbm.obj_prodb.get_tag_by_name(value_tag)
                 result_tags_for_add = self.get_tag_by_name(value_tag)
                 if result_bd or result_tags_for_add:
                     tablewidget.setItem(row, 2, QTableWidgetItem("Имеется"))
@@ -126,7 +126,7 @@ class NedPageDialogWindow(QDialog):
                     add_button.clicked.connect(partial(self.add_tag, tag, value_tag))
                     tablewidget.setCellWidget(row, 2, widget)
             elif type_tag == "Блок" and value_tag:
-                result_bd = self.__obs_manager.obj_pd.get_tag_by_name(value_tag)
+                result_bd = self.__osbm.obj_prodb.get_tag_by_name(value_tag)
                 result_tags_for_add = self.get_tag_by_name(value_tag)
                 if result_bd or result_tags_for_add:
                     tablewidget.setItem(row, 2, QTableWidgetItem("Имеется"))
@@ -147,7 +147,7 @@ class NedPageDialogWindow(QDialog):
         
 
     def get_tag_by_name(self, name_tag) -> dict:
-        self.__obs_manager.obj_l.debug_logger(f"NedPageDialogWindow get_tag_by_name(name_tag) -> dict:\nname_tag = {name_tag}")
+        self.__osbm.obj_logg.debug_logger(f"NedPageDialogWindow get_tag_by_name(name_tag) -> dict:\nname_tag = {name_tag}")
         tags = self.__tags_for_add
         result = None
         for tag in tags:
@@ -157,7 +157,7 @@ class NedPageDialogWindow(QDialog):
         return result
 
     def get_status_tag(self, tag : str) -> dict:
-        self.__obs_manager.obj_l.debug_logger(f"NedPageDialogWindow get_status_tag(tag) -> dict:\ntag = {tag}")
+        self.__osbm.obj_logg.debug_logger(f"NedPageDialogWindow get_status_tag(tag) -> dict:\ntag = {tag}")
         status_tag = {
             "type" : None,
             "value" : None
@@ -181,11 +181,11 @@ class NedPageDialogWindow(QDialog):
 
 
     def add_tag(self, tag, name_tag = None, is_block = False):
-        self.__obs_manager.obj_l.debug_logger(f"NedPageDialogWindow add_tag(tag, name_tag, is_block):\ntag = {tag}\nname_tag = {name_tag}\n is_block = {is_block}")
+        self.__osbm.obj_logg.debug_logger(f"NedPageDialogWindow add_tag(tag, name_tag, is_block):\ntag = {tag}\nname_tag = {name_tag}\n is_block = {is_block}")
         # TODO
 
     def extract_jinja_tags(self, docx_path) -> set:
-        self.__obs_manager.obj_l.debug_logger(f"NedPageDialogWindow extract_jinja_tags(docx_path) -> set:\ndocx_path = {docx_path}")
+        self.__osbm.obj_logg.debug_logger(f"NedPageDialogWindow extract_jinja_tags(docx_path) -> set:\ndocx_path = {docx_path}")
         try:
             doc = Document(docx_path)
             # Регулярное выражение для поиска Jinja тегов
@@ -212,11 +212,11 @@ class NedPageDialogWindow(QDialog):
                 jinja_tags.extend(re.findall(jinja_pattern, shape.text))
             return set(jinja_tags)
         except Exception as e:
-            self.__obs_manager.obj_l.error_logger(f"Error in extract_jinja_tags: {e}")
+            self.__osbm.obj_logg.error_logger(f"Error in extract_jinja_tags: {e}")
             return set()
 
     def config_combox_neighboor(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "NedPageDialogWindow config_combox_neighboor()"
         )
         combobox = self.ui.combox_neighboor
@@ -236,7 +236,7 @@ class NedPageDialogWindow(QDialog):
         combobox.blockSignals(False)
 
     def connecting_actions(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "NedPageDialogWindow connecting_actions()"
         )
         self.ui.btn_select.clicked.connect(self.select_file)
@@ -245,7 +245,7 @@ class NedPageDialogWindow(QDialog):
         self.ui.btn_close.clicked.connect(self.close)
 
     def select_file(self):
-        docx_path = self.__obs_manager.obj_dw.select_docx_file()
+        docx_path = self.__osbm.obj_dw.select_docx_file()
         if docx_path:
             # текст
             self.ui.label_file.setText(os.path.basename(docx_path))
@@ -254,21 +254,21 @@ class NedPageDialogWindow(QDialog):
             self.__page["filename_page"] = file_name
             file_name_with_docx = f"{file_name}.docx"
             # путь к временной папке
-            temp_dir = self.__obs_manager.obj_dpm.get_temp_dirpath()
+            temp_dir = self.__osbm.obj_dirm.get_temp_dirpath()
             # путь к временному файлу
             temp_file_path = os.path.join(temp_dir, file_name_with_docx)
             # копирование
-            self.__obs_manager.obj_dpm.copy_file(docx_path, temp_file_path)
+            self.__osbm.obj_dirm.copy_file(docx_path, temp_file_path)
             #
             self.reconfig_tw_tags()
 
     def open_docx(self):
-        self.__obs_manager.obj_l.debug_logger("NedPageDialogWindow open_docx()")
+        self.__osbm.obj_logg.debug_logger("NedPageDialogWindow open_docx()")
         try:
             # название docx
             filename_page = self.__page.get("filename_page") 
             # путь к документу
-            forms_folder_dirpath = self.__obs_manager.obj_dpm.get_forms_folder_dirpath()
+            forms_folder_dirpath = self.__osbm.obj_dirm.get_forms_folder_dirpath()
             docx_path = os.path.join(
                 forms_folder_dirpath, filename_page + ".docx"
             )
@@ -279,13 +279,13 @@ class NedPageDialogWindow(QDialog):
                 except OSError:
                     raise Exception("Не удалось открыть.")
         except Exception as e:
-            self.__obs_manager.obj_dw.warning_message(f"Error: {e}")
-            self.__obs_manager.obj_dw.warning_message("Открыть не удалось.")
+            self.__osbm.obj_dw.warning_message(f"Error: {e}")
+            self.__osbm.obj_dw.warning_message("Открыть не удалось.")
             print(e)
 
 
     def btn_nestag_clicked(self):
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             "NedPageDialogWindow btn_nestag_clicked()"
         )
         if self.__type_ned == "create":
@@ -296,11 +296,11 @@ class NedPageDialogWindow(QDialog):
                 self.__data["filename_page"] = self.__filename_page
                 self.accept()
             elif namepage == "":
-                self.__obs_manager.obj_dw.warning_message("Заполните поле названия")
+                self.__osbm.obj_dw.warning_message("Заполните поле названия")
             elif len(self.__filename_page) == 0:
-                self.__obs_manager.obj_dw.warning_message("Выберите документ")
+                self.__osbm.obj_dw.warning_message("Выберите документ")
             else:
-                self.__obs_manager.obj_dw.warning_message(
+                self.__osbm.obj_dw.warning_message(
                     "Заполните поле названия и выберите документ"
                 )
         elif self.__type_ned == "edit":

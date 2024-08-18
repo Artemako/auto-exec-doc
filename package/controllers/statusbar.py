@@ -18,9 +18,9 @@ class StatusBar:
         self.__statusbar = None
         self.__is_active = False
 
-    def setting_all_obs_manager(self, obs_manager):
-        self.__obs_manager = obs_manager
-        self.__obs_manager.obj_l.debug_logger("StatusBar setting_all_obs_manager()")
+    def setting_all_osbm(self, osbm):
+        self.__osbm = osbm
+        self.__osbm.obj_logg.debug_logger("StatusBar setting_all_osbm()")
 
     def get_is_active(self) -> bool:
         return self.__is_active
@@ -29,13 +29,13 @@ class StatusBar:
         """
         Подключить статусбар.
         """
-        self.__obs_manager.obj_l.debug_logger("StatusBar connect_statusbar(statusbar)")
+        self.__osbm.obj_logg.debug_logger("StatusBar connect_statusbar(statusbar)")
         self.__statusbar = statusbar
         self.__is_active = True
         self.__timer = QTimer()
         self.__timer_count = 0
         #
-        self.__icons = self.__obs_manager.obj_icons.get_icons()
+        self.__icons = self.__osbm.obj_icons.get_icons()
         #
         self.config_statusbar()
         self.set_message("Проект не открыт")
@@ -43,14 +43,14 @@ class StatusBar:
         self.connecting_actions()
 
     def config_update_statusbar(self):
-        self.__obs_manager.obj_l.debug_logger("StatusBar config_update_statusbar()")
-        status_msword = self.__obs_manager.obj_ofp.get_status_msword()
+        self.__osbm.obj_logg.debug_logger("StatusBar config_update_statusbar()")
+        status_msword = self.__osbm.obj_offp.get_status_msword()
         self.update_status_msword_label(status_msword)
-        status_libreoffice = self.__obs_manager.obj_ofp.get_status_libreoffice()
+        status_libreoffice = self.__osbm.obj_offp.get_status_libreoffice()
         self.update_status_libreoffice_label(status_libreoffice)
 
     def config_statusbar(self):
-        self.__obs_manager.obj_l.debug_logger("StatusBar config_statusbar()")
+        self.__osbm.obj_logg.debug_logger("StatusBar config_statusbar()")
         # конфигурация
         self.config_msword()
         self.config_libreoffice()
@@ -72,7 +72,7 @@ class StatusBar:
         icon = self.__icons.get("red_circle")
         label = QLabel()
         label.setPixmap(icon)
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"StatusBar get_red_circle() -> QLabel:\nlabel = {label}"
         )
         return label
@@ -81,7 +81,7 @@ class StatusBar:
         icon = self.__icons.get("yellow_circle")
         label = QLabel()
         label.setPixmap(icon)
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"StatusBar get_yellow_circle() -> QLabel:\nlabel = {label}"
         )
         return label
@@ -90,13 +90,13 @@ class StatusBar:
         icon = self.__icons.get("green_circle")
         label = QLabel()
         label.setPixmap(icon)
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"StatusBar get_green_circle() -> QLabel:\nlabel = {label}"
         )
         return label
 
     def config_msword(self):
-        self.__obs_manager.obj_l.debug_logger("StatusBar config_msword()")
+        self.__osbm.obj_logg.debug_logger("StatusBar config_msword()")
         layout = QHBoxLayout()
         # иконка приложения
         icon = self.__icons.get("msword")
@@ -118,7 +118,7 @@ class StatusBar:
         self.__statusbar.addPermanentWidget(mw_msword)
 
     def config_libreoffice(self):
-        self.__obs_manager.obj_l.debug_logger("StatusBar config_libreoffice()")
+        self.__osbm.obj_logg.debug_logger("StatusBar config_libreoffice()")
         layout = QHBoxLayout()
         # иконка приложения
         icon = self.__icons.get("libreoffice")
@@ -143,7 +143,7 @@ class StatusBar:
         """
         Поставить сообщение в статусбар.
         """
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"StatusBar set_message(message):\nmessage = {message}"
         )
         if self.__timer.isActive():
@@ -174,7 +174,7 @@ class StatusBar:
             self.__red_msword.setVisible(True)
             self.__yellow_msword.setVisible(False)
             self.__green_msword.setVisible(False)
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"StatusBar update_status_status_msword_label(status_msword):\nstatus_msword = {status_msword}"
         )
 
@@ -192,12 +192,12 @@ class StatusBar:
             self.__red_libreoffice.setVisible(True)
             self.__yellow_libreoffice.setVisible(False)
             self.__green_libreoffice.setVisible(False)
-        self.__obs_manager.obj_l.debug_logger(
+        self.__osbm.obj_logg.debug_logger(
             f"StatusBar update_status_libreoffice_label(status_libreoffice):\nstatus_libreoffice = {status_libreoffice}"
         )
 
     def update_name_app_converter(self):
-        app_converter = self.__obs_manager.obj_sd.get_app_converter()
+        app_converter = self.__osbm.obj_setdb.get_app_converter()
         print(f"app_converter = {app_converter}")
         name_app_converter = "None"
         if app_converter == "MSWORD":
@@ -206,20 +206,20 @@ class StatusBar:
             name_app_converter = "LibreOffice"
         print(f"name_app_converter = {name_app_converter}")
         self.__name_app_converter.setText(name_app_converter)
-        self.__obs_manager.obj_l.debug_logger("StatusBar update_name_app_converter()")
+        self.__osbm.obj_logg.debug_logger("StatusBar update_name_app_converter()")
 
     def connecting_actions(self):
-        self.__obs_manager.obj_l.debug_logger("StatusBar connecting_actions()")
+        self.__osbm.obj_logg.debug_logger("StatusBar connecting_actions()")
         self.__btn_setting_converter.clicked.connect(self.show_converter_settings)
 
     def show_converter_settings(self):
-        self.__obs_manager.obj_l.debug_logger("StatusBar show_converter_settings()")
-        self.__obs_manager.obj_csdw = (
+        self.__osbm.obj_logg.debug_logger("StatusBar show_converter_settings()")
+        self.__osbm.obj_convsdw = (
             convertersettingsdialogwindow.ConverterSettingsDialogWindow(
-                self.__obs_manager
+                self.__osbm
             )
         )
-        self.__obs_manager.obj_csdw.exec()
+        self.__osbm.obj_convsdw.exec()
 
 
-# obj_sb = StatusBar()
+# obj_stab = StatusBar()

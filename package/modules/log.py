@@ -4,19 +4,19 @@ import os
 
 
 class LogObjectsManager:
-    def __init__(self, obs_manager):
-        self.obj_dpm = obs_manager.obj_dpm
+    def __init__(self, osbm):
+        self.obj_dirm = osbm.obj_dirm
 
 class Log:
     def __init__(self):
-        self.__obs_manager = None
+        self.__osbm = None
         self.__logger = logging.getLogger("Main logger")
 
-    def setting_obs_manager(self, obs_manager):
-        self.__obs_manager = LogObjectsManager(obs_manager)
+    def setting_osbm(self, osbm):
+        self.__osbm = LogObjectsManager(osbm)
 
     def setting_logger(self):
-        log_folder = self.__obs_manager.obj_dpm.get_logs_dirpath()
+        log_folder = self.__osbm.obj_dirm.get_logs_dirpath()
 
         log_file = os.path.join(
             log_folder,
