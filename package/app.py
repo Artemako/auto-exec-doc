@@ -17,7 +17,7 @@ import package.modules.projectdatabase as projectdatabase
 import package.modules.sectionsinfo as sectionsinfo
 import package.modules.settingsdatabase as settingsdatabase
 import package.modules.officepackets as officepackets
-import package.common.errors as errors
+import package.common as common
 
 # Импорт всех controllers
 import package.controllers.lwpagestemplate as lwpagestemplate
@@ -66,7 +66,7 @@ class ObjectsManager:
         self.obj_nedtempdw = None
         self.obj_nedpagedw = None
         # общее
-        self.obj_ers = None
+        self.obj_com = None
 
     def initialize_all(self):
         """
@@ -75,7 +75,7 @@ class ObjectsManager:
         self.initialize_modules()
         self.initialize_controllers()
         self.initialize_components()
-        self.obj_ers = errors.Errors()
+        self.obj_com = common.Common()
         
     def initialize_modules(self):
         self.obj_logg = log.Log()
@@ -111,6 +111,7 @@ class App:
         self.setting_osbm_for_modules()
         self.setting_osbm_for_controllers()
         self.setting_osbm_for_components()
+        self.osbm.obj_com.setting_all_osbm(self.osbm)
 
     def setting_osbm_for_modules(self):
         self.osbm.obj_conv.setting_osbm(self.osbm)

@@ -87,7 +87,7 @@ class LWPagesTemplate:
         pdf_path = str()
         try:
             pdf_path = self.__osbm.obj_conv.create_one_page_pdf(page)
-        except self.__osbm.obj_ers.MsWordError:
+        except self.__osbm.obj_com.errors.MsWordError:
             self.__osbm.obj_offp.terminate_msword()
             self.__osbm.obj_stab.update_status_msword_label(False)
             if is_convert_flag:
@@ -95,7 +95,7 @@ class LWPagesTemplate:
                 self.__osbm.obj_dw.warning_message(msg)
                 self.__osbm.obj_stab.set_message(msg)
 
-        except self.__osbm.obj_ers.LibreOfficeError:
+        except self.__osbm.obj_com.errors.LibreOfficeError:
             self.__osbm.obj_offp.terminate_libreoffice()
             self.__osbm.obj_stab.update_status_libreoffice_label(False)
             if is_convert_flag:

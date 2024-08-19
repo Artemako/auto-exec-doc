@@ -8,12 +8,6 @@ import package.ui.nedtagdialogwindow_ui as nedtagdialogwindow_ui
 import package.components.widgets.nedtags.neddatetag as neddatetag
 import package.components.widgets.nedtags.nedtabletag as nedtabletag
 
-class TagType:
-    def __init__(self, index, name_type_tag, type_tag, icon):
-        self.index = index
-        self.name_type_tag = name_type_tag
-        self.type_tag = type_tag
-        self.icon = icon
 
 
 class NedTagDialogWindow(QDialog):
@@ -139,7 +133,7 @@ class NedTagDialogWindow(QDialog):
         self.__osbm.obj_logg.debug_logger("NedTagDialogWindow config_combobox()")
         self.ui.combox_typetag.blockSignals(True)
         self.ui.combox_typetag.clear()
-        tag_types = self.get_tag_types()
+        tag_types = self.__osbm.obj_com.tag_types.get_tag_types()
         for tag in tag_types:
             self.ui.combox_typetag.addItem(tag.icon, tag.name_type_tag)
         self.ui.combox_typetag.blockSignals(False)
@@ -164,17 +158,6 @@ class NedTagDialogWindow(QDialog):
             self.ui.combox_typetag.blockSignals(True)
             self.ui.combox_typetag.setCurrentIndex(index)
             self.ui.combox_typetag.blockSignals(False)
-
-    def get_tag_types(self):
-        self.__osbm.obj_logg.debug_logger("NedTagDialogWindow get_tag_types()")
-        # tag_types
-        tag_types = [
-            TagType(0, "Текст", "TEXT", self.__icons.get("text")),
-            TagType(1, "Дата", "DATE", self.__icons.get("date")),
-            TagType(2, "Таблица", "TABLE", self.__icons.get("table")),
-            TagType(3, "Изображение", "IMAGE", self.__icons.get("image")),
-        ]
-        return tag_types
 
     def clear_layout(self, layout):
         while layout.count():
@@ -223,7 +206,7 @@ class NedTagDialogWindow(QDialog):
         self.__osbm.obj_logg.debug_logger(
             f"NedTagDialogWindow find_index_by_type(type_tag):\ntype_tag = {type_tag}"
         )
-        tag_types = self.get_tag_types()
+        tag_types = self.__osbm.obj_com.tag_types.get_tag_types()
         for tag in tag_types:
             if tag.type_tag == type_tag:
                 return tag.index

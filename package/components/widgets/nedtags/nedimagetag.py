@@ -23,7 +23,7 @@ class NedImageTag(QWidget):
         if self.__config_tag:
             self.__config_dict = json.loads(self.__config_tag)
         # 
-        # SIZINGMODE = [Отстутсвует, По ширине, по высоте, обрезать, растянуть]
+        # SIZINGMODE = []
         self.__data = {
             "UNIT": None,
             "SIZINGMODE": None,
@@ -31,6 +31,27 @@ class NedImageTag(QWidget):
             "HEIGHT": None,
         }
         # config
+        self.config_combox_units()
+        self.config_by_type_window()
+
+    def config_combox_units(self):
+        combobox = self.ui.combox_units
+        combobox.blockSignals(True)
+        combobox.clear()
+        # TODO единицы измерения
+        combobox.addItem("", "empty")
+        combobox.addItem("", "empty")
+        combobox.addItem("", "empty")
+
+
+    def config_by_type_window(self):
+        self.__osbm.obj_logg.debug_logger(f"NedImageTag config_by_type_window():")
+        if self.__type_window == "create":
+            self.ui.btn_nestag.setText("Добавить изображение")
+
+        elif self.__type_window == "edit":
+            self.ui.btn_nestag.setText("Сохранить изображение")
+        
 
     def get_save_data(self):
         self.save_data()

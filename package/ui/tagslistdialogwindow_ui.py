@@ -38,6 +38,11 @@ class Ui_TagsListDialog(object):
         self.tab_project.setObjectName(u"tab_project")
         self.verticalLayout_4 = QVBoxLayout(self.tab_project)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.btn_create_tag = QPushButton(self.tab_project)
+        self.btn_create_tag.setObjectName(u"btn_create_tag")
+
+        self.verticalLayout_4.addWidget(self.btn_create_tag)
+
         self.splitter_project = QSplitter(self.tab_project)
         self.splitter_project.setObjectName(u"splitter_project")
         self.splitter_project.setOrientation(Qt.Horizontal)
@@ -50,7 +55,7 @@ class Ui_TagsListDialog(object):
 
         self.verticalLayout_4.addWidget(self.splitter_project)
 
-        self.verticalLayout_4.setStretch(0, 1)
+        self.verticalLayout_4.setStretch(1, 1)
         self.tabwidget.addTab(self.tab_project, "")
         self.tab_group = QWidget()
         self.tab_group.setObjectName(u"tab_group")
@@ -149,6 +154,7 @@ class Ui_TagsListDialog(object):
 
     def retranslateUi(self, TagsListDialog):
         TagsListDialog.setWindowTitle(QCoreApplication.translate("TagsListDialog", u"\u0420\u0435\u0434\u0430\u043a\u0442\u043e\u0440 \u0442\u0435\u0433\u043e\u0432 \u043f\u0440\u043e\u0435\u043a\u0442\u0430", None))
+        self.btn_create_tag.setText(QCoreApplication.translate("TagsListDialog", u"\u0421\u043e\u0437\u0434\u0430\u0442\u044c \u0442\u044d\u0433", None))
         self.tabwidget.setTabText(self.tabwidget.indexOf(self.tab_project), QCoreApplication.translate("TagsListDialog", u"\u041f\u0440\u043e\u0435\u043a\u0442", None))
         self.tabwidget.setTabText(self.tabwidget.indexOf(self.tab_group), QCoreApplication.translate("TagsListDialog", u"\u0413\u0440\u0443\u043f\u043f\u0430", None))
         self.tabwidget.setTabText(self.tabwidget.indexOf(self.tab_form_template_page), QCoreApplication.translate("TagsListDialog", u"\u0424\u043e\u0440\u043c\u0430/\u0428\u0430\u0431\u043b\u043e\u043d/\u0421\u0442\u0440\u0430\u043d\u0438\u0446\u0430", None))

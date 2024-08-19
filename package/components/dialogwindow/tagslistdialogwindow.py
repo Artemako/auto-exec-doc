@@ -105,6 +105,8 @@ class TagsListDialogWindow(QDialog):
         self.ui.combox_pages.currentIndexChanged.connect(
             self.combox_pages_index_changed
         )
+        self.ui.btn_create_tag.clicked.connect(self.create_tag)
+        self.ui.btn_create_tag.setShortcut("Ctrl+N")
         self.ui.btn_close.clicked.connect(self.close)
         self.ui.btn_close.setShortcut("Ctrl+Q")
         self.ui.btn_save.clicked.connect(self.save_changes)
@@ -510,8 +512,8 @@ class TagsListDialogWindow(QDialog):
         result = self.ned_tag_dw("create")
         # TODO create_tag - обработать и сохранить изменения в БД
         if result:
-            ...
             # получить data
+            data = self.__osbm.obj_nedtdw.get_data()            
             # обработать и сохранить изменения в БД
             # обновить таблицу
 

@@ -280,7 +280,7 @@ class ConverterPool:
             local_osbm.obj_logg.error_logger(
                 "Error in convert_from_pdf_docx_using_msword(docx_path, pdf_path)"
             )
-            raise local_osbm.obj_ers.MsWordError(e)
+            raise local_osbm.obj_com.errors.MsWordError(e)
 
     def convert_from_pdf_docx_using_libreoffice(
         self, local_osbm, docx_path, pdf_path
@@ -304,7 +304,7 @@ class ConverterPool:
             local_osbm.obj_logg.error_logger(
                 "Error in convert_from_pdf_docx_using_libreoffice(docx_path, pdf_path)"
             )
-            raise local_osbm.obj_ers.LibreOfficeError(e)
+            raise local_osbm.obj_com.errors.LibreOfficeError(e)
 
 
 
@@ -316,7 +316,7 @@ class ConverterObjectsManager:
         self.obj_seci = osbm.obj_seci
         self.obj_setdb = osbm.obj_setdb
         # общее
-        self.obj_ers = osbm.obj_ers
+        self.obj_com = osbm.obj_com
 
 
 class Converter:

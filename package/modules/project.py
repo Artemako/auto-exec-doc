@@ -276,14 +276,14 @@ class Project:
                         f"Project export_to_pdf() -> time: {end_time - start_time}"
                     )
                     
-                except self.__osbm.obj_ers.MsWordError:
+                except self.__osbm.obj_com.errors.MsWordError:
                     msg = "Экспорт отменён! Выбранный конвертер перестал работать."
                     self.__osbm.obj_dw.warning_message(msg)
                     self.__osbm.obj_stab.set_message(msg)
                     self.__osbm.obj_offp.terminate_msword()
                     self.__osbm.obj_stab.update_status_msword_label(False)
 
-                except self.__osbm.obj_ers.LibreOfficeError:
+                except self.__osbm.obj_com.errors.LibreOfficeError:
                     msg = "Экспорт отменён! Выбранный конвертер перестал работать."
                     self.__osbm.obj_dw.warning_message(msg)
                     self.__osbm.obj_stab.set_message(msg)

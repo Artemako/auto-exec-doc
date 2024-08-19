@@ -76,12 +76,11 @@ class FileFolderManager:
         if not os.path.exists(image_folder_dirpath):
             os.makedirs(image_folder_dirpath)
 
-        # TODO папка с pdfs
         # # папка с pdfs
-        # pdfs_folder_dirpath = dirpathsmanager.obj_dirm.get_pdfs_folder_dirpath()
+        pdfs_folder_dirpath = self.__osbm.obj_dirm.get_pdfs_folder_dirpath()
 
-        # if not os.path.exists(pdfs_folder_dirpath):
-        #     os.makedirs(pdfs_folder_dirpath)
+        if not os.path.exists(pdfs_folder_dirpath):
+            os.makedirs(pdfs_folder_dirpath)
 
         # Папка TEMP/AUTOEXECDOC
         if not os.path.exists(self.__osbm.obj_dirm.get_temp_dirpath()):

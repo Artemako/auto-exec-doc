@@ -17,7 +17,7 @@
    <string>Редактор тегов проекта</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../resources.qrc">
+   <iconset>
     <normaloff>:/icons/resources/icons/text-editor.svg</normaloff>:/icons/resources/icons/text-editor.svg</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -30,7 +30,14 @@
       <attribute name="title">
        <string>Проект</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1">
+      <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,1">
+       <item>
+        <widget class="QPushButton" name="btn_create_tag">
+         <property name="text">
+          <string>Создать тэг</string>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QSplitter" name="splitter_project">
          <property name="orientation">
@@ -106,7 +113,7 @@
         <string>Сохранить</string>
        </property>
        <property name="icon">
-        <iconset resource="../../resources.qrc">
+        <iconset>
          <normaloff>:/icons/resources/icons/save.svg</normaloff>:/icons/resources/icons/save.svg</iconset>
        </property>
       </widget>
@@ -117,7 +124,7 @@
         <string>Закрыть</string>
        </property>
        <property name="icon">
-        <iconset resource="../../resources.qrc">
+        <iconset>
          <normaloff>:/icons/resources/icons/close.svg</normaloff>:/icons/resources/icons/close.svg</iconset>
        </property>
       </widget>
