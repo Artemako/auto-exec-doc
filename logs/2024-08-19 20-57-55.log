@@ -1,0 +1,393 @@
+2024-08-19 20:57:55,430 - DEBUG - [34m Config logger[00m
+2024-08-19 20:57:55,430 - DEBUG - [34m self.current_directory = d:\work\project\AutoExecDoc[00m
+2024-08-19 20:57:55,430 - DEBUG - [34m FileFolderManager create_and_setting_files_and_folders()[00m
+2024-08-19 20:57:55,430 - DEBUG - [34m DirPathManager get_default_folder_projects_dirpath() -> str: C:/Users/hayar/Documents\AutoExecDoc Projects[00m
+2024-08-19 20:57:55,430 - DEBUG - [34m SettingsDatabase create_and_setting_db_settings()[00m
+2024-08-19 20:57:55,430 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-19 20:57:55,430 - DEBUG - [34m OfficePackets resetting_office_packets()[00m
+2024-08-19 20:57:55,430 - DEBUG - [34m MsWordThread __init__()[00m
+2024-08-19 20:57:55,430 - DEBUG - [34m OfficePackets run_libreoffice()[00m
+2024-08-19 20:57:55,430 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-19 20:57:55,430 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-19 20:57:55,430 - DEBUG - [34m MsWordThread initialize_msword()[00m
+2024-08-19 20:57:55,430 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-19 20:57:55,430 - DEBUG - [34m SettingsDatabase get_libreoffice_path():
+result = {'value_setting': 'C:\\Program Files\\LibreOffice\\program\\soffice.exe'}[00m
+2024-08-19 20:57:55,646 - DEBUG - [34m MainWindow config()[00m
+2024-08-19 20:57:55,646 - DEBUG - [34m MainWindow update_menu_recent_projects()[00m
+2024-08-19 20:57:55,646 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-19 20:57:55,647 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-19 20:57:55,647 - DEBUG - [34m SettingsDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-19 20:57:55,647 - DEBUG - [34m SettingsDatabase get_last_projects():
+result = [{'id_project': 43, 'name_project': 'Бла-Бла', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Бла-Бла', 'date_create_project': '2024-08-18 02:19:37', 'date_last_open_project': '2024-08-19 20:55:38'}, {'id_project': 42, 'name_project': 'rdrstre', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre', 'date_create_project': '2024-08-17 23:53:35', 'date_last_open_project': '2024-08-19 20:52:09'}, {'id_project': 41, 'name_project': 'ЛАлала', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/ЛАлала', 'date_create_project': '2024-08-17 22:46:03', 'date_last_open_project': '2024-08-19 20:32:02'}, {'id_project': 40, 'name_project': 'Привет', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Привет', 'date_create_project': '2024-08-17 22:45:28', 'date_last_open_project': '2024-08-17 22:45:28'}, {'id_project': 39, 'name_project': 'Табл', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Табл', 'date_create_project': '2024-08-17 03:47:59', 'date_last_open_project': '2024-08-17 22:45:17'}][00m
+2024-08-19 20:57:55,647 - DEBUG - [34m MainWindow config_controllers()[00m
+2024-08-19 20:57:55,651 - DEBUG - [34m StatusBar connect_statusbar(statusbar)[00m
+2024-08-19 20:57:55,651 - DEBUG - [34m Icons get_icons(size):
+size = 12[00m
+2024-08-19 20:57:55,655 - DEBUG - [34m StatusBar config_statusbar()[00m
+2024-08-19 20:57:55,655 - DEBUG - [34m StatusBar config_msword()[00m
+2024-08-19 20:57:55,656 - DEBUG - [34m StatusBar get_red_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x1abb76af570) at 0x000001ABB9E4B340>[00m
+2024-08-19 20:57:55,656 - DEBUG - [34m StatusBar get_yellow_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x1abb76af0f0) at 0x000001ABB9E4B480>[00m
+2024-08-19 20:57:55,656 - DEBUG - [34m StatusBar get_green_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x1abb76aff90) at 0x000001ABB9E4B500>[00m
+2024-08-19 20:57:55,657 - DEBUG - [34m StatusBar config_libreoffice()[00m
+2024-08-19 20:57:55,658 - DEBUG - [34m StatusBar get_red_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x1abb76b0a70) at 0x000001ABB9E4B3C0>[00m
+2024-08-19 20:57:55,659 - DEBUG - [34m StatusBar get_yellow_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x1abb76b0bf0) at 0x000001ABB9E4B740>[00m
+2024-08-19 20:57:55,659 - DEBUG - [34m StatusBar get_green_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x1abb76b0f50) at 0x000001ABB9E4B9C0>[00m
+2024-08-19 20:57:55,661 - DEBUG - [34m StatusBar config_update_statusbar()[00m
+2024-08-19 20:57:55,667 - DEBUG - [34m OfficePackets get_status_msword():
+self.__status_msword = False[00m
+2024-08-19 20:57:55,667 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = False[00m
+2024-08-19 20:57:55,673 - DEBUG - [34m OfficePackets get_status_libreoffice():
+self.__status_libreoffice = False[00m
+2024-08-19 20:57:55,673 - DEBUG - [34m StatusBar update_status_libreoffice_label(status_libreoffice):
+status_libreoffice = False[00m
+2024-08-19 20:57:55,679 - DEBUG - [34m StatusBar set_message(message):
+message = Проект не открыт[00m
+2024-08-19 20:57:55,680 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-19 20:57:55,694 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-19 20:57:55,721 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-19 20:57:55,737 - DEBUG - [34m SettingsDatabase get_app_converter():
+result = {'value_setting': 'MSWORD'}[00m
+2024-08-19 20:57:55,744 - DEBUG - [34m StatusBar update_name_app_converter()[00m
+2024-08-19 20:57:55,778 - DEBUG - [34m StatusBar connecting_actions()[00m
+2024-08-19 20:57:55,783 - DEBUG - [34m TWStructureExecDoc connect_structureexecdoc(tr_sed, title_sed)[00m
+2024-08-19 20:57:55,797 - DEBUG - [34m Icons get_icons(size):
+size = 12[00m
+2024-08-19 20:57:55,797 - DEBUG - [34m TWStructureExecDoc clear_tr_sed()[00m
+2024-08-19 20:57:55,812 - DEBUG - [34m LWPagesTemplate connect_pages_template(lw_pt):
+lw_pt = <PySide6.QtWidgets.QListWidget(0x1abba9f0b20, name="lw_pages_template") at 0x000001ABB9E3E2C0>[00m
+2024-08-19 20:57:55,847 - DEBUG - [34m Icons get_icons(size):
+size = 12[00m
+2024-08-19 20:57:55,853 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-08-19 20:57:55,963 - DEBUG - [34m ComboxTemplates connect_combox_templates(combox_templates):
+combox_templates = <PySide6.QtWidgets.QComboBox(0x1abb774a170, name="combox_templates") at 0x000001ABB9E3E1C0>[00m
+2024-08-19 20:57:55,993 - DEBUG - [34m SAInputForms connect_inputforms(sa_if, sa_ifl):
+sa_if = <PySide6.QtWidgets.QScrollArea(0x1abba9fb5e0, name="scrollarea_inputforms") at 0x000001ABB9E3ED00>,
+sa_ifl = <PySide6.QtWidgets.QWidget(0x1abbaa017d0, name="scrollarea_inputforms_layout") at 0x000001ABB9E3EF80>[00m
+2024-08-19 20:57:56,018 - DEBUG - [34m PdfView connect_pdfview()[00m
+2024-08-19 20:57:56,020 - DEBUG - [34m PdfView config_pdf_view_in_mainwindow()[00m
+2024-08-19 20:57:56,023 - DEBUG - [34m MainWindow connecting_actions()[00m
+2024-08-19 20:57:56,024 - DEBUG - [34m Common run()[00m
+2024-08-19 20:57:56,025 - DEBUG - [34m Icons get_icons(size):
+size = 12[00m
+2024-08-19 20:57:56,078 - DEBUG - [34m OfficePackets update_status_msword(status):
+status = None[00m
+2024-08-19 20:57:56,079 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = None[00m
+2024-08-19 20:57:56,166 - DEBUG - [34m OfficePackets update_status_msword(status):
+status = True[00m
+2024-08-19 20:57:56,166 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = True[00m
+2024-08-19 20:57:56,812 - DEBUG - [34m Project open_project()[00m
+2024-08-19 20:57:56,812 - DEBUG - [34m Project check_project_before_new_or_open()[00m
+2024-08-19 20:57:56,812 - DEBUG - [34m DirPathManager get_default_folder_projects_dirpath() -> str: C:/Users/hayar/Documents\AutoExecDoc Projects[00m
+2024-08-19 20:57:58,096 - DEBUG - [34m DialogWindows select_folder_for_open_project() -> C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre/rdrstre.aed[00m
+2024-08-19 20:57:58,096 - DEBUG - [34m Project set_project_dirpaths(folder_path: str):
+folder_path = C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre[00m
+2024-08-19 20:57:58,096 - DEBUG - [34m DirPathManager set_project_dirpath(dirpath: str):
+dirpath = C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre[00m
+2024-08-19 20:57:58,096 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre[00m
+2024-08-19 20:57:58,096 - DEBUG - [34m DirPathManager set_db_project_dirpath(dirpath: str):
+dirpath = C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\project.db[00m
+2024-08-19 20:57:58,096 - DEBUG - [34m Project clear_window_before_new_or_open_project()[00m
+2024-08-19 20:57:58,096 - DEBUG - [34m TWStructureExecDoc clear_tr_sed()[00m
+2024-08-19 20:57:58,096 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-08-19 20:57:58,096 - DEBUG - [34m PdfView set_empty_pdf_view()[00m
+2024-08-19 20:57:58,096 - DEBUG - [34m SAInputForms delete_all_widgets_in_sa()[00m
+2024-08-19 20:57:58,096 - DEBUG - [34m Project config_open_project()[00m
+2024-08-19 20:57:58,096 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre[00m
+2024-08-19 20:57:58,096 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,096 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-19 20:57:58,103 - DEBUG - [34m SettingsDatabase set_project_current_name(project_name):
+project_name = rdrstre[00m
+2024-08-19 20:57:58,106 - DEBUG - [34m SettingsDatabase add_or_update_open_project_to_db()[00m
+2024-08-19 20:57:58,107 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,107 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-19 20:57:58,107 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre[00m
+2024-08-19 20:57:58,107 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre[00m
+2024-08-19 20:57:58,108 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-19 20:57:58,108 - DEBUG - [34m SettingsDatabase update_project_to_db()[00m
+2024-08-19 20:57:58,108 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,109 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-19 20:57:58,109 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre[00m
+2024-08-19 20:57:58,109 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre[00m
+2024-08-19 20:57:58,112 - DEBUG - [34m ProjectDatabase create_and_config_db_project()[00m
+2024-08-19 20:57:58,113 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\project.db[00m
+2024-08-19 20:57:58,113 - DEBUG - [34m ProjectDatabase set_all_included_in_db_project_to_true()[00m
+2024-08-19 20:57:58,113 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,114 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\project.db[00m
+2024-08-19 20:57:58,115 - DEBUG - [34m MainWindow update_main_window()[00m
+2024-08-19 20:57:58,115 - DEBUG - [34m TWStructureExecDoc update_structure_exec_doc()[00m
+2024-08-19 20:57:58,116 - DEBUG - [34m TWStructureExecDoc get_current_node()[00m
+2024-08-19 20:57:58,116 - DEBUG - [34m TWStructureExecDoc clear_tr_sed()[00m
+2024-08-19 20:57:58,116 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,116 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-19 20:57:58,116 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-19 20:57:58,116 - DEBUG - [34m SettingsDatabase get_project_current_name():
+result = {'value_setting': 'rdrstre'}[00m
+2024-08-19 20:57:58,117 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,117 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\project.db[00m
+2024-08-19 20:57:58,119 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-19 20:57:58,119 - DEBUG - [34m ProjectDatabase get_project_node() -> object:
+result = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}[00m
+2024-08-19 20:57:58,119 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-08-19 20:57:58,119 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,119 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\project.db[00m
+2024-08-19 20:57:58,120 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-19 20:57:58,120 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}
+result = [][00m
+2024-08-19 20:57:58,120 - DEBUG - [34m TWStructureExecDoc get_current_node()[00m
+2024-08-19 20:57:58,120 - DEBUG - [34m ComboxTemplates update_combox_templates(node):
+node = None[00m
+2024-08-19 20:57:58,122 - DEBUG - [34m LWPagesTemplate update_pages_template(template):
+template = None[00m
+2024-08-19 20:57:58,122 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-08-19 20:57:58,122 - DEBUG - [34m LWPagesTemplate get_page_by_current_item()[00m
+2024-08-19 20:57:58,122 - DEBUG - [34m SAInputForms update_scrollarea()[00m
+2024-08-19 20:57:58,122 - DEBUG - [34m SAInputForms delete_all_widgets_in_sa()[00m
+2024-08-19 20:57:58,123 - DEBUG - [34m DirPathManager set_new_dirpaths_for_project()[00m
+2024-08-19 20:57:58,123 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre[00m
+2024-08-19 20:57:58,123 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre[00m
+2024-08-19 20:57:58,124 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre[00m
+2024-08-19 20:57:58,124 - DEBUG - [34m Project set_true_actives_project()[00m
+2024-08-19 20:57:58,124 - DEBUG - [34m StatusBar set_message(message):
+message = Проект c именем rdrstre открыт.[00m
+2024-08-19 20:57:58,125 - DEBUG - [34m FileFolderManager create_folders_and_aed_for_project()[00m
+2024-08-19 20:57:58,125 - DEBUG - [34m FileFolderManager check_aed_file()[00m
+2024-08-19 20:57:58,126 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,126 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-19 20:57:58,126 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-19 20:57:58,126 - DEBUG - [34m SettingsDatabase get_project_current_name():
+result = {'value_setting': 'rdrstre'}[00m
+2024-08-19 20:57:58,126 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre[00m
+2024-08-19 20:57:58,126 - DEBUG - [34m DirPathManager get_forms_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\forms[00m
+2024-08-19 20:57:58,126 - DEBUG - [34m DirPathManager get_image_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\images[00m
+2024-08-19 20:57:58,126 - DEBUG - [34m get_pdfs_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\pdfs[00m
+2024-08-19 20:57:58,126 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-19 20:57:58,126 - DEBUG - [34m MainWindow update_menu_recent_projects()[00m
+2024-08-19 20:57:58,126 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,126 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-19 20:57:58,126 - DEBUG - [34m SettingsDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-19 20:57:58,126 - DEBUG - [34m SettingsDatabase get_last_projects():
+result = [{'id_project': 42, 'name_project': 'rdrstre', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre', 'date_create_project': '2024-08-17 23:53:35', 'date_last_open_project': '2024-08-19 20:57:58'}, {'id_project': 43, 'name_project': 'Бла-Бла', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Бла-Бла', 'date_create_project': '2024-08-18 02:19:37', 'date_last_open_project': '2024-08-19 20:55:38'}, {'id_project': 41, 'name_project': 'ЛАлала', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/ЛАлала', 'date_create_project': '2024-08-17 22:46:03', 'date_last_open_project': '2024-08-19 20:32:02'}, {'id_project': 40, 'name_project': 'Привет', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Привет', 'date_create_project': '2024-08-17 22:45:28', 'date_last_open_project': '2024-08-17 22:45:28'}, {'id_project': 39, 'name_project': 'Табл', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Табл', 'date_create_project': '2024-08-17 03:47:59', 'date_last_open_project': '2024-08-17 22:45:17'}][00m
+2024-08-19 20:57:58,613 - DEBUG - [34m MainWindow edit_tags()[00m
+2024-08-19 20:57:58,613 - DEBUG - [34m TagsListDialogWindow __init__(osbm)[00m
+2024-08-19 20:57:58,613 - DEBUG - [34m TagsListDialogWindow initalizate_tabs_objects()[00m
+2024-08-19 20:57:58,615 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,615 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\project.db[00m
+2024-08-19 20:57:58,616 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-19 20:57:58,616 - DEBUG - [34m ProjectDatabase get_project_node() -> object:
+result = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}[00m
+2024-08-19 20:57:58,616 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,617 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\project.db[00m
+2024-08-19 20:57:58,617 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-19 20:57:58,617 - DEBUG - [34m ProjectDatabase get_group_nodes() -> list:
+result = [][00m
+2024-08-19 20:57:58,617 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,618 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\project.db[00m
+2024-08-19 20:57:58,618 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-19 20:57:58,619 - DEBUG - [34m ProjectDatabase get_form_nodes() -> list:
+result = [][00m
+2024-08-19 20:57:58,639 - DEBUG - [34m Icons get_icons(size):
+size = 12[00m
+2024-08-19 20:57:58,639 - DEBUG - [34m TagsListDialogWindow config()[00m
+2024-08-19 20:57:58,682 - DEBUG - [34m TagsListDialogWindow config_tws()[00m
+2024-08-19 20:57:58,682 - DEBUG - [34m TagsListDialogWindow config_tw(self, tw):
+table_widget = <PySide6.QtWidgets.QTableWidget(0x1abc3a2bda0, name="table_project_tags") at 0x000001ABBD958F00>[00m
+2024-08-19 20:57:58,684 - DEBUG - [34m TagsListDialogWindow config_tw(self, tw):
+table_widget = <PySide6.QtWidgets.QTableWidget(0x1abbb75b570, name="table_group_tags") at 0x000001ABBD966780>[00m
+2024-08-19 20:57:58,685 - DEBUG - [34m TagsListDialogWindow config_tw(self, tw):
+table_widget = <PySide6.QtWidgets.QTableWidget(0x1abbb78e140, name="table_ftp_tags") at 0x000001ABBD973040>[00m
+2024-08-19 20:57:58,687 - DEBUG - [34m TagsListDialogWindow config_tw(self, tw):
+table_widget = <PySide6.QtWidgets.QTableWidget(0x1abbb8ed6c0, name="table_editor_project_tags") at 0x000001ABBD958EC0>[00m
+2024-08-19 20:57:58,688 - DEBUG - [34m TagsListDialogWindow config_tw(self, tw):
+table_widget = <PySide6.QtWidgets.QTableWidget(0x1abbb75b960, name="table_editor_group_tags") at 0x000001ABBD958E80>[00m
+2024-08-19 20:57:58,690 - DEBUG - [34m TagsListDialogWindow config_tw(self, tw):
+table_widget = <PySide6.QtWidgets.QTableWidget(0x1abbb7bb7b0, name="table_editor_ftp_tags") at 0x000001ABBD966100>[00m
+2024-08-19 20:57:58,691 - DEBUG - [34m TagsListDialogWindow connecting_actions()[00m
+2024-08-19 20:57:58,691 - DEBUG - [34m TagsListDialogWindow show_tab_project()[00m
+2024-08-19 20:57:58,692 - DEBUG - [34m TagsListDialogWindow caf_two_tables(self, type_table):
+type_table = project_tags[00m
+2024-08-19 20:57:58,692 - DEBUG - [34m TagsListDialogWindow caf_table(self, type_table, editor):
+type_table = project_tags
+editor = False[00m
+2024-08-19 20:57:58,692 - DEBUG - [34m TagsListDialogWindow get_table_by_parameters(self, type_table, editor):
+type_table = project_tags
+editor = False[00m
+2024-08-19 20:57:58,693 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,693 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\project.db[00m
+2024-08-19 20:57:58,694 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-19 20:57:58,694 - DEBUG - [34m ProjectDatabase get_node_data(node) -> list: node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}
+result = [{'id_pair': 100, 'id_node': 0, 'id_tag': 1003, 'name_tag': 'название_объекта', 'value_pair': 'Привет Андрей'}, {'id_pair': 101, 'id_node': 0, 'id_tag': 1004, 'name_tag': 'участок', 'value_pair': None}, {'id_pair': 102, 'id_node': 0, 'id_tag': 1001, 'name_tag': 'название_компании', 'value_pair': None}][00m
+2024-08-19 20:57:58,695 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,695 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\project.db[00m
+2024-08-19 20:57:58,696 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-19 20:57:58,696 - DEBUG - [34m ProjectDatabase get_config_tag(id_tag) -> list: id_tag = 1003
+result = {'id_tag': 1003, 'name_tag': 'название_объекта', 'type_tag': 'TEXT', 'title_tag': 'Название объекта', 'order_tag': 3, 'config_tag': None, 'description_tag': None, 'is_global': 0}[00m
+2024-08-19 20:57:58,697 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,697 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\project.db[00m
+2024-08-19 20:57:58,697 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-19 20:57:58,697 - DEBUG - [34m ProjectDatabase get_config_tag(id_tag) -> list: id_tag = 1004
+result = {'id_tag': 1004, 'name_tag': 'участок', 'type_tag': 'TEXT', 'title_tag': 'Участок', 'order_tag': 4, 'config_tag': None, 'description_tag': None, 'is_global': 0}[00m
+2024-08-19 20:57:58,698 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,699 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\project.db[00m
+2024-08-19 20:57:58,699 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-19 20:57:58,700 - DEBUG - [34m ProjectDatabase get_config_tag(id_tag) -> list: id_tag = 1001
+result = {'id_tag': 1001, 'name_tag': 'название_компании', 'type_tag': 'TEXT', 'title_tag': 'Название компании', 'order_tag': 1, 'config_tag': None, 'description_tag': None, 'is_global': 0}[00m
+2024-08-19 20:57:58,700 - DEBUG - [34m TagsListDialogWindow get_data_by_parameters(self, type_table, editor):
+type_table = project_tags
+editor = False
+data = [{'id_tag': 1003, 'name_tag': 'название_объекта', 'type_tag': 'TEXT', 'title_tag': 'Название объекта', 'order_tag': 3, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1004, 'name_tag': 'участок', 'type_tag': 'TEXT', 'title_tag': 'Участок', 'order_tag': 4, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1001, 'name_tag': 'название_компании', 'type_tag': 'TEXT', 'title_tag': 'Название компании', 'order_tag': 1, 'config_tag': None, 'description_tag': None, 'is_global': 0}][00m
+2024-08-19 20:57:58,703 - DEBUG - [34m TagsListDialogWindow caf_table(self, type_table, editor):
+type_table = project_tags
+editor = True[00m
+2024-08-19 20:57:58,703 - DEBUG - [34m TagsListDialogWindow get_table_by_parameters(self, type_table, editor):
+type_table = project_tags
+editor = True[00m
+2024-08-19 20:57:58,703 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,703 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\project.db[00m
+2024-08-19 20:57:58,706 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-19 20:57:58,707 - DEBUG - [34m ProjectDatabase get_node_data(node) -> list: node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}
+result = [{'id_pair': 100, 'id_node': 0, 'id_tag': 1003, 'name_tag': 'название_объекта', 'value_pair': 'Привет Андрей'}, {'id_pair': 101, 'id_node': 0, 'id_tag': 1004, 'name_tag': 'участок', 'value_pair': None}, {'id_pair': 102, 'id_node': 0, 'id_tag': 1001, 'name_tag': 'название_компании', 'value_pair': None}][00m
+2024-08-19 20:57:58,707 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,708 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\project.db[00m
+2024-08-19 20:57:58,709 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-19 20:57:58,709 - DEBUG - [34m ProjectDatabase get_config_tag(id_tag) -> list: id_tag = 1003
+result = {'id_tag': 1003, 'name_tag': 'название_объекта', 'type_tag': 'TEXT', 'title_tag': 'Название объекта', 'order_tag': 3, 'config_tag': None, 'description_tag': None, 'is_global': 0}[00m
+2024-08-19 20:57:58,709 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,709 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\project.db[00m
+2024-08-19 20:57:58,711 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-19 20:57:58,711 - DEBUG - [34m ProjectDatabase get_config_tag(id_tag) -> list: id_tag = 1004
+result = {'id_tag': 1004, 'name_tag': 'участок', 'type_tag': 'TEXT', 'title_tag': 'Участок', 'order_tag': 4, 'config_tag': None, 'description_tag': None, 'is_global': 0}[00m
+2024-08-19 20:57:58,711 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,711 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\project.db[00m
+2024-08-19 20:57:58,711 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-19 20:57:58,711 - DEBUG - [34m ProjectDatabase get_config_tag(id_tag) -> list: id_tag = 1001
+result = {'id_tag': 1001, 'name_tag': 'название_компании', 'type_tag': 'TEXT', 'title_tag': 'Название компании', 'order_tag': 1, 'config_tag': None, 'description_tag': None, 'is_global': 0}[00m
+2024-08-19 20:57:58,714 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-19 20:57:58,714 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\project.db[00m
+2024-08-19 20:57:58,715 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-19 20:57:58,716 - DEBUG - [34m ProjectDatabase get_project_tags() -> list
+result = [{'id_tag': 1000, 'name_tag': 'организационно_правовая_форма', 'type_tag': 'TEXT', 'title_tag': 'Организационно-правовая форма', 'order_tag': 0, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1001, 'name_tag': 'название_компании', 'type_tag': 'TEXT', 'title_tag': 'Название компании', 'order_tag': 1, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1002, 'name_tag': 'адрес_компании', 'type_tag': 'TEXT', 'title_tag': 'Адрес компании', 'order_tag': 2, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1003, 'name_tag': 'название_объекта', 'type_tag': 'TEXT', 'title_tag': 'Название объекта', 'order_tag': 3, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1004, 'name_tag': 'участок', 'type_tag': 'TEXT', 'title_tag': 'Участок', 'order_tag': 4, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1005, 'name_tag': 'номер_кабеля', 'type_tag': 'TEXT', 'title_tag': 'Номер кабеля', 'order_tag': 5, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1006, 'name_tag': 'заказчик', 'type_tag': 'TEXT', 'title_tag': 'Заказчик', 'order_tag': 6, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1007, 'name_tag': 'строительно_монтажная_организация', 'type_tag': 'TEXT', 'title_tag': 'Строительно-монтажная организация', 'order_tag': 7, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1008, 'name_tag': 'город', 'type_tag': 'TEXT', 'title_tag': 'Город', 'order_tag': 8, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1009, 'name_tag': 'год', 'type_tag': 'DATE', 'title_tag': 'Год', 'order_tag': 9, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1100, 'name_tag': 'инж_про_ком', 'type_tag': 'TEXT', 'title_tag': 'Компания инженера-проектировщика', 'order_tag': 10, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1101, 'name_tag': 'инж_про_ком_фио', 'type_tag': 'TEXT', 'title_tag': 'ФИО инженера-проектировщика', 'order_tag': 11, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1102, 'name_tag': 'гла_инж_компания', 'type_tag': 'TEXT', 'title_tag': 'Компания главного инженера', 'order_tag': 12, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1103, 'name_tag': 'гла_инж_фио', 'type_tag': 'TEXT', 'title_tag': 'ФИО главного инженера', 'order_tag': 13, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1200, 'name_tag': 'реестр_ид_паспорт_трассы', 'type_tag': 'TABLE', 'title_tag': 'Реестр ИД ВОЛС. Паспорт трассы', 'order_tag': 14, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1201, 'name_tag': 'реестр_ид_эл_паспорт_трассы', 'type_tag': 'TABLE', 'title_tag': 'Реестр ИД ВОЛС. Электрический паспорт трассы', 'order_tag': 15, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1202, 'name_tag': 'рабочая_документация', 'type_tag': 'TABLE', 'title_tag': 'Реестр ИД ВОЛС. Рабочая документация', 'order_tag': 16, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1208, 'name_tag': 'дата', 'type_tag': 'DATE', 'title_tag': 'Дата', 'order_tag': 17, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1209, 'name_tag': 'пт_опись_документов', 'type_tag': 'TABLE', 'title_tag': 'Паспорт трассы. Опись документов.', 'order_tag': 18, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1220, 'name_tag': 'кабеля', 'type_tag': 'TABLE', 'title_tag': 'Кабеля.', 'order_tag': 19, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1225, 'name_tag': 'общая_физ_длина', 'type_tag': 'TEXT', 'title_tag': 'Общая физическая длина', 'order_tag': 20, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1226, 'name_tag': 'общая_опт_длина', 'type_tag': 'TEXT', 'title_tag': 'Общая оптическая длина', 'order_tag': 21, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1227, 'name_tag': 'год_прокладки_кабеля', 'type_tag': 'DATE', 'title_tag': 'Год прокладки кабеля', 'order_tag': 22, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1228, 'name_tag': 'год_составления_паспорта', 'type_tag': 'DATE', 'title_tag': 'Год составления паспорта', 'order_tag': 23, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1229, 'name_tag': 'отв_пред_орг_фио ', 'type_tag': 'TEXT', 'title_tag': 'ФИО ответственного представителя организации', 'order_tag': 24, 'config_tag': None, 'description_tag': None, 'is_global': 0}, {'id_tag': 1230, 'name_tag': 'скелетная_схема_ВОЛП', 'type_tag': 'IMAGE', 'title_tag': 'Скелетная схема ВОЛП', 'order_tag': 25, 'config_tag': None, 'description_tag': None, 'is_global': 0}][00m
+2024-08-19 20:57:58,719 - DEBUG - [34m TagsListDialogWindow get_data_by_parameters(self, type_table, editor):
+type_table = project_tags
+editor = True
+editor_data = [{'id_tag': 1000, 'name_tag': 'организационно_правовая_форма', 'type_tag': 'TEXT', 'title_tag': 'Организационно-правовая форма', 'order_tag': 0, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1001, 'name_tag': 'название_компании', 'type_tag': 'TEXT', 'title_tag': 'Название компании', 'order_tag': 1, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': True}, {'id_tag': 1002, 'name_tag': 'адрес_компании', 'type_tag': 'TEXT', 'title_tag': 'Адрес компании', 'order_tag': 2, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1003, 'name_tag': 'название_объекта', 'type_tag': 'TEXT', 'title_tag': 'Название объекта', 'order_tag': 3, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': True}, {'id_tag': 1004, 'name_tag': 'участок', 'type_tag': 'TEXT', 'title_tag': 'Участок', 'order_tag': 4, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': True}, {'id_tag': 1005, 'name_tag': 'номер_кабеля', 'type_tag': 'TEXT', 'title_tag': 'Номер кабеля', 'order_tag': 5, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1006, 'name_tag': 'заказчик', 'type_tag': 'TEXT', 'title_tag': 'Заказчик', 'order_tag': 6, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1007, 'name_tag': 'строительно_монтажная_организация', 'type_tag': 'TEXT', 'title_tag': 'Строительно-монтажная организация', 'order_tag': 7, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1008, 'name_tag': 'город', 'type_tag': 'TEXT', 'title_tag': 'Город', 'order_tag': 8, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1009, 'name_tag': 'год', 'type_tag': 'DATE', 'title_tag': 'Год', 'order_tag': 9, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1100, 'name_tag': 'инж_про_ком', 'type_tag': 'TEXT', 'title_tag': 'Компания инженера-проектировщика', 'order_tag': 10, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1101, 'name_tag': 'инж_про_ком_фио', 'type_tag': 'TEXT', 'title_tag': 'ФИО инженера-проектировщика', 'order_tag': 11, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1102, 'name_tag': 'гла_инж_компания', 'type_tag': 'TEXT', 'title_tag': 'Компания главного инженера', 'order_tag': 12, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1103, 'name_tag': 'гла_инж_фио', 'type_tag': 'TEXT', 'title_tag': 'ФИО главного инженера', 'order_tag': 13, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1200, 'name_tag': 'реестр_ид_паспорт_трассы', 'type_tag': 'TABLE', 'title_tag': 'Реестр ИД ВОЛС. Паспорт трассы', 'order_tag': 14, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1201, 'name_tag': 'реестр_ид_эл_паспорт_трассы', 'type_tag': 'TABLE', 'title_tag': 'Реестр ИД ВОЛС. Электрический паспорт трассы', 'order_tag': 15, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1202, 'name_tag': 'рабочая_документация', 'type_tag': 'TABLE', 'title_tag': 'Реестр ИД ВОЛС. Рабочая документация', 'order_tag': 16, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1208, 'name_tag': 'дата', 'type_tag': 'DATE', 'title_tag': 'Дата', 'order_tag': 17, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1209, 'name_tag': 'пт_опись_документов', 'type_tag': 'TABLE', 'title_tag': 'Паспорт трассы. Опись документов.', 'order_tag': 18, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1220, 'name_tag': 'кабеля', 'type_tag': 'TABLE', 'title_tag': 'Кабеля.', 'order_tag': 19, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1225, 'name_tag': 'общая_физ_длина', 'type_tag': 'TEXT', 'title_tag': 'Общая физическая длина', 'order_tag': 20, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1226, 'name_tag': 'общая_опт_длина', 'type_tag': 'TEXT', 'title_tag': 'Общая оптическая длина', 'order_tag': 21, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1227, 'name_tag': 'год_прокладки_кабеля', 'type_tag': 'DATE', 'title_tag': 'Год прокладки кабеля', 'order_tag': 22, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1228, 'name_tag': 'год_составления_паспорта', 'type_tag': 'DATE', 'title_tag': 'Год составления паспорта', 'order_tag': 23, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1229, 'name_tag': 'отв_пред_орг_фио ', 'type_tag': 'TEXT', 'title_tag': 'ФИО ответственного представителя организации', 'order_tag': 24, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}, {'id_tag': 1230, 'name_tag': 'скелетная_схема_ВОЛП', 'type_tag': 'IMAGE', 'title_tag': 'Скелетная схема ВОЛП', 'order_tag': 25, 'config_tag': None, 'description_tag': None, 'is_global': 0, '_checked': False}][00m
+2024-08-19 20:57:59,931 - DEBUG - [34m TagsListDialogWindow create_tag()[00m
+2024-08-19 20:57:59,931 - DEBUG - [34m NedTagDialogWindow(osbm, type_window):
+type_window = create
+tag = None[00m
+2024-08-19 20:57:59,939 - DEBUG - [34m NedTagDialogWindow config_combobox()[00m
+2024-08-19 20:57:59,939 - DEBUG - [34m TagTypes get_tag_types()[00m
+2024-08-19 20:57:59,939 - DEBUG - [34m NedTagDialogWindow config_by_type_window()[00m
+2024-08-19 20:57:59,939 - DEBUG - [34m NedTagDialogWindow fill_maindata()[00m
+2024-08-19 20:57:59,941 - DEBUG - [34m NedTagDialogWindow config_additional_info(index):
+index = None[00m
+2024-08-19 20:57:59,941 - DEBUG - [34m NedTagDialogWindow connecting_actions()[00m
+2024-08-19 20:57:59,951 - DEBUG - [34m NedTagDialogWindow resize_window()[00m
+2024-08-19 20:58:01,243 - DEBUG - [34m NedTagDialogWindow on_combox_typetag_changed(index):
+index = 1[00m
+2024-08-19 20:58:01,244 - DEBUG - [34m NedTagDialogWindow config_additional_info(index):
+index = 1[00m
+2024-08-19 20:58:01,244 - DEBUG - [34m NedDateTag __init__(osbm, type_window, tag=None):
+type_window = create
+tag = None[00m
+2024-08-19 20:58:01,245 - DEBUG - [34m NedDateTag config_lineedit_format()[00m
+2024-08-19 20:58:01,254 - DEBUG - [34m NedTagDialogWindow resize_window()[00m
+2024-08-19 20:58:02,146 - DEBUG - [34m NedTagDialogWindow on_combox_typetag_changed(index):
+index = 2[00m
+2024-08-19 20:58:02,147 - DEBUG - [34m NedTagDialogWindow config_additional_info(index):
+index = 2[00m
+2024-08-19 20:58:02,147 - DEBUG - [34m NedTableTag __init__(osbm, type_window)[00m
+2024-08-19 20:58:02,148 - DEBUG - [34m NedTableTag config_combox_typetable()[00m
+2024-08-19 20:58:02,152 - DEBUG - [34m NedTableTag config_tw_attrs()[00m
+2024-08-19 20:58:02,153 - DEBUG - [34m NedTableTag connecting_actions()[00m
+2024-08-19 20:58:02,168 - DEBUG - [34m NedTagDialogWindow resize_window()[00m
+2024-08-19 20:58:03,000 - DEBUG - [34m NedTagDialogWindow on_combox_typetag_changed(index):
+index = 3[00m
+2024-08-19 20:58:03,000 - DEBUG - [34m NedTagDialogWindow config_additional_info(index):
+index = 3[00m
+2024-08-19 20:58:03,000 - DEBUG - [34m NedImageTag __init__(osbm, type_window, tag=None):
+type_window = create
+tag = None[00m
+2024-08-19 20:58:03,000 - DEBUG - [34m NedImageTag config_combox_units()[00m
+2024-08-19 20:58:03,000 - DEBUG - [34m Units get_units()[00m
+2024-08-19 20:58:03,006 - DEBUG - [34m NedImageTag config_combox_sms()[00m
+2024-08-19 20:58:03,007 - DEBUG - [34m SizingModes get_sizing_modes()[00m
+2024-08-19 20:58:03,007 - DEBUG - [34m NedImageTag config_by_type_window()[00m
+2024-08-19 20:58:03,008 - DEBUG - [34m NedImageTag connecting_actions()[00m
+2024-08-19 20:58:03,025 - DEBUG - [34m NedTagDialogWindow resize_window()[00m
+2024-08-19 20:58:04,196 - DEBUG - [34m NedTagDialogWindow on_combox_typetag_changed(index):
+index = 2[00m
+2024-08-19 20:58:04,196 - DEBUG - [34m NedTagDialogWindow config_additional_info(index):
+index = 2[00m
+2024-08-19 20:58:04,196 - DEBUG - [34m NedTableTag __init__(osbm, type_window)[00m
+2024-08-19 20:58:04,202 - DEBUG - [34m NedTableTag config_combox_typetable()[00m
+2024-08-19 20:58:04,202 - DEBUG - [34m NedTableTag config_tw_attrs()[00m
+2024-08-19 20:58:04,202 - DEBUG - [34m NedTableTag connecting_actions()[00m
+2024-08-19 20:58:04,217 - DEBUG - [34m NedTagDialogWindow resize_window()[00m
+2024-08-19 20:58:05,188 - DEBUG - [34m NedTagDialogWindow on_combox_typetag_changed(index):
+index = 1[00m
+2024-08-19 20:58:05,194 - DEBUG - [34m NedTagDialogWindow config_additional_info(index):
+index = 1[00m
+2024-08-19 20:58:05,195 - DEBUG - [34m NedDateTag __init__(osbm, type_window, tag=None):
+type_window = create
+tag = None[00m
+2024-08-19 20:58:05,195 - DEBUG - [34m NedDateTag config_lineedit_format()[00m
+2024-08-19 20:58:05,205 - DEBUG - [34m NedTagDialogWindow resize_window()[00m
+2024-08-19 20:58:06,036 - DEBUG - [34m NedTagDialogWindow on_combox_typetag_changed(index):
+index = 0[00m
+2024-08-19 20:58:06,038 - DEBUG - [34m NedTagDialogWindow config_additional_info(index):
+index = 0[00m
+2024-08-19 20:58:06,039 - DEBUG - [34m NedTagDialogWindow resize_window()[00m
+2024-08-19 20:58:07,585 - DEBUG - [34m MainWindow update_main_window()[00m
+2024-08-19 20:58:07,585 - DEBUG - [34m TWStructureExecDoc update_structure_exec_doc()[00m
+2024-08-19 20:58:07,585 - DEBUG - [34m TWStructureExecDoc get_current_node()[00m
+2024-08-19 20:58:07,585 - DEBUG - [34m TWStructureExecDoc clear_tr_sed()[00m
+2024-08-19 20:58:07,585 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-19 20:58:07,585 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-19 20:58:07,585 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-19 20:58:07,585 - DEBUG - [34m SettingsDatabase get_project_current_name():
+result = {'value_setting': 'rdrstre'}[00m
+2024-08-19 20:58:07,585 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-19 20:58:07,585 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\project.db[00m
+2024-08-19 20:58:07,601 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-19 20:58:07,601 - DEBUG - [34m ProjectDatabase get_project_node() -> object:
+result = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}[00m
+2024-08-19 20:58:07,602 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-08-19 20:58:07,602 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-19 20:58:07,602 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/rdrstre\project.db[00m
+2024-08-19 20:58:07,603 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-19 20:58:07,603 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}
+result = [][00m
+2024-08-19 20:58:07,604 - DEBUG - [34m TWStructureExecDoc get_current_node()[00m
+2024-08-19 20:58:07,604 - DEBUG - [34m ComboxTemplates update_combox_templates(node):
+node = None[00m
+2024-08-19 20:58:07,604 - DEBUG - [34m LWPagesTemplate update_pages_template(template):
+template = None[00m
+2024-08-19 20:58:07,604 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-08-19 20:58:07,605 - DEBUG - [34m LWPagesTemplate get_page_by_current_item()[00m
+2024-08-19 20:58:07,605 - DEBUG - [34m SAInputForms update_scrollarea()[00m
+2024-08-19 20:58:07,605 - DEBUG - [34m SAInputForms delete_all_widgets_in_sa()[00m
+2024-08-19 20:58:07,821 - DEBUG - [34m MainWindow ()[00m
+2024-08-19 20:58:07,822 - DEBUG - [34m PdfView set_empty_pdf_view()[00m
+2024-08-19 20:58:07,822 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-19 20:58:07,822 - DEBUG - [34m FileFolderManager clear_temp_folder(is_del_folder):
+is_del_folder = True,
+temp_dirpath = C:\Users\hayar\AppData\Local\Temp\tmp6gksauej[00m
+2024-08-19 20:58:07,823 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-19 20:58:07,824 - DEBUG - [34m OfficePackets terminate_msword()[00m
+2024-08-19 20:58:07,824 - DEBUG - [34m MsWordThread terminate_msword()[00m
+2024-08-19 20:58:07,824 - ERROR - [31m Error in OfficePackets.terminate_msword():
+(-2147220995, 'Объект не подключен к серверу', (None, None, None, 0, None))[00m

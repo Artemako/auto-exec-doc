@@ -21,12 +21,12 @@ class NedTableTag(QWidget):
         # СТИЛЬ
         self.__osbm.obj_style.set_style_for(self)
         #
-        self.__config_tag = self.__tag.get("config_tag")
-        self.__config_dict = dict()
-        if self.__config_tag:
-            self.__config_dict = json.loads(self.__config_tag)
-        #
         self.__data = {"TYPETABLE": None, "ROWCOL": None}
+        self.__config_dict = dict()
+        if self.__tag:
+            self.__config_tag = self.__tag.get("config_tag")
+            if self.__config_tag:
+                self.__config_dict = json.loads(self.__config_tag)
         #
         self.config_combox_typetable()
         self.config_tw_attrs()

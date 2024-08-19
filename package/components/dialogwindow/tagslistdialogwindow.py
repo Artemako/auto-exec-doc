@@ -512,8 +512,9 @@ class TagsListDialogWindow(QDialog):
         result = self.ned_tag_dw("create")
         # TODO create_tag - обработать и сохранить изменения в БД
         if result:
+            ...
             # получить data
-            data = self.__osbm.obj_nedtdw.get_data()            
+            # data = self.__osbm.obj_nedtdw.get_data()            
             # обработать и сохранить изменения в БД
             # обновить таблицу
 

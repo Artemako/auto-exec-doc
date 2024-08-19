@@ -7,7 +7,7 @@ import package.ui.nedtagdialogwindow_ui as nedtagdialogwindow_ui
 
 import package.components.widgets.nedtags.neddatetag as neddatetag
 import package.components.widgets.nedtags.nedtabletag as nedtabletag
-
+import package.components.widgets.nedtags.nedimagetag as nedimagetag
 
 
 class NedTagDialogWindow(QDialog):
@@ -26,7 +26,6 @@ class NedTagDialogWindow(QDialog):
         # одноразовые действия
         self.__additional_widget = None
         self.__data = None
-        self.__icons = self.__osbm.obj_icons.get_icons()
         #
         self.config_combobox()
         self.config_by_type_window()
@@ -53,7 +52,7 @@ class NedTagDialogWindow(QDialog):
         self.ui.btn_nestag.setShortcut("Ctrl+S")
 
     def get_is_valid_jinja_tag(self, name_tag):
-        pattern = r'^[\w.-]+$'  # эквивалентно [a-zA-Z0-9_.-]
+        pattern = r"^[\w.-]+$"  # эквивалентно [a-zA-Z0-9_.-]
         result = bool(re.match(pattern, name_tag))
         self.__osbm.obj_logg.debug_logger(
             f"NedTagDialogWindow get_is_valid_jinja_tag(name_tag):\name_tag = {name_tag}\n result = {result}"
@@ -80,7 +79,9 @@ class NedTagDialogWindow(QDialog):
         elif not is_valid_jinja_tag:
             self.__osbm.obj_dw.warning_message("Уберите пробелы из имени тега.")
         else:
-            self.__osbm.obj_dw.warning_message("Поле тега содержит недопустимые символы.")
+            self.__osbm.obj_dw.warning_message(
+                "Поле тега содержит недопустимые символы."
+            )
 
     def add_new_tag(self):
         self.__osbm.obj_logg.debug_logger("NedTagDialogWindow add_new_tag()")
@@ -94,9 +95,7 @@ class NedTagDialogWindow(QDialog):
         le_nametag = self.ui.lineedit_nametag.text()
         name_tag = self.__osbm.obj_prodb.get_tag_by_name(le_nametag)
         if name_tag:
-            self.__osbm.obj_dw.warning_message(
-                "Тег с таким именем уже существует."
-            )
+            self.__osbm.obj_dw.warning_message("Тег с таким именем уже существует.")
         else:
             self.accept()
 
@@ -111,7 +110,7 @@ class NedTagDialogWindow(QDialog):
         # проверка на уникальность
         le_nametag = self.ui.lineedit_nametag.text()
         old_name_tag = self.__tag.get("name_tag")
-        name_tag = self.__osbm.obj_prodb.get_tag_by_name(le_nametag)        
+        name_tag = self.__osbm.obj_prodb.get_tag_by_name(le_nametag)
         if le_nametag == old_name_tag:
             # ↑ если имя тега не изменилось
             self.accept()
@@ -121,7 +120,6 @@ class NedTagDialogWindow(QDialog):
             )
         else:
             self.accept()
-            
 
     def on_combox_typetag_changed(self, index):
         self.__osbm.obj_logg.debug_logger(
@@ -139,9 +137,7 @@ class NedTagDialogWindow(QDialog):
         self.ui.combox_typetag.blockSignals(False)
 
     def config_by_type_window(self):
-        self.__osbm.obj_logg.debug_logger(
-            "NedTagDialogWindow config_by_type_window()"
-        )
+        self.__osbm.obj_logg.debug_logger("NedTagDialogWindow config_by_type_window()")
         if self.__type_window == "create":
             self.ui.btn_nestag.setText("Добавить тэг")
 
@@ -154,7 +150,9 @@ class NedTagDialogWindow(QDialog):
         if self.__tag:
             self.ui.lineedit_nametag.setText(self.__tag.get("name_tag"))
             self.ui.lineedit_titletag.setText(self.__tag.get("title_tag"))
-            index = self.find_index_by_type(self.__tag.get("type_tag"))
+            index = self.__osbm.obj_com.tag_types.get_index_by_type_tag(
+                self.__tag.get("type_tag")
+            )
             self.ui.combox_typetag.blockSignals(True)
             self.ui.combox_typetag.setCurrentIndex(index)
             self.ui.combox_typetag.blockSignals(False)
@@ -173,7 +171,12 @@ class NedTagDialogWindow(QDialog):
             f"NedTagDialogWindow config_additional_info(index):\nindex = {index}"
         )
         if index is None:
-            index = self.find_index_by_type(self.__tag.get("type_tag"))
+            if self.__tag:
+                index = self.__osbm.obj_com.tag_types.get_index_by_type_tag(
+                    self.__tag.get("type_tag")
+                )
+            else:
+                index = 0
         self.clear_layout(self.ui.vbl_additional_info)
         self.__additional_widget = None
         if index == 1:
@@ -186,9 +189,11 @@ class NedTagDialogWindow(QDialog):
                 self.__osbm, self.__type_window, self.__tag
             )
             self.ui.vbl_additional_info.addWidget(self.__additional_widget)
-        # TODO Изображение
-        # elif index == 3:
-        #     new_widget = ...
+        elif index == 3:
+            self.__additional_widget = nedimagetag.NedImageTag(
+                self.__osbm, self.__type_window, self.__tag
+            )
+            self.ui.vbl_additional_info.addWidget(self.__additional_widget)
         QTimer.singleShot(0, self, lambda: self.resize_window())
 
     def resize_window(self):
@@ -201,12 +206,3 @@ class NedTagDialogWindow(QDialog):
         self.setMinimumWidth(width)
         self.adjustSize()
         self.setMinimumWidth(min_width)
-
-    def find_index_by_type(self, type_tag):
-        self.__osbm.obj_logg.debug_logger(
-            f"NedTagDialogWindow find_index_by_type(type_tag):\ntype_tag = {type_tag}"
-        )
-        tag_types = self.__osbm.obj_com.tag_types.get_tag_types()
-        for tag in tag_types:
-            if tag.type_tag == type_tag:
-                return tag.index
