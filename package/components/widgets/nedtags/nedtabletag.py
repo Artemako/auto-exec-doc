@@ -21,7 +21,7 @@ class NedTableTag(QWidget):
         # СТИЛЬ
         self.__osbm.obj_style.set_style_for(self)
         #
-        self.__data = {"TYPETABLE": None, "ROWCOL": None}
+        self.__data = None
         self.__config_dict = dict()
         if self.__tag:
             self.__config_tag = self.__tag.get("config_tag")
@@ -120,3 +120,4 @@ class NedTableTag(QWidget):
     def save_data(self):
         # TODO save_data
         self.__osbm.obj_logg.debug_logger("NedTableTag save_data()")
+        self.__data = {"TYPETABLE": None, "ROWCOL": None}

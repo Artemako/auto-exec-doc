@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QDialog, QListWidgetItem, QListWidget
-from PySide6.QtCore import Qt, QTimer
+from PySide6.QtCore import Qt, QTimer, QSize
 
 from functools import partial
 
@@ -26,12 +26,34 @@ class TemplatesListDialogWindow(QDialog):
         self.__pages = []
         self.__templates_items = []
         self.__pages_items = []
+
         # конфигурация
         self.config_lws()
         # 
         self.reconfig("REFORM")
         # # подключаем деействия
         self.connecting_actions()
+
+    def resizeEvent(self, event):
+        super(TemplatesListDialogWindow, self).resizeEvent(event)    
+        QTimer.singleShot(0, self, self.update_sizes)
+    
+    def update_sizes(self):
+        # resize_templates_items
+        for item in self.__templates_items:
+            widget = self.ui.lw_templates.itemWidget(item)
+            item.setSizeHint(item.sizeHint().boundedTo(self.ui.lw_templates.sizeHint()))
+            if widget is not None:
+                widget_size = widget.sizeHint()
+                widget.setFixedSize(QSize(self.ui.lw_pages.size().width() - 2, widget_size.height()))
+        # resize_pages_items
+        for item in self.__pages_items:
+            widget = self.ui.lw_pages.itemWidget(item)
+            item.setSizeHint(item.sizeHint().boundedTo(self.ui.lw_pages.sizeHint()))
+            if widget is not None:
+                widget_size = widget.sizeHint()
+                widget.setFixedSize(QSize(self.ui.lw_pages.size().width() - 2, widget_size.height()))
+        
 
     def reconfig(self, type_reconfig = "", open_form = None, open_template = None, open_page = None):
         self.__osbm.obj_logg.debug_logger(f"TemplatesListDialogWindow reconfig(type_reconfig): type_reconfig = {type_reconfig}")
@@ -195,19 +217,6 @@ class TemplatesListDialogWindow(QDialog):
         )
         self.ui.lw_templates.currentItemChanged.connect(lambda item: self.reconfig("REPAGE"))
 
-    def resizeEvent(self, event):
-        super(TemplatesListDialogWindow, self).resizeEvent(event)
-        self.resize_templates_items()
-        self.resize_pages_items()
-
-    def resize_templates_items(self):
-        for item in self.__templates_items:
-            item.setSizeHint(item.sizeHint().boundedTo(self.ui.lw_templates.sizeHint()))
-
-    def resize_pages_items(self):
-        for item in self.__pages_items:
-            item.setSizeHint(item.sizeHint().boundedTo(self.ui.lw_pages.sizeHint()))
-        
 
     def edit_item(self, type_window, data):
         self.__osbm.obj_logg.debug_logger(

@@ -109,8 +109,8 @@ class NedImageTag(QWidget):
         self.__osbm.obj_logg.debug_logger("NedImageTag save_data()")
         unit_data = self.ui.combox_units.currentData()
         sizing_mode_data = self.ui.combox_sms.currentData()
-        width = float(self.ui.edit_width.text().replace(",","."))
-        height = float(self.ui.edit_height.text().replace(",","."))
+        width = float(self.ui.dsb_width.text().replace(",","."))
+        height = float(self.ui.dsb_height.text().replace(",","."))
         self.__data = {
             "UNIT": unit_data,
             "SIZINGMODE": sizing_mode_data,

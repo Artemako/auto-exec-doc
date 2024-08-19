@@ -23,7 +23,7 @@ class Ui_CustomItemQListWidget(object):
     def setupUi(self, CustomItemQListWidget):
         if not CustomItemQListWidget.objectName():
             CustomItemQListWidget.setObjectName(u"CustomItemQListWidget")
-        CustomItemQListWidget.resize(300, 28)
+        CustomItemQListWidget.resize(416, 28)
         CustomItemQListWidget.setMinimumSize(QSize(0, 0))
         CustomItemQListWidget.setMaximumSize(QSize(1515, 16777215))
         self.horizontalLayout = QHBoxLayout(CustomItemQListWidget)

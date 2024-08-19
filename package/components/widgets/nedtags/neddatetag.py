@@ -18,9 +18,7 @@ class NedDateTag(QWidget):
         # СТИЛЬ
         self.__osbm.obj_style.set_style_for(self)
         #
-        self.__data = {
-            "FORMAT": None
-        }
+        
         self.__config_dict = dict()
         if self.__tag:
             self.__config_tag = self.__tag.get("config_tag")
@@ -41,5 +39,7 @@ class NedDateTag(QWidget):
 
     def save_data(self):
         str_format = self.ui.lineedit_format.text()
-        self.__data["FORMAT"] = str_format
+        self.__data = {
+            "FORMAT": str_format
+        }
 
