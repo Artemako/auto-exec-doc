@@ -69,7 +69,7 @@ class FormImage(QWidget):
             # текст выбранного изображения
             self.ui.label.setText(os.path.basename(image_dirpath))
             # имя нового изображения
-            file_name = f"img_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
+            file_name = f"img_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
             file_name_with_png = f"{file_name}.png"
 
             # путь к временной папке

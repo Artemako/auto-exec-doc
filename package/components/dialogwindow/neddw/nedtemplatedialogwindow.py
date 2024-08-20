@@ -11,7 +11,7 @@ class NedTemplateDialogWindow(QDialog):
         self.__templates = templates
         self.__template = template
         self.__osbm.obj_logg.debug_logger(
-            f"NedTemplateDialogWindow __init__(osbm, type_ned):\ntype_ned = {type_ned},\templates = {templates}\ntemplate = {template}"
+            f"NedTemplateDialogWindow __init__(osbm, type_ned):\ntype_ned = {type_ned},\ntemplates = {templates}\ntemplate = {template}"
         )
         super(NedTemplateDialogWindow, self).__init__()
         self.ui = nedtemplatedialogwindow_ui.Ui_NedTemplateDialogWindow()

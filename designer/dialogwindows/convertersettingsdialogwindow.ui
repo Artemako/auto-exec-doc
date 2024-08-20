@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>566</width>
+    <width>546</width>
     <height>120</height>
    </rect>
   </property>
@@ -77,7 +77,7 @@
            <string>Microsoft Word</string>
           </property>
           <property name="icon">
-           <iconset resource="../../resources.qrc">
+           <iconset>
             <normaloff>:/icons/resources/icons/msword.svg</normaloff>:/icons/resources/icons/msword.svg</iconset>
           </property>
          </widget>
@@ -88,7 +88,7 @@
            <string>LibreOffice</string>
           </property>
           <property name="icon">
-           <iconset resource="../../resources.qrc">
+           <iconset>
             <normaloff>:/icons/resources/icons/libreoffice.svg</normaloff>:/icons/resources/icons/libreoffice.svg</iconset>
           </property>
          </widget>
@@ -137,7 +137,7 @@
         <string>Сохранить</string>
        </property>
        <property name="icon">
-        <iconset resource="../../resources.qrc">
+        <iconset>
          <normaloff>:/icons/resources/icons/save.svg</normaloff>:/icons/resources/icons/save.svg</iconset>
        </property>
       </widget>
@@ -148,7 +148,7 @@
         <string>Закрыть</string>
        </property>
        <property name="icon">
-        <iconset resource="../../resources.qrc">
+        <iconset>
          <normaloff>:/icons/resources/icons/close.svg</normaloff>:/icons/resources/icons/close.svg</iconset>
        </property>
       </widget>

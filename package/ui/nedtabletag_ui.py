@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHeaderView,
-    QLabel, QPushButton, QSizePolicy, QTableWidget,
-    QTableWidgetItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QLabel,
+    QListWidget, QListWidgetItem, QPushButton, QSizePolicy,
+    QVBoxLayout, QWidget)
 
 class Ui_NedTableTag(object):
     def setupUi(self, NedTableTag):
@@ -47,10 +47,10 @@ class Ui_NedTableTag(object):
 
         self.verticalLayout.addWidget(self.label_rowcol)
 
-        self.tw_attrs = QTableWidget(NedTableTag)
-        self.tw_attrs.setObjectName(u"tw_attrs")
+        self.lw_attrs = QListWidget(NedTableTag)
+        self.lw_attrs.setObjectName(u"lw_attrs")
 
-        self.verticalLayout.addWidget(self.tw_attrs)
+        self.verticalLayout.addWidget(self.lw_attrs)
 
         self.btn_addrowcol = QPushButton(NedTableTag)
         self.btn_addrowcol.setObjectName(u"btn_addrowcol")

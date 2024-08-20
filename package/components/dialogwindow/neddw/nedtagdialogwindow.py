@@ -52,7 +52,7 @@ class NedTagDialogWindow(QDialog):
         self.ui.btn_nestag.setShortcut("Ctrl+S")
 
     def get_is_valid_jinja_tag(self, name_tag):
-        pattern = r"^[\w.-]+$"  # эквивалентно [a-zA-Z0-9_.-]
+        pattern = r"^[\w-]+$"  # эквивалентно [a-zA-Z0-9_-]
         result = bool(re.match(pattern, name_tag))
         self.__osbm.obj_logg.debug_logger(
             f"NedTagDialogWindow get_is_valid_jinja_tag(name_tag):\name_tag = {name_tag}\n result = {result}"
@@ -71,17 +71,14 @@ class NedTagDialogWindow(QDialog):
             elif self.__type_window == "edit":
                 self.save_edit_tag()
         elif le_nametag == "" and le_titletag == "" and is_valid_jinja_tag:
-            self.__osbm.obj_dw.warning_message("Заполните все поля")
+            self.__osbm.obj_dw.warning_message("Заполните все поля.")
         elif le_nametag == "":
-            self.__osbm.obj_dw.warning_message("Заполните поле тега")
+            self.__osbm.obj_dw.warning_message("Заполните поле тега.")
         elif le_titletag == "":
-            self.__osbm.obj_dw.warning_message("Заполните поле названия тега")
+            self.__osbm.obj_dw.warning_message("Заполните поле названия тега.")
         elif not is_valid_jinja_tag:
-            self.__osbm.obj_dw.warning_message("Уберите пробелы из имени тега.")
-        else:
-            self.__osbm.obj_dw.warning_message(
-                "Поле тега содержит недопустимые символы."
-            )
+            self.__osbm.obj_dw.warning_message("Тег содержит недопустимые символы.")
+
 
     def add_new_tag(self):
         self.__osbm.obj_logg.debug_logger("NedTagDialogWindow add_new_tag()")
@@ -116,7 +113,7 @@ class NedTagDialogWindow(QDialog):
             self.accept()
         elif name_tag:
             self.__osbm.obj_dw.warning_message(
-                "Другой тег с таким именем уже существует."
+                "Такой тег уже существует."
             )
         else:
             self.accept()
@@ -131,9 +128,9 @@ class NedTagDialogWindow(QDialog):
         self.__osbm.obj_logg.debug_logger("NedTagDialogWindow config_combobox()")
         self.ui.combox_typetag.blockSignals(True)
         self.ui.combox_typetag.clear()
-        tag_types = self.__osbm.obj_com.tag_types.get_tag_types()
+        tag_types = self.__osbm.obj_comwith.tag_types.get_tag_types()
         for tag in tag_types:
-            self.ui.combox_typetag.addItem(tag.icon, tag.name_type_tag)
+            self.ui.combox_typetag.addItem(tag.icon, tag.name)
         self.ui.combox_typetag.blockSignals(False)
 
     def config_by_type_window(self):
@@ -150,7 +147,7 @@ class NedTagDialogWindow(QDialog):
         if self.__tag:
             self.ui.lineedit_nametag.setText(self.__tag.get("name_tag"))
             self.ui.lineedit_titletag.setText(self.__tag.get("title_tag"))
-            index = self.__osbm.obj_com.tag_types.get_index_by_type_tag(
+            index = self.__osbm.obj_comwith.tag_types.get_index_by_data(
                 self.__tag.get("type_tag")
             )
             self.ui.combox_typetag.blockSignals(True)
@@ -172,7 +169,7 @@ class NedTagDialogWindow(QDialog):
         )
         if index is None:
             if self.__tag:
-                index = self.__osbm.obj_com.tag_types.get_index_by_type_tag(
+                index = self.__osbm.obj_comwith.tag_types.get_index_by_data(
                     self.__tag.get("type_tag")
                 )
             else:

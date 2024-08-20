@@ -24,7 +24,7 @@ class Ui_ConverterSettingsDialogWindow(object):
     def setupUi(self, ConverterSettingsDialogWindow):
         if not ConverterSettingsDialogWindow.objectName():
             ConverterSettingsDialogWindow.setObjectName(u"ConverterSettingsDialogWindow")
-        ConverterSettingsDialogWindow.resize(566, 120)
+        ConverterSettingsDialogWindow.resize(546, 120)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)

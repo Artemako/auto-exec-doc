@@ -27,6 +27,8 @@ class CustomItemQListWidget(QWidget):
             self.ui.label_text.setText(self.__data.get("name_template"))
         elif self.__type_window == "PAGE":
             self.ui.label_text.setText(self.__data.get("name_page"))
+        elif self.__type_window == "ROWCOL":
+            self.ui.label_text.setText(self.__data.get("NAME"))
 
     def get_btn_edit(self):
         self.__osbm.obj_logg.debug_logger("CustomItemQListWidget get_btn_edit()")

@@ -182,7 +182,7 @@ class NedPageDialogWindow(QDialog):
         self.__osbm.obj_logg.debug_logger(f"NedPageDialogWindow extract_jinja_tags(docx_path) -> set:\ndocx_path = {docx_path}")
         try:
             doc = Document(docx_path)
-            # Регулярное выражение для поиска Jinja тегов
+            # Регулярное выражение для поиска всех Jinja тегов
             jinja_pattern = r"\{\%.*?\%\}|\{\{.*?\}\}"
             jinja_tags = []
             # Обходим все параграфы в документе
@@ -218,7 +218,10 @@ class NedPageDialogWindow(QDialog):
         combobox.clear()
         current_index = 0
         flag = True
-        combobox.addItem("- В начало -", "START")
+        if self.__page and self.__page.get("order_page") == 0:
+            pass
+        else:
+            combobox.addItem("- В начало -", "START")
         for index, page in enumerate(self.__pages):
             if self.__page and self.__page.get("id_page") == page.get("id_page"):
                 flag = False
@@ -246,7 +249,7 @@ class NedPageDialogWindow(QDialog):
             # текст
             self.ui.label_file.setText(os.path.basename(docx_path))
             # образуем название документа
-            file_name = f"docx_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
+            file_name = f"docx_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
             self.__page_filename = file_name
             file_name_with_docx = f"{file_name}.docx"
             # путь к временной папке

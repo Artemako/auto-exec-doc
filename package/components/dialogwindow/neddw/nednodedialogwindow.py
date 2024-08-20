@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QDialog
+from PySide6.QtWidgets import QDialog, QSizePolicy
 
 import package.ui.nednodedialogwindow_ui as nednodedialogwindow_ui
 
@@ -19,12 +19,18 @@ class NedNodeDialogWindow(QDialog):
         self.ui.setupUi(self)
         # СТИЛЬ
         self.__osbm.obj_style.set_style_for(self)
+        self.__osbm.obj_comwith.resizeqt.set_minfixed_height(self)
         #
         self.__data = []
         # одноразовые действия
         self.config_maindata()
         self.config_placementdata()
         self.connecting_actions()
+
+    def set_minfixed_height(self):
+        print("ДЕТКА")
+        
+
 
     def get_data(self):
         self.__osbm.obj_logg.debug_logger(
@@ -122,15 +128,18 @@ class NedNodeDialogWindow(QDialog):
         current_index = 0
         parent_node = self.ui.combox_parent.currentData()
         if parent_node:
-            combobox.addItem("- В начало -", "start")
+            if self.__type_window == "edit" and self.__node.get("order_node") != "0":
+                pass
+            else:
+                combobox.addItem("- В начало -", "START")
             childs_nodes = self.get_childs(parent_node)
             if self.__type_window == "create":
                 for index, child_node in enumerate(childs_nodes):
-                    combobox.addItem("После " + child_node.get("name_node"), child_node)
+                    combobox.addItem("После: " + child_node.get("name_node"), child_node)
             else:
                 for index, child_node in enumerate(childs_nodes):
                     if self.__node.get("id_node") != child_node.get("id_node"):
-                        combobox.addItem("После " + child_node.get("name_node"), child_node)
+                        combobox.addItem("После: " + child_node.get("name_node"), child_node)
                     else:
                         current_index = index
         combobox.setCurrentIndex(current_index)
@@ -227,7 +236,7 @@ class NedNodeDialogWindow(QDialog):
                 # вставка вершины в группу
                 self.__node["name_node"] = self.ui.lineedit_namenode.text()
                 self.__node["id_parent"] = new_parent_node.get("id_node")
-                if neighboor_node == "start":
+                if neighboor_node == "START":
                     # вставить в самое начало
                     childs_nodes.insert(0, self.__node)
                 else:

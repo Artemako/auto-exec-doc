@@ -65,7 +65,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QTableWidget" name="tw_attrs"/>
+    <widget class="QListWidget" name="lw_attrs"/>
    </item>
    <item>
     <widget class="QPushButton" name="btn_addrowcol">

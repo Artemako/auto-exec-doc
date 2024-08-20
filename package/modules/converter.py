@@ -37,7 +37,7 @@ class ConverterPool:
         )
         # было page.get("filename_page") вместо page.get("id_page")
         form_page_name = page.get("id_page")
-        docx_pdf_page_name = f"""page_{page.get("id_page")}_{datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')}"""
+        docx_pdf_page_name = f"""page_{page.get("id_page")}_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S%f')}"""
         # добыть информация для SectionInfo
         if is_local:
             local_osbm.obj_seci.update_sections_info(page)

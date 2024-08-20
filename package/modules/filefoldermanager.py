@@ -2,7 +2,7 @@ import os
 import shutil
 import base64
 import datetime
-
+import uuid
 
 class FileFolderManagerObjectsManager:
     def __init__(self, osbm):
@@ -194,7 +194,8 @@ class FileFolderManager:
         forms_folder_dirpath = self.__osbm.obj_dirm.get_forms_folder_dirpath()
         old_page_path = os.path.join(forms_folder_dirpath, old_page_filename + ".docx")
         # генерируем новый id для новой страницы
-        new_page_filename = f"docx_{id(old_page_path)%1000}_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
+        unique_id = f"{str(uuid.uuid4().int)[:3]}-{id(old_page_path)%100}" 
+        new_page_filename = f"docx_{unique_id}_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
         new_page_path = os.path.join(forms_folder_dirpath, new_page_filename + ".docx")
         self.copy_file(old_page_path, new_page_path)
         return new_page_filename

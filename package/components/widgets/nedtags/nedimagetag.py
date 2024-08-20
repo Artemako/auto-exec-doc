@@ -36,9 +36,9 @@ class NedImageTag(QWidget):
         combobox = self.ui.combox_units
         combobox.blockSignals(True)
         combobox.clear()
-        units = self.__osbm.obj_com.units.get_units()
+        units = self.__osbm.obj_comwith.units.get_units()
         for unit in units:
-            combobox.addItem(unit.name_unit, unit.data_unit)
+            combobox.addItem(unit.name, unit.data)
         combobox.blockSignals(False)
 
     def config_combox_sms(self):
@@ -46,9 +46,9 @@ class NedImageTag(QWidget):
         combobox = self.ui.combox_sms
         combobox.blockSignals(True)
         combobox.clear()
-        sizing_modes = self.__osbm.obj_com.sizing_modes.get_sizing_modes()
+        sizing_modes = self.__osbm.obj_comwith.sizing_modes.get_sizing_modes()
         for sizing_mode in sizing_modes:
-            combobox.addItem(sizing_mode.name_sizing_mode, sizing_mode.data_sizing_mode)
+            combobox.addItem(sizing_mode.name, sizing_mode.data)
         combobox.blockSignals(False)
 
     def config_by_type_window(self):
@@ -65,9 +65,9 @@ class NedImageTag(QWidget):
             width = self.__config_dict.get("WIDTH")
             height = self.__config_dict.get("HEIGHT")
             # узнаем индексы по значению для комбобоксов
-            index_unit = self.__osbm.obj_com.units.get_unit_by_data_unit(unit)
+            index_unit = self.__osbm.obj_comwith.units.get_unit_by_data(unit)
             index_unit = index_unit if index_unit else 0
-            index_sizing_mode = self.__osbm.obj_com.sizing_modes.get_sizing_mode_by_data_sizing_mode(sizing_mode)
+            index_sizing_mode = self.__osbm.obj_comwith.sizing_modes.get_sizing_mode_by_data(sizing_mode)
             index_sizing_mode = index_sizing_mode if index_sizing_mode else 0
             #
             self.ui.combox_units.setCurrentIndex(index_unit)
@@ -92,7 +92,7 @@ class NedImageTag(QWidget):
 
     def set_enabled_wh_by_index(self, index): 
         self.__osbm.obj_logg.debug_logger(f"NedImageTag combox_sms_index_changed(index): index = {index}")
-        is_wh = self.__osbm.obj_com.sizing_modes.get_is_wh_by_index(index)
+        is_wh = self.__osbm.obj_comwith.sizing_modes.get_is_wh_by_index(index)
         if is_wh:
             self.set_enabled_for_width_height(True)
         else:

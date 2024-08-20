@@ -28,7 +28,7 @@ class MainWindow(QMainWindow):
         # Подключаем действия
         self.connecting_actions()
         # Запускаем Common после инициализации QGuiApplication
-        self.__osbm.obj_com.run()
+        self.__osbm.obj_comwith.run()
 
     def config(self):
         self.__osbm.obj_logg.debug_logger("MainWindow config()")
