@@ -65,7 +65,7 @@
      <item>
       <widget class="QDoubleSpinBox" name="dsb_height">
        <property name="maximum">
-        <double>10000.000000000000000</double>
+        <double>99999.990000000005239</double>
        </property>
       </widget>
      </item>
@@ -79,7 +79,7 @@
      <item>
       <widget class="QDoubleSpinBox" name="dsb_width">
        <property name="maximum">
-        <double>10000.000000000000000</double>
+        <double>99999.990000000005239</double>
        </property>
       </widget>
      </item>

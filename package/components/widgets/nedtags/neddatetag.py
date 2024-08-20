@@ -20,7 +20,7 @@ class NedDateTag(QWidget):
         #
         
         self.__config_dict = dict()
-        if self.__tag:
+        if self.__tag and self.__tag.get("type_tag") == "DATE":
             self.__config_tag = self.__tag.get("config_tag")
             if self.__config_tag:
                 self.__config_dict = json.loads(self.__config_tag)

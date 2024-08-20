@@ -34,7 +34,7 @@ class NedTableTag(QWidget):
         self.__config_dict = dict()
         self.__rowcols_items = []
         #
-        if self.__tag:
+        if self.__tag and self.__tag.get("type_tag") == "TABLE":
             self.__config_tag = self.__tag.get("config_tag")
             if self.__config_tag:
                 self.__config_dict = json.loads(self.__config_tag)

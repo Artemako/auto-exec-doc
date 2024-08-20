@@ -61,7 +61,7 @@ class Ui_NedImageTag(object):
 
         self.dsb_height = QDoubleSpinBox(NedImageTag)
         self.dsb_height.setObjectName(u"dsb_height")
-        self.dsb_height.setMaximum(10000.000000000000000)
+        self.dsb_height.setMaximum(99999.990000000005239)
 
         self.hl_width.addWidget(self.dsb_height)
 
@@ -72,7 +72,7 @@ class Ui_NedImageTag(object):
 
         self.dsb_width = QDoubleSpinBox(NedImageTag)
         self.dsb_width.setObjectName(u"dsb_width")
-        self.dsb_width.setMaximum(10000.000000000000000)
+        self.dsb_width.setMaximum(99999.990000000005239)
 
         self.hl_width.addWidget(self.dsb_width)
 

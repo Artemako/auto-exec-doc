@@ -11,7 +11,7 @@ from PySide6.QtWidgets import (
     QWidget,
     QHeaderView,
 )
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QTimer
 
 from functools import partial
 
@@ -43,6 +43,7 @@ class TagsListDialogWindow(QDialog):
         #
         self.__icons = self.__osbm.obj_icons.get_icons()
         self.__all_tags = None
+        self.__vertical_scroll_position_by_parameters = {}
         # config
         self.config()
         self.config_tws()
@@ -360,15 +361,15 @@ class TagsListDialogWindow(QDialog):
         self.ui.combox_pages.blockSignals(False)
         self.ui.combox_pages.show()
 
-    def caf_two_tables(self, type_table):
+    def caf_two_tables(self, type_table, open_tag=None):
         """
         Логика такая же, что и в reconfig в других QDialogs.
         """
         self.__osbm.obj_logg.debug_logger(
             f"TagsListDialogWindow caf_two_tables(self, type_table):\ntype_table = {type_table}"
         )
-        self.caf_table(type_table, editor=False)
-        self.caf_table(type_table, editor=True)
+        self.caf_table(type_table, False, open_tag)
+        self.caf_table(type_table, True, open_tag)
 
     def config_tws(self):
         self.__osbm.obj_logg.debug_logger("TagsListDialogWindow config_tws()")
@@ -417,15 +418,19 @@ class TagsListDialogWindow(QDialog):
         # Запрет на редактирование
         table_widget.setEditTriggers(QTableWidget.NoEditTriggers)
         # Отключаем возможность выделения
-        table_widget.setSelectionMode(QAbstractItemView.NoSelection)
+        # table_widget.setSelectionMode(QAbstractItemView.NoSelection)
         # table_widget.sortByColumn(0, Qt.AscendingOrder)
 
-    def caf_table(self, type_table, editor=False):
+
+    def caf_table(self, type_table, editor=False, open_tag=None):
         self.__osbm.obj_logg.debug_logger(
             f"TagsListDialogWindow caf_table(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}"
         )
-        # заполнение таблицы
         table_widget = self.get_table_by_parameters(type_table, editor)
+        # вертикальный ползунок
+        vertical_scroll_position = table_widget.verticalScrollBar().value()
+        self.__vertical_scroll_position_by_parameters[type_table, editor] = vertical_scroll_position
+        # очистка таблицы
         table_widget.clearContents()
         table_widget.setRowCount(0)
         table_widget.setSortingEnabled(False)
@@ -460,46 +465,59 @@ class TagsListDialogWindow(QDialog):
             table_widget.setItem(row, 1, qtwt_name_tag)
             table_widget.setItem(row, 2, qtwt_title_tag)
             table_widget.setItem(row, 3, qtwt_type_tag)
+            # если editor
             if editor:
-                # checkbox
-                checkbtn = QCheckBox(text="вкл.")
-                is_checked = item.get("_checked")
-                if is_checked is None:
-                    is_checked = False
-                checkbtn.setChecked(is_checked)
-                # Добавляем значение для сортировки
-                sort_value = "ДА" if is_checked else "НЕТ"
-                table_widget.setItem(row, 4, QTableWidgetItem(sort_value))
-                # кнопки
-                edit_button = QPushButton()
-                qicon_edit_button = self.__icons.get("pen")
-                edit_button.setIcon(qicon_edit_button)
-                #
-                delete_button = QPushButton()
-                qicon_delete_button = self.__icons.get("trash")
-                delete_button.setIcon(qicon_delete_button)
-                #
-                edit_button.custom_data = item
-                delete_button.custom_data = item
-                # добавление кнопок в layout
-                layout = QHBoxLayout()
-                layout.addWidget(checkbtn)
-                layout.addWidget(edit_button)
-                layout.addWidget(delete_button)
-                layout.setContentsMargins(4, 0, 4, 0)
-                widget = QWidget()
-                widget.setLayout(layout)
-                table_widget.setCellWidget(row, 5, widget)
-                # обработчики
-                edit_button.clicked.connect(partial(self.edit_tag, btn=edit_button))
-                delete_button.clicked.connect(
-                    partial(self.delete_tag, btn=delete_button, type_table=type_table)
-                )
+                self.item_tw_editor(table_widget, item, row, type_table)
+            # если open_tag
+            if open_tag and open_tag.get("id_tag") == item.get("id_tag"):
+                table_widget.selectRow(row)
+                QTimer.singleShot(3000, lambda: table_widget.clearSelection())
+                
         # включить сортировку после заполнения данных
         table_widget.setSortingEnabled(True)
         table_widget.sortByColumn(0, Qt.AscendingOrder)
         # Изменение размеров столбцов
         table_widget.resizeColumnsToContents()
+        # Вертикальный ползунок
+        vertical_scroll_position = self.__vertical_scroll_position_by_parameters.get((type_table, editor), 0)
+        table_widget.verticalScrollBar().setValue(vertical_scroll_position)
+
+
+    def item_tw_editor(self, table_widget, item, row, type_table):
+        # checkbox
+        checkbtn = QCheckBox(text="вкл.")
+        is_checked = item.get("_checked")
+        if is_checked is None:
+            is_checked = False
+        checkbtn.setChecked(is_checked)
+        # Добавляем значение для сортировки
+        sort_value = "ДА" if is_checked else "НЕТ"
+        table_widget.setItem(row, 4, QTableWidgetItem(sort_value))
+        # кнопки
+        edit_button = QPushButton()
+        qicon_edit_button = self.__icons.get("pen")
+        edit_button.setIcon(qicon_edit_button)
+        #
+        delete_button = QPushButton()
+        qicon_delete_button = self.__icons.get("trash")
+        delete_button.setIcon(qicon_delete_button)
+        #
+        edit_button.custom_data = item
+        delete_button.custom_data = item
+        # добавление кнопок в layout
+        layout = QHBoxLayout()
+        layout.addWidget(checkbtn)
+        layout.addWidget(edit_button)
+        layout.addWidget(delete_button)
+        layout.setContentsMargins(4, 0, 4, 0)
+        widget = QWidget()
+        widget.setLayout(layout)
+        table_widget.setCellWidget(row, 5, widget)
+        # обработчики
+        edit_button.clicked.connect(partial(self.edit_tag, btn=edit_button))
+        delete_button.clicked.connect(
+            partial(self.delete_tag, btn=delete_button, type_table=type_table)
+        )
 
     def create_tag(self):
         self.__osbm.obj_logg.debug_logger("TagsListDialogWindow create_tag()")
@@ -514,7 +532,7 @@ class TagsListDialogWindow(QDialog):
             config_tag = data.get("CONFIG")
             config_tag = json.dumps(config_tag) if config_tag else None
             description_tag = data.get("DESCRIPTION")
-            tag = {
+            create_tag = {
                 "name_tag": name_tag,
                 "type_tag": type_tag,
                 "title_tag": title_tag,
@@ -523,8 +541,8 @@ class TagsListDialogWindow(QDialog):
                 "description_tag": description_tag,
             }
             # вставка
-            self.__all_tags.insert(order_tag, tag)
-            self.__osbm.obj_prodb.insert_tag(tag)
+            self.__all_tags.insert(order_tag, create_tag)
+            self.__osbm.obj_prodb.insert_tag(create_tag)
             # Меняем порядок в БД - кому нужно
             for index, tag in enumerate(self.__all_tags):
                 order = tag.get("order_tag")
@@ -532,7 +550,7 @@ class TagsListDialogWindow(QDialog):
                     self.__osbm.obj_prodb.set_order_for_tag(tag, index)
             # обновление таблиц + self.__all_tags
             type_table = self.get_typetable()
-            self.caf_two_tables(type_table)
+            self.caf_two_tables(type_table, create_tag)
 
     def edit_tag(self, btn):
         self.__osbm.obj_logg.debug_logger(
@@ -540,7 +558,6 @@ class TagsListDialogWindow(QDialog):
         )
         item = btn.custom_data
         result = self.ned_tag_dw("edit", item)
-        # TODO edit_tag - обработать и сохранить изменения в БД
         if result:
             # получить data
             data = self.__osbm.obj_nedtdw.get_data()
@@ -551,7 +568,7 @@ class TagsListDialogWindow(QDialog):
             config_tag = data.get("CONFIG")
             config_tag = json.dumps(config_tag) if config_tag else None
             description_tag = data.get("DESCRIPTION")
-            tag = {
+            edit_tag = {
                 "id_tag": item.get("id_tag"),
                 "name_tag": name_tag,
                 "type_tag": type_tag,
@@ -562,9 +579,9 @@ class TagsListDialogWindow(QDialog):
             }
             # сортировочный процесс
             self.__all_tags.remove(item)
-            self.__all_tags.insert(order_tag, tag)
-            # замена информации             
-            self.__osbm.obj_prodb.update_tag(tag)
+            self.__all_tags.insert(order_tag, edit_tag)
+            # замена информации
+            self.__osbm.obj_prodb.update_tag(edit_tag)
             # Меняем порядок в БД - кому нужно
             for index, tag in enumerate(self.__all_tags):
                 order = tag.get("order_tag")
@@ -572,8 +589,7 @@ class TagsListDialogWindow(QDialog):
                     self.__osbm.obj_prodb.set_order_for_tag(tag, index)
             # обновление таблиц + self.__all_tags
             type_table = self.get_typetable()
-            self.caf_two_tables(type_table)
-
+            self.caf_two_tables(type_table, edit_tag)
 
     def ned_tag_dw(self, type_window, tag=None):
         self.__osbm.obj_nedtdw = nedtagdialogwindow.NedTagDialogWindow(

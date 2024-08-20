@@ -62,14 +62,14 @@ class Units:
         self.__osbm.obj_logg.debug_logger("Units get_units()")
         return self.__units
 
-    def get_unit_by_data(self, data):
-        result = None
+    def get_index_unit_by_data(self, data):
+        result = 0
         for unit in self.__units:
             if unit.data == data:
-                result = unit
+                result = unit.index
                 break
         self.__osbm.obj_logg.debug_logger(
-            f"Units get_unit_by_data(data):\ndata_unit = {data}\n result = {result}"
+            f"Units get_index_unit_by_data(data):\ndata_unit = {data}\n result = {result}"
         )
         return result
 
@@ -101,14 +101,14 @@ class SizingModes:
         self.__osbm.obj_logg.debug_logger("SizingModes get_sizing_modes()")
         return self.__sizing_modes
 
-    def get_sizing_mode_by_data(self, data):
-        result = None
+    def get_index_sizing_mode_by_data(self, data):
+        result = 0
         for sizing_mode in self.__sizing_modes:
             if sizing_mode.data == data:
-                result = sizing_mode
+                result = sizing_mode.index
                 break
         self.__osbm.obj_logg.debug_logger(
-            f"SizingModes get_sizing_mode_by_data(data):\ndata_sizing_mode = {data}\n result = {result}"
+            f"SizingModes get_index_sizing_mode_by_data(data):\ndata_sizing_mode = {data}\n result = {result}"
         )
         return result
 
@@ -161,7 +161,7 @@ class TableTypes:
         return result
 
     def get_text_btns_by_index(self, index):
-        result = None
+        result = 0
         for key, value in self.__text_btns.items():
             if int(key) == index:
                 result = value
@@ -172,7 +172,7 @@ class TableTypes:
         return result
 
     def get_index_by_data(self, data):
-        result = None
+        result = 0
         for table_type in self.__table_types:
             if table_type.data == data:
                 result = table_type.index

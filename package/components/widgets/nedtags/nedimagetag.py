@@ -20,7 +20,7 @@ class NedImageTag(QWidget):
         #
         self.__data = {}
         self.__config_dict = dict()
-        if self.__tag:
+        if self.__tag and self.__tag.get("type_tag") == "IMAGE": 
             self.__config_tag = self.__tag.get("config_tag")
             if self.__config_tag:
                 self.__config_dict = json.loads(self.__config_tag)
@@ -65,18 +65,18 @@ class NedImageTag(QWidget):
             width = self.__config_dict.get("WIDTH")
             height = self.__config_dict.get("HEIGHT")
             # узнаем индексы по значению для комбобоксов
-            index_unit = self.__osbm.obj_comwith.units.get_unit_by_data(unit)
+            index_unit = self.__osbm.obj_comwith.units.get_index_unit_by_data(unit)
             index_unit = index_unit if index_unit else 0
-            index_sizing_mode = self.__osbm.obj_comwith.sizing_modes.get_sizing_mode_by_data(sizing_mode)
+            index_sizing_mode = self.__osbm.obj_comwith.sizing_modes.get_index_sizing_mode_by_data(sizing_mode)
             index_sizing_mode = index_sizing_mode if index_sizing_mode else 0
             #
             self.ui.combox_units.setCurrentIndex(index_unit)
             self.ui.combox_sms.setCurrentIndex(index_sizing_mode)
             # установка значений ширины и высоты
             if width:
-                self.ui.dsb_width.setText(width)
+                self.ui.dsb_width.setValue(width)
             if height:
-                self.ui.dsb_height.setText(height)
+                self.ui.dsb_height.setValue(height)
             # установка активности
             self.set_enabled_wh_by_index(index_sizing_mode)
 
