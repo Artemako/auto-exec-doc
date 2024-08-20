@@ -191,15 +191,4 @@ class NedTagDialogWindow(QDialog):
                 self.__osbm, self.__type_window, self.__tag
             )
             self.ui.vbl_additional_info.addWidget(self.__additional_widget)
-        QTimer.singleShot(0, self, lambda: self.resize_window())
-
-    def resize_window(self):
-        self.__osbm.obj_logg.debug_logger("NedTagDialogWindow resize_window()")
-        width = self.width()
-        min_width = self.minimumWidth()
-        # self.adjustSize()
-        # self.adjustSize()
-        # self.resize(width, self.height())
-        self.setMinimumWidth(width)
-        self.adjustSize()
-        self.setMinimumWidth(min_width)
+        QTimer.singleShot(0, self, lambda: self.__osbm.obj_comwith.resizeqt.set_temp_max_height(self))

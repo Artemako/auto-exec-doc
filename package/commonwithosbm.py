@@ -1,6 +1,4 @@
-#
-#
-#
+from PySide6.QtWidgets import QSizePolicy
 
 
 class TagType:
@@ -195,16 +193,14 @@ class ResizeQt:
         self.__osbm = osbm
         self.__osbm.obj_logg.debug_logger("ResizeQt __init__(osbm)")
 
-    def set_minfixed_height(self, widget):
+    def set_temp_max_height(self, widget):
         width = widget.width()
-        min_width = widget.minimumWidth()
+        widget.setMaximumSize(width, 5000)
         widget.setMinimumWidth(width)
         widget.adjustSize()
-        widget.setFixedHeight(widget.height())
-        widget.setMinimumWidth(min_width)
+        widget.setMaximumSize(5000, widget.height())
         self.__osbm.obj_logg.debug_logger("ResizeQt set_resize(widget)")
 
-# self.__osbm.obj_comwith.resizeqt.set_minfixed_height(self)
 
 class CommonWithOsmb:
     def __init__(self):

@@ -189,7 +189,7 @@ class NodesEditorDialogWindow(QDialog):
             node = current_item.data(0, Qt.UserRole)
             type_node = node.get("type_node")
             name_node = node.get("name_node")
-            result = self.__osbm.obj_dw.question_message(f"Вы точно хотите удалить {name_node}?")
+            result = self.__osbm.obj_dw.question_message(f'Вы действительно хотите удалить:\n"{name_node}"?')
             if result:
                 if type_node == "GROUP":
                     self.delete_group_node(node)

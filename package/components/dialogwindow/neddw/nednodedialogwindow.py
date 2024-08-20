@@ -19,17 +19,13 @@ class NedNodeDialogWindow(QDialog):
         self.ui.setupUi(self)
         # СТИЛЬ
         self.__osbm.obj_style.set_style_for(self)
-        self.__osbm.obj_comwith.resizeqt.set_minfixed_height(self)
+        self.__osbm.obj_comwith.resizeqt.set_temp_max_height(self)
         #
         self.__data = []
         # одноразовые действия
         self.config_maindata()
         self.config_placementdata()
         self.connecting_actions()
-
-    def set_minfixed_height(self):
-        print("ДЕТКА")
-        
 
 
     def get_data(self):

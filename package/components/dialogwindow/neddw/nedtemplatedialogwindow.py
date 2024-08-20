@@ -18,6 +18,7 @@ class NedTemplateDialogWindow(QDialog):
         self.ui.setupUi(self)
         # СТИЛЬ
         self.__osbm.obj_style.set_style_for(self)
+        self.__osbm.obj_comwith.resizeqt.set_temp_max_height(self)
         #
         self.__data = dict()
         # одноразовые действия

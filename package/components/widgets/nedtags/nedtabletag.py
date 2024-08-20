@@ -29,7 +29,7 @@ class NedTableTag(QWidget):
         #
         self.__data = {
             "TYPETABLE": None,
-            "ROWCOL": [{"ID": None, "ATTR": None, "TITLE": None}],
+            "ROWCOL": [{"ID": None, "ATTR": None, "TITLE": None, "ORDER": None}],
         }
         self.__config_dict = dict()
         self.__rowcols_items = []
@@ -73,7 +73,7 @@ class NedTableTag(QWidget):
         list_widget.blockSignals(True)
         list_widget.clear()
         self.__rowcols_items = []
-        rowcols = self.__config_dict.get("ROWCOLS", [])
+        rowcols = self.get_sorted_rowcols()
         for rowcol in rowcols:
             custom_widget = customitemqlistwidget.CustomItemQListWidget(
                 self.__osbm, "ROWCOL", rowcol
@@ -96,8 +96,8 @@ class NedTableTag(QWidget):
                 index_template = next(
                     (
                         i
-                        for i, template in enumerate(rowcols)
-                        if template.get("ID") == rowcols.get("ID")
+                        for i, rowcol in enumerate(rowcols)
+                        if open_rowcol.get("ID") == rowcol.get("ID")
                     ),
                     0,
                 )
@@ -124,16 +124,20 @@ class NedTableTag(QWidget):
         self.__osbm.obj_logg.debug_logger(
             f"NedTableTag delete_item(data):\ndata = {data}"
         )
-        name_rowcol = data.get("NAME")
+        title_rowcol = data.get("TITLE")
+        name_rowcol = data.get("ATTR")
         result = self.__osbm.obj_dw.question_message(
-            f"Вы точно хотите удалить {name_rowcol}?"
+            f'Вы действительно удалить этот атрибут:\n"{title_rowcol}" ({name_rowcol})?'
         )
         if result:
             # удаление
-            rowcols = self.__config_dict.get("ROWCOLS", [])
+            rowcols = self.get_sorted_rowcols()
             index = next((i for i, rowcol in enumerate(rowcols) if rowcol.get("ID") == data.get("ID")), None)
             if index is not None:
-                del rowcols[index]
+                rowcols.pop(index)
+                for index, rowcol in enumerate(rowcols):
+                    rowcol["ORDER"] = index
+                self.__config_dict["ROWCOLS"] = rowcols
             self.config_lw_attrs()
 
     def edit_item(self, data):
@@ -142,42 +146,48 @@ class NedTableTag(QWidget):
         )
         self.__osbm.obj_logg.debug_logger("NedTableTag add_item()")
         type_rowcol = self.ui.combox_typetable.currentData()
-        rowcols = self.__config_dict.get("ROWCOLS", [])
+        rowcols = self.get_sorted_rowcols()
         result = self.nedrowcoldw("edit", type_rowcol, rowcols, data)
         if result:
             current_rowcol = self.__osbm.obj_nedrowcoldw.get_data()
             attr_current_rowcol = current_rowcol.get("ATTR")
             title_current_rowcol = current_rowcol.get("TITLE")
-            order_current_rowcol = current_rowcol.get("_ORDER")
+            order_current_rowcol = current_rowcol.get("ORDER")
             rowcol = {
                 "ID": data.get("ID"),
-                "NAME": attr_current_rowcol,
+                "ATTR": attr_current_rowcol,
                 "TITLE": title_current_rowcol,
+                "ORDER": order_current_rowcol
             }
             # удалить из списка
-            order_old_rowcol = [rowcol.get("ID") for rowcol in rowcols].index(order_current_rowcol)
+            order_old_rowcol = data.get("ORDER")
             del rowcols[order_old_rowcol]
             # добавить в список
             rowcols.insert(order_current_rowcol, rowcol)
+            for index, rowcol in enumerate(rowcols):
+                rowcol["ORDER"] = index
             self.__config_dict["ROWCOLS"] = rowcols
             self.config_lw_attrs(data)
 
     def add_item(self):
         self.__osbm.obj_logg.debug_logger("NedTableTag add_item()")
         type_rowcol = self.ui.combox_typetable.currentData()
-        rowcols = self.__config_dict.get("ROWCOLS", [])
+        rowcols = self.get_sorted_rowcols()
         result = self.nedrowcoldw("create", type_rowcol, rowcols, None)
         if result:
             current_rowcol = self.__osbm.obj_nedrowcoldw.get_data()
             attr_current_rowcol = current_rowcol.get("ATTR")
             title_current_rowcol = current_rowcol.get("TITLE")
-            order_current_rowcol = current_rowcol.get("_ORDER")
+            order_current_rowcol = current_rowcol.get("ORDER")
             rowcol = {
                 "ID": uuid.uuid1().hex,
-                "NAME": attr_current_rowcol,
+                "ATTR": attr_current_rowcol,
                 "TITLE": title_current_rowcol,
+                "ORDER": order_current_rowcol
             }
             rowcols.insert(order_current_rowcol, rowcol)
+            for index, rowcol in enumerate(rowcols):
+                rowcol["ORDER"] = index
             self.__config_dict["ROWCOLS"] = rowcols
             self.config_lw_attrs(rowcol)
             
@@ -223,8 +233,12 @@ class NedTableTag(QWidget):
         # TODO save_data
         self.__osbm.obj_logg.debug_logger("NedTableTag save_data()")
         typetable = self.ui.combox_typetable.currentData()
-        rowcols = self.__config_dict.get("ROWCOLS", [])
+        rowcols = self.get_sorted_rowcols()
         self.__data = {
             "TYPETABLE": typetable,
             "ROWCOL": rowcols,
         }
+
+    def get_sorted_rowcols(self):
+        rowcols = self.__config_dict.get("ROWCOLS", [])
+        return sorted(rowcols, key=lambda x: x.get("ORDER"))

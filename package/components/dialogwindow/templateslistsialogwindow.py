@@ -281,7 +281,7 @@ class TemplatesListDialogWindow(QDialog):
         if type_window == "TEMPLATE":
             name_template = data.get("name_template")
             result = self.__osbm.obj_dw.question_message(
-                f"Вы точно хотите удалить {name_template}?"
+                f'Вы действительно хотите удалить этот шаблон:\n"{name_template}"?'
             )
             if result:
                 # self.delete_pages()
@@ -290,7 +290,7 @@ class TemplatesListDialogWindow(QDialog):
         elif type_window == "PAGE":
             name_page = data.get("name_page")
             result = self.__osbm.obj_dw.question_message(
-                f"Вы точно хотите удалить {name_page}?"
+                f'Вы действительно хотите удалить эту страницу:\n"{name_page}"?'
             )
             if result:
                 self.delete_page(data)

@@ -25,7 +25,6 @@ class Ui_NedTemplateDialogWindow(object):
         if not NedTemplateDialogWindow.objectName():
             NedTemplateDialogWindow.setObjectName(u"NedTemplateDialogWindow")
         NedTemplateDialogWindow.resize(425, 133)
-        NedTemplateDialogWindow.setMaximumSize(QSize(16777215, 133))
         self.verticalLayout = QVBoxLayout(NedTemplateDialogWindow)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(-1, -1, -1, 9)

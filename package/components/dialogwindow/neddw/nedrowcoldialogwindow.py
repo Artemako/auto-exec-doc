@@ -19,8 +19,9 @@ class NedRowcolDialogWindow(QDialog):
         self.ui.setupUi(self)
         # СТИЛЬ
         self.__osbm.obj_style.set_style_for(self)
+        self.__osbm.obj_comwith.resizeqt.set_temp_max_height(self)
         #
-        self.__data = {"ID": None, "ATTR": None, "TITLE": None}
+        self.__data = dict()
         # одноразовые действия
         self.config_by_type_window()
         self.config_combox_neighboor()
@@ -37,18 +38,18 @@ class NedRowcolDialogWindow(QDialog):
             "NedRowcolDialogWindow config_by_type_window()"
         )
         if self.__type_ned == "create":
-            if self.__type_rowcol == "row":
+            if self.__type_rowcol == "ROW":
                 self.ui.label_rowcol.setText("Название новой строки")
                 self.ui.btn_nestag.setText("Добавить строку")
-            elif self.__type_rowcol == "col":
-                self.ui.label_nametemplate.setText("Название нового столбца")
+            elif self.__type_rowcol == "COL":
+                self.ui.label_rowcol.setText("Название нового столбца")
                 self.ui.btn_nestag.setText("Добавить столбец")
         elif self.__type_ned == "edit":
-            if self.__type_rowcol == "row":
+            if self.__type_rowcol == "ROW":
                 self.ui.label_rowcol.setText("Название строки")
                 self.ui.btn_nestag.setText("Изменить строку")
-            elif self.__type_rowcol == "col":
-                self.ui.label_nametemplate.setText("Название столбца")
+            elif self.__type_rowcol == "COL":
+                self.ui.label_rowcol.setText("Название столбца")
                 self.ui.btn_nestag.setText("Изменить столбец")
             #
             self.ui.lineedit_attr.setText(self.__rowcol.get("ATTR"))
@@ -56,7 +57,7 @@ class NedRowcolDialogWindow(QDialog):
 
     def get_order_rowcol(self, current_rowcol):
         result = -1
-        for index, rowcol in self.__rowcols:
+        for index, rowcol in enumerate(self.__rowcols):
             if rowcol.get("ID") == current_rowcol.get("ID"):
                 result = index
                 break
@@ -77,9 +78,9 @@ class NedRowcolDialogWindow(QDialog):
         else:
             combobox.addItem("- В начало -", "START")
         for rowcol in self.__rowcols:
-            if rowcol.get("ID") == self.__rowcol.get("ID"):
+            if self.__rowcol and rowcol.get("ID") == self.__rowcol.get("ID"):
                 continue
-            combobox.addItem(rowcol.get("NAME"), rowcol)
+            combobox.addItem(rowcol.get("ATTR"), rowcol)
         combobox.blockSignals(False)
 
     def connecting_actions(self):
@@ -105,17 +106,17 @@ class NedRowcolDialogWindow(QDialog):
         is_valid_jinja_attr = self.get_is_valid_jinja_attr(le_attr)
         if len(le_attr) > 0 and len(le_rowcoltitle) > 0 and is_valid_jinja_attr:
             # заполняем словарь
-            order = self.ui.combox_neighboor.currentData()
-            order = order + 1 if order != "START" else 0
+            data = self.ui.combox_neighboor.currentData()
+            order = data.get("ORDER") + 1 if data != "START" else 0
             self.__data = {
                 "ATTR": le_attr,
                 "TITLE": le_rowcoltitle,
-                "_ORDER": order
+                "ORDER": order                                                                                                                                                            
             }
             # пытаемся accept()
-            if self.__type_window == "create":
+            if self.__type_ned == "create":
                 self.add_new_rowcol()
-            elif self.__type_window == "edit":
+            elif self.__type_ned == "edit":
                 self.save_edit_rowcol()
         elif le_attr == "" and le_rowcoltitle == "" and is_valid_jinja_attr:
             self.__osbm.obj_dw.warning_message("Заполните все поля")
@@ -138,7 +139,7 @@ class NedRowcolDialogWindow(QDialog):
         self.__osbm.obj_logg.debug_logger("NedRowcolDialogWindow add_new_rowcol()")
         le_attr = self.ui.lineedit_attr.text()
         # Проверка на уникальность
-        name_attr = self.get_tag_by_name(le_attr)
+        name_attr = self.get_rowcol_by_name(le_attr)
         if name_attr:
             self.__osbm.obj_dw.warning_message("Такой атрибут уже существует.")
         else:
@@ -149,7 +150,7 @@ class NedRowcolDialogWindow(QDialog):
         # Проверка на уникальность
         le_attr = self.ui.lineedit_attr.text()
         old_le_attr = self.__rowcol.get("ATTR")
-        name_attr = self.get_tag_by_name(le_attr)
+        name_attr = self.get_rowcol_by_name(le_attr)
         if le_attr == old_le_attr:
             # ↑ если имя тега не изменилось
             self.accept()

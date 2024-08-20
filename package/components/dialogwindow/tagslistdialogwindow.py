@@ -541,9 +541,10 @@ class TagsListDialogWindow(QDialog):
         self.__osbm.obj_logg.debug_logger(
             f"TagsListDialogWindow delete_tag(btn, type_table):\nbtn = {btn}\ntype_table = {type_table}"
         )
+        title_tag = btn.custom_data.get("title_tag")
         name_tag = btn.custom_data.get("name_tag")
         question = self.__osbm.obj_dw.question_message(
-            f"Вы действительно хотите удалить этот тег ({name_tag})?"
+            f'Вы действительно хотите удалить этот тег:\n"{title_tag}" ({name_tag})?'
         )
         if question:
             self.__osbm.obj_prodb.delete_tag(btn.custom_data)

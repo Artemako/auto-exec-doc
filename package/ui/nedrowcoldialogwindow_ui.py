@@ -66,6 +66,7 @@ class Ui_NedRowcolDialogWindow(object):
 
         self.hl_placement.addWidget(self.combox_neighboor)
 
+        self.hl_placement.setStretch(1, 1)
 
         self.verticalLayout.addLayout(self.hl_placement)
 

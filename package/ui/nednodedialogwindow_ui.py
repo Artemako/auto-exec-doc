@@ -24,7 +24,7 @@ class Ui_NedNodeDialogWindow(object):
     def setupUi(self, NedNodeDialogWindow):
         if not NedNodeDialogWindow.objectName():
             NedNodeDialogWindow.setObjectName(u"NedNodeDialogWindow")
-        NedNodeDialogWindow.resize(579, 238)
+        NedNodeDialogWindow.resize(534, 133)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
