@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>530</width>
-    <height>211</height>
+    <height>241</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -25,7 +25,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,0,1,0">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,0,0,1,0">
    <property name="bottomMargin">
     <number>9</number>
    </property>
@@ -129,6 +129,20 @@
    </item>
    <item>
     <widget class="QComboBox" name="combox_typetag"/>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="hl_placement" stretch="0,1">
+     <item>
+      <widget class="QLabel" name="label_placement">
+       <property name="text">
+        <string>Расположить после</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="combox_neighboor"/>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="Line" name="line">

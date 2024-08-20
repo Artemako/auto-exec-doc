@@ -56,7 +56,7 @@ class NedImageTag(QWidget):
         if self.__type_window == "create":
             self.ui.combox_units.setCurrentIndex(0)
             self.ui.combox_sms.setCurrentIndex(0)
-            self.set_enabled_for_width_height(True)
+            self.set_enabled_for_width_height(False)
 
         elif self.__type_window == "edit":
             # получение данных

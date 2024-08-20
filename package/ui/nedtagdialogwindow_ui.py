@@ -24,7 +24,7 @@ class Ui_NedTagDialogWindow(object):
     def setupUi(self, NedTagDialogWindow):
         if not NedTagDialogWindow.objectName():
             NedTagDialogWindow.setObjectName(u"NedTagDialogWindow")
-        NedTagDialogWindow.resize(530, 211)
+        NedTagDialogWindow.resize(530, 241)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -79,6 +79,22 @@ class Ui_NedTagDialogWindow(object):
 
         self.verticalLayout.addWidget(self.combox_typetag)
 
+        self.hl_placement = QHBoxLayout()
+        self.hl_placement.setObjectName(u"hl_placement")
+        self.label_placement = QLabel(NedTagDialogWindow)
+        self.label_placement.setObjectName(u"label_placement")
+
+        self.hl_placement.addWidget(self.label_placement)
+
+        self.combox_neighboor = QComboBox(NedTagDialogWindow)
+        self.combox_neighboor.setObjectName(u"combox_neighboor")
+
+        self.hl_placement.addWidget(self.combox_neighboor)
+
+        self.hl_placement.setStretch(1, 1)
+
+        self.verticalLayout.addLayout(self.hl_placement)
+
         self.line = QFrame(NedTagDialogWindow)
         self.line.setObjectName(u"line")
         self.line.setFrameShape(QFrame.HLine)
@@ -110,7 +126,7 @@ class Ui_NedTagDialogWindow(object):
 
         self.verticalLayout.addLayout(self.hl_addsaveclose)
 
-        self.verticalLayout.setStretch(7, 1)
+        self.verticalLayout.setStretch(8, 1)
 
         self.retranslateUi(NedTagDialogWindow)
 
@@ -124,6 +140,7 @@ class Ui_NedTagDialogWindow(object):
         self.titletag.setText(QCoreApplication.translate("NedTagDialogWindow", u"<html><head/><body><p>\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0442\u044d\u0433\u0430</p></body></html>", None))
         self.lineedit_titletag.setText("")
         self.typetag.setText(QCoreApplication.translate("NedTagDialogWindow", u"<html><head/><body><p>\u0422\u0438\u043f \u0442\u044d\u0433\u0430</p></body></html>", None))
+        self.label_placement.setText(QCoreApplication.translate("NedTagDialogWindow", u"\u0420\u0430\u0441\u043f\u043e\u043b\u043e\u0436\u0438\u0442\u044c \u043f\u043e\u0441\u043b\u0435", None))
         self.btn_nestag.setText(QCoreApplication.translate("NedTagDialogWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0442\u044d\u0433", None))
         self.btn_close.setText(QCoreApplication.translate("NedTagDialogWindow", u"\u0417\u0430\u043a\u0440\u044b\u0442\u044c", None))
     # retranslateUi

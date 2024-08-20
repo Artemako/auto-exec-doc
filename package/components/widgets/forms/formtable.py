@@ -46,7 +46,7 @@ class FormTable(QWidget):
         for header in headers:
             value_header = header.get("VALUE")
             labels.append(value_header)
-        # TODO ROWCOL
+        # TODO ROWCOL (минус HEADERS -> брать TITLE)
 
         # создать столбцы таблицы
         self.ui.table.setColumnCount(len(labels))

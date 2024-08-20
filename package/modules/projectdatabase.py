@@ -1011,6 +1011,29 @@ COMMIT;
         conn.commit()
         conn.close()
 
+
+    def insert_tag(self, tag):
+        """
+        Запрос на вставку данных тега в Project_tags.
+        """
+        self.__osbm.obj_logg.debug_logger(
+            f"ProjectDatabase insert_tag(tag):\ntag = {tag}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        # TODO VALUES
+        cursor.execute(
+            """
+        INSERT INTO Project_tags
+        (name_tag)
+        VALUES
+        (?)
+        """,
+            [tag.get("name_tag")],
+        )
+        conn.commit()
+        conn.close()
+
     def delete_tag(self, tag):
         """
         Запрос на удаление данных тега в Project_tags.

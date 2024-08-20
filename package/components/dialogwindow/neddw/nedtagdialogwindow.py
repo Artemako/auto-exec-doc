@@ -9,6 +9,9 @@ import package.components.widgets.nedtags.neddatetag as neddatetag
 import package.components.widgets.nedtags.nedtabletag as nedtabletag
 import package.components.widgets.nedtags.nedimagetag as nedimagetag
 
+# TODO Сделать сохранение тегов !!!!
+# TODO Сделать order?
+
 
 class NedTagDialogWindow(QDialog):
     def __init__(self, osbm, type_window, tag=None):
@@ -25,11 +28,18 @@ class NedTagDialogWindow(QDialog):
         self.__osbm.obj_style.set_style_for(self)
         # одноразовые действия
         self.__additional_widget = None
-        self.__data = None
+        self.__data = {
+            "NAME": None,
+            "TYPE": None,
+            "TITLE": None,
+            "ORDER": None,
+            "CONFIG": {},
+            "DESCRIPTION": {},
+        }
         #
-        self.config_combobox()
+        self.config_combox_typetag()
+        self.config_combox_neighboor()
         self.config_by_type_window()
-        self.config_maindata()
         # многоразовые действия
         self.update_additional_info()
         # подключаем действия
@@ -40,6 +50,21 @@ class NedTagDialogWindow(QDialog):
             f"NedTagDialogWindow get_data():\nself.__data = {self.__data}"
         )
         return self.__data
+
+    def config_combox_neighboor(self):
+        self.__osbm.obj_logg.debug_logger(
+            "NedTagDialogWindow config_combox_neighboor()"
+        )
+        combobox = self.ui.combox_neighboor
+        combobox.blockSignals(True)
+        combobox.clear()
+        if self.__tag and self.__tag.get("order_tag") == 0:
+            pass
+        else:
+            combobox.addItem("- В начало -", "START")
+        for tag in self.__tags:
+            if self.__tag 
+        combobox.blockSignals(False)
 
     def connecting_actions(self):
         self.__osbm.obj_logg.debug_logger("NedTagDialogWindow connecting_actions()")
@@ -66,6 +91,23 @@ class NedTagDialogWindow(QDialog):
         # проверка на пустоту (уникальность присутствует)
         is_valid_jinja_tag = self.get_is_valid_jinja_tag(le_nametag)
         if len(le_nametag) > 0 and len(le_titletag) > 0 and is_valid_jinja_tag:
+            # получит config_data в зависимости от типа тега
+            type_tag = self.ui.combox_typetag.currentData()
+            if type_tag == "TEXT":
+                config_data = {}
+            else:
+                config_data = self.__additional_widget.get_save_data()
+            #
+            self.__data = {
+                "NAME": le_nametag,
+                "TYPE": type_tag,
+                "TITLE": le_titletag,
+                "ORDER": None,
+                "CONFIG": config_data,
+                "DESCRIPTION": "",
+            }
+
+            #
             if self.__type_window == "create":
                 self.add_new_tag()
             elif self.__type_window == "edit":
@@ -79,15 +121,8 @@ class NedTagDialogWindow(QDialog):
         elif not is_valid_jinja_tag:
             self.__osbm.obj_dw.warning_message("Тег содержит недопустимые символы.")
 
-
     def add_new_tag(self):
         self.__osbm.obj_logg.debug_logger("NedTagDialogWindow add_new_tag()")
-        # получит data в зависимости от типа тега
-        index = self.ui.combox_typetag.currentIndex()
-        if index == 0:
-            self.__data = {}
-        else:
-            self.__data = self.__additional_widget.get_save_data()
         # проверка на уникальность
         le_nametag = self.ui.lineedit_nametag.text()
         name_tag = self.__osbm.obj_prodb.get_tag_by_name(le_nametag)
@@ -98,12 +133,6 @@ class NedTagDialogWindow(QDialog):
 
     def save_edit_tag(self):
         self.__osbm.obj_logg.debug_logger("NedTagDialogWindow save_edit_tag()")
-        # текущий индекс
-        index = self.ui.combox_typetag.currentIndex()
-        if index == 0:
-            self.__data = {}
-        else:
-            self.__data = self.__additional_widget.get_save_data()
         # проверка на уникальность
         le_nametag = self.ui.lineedit_nametag.text()
         old_name_tag = self.__tag.get("name_tag")
@@ -112,9 +141,7 @@ class NedTagDialogWindow(QDialog):
             # ↑ если имя тега не изменилось
             self.accept()
         elif name_tag:
-            self.__osbm.obj_dw.warning_message(
-                "Такой тег уже существует."
-            )
+            self.__osbm.obj_dw.warning_message("Такой тег уже существует.")
         else:
             self.accept()
 
@@ -124,13 +151,19 @@ class NedTagDialogWindow(QDialog):
         )
         self.update_additional_info(index)
 
-    def config_combobox(self):
-        self.__osbm.obj_logg.debug_logger("NedTagDialogWindow config_combobox()")
+    def config_combox_typetag(self):
+        self.__osbm.obj_logg.debug_logger("NedTagDialogWindow config_combox_typetag()")
         self.ui.combox_typetag.blockSignals(True)
         self.ui.combox_typetag.clear()
         tag_types = self.__osbm.obj_comwith.tag_types.get_tag_types()
         for tag in tag_types:
-            self.ui.combox_typetag.addItem(tag.icon, tag.name)
+            self.ui.combox_typetag.addItem(tag.icon, tag.name, tag.data)
+        #
+        if self.__tag:
+            index = self.__osbm.obj_comwith.tag_types.get_index_by_data(
+                self.__tag.get("type_tag")
+            )
+            self.ui.combox_typetag.setCurrentIndex(index)
         self.ui.combox_typetag.blockSignals(False)
 
     def config_by_type_window(self):
@@ -140,19 +173,10 @@ class NedTagDialogWindow(QDialog):
 
         elif self.__type_window == "edit":
             self.ui.btn_nestag.setText("Сохранить тэг")
-
-    def config_maindata(self):
-        self.__osbm.obj_logg.debug_logger("NedTagDialogWindow fill_maindata()")
-        print(f"tag = {self.__tag}")
-        if self.__tag:
             self.ui.lineedit_nametag.setText(self.__tag.get("name_tag"))
             self.ui.lineedit_titletag.setText(self.__tag.get("title_tag"))
-            index = self.__osbm.obj_comwith.tag_types.get_index_by_data(
-                self.__tag.get("type_tag")
-            )
-            self.ui.combox_typetag.blockSignals(True)
-            self.ui.combox_typetag.setCurrentIndex(index)
-            self.ui.combox_typetag.blockSignals(False)
+
+
 
     def clear_layout(self, layout):
         while layout.count():
@@ -191,4 +215,6 @@ class NedTagDialogWindow(QDialog):
                 self.__osbm, self.__type_window, self.__tag
             )
             self.ui.vbl_additional_info.addWidget(self.__additional_widget)
-        QTimer.singleShot(0, self, lambda: self.__osbm.obj_comwith.resizeqt.set_temp_max_height(self))
+        QTimer.singleShot(
+            0, self, lambda: self.__osbm.obj_comwith.resizeqt.set_temp_max_height(self)
+        )
