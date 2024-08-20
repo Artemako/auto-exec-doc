@@ -5,7 +5,6 @@ from PySide6.QtCore import Qt
 class TWStructureExecDoc:
     def __init__(self):
         self.__tw = None
-        self.__title_sed = None
         self.__icons = None
         self.__nodes_to_items = dict()
         self.__expanded_states = dict()
@@ -17,15 +16,14 @@ class TWStructureExecDoc:
         )
 
 
-    def connect_structureexecdoc(self, tr_sed, title_sed):
+    def connect_structureexecdoc(self, tr_sed):
         """
         Подключить tr_sed к контроллеру.
         """
         self.__osbm.obj_logg.debug_logger(
-            "TWStructureExecDoc connect_structureexecdoc(tr_sed, title_sed)"
+            "TWStructureExecDoc connect_structureexecdoc(tr_sed)"
         )
         self.__tw = tr_sed
-        self.__title_sed = title_sed
         self.__icons = self.__osbm.obj_icons.get_icons()
         # Очистить при запуске
         self.clear_sed()
@@ -76,7 +74,6 @@ class TWStructureExecDoc:
             self.__tw.clear()
             self.__tw.setHeaderLabels([""])
             self.__tw.blockSignals(False)
-        self.__title_sed.setText("Проект не выбран")
 
     def update_structure_exec_doc(self):
         """
@@ -92,8 +89,7 @@ class TWStructureExecDoc:
         self.clear_sed()
         # Задать название столбца
         title = f"{self.__osbm.obj_setdb.get_project_current_name()}"
-        self.__tw.setHeaderLabels(["Проект"])
-        self.__title_sed.setText(title)
+        self.__tw.setHeaderLabels([title])
         # проход по вершинам
         self.dfs(self.__osbm.obj_prodb.get_project_node(), open_node) 
         # 

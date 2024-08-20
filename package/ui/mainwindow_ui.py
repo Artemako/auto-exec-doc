@@ -17,8 +17,8 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
 from PySide6.QtPdfWidgets import QPdfView
-from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QComboBox, QGroupBox,
-    QHBoxLayout, QHeaderView, QLabel, QListWidget,
+from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QComboBox, QFrame,
+    QGroupBox, QHeaderView, QLabel, QListWidget,
     QListWidgetItem, QMainWindow, QMenu, QMenuBar,
     QScrollArea, QSizePolicy, QSplitter, QStatusBar,
     QToolBar, QTreeWidget, QTreeWidgetItem, QVBoxLayout,
@@ -116,7 +116,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_6 = QVBoxLayout(self.centralwidget)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
-        self.verticalLayout_6.setContentsMargins(5, 5, 5, 5)
+        self.verticalLayout_6.setContentsMargins(4, 0, 4, 0)
         self.centralwidget_splitter = QSplitter(self.centralwidget)
         self.centralwidget_splitter.setObjectName(u"centralwidget_splitter")
         self.centralwidget_splitter.setOrientation(Qt.Horizontal)
@@ -124,6 +124,7 @@ class Ui_MainWindow(object):
         self.gb_left.setObjectName(u"gb_left")
         self.verticalLayout_8 = QVBoxLayout(self.gb_left)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
+        self.verticalLayout_8.setContentsMargins(4, 4, 4, 4)
         self.gb_left_splitter = QSplitter(self.gb_left)
         self.gb_left_splitter.setObjectName(u"gb_left_splitter")
         self.gb_left_splitter.setOrientation(Qt.Vertical)
@@ -132,11 +133,11 @@ class Ui_MainWindow(object):
         self.vbl_templates = QVBoxLayout(self.verticalLayoutWidget)
         self.vbl_templates.setObjectName(u"vbl_templates")
         self.vbl_templates.setContentsMargins(0, 0, 0, 0)
-        self.title_structure_execdoc = QLabel(self.verticalLayoutWidget)
-        self.title_structure_execdoc.setObjectName(u"title_structure_execdoc")
-        self.title_structure_execdoc.setEnabled(True)
+        self.label_structure_execdoc = QLabel(self.verticalLayoutWidget)
+        self.label_structure_execdoc.setObjectName(u"label_structure_execdoc")
+        self.label_structure_execdoc.setEnabled(True)
 
-        self.vbl_templates.addWidget(self.title_structure_execdoc)
+        self.vbl_templates.addWidget(self.label_structure_execdoc)
 
         self.treewidget_structure_execdoc = QTreeWidget(self.verticalLayoutWidget)
         __qtreewidgetitem = QTreeWidgetItem()
@@ -198,24 +199,38 @@ class Ui_MainWindow(object):
         sizePolicy1.setHeightForWidth(self.gb_center.sizePolicy().hasHeightForWidth())
         self.gb_center.setSizePolicy(sizePolicy1)
         self.gb_center.setMinimumSize(QSize(350, 0))
-        self.horizontalLayout = QHBoxLayout(self.gb_center)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.gb_center.setFlat(False)
+        self.gb_center.setCheckable(False)
+        self.verticalLayout = QVBoxLayout(self.gb_center)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(4, 4, 4, 4)
+        self.label_realview = QLabel(self.gb_center)
+        self.label_realview.setObjectName(u"label_realview")
+
+        self.verticalLayout.addWidget(self.label_realview)
+
         self.widget_pdf_view = QPdfView(self.gb_center)
         self.widget_pdf_view.setObjectName(u"widget_pdf_view")
+        self.widget_pdf_view.setMaximumSize(QSize(16777215, 16777215))
         self.widget_pdf_view.setStyleSheet(u"")
 
-        self.horizontalLayout.addWidget(self.widget_pdf_view)
+        self.verticalLayout.addWidget(self.widget_pdf_view)
 
+        self.verticalLayout.setStretch(1, 1)
         self.centralwidget_splitter.addWidget(self.gb_center)
         self.gb_right = QGroupBox(self.centralwidget_splitter)
         self.gb_right.setObjectName(u"gb_right")
         sizePolicy1.setHeightForWidth(self.gb_right.sizePolicy().hasHeightForWidth())
         self.gb_right.setSizePolicy(sizePolicy1)
         self.gb_right.setMinimumSize(QSize(300, 0))
-        self.gb_right.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
-        self.gb_right.setFlat(False)
         self.verticalLayout_4 = QVBoxLayout(self.gb_right)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.verticalLayout_4.setContentsMargins(4, 4, 4, 4)
+        self.label_tags = QLabel(self.gb_right)
+        self.label_tags.setObjectName(u"label_tags")
+
+        self.verticalLayout_4.addWidget(self.label_tags)
+
         self.scrollarea_inputforms = QScrollArea(self.gb_right)
         self.scrollarea_inputforms.setObjectName(u"scrollarea_inputforms")
         sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
@@ -223,6 +238,7 @@ class Ui_MainWindow(object):
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.scrollarea_inputforms.sizePolicy().hasHeightForWidth())
         self.scrollarea_inputforms.setSizePolicy(sizePolicy2)
+        self.scrollarea_inputforms.setFrameShape(QFrame.StyledPanel)
         self.scrollarea_inputforms.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.scrollarea_inputforms.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.scrollarea_inputforms.setSizeAdjustPolicy(QAbstractScrollArea.AdjustIgnored)
@@ -230,15 +246,17 @@ class Ui_MainWindow(object):
         self.scrollarea_inputforms.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
         self.scrollarea_inputforms_layout = QWidget()
         self.scrollarea_inputforms_layout.setObjectName(u"scrollarea_inputforms_layout")
-        self.scrollarea_inputforms_layout.setGeometry(QRect(0, 0, 261, 643))
+        self.scrollarea_inputforms_layout.setGeometry(QRect(0, 0, 562, 657))
         self.scrollarea_inputforms_layout.setMouseTracking(True)
         self.verticalLayout_5 = QVBoxLayout(self.scrollarea_inputforms_layout)
-        self.verticalLayout_5.setSpacing(6)
+        self.verticalLayout_5.setSpacing(4)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_5.setContentsMargins(4, 4, 4, 4)
         self.scrollarea_inputforms.setWidget(self.scrollarea_inputforms_layout)
 
         self.verticalLayout_4.addWidget(self.scrollarea_inputforms)
 
+        self.verticalLayout_4.setStretch(1, 1)
         self.centralwidget_splitter.addWidget(self.gb_right)
 
         self.verticalLayout_6.addWidget(self.centralwidget_splitter)
@@ -261,8 +279,11 @@ class Ui_MainWindow(object):
         self.tb_main = QToolBar(MainWindow)
         self.tb_main.setObjectName(u"tb_main")
         self.tb_main.setEnabled(True)
-        self.tb_main.setAllowedAreas(Qt.TopToolBarArea)
+        self.tb_main.setMovable(True)
+        self.tb_main.setAllowedAreas(Qt.AllToolBarAreas)
         self.tb_main.setOrientation(Qt.Horizontal)
+        self.tb_main.setToolButtonStyle(Qt.ToolButtonIconOnly)
+        self.tb_main.setFloatable(False)
         MainWindow.addToolBar(Qt.TopToolBarArea, self.tb_main)
         self.status_bar = QStatusBar(MainWindow)
         self.status_bar.setObjectName(u"status_bar")
@@ -343,8 +364,7 @@ class Ui_MainWindow(object):
         self.action_export_to_pdf.setText(QCoreApplication.translate("MainWindow", u"\u042d\u043a\u0441\u043f\u043e\u0440\u0442 \u0432 PDF", None))
         self.action_edit_templates.setText(QCoreApplication.translate("MainWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u043e\u0440 \u0448\u0430\u0431\u043b\u043e\u043d\u043e\u0432", None))
         self.action_edit_composition.setText(QCoreApplication.translate("MainWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u043e\u0440 \u0441\u043e\u0441\u0442\u0430\u0432\u0430 \u0418\u0414", None))
-        self.gb_left.setTitle(QCoreApplication.translate("MainWindow", u"\u0421\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0430 \u043f\u0440\u043e\u0435\u043a\u0442\u0430", None))
-        self.title_structure_execdoc.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u043f\u0440\u043e\u0435\u043a\u0442\u0430", None))
+        self.label_structure_execdoc.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0421\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0430 \u043f\u0440\u043e\u0435\u043a\u0442\u0430</span></p></body></html>", None))
 
         __sortingEnabled = self.treewidget_structure_execdoc.isSortingEnabled()
         self.treewidget_structure_execdoc.setSortingEnabled(False)
@@ -360,8 +380,8 @@ class Ui_MainWindow(object):
         ___qtreewidgetitem4.setText(0, QCoreApplication.translate("MainWindow", u"\u041f\u0422-3", None));
         self.treewidget_structure_execdoc.setSortingEnabled(__sortingEnabled)
 
-        self.label_current_template.setText(QCoreApplication.translate("MainWindow", u"\u0428\u0430\u0431\u043b\u043e\u043d", None))
-        self.label_pages_template.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0442\u0440\u0430\u043d\u0438\u0446\u044b \u0448\u0430\u0431\u043b\u043e\u043d\u0430", None))
+        self.label_current_template.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0428\u0430\u0431\u043b\u043e\u043d</span></p></body></html>", None))
+        self.label_pages_template.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0421\u0442\u0440\u0430\u043d\u0438\u0446\u044b \u0448\u0430\u0431\u043b\u043e\u043d\u0430</span></p></body></html>", None))
 
         __sortingEnabled1 = self.lw_pages_template.isSortingEnabled()
         self.lw_pages_template.setSortingEnabled(False)
@@ -371,13 +391,13 @@ class Ui_MainWindow(object):
         ___qlistwidgetitem1.setText(QCoreApplication.translate("MainWindow", u"\u041b\u0438\u0441\u0442 2", None));
         self.lw_pages_template.setSortingEnabled(__sortingEnabled1)
 
-        self.gb_center.setTitle(QCoreApplication.translate("MainWindow", u"\u0420\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442 \u0432 \u0440\u0435\u0436\u0438\u043c\u0435 \u0440\u0435\u0430\u043b\u044c\u043d\u043e\u0433\u043e \u0432\u0440\u0435\u043c\u0435\u043d\u0438", None))
-        self.gb_right.setTitle(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u043e\u0434 ", None))
+        self.label_realview.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0420\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442 \u0432 \u0440\u0435\u0436\u0438\u043c\u0435 \u0440\u0435\u0430\u043b\u044c\u043d\u043e\u0433\u043e \u0432\u0440\u0435\u043c\u0435\u043d\u0438</span></p></body></html>", None))
+        self.label_tags.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0424\u043e\u0440\u043c\u0430 \u0437\u0430\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u044f</span></p></body></html>", None))
         self.menu_file.setTitle(QCoreApplication.translate("MainWindow", u"\u0424\u0430\u0439\u043b", None))
         self.menu_recent_projects.setTitle(QCoreApplication.translate("MainWindow", u"\u041d\u0435\u0434\u0430\u0432\u043d\u0438\u0435 \u043f\u0440\u043e\u0435\u043a\u0442\u044b", None))
         self.menu_help.setTitle(QCoreApplication.translate("MainWindow", u"\u0421\u043f\u0440\u0430\u0432\u043a\u0430", None))
         self.menu_editors.setTitle(QCoreApplication.translate("MainWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u043e\u0440\u044b", None))
         self.menu_scale.setTitle(QCoreApplication.translate("MainWindow", u"\u041c\u0430\u0441\u0448\u0442\u0430\u0431", None))
-        self.tb_main.setWindowTitle(QCoreApplication.translate("MainWindow", u"toolBar", None))
+        self.tb_main.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u041f\u0430\u043d\u0435\u043b\u044c \u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u043e\u0432", None))
     # retranslateUi
 

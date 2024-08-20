@@ -421,7 +421,6 @@ class TagsListDialogWindow(QDialog):
         # table_widget.setSelectionMode(QAbstractItemView.NoSelection)
         # table_widget.sortByColumn(0, Qt.AscendingOrder)
 
-
     def caf_table(self, type_table, editor=False, open_tag=None):
         self.__osbm.obj_logg.debug_logger(
             f"TagsListDialogWindow caf_table(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}"
@@ -429,7 +428,9 @@ class TagsListDialogWindow(QDialog):
         table_widget = self.get_table_by_parameters(type_table, editor)
         # вертикальный ползунок
         vertical_scroll_position = table_widget.verticalScrollBar().value()
-        self.__vertical_scroll_position_by_parameters[type_table, editor] = vertical_scroll_position
+        self.__vertical_scroll_position_by_parameters[type_table, editor] = (
+            vertical_scroll_position
+        )
         # очистка таблицы
         table_widget.clearContents()
         table_widget.setRowCount(0)
@@ -442,8 +443,6 @@ class TagsListDialogWindow(QDialog):
         # TODO используется ли тэг?
         for row, item in enumerate(data):
             # получение данных
-            if not editor:
-                print(f"NOT editor item = {item}")
             order_tag = item.get("order_tag") + 1
             name_tag = item.get("name_tag")
             title_tag = item.get("title_tag")
@@ -472,16 +471,17 @@ class TagsListDialogWindow(QDialog):
             if open_tag and open_tag.get("id_tag") == item.get("id_tag"):
                 table_widget.selectRow(row)
                 QTimer.singleShot(3000, lambda: table_widget.clearSelection())
-                
+
         # включить сортировку после заполнения данных
         table_widget.setSortingEnabled(True)
         table_widget.sortByColumn(0, Qt.AscendingOrder)
         # Изменение размеров столбцов
         table_widget.resizeColumnsToContents()
         # Вертикальный ползунок
-        vertical_scroll_position = self.__vertical_scroll_position_by_parameters.get((type_table, editor), 0)
+        vertical_scroll_position = self.__vertical_scroll_position_by_parameters.get(
+            (type_table, editor), 0
+        )
         table_widget.verticalScrollBar().setValue(vertical_scroll_position)
-
 
     def item_tw_editor(self, table_widget, item, row, type_table):
         # checkbox

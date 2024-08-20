@@ -45,7 +45,7 @@ class MainWindow(QMainWindow):
         self.__osbm.obj_stab.connect_statusbar(self.ui.status_bar)
         # настройка structureexecdoc
         self.__osbm.obj_twsed.connect_structureexecdoc(
-            self.ui.treewidget_structure_execdoc, self.ui.title_structure_execdoc
+            self.ui.treewidget_structure_execdoc
         )
         # настройка pagestemplate
         self.__osbm.obj_lwpt.connect_pages_template(

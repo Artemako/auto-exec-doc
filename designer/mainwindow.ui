@@ -37,16 +37,16 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_6">
     <property name="leftMargin">
-     <number>5</number>
+     <number>4</number>
     </property>
     <property name="topMargin">
-     <number>5</number>
+     <number>0</number>
     </property>
     <property name="rightMargin">
-     <number>5</number>
+     <number>4</number>
     </property>
     <property name="bottomMargin">
-     <number>5</number>
+     <number>0</number>
     </property>
     <item>
      <widget class="QSplitter" name="centralwidget_splitter">
@@ -54,10 +54,19 @@
        <enum>Qt::Horizontal</enum>
       </property>
       <widget class="QGroupBox" name="gb_left">
-       <property name="title">
-        <string>Структура проекта</string>
-       </property>
        <layout class="QVBoxLayout" name="verticalLayout_8" stretch="0">
+        <property name="leftMargin">
+         <number>4</number>
+        </property>
+        <property name="topMargin">
+         <number>4</number>
+        </property>
+        <property name="rightMargin">
+         <number>4</number>
+        </property>
+        <property name="bottomMargin">
+         <number>4</number>
+        </property>
         <item>
          <widget class="QSplitter" name="gb_left_splitter">
           <property name="orientation">
@@ -66,12 +75,12 @@
           <widget class="QWidget" name="verticalLayoutWidget">
            <layout class="QVBoxLayout" name="vbl_templates">
             <item>
-             <widget class="QLabel" name="title_structure_execdoc">
+             <widget class="QLabel" name="label_structure_execdoc">
               <property name="enabled">
                <bool>true</bool>
               </property>
               <property name="text">
-               <string>Название проекта</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Структура проекта&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
              </widget>
             </item>
@@ -128,7 +137,7 @@
             <item>
              <widget class="QLabel" name="label_current_template">
               <property name="text">
-               <string>Шаблон</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Шаблон&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
              </widget>
             </item>
@@ -138,7 +147,7 @@
             <item>
              <widget class="QLabel" name="label_pages_template">
               <property name="text">
-               <string>Страницы шаблона</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Страницы шаблона&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
              </widget>
             </item>
@@ -181,12 +190,40 @@
          <height>0</height>
         </size>
        </property>
-       <property name="title">
-        <string>Результат в режиме реального времени</string>
+       <property name="flat">
+        <bool>false</bool>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout" stretch="0">
+       <property name="checkable">
+        <bool>false</bool>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1">
+        <property name="leftMargin">
+         <number>4</number>
+        </property>
+        <property name="topMargin">
+         <number>4</number>
+        </property>
+        <property name="rightMargin">
+         <number>4</number>
+        </property>
+        <property name="bottomMargin">
+         <number>4</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label_realview">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Результат в режиме реального времени&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
         <item>
          <widget class="QPdfView" name="widget_pdf_view" native="true">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="styleSheet">
            <string notr="true"/>
           </property>
@@ -207,16 +244,26 @@
          <height>0</height>
         </size>
        </property>
-       <property name="title">
-        <string>Ввод </string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-       </property>
-       <property name="flat">
-        <bool>false</bool>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0">
+       <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,1">
+        <property name="leftMargin">
+         <number>4</number>
+        </property>
+        <property name="topMargin">
+         <number>4</number>
+        </property>
+        <property name="rightMargin">
+         <number>4</number>
+        </property>
+        <property name="bottomMargin">
+         <number>4</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label_tags">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Форма заполнения&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
         <item>
          <widget class="QScrollArea" name="scrollarea_inputforms">
           <property name="sizePolicy">
@@ -224,6 +271,9 @@
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
           </property>
           <property name="verticalScrollBarPolicy">
            <enum>Qt::ScrollBarAlwaysOn</enum>
@@ -245,8 +295,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>261</width>
-             <height>643</height>
+             <width>562</width>
+             <height>657</height>
             </rect>
            </property>
            <property name="mouseTracking">
@@ -254,7 +304,19 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
             <property name="spacing">
-             <number>6</number>
+             <number>4</number>
+            </property>
+            <property name="leftMargin">
+             <number>4</number>
+            </property>
+            <property name="topMargin">
+             <number>4</number>
+            </property>
+            <property name="rightMargin">
+             <number>4</number>
+            </property>
+            <property name="bottomMargin">
+             <number>4</number>
             </property>
            </layout>
           </widget>
@@ -324,13 +386,22 @@
     <bool>true</bool>
    </property>
    <property name="windowTitle">
-    <string>toolBar</string>
+    <string>Панель инструментов</string>
+   </property>
+   <property name="movable">
+    <bool>true</bool>
    </property>
    <property name="allowedAreas">
-    <set>Qt::TopToolBarArea</set>
+    <set>Qt::AllToolBarAreas</set>
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonIconOnly</enum>
+   </property>
+   <property name="floatable">
+    <bool>false</bool>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>

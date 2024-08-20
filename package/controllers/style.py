@@ -295,8 +295,10 @@ QGroupBox {
     border-color: #3f3f46;
     border-style: solid;
     border-width: 1px;
+    /*
     padding: 1em 0.3em 0.3em 0.3em;
     margin-top: 0.65em;
+    */
 }
 
 QGroupBox::title {
@@ -933,7 +935,7 @@ QLineEdit[valid-filter=false] {
 
 /* собственное решение */
 QToolBar QToolButton:disabled {
-    background-color: #1e1e1e;
+    background-color: #252526;
 }
 
 QToolBar QToolButton:checked {
