@@ -9,17 +9,14 @@ import package.components.widgets.nedtags.neddatetag as neddatetag
 import package.components.widgets.nedtags.nedtabletag as nedtabletag
 import package.components.widgets.nedtags.nedimagetag as nedimagetag
 
-# TODO Сделать сохранение тегов !!!!
-# TODO Сделать order?
-
-
 class NedTagDialogWindow(QDialog):
-    def __init__(self, osbm, type_window, tag=None):
+    def __init__(self, osbm, type_window, tags, tag=None):
         self.__osbm = osbm
         self.__osbm.obj_logg.debug_logger(
             f"NedTagDialogWindow(osbm, type_window):\ntype_window = {type_window}\ntag = {tag}"
         )
         self.__type_window = type_window
+        self.__tags = tags
         self.__tag = tag
         super(NedTagDialogWindow, self).__init__()
         self.ui = nedtagdialogwindow_ui.Ui_NedTagDialogWindow()
@@ -58,13 +55,20 @@ class NedTagDialogWindow(QDialog):
         combobox = self.ui.combox_neighboor
         combobox.blockSignals(True)
         combobox.clear()
-        if self.__tag and self.__tag.get("order_tag") == 0:
-            pass
-        else:
-            combobox.addItem("- В начало -", "START")
-        for tag in self.__tags:
-            if self.__tag 
+        # по умолчанию - в конец
+        current_index = 0
+        flag = True
+        combobox.addItem("- В начало -", "START")
+        for index, tag in enumerate(self.__tags):
+            if self.__tag and self.__tag.get("id_tag") == tag.get("id_tag"):
+                flag = False
+            else:
+                combobox.addItem(f'{tag.get("order_tag")+1}) {tag.get("name_tag")}', tag)
+            if flag:
+                current_index = index + 1
+        combobox.setCurrentIndex(current_index)
         combobox.blockSignals(False)
+
 
     def connecting_actions(self):
         self.__osbm.obj_logg.debug_logger("NedTagDialogWindow connecting_actions()")
@@ -98,16 +102,18 @@ class NedTagDialogWindow(QDialog):
             else:
                 config_data = self.__additional_widget.get_save_data()
             #
+            neighboor_data = self.ui.combox_neighboor.currentData()
+            print(f"neighboor_data = {neighboor_data}")
+            order_tag = int(neighboor_data.get("order_tag")) + 1 if neighboor_data != "START" else 0
             self.__data = {
                 "NAME": le_nametag,
                 "TYPE": type_tag,
                 "TITLE": le_titletag,
-                "ORDER": None,
+                "ORDER": order_tag,
                 "CONFIG": config_data,
                 "DESCRIPTION": "",
             }
-
-            #
+            # пытаемся accept
             if self.__type_window == "create":
                 self.add_new_tag()
             elif self.__type_window == "edit":

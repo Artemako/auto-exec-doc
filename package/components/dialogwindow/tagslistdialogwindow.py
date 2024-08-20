@@ -42,6 +42,7 @@ class TagsListDialogWindow(QDialog):
         self.__osbm.obj_style.set_style_for(self)
         #
         self.__icons = self.__osbm.obj_icons.get_icons()
+        self.__all_tags = None
         # config
         self.config()
         self.config_tws()
@@ -254,9 +255,9 @@ class TagsListDialogWindow(QDialog):
             cashe = dict()
             for pair in data:
                 cashe[pair.get("id_tag")] = pair
-            # сортировка в all_data присутствует
-            all_data = self.__osbm.obj_prodb.get_project_tags()
-            for pair in all_data:
+            # self.__all_tags отсортирован по order_tag
+            self.__all_tags = self.__osbm.obj_prodb.get_tags()
+            for pair in self.__all_tags:
                 if cashe.get(pair.get("id_tag")):
                     pair["_checked"] = True
                 else:
@@ -503,46 +504,35 @@ class TagsListDialogWindow(QDialog):
     def create_tag(self):
         self.__osbm.obj_logg.debug_logger("TagsListDialogWindow create_tag()")
         result = self.ned_tag_dw("create")
-        # TODO create_tag - обработать и сохранить изменения в БД
         if result:
-            ...
             # получить data
             data = self.__osbm.obj_nedtdw.get_data()
-            # "NAME": None,
-            # "TYPE": None,
-            # "TITLE": None,
-            # "ORDER": None,
-            # "CONFIG": {},
-            # "DESCRIPTION": {},
-            # name_tag = data.get("NAME")
-            # type_tag = data.get("TYPE")
-            # title_tag = data.get("TITLE")
-            # order_tag = data.get("ORDER")
-            # config_tag = data.get("CONFIG")
-            # description_tag = data.get("DESCRIPTION")
-            # tag = {
-            #     "name_tag": name_tag,
-            #     "type_tag": type_tag,
-            #     "title_tag": title_tag,
-            #     "order_tag": order_tag,
-            #     "config_tag": config_tag,
-            #     "description_tag": description_tag,
-            # }
-            # # обработать и сохранить изменения в БД
-            # type_table = self.get_typetable()
-            # # сортировка в tags есть
-            # tags = self.get_current_data_table(type_table, editor=True)
-            # tags.insert(order_tag, tag)
-            # self.__osbm.obj_prodb.insert_tag(tag)
-            # # Меняем порядок в БД
-            # for index, tag in enumerate(tags):
-            #     order = tag.get("order_tag")
-            #     if order != index:
-            #         # TODO Менять порядок в БД
-            #         ...
-                
-            # # обновление таблиц
-            # self.caf_two_tables(type_table)
+            name_tag = data.get("NAME")
+            type_tag = data.get("TYPE")
+            title_tag = data.get("TITLE")
+            order_tag = data.get("ORDER")
+            config_tag = data.get("CONFIG")
+            config_tag = json.dumps(config_tag) if config_tag else None
+            description_tag = data.get("DESCRIPTION")
+            tag = {
+                "name_tag": name_tag,
+                "type_tag": type_tag,
+                "title_tag": title_tag,
+                "order_tag": order_tag,
+                "config_tag": config_tag,
+                "description_tag": description_tag,
+            }
+            # вставка
+            self.__all_tags.insert(order_tag, tag)
+            self.__osbm.obj_prodb.insert_tag(tag)
+            # Меняем порядок в БД - кому нужно
+            for index, tag in enumerate(self.__all_tags):
+                order = tag.get("order_tag")
+                if order != index:
+                    self.__osbm.obj_prodb.set_order_for_tag(tag, index)
+            # обновление таблиц + self.__all_tags
+            type_table = self.get_typetable()
+            self.caf_two_tables(type_table)
 
     def edit_tag(self, btn):
         self.__osbm.obj_logg.debug_logger(
@@ -552,14 +542,42 @@ class TagsListDialogWindow(QDialog):
         result = self.ned_tag_dw("edit", item)
         # TODO edit_tag - обработать и сохранить изменения в БД
         if result:
-            ...
             # получить data
-            # обработать и сохранить изменения в БД
-            # обновить таблицу
+            data = self.__osbm.obj_nedtdw.get_data()
+            name_tag = data.get("NAME")
+            type_tag = data.get("TYPE")
+            title_tag = data.get("TITLE")
+            order_tag = data.get("ORDER")
+            config_tag = data.get("CONFIG")
+            config_tag = json.dumps(config_tag) if config_tag else None
+            description_tag = data.get("DESCRIPTION")
+            tag = {
+                "id_tag": item.get("id_tag"),
+                "name_tag": name_tag,
+                "type_tag": type_tag,
+                "title_tag": title_tag,
+                "order_tag": order_tag,
+                "config_tag": config_tag,
+                "description_tag": description_tag,
+            }
+            # сортировочный процесс
+            self.__all_tags.remove(item)
+            self.__all_tags.insert(order_tag, tag)
+            # замена информации             
+            self.__osbm.obj_prodb.update_tag(tag)
+            # Меняем порядок в БД - кому нужно
+            for index, tag in enumerate(self.__all_tags):
+                order = tag.get("order_tag")
+                if order != index:
+                    self.__osbm.obj_prodb.set_order_for_tag(tag, index)
+            # обновление таблиц + self.__all_tags
+            type_table = self.get_typetable()
+            self.caf_two_tables(type_table)
+
 
     def ned_tag_dw(self, type_window, tag=None):
         self.__osbm.obj_nedtdw = nedtagdialogwindow.NedTagDialogWindow(
-            self.__osbm, type_window, tag
+            self.__osbm, type_window, self.__all_tags, tag
         )
         result = self.__osbm.obj_nedtdw.exec()
         return result == QDialog.Accepted
@@ -568,13 +586,21 @@ class TagsListDialogWindow(QDialog):
         self.__osbm.obj_logg.debug_logger(
             f"TagsListDialogWindow delete_tag(btn, type_table):\nbtn = {btn}\ntype_table = {type_table}"
         )
-        title_tag = btn.custom_data.get("title_tag")
-        name_tag = btn.custom_data.get("name_tag")
+        item = btn.custom_data
+        title_tag = item.get("title_tag")
+        name_tag = item.get("name_tag")
         question = self.__osbm.obj_dw.question_message(
             f'Вы действительно хотите удалить этот тег:\n"{title_tag}" ({name_tag})?'
         )
         if question:
-            self.__osbm.obj_prodb.delete_tag(btn.custom_data)
+            # удалить из БД
+            self.__all_tags.remove(item)
+            self.__osbm.obj_prodb.delete_tag(item)
+            # обновить порядок в БД - кому нужно
+            for index, tag in enumerate(self.__all_tags):
+                order = tag.get("order_tag")
+                if order != index:
+                    self.__osbm.obj_prodb.set_order_for_tag(tag, index)
             self.caf_two_tables(type_table)
 
     def get_current_data_table(self, type_table, editor=False):

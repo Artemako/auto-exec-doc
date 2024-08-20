@@ -1,18 +1,22 @@
 import sqlite3
 import os
 
+
 class ProjectDatabaseObjectsManager:
     def __init__(self, osbm):
         self.obj_logg = osbm.obj_logg
         self.obj_dirm = osbm.obj_dirm
 
+
 class ProjectDatabase:
     def __init__(self):
         pass
-    
+
     def setting_osbm(self, osbm):
         self.__osbm = ProjectDatabaseObjectsManager(osbm)
-        self.__osbm.obj_logg.debug_logger(f"ProjectDatabase setting_osbm():\nself.__osbm = {self.__osbm}")
+        self.__osbm.obj_logg.debug_logger(
+            f"ProjectDatabase setting_osbm():\nself.__osbm = {self.__osbm}"
+        )
 
     def create_and_config_db_project(self):
         """
@@ -375,7 +379,6 @@ COMMIT;
         )
         return result
 
-    
     def insert_page(self, page) -> int:
         """
         Добавление page в таблицу Project_pages.
@@ -571,7 +574,6 @@ COMMIT;
         conn.commit()
         conn.close()
 
-
     def get_page_data(self, page) -> list:
         """
         Запрос на получение данных страницы из Project_pages_data.
@@ -609,7 +611,6 @@ COMMIT;
             f"ProjectDatabase get_templates() -> list:\nresult = {result}"
         )
         return result
-    
 
     def get_template_data(self, template) -> list:
         """
@@ -821,7 +822,7 @@ COMMIT;
         conn.commit()
         conn.close()
 
-    def get_project_tags(self) -> list:
+    def get_tags(self) -> list:
         """
         Запрос на получение тегов проекта.
         """
@@ -836,7 +837,7 @@ COMMIT;
         result = self.get_fetchall(cursor)
         conn.close()
         self.__osbm.obj_logg.debug_logger(
-            f"ProjectDatabase get_project_tags() -> list\nresult = {result}"
+            f"ProjectDatabase get_tags() -> list\nresult = {result}"
         )
         return result
 
@@ -1011,8 +1012,7 @@ COMMIT;
         conn.commit()
         conn.close()
 
-
-    def insert_tag(self, tag):
+    def insert_tag(self, tag) -> int:
         """
         Запрос на вставку данных тега в Project_tags.
         """
@@ -1021,15 +1021,57 @@ COMMIT;
         )
         conn = self.get_conn()
         cursor = conn.cursor()
-        # TODO VALUES
         cursor.execute(
             """
         INSERT INTO Project_tags
-        (name_tag)
+        (name_tag, type_tag, title_tag, order_tag, config_tag, description_tag)
         VALUES
-        (?)
+        (?, ?, ?, ?, ?, ?)
         """,
-            [tag.get("name_tag")],
+            [
+                tag.get("name_tag"),
+                tag.get("type_tag"),
+                tag.get("title_tag"),
+                tag.get("order_tag"),
+                tag.get("config_tag"),
+                tag.get("description_tag"),
+            ],
+        )
+        conn.commit()
+        primary_key = cursor.lastrowid
+        conn.close()
+        return primary_key
+
+    def update_tag(self, tag):
+        """
+        Запрос на обновление данных тега в Project_tags.
+        """
+        self.__osbm.obj_logg.debug_logger(
+            f"ProjectDatabase update_tag(tag):\ntag = {tag}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        UPDATE Project_tags
+        SET
+        name_tag = ?,
+        type_tag = ?,
+        title_tag = ?,
+        order_tag = ?,
+        config_tag = ?,
+        description_tag = ?
+        WHERE id_tag = ?
+        """,
+            [
+                tag.get("name_tag"),
+                tag.get("type_tag"),
+                tag.get("title_tag"),
+                tag.get("order_tag"),
+                tag.get("config_tag"),
+                tag.get("description_tag"),
+                tag.get("id_tag"),
+            ],
         )
         conn.commit()
         conn.close()
@@ -1074,7 +1116,7 @@ COMMIT;
         result = self.get_fetchone(cursor)
         conn.close()
         return result
-    
+
     def get_node_by_name(self, name_node):
         """
         Запрос на получение вершины по имени в Project_nodes.
@@ -1082,7 +1124,7 @@ COMMIT;
         self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase get_node_by_name(name_node):\nname_node = {name_node}"
         )
-        conn = self.get_conn()  
+        conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
             """
@@ -1187,7 +1229,11 @@ COMMIT;
         SET id_parent = ?, order_node = ?
         WHERE id_node = ?
         """,
-            [current_node.get("id_parent"), current_node.get("order_node"), child_node.get("id_node")],
+            [
+                current_node.get("id_parent"),
+                current_node.get("order_node"),
+                child_node.get("id_node"),
+            ],
         )
         conn.commit()
         conn.close()
@@ -1228,6 +1274,26 @@ COMMIT;
         WHERE id_page = ?
         """,
             [new_order, page.get("id_page")],
+        )
+        conn.commit()
+        conn.close()
+
+    def set_order_for_tag(self, tag, new_order):
+        """
+        Установка порядка для тега.
+        """
+        self.__osbm.obj_logg.debug_logger(
+            f"ProjectDatabase set_order_for_tag(tag, new_order):\ntag = {tag}\nnew_order = {new_order}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        UPDATE Project_tags
+        SET order_tag = ?
+        WHERE id_tag = ?
+        """,
+            [new_order, tag.get("id_tag")],
         )
         conn.commit()
         conn.close()

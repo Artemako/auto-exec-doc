@@ -217,11 +217,9 @@ class NedPageDialogWindow(QDialog):
         combobox.blockSignals(True)
         combobox.clear()
         current_index = 0
+        # по умолчанию - в конец
         flag = True
-        if self.__page and self.__page.get("order_page") == 0:
-            pass
-        else:
-            combobox.addItem("- В начало -", "START")
+        combobox.addItem("- В начало -", "START")
         for index, page in enumerate(self.__pages):
             if self.__page and self.__page.get("id_page") == page.get("id_page"):
                 flag = False

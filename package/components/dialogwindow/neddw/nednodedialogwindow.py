@@ -124,10 +124,7 @@ class NedNodeDialogWindow(QDialog):
         current_index = 0
         parent_node = self.ui.combox_parent.currentData()
         if parent_node:
-            if self.__type_window == "edit" and self.__node.get("order_node") != "0":
-                pass
-            else:
-                combobox.addItem("- В начало -", "START")
+            combobox.addItem("- В начало -", "START")
             childs_nodes = self.get_childs(parent_node)
             if self.__type_window == "create":
                 for index, child_node in enumerate(childs_nodes):

@@ -73,14 +73,18 @@ class NedRowcolDialogWindow(QDialog):
         combobox = self.ui.combox_neighboor
         combobox.blockSignals(True)
         combobox.clear()
-        if self.__rowcol and self.get_order_rowcol(self.__rowcol) == 0:
-            pass
-        else:
-            combobox.addItem("- В начало -", "START")
-        for rowcol in self.__rowcols:
+        # по умолчанию - в конец
+        current_index = 0
+        flag = True
+        combobox.addItem("- В начало -", "START")
+        for index, rowcol in enumerate(self.__rowcols):
             if self.__rowcol and rowcol.get("ID") == self.__rowcol.get("ID"):
-                continue
-            combobox.addItem(rowcol.get("ATTR"), rowcol)
+                flag = False
+            else:
+                combobox.addItem(rowcol.get("ATTR"), rowcol)
+            if flag:
+                current_index = index + 1
+        combobox.setCurrentIndex(current_index)
         combobox.blockSignals(False)
 
     def connecting_actions(self):
