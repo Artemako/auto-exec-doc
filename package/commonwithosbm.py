@@ -188,6 +188,40 @@ class TableTypes:
 #
 #
 
+class PageType:
+    def __init__(self, index, name, data, icon):
+        self.index = index
+        self.name = name
+        self.data = data
+        self.icon = icon
+
+class PageTypes:
+    def __init__(self, osbm):
+        self.__osbm = osbm
+        self.__icons = self.__osbm.obj_icons.get_icons()
+        self.__page_types = [
+            PageType(0, "Файл DOCX", "DOCX", self.__icons.get("page")),
+            PageType(1, "Файл PDF", "PDF", self.__icons.get("pdf")),
+        ]
+
+    def get_page_types(self):
+        self.__osbm.obj_logg.debug_logger("PageTypes get_page_types()")
+        return self.__page_types
+
+    def get_index_by_data(self, data):
+        result = 0
+        for page_type in self.__page_types:
+            if page_type.data == data:
+                result = page_type.index
+                break
+        self.__osbm.obj_logg.debug_logger(
+            f"PageTypes get_index_by_data(data):\ndata = {data}\n result = {result}"
+        )
+        return result
+#
+#
+#
+
 
 class ResizeQt:
     def __init__(self, osbm):
@@ -211,6 +245,7 @@ class CommonWithOsmb:
         self.sizing_modes = None
         self.units = None
         self.table_types = None
+        self.page_types = None
         self.resizeqt = None
 
     def setting_all_osbm(self, osbm):
@@ -224,4 +259,5 @@ class CommonWithOsmb:
         self.sizing_modes = SizingModes(self.__osbm)
         self.units = Units(self.__osbm)
         self.table_types = TableTypes(self.__osbm)
+        self.page_types = PageTypes(self.__osbm)
         self.resizeqt = ResizeQt(self.__osbm)

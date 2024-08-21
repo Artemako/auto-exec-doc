@@ -42,15 +42,81 @@ class NedPageDialogWindow(QDialog):
             "id_parent_template": None,
             "name_page": None,
             "filename_page": None,
+            "typefile_page": None,
             "order_page": None,
             "included": 1,
         }
         self.__variables_for_add = []
+        self.__is_edit = self.__type_ned == "edit"
+        self.__type_page = None
         # одноразовые действия
-        self.config_by_type_window()
+        self.config()
+        self.reconfig_is_edit()
         self.config_combox_neighboor()
+        
         self.reconfig_tw_variables()
         self.connecting_actions()
+
+    def set_active_find_variables(self, state):
+        """найденные переменные"""
+        self.ui.label_variables.setEnabled(state)
+        self.ui.tw_variables.setEnabled(state)
+        self.ui.btn_findvariables.setEnabled(state)
+
+    def config(self):
+        """
+        по умолчанию
+        """
+        self.__osbm.obj_logg.debug_logger("NedPageDialogWindow config_by_type_window()")
+        if self.__type_ned == "create":
+            self.ui.lineedit_namepage.setText("")
+            self.ui.btn_nedvariable.setText("Добавить страницу")            
+            self.__type_page = "DOCX" # по умолчанию
+        elif self.__type_ned == "edit":
+            self.ui.lineedit_namepage.setText(self.__page.get("name_page"))
+            self.ui.btn_nedvariable.setText("Сохранить страницу")
+            self.__type_page = self.__page.get("typefile_page")            
+            # Создать копию для редактирования
+            self.do_temp_copy_for_edit(self.__page.get("filename_page"))
+        # отключить найденные переменные
+        self.set_active_find_variables(False)
+        
+
+    def reconfig_is_edit(self):
+        self.__osbm.obj_logg.debug_logger("NedPageDialogWindow reconfig_is_edit()")        
+        if not self.__is_edit:
+            self.ui.btn_select.setText("Выбрать файл")
+            self.ui.btn_open_docx.setEnabled(False)
+            self.ui.label_file.setText("Файл не выбран")           
+        elif self.__is_edit:
+            self.ui.btn_select.setText("Выбрать новый файл")
+            self.ui.label_file.setText("Файл выбран")            
+            self.ui.btn_open_docx.setEnabled(True)
+            if self.__type_page == "DOCX":
+                self.ui.btn_open_docx.setText("Открыть и редактировать docx")
+            elif self.__type_page == "PDF":
+                self.ui.btn_open_docx.setText("Открыть pdf")
+
+    def config_combox_neighboor(self):
+        self.__osbm.obj_logg.debug_logger(
+            "NedPageDialogWindow config_combox_neighboor()"
+        )
+        combobox = self.ui.combox_neighboor
+        combobox.blockSignals(True)
+        combobox.clear()
+        current_index = 0
+        # по умолчанию - в конец
+        flag = True
+        combobox.addItem("- В начало -", "START")
+        for index, page in enumerate(self.__pages):
+            if self.__page and self.__page.get("id_page") == page.get("id_page"):
+                flag = False
+            else:
+                combobox.addItem(page.get("name_page"), page)
+            if flag:
+                current_index = index + 1
+        combobox.setCurrentIndex(current_index)
+        combobox.blockSignals(False)
 
     def get_data(self):
         self.__osbm.obj_logg.debug_logger(
@@ -71,21 +137,7 @@ class NedPageDialogWindow(QDialog):
         self.ui.btn_findvariables.clicked.connect(self.reconfig_tw_variables)
         self.ui.btn_findvariables.setShortcut("Ctrl+F")
 
-    def config_by_type_window(self):
-        self.__osbm.obj_logg.debug_logger("NedPageDialogWindow config_by_type_window()")
-        if self.__type_ned == "create":
-            self.ui.btn_select.setText("Выбрать документ")
-            self.ui.label_file.setText("Файл не выбран")
-            self.ui.btn_nedvariable.setText("Добавить страницу")
-            self.ui.btn_open_docx.setEnabled(False)
-        elif self.__type_ned == "edit":
-            self.ui.btn_select.setText("Выбрать документ")
-            self.ui.label_file.setText("Файл выбран")
-            self.ui.btn_nedvariable.setText("Сохранить страницу")
-            self.ui.lineedit_namepage.setText(self.__page.get("name_page"))
-            # Создать копию для редактирования
-            self.do_temp_copy_for_edit(self.__page.get("filename_page"))
-            self.ui.btn_open_docx.setEnabled(True)
+    
 
     def reconfig_tw_variables(self):
         self.__osbm.obj_logg.debug_logger("NedPageDialogWindow reconfig_tw_variables()")
@@ -110,7 +162,6 @@ class NedPageDialogWindow(QDialog):
         tablewidget.blockSignals(False)
 
     def fill_tw_variables(self, jinja_variables):
-        # TODO ПЕРЕДЕЛАТЬ
         self.__osbm.obj_logg.debug_logger(
             f"NedPageDialogWindow fill_tw_variables(jinja_variables):\njinja_variables = {jinja_variables}"
         )
@@ -136,7 +187,7 @@ class NedPageDialogWindow(QDialog):
             else:
                 add_button.setText("Добавить переменную")
                 add_button.clicked.connect(
-                    partial(self.add_variable, name_variable, False)
+                    partial(self.add_variable, name_variable)
                 )
                 tablewidget.setCellWidget(row, 1, widget)
         # Настраиваем режимы изменения размера для заголовков
@@ -161,54 +212,49 @@ class NedPageDialogWindow(QDialog):
                 break
         return result
 
-    def add_variable(self, name_variable, is_block):
-        # TODO Traceback (most recent call last):
-#   File "d:\work\project\AutoExecDoc\package\components\dialogwindow\neddw\nedpagedialogwindow.py", line 173, in add_variable
-# 2024-08-21 23:23:02,559 - DEBUG -  ProjectDatabase get_conn() -> object
-#     self.__osbm.obj_nedtdw = nedvariabledialogwindow.NedVariableDialogWindow(
-# TypeError: __init__() takes from 4 to 6 positional arguments but 7 were given
+    def add_variable(self, name_variable):
         """
         Похожий код у VariablesListDialogWindow.
         """
         self.__osbm.obj_logg.debug_logger(
-            f"NedPageDialogWindow add_variable(variable, name_variable, is_block):\nname_variable = {name_variable}\n is_block = {is_block}"
+            f"NedPageDialogWindow add_variable(variable, name_variable):\nname_variable = {name_variable}"
         )
-        #
-        self.__all_variables = self.__osbm.obj_prodb.get_variables()
-        # окно
-        self.__osbm.obj_nedtdw = nedvariabledialogwindow.NedVariableDialogWindow(
-            self.__osbm, "create", self.__all_variables, None, name_variable, is_block
-        )
-        result = self.__osbm.obj_nedtdw.exec()
-        # результат
-        if result == QDialog.Accepted:
-            # получить data
-            data = self.__osbm.obj_nedtdw.get_data()
-            name_variable = data.get("NAME")
-            type_variable = data.get("TYPE")
-            title_variable = data.get("TITLE")
-            order_variable = data.get("ORDER")
-            config_variable = data.get("CONFIG")
-            config_variable = json.dumps(config_variable) if config_variable else None
-            description_variable = data.get("DESCRIPTION")
-            create_variable = {
-                "name_variable": name_variable,
-                "type_variable": type_variable,
-                "title_variable": title_variable,
-                "order_variable": order_variable,
-                "config_variable": config_variable,
-                "description_variable": description_variable,
-            }
-            # вставка
-            self.__all_variables.insert(order_variable, create_variable)
-            self.__osbm.obj_prodb.insert_variable(create_variable)
-            # Меняем порядок в БД - кому нужно
-            for index, variable in enumerate(self.__all_variables):
-                order = variable.get("order_variable")
-                if order != index:
-                    self.__osbm.obj_prodb.set_order_for_variable(variable, index)
-            # обновляем таблицу
-            self.reconfig_tw_variables()
+        # TODO "typefile_page": None,
+        # self.__all_variables = self.__osbm.obj_prodb.get_variables()
+        # # окно
+        # self.__osbm.obj_nedtdw = nedvariabledialogwindow.NedVariableDialogWindow(
+        #     self.__osbm, "create", self.__all_variables, None, name_variable
+        # )
+        # result = self.__osbm.obj_nedtdw.exec()
+        # # результат
+        # if result == QDialog.Accepted:
+        #     # получить data
+        #     data = self.__osbm.obj_nedtdw.get_data()
+        #     name_variable = data.get("NAME")
+        #     type_variable = data.get("TYPE")
+        #     title_variable = data.get("TITLE")
+        #     order_variable = data.get("ORDER")
+        #     config_variable = data.get("CONFIG")
+        #     config_variable = json.dumps(config_variable) if config_variable else None
+        #     description_variable = data.get("DESCRIPTION")
+        #     create_variable = {
+        #         "name_variable": name_variable,
+        #         "type_variable": type_variable,
+        #         "title_variable": title_variable,
+        #         "order_variable": order_variable,
+        #         "config_variable": config_variable,
+        #         "description_variable": description_variable,
+        #     }
+        #     # вставка
+        #     self.__all_variables.insert(order_variable, create_variable)
+        #     self.__osbm.obj_prodb.insert_variable(create_variable)
+        #     # Меняем порядок в БД - кому нужно
+        #     for index, variable in enumerate(self.__all_variables):
+        #         order = variable.get("order_variable")
+        #         if order != index:
+        #             self.__osbm.obj_prodb.set_order_for_variable(variable, index)
+        #     # обновляем таблицу
+        #     self.reconfig_tw_variables()
 
     def extract_jinja_variables(self, docx_path) -> set:
         self.__osbm.obj_logg.debug_logger(
@@ -227,26 +273,7 @@ class NedPageDialogWindow(QDialog):
             )
             return set()
 
-    def config_combox_neighboor(self):
-        self.__osbm.obj_logg.debug_logger(
-            "NedPageDialogWindow config_combox_neighboor()"
-        )
-        combobox = self.ui.combox_neighboor
-        combobox.blockSignals(True)
-        combobox.clear()
-        current_index = 0
-        # по умолчанию - в конец
-        flag = True
-        combobox.addItem("- В начало -", "START")
-        for index, page in enumerate(self.__pages):
-            if self.__page and self.__page.get("id_page") == page.get("id_page"):
-                flag = False
-            else:
-                combobox.addItem(page.get("name_page"), page)
-            if flag:
-                current_index = index + 1
-        combobox.setCurrentIndex(current_index)
-        combobox.blockSignals(False)
+    
 
     def do_temp_copy_for_edit(self, old_filename_page):
         self.__osbm.obj_logg.debug_logger("NedPageDialogWindow do_copy_for_edit()")
@@ -281,7 +308,8 @@ class NedPageDialogWindow(QDialog):
             self.__temp_copy_file_path = os.path.join(temp_dir, file_name_with_docx)
             self.__osbm.obj_film.copy_file(docx_path, self.__temp_copy_file_path)
             # файл выбран
-            self.ui.btn_open_docx.setEnabled(True)
+            self.__is_edit = True
+            self.reconfig_is_edit()
             self.reconfig_tw_variables()
 
     
@@ -324,7 +352,7 @@ class NedPageDialogWindow(QDialog):
             order_page = (
                 0 if neighboor_page == "START" else neighboor_page.get("order_page") + 1
             )
-            #
+            # TODO "typefile_page": None,
             if self.__type_ned == "create":
                 if find_page is None:
                     self.__data["name_page"] = namepage

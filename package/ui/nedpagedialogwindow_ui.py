@@ -25,7 +25,7 @@ class Ui_NedPageDialogWindow(object):
     def setupUi(self, NedPageDialogWindow):
         if not NedPageDialogWindow.objectName():
             NedPageDialogWindow.setObjectName(u"NedPageDialogWindow")
-        NedPageDialogWindow.resize(500, 500)
+        NedPageDialogWindow.resize(450, 450)
         self.verticalLayout = QVBoxLayout(NedPageDialogWindow)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(-1, -1, -1, 9)
@@ -66,16 +66,6 @@ class Ui_NedPageDialogWindow(object):
         self.line_2.setFrameShadow(QFrame.Sunken)
 
         self.verticalLayout.addWidget(self.line_2)
-
-        self.label_typefile = QLabel(NedPageDialogWindow)
-        self.label_typefile.setObjectName(u"label_typefile")
-
-        self.verticalLayout.addWidget(self.label_typefile)
-
-        self.combox_typefile = QComboBox(NedPageDialogWindow)
-        self.combox_typefile.setObjectName(u"combox_typefile")
-
-        self.verticalLayout.addWidget(self.combox_typefile)
 
         self.label_document = QLabel(NedPageDialogWindow)
         self.label_document.setObjectName(u"label_document")
@@ -164,12 +154,11 @@ class Ui_NedPageDialogWindow(object):
         self.label_namepage.setText(QCoreApplication.translate("NedPageDialogWindow", u"<html><head/><body><p>\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u044b</p></body></html>", None))
         self.lineedit_namepage.setText("")
         self.label_after.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u0420\u0430\u0441\u043f\u043e\u043b\u043e\u0436\u0438\u0442\u044c \u043f\u043e\u0441\u043b\u0435 ", None))
-        self.label_typefile.setText(QCoreApplication.translate("NedPageDialogWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0422\u0438\u043f \u0444\u0430\u0439\u043b\u0430</span></p></body></html>", None))
-        self.label_document.setText(QCoreApplication.translate("NedPageDialogWindow", u"<html><head/><body><p>\u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442</p></body></html>", None))
-        self.btn_select.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u0412\u044b\u0431\u0440\u0430\u0442\u044c docx", None))
+        self.label_document.setText(QCoreApplication.translate("NedPageDialogWindow", u"<html><head/><body><p>\u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442 (docx \u0438\u043b\u0438 pdf)</p></body></html>", None))
+        self.btn_select.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u0412\u044b\u0431\u0440\u0430\u0442\u044c \u0444\u0430\u0439\u043b", None))
         self.btn_open_docx.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u0438 docx", None))
-        self.label_file.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u0412\u044b\u0431\u0440\u0430\u043d\u043d\u044b\u0439 \u0444\u0430\u0439\u043b", None))
-        self.label_variables.setText(QCoreApplication.translate("NedPageDialogWindow", u"<html><head/><body><p>\u041d\u0430\u0439\u0434\u0435\u043d\u043d\u044b\u0435 \u043f\u0435\u0440\u0435\u043c\u0435\u043d\u043d\u044b\u0435</p></body></html>", None))
+        self.label_file.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u0424\u0430\u0439\u043b \u043d\u0435 \u0432\u044b\u0431\u0440\u0430\u043d", None))
+        self.label_variables.setText(QCoreApplication.translate("NedPageDialogWindow", u"<html><head/><body><p>\u041d\u0430\u0439\u0434\u0435\u043d\u043d\u044b\u0435 \u043f\u0435\u0440\u0435\u043c\u0435\u043d\u043d\u044b\u0435 (\u0434\u043b\u044f docx)</p></body></html>", None))
         self.btn_findvariables.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u041f\u043e\u0438\u0441\u043a \u043f\u0435\u0440\u0435\u043c\u0435\u043d\u043d\u044b\u0445 \u0432 \u0432\u044b\u0431\u0440\u0430\u043d\u043d\u043e\u043c \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0435", None))
         self.btn_nedvariable.setText(QCoreApplication.translate("NedPageDialogWindow", u"...", None))
         self.btn_close.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u0417\u0430\u043a\u0440\u044b\u0442\u044c", None))

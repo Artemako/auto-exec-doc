@@ -14,3 +14,5 @@ if __name__ == "__main__":
 # setShortcut("Ctrl+Q")
 # self.__osbm.obj_stab.set_message(f"{self.windowTitle()}: добавление прошло успешно!")
 # self.__osbm.obj_stab.set_message(f"{self.windowTitle()}: сохранение прошло успешно!")
+
+   

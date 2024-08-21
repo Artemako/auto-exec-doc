@@ -72,6 +72,7 @@ CREATE TABLE IF NOT EXISTS "Project_pages" (
 	"id_parent_template"	INTEGER,
 	"name_page"	TEXT UNIQUE,
 	"filename_page"	TEXT UNIQUE,
+	"typefile_page"	TEXT,
 	"order_page"	INTEGER NOT NULL,
 	"included"	INTEGER NOT NULL DEFAULT 1,
 	PRIMARY KEY("id_page" AUTOINCREMENT),
@@ -87,18 +88,6 @@ CREATE TABLE IF NOT EXISTS "Project_pages_data" (
 	FOREIGN KEY("id_page") REFERENCES "Project_pages"("id_page") ON DELETE CASCADE,
 	FOREIGN KEY("id_variable") REFERENCES "Project_variables"("id_variable") ON DELETE CASCADE
 );
-CREATE TABLE IF NOT EXISTS "Project_variables" (
-	"id_variable"	INTEGER NOT NULL UNIQUE,
-	"name_variable"	TEXT NOT NULL UNIQUE,
-	"type_variable"	TEXT NOT NULL,
-	"title_variable"	TEXT,
-	"order_variable"	INTEGER NOT NULL,
-	"config_variable"	TEXT,
-	"description_variable"	TEXT,
-	"is_global"	INTEGER,
-	PRIMARY KEY("id_variable" AUTOINCREMENT),
-	UNIQUE("name_variable")
-);
 CREATE TABLE IF NOT EXISTS "Project_templates" (
 	"id_template"	INTEGER NOT NULL UNIQUE,
 	"name_template"	TEXT,
@@ -113,84 +102,21 @@ CREATE TABLE IF NOT EXISTS "Project_templates_data" (
 	"name_variable"	TEXT,
 	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
-	FOREIGN KEY("id_variable") REFERENCES "Project_variables"("id_variable") ON DELETE CASCADE,
-	FOREIGN KEY("id_template") REFERENCES "Project_templates"("id_template") ON DELETE CASCADE
+	FOREIGN KEY("id_template") REFERENCES "Project_templates"("id_template") ON DELETE CASCADE,
+	FOREIGN KEY("id_variable") REFERENCES "Project_variables"("id_variable") ON DELETE CASCADE
 );
-INSERT INTO "Project_nodes" VALUES (0,'Проект',NULL,'0','PROJECT',NULL,1);
-INSERT INTO "Project_nodes" VALUES (10,'Титульный лист',0,'1','FORM',1,1);
-INSERT INTO "Project_nodes" VALUES (11,'Реестр документации',0,'2','FORM',2,1);
-INSERT INTO "Project_nodes" VALUES (12,'Паспорт трассы',0,'3','GROUP',NULL,1);
-INSERT INTO "Project_nodes" VALUES (1201,'ПТ-1',12,'1','FORM',3,1);
-INSERT INTO "Project_nodes" VALUES (1202,'ПТ-2',12,'2','FORM',4,1);
-INSERT INTO "Project_nodes" VALUES (1203,'ПТ-3',12,'3','FORM',5,1);
-INSERT INTO "Project_nodes_data" VALUES (100,0,1003,'название_объекта',NULL);
-INSERT INTO "Project_nodes_data" VALUES (101,0,1004,'участок',NULL);
-INSERT INTO "Project_nodes_data" VALUES (102,0,1001,'название_компании',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1000,10,1000,'организационно_правовая_форма',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1001,10,1002,'адрес_компании',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1004,10,1005,'номер_кабеля',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1005,10,1006,'заказчик',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1006,10,1008,'город',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1007,10,1009,'год',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1100,11,1101,'инж_про_ком_фио',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1101,11,1208,'дата',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1200,12,1101,'инж_про_ком_фио',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1201,12,1208,'дата',NULL);
-INSERT INTO "Project_pages" VALUES (10,1,'Л.1. Титульный лист.','10',0,1);
-INSERT INTO "Project_pages" VALUES (11,1,'Л.2. Титульный лист.','11',1,1);
-INSERT INTO "Project_pages" VALUES (20,2,'Л.1. Реестр исполнительной документации ВОЛС.','20',0,1);
-INSERT INTO "Project_pages" VALUES (30,3,'Л.1. Паспорт трассы. Опись документов.','30',0,1);
-INSERT INTO "Project_pages" VALUES (40,4,'Л.1. Паспорт трассы волоконно-оптической линии связи на участке.','40',0,1);
-INSERT INTO "Project_pages" VALUES (50,5,'Л.1. Скелетная схема ВОЛП и основные данные цепей кабеля.','50',0,1);
-INSERT INTO "Project_pages_data" VALUES (100,10,1007,'строительно_монтажная_организация',NULL);
-INSERT INTO "Project_pages_data" VALUES (200,11,1100,'инж_про_ком',NULL);
-INSERT INTO "Project_pages_data" VALUES (201,11,1101,'инж_про_ком_фио',NULL);
-INSERT INTO "Project_pages_data" VALUES (202,11,1102,'гла_инж_компания',NULL);
-INSERT INTO "Project_pages_data" VALUES (203,11,1103,'гла_инж_фио',NULL);
-INSERT INTO "Project_pages_data" VALUES (300,20,1200,'реестр_ид_паспорт_трассы',NULL);
-INSERT INTO "Project_pages_data" VALUES (301,20,1201,'реестр_ид_эл_паспорт_трассы',NULL);
-INSERT INTO "Project_pages_data" VALUES (302,20,1202,'рабочая_документация',NULL);
-INSERT INTO "Project_pages_data" VALUES (400,30,1209,'пт_опись_документов',NULL);
-INSERT INTO "Project_pages_data" VALUES (500,40,1220,'кабеля',NULL);
-INSERT INTO "Project_pages_data" VALUES (501,40,1225,'общая_физ_длина',NULL);
-INSERT INTO "Project_pages_data" VALUES (502,40,1226,'общая_опт_длина',NULL);
-INSERT INTO "Project_pages_data" VALUES (503,40,1227,'год_прокладки_кабеля',NULL);
-INSERT INTO "Project_pages_data" VALUES (504,40,1228,'год_составления_паспорта',NULL);
-INSERT INTO "Project_pages_data" VALUES (505,40,1229,'отв_пред_орг_фио',NULL);
-INSERT INTO "Project_pages_data" VALUES (600,50,1230,'скелетная_схема_ВОЛП',NULL);
-INSERT INTO "Project_variables" VALUES (1000,'организационно_правовая_форма','TEXT','Организационно-правовая форма',0,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1001,'название_компании','TEXT','Название компании',1,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1002,'адрес_компании','TEXT','Адрес компании',2,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1003,'название_объекта','TEXT','Название объекта',3,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1004,'участок','TEXT','Участок',4,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1005,'номер_кабеля','TEXT','Номер кабеля',5,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1006,'заказчик','TEXT','Заказчик',6,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1007,'строительно_монтажная_организация','TEXT','Строительно-монтажная организация',7,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1008,'город','TEXT','Город',8,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1009,'год','DATE','Год',9,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1100,'инж_про_ком','TEXT','Компания инженера-проектировщика',10,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1101,'инж_про_ком_фио','TEXT','ФИО инженера-проектировщика',11,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1102,'гла_инж_компания','TEXT','Компания главного инженера',12,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1103,'гла_инж_фио','TEXT','ФИО главного инженера',13,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1200,'реестр_ид_паспорт_трассы','TABLE','Реестр ИД ВОЛС. Паспорт трассы',14,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1201,'реестр_ид_эл_паспорт_трассы','TABLE','Реестр ИД ВОЛС. Электрический паспорт трассы',15,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1202,'рабочая_документация','TABLE','Реестр ИД ВОЛС. Рабочая документация',16,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1208,'дата','DATE','Дата',17,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1209,'пт_опись_документов','TABLE','Паспорт трассы. Опись документов.',18,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1220,'кабеля','TABLE','Кабеля.',19,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1225,'общая_физ_длина','TEXT','Общая физическая длина',20,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1226,'общая_опт_длина','TEXT','Общая оптическая длина',21,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1227,'год_прокладки_кабеля','DATE','Год прокладки кабеля',22,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1228,'год_составления_паспорта','DATE','Год составления паспорта',23,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1229,'отв_пред_орг_фио ','TEXT','ФИО ответственного представителя организации',24,NULL,NULL,0);
-INSERT INTO "Project_variables" VALUES (1230,'скелетная_схема_ВОЛП','IMAGE','Скелетная схема ВОЛП',25,NULL,NULL,0);
-INSERT INTO "Project_templates" VALUES (1,'main',10);
-INSERT INTO "Project_templates" VALUES (2,'main',11);
-INSERT INTO "Project_templates" VALUES (3,'main',1201);
-INSERT INTO "Project_templates" VALUES (4,'main',1202);
-INSERT INTO "Project_templates" VALUES (5,'main',1203);
-COMMIT;
-
+CREATE TABLE IF NOT EXISTS "Project_variables" (
+	"id_variable"	INTEGER NOT NULL UNIQUE,
+	"name_variable"	TEXT NOT NULL UNIQUE,
+	"type_variable"	TEXT NOT NULL,
+	"title_variable"	TEXT,
+	"order_variable"	INTEGER NOT NULL,
+	"config_variable"	TEXT,
+	"description_variable"	TEXT,
+	"is_global"	INTEGER,
+	PRIMARY KEY("id_variable" AUTOINCREMENT),
+	UNIQUE("name_variable")
+);
         """
         )
         conn.commit()
@@ -380,7 +306,6 @@ COMMIT;
         )
         return result
 
-    
     def insert_page(self, page) -> int:
         """
         Добавление page в таблицу Project_pages.
@@ -393,13 +318,15 @@ COMMIT;
         cursor.execute(
             """
         INSERT INTO Project_pages
-        (id_parent_template, name_page, filename_page, order_page, included)
-        VALUES (?, ?, ?, ?, ?)
+        (id_parent_template, name_page, filename_page, typefile_page, order_page, included)
+        VALUES
+        (?, ?, ?, ?, ?)
         """,
             [
                 page.get("id_parent_template"),
                 page.get("name_page"),
                 page.get("filename_page"),
+                page.get("typefile_page"),
                 page.get("order_page"),
                 page.get("included"),
             ],
@@ -669,10 +596,10 @@ COMMIT;
         cursor.execute(
             """
         UPDATE Project_pages
-        SET name_page = ?, filename_page = ?
+        SET name_page = ?, filename_page = ?, typefile_page = ?
         WHERE id_page = ?
         """,
-            [page.get("name_page"), page.get("filename_page"), page.get("id_page")],
+            [page.get("name_page"), page.get("filename_page"), page.get("typefile_page"), page.get("id_page")],
         )
         conn.commit()
         conn.close()
@@ -1381,25 +1308,6 @@ COMMIT;
         conn.commit()
         conn.close()
 
-    def set_new_name_and_filename_for_page(self, page, name_page, filename_page):
-        """
-        Установка нового имени и имени файла для страницы.
-        """
-        self.__osbm.obj_logg.debug_logger(
-            f"ProjectDatabase set_new_name_and_filename_for_page(page, name_page, filename_page):\npage = {page}\nname_page = {name_page}\nfilename_page = {filename_page}"
-        )
-        conn = self.get_conn()
-        cursor = conn.cursor()
-        cursor.execute(
-            """
-        UPDATE Project_pages
-        SET name_page = ?, filename_page = ?
-        WHERE id_page = ?
-        """,
-            [name_page, filename_page, page.get("id_page")],
-        )
-        conn.commit()
-        conn.close()
 
 
 # obj_prodb = ProjectDatabase()

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>500</height>
+    <width>450</width>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -74,16 +74,6 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label_typefile">
-     <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Тип файла&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QComboBox" name="combox_typefile"/>
-   </item>
-   <item>
     <widget class="QLabel" name="label_document">
      <property name="minimumSize">
       <size>
@@ -101,7 +91,7 @@
       <string notr="true">font-weight: bold;</string>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Документ&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Документ (docx или pdf)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::AutoText</enum>
@@ -116,7 +106,7 @@
      <item>
       <widget class="QPushButton" name="btn_select">
        <property name="text">
-        <string>Выбрать docx</string>
+        <string>Выбрать файл</string>
        </property>
       </widget>
      </item>
@@ -135,7 +125,7 @@
       <string notr="true">font-style: italic;</string>
      </property>
      <property name="text">
-      <string>Выбранный файл</string>
+      <string>Файл не выбран</string>
      </property>
     </widget>
    </item>
@@ -157,7 +147,7 @@
       <string notr="true">font-weight: bold;</string>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Найденные переменные&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Найденные переменные (для docx)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::AutoText</enum>

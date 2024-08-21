@@ -24,7 +24,7 @@ class Icons:
         """
         return self.__type_variable_to_key_icon.get(type_variable)
         
-    def get_icons(self, size = 12) -> dict:
+    def get_icons(self, size = 16) -> dict:
         self.__osbm.obj_logg.debug_logger(f"Icons get_icons(size):\nsize = {size}")
         result = self.__icons_cache.get(size)
         if result:
@@ -51,10 +51,12 @@ class Icons:
             icons["pen"] = QIcon(":/white-icons/resources/white-icons/pen.svg")
             icons["trash"] = QIcon(":/white-icons/resources/white-icons/trash.svg")
             # группа и форма
-            icons["form"] = QIcon(":/white-icons/resources/white-icons/file-text.svg")
+            icons["form"] = QIcon(":/white-icons/resources/white-icons/page.svg")
             icons["group"] = QIcon(":/white-icons/resources/white-icons/folder.svg")
             # страница
-            icons["page"] = QIcon(":/white-icons/resources/white-icons/page.svg")
+            icons["page"] = QIcon(":/white-icons/resources/white-icons/file-text.svg")
+            # pdf
+            icons["pdf"] = QIcon(":/white-icons/resources/white-icons/pdf.svg")
             #
             for key, elem in icons.items():
                 if key in ["red_circle", "yellow_circle", "green_circle"]:

@@ -295,7 +295,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>562</width>
+             <width>271</width>
              <height>657</height>
             </rect>
            </property>
@@ -364,9 +364,9 @@
     <property name="title">
      <string>Редакторы</string>
     </property>
-    <addaction name="action_edit_variables"/>
-    <addaction name="action_edit_templates"/>
     <addaction name="action_edit_composition"/>
+    <addaction name="action_edit_templates"/>
+    <addaction name="action_edit_variables"/>
    </widget>
    <widget class="QMenu" name="menu_scale">
     <property name="title">
@@ -397,6 +397,12 @@
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
    </property>
+   <property name="iconSize">
+    <size>
+     <width>32</width>
+     <height>24</height>
+    </size>
+   </property>
    <property name="toolButtonStyle">
     <enum>Qt::ToolButtonIconOnly</enum>
    </property>
@@ -414,9 +420,9 @@
    <addaction name="action_save"/>
    <addaction name="action_export_to_pdf"/>
    <addaction name="separator"/>
-   <addaction name="action_edit_variables"/>
-   <addaction name="action_edit_templates"/>
    <addaction name="action_edit_composition"/>
+   <addaction name="action_edit_templates"/>
+   <addaction name="action_edit_variables"/>
    <addaction name="separator"/>
    <addaction name="action_zoomin"/>
    <addaction name="action_zoomout"/>
