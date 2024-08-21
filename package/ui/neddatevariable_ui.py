@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'neddatetag.ui'
+## Form generated from reading UI file 'neddatevariable.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.3
 ##
@@ -18,15 +18,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QLineEdit,
     QSizePolicy, QVBoxLayout, QWidget)
 
-class Ui_NedDateTag(object):
-    def setupUi(self, NedDateTag):
-        if not NedDateTag.objectName():
-            NedDateTag.setObjectName(u"NedDateTag")
-        NedDateTag.resize(400, 53)
-        self.verticalLayout = QVBoxLayout(NedDateTag)
+class Ui_NedDateVariable(object):
+    def setupUi(self, NedDateVariable):
+        if not NedDateVariable.objectName():
+            NedDateVariable.setObjectName(u"NedDateVariable")
+        NedDateVariable.resize(400, 53)
+        self.verticalLayout = QVBoxLayout(NedDateVariable)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.formatdate = QLabel(NedDateTag)
+        self.formatdate = QLabel(NedDateVariable)
         self.formatdate.setObjectName(u"formatdate")
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -41,13 +41,13 @@ class Ui_NedDateTag(object):
 
         self.verticalLayout.addWidget(self.formatdate)
 
-        self.lineedit_format = QLineEdit(NedDateTag)
+        self.lineedit_format = QLineEdit(NedDateVariable)
         self.lineedit_format.setObjectName(u"lineedit_format")
         self.lineedit_format.setClearButtonEnabled(False)
 
         self.verticalLayout.addWidget(self.lineedit_format)
 
-        self.line = QFrame(NedDateTag)
+        self.line = QFrame(NedDateVariable)
         self.line.setObjectName(u"line")
         self.line.setFrameShape(QFrame.HLine)
         self.line.setFrameShadow(QFrame.Sunken)
@@ -55,13 +55,13 @@ class Ui_NedDateTag(object):
         self.verticalLayout.addWidget(self.line)
 
 
-        self.retranslateUi(NedDateTag)
+        self.retranslateUi(NedDateVariable)
 
-        QMetaObject.connectSlotsByName(NedDateTag)
+        QMetaObject.connectSlotsByName(NedDateVariable)
     # setupUi
 
-    def retranslateUi(self, NedDateTag):
-        NedDateTag.setWindowTitle(QCoreApplication.translate("NedDateTag", u"Form", None))
-        self.formatdate.setText(QCoreApplication.translate("NedDateTag", u"<html><head/><body><p>\u0424\u043e\u0440\u043c\u0430\u0442 \u0434\u0430\u0442\u044b</p></body></html>", None))
+    def retranslateUi(self, NedDateVariable):
+        NedDateVariable.setWindowTitle(QCoreApplication.translate("NedDateVariable", u"Form", None))
+        self.formatdate.setText(QCoreApplication.translate("NedDateVariable", u"<html><head/><body><p>\u0424\u043e\u0440\u043c\u0430\u0442 \u0434\u0430\u0442\u044b</p></body></html>", None))
     # retranslateUi
 

@@ -6,11 +6,11 @@ import package.controllers.sainputforms as sainputforms
 
 
 class FormText(QWidget):
-    def __init__(self, osbm, pair, current_tag):
+    def __init__(self, osbm, pair, current_variable):
         self.__osbm = osbm
         self.__pair = pair
-        self.__current_tag = current_tag
-        self.__osbm.obj_logg.debug_logger(f"FormText __init__(pair, current_tag): pair = {pair},\ncurrent_tag = {current_tag}")        
+        self.__current_variable = current_variable
+        self.__osbm.obj_logg.debug_logger(f"FormText __init__(pair, current_variable): pair = {pair},\ncurrent_variable = {current_variable}")        
         
         super(FormText, self).__init__()
         self.ui = formtext_ui.Ui_FormTextWidget()
@@ -23,18 +23,18 @@ class FormText(QWidget):
         self.config()
 
     def config(self):
-        # тип тега
-        key_icon = self.__osbm.obj_icons.get_key_icon_by_type_tag(self.__current_tag.get("type_tag"))
-        qicon_type_tag = self.__icons.get(key_icon)
-        self.ui.label_typetag.setPixmap(qicon_type_tag)
+        # тип переменной
+        key_icon = self.__osbm.obj_icons.get_key_icon_by_type_variable(self.__current_variable.get("type_variable"))
+        qicon_type_variable = self.__icons.get(key_icon)
+        self.ui.label_typevariable.setPixmap(qicon_type_variable)
         # заголовок 
-        self.ui.title.setText(self.__current_tag.get('title_tag'))
+        self.ui.title.setText(self.__current_variable.get('title_variable'))
         # поле ввода
         self.ui.lineedit.setText(self.__pair.get("value_pair"))
         # описание
-        description_tag = self.__current_tag.get('description_tag')
-        if description_tag:
-            self.ui.textbrowser.setHtml(description_tag)
+        description_variable = self.__current_variable.get('description_variable')
+        if description_variable:
+            self.ui.textbrowser.setHtml(description_variable)
         else:
             self.ui.textbrowser.hide()
 

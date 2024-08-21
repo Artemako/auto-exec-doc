@@ -31,11 +31,11 @@ class Ui_FormTableWidget(object):
         self.hl = QHBoxLayout()
         self.hl.setSpacing(9)
         self.hl.setObjectName(u"hl")
-        self.label_typetag = QLabel(FormTableWidget)
-        self.label_typetag.setObjectName(u"label_typetag")
-        self.label_typetag.setAlignment(Qt.AlignCenter)
+        self.label_typevariable = QLabel(FormTableWidget)
+        self.label_typevariable.setObjectName(u"label_typevariable")
+        self.label_typevariable.setAlignment(Qt.AlignCenter)
 
-        self.hl.addWidget(self.label_typetag)
+        self.hl.addWidget(self.label_typevariable)
 
         self.title = QLabel(FormTableWidget)
         self.title.setObjectName(u"title")
@@ -91,7 +91,7 @@ class Ui_FormTableWidget(object):
 
     def retranslateUi(self, FormTableWidget):
         FormTableWidget.setWindowTitle(QCoreApplication.translate("FormTableWidget", u"Form", None))
-        self.label_typetag.setText(QCoreApplication.translate("FormTableWidget", u"\u0418\u041a", None))
+        self.label_typevariable.setText(QCoreApplication.translate("FormTableWidget", u"\u0418\u041a", None))
         self.title.setText(QCoreApplication.translate("FormTableWidget", u"<html><head/><body><p>\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a</p></body></html>", None))
         self.add_button.setText(QCoreApplication.translate("FormTableWidget", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0441\u0442\u0440\u043e\u043a\u0443/\u0441\u0442\u043e\u043b\u0431\u0435\u0446", None))
         self.delete_button.setText(QCoreApplication.translate("FormTableWidget", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0441\u0442\u0440\u043e\u043a\u0443/\u0441\u0442\u043e\u043b\u0431\u0435\u0446", None))

@@ -416,7 +416,7 @@ class TemplatesListDialogWindow(QDialog):
             pd_pairs = self.__osbm.obj_prodb.get_page_data(old_page)
             for pd_pair in pd_pairs:
                 pair = {
-                    "id_tag": pd_pair.get("id_tag"),
+                    "id_variable": pd_pair.get("id_variable"),
                 }
                 self.__osbm.obj_prodb.insert_page_data(new_page, pair)
 

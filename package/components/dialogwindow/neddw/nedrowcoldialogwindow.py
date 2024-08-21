@@ -40,17 +40,17 @@ class NedRowcolDialogWindow(QDialog):
         if self.__type_ned == "create":
             if self.__type_rowcol == "ROW":
                 self.ui.label_rowcol.setText("Название новой строки")
-                self.ui.btn_nestag.setText("Добавить строку")
+                self.ui.btn_nesvariable.setText("Добавить строку")
             elif self.__type_rowcol == "COL":
                 self.ui.label_rowcol.setText("Название нового столбца")
-                self.ui.btn_nestag.setText("Добавить столбец")
+                self.ui.btn_nesvariable.setText("Добавить столбец")
         elif self.__type_ned == "edit":
             if self.__type_rowcol == "ROW":
                 self.ui.label_rowcol.setText("Название строки")
-                self.ui.btn_nestag.setText("Изменить строку")
+                self.ui.btn_nesvariable.setText("Изменить строку")
             elif self.__type_rowcol == "COL":
                 self.ui.label_rowcol.setText("Название столбца")
-                self.ui.btn_nestag.setText("Изменить столбец")
+                self.ui.btn_nesvariable.setText("Изменить столбец")
             #
             self.ui.lineedit_attr.setText(self.__rowcol.get("ATTR"))
             self.ui.lineedit_rowcoltitle.setText(self.__rowcol.get("TITLE"))
@@ -91,19 +91,19 @@ class NedRowcolDialogWindow(QDialog):
         self.__osbm.obj_logg.debug_logger("NedRowcolDialogWindow connecting_actions()")
         self.ui.btn_close.clicked.connect(self.close)
         self.ui.btn_close.setShortcut("Ctrl+Q")
-        self.ui.btn_nestag.clicked.connect(self.btn_nestag_clicked)
-        self.ui.btn_nestag.setShortcut("Ctrl+S")
+        self.ui.btn_nesvariable.clicked.connect(self.btn_nesvariable_clicked)
+        self.ui.btn_nesvariable.setShortcut("Ctrl+S")
 
     def get_is_valid_jinja_attr(self, name_attr):
         pattern = r'^[a-zA-Z0-9_-]+$'  # эквивалентно [a-zA-Z0-9_-]
         result = bool(re.match(pattern, name_attr))
         self.__osbm.obj_logg.debug_logger(
-            f"NedRowcolDialogWindow get_is_valid_jinja_attr(name_tag):\n name_attr = {name_attr} \n result = {result}"
+            f"NedRowcolDialogWindow get_is_valid_jinja_attr(name_variable):\n name_attr = {name_attr} \n result = {result}"
         )
         return result
 
-    def btn_nestag_clicked(self):
-        self.__osbm.obj_logg.debug_logger("NedRowcolDialogWindow btn_nestag_clicked()")
+    def btn_nesvariable_clicked(self):
+        self.__osbm.obj_logg.debug_logger("NedRowcolDialogWindow btn_nesvariable_clicked()")
         le_attr = self.ui.lineedit_attr.text()
         le_rowcoltitle = self.ui.lineedit_rowcoltitle.text()
         # проверка на пустоту (уникальность присутствует)
@@ -130,7 +130,7 @@ class NedRowcolDialogWindow(QDialog):
             self.__osbm.obj_dw.warning_message("Заполните поле названия атрибута")
         elif not is_valid_jinja_attr:
             self.__osbm.obj_dw.warning_message(
-                "Атрибут тэга содержит недопустимые символы."
+                "Атрибут переменной содержит недопустимые символы."
             )
 
     def get_rowcol_by_name(self, name_attr):
@@ -156,7 +156,7 @@ class NedRowcolDialogWindow(QDialog):
         old_le_attr = self.__rowcol.get("ATTR")
         name_attr = self.get_rowcol_by_name(le_attr)
         if le_attr == old_le_attr:
-            # ↑ если имя тега не изменилось
+            # ↑ если имя переменной не изменилось
             self.accept()
         elif name_attr:
             self.__osbm.obj_dw.warning_message("Такой атрибут уже существует.")

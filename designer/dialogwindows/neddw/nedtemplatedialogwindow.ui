@@ -76,7 +76,7 @@
    <item>
     <layout class="QHBoxLayout" name="hl_addsaveclose">
      <item>
-      <widget class="QPushButton" name="btn_nestag">
+      <widget class="QPushButton" name="btn_nesvariable">
        <property name="text">
         <string>...</string>
        </property>

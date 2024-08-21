@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>TagsListDialog</class>
- <widget class="QDialog" name="TagsListDialog">
+ <class>VariablesListDialog</class>
+ <widget class="QDialog" name="VariablesListDialog">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Редактор тегов проекта</string>
+   <string>Редактор переменных проекта</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -32,9 +32,9 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,1">
        <item>
-        <widget class="QPushButton" name="btn_create_tag">
+        <widget class="QPushButton" name="btn_create_variable">
          <property name="text">
-          <string>Создать тэг</string>
+          <string>Создать переменную</string>
          </property>
         </widget>
        </item>
@@ -43,8 +43,8 @@
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
-         <widget class="QTableWidget" name="table_editor_project_tags"/>
-         <widget class="QTableWidget" name="table_project_tags"/>
+         <widget class="QTableWidget" name="table_editor_project_variables"/>
+         <widget class="QTableWidget" name="table_project_variables"/>
         </widget>
        </item>
       </layout>
@@ -65,8 +65,8 @@
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
-         <widget class="QTableWidget" name="table_editor_group_tags"/>
-         <widget class="QTableWidget" name="table_group_tags"/>
+         <widget class="QTableWidget" name="table_editor_group_variables"/>
+         <widget class="QTableWidget" name="table_group_variables"/>
         </widget>
        </item>
       </layout>
@@ -97,8 +97,8 @@
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
-         <widget class="QTableWidget" name="table_editor_ftp_tags"/>
-         <widget class="QTableWidget" name="table_ftp_tags"/>
+         <widget class="QTableWidget" name="table_editor_ftp_variables"/>
+         <widget class="QTableWidget" name="table_ftp_variables"/>
         </widget>
        </item>
       </layout>

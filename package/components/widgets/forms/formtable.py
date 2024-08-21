@@ -8,12 +8,12 @@ import package.ui.formtable_ui as formtable_ui
 
 
 class FormTable(QWidget):
-    def __init__(self, osbm, pair, current_tag, config_dict):
+    def __init__(self, osbm, pair, current_variable, config_dict):
         self.__osbm = osbm
         self.__pair = pair
-        self.__current_tag = current_tag
+        self.__current_variable = current_variable
         self.__config_dict = config_dict
-        self.__osbm.obj_logg.debug_logger(f"FormTable(pair, current_tag, config_dict):\npair = {pair},\ncurrent_tag = {current_tag},\nconfig_dict = {config_dict}")
+        self.__osbm.obj_logg.debug_logger(f"FormTable(pair, current_variable, config_dict):\npair = {pair},\ncurrent_variable = {current_variable},\nconfig_dict = {config_dict}")
         super(FormTable, self).__init__()
         self.ui = formtable_ui.Ui_FormTableWidget()
         self.ui.setupUi(self)
@@ -26,16 +26,16 @@ class FormTable(QWidget):
         self.connect_actions()
 
     def config(self):
-        # тип тега
-        key_icon = self.__osbm.obj_icons.get_key_icon_by_type_tag(self.__current_tag.get("type_tag"))
-        qicon_type_tag = self.__icons.get(key_icon)
-        self.ui.label_typetag.setPixmap(qicon_type_tag)
+        # тип переменной
+        key_icon = self.__osbm.obj_icons.get_key_icon_by_type_variable(self.__current_variable.get("type_variable"))
+        qicon_type_variable = self.__icons.get(key_icon)
+        self.ui.label_typevariable.setPixmap(qicon_type_variable)
         # заголовок
-        self.ui.title.setText(self.__current_tag.get("title_tag"))
+        self.ui.title.setText(self.__current_variable.get("title_variable"))
         # описание
-        description_tag = self.__current_tag.get("description_tag")
-        if description_tag:
-            self.ui.textbrowser.setHtml(description_tag)
+        description_variable = self.__current_variable.get("description_variable")
+        if description_variable:
+            self.ui.textbrowser.setHtml(description_variable)
         else:
             self.ui.textbrowser.hide()
 

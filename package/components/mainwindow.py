@@ -6,7 +6,7 @@ from PySide6.QtCore import QTimer
 
 import package.ui.mainwindow_ui as mainwindow_ui
 
-import package.components.dialogwindow.tagslistdialogwindow as tagslistdialogwindow
+import package.components.dialogwindow.variableslistdialogwindow as variableslistdialogwindow
 import package.components.dialogwindow.nodeseditordialogwindow as nodeseditordialogwindow
 import package.components.dialogwindow.templateslistsialogwindow as templateslistsialogwindow
 
@@ -106,7 +106,7 @@ class MainWindow(QMainWindow):
             if checked
             else self.__osbm.obj_pdfv.set_zoom_custom()
         )
-        self.ui.action_edit_tags.triggered.connect(lambda: self.edit_tags())
+        self.ui.action_edit_variables.triggered.connect(lambda: self.edit_variables())
         self.ui.action_edit_templates.triggered.connect(lambda: self.edit_templates())
         self.ui.action_edit_composition.triggered.connect(
             lambda: self.edit_structure_nodes()
@@ -118,7 +118,7 @@ class MainWindow(QMainWindow):
         self.ui.action_save.setEnabled(False)
         self.ui.action_saveas.setEnabled(False)
         self.ui.action_export_to_pdf.setEnabled(False)
-        self.ui.action_edit_tags.setEnabled(False)
+        self.ui.action_edit_variables.setEnabled(False)
         self.ui.action_edit_composition.setEnabled(False)
         self.ui.action_edit_templates.setEnabled(False)
         self.ui.action_zoomin.setEnabled(False)
@@ -133,19 +133,19 @@ class MainWindow(QMainWindow):
         self.ui.action_saveas.setEnabled(True)
         self.ui.action_zoomin.setEnabled(True)
         self.ui.action_zoomout.setEnabled(True)
-        self.ui.action_edit_tags.setEnabled(True)
+        self.ui.action_edit_variables.setEnabled(True)
         self.ui.action_edit_composition.setEnabled(True)
         self.ui.action_zoomfitpage.setEnabled(True)
         self.ui.action_export_to_pdf.setEnabled(True)
         self.ui.action_edit_templates.setEnabled(True)
 
-    def edit_tags(self):
-        """Редактирование тегов."""
-        self.__osbm.obj_logg.debug_logger("MainWindow edit_tags()")
-        self.__osbm.obj_tagsldw = tagslistdialogwindow.TagsListDialogWindow(
+    def edit_variables(self):
+        """Редактирование переменных."""
+        self.__osbm.obj_logg.debug_logger("MainWindow edit_variables()")
+        self.__osbm.obj_variablesldw = variableslistdialogwindow.VariablesListDialogWindow(
             self.__osbm
         )
-        self.__osbm.obj_tagsldw.exec()
+        self.__osbm.obj_variablesldw.exec()
         self.update_main_window()
 
     def edit_templates(self):

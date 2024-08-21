@@ -7,7 +7,7 @@ from functools import partial
 from PySide6.QtWidgets import QWidget, QListWidgetItem, QListWidget, QDialog
 from PySide6.QtCore import QTimer, QSize
 
-import package.ui.nedtabletag_ui as nedtabletag_ui
+import package.ui.nedtablevariable_ui as nedtablevariable_ui
 
 import package.components.dialogwindow.neddw.nedrowcoldialogwindow as nedrowcoldialogwindow
 
@@ -15,14 +15,14 @@ import package.components.widgets.customitemqlistwidget as customitemqlistwidget
 
 
 # TODO !!! РАБОТА С ТАБЛИЦАМИ
-class NedTableTag(QWidget):
-    def __init__(self, osbm, type_window, tag=None):
+class NedTableVariable(QWidget):
+    def __init__(self, osbm, type_window, variable=None):
         self.__osbm = osbm
         self.__type_window = type_window
-        self.__tag = tag
-        self.__osbm.obj_logg.debug_logger("NedTableTag __init__(osbm, type_window)")
-        super(NedTableTag, self).__init__()
-        self.ui = nedtabletag_ui.Ui_NedTableTag()
+        self.__variable = variable
+        self.__osbm.obj_logg.debug_logger("NedTableVariable __init__(osbm, type_window)")
+        super(NedTableVariable, self).__init__()
+        self.ui = nedtablevariable_ui.Ui_NedTableVariable()
         self.ui.setupUi(self)
         # СТИЛЬ
         self.__osbm.obj_style.set_style_for(self)
@@ -34,10 +34,10 @@ class NedTableTag(QWidget):
         self.__config_dict = dict()
         self.__rowcols_items = []
         #
-        if self.__tag and self.__tag.get("type_tag") == "TABLE":
-            self.__config_tag = self.__tag.get("config_tag")
-            if self.__config_tag:
-                self.__config_dict = json.loads(self.__config_tag)
+        if self.__variable and self.__variable.get("type_variable") == "TABLE":
+            self.__config_variable = self.__variable.get("config_variable")
+            if self.__config_variable:
+                self.__config_dict = json.loads(self.__config_variable)
         #
         self.config_combox_typetable()
         self.config_lw_attrs()
@@ -48,17 +48,17 @@ class NedTableTag(QWidget):
     def get_save_data(self):
         self.save_data()
         self.__osbm.obj_logg.debug_logger(
-            f"NedTableTag get_data():\nself.__data = {self.__data}"
+            f"NedTableVariable get_data():\nself.__data = {self.__data}"
         )
         return self.__data
 
     def connecting_actions(self):
-        self.__osbm.obj_logg.debug_logger("NedTableTag connecting_actions()")
+        self.__osbm.obj_logg.debug_logger("NedTableVariable connecting_actions()")
         self.ui.combox_typetable.currentIndexChanged.connect(self.typetable_changed)
         self.ui.btn_addrowcol.clicked.connect(self.add_item)
 
     def config_combox_typetable(self):
-        self.__osbm.obj_logg.debug_logger("NedTableTag config_combox_typetable()")
+        self.__osbm.obj_logg.debug_logger("NedTableVariable config_combox_typetable()")
         combobox = self.ui.combox_typetable
         combobox.blockSignals(True)
         combobox.clear()
@@ -68,7 +68,7 @@ class NedTableTag(QWidget):
         combobox.blockSignals(False)
 
     def config_lw_attrs(self, open_rowcol = None):
-        self.__osbm.obj_logg.debug_logger("NedTableTag config_lw_attrs()")
+        self.__osbm.obj_logg.debug_logger("NedTableVariable config_lw_attrs()")
         list_widget = self.ui.lw_attrs
         list_widget.blockSignals(True)
         list_widget.clear()
@@ -109,7 +109,7 @@ class NedTableTag(QWidget):
 
     def config_buttons_for_item(self, item_widget):
         self.__osbm.obj_logg.debug_logger(
-            f"NedTableTag config_buttons_for_item(item_widget)\nitem_widget = {item_widget}"
+            f"NedTableVariable config_buttons_for_item(item_widget)\nitem_widget = {item_widget}"
         )
         edit_button = item_widget.get_btn_edit()
         delete_button = item_widget.get_btn_delete()
@@ -122,7 +122,7 @@ class NedTableTag(QWidget):
 
     def delete_item(self, data):
         self.__osbm.obj_logg.debug_logger(
-            f"NedTableTag delete_item(data):\ndata = {data}"
+            f"NedTableVariable delete_item(data):\ndata = {data}"
         )
         title_rowcol = data.get("TITLE")
         name_rowcol = data.get("ATTR")
@@ -142,9 +142,9 @@ class NedTableTag(QWidget):
 
     def edit_item(self, data):
         self.__osbm.obj_logg.debug_logger(
-            f"NedTableTag edit_item(data):\ndata = {data}"
+            f"NedTableVariable edit_item(data):\ndata = {data}"
         )
-        self.__osbm.obj_logg.debug_logger("NedTableTag add_item()")
+        self.__osbm.obj_logg.debug_logger("NedTableVariable add_item()")
         type_rowcol = self.ui.combox_typetable.currentData()
         rowcols = self.get_sorted_rowcols()
         result = self.nedrowcoldw("edit", type_rowcol, rowcols, data)
@@ -170,7 +170,7 @@ class NedTableTag(QWidget):
             self.config_lw_attrs(data)
 
     def add_item(self):
-        self.__osbm.obj_logg.debug_logger("NedTableTag add_item()")
+        self.__osbm.obj_logg.debug_logger("NedTableVariable add_item()")
         type_rowcol = self.ui.combox_typetable.currentData()
         rowcols = self.get_sorted_rowcols()
         result = self.nedrowcoldw("create", type_rowcol, rowcols, None)
@@ -195,7 +195,7 @@ class NedTableTag(QWidget):
 
 
     def nedrowcoldw(self, type_ned, type_rowcol, rowcols, rowcol = None):
-        self.__osbm.obj_logg.debug_logger("NedTableTag nedrowcoldw()")
+        self.__osbm.obj_logg.debug_logger("NedTableVariable nedrowcoldw()")
         self.__osbm.obj_nedrowcoldw = nedrowcoldialogwindow.NedRowcolDialogWindow(
             self.__osbm, type_ned, type_rowcol, rowcols, rowcol
         )
@@ -203,7 +203,7 @@ class NedTableTag(QWidget):
         return result == QDialog.Accepted
 
     def config_by_type_window(self):
-        self.__osbm.obj_logg.debug_logger("NedTableTag config_by_type_window()")
+        self.__osbm.obj_logg.debug_logger("NedTableVariable config_by_type_window()")
         index = 0
         if self.__type_window == "edit":
             typetable = self.__config_dict.get("TYPETABLE")
@@ -212,7 +212,7 @@ class NedTableTag(QWidget):
 
     def typetable_changed(self, index):
         self.__osbm.obj_logg.debug_logger(
-            f"NedTableTag typetable_changed(index):\nindex = {index}"
+            f"NedTableVariable typetable_changed(index):\nindex = {index}"
         )
         #
         is_view_rowcols = self.__osbm.obj_comwith.table_types.get_is_edit_rowcols_by_index(
@@ -231,7 +231,7 @@ class NedTableTag(QWidget):
 
     def save_data(self):
         # TODO save_data
-        self.__osbm.obj_logg.debug_logger("NedTableTag save_data()")
+        self.__osbm.obj_logg.debug_logger("NedTableVariable save_data()")
         typetable = self.ui.combox_typetable.currentData()
         rowcols = self.get_sorted_rowcols()
         self.__data = {

@@ -23,7 +23,7 @@ class SAInputForms:
 
     def connect_inputforms(self, sa_if, sa_ifl):
         """
-        Подключить _scrollarea_input и _scrollarea_input_tags
+        Подключить _scrollarea_input и _scrollarea_input_variables
         """
         self.__osbm.obj_logg.debug_logger(f"SAInputForms connect_inputforms(sa_if, sa_ifl):\nsa_if = {sa_if},\nsa_ifl = {sa_ifl}")
         self.__scrollarea_input = sa_if
@@ -70,30 +70,30 @@ class SAInputForms:
         Добавление формы в секцию в зависимости от типа контента.
         НЕ ВКЛЮЧЕН В logger!!!
         """
-        id_tag = pair.get("id_tag")
+        id_variable = pair.get("id_variable")
         # все свойства основного контента
-        current_tag = self.__osbm.obj_prodb.get_tag_by_id(
-            id_tag
+        current_variable = self.__osbm.obj_prodb.get_variable_by_id(
+            id_variable
         )
-        type_tag = current_tag.get("type_tag")
-        config_tag = current_tag.get("config_tag")
+        type_variable = current_variable.get("type_variable")
+        config_variable = current_variable.get("config_variable")
         config_dict = dict()        
-        if config_tag:
-            config_dict = json.loads(config_tag)
-        if type_tag == "TEXT":
-            item = formtext.FormText(self.__osbm, pair, current_tag)
+        if config_variable:
+            config_dict = json.loads(config_variable)
+        if type_variable == "TEXT":
+            item = formtext.FormText(self.__osbm, pair, current_variable)
             section_layout.addWidget(item)
 
-        elif type_tag == "DATE":
-            item = formdate.FormDate(self.__osbm, pair, current_tag, config_dict)
+        elif type_variable == "DATE":
+            item = formdate.FormDate(self.__osbm, pair, current_variable, config_dict)
             section_layout.addWidget(item)
 
-        elif type_tag == "IMAGE":
-            item = formimage.FormImage(self.__osbm, pair, current_tag, config_dict)
+        elif type_variable == "IMAGE":
+            item = formimage.FormImage(self.__osbm, pair, current_variable, config_dict)
             section_layout.addWidget(item)
 
-        elif type_tag == "TABLE":
-            item = formtable.FormTable(self.__osbm, pair, current_tag, config_dict)
+        elif type_variable == "TABLE":
+            item = formtable.FormTable(self.__osbm, pair, current_variable, config_dict)
             section_layout.addWidget(item)
 
 

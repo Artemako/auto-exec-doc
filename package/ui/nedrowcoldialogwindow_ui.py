@@ -79,10 +79,10 @@ class Ui_NedRowcolDialogWindow(object):
 
         self.hl_addsaveclose = QHBoxLayout()
         self.hl_addsaveclose.setObjectName(u"hl_addsaveclose")
-        self.btn_nestag = QPushButton(NedRowcolDialogWindow)
-        self.btn_nestag.setObjectName(u"btn_nestag")
+        self.btn_nesvariable = QPushButton(NedRowcolDialogWindow)
+        self.btn_nesvariable.setObjectName(u"btn_nesvariable")
 
-        self.hl_addsaveclose.addWidget(self.btn_nestag)
+        self.hl_addsaveclose.addWidget(self.btn_nesvariable)
 
         self.btn_close = QPushButton(NedRowcolDialogWindow)
         self.btn_close.setObjectName(u"btn_close")
@@ -100,11 +100,11 @@ class Ui_NedRowcolDialogWindow(object):
 
     def retranslateUi(self, NedRowcolDialogWindow):
         NedRowcolDialogWindow.setWindowTitle(QCoreApplication.translate("NedRowcolDialogWindow", u"Dialog", None))
-        self.label_attr.setText(QCoreApplication.translate("NedRowcolDialogWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0410\u0442\u0440\u0438\u0431\u0443\u0442 \u0442\u044d\u0433\u0430</span></p></body></html>", None))
+        self.label_attr.setText(QCoreApplication.translate("NedRowcolDialogWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0410\u0442\u0440\u0438\u0431\u0443\u0442 \u043f\u0435\u0440\u0435\u043c\u0435\u043d\u043d\u043e\u0439</span></p></body></html>", None))
         self.label_rowcol.setText(QCoreApplication.translate("NedRowcolDialogWindow", u"<html><head/><body><p>\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 ...</p></body></html>", None))
         self.lineedit_rowcoltitle.setText("")
         self.label_placement.setText(QCoreApplication.translate("NedRowcolDialogWindow", u"\u0420\u0430\u0441\u043f\u043e\u043b\u043e\u0436\u0438\u0442\u044c \u043f\u043e\u0441\u043b\u0435 ", None))
-        self.btn_nestag.setText(QCoreApplication.translate("NedRowcolDialogWindow", u"...", None))
+        self.btn_nesvariable.setText(QCoreApplication.translate("NedRowcolDialogWindow", u"...", None))
         self.btn_close.setText(QCoreApplication.translate("NedRowcolDialogWindow", u"\u0417\u0430\u043a\u0440\u044b\u0442\u044c", None))
     # retranslateUi
 

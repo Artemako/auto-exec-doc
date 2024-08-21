@@ -91,20 +91,20 @@ class Ui_NedPageDialogWindow(object):
 
         self.verticalLayout.addWidget(self.label_file)
 
-        self.label_tags = QLabel(NedPageDialogWindow)
-        self.label_tags.setObjectName(u"label_tags")
-        self.label_tags.setMinimumSize(QSize(0, 0))
-        self.label_tags.setMaximumSize(QSize(16777215, 16))
-        self.label_tags.setStyleSheet(u"font-weight: bold;")
-        self.label_tags.setTextFormat(Qt.AutoText)
-        self.label_tags.setScaledContents(False)
+        self.label_variables = QLabel(NedPageDialogWindow)
+        self.label_variables.setObjectName(u"label_variables")
+        self.label_variables.setMinimumSize(QSize(0, 0))
+        self.label_variables.setMaximumSize(QSize(16777215, 16))
+        self.label_variables.setStyleSheet(u"font-weight: bold;")
+        self.label_variables.setTextFormat(Qt.AutoText)
+        self.label_variables.setScaledContents(False)
 
-        self.verticalLayout.addWidget(self.label_tags)
+        self.verticalLayout.addWidget(self.label_variables)
 
-        self.tw_tags = QTableWidget(NedPageDialogWindow)
-        self.tw_tags.setObjectName(u"tw_tags")
+        self.tw_variables = QTableWidget(NedPageDialogWindow)
+        self.tw_variables.setObjectName(u"tw_variables")
 
-        self.verticalLayout.addWidget(self.tw_tags)
+        self.verticalLayout.addWidget(self.tw_variables)
 
         self.line = QFrame(NedPageDialogWindow)
         self.line.setObjectName(u"line")
@@ -115,10 +115,10 @@ class Ui_NedPageDialogWindow(object):
 
         self.hl_addsaveclose = QHBoxLayout()
         self.hl_addsaveclose.setObjectName(u"hl_addsaveclose")
-        self.btn_nestag = QPushButton(NedPageDialogWindow)
-        self.btn_nestag.setObjectName(u"btn_nestag")
+        self.btn_nesvariable = QPushButton(NedPageDialogWindow)
+        self.btn_nesvariable.setObjectName(u"btn_nesvariable")
 
-        self.hl_addsaveclose.addWidget(self.btn_nestag)
+        self.hl_addsaveclose.addWidget(self.btn_nesvariable)
 
         self.btn_close = QPushButton(NedPageDialogWindow)
         self.btn_close.setObjectName(u"btn_close")
@@ -146,8 +146,8 @@ class Ui_NedPageDialogWindow(object):
         self.btn_select.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u0412\u044b\u0431\u0440\u0430\u0442\u044c \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442", None))
         self.btn_open_docx.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u0438 \u0438\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442", None))
         self.label_file.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u0412\u044b\u0431\u0440\u0430\u043d\u043d\u044b\u0439 \u0444\u0430\u0439\u043b", None))
-        self.label_tags.setText(QCoreApplication.translate("NedPageDialogWindow", u"<html><head/><body><p>\u041d\u0430\u0439\u0434\u0435\u043d\u043d\u044b\u0435 \u0442\u0435\u0433\u0438</p></body></html>", None))
-        self.btn_nestag.setText(QCoreApplication.translate("NedPageDialogWindow", u"...", None))
+        self.label_variables.setText(QCoreApplication.translate("NedPageDialogWindow", u"<html><head/><body><p>\u041d\u0430\u0439\u0434\u0435\u043d\u043d\u044b\u0435 \u0442\u0435\u0433\u0438</p></body></html>", None))
+        self.btn_nesvariable.setText(QCoreApplication.translate("NedPageDialogWindow", u"...", None))
         self.btn_close.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u0417\u0430\u043a\u0440\u044b\u0442\u044c", None))
     # retranslateUi
 

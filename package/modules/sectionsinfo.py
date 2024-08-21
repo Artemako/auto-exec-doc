@@ -109,8 +109,8 @@ class SectionsInfo:
                 id_pair = pair.get("id_pair")
                 value = pair.get("value_pair")
                 old_value = self.update_data_from_pair(section_type, id_pair, value)
-                id_tag = pair.get("id_tag")
-                self.save_image(id_tag, old_value, value)               
+                id_variable = pair.get("id_variable")
+                self.save_image(id_variable, old_value, value)               
 
     def update_data_from_pair(self, section_type, id_pair, value):
         self.__osbm.obj_logg.debug_logger(f"SectionsInfo update_data_with_pair(section_type, pair):\nsection_type = {section_type},\nid_pair = {id_pair},\nvalue = {value}")
@@ -139,15 +139,15 @@ class SectionsInfo:
         # так как old_value = {'value_pair': 'img_20240816184801.png'}
         return old_value.get("value_pair")
 
-    def save_image(self, id_tag, old_value, value):
-        self.__osbm.obj_logg.debug_logger(f"SectionsInfo save_image(id_tag, old_value, value):\nid_tag = {id_tag},\nold_value = {old_value},\nvalue = {value}")
-        current_tag = self.__osbm.obj_prodb.get_tag_by_id(
-            id_tag
+    def save_image(self, id_variable, old_value, value):
+        self.__osbm.obj_logg.debug_logger(f"SectionsInfo save_image(id_variable, old_value, value):\nid_variable = {id_variable},\nold_value = {old_value},\nvalue = {value}")
+        current_variable = self.__osbm.obj_prodb.get_variable_by_id(
+            id_variable
         )
-        print(f"id_tag = {id_tag}\n")
-        print(f"current_tag = {current_tag}\n")
-        type_tag = current_tag.get("type_tag")
-        if type_tag == "IMAGE":
+        print(f"id_variable = {id_variable}\n")
+        print(f"current_variable = {current_variable}\n")
+        type_variable = current_variable.get("type_variable")
+        if type_variable == "IMAGE":
             self.__osbm.obj_film.delete_image_from_project(
                 old_value
             )

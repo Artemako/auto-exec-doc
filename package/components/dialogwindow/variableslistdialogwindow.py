@@ -15,9 +15,9 @@ from PySide6.QtCore import Qt, QTimer
 
 from functools import partial
 
-import package.components.dialogwindow.neddw.nedtagdialogwindow as nedtagdialogwindow
+import package.components.dialogwindow.neddw.nedvariabledialogwindow as nedvariabledialogwindow
 
-import package.ui.tagslistdialogwindow_ui as tagslistdialogwindow_ui
+import package.ui.variableslistdialogwindow_ui as variableslistdialogwindow_ui
 
 
 class Obj:
@@ -30,19 +30,19 @@ class NumericItem(QTableWidgetItem):
 
 
 # TODO Сделать open_...
-class TagsListDialogWindow(QDialog):
+class VariablesListDialogWindow(QDialog):
     def __init__(self, osbm):
         self.__osbm = osbm
-        self.__osbm.obj_logg.debug_logger("TagsListDialogWindow __init__(osbm)")
+        self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow __init__(osbm)")
         self.initalizate_tabs_objects()
-        super(TagsListDialogWindow, self).__init__()
-        self.ui = tagslistdialogwindow_ui.Ui_TagsListDialog()
+        super(VariablesListDialogWindow, self).__init__()
+        self.ui = variableslistdialogwindow_ui.Ui_VariablesListDialog()
         self.ui.setupUi(self)
         # СТИЛЬ
         self.__osbm.obj_style.set_style_for(self)
         #
         self.__icons = self.__osbm.obj_icons.get_icons()
-        self.__all_tags = None
+        self.__all_variables = None
         self.__vertical_scroll_position_by_parameters = {}
         # config
         self.config()
@@ -54,7 +54,7 @@ class TagsListDialogWindow(QDialog):
 
     def initalizate_tabs_objects(self):
         self.__osbm.obj_logg.debug_logger(
-            "TagsListDialogWindow initalizate_tabs_objects()"
+            "VariablesListDialogWindow initalizate_tabs_objects()"
         )
         self.obj_projroject = Obj()
         self.obj_group = Obj()
@@ -77,7 +77,7 @@ class TagsListDialogWindow(QDialog):
         )
 
     def config(self):
-        self.__osbm.obj_logg.debug_logger("TagsListDialogWindow config()")
+        self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow config()")
         self.ui.splitter_ftp.setSizes([500, 300])
         self.ui.splitter_group.setSizes([500, 300])
         self.ui.splitter_project.setSizes([500, 300])
@@ -86,7 +86,7 @@ class TagsListDialogWindow(QDialog):
         self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
 
     def connecting_actions(self):
-        self.__osbm.obj_logg.debug_logger("TagsListDialogWindow connecting_actions()")
+        self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow connecting_actions()")
         # смена tab
         self.ui.tabwidget.currentChanged.connect(self.on_tab_changed)
         # КОМБОБОКСЫ
@@ -106,8 +106,8 @@ class TagsListDialogWindow(QDialog):
         self.ui.combox_pages.currentIndexChanged.connect(
             self.combox_pages_index_changed
         )
-        self.ui.btn_create_tag.clicked.connect(self.create_tag)
-        self.ui.btn_create_tag.setShortcut("Ctrl+N")
+        self.ui.btn_create_variable.clicked.connect(self.create_variable)
+        self.ui.btn_create_variable.setShortcut("Ctrl+N")
         self.ui.btn_close.clicked.connect(self.close)
         self.ui.btn_close.setShortcut("Ctrl+Q")
         self.ui.btn_save.clicked.connect(self.save_changes)
@@ -117,13 +117,13 @@ class TagsListDialogWindow(QDialog):
         type_table = None
         index = self.ui.tabwidget.currentIndex()
         if index == 0:
-            type_table = "project_tags"
+            type_table = "project_variables"
         elif index == 1:
-            type_table = "group_tags"
+            type_table = "group_variables"
         elif index == 2:
-            type_table = "form_template_page_tags"
+            type_table = "form_template_page_variables"
         self.__osbm.obj_logg.debug_logger(
-            f"TagsListDialogWindow get_typetable():\ntype_table = {type_table}"
+            f"VariablesListDialogWindow get_typetable():\ntype_table = {type_table}"
         )
         return type_table
 
@@ -137,7 +137,7 @@ class TagsListDialogWindow(QDialog):
 
     def combox_forms_index_changed(self, index):
         self.__osbm.obj_logg.debug_logger(
-            f"TagsListDialogWindow combox_forms_index_changed(index):\nindex = {index}"
+            f"VariablesListDialogWindow combox_forms_index_changed(index):\nindex = {index}"
         )
         self.caf_combobox_template()
         self.caf_combobox_page()
@@ -147,7 +147,7 @@ class TagsListDialogWindow(QDialog):
 
     def combox_templates_index_changed(self, index):
         self.__osbm.obj_logg.debug_logger(
-            f"TagsListDialogWindow combox_templates_index_changed(index):\nindex = {index}"
+            f"VariablesListDialogWindow combox_templates_index_changed(index):\nindex = {index}"
         )
         self.caf_combobox_page()
         # данные таблицы
@@ -156,36 +156,36 @@ class TagsListDialogWindow(QDialog):
 
     def combox_pages_index_changed(self, index):
         self.__osbm.obj_logg.debug_logger(
-            f"TagsListDialogWindow combox_pages_index_changed(index):\nindex = {index}"
+            f"VariablesListDialogWindow combox_pages_index_changed(index):\nindex = {index}"
         )
         # данные таблицы
         typetable = self.get_typetable()
         self.caf_two_tables(typetable)
 
     def show_tab_project(self):
-        self.__osbm.obj_logg.debug_logger("TagsListDialogWindow show_tab_project()")
+        self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow show_tab_project()")
         self.ui.tabwidget.setCurrentIndex(0)
-        self.caf_two_tables("project_tags")
+        self.caf_two_tables("project_variables")
 
     def show_tab_group(self):
-        self.__osbm.obj_logg.debug_logger("TagsListDialogWindow show_tab_group()")
+        self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow show_tab_group()")
         self.ui.tabwidget.setCurrentIndex(1)
         self.caf_combobox_group()
-        self.caf_two_tables("group_tags")
+        self.caf_two_tables("group_variables")
         pass
 
     def show_tab_form_template_page(self):
         self.__osbm.obj_logg.debug_logger(
-            "TagsListDialogWindow show_tab_form_template_page()"
+            "VariablesListDialogWindow show_tab_form_template_page()"
         )
         self.ui.tabwidget.setCurrentIndex(2)
         self.caf_combobox_form_template_page()
-        self.caf_two_tables("form_template_page_tags")
+        self.caf_two_tables("form_template_page_variables")
         pass
 
     def on_tab_changed(self, index):
         self.__osbm.obj_logg.debug_logger(
-            f"TagsListDialogWindow on_tab_changed(self, index):\nindex = {index}"
+            f"VariablesListDialogWindow on_tab_changed(self, index):\nindex = {index}"
         )
         if index == 0:
             self.show_tab_project()
@@ -196,46 +196,46 @@ class TagsListDialogWindow(QDialog):
 
     def get_table_by_parameters(self, type_table, editor):
         self.__osbm.obj_logg.debug_logger(
-            f"TagsListDialogWindow get_table_by_parameters(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}"
+            f"VariablesListDialogWindow get_table_by_parameters(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}"
         )
         # получение таблицы
         table_widget = None
-        if type_table == "project_tags":
+        if type_table == "project_variables":
             if editor:
-                table_widget = self.ui.table_editor_project_tags
+                table_widget = self.ui.table_editor_project_variables
             else:
-                table_widget = self.ui.table_project_tags
-        elif type_table == "group_tags":
+                table_widget = self.ui.table_project_variables
+        elif type_table == "group_variables":
             if editor:
-                table_widget = self.ui.table_editor_group_tags
+                table_widget = self.ui.table_editor_group_variables
             else:
-                table_widget = self.ui.table_group_tags
-        elif type_table == "form_template_page_tags":
+                table_widget = self.ui.table_group_variables
+        elif type_table == "form_template_page_variables":
             if editor:
-                table_widget = self.ui.table_editor_ftp_tags
+                table_widget = self.ui.table_editor_ftp_variables
             else:
-                table_widget = self.ui.table_ftp_tags
+                table_widget = self.ui.table_ftp_variables
         return table_widget
 
     def get_data_by_parameters(self, type_table, editor):
         # получение данных
         data = []
-        if type_table == "project_tags":
+        if type_table == "project_variables":
             node_data = self.__osbm.obj_prodb.get_node_data(
                 self.obj_projroject.project_node
             )
             print(f"node_data = {node_data}")
             for pair in node_data:
-                data.append(self.__osbm.obj_prodb.get_tag_by_id(pair.get("id_tag")))
+                data.append(self.__osbm.obj_prodb.get_variable_by_id(pair.get("id_variable")))
             print(f"data = {data}")
-        elif type_table == "group_tags":
+        elif type_table == "group_variables":
             group_node = self.ui.combox_groups.currentData()
             # проверка на наличия групп
             if group_node:
                 node_data = self.__osbm.obj_prodb.get_node_data(group_node)
                 for pair in node_data:
-                    data.append(self.__osbm.obj_prodb.get_tag_by_id(pair.get("id_tag")))
-        elif type_table == "form_template_page_tags":
+                    data.append(self.__osbm.obj_prodb.get_variable_by_id(pair.get("id_variable")))
+        elif type_table == "form_template_page_variables":
             page = self.ui.combox_pages.currentData()
             if page is None:
                 pass
@@ -245,46 +245,46 @@ class TagsListDialogWindow(QDialog):
                     template_data = self.__osbm.obj_prodb.get_template_data(template)
                     for pair in template_data:
                         data.append(
-                            self.__osbm.obj_prodb.get_tag_by_id(pair.get("id_tag"))
+                            self.__osbm.obj_prodb.get_variable_by_id(pair.get("id_variable"))
                         )
             else:
                 page_data = self.__osbm.obj_prodb.get_page_data(page)
                 for pair in page_data:
-                    data.append(self.__osbm.obj_prodb.get_tag_by_id(pair.get("id_tag")))
+                    data.append(self.__osbm.obj_prodb.get_variable_by_id(pair.get("id_variable")))
         if editor:
             editor_data = []
             cashe = dict()
             for pair in data:
-                cashe[pair.get("id_tag")] = pair
-            # self.__all_tags отсортирован по order_tag
-            self.__all_tags = self.__osbm.obj_prodb.get_tags()
-            for pair in self.__all_tags:
-                if cashe.get(pair.get("id_tag")):
+                cashe[pair.get("id_variable")] = pair
+            # self.__all_variables отсортирован по order_variable
+            self.__all_variables = self.__osbm.obj_prodb.get_variables()
+            for pair in self.__all_variables:
+                if cashe.get(pair.get("id_variable")):
                     pair["_checked"] = True
                 else:
                     pair["_checked"] = False
                 editor_data.append(pair)
             #
             self.__osbm.obj_logg.debug_logger(
-                f"TagsListDialogWindow get_data_by_parameters(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}\neditor_data = {editor_data}"
+                f"VariablesListDialogWindow get_data_by_parameters(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}\neditor_data = {editor_data}"
             )
             return editor_data
         #
         self.__osbm.obj_logg.debug_logger(
-            f"TagsListDialogWindow get_data_by_parameters(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}\ndata = {data}"
+            f"VariablesListDialogWindow get_data_by_parameters(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}\ndata = {data}"
         )
         return data
 
     def caf_combobox_form_template_page(self):
         self.__osbm.obj_logg.debug_logger(
-            "TagsListDialogWindow caf_combobox_form_template_page()"
+            "VariablesListDialogWindow caf_combobox_form_template_page()"
         )
         self.caf_combobox_form()
         self.caf_combobox_template()
         self.caf_combobox_page()
 
     def caf_combobox_group(self):
-        self.__osbm.obj_logg.debug_logger("TagsListDialogWindow caf_combobox_group()")
+        self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow caf_combobox_group()")
         current_text = self.ui.combox_groups.currentText()
         #
         self.ui.combox_groups.blockSignals(True)
@@ -300,7 +300,7 @@ class TagsListDialogWindow(QDialog):
         self.ui.combox_groups.show()
 
     def caf_combobox_form(self):
-        self.__osbm.obj_logg.debug_logger("TagsListDialogWindow caf_combobox_form()")
+        self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow caf_combobox_form()")
         current_text = self.ui.combox_forms.currentText()
         #
         self.ui.combox_forms.blockSignals(True)
@@ -317,7 +317,7 @@ class TagsListDialogWindow(QDialog):
 
     def caf_combobox_template(self):
         self.__osbm.obj_logg.debug_logger(
-            "TagsListDialogWindow caf_combobox_template()"
+            "VariablesListDialogWindow caf_combobox_template()"
         )
         current_text = self.ui.combox_templates.currentText()
         #
@@ -339,7 +339,7 @@ class TagsListDialogWindow(QDialog):
         self.ui.combox_templates.show()
 
     def caf_combobox_page(self):
-        self.__osbm.obj_logg.debug_logger("TagsListDialogWindow caf_combobox_page()")
+        self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow caf_combobox_page()")
         current_text = self.ui.combox_pages.currentText()
         #
         template = self.ui.combox_templates.currentData()
@@ -361,27 +361,27 @@ class TagsListDialogWindow(QDialog):
         self.ui.combox_pages.blockSignals(False)
         self.ui.combox_pages.show()
 
-    def caf_two_tables(self, type_table, open_tag=None):
+    def caf_two_tables(self, type_table, open_variable=None):
         """
         Логика такая же, что и в reconfig в других QDialogs.
         """
         self.__osbm.obj_logg.debug_logger(
-            f"TagsListDialogWindow caf_two_tables(self, type_table):\ntype_table = {type_table}"
+            f"VariablesListDialogWindow caf_two_tables(self, type_table):\ntype_table = {type_table}"
         )
-        self.caf_table(type_table, False, open_tag)
-        self.caf_table(type_table, True, open_tag)
+        self.caf_table(type_table, False, open_variable)
+        self.caf_table(type_table, True, open_variable)
 
     def config_tws(self):
-        self.__osbm.obj_logg.debug_logger("TagsListDialogWindow config_tws()")
+        self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow config_tws()")
         tws_no_editor = [
-            self.ui.table_project_tags,
-            self.ui.table_group_tags,
-            self.ui.table_ftp_tags,
+            self.ui.table_project_variables,
+            self.ui.table_group_variables,
+            self.ui.table_ftp_variables,
         ]
         tws_editor = [
-            self.ui.table_editor_project_tags,
-            self.ui.table_editor_group_tags,
-            self.ui.table_editor_ftp_tags,
+            self.ui.table_editor_project_variables,
+            self.ui.table_editor_group_variables,
+            self.ui.table_editor_ftp_variables,
         ]
         for tw in tws_no_editor:
             self.config_tw(tw, editor=False)
@@ -390,16 +390,16 @@ class TagsListDialogWindow(QDialog):
 
     def config_tw(self, table_widget, editor):
         self.__osbm.obj_logg.debug_logger(
-            f"TagsListDialogWindow config_tw(self, tw):\ntable_widget = {table_widget}"
+            f"VariablesListDialogWindow config_tw(self, tw):\ntable_widget = {table_widget}"
         )
         # заголовки/столбцы
         table_widget.verticalHeader().hide()
         if editor:
-            headers = ["№", "Тег", "Описание", "Тип", "Вкл", "Действия"]
+            headers = ["№", "Переменная", "Описание", "Тип", "Вкл", "Действия"]
             table_widget.setColumnCount(len(headers))
             table_widget.setHorizontalHeaderLabels(headers)
         else:
-            headers = ["№", "Тег", "Описание", "Тип"]
+            headers = ["№", "Переменная", "Описание", "Тип"]
             table_widget.setColumnCount(len(headers))
             table_widget.setHorizontalHeaderLabels(headers)
         #
@@ -421,9 +421,9 @@ class TagsListDialogWindow(QDialog):
         # table_widget.setSelectionMode(QAbstractItemView.NoSelection)
         # table_widget.sortByColumn(0, Qt.AscendingOrder)
 
-    def caf_table(self, type_table, editor=False, open_tag=None):
+    def caf_table(self, type_table, editor=False, open_variable=None):
         self.__osbm.obj_logg.debug_logger(
-            f"TagsListDialogWindow caf_table(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}"
+            f"VariablesListDialogWindow caf_table(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}"
         )
         table_widget = self.get_table_by_parameters(type_table, editor)
         # вертикальный ползунок
@@ -440,35 +440,35 @@ class TagsListDialogWindow(QDialog):
         header = table_widget.horizontalHeaderItem(0)
         header.setData(1000, data)
         table_widget.setRowCount(len(data))
-        # TODO используется ли тэг?
+        # TODO используется ли переменная?
         for row, item in enumerate(data):
             # получение данных
-            order_tag = item.get("order_tag") + 1
-            name_tag = item.get("name_tag")
-            title_tag = item.get("title_tag")
-            type_tag = item.get("type_tag")
+            order_variable = item.get("order_variable") + 1
+            name_variable = item.get("name_variable")
+            title_variable = item.get("title_variable")
+            type_variable = item.get("type_variable")
             # setData для строки
-            qtwt_order_tag = NumericItem(str(order_tag))
-            qtwt_order_tag.setData(Qt.UserRole, order_tag)
-            qtwt_name_tag = QTableWidgetItem(name_tag)
-            qtwt_name_tag.setData(1001, item)
-            qtwt_title_tag = QTableWidgetItem(title_tag)
-            qtwt_type_tag = QTableWidgetItem(type_tag)
-            # Иконка и текст в зависимости от типа тега
-            key_icon = self.__osbm.obj_icons.get_key_icon_by_type_tag(type_tag)
-            qicon_type_tag = self.__icons.get(key_icon)
-            qtwt_type_tag.setIcon(qicon_type_tag)
-            qtwt_type_tag.setText(type_tag)
+            qtwt_order_variable = NumericItem(str(order_variable))
+            qtwt_order_variable.setData(Qt.UserRole, order_variable)
+            qtwt_name_variable = QTableWidgetItem(name_variable)
+            qtwt_name_variable.setData(1001, item)
+            qtwt_title_variable = QTableWidgetItem(title_variable)
+            qtwt_type_variable = QTableWidgetItem(type_variable)
+            # Иконка и текст в зависимости от типа переменной
+            key_icon = self.__osbm.obj_icons.get_key_icon_by_type_variable(type_variable)
+            qicon_type_variable = self.__icons.get(key_icon)
+            qtwt_type_variable.setIcon(qicon_type_variable)
+            qtwt_type_variable.setText(type_variable)
             # Добавляем виджеты в ячейки таблицы
-            table_widget.setItem(row, 0, qtwt_order_tag)
-            table_widget.setItem(row, 1, qtwt_name_tag)
-            table_widget.setItem(row, 2, qtwt_title_tag)
-            table_widget.setItem(row, 3, qtwt_type_tag)
+            table_widget.setItem(row, 0, qtwt_order_variable)
+            table_widget.setItem(row, 1, qtwt_name_variable)
+            table_widget.setItem(row, 2, qtwt_title_variable)
+            table_widget.setItem(row, 3, qtwt_type_variable)
             # если editor
             if editor:
                 self.item_tw_editor(table_widget, item, row, type_table)
-            # если open_tag
-            if open_tag and open_tag.get("id_tag") == item.get("id_tag"):
+            # если open_variable
+            if open_variable and open_variable.get("id_variable") == item.get("id_variable"):
                 table_widget.selectRow(row)
                 QTimer.singleShot(3000, lambda: table_widget.clearSelection())
 
@@ -514,112 +514,112 @@ class TagsListDialogWindow(QDialog):
         widget.setLayout(layout)
         table_widget.setCellWidget(row, 5, widget)
         # обработчики
-        edit_button.clicked.connect(partial(self.edit_tag, btn=edit_button))
+        edit_button.clicked.connect(partial(self.edit_variable, btn=edit_button))
         delete_button.clicked.connect(
-            partial(self.delete_tag, btn=delete_button, type_table=type_table)
+            partial(self.delete_variable, btn=delete_button, type_table=type_table)
         )
 
-    def create_tag(self):
+    def create_variable(self):
         """
         Похожий код у NedPageDialogWindow.
         """
-        self.__osbm.obj_logg.debug_logger("TagsListDialogWindow create_tag()")
-        result = self.ned_tag_dw("create")
+        self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow create_variable()")
+        result = self.ned_variable_dw("create")
         if result:
             # получить data
             data = self.__osbm.obj_nedtdw.get_data()
-            name_tag = data.get("NAME")
-            type_tag = data.get("TYPE")
-            title_tag = data.get("TITLE")
-            order_tag = data.get("ORDER")
-            config_tag = data.get("CONFIG")
-            config_tag = json.dumps(config_tag) if config_tag else None
-            description_tag = data.get("DESCRIPTION")
-            create_tag = {
-                "name_tag": name_tag,
-                "type_tag": type_tag,
-                "title_tag": title_tag,
-                "order_tag": order_tag,
-                "config_tag": config_tag,
-                "description_tag": description_tag,
+            name_variable = data.get("NAME")
+            type_variable = data.get("TYPE")
+            title_variable = data.get("TITLE")
+            order_variable = data.get("ORDER")
+            config_variable = data.get("CONFIG")
+            config_variable = json.dumps(config_variable) if config_variable else None
+            description_variable = data.get("DESCRIPTION")
+            create_variable = {
+                "name_variable": name_variable,
+                "type_variable": type_variable,
+                "title_variable": title_variable,
+                "order_variable": order_variable,
+                "config_variable": config_variable,
+                "description_variable": description_variable,
             }
             # вставка
-            self.__all_tags.insert(order_tag, create_tag)
-            self.__osbm.obj_prodb.insert_tag(create_tag)
+            self.__all_variables.insert(order_variable, create_variable)
+            self.__osbm.obj_prodb.insert_variable(create_variable)
             # Меняем порядок в БД - кому нужно
-            for index, tag in enumerate(self.__all_tags):
-                order = tag.get("order_tag")
+            for index, variable in enumerate(self.__all_variables):
+                order = variable.get("order_variable")
                 if order != index:
-                    self.__osbm.obj_prodb.set_order_for_tag(tag, index)
-            # обновление таблиц + self.__all_tags
+                    self.__osbm.obj_prodb.set_order_for_variable(variable, index)
+            # обновление таблиц + self.__all_variables
             type_table = self.get_typetable()
-            self.caf_two_tables(type_table, create_tag)
+            self.caf_two_tables(type_table, create_variable)
 
-    def edit_tag(self, btn):
+    def edit_variable(self, btn):
         self.__osbm.obj_logg.debug_logger(
-            f"TagsListDialogWindow edit_tag(btn):\nbtn = {btn}"
+            f"VariablesListDialogWindow edit_variable(btn):\nbtn = {btn}"
         )
         item = btn.custom_data
-        result = self.ned_tag_dw("edit", item)
+        result = self.ned_variable_dw("edit", item)
         if result:
             # получить data
             data = self.__osbm.obj_nedtdw.get_data()
-            name_tag = data.get("NAME")
-            type_tag = data.get("TYPE")
-            title_tag = data.get("TITLE")
-            order_tag = data.get("ORDER")
-            config_tag = data.get("CONFIG")
-            config_tag = json.dumps(config_tag) if config_tag else None
-            description_tag = data.get("DESCRIPTION")
-            edit_tag = {
-                "id_tag": item.get("id_tag"),
-                "name_tag": name_tag,
-                "type_tag": type_tag,
-                "title_tag": title_tag,
-                "order_tag": order_tag,
-                "config_tag": config_tag,
-                "description_tag": description_tag,
+            name_variable = data.get("NAME")
+            type_variable = data.get("TYPE")
+            title_variable = data.get("TITLE")
+            order_variable = data.get("ORDER")
+            config_variable = data.get("CONFIG")
+            config_variable = json.dumps(config_variable) if config_variable else None
+            description_variable = data.get("DESCRIPTION")
+            edit_variable = {
+                "id_variable": item.get("id_variable"),
+                "name_variable": name_variable,
+                "type_variable": type_variable,
+                "title_variable": title_variable,
+                "order_variable": order_variable,
+                "config_variable": config_variable,
+                "description_variable": description_variable,
             }
             # сортировочный процесс
-            self.__all_tags.remove(item)
-            self.__all_tags.insert(order_tag, edit_tag)
+            self.__all_variables.remove(item)
+            self.__all_variables.insert(order_variable, edit_variable)
             # замена информации
-            self.__osbm.obj_prodb.update_tag(edit_tag)
+            self.__osbm.obj_prodb.update_variable(edit_variable)
             # Меняем порядок в БД - кому нужно
-            for index, tag in enumerate(self.__all_tags):
-                order = tag.get("order_tag")
+            for index, variable in enumerate(self.__all_variables):
+                order = variable.get("order_variable")
                 if order != index:
-                    self.__osbm.obj_prodb.set_order_for_tag(tag, index)
-            # обновление таблиц + self.__all_tags
+                    self.__osbm.obj_prodb.set_order_for_variable(variable, index)
+            # обновление таблиц + self.__all_variables
             type_table = self.get_typetable()
-            self.caf_two_tables(type_table, edit_tag)
+            self.caf_two_tables(type_table, edit_variable)
 
-    def ned_tag_dw(self, type_window, tag=None):
-        self.__osbm.obj_nedtdw = nedtagdialogwindow.NedTagDialogWindow(
-            self.__osbm, type_window, self.__all_tags, tag
+    def ned_variable_dw(self, type_window, variable=None):
+        self.__osbm.obj_nedtdw = nedvariabledialogwindow.NedVariableDialogWindow(
+            self.__osbm, type_window, self.__all_variables, variable
         )
         result = self.__osbm.obj_nedtdw.exec()
         return result == QDialog.Accepted
 
-    def delete_tag(self, btn, type_table):
+    def delete_variable(self, btn, type_table):
         self.__osbm.obj_logg.debug_logger(
-            f"TagsListDialogWindow delete_tag(btn, type_table):\nbtn = {btn}\ntype_table = {type_table}"
+            f"VariablesListDialogWindow delete_variable(btn, type_table):\nbtn = {btn}\ntype_table = {type_table}"
         )
         item = btn.custom_data
-        title_tag = item.get("title_tag")
-        name_tag = item.get("name_tag")
+        title_variable = item.get("title_variable")
+        name_variable = item.get("name_variable")
         question = self.__osbm.obj_dw.question_message(
-            f'Вы действительно хотите удалить этот тег:\n"{title_tag}" ({name_tag})?'
+            f'Вы действительно хотите удалить эту переменную:\n"{title_variable}" ({name_variable})?'
         )
         if question:
             # удалить из БД
-            self.__all_tags.remove(item)
-            self.__osbm.obj_prodb.delete_tag(item)
+            self.__all_variables.remove(item)
+            self.__osbm.obj_prodb.delete_variable(item)
             # обновить порядок в БД - кому нужно
-            for index, tag in enumerate(self.__all_tags):
-                order = tag.get("order_tag")
+            for index, variable in enumerate(self.__all_variables):
+                order = variable.get("order_variable")
                 if order != index:
-                    self.__osbm.obj_prodb.set_order_for_tag(tag, index)
+                    self.__osbm.obj_prodb.set_order_for_variable(variable, index)
             self.caf_two_tables(type_table)
 
     def get_current_data_table(self, type_table, editor=False):
@@ -627,7 +627,7 @@ class TagsListDialogWindow(QDialog):
         header = table_widget.horizontalHeaderItem(0)
         data = header.data(1000)
         self.__osbm.obj_logg.debug_logger(
-            f"TagsListDialogWindow get_current_data_table(type_table, editor) -> list:\ntype_table = {type_table}\neditor = {editor}\ndata = {data}"
+            f"VariablesListDialogWindow get_current_data_table(type_table, editor) -> list:\ntype_table = {type_table}\neditor = {editor}\ndata = {data}"
         )
         return data
 
@@ -644,37 +644,37 @@ class TagsListDialogWindow(QDialog):
                 item.pop("_checked")
                 new_data.append(item)
         self.__osbm.obj_logg.debug_logger(
-            f"TagsListDialogWindow get_new_data_editor_table(type_table) -> list:\ntype_table = {type_table}\nnew_data = {new_data}"
+            f"VariablesListDialogWindow get_new_data_editor_table(type_table) -> list:\ntype_table = {type_table}\nnew_data = {new_data}"
         )
         return new_data
 
     def save_changes(self):
-        self.__osbm.obj_logg.debug_logger("TagsListDialogWindow save_changes()")
+        self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow save_changes()")
         type_table = self.get_typetable()
         # получить данные
         new_data = self.get_new_data_editor_table(type_table)
         old_data = self.get_current_data_table(type_table, editor=False)
         # данные для удаления
-        ids_new_data = {item.get("id_tag") for item in new_data}
+        ids_new_data = {item.get("id_variable") for item in new_data}
         data_for_delete = [
-            item for item in old_data if item.get("id_tag") not in ids_new_data
+            item for item in old_data if item.get("id_variable") not in ids_new_data
         ]
         # данные для добавления
-        ids_old_data = {item.get("id_tag") for item in old_data}
+        ids_old_data = {item.get("id_variable") for item in old_data}
         data_for_insert = [
-            item for item in new_data if item.get("id_tag") not in ids_old_data
+            item for item in new_data if item.get("id_variable") not in ids_old_data
         ]
         # удаление и добавление
-        if type_table == "project_tags":
+        if type_table == "project_variables":
             project_node = self.obj_projroject.project_node
             self.__osbm.obj_prodb.insert_node_datas(project_node, data_for_insert)
             self.__osbm.obj_prodb.delete_node_datas(project_node, data_for_delete)
-        elif type_table == "group_tags":
+        elif type_table == "group_variables":
             group_node = self.ui.combox_groups.currentData()
             if group_node:
                 self.__osbm.obj_prodb.insert_node_datas(group_node, data_for_insert)
                 self.__osbm.obj_prodb.delete_node_datas(group_node, data_for_delete)
-        elif type_table == "form_template_page_tags":
+        elif type_table == "form_template_page_variables":
             page = self.ui.combox_pages.currentData()
             if page is None:
                 pass

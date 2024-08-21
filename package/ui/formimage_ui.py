@@ -30,11 +30,11 @@ class Ui_FormImageWidget(object):
         self.hl = QHBoxLayout()
         self.hl.setSpacing(4)
         self.hl.setObjectName(u"hl")
-        self.label_typetag = QLabel(FormImageWidget)
-        self.label_typetag.setObjectName(u"label_typetag")
-        self.label_typetag.setAlignment(Qt.AlignCenter)
+        self.label_typevariable = QLabel(FormImageWidget)
+        self.label_typevariable.setObjectName(u"label_typevariable")
+        self.label_typevariable.setAlignment(Qt.AlignCenter)
 
-        self.hl.addWidget(self.label_typetag)
+        self.hl.addWidget(self.label_typevariable)
 
         self.title = QLabel(FormImageWidget)
         self.title.setObjectName(u"title")
@@ -81,7 +81,7 @@ class Ui_FormImageWidget(object):
 
     def retranslateUi(self, FormImageWidget):
         FormImageWidget.setWindowTitle(QCoreApplication.translate("FormImageWidget", u"Form", None))
-        self.label_typetag.setText(QCoreApplication.translate("FormImageWidget", u"\u0418\u041a", None))
+        self.label_typevariable.setText(QCoreApplication.translate("FormImageWidget", u"\u0418\u041a", None))
         self.title.setText(QCoreApplication.translate("FormImageWidget", u"<html><head/><body><p>\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a</p></body></html>", None))
         self.select_button.setText(QCoreApplication.translate("FormImageWidget", u"\u0412\u044b\u0431\u0440\u0430\u0442\u044c \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435", None))
         self.label.setText(QCoreApplication.translate("FormImageWidget", u"\u0412\u044b\u0431\u0440\u0430\u043d\u043d\u044b\u0439 \u0444\u0430\u0439\u043b", None))

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>NedTableTag</class>
- <widget class="QWidget" name="NedTableTag">
+ <class>NedTableVariable</class>
+ <widget class="QWidget" name="NedTableVariable">
   <property name="geometry">
    <rect>
     <x>0</x>

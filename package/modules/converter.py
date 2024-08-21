@@ -90,32 +90,32 @@ class ConverterPool:
         )
         return template_path, docx_path
 
-    def type_tag_is_text(self, local_osbm, data_tag, name_tag, value):
+    def type_variable_is_text(self, local_osbm, data_variable, name_variable, value):
         local_osbm.obj_logg.debug_logger(
-            f"Converter type_tag_is_text(data_tag, name_tag, value):\ndata_tag = {data_tag},\nname_tag = {name_tag},\nvalue = {value}"
+            f"Converter type_variable_is_text(data_variable, name_variable, value):\ndata_variable = {data_variable},\nname_variable = {name_variable},\nvalue = {value}"
         )
         try:
             if value:
-                data_tag[str(name_tag)] = value
+                data_variable[str(name_variable)] = value
         except Exception as e: 
-            self.__osbm.obj_logg.error_logger(f"Error in type_tag_is_text: {e}")
+            self.__osbm.obj_logg.error_logger(f"Error in type_variable_is_text: {e}")
             
 
-    def type_tag_is_date(self, local_osbm, data_tag, name_tag, value):
+    def type_variable_is_date(self, local_osbm, data_variable, name_variable, value):
         local_osbm.obj_logg.debug_logger(
-            f"Converter type_tag_is_date(data_tag, name_tag, value):\ndata_tag = {data_tag},\nname_tag = {name_tag},\nvalue = {value}"
+            f"Converter type_variable_is_date(data_variable, name_variable, value):\ndata_variable = {data_variable},\nname_variable = {name_variable},\nvalue = {value}"
         )
         try:
             if value:
-                data_tag[str(name_tag)] = value
+                data_variable[str(name_variable)] = value
         except Exception as e: 
-            self.__osbm.obj_logg.error_logger(f"Error in type_tag_is_date: {e}")
+            self.__osbm.obj_logg.error_logger(f"Error in type_variable_is_date: {e}")
 
-    def type_tag_is_image(
-        self, local_osbm, data_tag, name_tag, value, docx_template
+    def type_variable_is_image(
+        self, local_osbm, data_variable, name_variable, value, docx_template
     ):
         local_osbm.obj_logg.debug_logger(
-            f"Converter type_tag_is_image(data_tag, name_tag, value, docx_template):\ndata_tag = {data_tag},\nname_tag = {name_tag},\nvalue = {value},\ndocx_template = {docx_template}"
+            f"Converter type_variable_is_image(data_variable, name_variable, value, docx_template):\ndata_variable = {data_variable},\nname_variable = {name_variable},\nvalue = {value},\ndocx_template = {docx_template}"
         )
         try:
             if value:
@@ -127,73 +127,73 @@ class ConverterPool:
                 )
                 # TODO контент для изображения Inches, Pt, Cm, Mm
                 image = InlineImage(docx_template, image_dirpath)
-                data_tag[str(name_tag)] = image
+                data_variable[str(name_variable)] = image
         except Exception as e: 
-            self.__osbm.obj_logg.error_logger(f"Error in type_tag_is_image: {e}")
+            self.__osbm.obj_logg.error_logger(f"Error in type_variable_is_image: {e}")
 
-    def type_tag_is_table(self, local_osbm, data_tag, name_tag, value, id_tag):
+    def type_variable_is_table(self, local_osbm, data_variable, name_variable, value, id_variable):
         local_osbm.obj_logg.debug_logger(
-            f"Converter type_tag_is_table(data_tag, name_tag, value, id_tag):\ndata_tag = {data_tag},\nname_tag = {name_tag},\nvalue = {value},\nid_tag = {id_tag}"
+            f"Converter type_variable_is_table(data_variable, name_variable, value, id_variable):\ndata_variable = {data_variable},\nname_variable = {name_variable},\nvalue = {value},\nid_variable = {id_variable}"
         )
         try:
             if value:
-                current_tag = local_osbm.obj_prodb.get_tag_by_id(id_tag)
-                config_tag = current_tag.get("config_tag")
+                current_variable = local_osbm.obj_prodb.get_variable_by_id(id_variable)
+                config_variable = current_variable.get("config_variable")
                 config_dict = dict()        
-                if config_tag:
-                    config_dict = json.loads(config_tag)
+                if config_variable:
+                    config_dict = json.loads(config_variable)
                 print(f"config_dict = {config_dict}")
                 # узнать content в таблице
-                order_to_tag_config_dict = dict()
-                object_tag = dict()
+                order_to_variable_config_dict = dict()
+                object_variable = dict()
                 rowcols = config_dict.get("ROWCOLS")
                 for rowcol in rowcols:
                     value_config = rowcol.get("VALUE")
                     order_config = rowcol.get("ORDER")
-                    order_to_tag_config_dict[order_config] = value_config
-                    object_tag[value_config] = None
+                    order_to_variable_config_dict[order_config] = value_config
+                    object_variable[value_config] = None
                         
-                print(f"object_tag = {object_tag}")
-                # заполнять data_tag
+                print(f"object_variable = {object_variable}")
+                # заполнять data_variable
                 table_values = []
                 if value:
                     table = json.loads(value)
                     for row, row_data in enumerate(table):
-                        pt = copy.deepcopy(object_tag)
+                        pt = copy.deepcopy(object_variable)
                         for col, cell_value in enumerate(row_data):
-                            pt[order_to_tag_config_dict.get(col)] = cell_value
+                            pt[order_to_variable_config_dict.get(col)] = cell_value
                         table_values.append(pt)
                 print(f"table_values = {table_values}")
-                data_tag[str(name_tag)] = table_values
+                data_variable[str(name_variable)] = table_values
         except Exception as e: 
-            self.__osbm.obj_logg.error_logger(f"Error in type_tag_is_table: {e}")
+            self.__osbm.obj_logg.error_logger(f"Error in type_variable_is_table: {e}")
 
-    def check_type_tag_and_fill_data_tag(
-        self, local_osbm, pair, data_tag, docx_template, is_rerender = False
+    def check_type_variable_and_fill_data_variable(
+        self, local_osbm, pair, data_variable, docx_template, is_rerender = False
     ):
         local_osbm.obj_logg.debug_logger(
-            f"Converter check_type_tag_and_fill_data_tag(pair, data_tag, docx_template):\npair = {pair},\ndata_tag = {data_tag},\ndocx_template = {docx_template}"
+            f"Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template):\npair = {pair},\ndata_variable = {data_variable},\ndocx_template = {docx_template}"
         )
         id_pair = pair.get("id_pair")
         id_page = pair.get("id_page")
-        id_tag = pair.get("id_tag")
-        name_tag = pair.get("name_tag")
+        id_variable = pair.get("id_variable")
+        name_variable = pair.get("name_variable")
         value = pair.get("value_pair")
-        # current_tag
-        current_tag = local_osbm.obj_prodb.get_tag_by_id(id_tag)
-        type_tag = current_tag.get("type_tag")
+        # current_variable
+        current_variable = local_osbm.obj_prodb.get_variable_by_id(id_variable)
+        type_variable = current_variable.get("type_variable")
         # скипаем если is_rerender
         if not is_rerender:
-            if type_tag == "TEXT":
-                self.type_tag_is_text(local_osbm, data_tag, name_tag, value)
-            elif type_tag == "DATE":
-                self.type_tag_is_date(local_osbm, data_tag, name_tag, value)
-            elif type_tag == "TABLE":
-                self.type_tag_is_table(local_osbm, data_tag, name_tag, value, id_tag)
+            if type_variable == "TEXT":
+                self.type_variable_is_text(local_osbm, data_variable, name_variable, value)
+            elif type_variable == "DATE":
+                self.type_variable_is_date(local_osbm, data_variable, name_variable, value)
+            elif type_variable == "TABLE":
+                self.type_variable_is_table(local_osbm, data_variable, name_variable, value, id_variable)
         # общий для всех
-        elif type_tag == "IMAGE":
-            self.type_tag_is_image(
-                local_osbm, data_tag, name_tag, value, docx_template
+        elif type_variable == "IMAGE":
+            self.type_variable_is_image(
+                local_osbm, data_variable, name_variable, value, docx_template
             )
 
     def create_docx_page(
@@ -221,22 +221,22 @@ class ConverterPool:
         )
         current_path = template_path
         flag = 50
-        # создаем tag из sections_info
-        data_tag = dict()
+        # создаем variable из sections_info
+        data_variable = dict()
         while flag:
             docx_template = DocxTemplate(current_path)
             set_of_variables = docx_template.get_undeclared_template_variables()
-            # обновляем tag из sections_info (из-за InlaneImage)
+            # обновляем variable из sections_info (из-за InlaneImage)
             for section_info in sections_info:
                 # инфо из секции
                 section_data = section_info.get("data")
                 # перебор пар в section_data секции
                 for pair in section_data:
-                    self.check_type_tag_and_fill_data_tag(
-                        local_osbm, pair, data_tag, docx_template, is_rerender = True
+                    self.check_type_variable_and_fill_data_variable(
+                        local_osbm, pair, data_variable, docx_template, is_rerender = True
                     )
             # первый render
-            docx_template.render(data_tag)
+            docx_template.render(data_variable)
             # узнаем новый список переменных
             new_set_of_variables = docx_template.get_undeclared_template_variables()
             # сохраняем документ

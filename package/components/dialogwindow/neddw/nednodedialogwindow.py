@@ -52,17 +52,17 @@ class NedNodeDialogWindow(QDialog):
         if self.__type_window == "create":
             if self.__type_node == "FORM":
                 self.ui.namenode.setText("Название новой формы")
-                self.ui.btn_nestag.setText("Добавить форму")
+                self.ui.btn_nesvariable.setText("Добавить форму")
             elif self.__type_node == "GROUP":
                 self.ui.namenode.setText("Название новой группы")
-                self.ui.btn_nestag.setText("Добавить группу")
+                self.ui.btn_nesvariable.setText("Добавить группу")
         elif self.__type_window == "edit":
             if self.__type_node == "FORM":
                 self.ui.namenode.setText("Название формы")
-                self.ui.btn_nestag.setText("Сохранить форму")
+                self.ui.btn_nesvariable.setText("Сохранить форму")
             elif self.__type_node == "GROUP":
                 self.ui.namenode.setText("Название группы")
-                self.ui.btn_nestag.setText("Сохранить группу")
+                self.ui.btn_nesvariable.setText("Сохранить группу")
             # заполняем форму
             self.ui.lineedit_namenode.setText(self.__node.get("name_node"))
 
@@ -139,14 +139,14 @@ class NedNodeDialogWindow(QDialog):
         combobox.blockSignals(False)
 
     def connecting_actions(self):
-        self.ui.btn_nestag.clicked.connect(self.action_nestag)
-        self.ui.btn_nestag.setShortcut("Ctrl+S")
+        self.ui.btn_nesvariable.clicked.connect(self.action_nesvariable)
+        self.ui.btn_nesvariable.setShortcut("Ctrl+S")
         self.ui.btn_close.clicked.connect(self.close)
         self.ui.btn_close.setShortcut("Ctrl+Q")
         self.ui.combox_parent.currentIndexChanged.connect(self.fill_combox_neighboor)
         
-    def action_nestag(self):
-        self.__osbm.obj_logg.debug_logger("NedNodeDialogWindow action_nestag()")
+    def action_nesvariable(self):
+        self.__osbm.obj_logg.debug_logger("NedNodeDialogWindow action_nesvariable()")
         name_node = self.ui.lineedit_namenode.text()
         if len(name_node) > 0:
             node_by_name = self.__osbm.obj_prodb.get_node_by_name(name_node)
@@ -164,7 +164,7 @@ class NedNodeDialogWindow(QDialog):
                     self.save_edit_node()
                     self.accept()
                 elif self.__node.get("name_node") == name_node:
-                    # ↑ если имя тега не изменилось
+                    # ↑ если имя переменной не изменилось
                     self.save_edit_node()
                     self.accept()
                 else:

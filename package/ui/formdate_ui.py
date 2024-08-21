@@ -29,12 +29,12 @@ class Ui_FormDateWidget(object):
         self.hl = QHBoxLayout()
         self.hl.setSpacing(9)
         self.hl.setObjectName(u"hl")
-        self.label_typetag = QLabel(FormDateWidget)
-        self.label_typetag.setObjectName(u"label_typetag")
-        self.label_typetag.setScaledContents(False)
-        self.label_typetag.setAlignment(Qt.AlignCenter)
+        self.label_typevariable = QLabel(FormDateWidget)
+        self.label_typevariable.setObjectName(u"label_typevariable")
+        self.label_typevariable.setScaledContents(False)
+        self.label_typevariable.setAlignment(Qt.AlignCenter)
 
-        self.hl.addWidget(self.label_typetag)
+        self.hl.addWidget(self.label_typevariable)
 
         self.title = QLabel(FormDateWidget)
         self.title.setObjectName(u"title")
@@ -71,7 +71,7 @@ class Ui_FormDateWidget(object):
 
     def retranslateUi(self, FormDateWidget):
         FormDateWidget.setWindowTitle(QCoreApplication.translate("FormDateWidget", u"Form", None))
-        self.label_typetag.setText(QCoreApplication.translate("FormDateWidget", u"\u0418\u041a", None))
+        self.label_typevariable.setText(QCoreApplication.translate("FormDateWidget", u"\u0418\u041a", None))
         self.title.setText(QCoreApplication.translate("FormDateWidget", u"<html><head/><body><p>\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a</p></body></html>", None))
         self.textbrowser.setHtml(QCoreApplication.translate("FormDateWidget", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"

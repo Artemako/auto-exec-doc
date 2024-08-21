@@ -11,7 +11,7 @@ from PySide6.QtWidgets import (
 
 import package.ui.nedpagedialogwindow_ui as nedpagedialogwindow_ui
 
-import package.components.dialogwindow.neddw.nedtagdialogwindow as nedtagdialogwindow
+import package.components.dialogwindow.neddw.nedvariabledialogwindow as nedvariabledialogwindow
 
 import json
 import os
@@ -45,11 +45,11 @@ class NedPageDialogWindow(QDialog):
             "order_page": None,
             "included": 1,
         }
-        self.__tags_for_add = []
+        self.__variables_for_add = []
         # одноразовые действия
         self.config_by_type_window()
         self.config_combox_neighboor()
-        self.reconfig_tw_tags()
+        self.reconfig_tw_variables()
         self.connecting_actions()
 
     def get_data(self):
@@ -64,51 +64,51 @@ class NedPageDialogWindow(QDialog):
             self.ui.btn_select.setText("Выбрать документ")
             self.ui.btn_open_docx.setEnabled(False)
             self.ui.label_file.setText("Файл не выбран")
-            self.ui.btn_nestag.setText("Добавить страницу")
+            self.ui.btn_nesvariable.setText("Добавить страницу")
         elif self.__type_ned == "edit":
             self.ui.btn_select.setText("Выбрать новый документ")
             self.ui.btn_open_docx.setEnabled(True)
             self.ui.label_file.setText(self.__page.get("filename_page"))
             self.__page_filename = self.__page.get("filename_page")
-            self.ui.btn_nestag.setText("Сохранить страницу")
+            self.ui.btn_nesvariable.setText("Сохранить страницу")
             self.ui.lineedit_namepage.setText(self.__page.get("name_page"))
 
-    def reconfig_tw_tags(self):
-        self.__osbm.obj_logg.debug_logger("NedPageDialogWindow reconfig_tw_tags()")
-        tablewidget = self.ui.tw_tags
+    def reconfig_tw_variables(self):
+        self.__osbm.obj_logg.debug_logger("NedPageDialogWindow reconfig_tw_variables()")
+        tablewidget = self.ui.tw_variables
         tablewidget.blockSignals(True)
         tablewidget.clearContents()
         tablewidget.setRowCount(0)
         if self.__temp_file_path:
-            jinja_tags = self.extract_jinja_tags(self.__temp_file_path)
-            if jinja_tags:
-                self.fill_tw_tags(jinja_tags)
+            jinja_variables = self.extract_jinja_variables(self.__temp_file_path)
+            if jinja_variables:
+                self.fill_tw_variables(jinja_variables)
         elif self.__page_filename:
             forms_folder_dirpath = self.__osbm.obj_dirm.get_forms_folder_dirpath()
             docx_path = os.path.join(
                 forms_folder_dirpath, self.__page_filename + ".docx"
             )
-            jinja_tags = self.extract_jinja_tags(docx_path)
-            if jinja_tags:
-                self.fill_tw_tags(jinja_tags)
+            jinja_variables = self.extract_jinja_variables(docx_path)
+            if jinja_variables:
+                self.fill_tw_variables(jinja_variables)
         tablewidget.blockSignals(False)
 
-    def fill_tw_tags(self, jinja_tags):
+    def fill_tw_variables(self, jinja_variables):
         # TODO ПЕРЕДЕЛАТЬ
         self.__osbm.obj_logg.debug_logger(
-            f"NedPageDialogWindow fill_tw_tags(jinja_tags):\njinja_tags = {jinja_tags}"
+            f"NedPageDialogWindow fill_tw_variables(jinja_variables):\njinja_variables = {jinja_variables}"
         )
-        tablewidget = self.ui.tw_tags
+        tablewidget = self.ui.tw_variables
         tablewidget.setColumnCount(3)
-        tablewidget.setHorizontalHeaderLabels(["Тег", "Вид тега", "Действия"])
-        tablewidget.setRowCount(len(jinja_tags))
-        for row, tag in enumerate(jinja_tags):
-            qtwt_name_tag = QTableWidgetItem(tag)
-            # qtwt_name_tag.setData(1001, tag)
-            status_tag = self.get_status_tag(tag)
-            type_tag = status_tag.get("type")
-            value_tag = status_tag.get("value")
-            qtwt_status_tag = QTableWidgetItem(type_tag)
+        tablewidget.setHorizontalHeaderLabels(["Переменная", "Вид переменной", "Действия"])
+        tablewidget.setRowCount(len(jinja_variables))
+        for row, variable in enumerate(jinja_variables):
+            qtwt_name_variable = QTableWidgetItem(variable)
+            # qtwt_name_variable.setData(1001, variable)
+            status_variable = self.get_status_variable(variable)
+            type_variable = status_variable.get("type")
+            value_variable = status_variable.get("value")
+            qtwt_status_variable = QTableWidgetItem(type_variable)
             # кнопка
             layout = QHBoxLayout()
             add_button = QPushButton("...")
@@ -117,27 +117,27 @@ class NedPageDialogWindow(QDialog):
             widget = QWidget()
             widget.setLayout(layout)
             #
-            tablewidget.setItem(row, 0, qtwt_name_tag)
-            tablewidget.setItem(row, 1, qtwt_status_tag)
+            tablewidget.setItem(row, 0, qtwt_name_variable)
+            tablewidget.setItem(row, 1, qtwt_status_variable)
             #
-            if type_tag == "Переменная":
-                result_bd = self.__osbm.obj_prodb.get_tag_by_name(value_tag)
-                result_tags_for_add = self.get_tag_by_name(value_tag)
-                if result_bd or result_tags_for_add:
+            if type_variable == "Переменная":
+                result_bd = self.__osbm.obj_prodb.get_variable_by_name(value_variable)
+                result_variables_for_add = self.get_variable_by_name(value_variable)
+                if result_bd or result_variables_for_add:
                     tablewidget.setItem(row, 2, QTableWidgetItem("Имеется"))
                 else:
-                    add_button.setText("Добавить тег")
-                    add_button.clicked.connect(partial(self.add_tag, value_tag, False))
+                    add_button.setText("Добавить переменную")
+                    add_button.clicked.connect(partial(self.add_variable, value_variable, False))
                     tablewidget.setCellWidget(row, 2, widget)
-            elif type_tag == "Блок" and value_tag:
-                result_bd = self.__osbm.obj_prodb.get_tag_by_name(value_tag)
-                result_tags_for_add = self.get_tag_by_name(value_tag)
-                if result_bd or result_tags_for_add:
+            elif type_variable == "Блок" and value_variable:
+                result_bd = self.__osbm.obj_prodb.get_variable_by_name(value_variable)
+                result_variables_for_add = self.get_variable_by_name(value_variable)
+                if result_bd or result_variables_for_add:
                     tablewidget.setItem(row, 2, QTableWidgetItem("Имеется"))
                 else:
                     add_button.setText("Добавить блок")
                     add_button.clicked.connect(
-                        partial(self.add_tag, value_tag, True)
+                        partial(self.add_variable, value_variable, True)
                     )
                     tablewidget.setCellWidget(row, 2, widget)
         # Настраиваем режимы изменения размера для заголовков
@@ -151,118 +151,118 @@ class NedPageDialogWindow(QDialog):
         tablewidget.setEditTriggers(QTableWidget.NoEditTriggers)
         tablewidget.setSelectionMode(QAbstractItemView.NoSelection)
 
-    def get_tag_by_name(self, name_tag) -> dict:
+    def get_variable_by_name(self, name_variable) -> dict:
         self.__osbm.obj_logg.debug_logger(
-            f"NedPageDialogWindow get_tag_by_name(name_tag) -> dict:\nname_tag = {name_tag}"
+            f"NedPageDialogWindow get_variable_by_name(name_variable) -> dict:\nname_variable = {name_variable}"
         )
-        tags = self.__tags_for_add
+        variables = self.__variables_for_add
         result = None
-        for tag in tags:
-            if tag.get("name_tag") == name_tag:
-                result = tag
+        for variable in variables:
+            if variable.get("name_variable") == name_variable:
+                result = variable
                 break
         return result
 
-    def get_status_tag(self, tag: str) -> dict:
+    def get_status_variable(self, variable: str) -> dict:
         self.__osbm.obj_logg.debug_logger(
-            f"NedPageDialogWindow get_status_tag(tag) -> dict:\ntag = {tag}"
+            f"NedPageDialogWindow get_status_variable(variable) -> dict:\nvariable = {variable}"
         )
-        status_tag = {"type": None, "value": None}
+        status_variable = {"type": None, "value": None}
         # statuses = ["Тэг", "Атрибут тега", "Блок", "Прочее"]
-        if tag.startswith("{%") and tag.endswith("%}"):
-            status_tag["type"] = "Блок"
-            words_in_tag = tag.split()
-            if words_in_tag[-2] != "endfor":
-                status_tag["value"] = words_in_tag[-2]
-        elif tag.startswith("{{") and tag.endswith("}}"):
-            if "." in tag:
-                status_tag["type"] = "Атрибут тега"
+        if variable.startswith("{%") and variable.endswith("%}"):
+            status_variable["type"] = "Блок"
+            words_in_variable = variable.split()
+            if words_in_variable[-2] != "endfor":
+                status_variable["value"] = words_in_variable[-2]
+        elif variable.startswith("{{") and variable.endswith("}}"):
+            if "." in variable:
+                status_variable["type"] = "Атрибут тега"
             else:
-                status_tag["type"] = "Переменная"
-                words_in_tag = tag.split()
-                status_tag["value"] = words_in_tag[1]
+                status_variable["type"] = "Переменная"
+                words_in_variable = variable.split()
+                status_variable["value"] = words_in_variable[1]
         else:
-            status_tag["type"] = "Прочее"
-        return status_tag
+            status_variable["type"] = "Прочее"
+        return status_variable
 
-    def add_tag(self, name_tag, is_block):
+    def add_variable(self, name_variable, is_block):
         """
-        Похожий код у TagsListDialogWindow.
+        Похожий код у VariablesListDialogWindow.
         """
         self.__osbm.obj_logg.debug_logger(
-            f"NedPageDialogWindow add_tag(tag, name_tag, is_block):\nname_tag = {name_tag}\n is_block = {is_block}"
+            f"NedPageDialogWindow add_variable(variable, name_variable, is_block):\nname_variable = {name_variable}\n is_block = {is_block}"
         )
         #
-        self.__all_tags = self.__osbm.obj_prodb.get_tags()
+        self.__all_variables = self.__osbm.obj_prodb.get_variables()
         # окно        
-        self.__osbm.obj_nedtdw = nedtagdialogwindow.NedTagDialogWindow(
-            self.__osbm, "create", self.__all_tags, None, name_tag, is_block
+        self.__osbm.obj_nedtdw = nedvariabledialogwindow.NedVariableDialogWindow(
+            self.__osbm, "create", self.__all_variables, None, name_variable, is_block
         )
         result = self.__osbm.obj_nedtdw.exec()
         # результат
         if result == QDialog.Accepted:
             # получить data
             data = self.__osbm.obj_nedtdw.get_data()
-            name_tag = data.get("NAME")
-            type_tag = data.get("TYPE")
-            title_tag = data.get("TITLE")
-            order_tag = data.get("ORDER")
-            config_tag = data.get("CONFIG")
-            config_tag = json.dumps(config_tag) if config_tag else None
-            description_tag = data.get("DESCRIPTION")
-            create_tag = {
-                "name_tag": name_tag,
-                "type_tag": type_tag,
-                "title_tag": title_tag,
-                "order_tag": order_tag,
-                "config_tag": config_tag,
-                "description_tag": description_tag,
+            name_variable = data.get("NAME")
+            type_variable = data.get("TYPE")
+            title_variable = data.get("TITLE")
+            order_variable = data.get("ORDER")
+            config_variable = data.get("CONFIG")
+            config_variable = json.dumps(config_variable) if config_variable else None
+            description_variable = data.get("DESCRIPTION")
+            create_variable = {
+                "name_variable": name_variable,
+                "type_variable": type_variable,
+                "title_variable": title_variable,
+                "order_variable": order_variable,
+                "config_variable": config_variable,
+                "description_variable": description_variable,
             }
             # вставка
-            self.__all_tags.insert(order_tag, create_tag)
-            self.__osbm.obj_prodb.insert_tag(create_tag)
+            self.__all_variables.insert(order_variable, create_variable)
+            self.__osbm.obj_prodb.insert_variable(create_variable)
             # Меняем порядок в БД - кому нужно
-            for index, tag in enumerate(self.__all_tags):
-                order = tag.get("order_tag")
+            for index, variable in enumerate(self.__all_variables):
+                order = variable.get("order_variable")
                 if order != index:
-                    self.__osbm.obj_prodb.set_order_for_tag(tag, index)
+                    self.__osbm.obj_prodb.set_order_for_variable(variable, index)
             # обновляем таблицу
-            self.reconfig_tw_tags()
+            self.reconfig_tw_variables()
 
 
 
-    def extract_jinja_tags(self, docx_path) -> set:
+    def extract_jinja_variables(self, docx_path) -> set:
         self.__osbm.obj_logg.debug_logger(
-            f"NedPageDialogWindow extract_jinja_tags(docx_path) -> set:\ndocx_path = {docx_path}"
+            f"NedPageDialogWindow extract_jinja_variables(docx_path) -> set:\ndocx_path = {docx_path}"
         )
         try:
             doc = Document(docx_path)
-            # Регулярное выражение для поиска всех Jinja тегов
+            # Регулярное выражение для поиска всех Jinja переменных
             # TODO Убрать пробелы + найти именно все-все теги
             jinja_pattern = r"\{\%\s.*?\%\}|\{\{\s.*?\s\}\}"
-            jinja_tags = []
+            jinja_variables = []
             # Обходим все параграфы в документе
             for para in doc.paragraphs:
-                jinja_tags.extend(re.findall(jinja_pattern, para.text))
+                jinja_variables.extend(re.findall(jinja_pattern, para.text))
             # Обходим все таблицы в документе
             for table in doc.tables:
                 for row in table.rows:
                     for cell in row.cells:
-                        jinja_tags.extend(re.findall(jinja_pattern, cell.text))
+                        jinja_variables.extend(re.findall(jinja_pattern, cell.text))
             # Обходим колонтитулы
             for section in doc.sections:
                 for header in section.header.paragraphs:
-                    jinja_tags.extend(re.findall(jinja_pattern, header.text))
+                    jinja_variables.extend(re.findall(jinja_pattern, header.text))
                 for footer in section.footer.paragraphs:
-                    jinja_tags.extend(re.findall(jinja_pattern, footer.text))
+                    jinja_variables.extend(re.findall(jinja_pattern, footer.text))
             # Поиск в фигурах (шапках с рисованием, если поддерживаются)
             for shape in doc.inline_shapes:
                 if shape.type == 3:  # 3 - тип 'Picture'
                     continue
-                jinja_tags.extend(re.findall(jinja_pattern, shape.text))
-            return set(jinja_tags)
+                jinja_variables.extend(re.findall(jinja_pattern, shape.text))
+            return set(jinja_variables)
         except Exception as e:
-            self.__osbm.obj_logg.error_logger(f"Error in extract_jinja_tags: {e}")
+            self.__osbm.obj_logg.error_logger(f"Error in extract_jinja_variables: {e}")
             return set()
 
     def config_combox_neighboor(self):
@@ -290,8 +290,8 @@ class NedPageDialogWindow(QDialog):
         self.__osbm.obj_logg.debug_logger("NedPageDialogWindow connecting_actions()")
         self.ui.btn_select.clicked.connect(self.select_file)
         self.ui.btn_open_docx.clicked.connect(self.open_docx)
-        self.ui.btn_nestag.clicked.connect(self.btn_nestag_clicked)
-        self.ui.btn_nestag.setShortcut("Ctrl+S")
+        self.ui.btn_nesvariable.clicked.connect(self.btn_nesvariable_clicked)
+        self.ui.btn_nesvariable.setShortcut("Ctrl+S")
         self.ui.btn_close.clicked.connect(self.close)
         self.ui.btn_close.setShortcut("Ctrl+Q")
 
@@ -311,7 +311,7 @@ class NedPageDialogWindow(QDialog):
             # копирование
             self.__osbm.obj_film.copy_file(docx_path, self.__temp_file_path)
             #
-            self.reconfig_tw_tags()
+            self.reconfig_tw_variables()
 
     def open_docx(self):
         # todo ПРИ CREATE заблокировать кнопку Открыть и изменить документ
@@ -344,8 +344,8 @@ class NedPageDialogWindow(QDialog):
                 return current_page
         return None
 
-    def btn_nestag_clicked(self):
-        self.__osbm.obj_logg.debug_logger("NedPageDialogWindow btn_nestag_clicked()")
+    def btn_nesvariable_clicked(self):
+        self.__osbm.obj_logg.debug_logger("NedPageDialogWindow btn_nesvariable_clicked()")
 
         filename_page = self.__page_filename
         namepage = self.ui.lineedit_namepage.text()

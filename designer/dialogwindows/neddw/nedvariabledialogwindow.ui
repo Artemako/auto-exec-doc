@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>NedTagDialogWindow</class>
- <widget class="QDialog" name="NedTagDialogWindow">
+ <class>NedVariableDialogWindow</class>
+ <widget class="QDialog" name="NedVariableDialogWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -30,7 +30,7 @@
     <number>9</number>
    </property>
    <item>
-    <widget class="QLabel" name="nametag">
+    <widget class="QLabel" name="namevariable">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -58,14 +58,14 @@
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="lineedit_nametag">
+    <widget class="QLineEdit" name="lineedit_namevariable">
      <property name="text">
       <string/>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="titletag">
+    <widget class="QLabel" name="titlevariable">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -82,7 +82,7 @@
       <string notr="true">font-weight: bold;</string>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Название тэга&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Название переменной&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::AutoText</enum>
@@ -93,14 +93,14 @@
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="lineedit_titletag">
+    <widget class="QLineEdit" name="lineedit_titlevariable">
      <property name="text">
       <string/>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="typetag">
+    <widget class="QLabel" name="typevariable">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -117,7 +117,7 @@
       <string notr="true">font-weight: bold;</string>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Тип тэга&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Тип переменной&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::AutoText</enum>
@@ -128,7 +128,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QComboBox" name="combox_typetag"/>
+    <widget class="QComboBox" name="combox_typevariable"/>
    </item>
    <item>
     <layout class="QHBoxLayout" name="hl_placement" stretch="0,1">
@@ -161,9 +161,9 @@
    <item>
     <layout class="QHBoxLayout" name="hl_addsaveclose">
      <item>
-      <widget class="QPushButton" name="btn_nestag">
+      <widget class="QPushButton" name="btn_nesvariable">
        <property name="text">
-        <string>Добавить тэг</string>
+        <string>Добавить переменную</string>
        </property>
       </widget>
      </item>

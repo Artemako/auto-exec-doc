@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QSizePolicy
 
 
-class TagType:
+class VariableType:
     def __init__(self, index, name, data, icon, is_block):
         self.index = index
         self.name = name
@@ -10,29 +10,29 @@ class TagType:
         self.is_block = is_block
 
 
-class TagTypes:
+class VariableTypes:
     def __init__(self, osbm):
         self.__osbm = osbm
         self.__icons = self.__osbm.obj_icons.get_icons()
-        self.__tag_types = [
-            TagType(0, "Текст", "TEXT", self.__icons.get("text"), False),
-            TagType(1, "Дата", "DATE", self.__icons.get("date"), False),
-            TagType(2, "Таблица", "TABLE", self.__icons.get("table"), True),
-            TagType(3, "Изображение", "IMAGE", self.__icons.get("image"), False),
+        self.__variable_types = [
+            VariableType(0, "Текст", "TEXT", self.__icons.get("text"), False),
+            VariableType(1, "Дата", "DATE", self.__icons.get("date"), False),
+            VariableType(2, "Таблица", "TABLE", self.__icons.get("table"), True),
+            VariableType(3, "Изображение", "IMAGE", self.__icons.get("image"), False),
         ]
 
-    def get_tag_types(self):
-        self.__osbm.obj_logg.debug_logger("TagTypes get_tag_types()")
-        return self.__tag_types
+    def get_variable_types(self):
+        self.__osbm.obj_logg.debug_logger("VariableTypes get_variable_types()")
+        return self.__variable_types
 
     def get_index_by_data(self, data):
         result = None
-        for tag in self.__tag_types:
-            if tag.data == data:
-                result = tag.index
+        for variable in self.__variable_types:
+            if variable.data == data:
+                result = variable.index
                 break
         self.__osbm.obj_logg.debug_logger(
-            f"TagTypes get_index_by_data(data):\ntype_tag = {data}\n result = {result}"
+            f"VariableTypes get_index_by_data(data):\ntype_variable = {data}\n result = {result}"
         )
         return result
 
@@ -207,7 +207,7 @@ class CommonWithOsmb:
     def __init__(self):
         self.__osbm = None
         #
-        self.tag_types = None
+        self.variable_types = None
         self.sizing_modes = None
         self.units = None
         self.table_types = None
@@ -220,7 +220,7 @@ class CommonWithOsmb:
     def run(self):
         self.__osbm.obj_logg.debug_logger("CommonWithOsmb run()")
         #
-        self.tag_types = TagTypes(self.__osbm)
+        self.variable_types = VariableTypes(self.__osbm)
         self.sizing_modes = SizingModes(self.__osbm)
         self.units = Units(self.__osbm)
         self.table_types = TableTypes(self.__osbm)

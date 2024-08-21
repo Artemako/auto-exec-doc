@@ -37,7 +37,7 @@ class NedTemplateDialogWindow(QDialog):
         )
         if self.__type_ned == "create":
             self.ui.label_nametemplate.setText("Название нового шаблона")
-            self.ui.btn_nestag.setText("Добавить шаблон")
+            self.ui.btn_nesvariable.setText("Добавить шаблон")
             # предложение включено
             self.ui.label_copyfrom.setEnabled(True)
             self.ui.combox_templates.setEnabled(True)
@@ -46,7 +46,7 @@ class NedTemplateDialogWindow(QDialog):
         elif self.__type_ned == "edit":
             self.ui.label_nametemplate.setText("Название шаблона")
             self.ui.lineedit_nametemplate.setText(self.__template.get("name_template"))
-            self.ui.btn_nestag.setText("Сохранить шаблон")
+            self.ui.btn_nesvariable.setText("Сохранить шаблон")
             # предложение отключено
             self.ui.label_copyfrom.setEnabled(False)
             self.ui.combox_templates.setEnabled(False)
@@ -70,12 +70,12 @@ class NedTemplateDialogWindow(QDialog):
         )
         self.ui.btn_close.clicked.connect(self.close)
         self.ui.btn_close.setShortcut("Ctrl+Q")
-        self.ui.btn_nestag.clicked.connect(self.btn_nestag_clicked)
-        self.ui.btn_nestag.setShortcut("Ctrl+S")
+        self.ui.btn_nesvariable.clicked.connect(self.btn_nesvariable_clicked)
+        self.ui.btn_nesvariable.setShortcut("Ctrl+S")
 
-    def btn_nestag_clicked(self):
+    def btn_nesvariable_clicked(self):
         self.__osbm.obj_logg.debug_logger(
-            "NedTemplateDialogWindow btn_nestag_clicked()"
+            "NedTemplateDialogWindow btn_nesvariable_clicked()"
         )
         nametemplate = self.ui.lineedit_nametemplate.text()
         self.__data["name_template"] = nametemplate

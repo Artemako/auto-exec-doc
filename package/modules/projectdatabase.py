@@ -60,12 +60,12 @@ CREATE TABLE IF NOT EXISTS "Project_nodes" (
 CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
 	"id_pair"	INTEGER NOT NULL UNIQUE,
 	"id_node"	INTEGER NOT NULL,
-	"id_tag"	INTEGER NOT NULL,
-	"name_tag"	TEXT,
+	"id_variable"	INTEGER NOT NULL,
+	"name_variable"	TEXT,
 	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
 	FOREIGN KEY("id_node") REFERENCES "Project_nodes"("id_node") ON DELETE CASCADE,
-	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag") ON DELETE CASCADE
+	FOREIGN KEY("id_variable") REFERENCES "Project_variables"("id_variable") ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "Project_pages" (
 	"id_page"	INTEGER NOT NULL UNIQUE,
@@ -80,24 +80,24 @@ CREATE TABLE IF NOT EXISTS "Project_pages" (
 CREATE TABLE IF NOT EXISTS "Project_pages_data" (
 	"id_pair"	INTEGER NOT NULL UNIQUE,
 	"id_page"	INTEGER NOT NULL,
-	"id_tag"	INTEGER NOT NULL,
-	"name_tag"	TEXT,
+	"id_variable"	INTEGER NOT NULL,
+	"name_variable"	TEXT,
 	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
 	FOREIGN KEY("id_page") REFERENCES "Project_pages"("id_page") ON DELETE CASCADE,
-	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag") ON DELETE CASCADE
+	FOREIGN KEY("id_variable") REFERENCES "Project_variables"("id_variable") ON DELETE CASCADE
 );
-CREATE TABLE IF NOT EXISTS "Project_tags" (
-	"id_tag"	INTEGER NOT NULL UNIQUE,
-	"name_tag"	TEXT NOT NULL UNIQUE,
-	"type_tag"	TEXT NOT NULL,
-	"title_tag"	TEXT,
-	"order_tag"	INTEGER NOT NULL,
-	"config_tag"	TEXT,
-	"description_tag"	TEXT,
+CREATE TABLE IF NOT EXISTS "Project_variables" (
+	"id_variable"	INTEGER NOT NULL UNIQUE,
+	"name_variable"	TEXT NOT NULL UNIQUE,
+	"type_variable"	TEXT NOT NULL,
+	"title_variable"	TEXT,
+	"order_variable"	INTEGER NOT NULL,
+	"config_variable"	TEXT,
+	"description_variable"	TEXT,
 	"is_global"	INTEGER,
-	PRIMARY KEY("id_tag" AUTOINCREMENT),
-	UNIQUE("name_tag")
+	PRIMARY KEY("id_variable" AUTOINCREMENT),
+	UNIQUE("name_variable")
 );
 CREATE TABLE IF NOT EXISTS "Project_templates" (
 	"id_template"	INTEGER NOT NULL UNIQUE,
@@ -109,11 +109,11 @@ CREATE TABLE IF NOT EXISTS "Project_templates" (
 CREATE TABLE IF NOT EXISTS "Project_templates_data" (
 	"id_pair"	INTEGER NOT NULL UNIQUE,
 	"id_template"	INTEGER NOT NULL,
-	"id_tag"	INTEGER NOT NULL,
-	"name_tag"	TEXT,
+	"id_variable"	INTEGER NOT NULL,
+	"name_variable"	TEXT,
 	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
-	FOREIGN KEY("id_tag") REFERENCES "Project_tags"("id_tag") ON DELETE CASCADE,
+	FOREIGN KEY("id_variable") REFERENCES "Project_variables"("id_variable") ON DELETE CASCADE,
 	FOREIGN KEY("id_template") REFERENCES "Project_templates"("id_template") ON DELETE CASCADE
 );
 INSERT INTO "Project_nodes" VALUES (0,'Проект',NULL,'0','PROJECT',NULL,1);
@@ -158,38 +158,39 @@ INSERT INTO "Project_pages_data" VALUES (503,40,1227,'год_прокладки_
 INSERT INTO "Project_pages_data" VALUES (504,40,1228,'год_составления_паспорта',NULL);
 INSERT INTO "Project_pages_data" VALUES (505,40,1229,'отв_пред_орг_фио',NULL);
 INSERT INTO "Project_pages_data" VALUES (600,50,1230,'скелетная_схема_ВОЛП',NULL);
-INSERT INTO "Project_tags" VALUES (1000,'организационно_правовая_форма','TEXT','Организационно-правовая форма',0,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1001,'название_компании','TEXT','Название компании',1,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1002,'адрес_компании','TEXT','Адрес компании',2,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1003,'название_объекта','TEXT','Название объекта',3,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1004,'участок','TEXT','Участок',4,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1005,'номер_кабеля','TEXT','Номер кабеля',5,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1006,'заказчик','TEXT','Заказчик',6,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1007,'строительно_монтажная_организация','TEXT','Строительно-монтажная организация',7,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1008,'город','TEXT','Город',8,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1009,'год','DATE','Год',9,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1100,'инж_про_ком','TEXT','Компания инженера-проектировщика',10,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1101,'инж_про_ком_фио','TEXT','ФИО инженера-проектировщика',11,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1102,'гла_инж_компания','TEXT','Компания главного инженера',12,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1103,'гла_инж_фио','TEXT','ФИО главного инженера',13,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1200,'реестр_ид_паспорт_трассы','TABLE','Реестр ИД ВОЛС. Паспорт трассы',14,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1201,'реестр_ид_эл_паспорт_трассы','TABLE','Реестр ИД ВОЛС. Электрический паспорт трассы',15,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1202,'рабочая_документация','TABLE','Реестр ИД ВОЛС. Рабочая документация',16,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1208,'дата','DATE','Дата',17,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1209,'пт_опись_документов','TABLE','Паспорт трассы. Опись документов.',18,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1220,'кабеля','TABLE','Кабеля.',19,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1225,'общая_физ_длина','TEXT','Общая физическая длина',20,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1226,'общая_опт_длина','TEXT','Общая оптическая длина',21,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1227,'год_прокладки_кабеля','DATE','Год прокладки кабеля',22,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1228,'год_составления_паспорта','DATE','Год составления паспорта',23,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1229,'отв_пред_орг_фио ','TEXT','ФИО ответственного представителя организации',24,NULL,NULL,0);
-INSERT INTO "Project_tags" VALUES (1230,'скелетная_схема_ВОЛП','IMAGE','Скелетная схема ВОЛП',25,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1000,'организационно_правовая_форма','TEXT','Организационно-правовая форма',0,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1001,'название_компании','TEXT','Название компании',1,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1002,'адрес_компании','TEXT','Адрес компании',2,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1003,'название_объекта','TEXT','Название объекта',3,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1004,'участок','TEXT','Участок',4,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1005,'номер_кабеля','TEXT','Номер кабеля',5,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1006,'заказчик','TEXT','Заказчик',6,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1007,'строительно_монтажная_организация','TEXT','Строительно-монтажная организация',7,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1008,'город','TEXT','Город',8,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1009,'год','DATE','Год',9,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1100,'инж_про_ком','TEXT','Компания инженера-проектировщика',10,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1101,'инж_про_ком_фио','TEXT','ФИО инженера-проектировщика',11,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1102,'гла_инж_компания','TEXT','Компания главного инженера',12,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1103,'гла_инж_фио','TEXT','ФИО главного инженера',13,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1200,'реестр_ид_паспорт_трассы','TABLE','Реестр ИД ВОЛС. Паспорт трассы',14,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1201,'реестр_ид_эл_паспорт_трассы','TABLE','Реестр ИД ВОЛС. Электрический паспорт трассы',15,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1202,'рабочая_документация','TABLE','Реестр ИД ВОЛС. Рабочая документация',16,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1208,'дата','DATE','Дата',17,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1209,'пт_опись_документов','TABLE','Паспорт трассы. Опись документов.',18,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1220,'кабеля','TABLE','Кабеля.',19,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1225,'общая_физ_длина','TEXT','Общая физическая длина',20,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1226,'общая_опт_длина','TEXT','Общая оптическая длина',21,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1227,'год_прокладки_кабеля','DATE','Год прокладки кабеля',22,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1228,'год_составления_паспорта','DATE','Год составления паспорта',23,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1229,'отв_пред_орг_фио ','TEXT','ФИО ответственного представителя организации',24,NULL,NULL,0);
+INSERT INTO "Project_variables" VALUES (1230,'скелетная_схема_ВОЛП','IMAGE','Скелетная схема ВОЛП',25,NULL,NULL,0);
 INSERT INTO "Project_templates" VALUES (1,'main',10);
 INSERT INTO "Project_templates" VALUES (2,'main',11);
 INSERT INTO "Project_templates" VALUES (3,'main',1201);
 INSERT INTO "Project_templates" VALUES (4,'main',1202);
 INSERT INTO "Project_templates" VALUES (5,'main',1203);
 COMMIT;
+
         """
         )
         conn.commit()
@@ -491,23 +492,23 @@ COMMIT;
         )
         return result
 
-    def get_tag_by_id(self, id_tag) -> object:
+    def get_variable_by_id(self, id_variable) -> object:
         """
-        Запрос на получение tag по id.
+        Запрос на получение variable по id.
         """
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
             """
-        SELECT * FROM Project_tags
-        WHERE id_tag = ?
+        SELECT * FROM Project_variables
+        WHERE id_variable = ?
         """,
-            [id_tag],
+            [id_variable],
         )
         result = self.get_fetchone(cursor)
         conn.close()
         self.__osbm.obj_logg.debug_logger(
-            f"ProjectDatabase get_config_tag(id_tag) -> list: id_tag = {id_tag}\nresult = {result}"
+            f"ProjectDatabase get_config_variable(id_variable) -> list: id_variable = {id_variable}\nresult = {result}"
         )
         return result
 
@@ -822,22 +823,22 @@ COMMIT;
         conn.commit()
         conn.close()
 
-    def get_tags(self) -> list:
+    def get_variables(self) -> list:
         """
-        Запрос на получение тегов проекта.
+        Запрос на получение переменных проекта.
         """
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
             """
-        SELECT * FROM Project_tags
-        ORDER BY order_tag
+        SELECT * FROM Project_variables
+        ORDER BY order_variable
         """
         )
         result = self.get_fetchall(cursor)
         conn.close()
         self.__osbm.obj_logg.debug_logger(
-            f"ProjectDatabase get_tags() -> list\nresult = {result}"
+            f"ProjectDatabase get_variables() -> list\nresult = {result}"
         )
         return result
 
@@ -854,11 +855,11 @@ COMMIT;
             cursor.execute(
                 """
             INSERT INTO Project_nodes_data
-            (id_node, id_tag)
+            (id_node, id_variable)
             VALUES
             (?, ?)
             """,
-                [node.get("id_node"), pair.get("id_tag")],
+                [node.get("id_node"), pair.get("id_variable")],
             )
         conn.commit()
         conn.close()
@@ -875,11 +876,11 @@ COMMIT;
         cursor.execute(
             """
         INSERT INTO Project_templates_data
-        (id_template, id_tag)
+        (id_template, id_variable)
         VALUES
         (?, ?)
         """,
-            [template.get("id_template"), pair.get("id_tag")],
+            [template.get("id_template"), pair.get("id_variable")],
         )
         conn.commit()
         conn.close()
@@ -897,11 +898,11 @@ COMMIT;
             cursor.execute(
                 """
             INSERT INTO Project_templates_data
-            (id_template, id_tag)
+            (id_template, id_variable)
             VALUES
             (?, ?)
             """,
-                [template.get("id_template"), pair.get("id_tag")],
+                [template.get("id_template"), pair.get("id_variable")],
             )
         conn.commit()
         conn.close()
@@ -918,11 +919,11 @@ COMMIT;
         cursor.execute(
             """
         INSERT INTO Project_pages_data
-        (id_page, id_tag)
+        (id_page, id_variable)
         VALUES
         (?, ?)
         """,
-            [page.get("id_page"), pair.get("id_tag")],
+            [page.get("id_page"), pair.get("id_variable")],
         )
         conn.commit()
         conn.close()
@@ -940,11 +941,11 @@ COMMIT;
             cursor.execute(
                 """
             INSERT INTO Project_pages_data
-            (id_page, id_tag)
+            (id_page, id_variable)
             VALUES
             (?, ?)
             """,
-                [page.get("id_page"), pair.get("id_tag")],
+                [page.get("id_page"), pair.get("id_variable")],
             )
         conn.commit()
         conn.close()
@@ -963,9 +964,9 @@ COMMIT;
                 """
             DELETE FROM Project_nodes_data
             WHERE id_node = ?
-            AND id_tag = ?
+            AND id_variable = ?
             """,
-                [node.get("id_node"), pair.get("id_tag")],
+                [node.get("id_node"), pair.get("id_variable")],
             )
         conn.commit()
         conn.close()
@@ -984,9 +985,9 @@ COMMIT;
                 """
             DELETE FROM Project_templates_data
             WHERE id_template = ?
-            AND id_tag = ?
+            AND id_variable = ?
             """,
-                [template.get("id_template"), pair.get("id_tag")],
+                [template.get("id_template"), pair.get("id_variable")],
             )
         conn.commit()
         conn.close()
@@ -1005,36 +1006,36 @@ COMMIT;
                 """
             DELETE FROM Project_pages_data
             WHERE id_page = ?
-            AND id_tag = ?
+            AND id_variable = ?
             """,
-                [page.get("id_page"), pair.get("id_tag")],
+                [page.get("id_page"), pair.get("id_variable")],
             )
         conn.commit()
         conn.close()
 
-    def insert_tag(self, tag) -> int:
+    def insert_variable(self, variable) -> int:
         """
-        Запрос на вставку данных тега в Project_tags.
+        Запрос на вставку данных переменной в Project_variables.
         """
         self.__osbm.obj_logg.debug_logger(
-            f"ProjectDatabase insert_tag(tag):\ntag = {tag}"
+            f"ProjectDatabase insert_variable(variable):\nvariable = {variable}"
         )
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
             """
-        INSERT INTO Project_tags
-        (name_tag, type_tag, title_tag, order_tag, config_tag, description_tag)
+        INSERT INTO Project_variables
+        (name_variable, type_variable, title_variable, order_variable, config_variable, description_variable)
         VALUES
         (?, ?, ?, ?, ?, ?)
         """,
             [
-                tag.get("name_tag"),
-                tag.get("type_tag"),
-                tag.get("title_tag"),
-                tag.get("order_tag"),
-                tag.get("config_tag"),
-                tag.get("description_tag"),
+                variable.get("name_variable"),
+                variable.get("type_variable"),
+                variable.get("title_variable"),
+                variable.get("order_variable"),
+                variable.get("config_variable"),
+                variable.get("description_variable"),
             ],
         )
         conn.commit()
@@ -1042,76 +1043,76 @@ COMMIT;
         conn.close()
         return primary_key
 
-    def update_tag(self, tag):
+    def update_variable(self, variable):
         """
-        Запрос на обновление данных тега в Project_tags.
+        Запрос на обновление данных переменной в Project_variables.
         """
         self.__osbm.obj_logg.debug_logger(
-            f"ProjectDatabase update_tag(tag):\ntag = {tag}"
+            f"ProjectDatabase update_variable(variable):\nvariable = {variable}"
         )
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
             """
-        UPDATE Project_tags
+        UPDATE Project_variables
         SET
-        name_tag = ?,
-        type_tag = ?,
-        title_tag = ?,
-        order_tag = ?,
-        config_tag = ?,
-        description_tag = ?
-        WHERE id_tag = ?
+        name_variable = ?,
+        type_variable = ?,
+        title_variable = ?,
+        order_variable = ?,
+        config_variable = ?,
+        description_variable = ?
+        WHERE id_variable = ?
         """,
             [
-                tag.get("name_tag"),
-                tag.get("type_tag"),
-                tag.get("title_tag"),
-                tag.get("order_tag"),
-                tag.get("config_tag"),
-                tag.get("description_tag"),
-                tag.get("id_tag"),
+                variable.get("name_variable"),
+                variable.get("type_variable"),
+                variable.get("title_variable"),
+                variable.get("order_variable"),
+                variable.get("config_variable"),
+                variable.get("description_variable"),
+                variable.get("id_variable"),
             ],
         )
         conn.commit()
         conn.close()
 
-    def delete_tag(self, tag):
+    def delete_variable(self, variable):
         """
-        Запрос на удаление данных тега в Project_tags.
+        Запрос на удаление данных переменной в Project_variables.
         """
         self.__osbm.obj_logg.debug_logger(
-            f"ProjectDatabase delete_tag(tag):\ntag = {tag}"
+            f"ProjectDatabase delete_variable(variable):\nvariable = {variable}"
         )
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute("PRAGMA foreign_keys = ON")
         cursor.execute(
             """
-        DELETE FROM Project_tags
-        WHERE id_tag = ?
+        DELETE FROM Project_variables
+        WHERE id_variable = ?
         """,
-            [tag.get("id_tag")],
+            [variable.get("id_variable")],
         )
         conn.commit()
         conn.close()
 
-    def get_tag_by_name(self, name_tag):
+    def get_variable_by_name(self, name_variable):
         """
-        Запрос на получение тега по имени в Project_tags.
+        Запрос на получение переменной по имени в Project_variables.
         """
         self.__osbm.obj_logg.debug_logger(
-            f"ProjectDatabase get_tag_by_name(name_tag):\nname_tag = {name_tag}"
+            f"ProjectDatabase get_variable_by_name(name_variable):\nname_variable = {name_variable}"
         )
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
             """
         SELECT *
-        FROM Project_tags
-        WHERE name_tag = ?
+        FROM Project_variables
+        WHERE name_variable = ?
         """,
-            [name_tag],
+            [name_variable],
         )
         result = self.get_fetchone(cursor)
         conn.close()
@@ -1278,22 +1279,22 @@ COMMIT;
         conn.commit()
         conn.close()
 
-    def set_order_for_tag(self, tag, new_order):
+    def set_order_for_variable(self, variable, new_order):
         """
-        Установка порядка для тега.
+        Установка порядка для переменной.
         """
         self.__osbm.obj_logg.debug_logger(
-            f"ProjectDatabase set_order_for_tag(tag, new_order):\ntag = {tag}\nnew_order = {new_order}"
+            f"ProjectDatabase set_order_for_variable(variable, new_order):\nvariable = {variable}\nnew_order = {new_order}"
         )
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(
             """
-        UPDATE Project_tags
-        SET order_tag = ?
-        WHERE id_tag = ?
+        UPDATE Project_variables
+        SET order_variable = ?
+        WHERE id_variable = ?
         """,
-            [new_order, tag.get("id_tag")],
+            [new_order, variable.get("id_variable")],
         )
         conn.commit()
         conn.close()

@@ -258,7 +258,7 @@
          <number>4</number>
         </property>
         <item>
-         <widget class="QLabel" name="label_tags">
+         <widget class="QLabel" name="label_variables">
           <property name="text">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Форма заполнения&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
@@ -364,7 +364,7 @@
     <property name="title">
      <string>Редакторы</string>
     </property>
-    <addaction name="action_edit_tags"/>
+    <addaction name="action_edit_variables"/>
     <addaction name="action_edit_templates"/>
     <addaction name="action_edit_composition"/>
    </widget>
@@ -414,7 +414,7 @@
    <addaction name="action_save"/>
    <addaction name="action_export_to_pdf"/>
    <addaction name="separator"/>
-   <addaction name="action_edit_tags"/>
+   <addaction name="action_edit_variables"/>
    <addaction name="action_edit_templates"/>
    <addaction name="action_edit_composition"/>
    <addaction name="separator"/>
@@ -520,7 +520,7 @@
     <enum>QAction::TextHeuristicRole</enum>
    </property>
   </action>
-  <action name="action_edit_tags">
+  <action name="action_edit_variables">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -529,13 +529,13 @@
      <normaloff>:/white-icons/resources/white-icons/text-editor.svg</normaloff>:/white-icons/resources/white-icons/text-editor.svg</iconset>
    </property>
    <property name="text">
-    <string>Редактор тегов</string>
+    <string>Редактор переменных</string>
    </property>
    <property name="iconText">
-    <string>Редактор тегов</string>
+    <string>Редактор переменных</string>
    </property>
    <property name="toolTip">
-    <string>Редактор тегов</string>
+    <string>Редактор переменных</string>
    </property>
   </action>
   <action name="action_zoomfitpage">

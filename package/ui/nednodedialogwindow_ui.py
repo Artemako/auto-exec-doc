@@ -79,10 +79,10 @@ class Ui_NedNodeDialogWindow(object):
 
         self.hl_addsaveclose = QHBoxLayout()
         self.hl_addsaveclose.setObjectName(u"hl_addsaveclose")
-        self.btn_nestag = QPushButton(NedNodeDialogWindow)
-        self.btn_nestag.setObjectName(u"btn_nestag")
+        self.btn_nesvariable = QPushButton(NedNodeDialogWindow)
+        self.btn_nesvariable.setObjectName(u"btn_nesvariable")
 
-        self.hl_addsaveclose.addWidget(self.btn_nestag)
+        self.hl_addsaveclose.addWidget(self.btn_nesvariable)
 
         self.btn_close = QPushButton(NedNodeDialogWindow)
         self.btn_close.setObjectName(u"btn_close")
@@ -106,7 +106,7 @@ class Ui_NedNodeDialogWindow(object):
         self.namenode.setText(QCoreApplication.translate("NedNodeDialogWindow", u"<html><head/><body><p>\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 ...</p></body></html>", None))
         self.lineedit_namenode.setText("")
         self.label_placement.setText(QCoreApplication.translate("NedNodeDialogWindow", u"\u0420\u0430\u0441\u043f\u043e\u043b\u043e\u0436\u0438\u0442\u044c \u0432\u043d\u0443\u0442\u0440\u0438 ", None))
-        self.btn_nestag.setText(QCoreApplication.translate("NedNodeDialogWindow", u"...", None))
+        self.btn_nesvariable.setText(QCoreApplication.translate("NedNodeDialogWindow", u"...", None))
         self.btn_close.setText(QCoreApplication.translate("NedNodeDialogWindow", u"\u0417\u0430\u043a\u0440\u044b\u0442\u044c", None))
     # retranslateUi
 

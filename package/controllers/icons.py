@@ -7,7 +7,7 @@ import resources_rc
 class Icons:
     def __init__(self):
         self.__icons_cache = dict()
-        self.__type_tag_to_key_icon = {
+        self.__type_variable_to_key_icon = {
             "TEXT": "text",
             "DATE": "date",
             "TABLE": "table",
@@ -18,11 +18,11 @@ class Icons:
         self.__osbm = osbm
         self.__osbm.obj_logg.debug_logger(f"Icons setting_osbm():\nself.__osbm = {self.__osbm}")
 
-    def get_key_icon_by_type_tag(self, type_tag):
+    def get_key_icon_by_type_variable(self, type_variable):
         """
         БЕЗ logger
         """
-        return self.__type_tag_to_key_icon.get(type_tag)
+        return self.__type_variable_to_key_icon.get(type_variable)
         
     def get_icons(self, size = 12) -> dict:
         self.__osbm.obj_logg.debug_logger(f"Icons get_icons(size):\nsize = {size}")
@@ -31,7 +31,7 @@ class Icons:
             return result
         else:
             icons = dict()
-            # типы тэгов
+            # типы переменных
             icons["text"] = QIcon(":/white-icons/resources/white-icons/text.svg")
             icons["date"] = QIcon(":/white-icons/resources/white-icons/calendar.svg")
             icons["table"] = QIcon(":/white-icons/resources/white-icons/table.svg")

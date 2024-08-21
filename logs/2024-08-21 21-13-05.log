@@ -1,0 +1,99 @@
+2024-08-21 21:13:05,411 - DEBUG - [34m Config logger[00m
+2024-08-21 21:13:05,413 - DEBUG - [34m self.current_directory = d:\work\project\AutoExecDoc[00m
+2024-08-21 21:13:05,413 - DEBUG - [34m FileFolderManager create_and_setting_files_and_folders()[00m
+2024-08-21 21:13:05,413 - DEBUG - [34m DirPathManager get_default_folder_projects_dirpath() -> str: C:/Users/hayar/Documents\AutoExecDoc Projects[00m
+2024-08-21 21:13:05,413 - DEBUG - [34m SettingsDatabase create_and_setting_db_settings()[00m
+2024-08-21 21:13:05,442 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-21 21:13:05,622 - DEBUG - [34m OfficePackets resetting_office_packets()[00m
+2024-08-21 21:13:05,622 - DEBUG - [34m MsWordThread __init__()[00m
+2024-08-21 21:13:05,630 - DEBUG - [34m OfficePackets run_libreoffice()[00m
+2024-08-21 21:13:05,630 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-21 21:13:05,630 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-21 21:13:05,630 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-21 21:13:05,630 - DEBUG - [34m MsWordThread initialize_msword()[00m
+2024-08-21 21:13:05,631 - DEBUG - [34m SettingsDatabase get_libreoffice_path():
+result = {'value_setting': 'C:\\Program Files\\LibreOffice\\program\\soffice.exe'}[00m
+2024-08-21 21:13:05,631 - DEBUG - [34m MainWindow config()[00m
+2024-08-21 21:13:05,633 - DEBUG - [34m MainWindow update_menu_recent_projects()[00m
+2024-08-21 21:13:05,681 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-21 21:13:05,684 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-21 21:13:05,684 - DEBUG - [34m SettingsDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-21 21:13:05,685 - DEBUG - [34m SettingsDatabase get_last_projects():
+result = [{'id_project': 2, 'name_project': 'Привет', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Привет', 'date_create_project': '2024-08-21 21:10:54', 'date_last_open_project': '2024-08-21 21:10:54'}][00m
+2024-08-21 21:13:05,685 - DEBUG - [34m MainWindow config_controllers()[00m
+2024-08-21 21:13:05,686 - DEBUG - [34m StatusBar connect_statusbar(statusbar)[00m
+2024-08-21 21:13:05,686 - DEBUG - [34m Icons get_icons(size):
+size = 12[00m
+2024-08-21 21:13:05,686 - DEBUG - [34m StatusBar config_statusbar()[00m
+2024-08-21 21:13:05,687 - DEBUG - [34m StatusBar config_msword()[00m
+2024-08-21 21:13:05,687 - DEBUG - [34m StatusBar get_red_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x2bc80366780) at 0x000002BCFFBC8FC0>[00m
+2024-08-21 21:13:05,688 - DEBUG - [34m StatusBar get_yellow_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x2bc803652e0) at 0x000002BC836E0240>[00m
+2024-08-21 21:13:05,689 - DEBUG - [34m StatusBar get_green_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x2bc80366540) at 0x000002BC836E0480>[00m
+2024-08-21 21:13:05,690 - DEBUG - [34m StatusBar config_libreoffice()[00m
+2024-08-21 21:13:05,691 - DEBUG - [34m StatusBar get_red_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x2bc80366120) at 0x000002BC836E0A40>[00m
+2024-08-21 21:13:05,691 - DEBUG - [34m StatusBar get_yellow_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x2bc80366ae0) at 0x000002BC836E0CC0>[00m
+2024-08-21 21:13:05,692 - DEBUG - [34m StatusBar get_green_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x2bc80367200) at 0x000002BC836E0F40>[00m
+2024-08-21 21:13:05,693 - DEBUG - [34m StatusBar config_update_statusbar()[00m
+2024-08-21 21:13:05,693 - DEBUG - [34m OfficePackets get_status_msword():
+self.__status_msword = False[00m
+2024-08-21 21:13:05,693 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = False[00m
+2024-08-21 21:13:05,694 - DEBUG - [34m OfficePackets get_status_libreoffice():
+self.__status_libreoffice = False[00m
+2024-08-21 21:13:05,695 - DEBUG - [34m StatusBar update_status_libreoffice_label(status_libreoffice):
+status_libreoffice = False[00m
+2024-08-21 21:13:05,695 - DEBUG - [34m StatusBar set_message(message):
+message = Проект не открыт[00m
+2024-08-21 21:13:05,696 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-21 21:13:05,696 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-21 21:13:05,697 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-21 21:13:05,697 - DEBUG - [34m SettingsDatabase get_app_converter():
+result = {'value_setting': 'MSWORD'}[00m
+2024-08-21 21:13:05,697 - DEBUG - [34m StatusBar update_name_app_converter()[00m
+2024-08-21 21:13:05,699 - DEBUG - [34m StatusBar connecting_actions()[00m
+2024-08-21 21:13:05,699 - DEBUG - [34m TWStructureExecDoc connect_structureexecdoc(tr_sed)[00m
+2024-08-21 21:13:05,699 - DEBUG - [34m Icons get_icons(size):
+size = 12[00m
+2024-08-21 21:13:05,699 - DEBUG - [34m TWStructureExecDoc clear_tr_sed()[00m
+2024-08-21 21:13:05,709 - DEBUG - [34m LWPagesTemplate connect_pages_template(lw_pt):
+lw_pt = <PySide6.QtWidgets.QListWidget(0x2bc800479c0, name="lw_pages_template") at 0x000002BCFFBBB6C0>[00m
+2024-08-21 21:13:05,710 - DEBUG - [34m Icons get_icons(size):
+size = 12[00m
+2024-08-21 21:13:05,710 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-08-21 21:13:05,713 - DEBUG - [34m ComboxTemplates connect_combox_templates(combox_templates):
+combox_templates = <PySide6.QtWidgets.QComboBox(0x2bc80043ea0, name="combox_templates") at 0x000002BCFFBBB5C0>[00m
+2024-08-21 21:13:05,713 - DEBUG - [34m SAInputForms connect_inputforms(sa_if, sa_ifl):
+sa_if = <PySide6.QtWidgets.QScrollArea(0x2bcfd45d120, name="scrollarea_inputforms") at 0x000002BCFFBBBC00>,
+sa_ifl = <PySide6.QtWidgets.QWidget(0x2bc80120af0, name="scrollarea_inputforms_layout") at 0x000002BCFFBC2440>[00m
+2024-08-21 21:13:05,713 - DEBUG - [34m PdfView connect_pdfview()[00m
+2024-08-21 21:13:05,720 - DEBUG - [34m PdfView config_pdf_view_in_mainwindow()[00m
+2024-08-21 21:13:05,720 - DEBUG - [34m MainWindow connecting_actions()[00m
+2024-08-21 21:13:05,721 - DEBUG - [34m CommonWithOsmb run()[00m
+2024-08-21 21:13:05,721 - DEBUG - [34m Icons get_icons(size):
+size = 12[00m
+2024-08-21 21:13:05,725 - DEBUG - [34m ResizeQt __init__(osbm)[00m
+2024-08-21 21:13:05,734 - DEBUG - [34m OfficePackets update_status_msword(status):
+status = None[00m
+2024-08-21 21:13:05,744 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = None[00m
+2024-08-21 21:13:06,112 - DEBUG - [34m OfficePackets update_status_msword(status):
+status = True[00m
+2024-08-21 21:13:06,112 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = True[00m
+2024-08-21 21:13:08,185 - DEBUG - [34m MainWindow ()[00m
+2024-08-21 21:13:08,191 - DEBUG - [34m PdfView set_empty_pdf_view()[00m
+2024-08-21 21:13:08,191 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-21 21:13:08,191 - DEBUG - [34m FileFolderManager clear_temp_folder(is_del_folder):
+is_del_folder = True,
+temp_dirpath = C:\Users\hayar\AppData\Local\Temp\tmp3rnyr9ve[00m
+2024-08-21 21:13:08,191 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-21 21:13:08,191 - DEBUG - [34m OfficePackets terminate_msword()[00m
+2024-08-21 21:13:08,191 - DEBUG - [34m MsWordThread terminate_msword()[00m
+2024-08-21 21:13:08,191 - ERROR - [31m Error in OfficePackets.terminate_msword():
+(-2147220995, 'Объект не подключен к серверу', (None, None, None, 0, None))[00m
