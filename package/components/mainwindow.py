@@ -12,7 +12,6 @@ import package.components.dialogwindow.templateslistsialogwindow as templateslis
 
 from functools import partial
 
-# TODO Rerender
 class MainWindow(QMainWindow):
     def __init__(self, osbm):
         self.__osbm = osbm
@@ -151,6 +150,7 @@ class MainWindow(QMainWindow):
     def edit_templates(self):
         """Редактирование шаблонов."""
         self.__osbm.obj_logg.debug_logger("MainWindow edit_templates()")
+        # TODO Закрыть документ, а иначе конфертер выдает ошибку
         self.__osbm.obj_templdw = templateslistsialogwindow.TemplatesListDialogWindow(
             self.__osbm
         )

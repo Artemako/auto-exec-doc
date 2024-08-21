@@ -16,8 +16,7 @@ import package.components.dialogwindow.neddw.nedvariabledialogwindow as nedvaria
 import json
 import os
 import datetime
-import re
-from docx import Document
+from docxtpl import DocxTemplate
 from functools import partial
 
 
@@ -36,9 +35,10 @@ class NedPageDialogWindow(QDialog):
         # СТИЛЬ
         self.__osbm.obj_style.set_style_for(self)
         #
-        self.__page_filename = str()
-        self.__temp_file_path = str()
+        self.__select_filename = str()
+        self.__temp_copy_file_path = str()
         self.__data = {
+            "TEMP_COPY_FILE_PATH": None,
             "id_parent_template": None,
             "name_page": None,
             "filename_page": None,
@@ -58,20 +58,34 @@ class NedPageDialogWindow(QDialog):
         )
         return self.__data
 
+    def connecting_actions(self):
+        self.__osbm.obj_logg.debug_logger("NedPageDialogWindow connecting_actions()")
+        self.ui.btn_select.clicked.connect(self.select_new_file)
+        self.ui.btn_open_docx.setShortcut("Ctrl+O")
+        self.ui.btn_open_docx.clicked.connect(self.open_edit_docx)
+        self.ui.btn_open_docx.setShortcut("Ctrl+E")
+        self.ui.btn_nedvariable.clicked.connect(self.btn_nedvariable_clicked)
+        self.ui.btn_nedvariable.setShortcut("Ctrl+S")
+        self.ui.btn_close.clicked.connect(self.close)
+        self.ui.btn_close.setShortcut("Ctrl+Q")
+        self.ui.btn_findvariables.clicked.connect(self.reconfig_tw_variables)
+        self.ui.btn_findvariables.setShortcut("Ctrl+F")
+
     def config_by_type_window(self):
         self.__osbm.obj_logg.debug_logger("NedPageDialogWindow config_by_type_window()")
         if self.__type_ned == "create":
             self.ui.btn_select.setText("Выбрать документ")
-            self.ui.btn_open_docx.setEnabled(False)
             self.ui.label_file.setText("Файл не выбран")
-            self.ui.btn_nesvariable.setText("Добавить страницу")
+            self.ui.btn_nedvariable.setText("Добавить страницу")
+            self.ui.btn_open_docx.setEnabled(False)
         elif self.__type_ned == "edit":
-            self.ui.btn_select.setText("Выбрать новый документ")
-            self.ui.btn_open_docx.setEnabled(True)
-            self.ui.label_file.setText(self.__page.get("filename_page"))
-            self.__page_filename = self.__page.get("filename_page")
-            self.ui.btn_nesvariable.setText("Сохранить страницу")
+            self.ui.btn_select.setText("Выбрать документ")
+            self.ui.label_file.setText("Файл выбран")
+            self.ui.btn_nedvariable.setText("Сохранить страницу")
             self.ui.lineedit_namepage.setText(self.__page.get("name_page"))
+            # Создать копию для редактирования
+            self.do_temp_copy_for_edit(self.__page.get("filename_page"))
+            self.ui.btn_open_docx.setEnabled(True)
 
     def reconfig_tw_variables(self):
         self.__osbm.obj_logg.debug_logger("NedPageDialogWindow reconfig_tw_variables()")
@@ -79,18 +93,20 @@ class NedPageDialogWindow(QDialog):
         tablewidget.blockSignals(True)
         tablewidget.clearContents()
         tablewidget.setRowCount(0)
-        if self.__temp_file_path:
-            jinja_variables = self.extract_jinja_variables(self.__temp_file_path)
+        # если выбран временный файл
+        if self.__temp_copy_file_path:
+            jinja_variables = self.extract_jinja_variables(self.__temp_copy_file_path)
             if jinja_variables:
                 self.fill_tw_variables(jinja_variables)
-        elif self.__page_filename:
-            forms_folder_dirpath = self.__osbm.obj_dirm.get_forms_folder_dirpath()
-            docx_path = os.path.join(
-                forms_folder_dirpath, self.__page_filename + ".docx"
-            )
-            jinja_variables = self.extract_jinja_variables(docx_path)
-            if jinja_variables:
-                self.fill_tw_variables(jinja_variables)
+        # если выбран основной файл
+        # elif self.__select_filename:
+        #     forms_folder_dirpath = self.__osbm.obj_dirm.get_forms_folder_dirpath()
+        #     docx_path = os.path.join(
+        #         forms_folder_dirpath, self.__select_filename + ".docx"
+        #     )
+        #     jinja_variables = self.extract_jinja_variables(docx_path)
+        #     if jinja_variables:
+        #         self.fill_tw_variables(jinja_variables)
         tablewidget.blockSignals(False)
 
     def fill_tw_variables(self, jinja_variables):
@@ -99,17 +115,13 @@ class NedPageDialogWindow(QDialog):
             f"NedPageDialogWindow fill_tw_variables(jinja_variables):\njinja_variables = {jinja_variables}"
         )
         tablewidget = self.ui.tw_variables
-        tablewidget.setColumnCount(3)
-        tablewidget.setHorizontalHeaderLabels(["Переменная", "Вид переменной", "Действия"])
+        tablewidget.setColumnCount(2)
+        tablewidget.setHorizontalHeaderLabels(["Переменная", "Действия"])
         tablewidget.setRowCount(len(jinja_variables))
-        for row, variable in enumerate(jinja_variables):
-            qtwt_name_variable = QTableWidgetItem(variable)
-            # qtwt_name_variable.setData(1001, variable)
-            status_variable = self.get_status_variable(variable)
-            type_variable = status_variable.get("type")
-            value_variable = status_variable.get("value")
-            qtwt_status_variable = QTableWidgetItem(type_variable)
-            # кнопка
+        for row, name_variable in enumerate(jinja_variables):
+            qtwt_name_variable = QTableWidgetItem(name_variable)
+            tablewidget.setItem(row, 0, qtwt_name_variable)
+            # кнопка действия
             layout = QHBoxLayout()
             add_button = QPushButton("...")
             layout.setContentsMargins(0, 0, 0, 0)
@@ -117,34 +129,20 @@ class NedPageDialogWindow(QDialog):
             widget = QWidget()
             widget.setLayout(layout)
             #
-            tablewidget.setItem(row, 0, qtwt_name_variable)
-            tablewidget.setItem(row, 1, qtwt_status_variable)
-            #
-            if type_variable == "Переменная":
-                result_bd = self.__osbm.obj_prodb.get_variable_by_name(value_variable)
-                result_variables_for_add = self.get_variable_by_name(value_variable)
-                if result_bd or result_variables_for_add:
-                    tablewidget.setItem(row, 2, QTableWidgetItem("Имеется"))
-                else:
-                    add_button.setText("Добавить переменную")
-                    add_button.clicked.connect(partial(self.add_variable, value_variable, False))
-                    tablewidget.setCellWidget(row, 2, widget)
-            elif type_variable == "Блок" and value_variable:
-                result_bd = self.__osbm.obj_prodb.get_variable_by_name(value_variable)
-                result_variables_for_add = self.get_variable_by_name(value_variable)
-                if result_bd or result_variables_for_add:
-                    tablewidget.setItem(row, 2, QTableWidgetItem("Имеется"))
-                else:
-                    add_button.setText("Добавить блок")
-                    add_button.clicked.connect(
-                        partial(self.add_variable, value_variable, True)
-                    )
-                    tablewidget.setCellWidget(row, 2, widget)
+            result_bd = self.__osbm.obj_prodb.get_variable_by_name(name_variable)
+            result_variables_for_add = self.get_variable_by_name(name_variable)
+            if result_bd or result_variables_for_add:
+                tablewidget.setItem(row, 1, QTableWidgetItem("Имеется"))
+            else:
+                add_button.setText("Добавить переменную")
+                add_button.clicked.connect(
+                    partial(self.add_variable, name_variable, False)
+                )
+                tablewidget.setCellWidget(row, 1, widget)
         # Настраиваем режимы изменения размера для заголовков
         header = tablewidget.horizontalHeader()
         header.setSectionResizeMode(0, QHeaderView.Stretch)
         header.setSectionResizeMode(1, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(2, QHeaderView.ResizeToContents)
         #
         tablewidget.setSortingEnabled(True)
         tablewidget.resizeColumnsToContents()
@@ -163,29 +161,12 @@ class NedPageDialogWindow(QDialog):
                 break
         return result
 
-    def get_status_variable(self, variable: str) -> dict:
-        self.__osbm.obj_logg.debug_logger(
-            f"NedPageDialogWindow get_status_variable(variable) -> dict:\nvariable = {variable}"
-        )
-        status_variable = {"type": None, "value": None}
-        # statuses = ["Тэг", "Атрибут тега", "Блок", "Прочее"]
-        if variable.startswith("{%") and variable.endswith("%}"):
-            status_variable["type"] = "Блок"
-            words_in_variable = variable.split()
-            if words_in_variable[-2] != "endfor":
-                status_variable["value"] = words_in_variable[-2]
-        elif variable.startswith("{{") and variable.endswith("}}"):
-            if "." in variable:
-                status_variable["type"] = "Атрибут тега"
-            else:
-                status_variable["type"] = "Переменная"
-                words_in_variable = variable.split()
-                status_variable["value"] = words_in_variable[1]
-        else:
-            status_variable["type"] = "Прочее"
-        return status_variable
-
     def add_variable(self, name_variable, is_block):
+        # TODO Traceback (most recent call last):
+#   File "d:\work\project\AutoExecDoc\package\components\dialogwindow\neddw\nedpagedialogwindow.py", line 173, in add_variable
+# 2024-08-21 23:23:02,559 - DEBUG -  ProjectDatabase get_conn() -> object
+#     self.__osbm.obj_nedtdw = nedvariabledialogwindow.NedVariableDialogWindow(
+# TypeError: __init__() takes from 4 to 6 positional arguments but 7 were given
         """
         Похожий код у VariablesListDialogWindow.
         """
@@ -194,7 +175,7 @@ class NedPageDialogWindow(QDialog):
         )
         #
         self.__all_variables = self.__osbm.obj_prodb.get_variables()
-        # окно        
+        # окно
         self.__osbm.obj_nedtdw = nedvariabledialogwindow.NedVariableDialogWindow(
             self.__osbm, "create", self.__all_variables, None, name_variable, is_block
         )
@@ -229,40 +210,21 @@ class NedPageDialogWindow(QDialog):
             # обновляем таблицу
             self.reconfig_tw_variables()
 
-
-
     def extract_jinja_variables(self, docx_path) -> set:
         self.__osbm.obj_logg.debug_logger(
             f"NedPageDialogWindow extract_jinja_variables(docx_path) -> set:\ndocx_path = {docx_path}"
         )
         try:
-            doc = Document(docx_path)
-            # Регулярное выражение для поиска всех Jinja переменных
-            # TODO Убрать пробелы + найти именно все-все теги
-            jinja_pattern = r"\{\%\s.*?\%\}|\{\{\s.*?\s\}\}"
-            jinja_variables = []
-            # Обходим все параграфы в документе
-            for para in doc.paragraphs:
-                jinja_variables.extend(re.findall(jinja_pattern, para.text))
-            # Обходим все таблицы в документе
-            for table in doc.tables:
-                for row in table.rows:
-                    for cell in row.cells:
-                        jinja_variables.extend(re.findall(jinja_pattern, cell.text))
-            # Обходим колонтитулы
-            for section in doc.sections:
-                for header in section.header.paragraphs:
-                    jinja_variables.extend(re.findall(jinja_pattern, header.text))
-                for footer in section.footer.paragraphs:
-                    jinja_variables.extend(re.findall(jinja_pattern, footer.text))
-            # Поиск в фигурах (шапках с рисованием, если поддерживаются)
-            for shape in doc.inline_shapes:
-                if shape.type == 3:  # 3 - тип 'Picture'
-                    continue
-                jinja_variables.extend(re.findall(jinja_pattern, shape.text))
-            return set(jinja_variables)
-        except Exception as e:
-            self.__osbm.obj_logg.error_logger(f"Error in extract_jinja_variables: {e}")
+            docx_template = DocxTemplate(docx_path)
+            set_of_variables = docx_template.get_undeclared_template_variables()
+            return set_of_variables
+        except Exception as error:
+            self.__osbm.obj_logg.error_logger(
+                f"NedPageDialogWindow extract_jinja_variables(docx_path) -> set:\nerror = {error}"
+            )
+            self.__osbm.obj_dw.warning_message(
+                f"Ошибка в поиске переменных в выбранном документе:\n{error}"
+            )
             return set()
 
     def config_combox_neighboor(self):
@@ -286,44 +248,48 @@ class NedPageDialogWindow(QDialog):
         combobox.setCurrentIndex(current_index)
         combobox.blockSignals(False)
 
-    def connecting_actions(self):
-        self.__osbm.obj_logg.debug_logger("NedPageDialogWindow connecting_actions()")
-        self.ui.btn_select.clicked.connect(self.select_file)
-        self.ui.btn_open_docx.clicked.connect(self.open_docx)
-        self.ui.btn_nesvariable.clicked.connect(self.btn_nesvariable_clicked)
-        self.ui.btn_nesvariable.setShortcut("Ctrl+S")
-        self.ui.btn_close.clicked.connect(self.close)
-        self.ui.btn_close.setShortcut("Ctrl+Q")
+    def do_temp_copy_for_edit(self, old_filename_page):
+        self.__osbm.obj_logg.debug_logger("NedPageDialogWindow do_copy_for_edit()")
+        # образуем новое название документа
+        file_name = f"docx_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
+        self.__select_filename = file_name
+        file_name_with_docx = f"{file_name}.docx"
+        # edit документ - как бы старый
+        forms_folder_dirpath = self.__osbm.obj_dirm.get_forms_folder_dirpath()
+        old_docx_path = os.path.join(
+            forms_folder_dirpath, old_filename_page + ".docx"
+        )
+        # временный - как бы новый
+        temp_dir = self.__osbm.obj_dirm.get_temp_dirpath()
+        self.__temp_copy_file_path = os.path.join(temp_dir, file_name_with_docx)
+        # копирование
+        self.__osbm.obj_film.copy_file(old_docx_path, self.__temp_copy_file_path)
 
-    def select_file(self):
+
+    def select_new_file(self):
+        self.__osbm.obj_logg.debug_logger("NedPageDialogWindow select_new_file()")
         docx_path = self.__osbm.obj_dw.select_docx_file()
         if docx_path:
             # текст
-            self.ui.label_file.setText(os.path.basename(docx_path))
-            # образуем название документа
+            self.ui.label_file.setText("Файл выбран")
+            # образуем новое название документа
             file_name = f"docx_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
-            self.__page_filename = file_name
+            self.__select_filename = file_name
             file_name_with_docx = f"{file_name}.docx"
-            # путь к временной папке
+            # пути + копирование
             temp_dir = self.__osbm.obj_dirm.get_temp_dirpath()
-            # путь к временному файлу
-            self.__temp_file_path = os.path.join(temp_dir, file_name_with_docx)
-            # копирование
-            self.__osbm.obj_film.copy_file(docx_path, self.__temp_file_path)
-            #
+            self.__temp_copy_file_path = os.path.join(temp_dir, file_name_with_docx)
+            self.__osbm.obj_film.copy_file(docx_path, self.__temp_copy_file_path)
+            # файл выбран
+            self.ui.btn_open_docx.setEnabled(True)
             self.reconfig_tw_variables()
 
-    def open_docx(self):
-        # todo ПРИ CREATE заблокировать кнопку Открыть и изменить документ
-        # TODO После закрытия формы обновить теги (кнопку обновить/поиск добавить)
-        self.__osbm.obj_logg.debug_logger("NedPageDialogWindow open_docx()")
+    
+    def open_edit_docx(self):
+        self.__osbm.obj_logg.debug_logger("NedPageDialogWindow open_edit_docx()")
         try:
-            # название docx
-            filename_page = self.__page.get("filename_page")
             # путь к документу
-            forms_folder_dirpath = self.__osbm.obj_dirm.get_forms_folder_dirpath()
-            docx_path = os.path.join(forms_folder_dirpath, filename_page + ".docx")
-            print(f"docx_path = {docx_path}")
+            docx_path = self.__temp_copy_file_path
             # открытие
             if os.path.exists(docx_path):
                 try:
@@ -331,9 +297,8 @@ class NedPageDialogWindow(QDialog):
                 except OSError:
                     raise Exception("Не удалось открыть.")
         except Exception as e:
-            self.__osbm.obj_dw.warning_message(f"Error: {e}")
-            self.__osbm.obj_dw.warning_message("Открыть не удалось.")
-            print(e)
+            self.__osbm.obj_logg.error_logger(e)
+            self.__osbm.obj_dw.warning_message("Не удалось открыть документ")
 
     def find_page_by_namepage_in_pages(self, namepage) -> object:
         self.__osbm.obj_logg.debug_logger(
@@ -344,12 +309,14 @@ class NedPageDialogWindow(QDialog):
                 return current_page
         return None
 
-    def btn_nesvariable_clicked(self):
-        self.__osbm.obj_logg.debug_logger("NedPageDialogWindow btn_nesvariable_clicked()")
+    def btn_nedvariable_clicked(self):
+        self.__osbm.obj_logg.debug_logger(
+            "NedPageDialogWindow btn_nedvariable_clicked()"
+        )
 
-        filename_page = self.__page_filename
+        select_filename_page = self.__select_filename
         namepage = self.ui.lineedit_namepage.text()
-        if len(namepage) > 0 and len(filename_page) > 0:
+        if len(namepage) > 0 and len(select_filename_page) > 0:
             # поиск по имени
             find_page = self.find_page_by_namepage_in_pages(namepage)
             # выбранный сосед
@@ -361,8 +328,9 @@ class NedPageDialogWindow(QDialog):
             if self.__type_ned == "create":
                 if find_page is None:
                     self.__data["name_page"] = namepage
-                    self.__data["filename_page"] = filename_page
+                    self.__data["filename_page"] = select_filename_page
                     self.__data["order_page"] = order_page
+                    self.__data["TEMP_COPY_FILE_PATH"] = self.__temp_copy_file_path
                     self.accept()
                 else:
                     msg = "Другая страница с таким именем уже существует!"
@@ -372,21 +340,23 @@ class NedPageDialogWindow(QDialog):
                 if find_page is None:
                     self.__data = self.__page
                     self.__data["name_page"] = namepage
-                    self.__data["filename_page"] = filename_page
+                    self.__data["filename_page"] = select_filename_page
                     self.__data["order_page"] = order_page
+                    self.__data["TEMP_COPY_FILE_PATH"] = self.__temp_copy_file_path
                     self.accept()
                 elif namepage == self.__page.get("name_page"):
                     self.__data = self.__page
                     self.__data["name_page"] = namepage
-                    self.__data["filename_page"] = filename_page
+                    self.__data["filename_page"] = select_filename_page
                     self.__data["order_page"] = order_page
+                    self.__data["TEMP_COPY_FILE_PATH"] = self.__temp_copy_file_path
                     self.accept()
                 else:
                     msg = "Другая страница с таким именем уже существует!"
                     self.__osbm.obj_dw.warning_message(msg)
         elif namepage == "":
             self.__osbm.obj_dw.warning_message("Заполните поле названия")
-        elif filename_page is None or len(filename_page) == 0:
+        elif select_filename_page is None or len(select_filename_page) == 0:
             self.__osbm.obj_dw.warning_message("Выберите документ")
         else:
             self.__osbm.obj_dw.warning_message(

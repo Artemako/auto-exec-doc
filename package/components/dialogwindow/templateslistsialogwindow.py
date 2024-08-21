@@ -236,28 +236,9 @@ class TemplatesListDialogWindow(QDialog):
                 self.reconfig("RETEMPLATE", None, data, None)
 
         elif type_window == "PAGE":
-            page = data
-            result = self.ned_page_dw("edit", page)
-            if result:
-                item_template = self.ui.lw_templates.currentItem()
-                if item_template is not None:
-                    template = item_template.data(0)
-                    # СТРАНИЦА obj_nedpagedw
-                    data = self.__osbm.obj_nedpagedw.get_data()
-                    # Обновить в БД страницу
-                    self.__osbm.obj_prodb.set_new_name_and_filename_for_page(
-                        page, data.get("name_page"), data.get("filename_page")
-                    )
-                    # обновить order
-                    self.update_order_pages(data, data.get("order_page"))
-                    # Если поменялся документ то нужно его обновить (удаля старый)
-                    old_filename_page = page.get("filename_page")
-                    new_filename_page = data.get("filename_page")
-                    if old_filename_page != new_filename_page:
-                        self.__osbm.obj_film.delete_page_from_project(
-                            old_filename_page
-                        )
-                    self.reconfig("REPAGE", None, None, data)
+            self.edit_page(data)
+            
+
 
     def update_order_pages(self, editpage, new_order_page):
         self.__osbm.obj_logg.debug_logger(
@@ -305,34 +286,68 @@ class TemplatesListDialogWindow(QDialog):
         self.__osbm.obj_film.delete_page_from_project(filename_page)
         self.__osbm.obj_prodb.delete_page(page)
 
+    # TODO PDF тип
+
     def add_page(self):
         self.__osbm.obj_logg.debug_logger("TemplatesListDialogWindow add_page()")
         result = self.ned_page_dw("create")
+        item_template = self.ui.lw_templates.currentItem()
+        if result and item_template:
+            template = item_template.data(0)
+            id_parent_template = template.get("id_template")
+            #
+            data = self.__osbm.obj_nedpagedw.get_data()
+            filename_page = data.get("filename_page")
+            name_page = data.get("name_page")
+            # перемещение из temp в forms
+            temp_copy_file_path = data.get("TEMP_COPY_FILE_PATH")
+            self.__osbm.obj_film.docx_from_temp_to_forms(
+                temp_copy_file_path, filename_page
+            )
+            # порядок
+            order_page = data.get("order_page")
+            # "order_page": -111, ТАК ДОЛЖНО БЫТЬ!!!
+            new_page = {
+                "id_parent_template": id_parent_template,
+                "name_page": name_page,
+                "filename_page": filename_page,
+                "order_page": -111,
+                "included": 1,
+            }
+            self.__data["TEMP_COPY_FILE_PATH"] = self.__temp_copy_file_path
+            # добавляем вершину
+            primary_key = self.__osbm.obj_prodb.insert_page(new_page)
+            # обновляем order
+            page_for_order = self.__osbm.obj_prodb.get_page_by_id(primary_key)
+            self.update_order_pages(page_for_order, order_page)                
+            self.reconfig("REPAGE")
+
+    def edit_page(self, data):
+        page = data
+        result = self.ned_page_dw("edit", page)
         if result:
-            item_template = self.ui.lw_templates.currentItem()
-            if item_template is not None:
-                template = item_template.data(0)
-                id_parent_template = template.get("id_template")
-                data = self.__osbm.obj_nedpagedw.get_data()
-                filename_page = data.get("filename_page")
-                name_page = data.get("name_page")
-                self.__osbm.obj_film.docx_from_temp_to_forms(
-                    filename_page
-                )
-                order_page = data.get("order_page")
-                new_page = {
-                    "id_parent_template": id_parent_template,
-                    "name_page": name_page,
-                    "filename_page": filename_page,
-                    "order_page": -111,
-                    "included": 1,
-                }
-                # добавляем вершину
-                primary_key = self.__osbm.obj_prodb.insert_page(new_page)
-                # обновляем order
-                page_for_order = self.__osbm.obj_prodb.get_page_by_id(primary_key)
-                self.update_order_pages(page_for_order, order_page)                
-                self.reconfig("REPAGE")
+            # СТРАНИЦА obj_nedpagedw
+            data = self.__osbm.obj_nedpagedw.get_data()
+            # Обновить в БД страницу
+            self.__osbm.obj_prodb.set_new_name_and_filename_for_page(
+                page, data.get("name_page"), data.get("filename_page")
+            )
+            # обновить order
+            self.update_order_pages(data, data.get("order_page"))
+            # TODO (Проверять и Удалять в отдельном потоке периодически)Если поменялся документ то нужно его обновить (удаля старый)
+            # old_filename_page = page.get("filename_page")
+            # new_filename_page = data.get("filename_page")
+            # if old_filename_page != new_filename_page:
+            #     self.__osbm.obj_film.delete_page_from_project(
+            #         old_filename_page
+            #     )
+            # перемещение из temp в forms
+            new_filename_page = data.get("filename_page")
+            temp_copy_file_path = data.get("TEMP_COPY_FILE_PATH")
+            self.__osbm.obj_film.docx_from_temp_to_forms(
+                temp_copy_file_path, new_filename_page
+            )
+            self.reconfig("REPAGE", None, None, data)
 
     def add_template(self):
         self.__osbm.obj_logg.debug_logger(

@@ -380,6 +380,7 @@ COMMIT;
         )
         return result
 
+    
     def insert_page(self, page) -> int:
         """
         Добавление page в таблицу Project_pages.
