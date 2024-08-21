@@ -94,6 +94,7 @@ class NedPageDialogWindow(QDialog):
         tablewidget.blockSignals(False)
 
     def fill_tw_tags(self, jinja_tags):
+        # TODO ПЕРЕДЕЛАТЬ
         self.__osbm.obj_logg.debug_logger(
             f"NedPageDialogWindow fill_tw_tags(jinja_tags):\njinja_tags = {jinja_tags}"
         )
@@ -237,6 +238,7 @@ class NedPageDialogWindow(QDialog):
         try:
             doc = Document(docx_path)
             # Регулярное выражение для поиска всех Jinja тегов
+            # TODO Убрать пробелы + найти именно все-все теги
             jinja_pattern = r"\{\%\s.*?\%\}|\{\{\s.*?\s\}\}"
             jinja_tags = []
             # Обходим все параграфы в документе
@@ -312,6 +314,8 @@ class NedPageDialogWindow(QDialog):
             self.reconfig_tw_tags()
 
     def open_docx(self):
+        # todo ПРИ CREATE заблокировать кнопку Открыть и изменить документ
+        # TODO После закрытия формы обновить теги (кнопку обновить/поиск добавить)
         self.__osbm.obj_logg.debug_logger("NedPageDialogWindow open_docx()")
         try:
             # название docx
@@ -319,6 +323,7 @@ class NedPageDialogWindow(QDialog):
             # путь к документу
             forms_folder_dirpath = self.__osbm.obj_dirm.get_forms_folder_dirpath()
             docx_path = os.path.join(forms_folder_dirpath, filename_page + ".docx")
+            print(f"docx_path = {docx_path}")
             # открытие
             if os.path.exists(docx_path):
                 try:

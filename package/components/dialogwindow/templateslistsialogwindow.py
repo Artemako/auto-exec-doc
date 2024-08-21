@@ -312,13 +312,12 @@ class TemplatesListDialogWindow(QDialog):
             item_template = self.ui.lw_templates.currentItem()
             if item_template is not None:
                 template = item_template.data(0)
-                name_template = template.get("name_template")
                 id_parent_template = template.get("id_template")
                 data = self.__osbm.obj_nedpagedw.get_data()
                 filename_page = data.get("filename_page")
                 name_page = data.get("name_page")
                 self.__osbm.obj_film.docx_from_temp_to_forms(
-                    filename_page, name_template
+                    filename_page
                 )
                 order_page = data.get("order_page")
                 new_page = {

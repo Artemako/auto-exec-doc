@@ -35,8 +35,7 @@ class ConverterPool:
         local_osbm.obj_logg.debug_logger(
             f"Converter create_page_pdf(page):\npage = {page}"
         )
-        # было page.get("filename_page") вместо page.get("id_page")
-        form_page_name = page.get("id_page")
+        form_page_name = page.get("filename_page")
         docx_pdf_page_name = f"""page_{page.get("id_page")}_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S%f')}"""
         # добыть информация для SectionInfo
         if is_local:
@@ -170,7 +169,7 @@ class ConverterPool:
             self.__osbm.obj_logg.error_logger(f"Error in type_tag_is_table: {e}")
 
     def check_type_tag_and_fill_data_tag(
-        self, local_osbm, pair, data_tag, docx_template
+        self, local_osbm, pair, data_tag, docx_template, is_rerender = False
     ):
         local_osbm.obj_logg.debug_logger(
             f"Converter check_type_tag_and_fill_data_tag(pair, data_tag, docx_template):\npair = {pair},\ndata_tag = {data_tag},\ndocx_template = {docx_template}"
@@ -183,16 +182,19 @@ class ConverterPool:
         # current_tag
         current_tag = local_osbm.obj_prodb.get_tag_by_id(id_tag)
         type_tag = current_tag.get("type_tag")
-        if type_tag == "TEXT":
-            self.type_tag_is_text(local_osbm, data_tag, name_tag, value)
+        # скипаем если is_rerender
+        if not is_rerender:
+            if type_tag == "TEXT":
+                self.type_tag_is_text(local_osbm, data_tag, name_tag, value)
+            elif type_tag == "DATE":
+                self.type_tag_is_date(local_osbm, data_tag, name_tag, value)
+            elif type_tag == "TABLE":
+                self.type_tag_is_table(local_osbm, data_tag, name_tag, value, id_tag)
+        # общий для всех
         elif type_tag == "IMAGE":
             self.type_tag_is_image(
                 local_osbm, data_tag, name_tag, value, docx_template
             )
-        elif type_tag == "DATE":
-            self.type_tag_is_date(local_osbm, data_tag, name_tag, value)
-        elif type_tag == "TABLE":
-            self.type_tag_is_table(local_osbm, data_tag, name_tag, value, id_tag)
 
     def create_docx_page(
         self, local_osbm, sections_info, form_page_name, docx_pdf_page_name
@@ -200,6 +202,7 @@ class ConverterPool:
         local_osbm.obj_logg.debug_logger(
             f"Converter create_docx_page(sections_info, form_page_name, docx_pdf_page_name):\nsections_info = {sections_info},\nform_page_name = {form_page_name},\ndocx_pdf_page_name = {docx_pdf_page_name}"
         )
+        # пути
         form_page_fullname, docx_page_fullname = (
             self.get_form_page_fullname_and_docx_page_fullname(
                 local_osbm, form_page_name, docx_pdf_page_name
@@ -208,22 +211,47 @@ class ConverterPool:
         template_path, docx_path = self.get_template_path_and_docx_path(
             local_osbm, form_page_fullname, docx_page_fullname
         )
-        docx_template = DocxTemplate(template_path)
+        # TODO ReRender ???
+        self.rerender(local_osbm, template_path, docx_path, sections_info)
+        
+
+    def rerender(self, local_osbm, template_path, docx_path, sections_info):
+        local_osbm.obj_logg.debug_logger(
+            f"Converter rerender(template_path, docx_path, sections_info):\ntemplate_path = {template_path},\ndocx_path = {docx_path},\nsections_info = {sections_info}"
+        )
+        current_path = template_path
+        flag = 50
         # создаем tag из sections_info
         data_tag = dict()
-        for section_info in sections_info:
-            # инфо из секции
-            section_data = section_info.get("data")
-            # перебор пар в section_data секции
-            for pair in section_data:
-                self.check_type_tag_and_fill_data_tag(
-                    local_osbm, pair, data_tag, docx_template
-                )
+        while flag:
+            docx_template = DocxTemplate(current_path)
+            set_of_variables = docx_template.get_undeclared_template_variables()
+            # обновляем tag из sections_info (из-за InlaneImage)
+            for section_info in sections_info:
+                # инфо из секции
+                section_data = section_info.get("data")
+                # перебор пар в section_data секции
+                for pair in section_data:
+                    self.check_type_tag_and_fill_data_tag(
+                        local_osbm, pair, data_tag, docx_template, is_rerender = True
+                    )
+            # первый render
+            docx_template.render(data_tag)
+            # узнаем новый список переменных
+            new_set_of_variables = docx_template.get_undeclared_template_variables()
+            # сохраняем документ
+            docx_template.save(docx_path)
+            # если список переменных изменился
+            if len(new_set_of_variables) == 0 or new_set_of_variables == set_of_variables:
+                flag = False
+            else:
+                current_path = docx_path
+                flag -= 1
+        
 
-        print(f"data_tag = {data_tag}")
-        docx_template.render(data_tag)
-        print(f"docx_path = {docx_path}")
-        docx_template.save(docx_path)
+
+
+
 
     def create_pdf_from_docx_page(self, local_osbm, docx_pdf_page_name) -> str:
         local_osbm.obj_logg.debug_logger(

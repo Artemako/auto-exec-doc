@@ -168,21 +168,18 @@ class FileFolderManager:
         except Exception as e:
             self.__osbm.obj_logg.error_logger(e)
 
-    def docx_from_temp_to_forms(self, file_name, name_template):
+    def docx_from_temp_to_forms(self, file_name):
         self.__osbm.obj_logg.debug_logger(
-            f"FileFolderManager docx_from_temp_to_forms(file_name, name_template):\nfile_name = {file_name},\nname_template = {name_template}"
+            f"FileFolderManager docx_from_temp_to_forms(file_name):\nfile_name = {file_name}"
         )
         # путь к temp, к папке с шаблонами
         temp_dirpath = self.__osbm.obj_dirm.get_temp_dirpath()
         forms_folder_dirpath = self.__osbm.obj_dirm.get_forms_folder_dirpath()
         try:
-            name_template_dirpath = os.path.join(forms_folder_dirpath, name_template)
-            if not os.path.exists(name_template_dirpath):
-                os.mkdir(name_template_dirpath)
             file_name_with_docx = file_name + ".docx"
             shutil.move(
                 os.path.join(temp_dirpath, file_name_with_docx),
-                os.path.join(name_template_dirpath, file_name_with_docx),
+                os.path.join(forms_folder_dirpath, file_name_with_docx),
             )
         except Exception as e:
             self.__osbm.obj_logg.error_logger(e)

@@ -28,7 +28,11 @@ data_tag = {
     "участок": "Рай"
 }
 
+
+set_of_variables = tpl.get_undeclared_template_variables()
+print(set_of_variables)
 tpl.render(data_tag)
+
 tpl.save(output_path)
 
 tpl = DocxTemplate(output_path)
@@ -41,8 +45,7 @@ data_tag = {
     "год_составления_паспорта": "2023",
     "отв_пред_орг_фио": "ыва",
     "название_объекта": "Приозерск",
-    "участок": "Рай",
-    "Привет": InlineImage(tpl,"examples/25.png")
+    "участок": "Рай"
 }
 
 tpl.render(data_tag)
