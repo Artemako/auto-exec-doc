@@ -2,11 +2,12 @@ from PySide6.QtWidgets import QSizePolicy
 
 
 class TagType:
-    def __init__(self, index, name, data, icon):
+    def __init__(self, index, name, data, icon, is_block):
         self.index = index
         self.name = name
         self.data = data
         self.icon = icon
+        self.is_block = is_block
 
 
 class TagTypes:
@@ -14,10 +15,10 @@ class TagTypes:
         self.__osbm = osbm
         self.__icons = self.__osbm.obj_icons.get_icons()
         self.__tag_types = [
-            TagType(0, "Текст", "TEXT", self.__icons.get("text")),
-            TagType(1, "Дата", "DATE", self.__icons.get("date")),
-            TagType(2, "Таблица", "TABLE", self.__icons.get("table")),
-            TagType(3, "Изображение", "IMAGE", self.__icons.get("image")),
+            TagType(0, "Текст", "TEXT", self.__icons.get("text"), False),
+            TagType(1, "Дата", "DATE", self.__icons.get("date"), False),
+            TagType(2, "Таблица", "TABLE", self.__icons.get("table"), True),
+            TagType(3, "Изображение", "IMAGE", self.__icons.get("image"), False),
         ]
 
     def get_tag_types(self):

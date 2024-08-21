@@ -10,7 +10,7 @@ import package.components.widgets.nedtags.nedtabletag as nedtabletag
 import package.components.widgets.nedtags.nedimagetag as nedimagetag
 
 class NedTagDialogWindow(QDialog):
-    def __init__(self, osbm, type_window, tags, tag=None):
+    def __init__(self, osbm, type_window, tags, tag=None, name_tag = None):
         self.__osbm = osbm
         self.__osbm.obj_logg.debug_logger(
             f"NedTagDialogWindow(osbm, type_window):\ntype_window = {type_window}\ntag = {tag}"
@@ -18,6 +18,7 @@ class NedTagDialogWindow(QDialog):
         self.__type_window = type_window
         self.__tags = tags
         self.__tag = tag
+        self.__name_tag = name_tag
         super(NedTagDialogWindow, self).__init__()
         self.ui = nedtagdialogwindow_ui.Ui_NedTagDialogWindow()
         self.ui.setupUi(self)
@@ -81,7 +82,7 @@ class NedTagDialogWindow(QDialog):
         self.ui.btn_nestag.setShortcut("Ctrl+S")
 
     def get_is_valid_jinja_tag(self, name_tag):
-        pattern = r"^[\w-]+$"  # эквивалентно [a-zA-Z0-9_-]
+        pattern = r'^[a-zA-Z0-9_-]+$'  # эквивалентно [a-zA-Z0-9_-]
         result = bool(re.match(pattern, name_tag))
         self.__osbm.obj_logg.debug_logger(
             f"NedTagDialogWindow get_is_valid_jinja_tag(name_tag):\name_tag = {name_tag}\n result = {result}"
@@ -176,6 +177,9 @@ class NedTagDialogWindow(QDialog):
         self.__osbm.obj_logg.debug_logger("NedTagDialogWindow config_by_type_window()")
         if self.__type_window == "create":
             self.ui.btn_nestag.setText("Добавить тэг")
+            # для NedPageDialogWindow
+            if self.__name_tag:
+                self.ui.lineedit_nametag.setText(self.__name_tag)
 
         elif self.__type_window == "edit":
             self.ui.btn_nestag.setText("Сохранить тэг")

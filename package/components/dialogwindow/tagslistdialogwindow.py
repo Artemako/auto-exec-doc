@@ -520,6 +520,9 @@ class TagsListDialogWindow(QDialog):
         )
 
     def create_tag(self):
+        """
+        Похожий код у NedPageDialogWindow.
+        """
         self.__osbm.obj_logg.debug_logger("TagsListDialogWindow create_tag()")
         result = self.ned_tag_dw("create")
         if result:

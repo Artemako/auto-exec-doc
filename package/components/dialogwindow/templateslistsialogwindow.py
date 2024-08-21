@@ -220,7 +220,7 @@ class TemplatesListDialogWindow(QDialog):
 
     def edit_item(self, type_window, data):
         self.__osbm.obj_logg.debug_logger(
-            f"TemplatesListDialogWindow delete_item(btn):\ntype_window = {type_window}\n data = {data}"
+            f"TemplatesListDialogWindow edit_item(btn):\ntype_window = {type_window}\n data = {data}"
         )
         if type_window == "TEMPLATE":
             template = data
