@@ -273,30 +273,30 @@ class ConverterPool:
         )
         # преобразовать docx в pdf
         # convert(docx_path, pdf_path)
-        self.convert_from_pdf_docx(local_osbm, docx_path, pdf_path)
+        self.convert_from_docx_to_pdf(local_osbm, docx_path, pdf_path)
         return pdf_path
 
-    def convert_from_pdf_docx(self, local_osbm, docx_path, pdf_path):
+    def convert_from_docx_to_pdf(self, local_osbm, docx_path, pdf_path):
         local_osbm.obj_logg.debug_logger(
-            f"Converter convert_from_pdf_docx(docx_path, pdf_path):\ndocx_path = {docx_path},\npdf_path = {pdf_path}"
+            f"Converter convert_from_docx_to_pdf(docx_path, pdf_path):\ndocx_path = {docx_path},\npdf_path = {pdf_path}"
         )
         app_converter = local_osbm.obj_setdb.get_app_converter()
         if app_converter == "MSWORD":
-            self.convert_from_pdf_docx_using_msword(
+            self.convert_from_docx_to_pdf_using_msword(
                 local_osbm, docx_path, pdf_path
             )
         # elif app_converter == "OPENOFFICE":
-        #     self.convert_from_pdf_docx_using_openoffice(docx_path, pdf_path)
+        #     self.convert_from_docx_to_pdf_using_openoffice(docx_path, pdf_path)
         elif app_converter == "LIBREOFFICE":
-            self.convert_from_pdf_docx_using_libreoffice(
+            self.convert_from_docx_to_pdf_using_libreoffice(
                 local_osbm, docx_path, pdf_path
             )
-        
-    def convert_from_pdf_docx_using_msword(
+
+    def convert_from_docx_to_pdf_using_msword(
         self, local_osbm, docx_path, pdf_path
     ):
         local_osbm.obj_logg.debug_logger(
-            "Converter convert_from_pdf_docx_using_msword(docx_path, pdf_path)"
+            "Converter convert_from_docx_to_pdf_using_msword(docx_path, pdf_path)"
         )
         try:
             wdFormatPDF = 17
@@ -306,15 +306,15 @@ class ConverterPool:
             doc.Close()
         except Exception as e:
             local_osbm.obj_logg.error_logger(
-                "Error in convert_from_pdf_docx_using_msword(docx_path, pdf_path)"
+                f"Error in convert_from_docx_to_pdf_using_msword(docx_path, pdf_path): {e}"
             )
             raise local_osbm.obj_com.errors.MsWordError(e)
 
-    def convert_from_pdf_docx_using_libreoffice(
+    def convert_from_docx_to_pdf_using_libreoffice(
         self, local_osbm, docx_path, pdf_path
     ):
         local_osbm.obj_logg.debug_logger(
-            "Converter convert_from_pdf_docx_using_libreoffice(docx_path, pdf_path)"
+            "Converter convert_from_docx_to_pdf_using_libreoffice(docx_path, pdf_path)"
         )
         try:
             libreoffice_path = local_osbm.obj_setdb.get_libreoffice_path()
@@ -330,7 +330,7 @@ class ConverterPool:
             subprocess.run(command)
         except Exception as e:
             local_osbm.obj_logg.error_logger(
-                "Error in convert_from_pdf_docx_using_libreoffice(docx_path, pdf_path)"
+                "Error in convert_from_docx_to_pdf_using_libreoffice(docx_path, pdf_path)"
             )
             raise local_osbm.obj_com.errors.LibreOfficeError(e)
 

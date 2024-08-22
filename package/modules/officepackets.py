@@ -3,6 +3,7 @@ from PySide6.QtCore import QThread, Signal
 import comtypes.client
 import pythoncom
 import os
+import threading
 
 class MsWordThread(QThread):
     # cигнал для обновления статуса (object - любые объекты, включая None)
@@ -34,6 +35,7 @@ class MsWordThread(QThread):
             print(f"Error in initialize_msword(): {e}")
             self.__status_msword = False
         self.status_changed.emit(self.__status_msword)
+
 
     def terminate_msword(self):
         self.__osbm.obj_logg.debug_logger("MsWordThread terminate_msword()")
@@ -113,3 +115,16 @@ class OfficePackets:
     def terminate_libreoffice(self):
         self.__osbm.obj_logg.debug_logger("OfficePackets terminate_libreoffice()")
         self.__status_libreoffice = False
+
+
+    def run_individual_msword(self):
+        self.__osbm.obj_logg.debug_logger("OfficePackets run_individual_msword()")
+        def run_msword():
+            try:
+                word = comtypes.client.CreateObject("Word.Application")
+            except Exception as e:
+                self.__osbm.obj_logg.error_logger(
+                    f"OfficePackets run_individual_msword():\nerror = {e}"
+                )
+        individual_thread = threading.Thread(target=run_msword)
+        individual_thread.start()

@@ -150,7 +150,6 @@ class MainWindow(QMainWindow):
     def edit_templates(self):
         """Редактирование шаблонов."""
         self.__osbm.obj_logg.debug_logger("MainWindow edit_templates()")
-        # TODO Закрыть документ, а иначе конфертер выдает ошибку
         self.__osbm.obj_templdw = templateslistsialogwindow.TemplatesListDialogWindow(
             self.__osbm
         )

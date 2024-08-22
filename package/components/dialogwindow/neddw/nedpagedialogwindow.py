@@ -129,7 +129,7 @@ class NedPageDialogWindow(QDialog):
         self.__osbm.obj_logg.debug_logger("NedPageDialogWindow connecting_actions()")
         self.ui.btn_select.clicked.connect(self.select_new_file)
         self.ui.btn_open_docx.setShortcut("Ctrl+O")
-        self.ui.btn_open_docx.clicked.connect(self.open_edit_docx)
+        self.ui.btn_open_docx.clicked.connect(self.open_edit_docxpdf)
         self.ui.btn_open_docx.setShortcut("Ctrl+E")
         self.ui.btn_nedvariable.clicked.connect(self.btn_nedvariable_clicked)
         self.ui.btn_nedvariable.setShortcut("Ctrl+S")
@@ -336,14 +336,18 @@ class NedPageDialogWindow(QDialog):
                     f"Ошибка копирования документа:\n{error}"
                 )
 
-    def open_edit_docx(self):
+    def open_edit_docxpdf(self):
         self.__osbm.obj_logg.debug_logger("NedPageDialogWindow open_edit_docx()")
         try:
             # путь к документу
             docx_path = self.__temp_copy_file_path
             # открытие
             if os.path.exists(docx_path):
+                app_converter = self.__osbm.obj_setdb.get_app_converter()
                 try:
+                    if self.__typefile_page == "DOCX" and app_converter == "MSWORD":
+                        # запустить в отдельном потоке
+                        self.__osbm.obj_offp.run_individual_msword()
                     os.startfile(docx_path)
                 except OSError:
                     raise Exception("Не удалось открыть.")
