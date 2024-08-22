@@ -183,6 +183,21 @@ class FileFolderManager:
         except Exception as e:
             self.__osbm.obj_logg.error_logger(e)
 
+    def pdf_from_temp_to_pdfs(self, temp_copy_file_path, file_name):
+        self.__osbm.obj_logg.debug_logger(
+            f"FileFolderManager pdf_from_temp_to_pdfs(temp_copy_file_path, file_name):\ntemp_copy_file_path = {temp_copy_file_path},\nfile_name = {file_name}"
+        )
+        # к папке с pdfs
+        pdfs_folder_dirpath = self.__osbm.obj_dirm.get_pdfs_folder_dirpath()
+        try:
+            file_name_with_docx = file_name + ".pdf"
+            shutil.move(
+                temp_copy_file_path,
+                os.path.join(pdfs_folder_dirpath, file_name_with_docx),
+            )
+        except Exception as e:
+            self.__osbm.obj_logg.error_logger(e)
+
     def copynew_page_for_new_template(self, old_page_filename):
         self.__osbm.obj_logg.debug_logger(
             f"FileFolderManager copynew_page_for_new_template(old_page_filename):\nold_page_filename = {old_page_filename}"

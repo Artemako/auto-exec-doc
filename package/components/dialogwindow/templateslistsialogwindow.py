@@ -243,7 +243,7 @@ class TemplatesListDialogWindow(QDialog):
         self.__osbm.obj_logg.debug_logger(
             f"TemplatesListDialogWindow update_order_pages(editpage, new_order_page):\n editpage = {editpage}\n new_order_page = {new_order_page}"
         )
-        # подготовка данных
+        # подготовка данных (-11 - спец значение)
         id_editpage = editpage.get("id_page", -111)
         pages = [page for page in self.__pages if page.get("id_page") != id_editpage]
         pages = sorted(pages, key=lambda x: x.get("order_page"))
@@ -297,30 +297,32 @@ class TemplatesListDialogWindow(QDialog):
             data = self.__osbm.obj_nedpagedw.get_data()
             filename_page = data.get("filename_page")
             name_page = data.get("name_page")
-            # порядок
+            typefile_page = data.get("typefile_page")
             order_page = data.get("order_page")
             # "order_page": -111, ТАК ДОЛЖНО БЫТЬ!!!
-            # TODO DOCX и PD
             new_page = {
                 "id_parent_template": id_parent_template,
                 "name_page": name_page,
                 "filename_page": filename_page,
-                "typefile_page": "DOCX",
+                "typefile_page": typefile_page,
                 "order_page": -111,
                 "included": 1,
             }
-            self.__data["TEMP_COPY_FILE_PATH"] = self.__temp_copy_file_path
             # добавляем вершину
             primary_key = self.__osbm.obj_prodb.insert_page(new_page)
             # обновляем order
             page_for_order = self.__osbm.obj_prodb.get_page_by_id(primary_key)
             self.update_order_pages(page_for_order, order_page)            
-            # TODO DOCX и PDF (условие)
             # перемещение из temp в forms
             temp_copy_file_path = data.get("TEMP_COPY_FILE_PATH")
-            self.__osbm.obj_film.docx_from_temp_to_forms(
-                temp_copy_file_path, filename_page
-            )    
+            if typefile_page == "DOCX":
+                self.__osbm.obj_film.docx_from_temp_to_forms(
+                    temp_copy_file_path, filename_page
+                )
+            elif typefile_page == "PDF":
+                self.__osbm.obj_film.pdf_from_temp_to_pdfs(
+                    temp_copy_file_path, filename_page
+                )
             self.reconfig("REPAGE")
 
     def edit_page(self, data):
@@ -330,11 +332,12 @@ class TemplatesListDialogWindow(QDialog):
             # СТРАНИЦА obj_nedpagedw
             data = self.__osbm.obj_nedpagedw.get_data()
             # Обновить в БД страницу
+            typefile_page = data.get("typefile_page")
             edit_page = {
                 "id_page": page.get("id_page"),
                 "name_page": data.get("name_page"),
                 "filename_page": data.get("filename_page"),
-                "typefile_page": data.get("typefile_page")
+                "typefile_page": typefile_page
             }
             self.__osbm.obj_prodb.update_page(edit_page)
             # обновить order
@@ -343,10 +346,14 @@ class TemplatesListDialogWindow(QDialog):
             # перемещение из temp в forms
             new_filename_page = data.get("filename_page")
             temp_copy_file_path = data.get("TEMP_COPY_FILE_PATH")
-            # TODO DOCX и PDF (условие перемещения)
-            self.__osbm.obj_film.docx_from_temp_to_forms(
-                temp_copy_file_path, new_filename_page
-            )
+            if typefile_page == "DOCX":
+                self.__osbm.obj_film.docx_from_temp_to_forms(
+                    temp_copy_file_path, new_filename_page
+                )
+            elif typefile_page == "PDF":
+                self.__osbm.obj_film.pdf_from_temp_to_pdfs(
+                    temp_copy_file_path, new_filename_page
+                )
             self.reconfig("REPAGE", None, None, data)
 
     def add_template(self):

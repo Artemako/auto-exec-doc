@@ -117,6 +117,8 @@ CREATE TABLE IF NOT EXISTS "Project_variables" (
 	PRIMARY KEY("id_variable" AUTOINCREMENT),
 	UNIQUE("name_variable")
 );
+INSERT INTO "Project_nodes" VALUES (0,'Проект',NULL,'0','PROJECT',NULL,1);
+COMMIT;
         """
         )
         conn.commit()
@@ -320,7 +322,7 @@ CREATE TABLE IF NOT EXISTS "Project_variables" (
         INSERT INTO Project_pages
         (id_parent_template, name_page, filename_page, typefile_page, order_page, included)
         VALUES
-        (?, ?, ?, ?, ?)
+        (?, ?, ?, ?, ?, ?)
         """,
             [
                 page.get("id_parent_template"),

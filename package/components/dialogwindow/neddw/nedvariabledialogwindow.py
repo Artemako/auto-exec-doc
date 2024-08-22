@@ -81,13 +81,15 @@ class NedVariableDialogWindow(QDialog):
         self.ui.btn_nesvariable.clicked.connect(self.btn_nesvariable_clicked)
         self.ui.btn_nesvariable.setShortcut("Ctrl+S")
 
+
     def get_is_valid_jinja_variable(self, name_variable):
-        pattern = r'^[a-zA-Z0-9_-]+$'  # эквивалентно [a-zA-Z0-9_-]
+        pattern = r'[А-яЁёA-z0-9_-]+' 
         result = bool(re.match(pattern, name_variable))
         self.__osbm.obj_logg.debug_logger(
             f"NedVariableDialogWindow get_is_valid_jinja_variable(name_variable):\name_variable = {name_variable}\n result = {result}"
         )
         return result
+
 
     def btn_nesvariable_clicked(self):
         self.__osbm.obj_logg.debug_logger("NedVariableDialogWindow btn_nesvariable_clicked()")

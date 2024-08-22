@@ -160,26 +160,26 @@ class DialogWindows:
                 )
                 return None
 
-    def select_docx_file(self) -> str:
+    def select_docx_or_pdf_file(self) -> str:
         """Диалоговое окно выбора документа."""
 
-        self.__osbm.obj_logg.debug_logger("DialogWindows select_docx_file() -> str")
+        self.__osbm.obj_logg.debug_logger("DialogWindows select_docx_or_pdf_file() -> str")
 
         while True:
             docx_path = QFileDialog.getOpenFileName(
                 None,
                 "Выбор документа",
                 self.__osbm.obj_dirm.get_documents_dirpath(),
-                "Документы (*.docx)",
+                "Документы (*.docx *.pdf)",
             )
             if docx_path[0]:
                 self.__osbm.obj_logg.debug_logger(
-                    f"DialogWindows select_docx_file() -> {docx_path[0]}"
+                    f"DialogWindows select_docx_or_pdf_file() -> {docx_path[0]}"
                 )
                 return docx_path[0]
             else:
                 self.__osbm.obj_logg.debug_logger(
-                    f"DialogWindows select_docx_file() -> {None}"
+                    f"DialogWindows select_docx_or_pdf_file() -> {None}"
                 )
                 return None
 
