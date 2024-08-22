@@ -5,11 +5,12 @@ import package.ui.nedtemplatedialogwindow_ui as nedtemplatedialogwindow_ui
 # TODO ПОДУМАТЬ ПРО PDF 
 
 class NedTemplateDialogWindow(QDialog):
-    def __init__(self, osbm, type_ned, templates, template=None):
+    def __init__(self, osbm, type_ned, templates, template=None, is_active = False):
         self.__osbm = osbm
         self.__type_ned = type_ned
         self.__templates = templates
         self.__template = template
+        self.__is_active = is_active
         self.__osbm.obj_logg.debug_logger(
             f"NedTemplateDialogWindow __init__(osbm, type_ned):\ntype_ned = {type_ned},\ntemplates = {templates}\ntemplate = {template}"
         )
@@ -23,6 +24,7 @@ class NedTemplateDialogWindow(QDialog):
         self.__data = dict()
         # одноразовые действия
         self.config_by_type_window()
+        self.config_is_active()
         self.connecting_actions()
 
     def get_data(self):
@@ -50,6 +52,32 @@ class NedTemplateDialogWindow(QDialog):
             # предложение отключено
             self.ui.label_copyfrom.setEnabled(False)
             self.ui.combox_templates.setEnabled(False)
+
+    def config_is_active(self):
+        self.__osbm.obj_logg.debug_logger(
+            "NedTemplateDialogWindow config_is_active()"
+        )
+        if self.__type_ned == "create":
+            if self.__templates:
+                self.ui.checkbox_is_active.setChecked(False)
+                self.ui.checkbox_is_active.setEnabled(True)
+            else:
+                # если self.__templates пуст, то автоматически включено
+                self.ui.checkbox_is_active.setChecked(True)
+                self.ui.checkbox_is_active.setEnabled(False)
+
+        elif self.__type_ned == "edit":
+            if self.__is_active:
+                self.ui.checkbox_is_active.setChecked(True)
+                self.ui.checkbox_is_active.setEnabled(False)
+            else:
+                self.ui.checkbox_is_active.setChecked(False)
+                self.ui.checkbox_is_active.setEnabled(True)
+
+            
+            
+            # id_template = template.get("id_template")
+            
     
     def config_combox_templates(self):
         self.__osbm.obj_logg.debug_logger(
@@ -78,6 +106,7 @@ class NedTemplateDialogWindow(QDialog):
             "NedTemplateDialogWindow btn_nesvariable_clicked()"
         )
         nametemplate = self.ui.lineedit_nametemplate.text()
+        self.__data["IS_ACTIVE"] = self.ui.checkbox_is_active.isChecked()
         self.__data["name_template"] = nametemplate
         # для create
         if self.__type_ned == "create":

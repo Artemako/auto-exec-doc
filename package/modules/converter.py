@@ -35,22 +35,29 @@ class ConverterPool:
         local_osbm.obj_logg.debug_logger(
             f"Converter create_page_pdf(page):\npage = {page}"
         )
-        form_page_name = page.get("filename_page")
-        docx_pdf_page_name = f"""page_{page.get("id_page")}_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S%f')}"""
-        # добыть информация для SectionInfo
-        if is_local:
-            local_osbm.obj_seci.update_sections_info(page)
-        sections_info = local_osbm.obj_seci.get_sections_info()
-        print(f"sections_info = {sections_info}")
+        # проверка на DOCX или PDF
+        typefile_page = page.get("typefile_page")
+        if typefile_page == "DOCX":
+            form_page_name = page.get("filename_page")
+            docx_pdf_page_name = f"""page_{page.get("id_page")}_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S%f')}"""
+            # добыть информация для SectionInfo
+            if is_local:
+                local_osbm.obj_seci.update_sections_info(page)
+            sections_info = local_osbm.obj_seci.get_sections_info()
+            print(f"sections_info = {sections_info}")
 
-        # создать docx из данным page
-        self.create_docx_page(
-            local_osbm, sections_info, form_page_name, docx_pdf_page_name
-        )
-        # создать pdf из docx
-        pdf_path = os.path.normpath(
-            self.create_pdf_from_docx_page(local_osbm, docx_pdf_page_name)
-        )
+            # создать docx из данным page
+            self.create_docx_page(
+                local_osbm, sections_info, form_page_name, docx_pdf_page_name
+            )
+            # создать pdf из docx
+            pdf_path = os.path.normpath(
+                self.create_pdf_from_docx_page(local_osbm, docx_pdf_page_name)
+            )
+        elif typefile_page == "PDF":
+            pdf_page_name = page.get("filename_page")
+            pdfs_folder_dirpath = local_osbm.obj_dirm.get_pdfs_folder_dirpath()
+            pdf_path = os.path.join(pdfs_folder_dirpath, pdf_page_name + ".pdf")
         return pdf_path
 
     def get_form_page_fullname_and_docx_page_fullname(
@@ -382,6 +389,7 @@ class Converter:
             self.__osbm.obj_prodb.get_project_node(),
             project_pages_objects
         )
+        print(f"self.__number_page = {self.__number_page}")
         self.__osbm.obj_logg.debug_logger(
             f"Converter project_pages_objects = {project_pages_objects}"
         )
@@ -403,9 +411,9 @@ class Converter:
                 # TODO подумать про PDF node, загруженный пользователем
                 child_included = int(child.get("included"))
                 print("included = ", child_included, type(child_included))
-                if not child_included == 0:
+                if child_included:
                     # проход по страницам node
-                    # TODO
+                    # TODO без id_active_template дальше не пройдет
                     id_active_template = child.get("id_active_template")
                     if id_active_template:
                         template = {"id_template": id_active_template}
@@ -451,10 +459,12 @@ class Converter:
         )
         list_of_pdf_pages = list()
         # с multiprocessing.Pool
+        # TODO processes_number = int()
         processes_number = int()
         app_converter = self.__osbm.obj_setdb.get_app_converter()
         if app_converter == "MSWORD":
-            processes_number = max(1, multiprocessing.cpu_count() - 1)
+            processes_number = 1
+            # processes_number = max(1, multiprocessing.cpu_count() - 1)
         else:
             processes_number = 1
         #
@@ -476,5 +486,6 @@ class Converter:
         #     args = (ConverterObjectsManager(self.__osbm), obj)
         #     result = ConverterPool().process_object_of_project_pages_objects(args)
         #     results.append(result)
+        print(f"results = {results}")
         list_of_pdf_pages = [result for result in results if result]
         return list_of_pdf_pages

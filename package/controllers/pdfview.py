@@ -27,6 +27,7 @@ class PdfView:
     def config_pdf_view_in_mainwindow(self):
         self.__osbm.obj_logg.debug_logger("PdfView config_pdf_view_in_mainwindow()")
         self.__document = QPdfDocument()
+        self.__widget_pdf_view.setPageMode(QPdfView.PageMode.MultiPage)
         self.__widget_pdf_view.setDocument(self.__document)
 
     def zoom_in(self):

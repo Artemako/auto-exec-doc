@@ -107,8 +107,7 @@ class LWPagesTemplate:
             self.__osbm.obj_logg.error_logger(
                 f"Error in create_and_view_current_page(page): {e}"
             )
-            # TODO Error in create_and_view_current_page(page): unexpected '**'
-            # Error in create_and_view_current_page(page): 'дв' is undefined
+            self.__osbm.obj_dw.warning_message(f"Ошибка: {e}" )
 
         if pdf_path:
             self.__osbm.obj_pdfv.load_and_show_pdf_document(pdf_path)

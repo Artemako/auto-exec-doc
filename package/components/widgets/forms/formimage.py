@@ -55,7 +55,7 @@ class FormImage(QWidget):
             self.ui.textbrowser.hide()
 
         # CONFIG IMAGE
-        # TODO Сделать масштаб изображения
+        # TODO Сделать масштаб изображения (масштаб не нужен, только выбор)
 
         # connect
         self.ui.select_button.clicked.connect(lambda: self.set_new_value_in_pair())

@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS "Project_nodes" (
 	"included"	INTEGER NOT NULL DEFAULT 1,
 	PRIMARY KEY("id_node" AUTOINCREMENT),
 	UNIQUE("name_node"),
-	FOREIGN KEY("id_active_template") REFERENCES "Project_templates"("id_template") ON DELETE CASCADE
+	FOREIGN KEY("id_active_template") REFERENCES "Project_templates"("id_template") ON DELETE SET NULL
 );
 CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
 	"id_pair"	INTEGER NOT NULL UNIQUE,

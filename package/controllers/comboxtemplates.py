@@ -21,12 +21,15 @@ class ComboxTemplates:
     def combox_templates_changed(self, index):
         self.__osbm.obj_logg.debug_logger(f"ComboxTemplates combox_templates_changed(index):\nindex = {index}")
         template = self.__combox_templates.itemData(index)
-        # сохранить активный шаблон для БД вершины 
-        id_parent_node = template.get("id_parent_node")
-        id_template = template.get("id_template")
-        self.__osbm.obj_prodb.set_active_template_for_node_by_id(id_parent_node, id_template)
-        # обновить cтраницы
-        self.__osbm.obj_lwpt.update_pages_template(template)
+        if template:
+            # сохранить активный шаблон для БД вершины 
+            id_parent_node = template.get("id_parent_node")
+            id_template = template.get("id_template")
+            self.__osbm.obj_prodb.set_active_template_for_node_by_id(id_parent_node, id_template)
+            # обновить cтраницы
+            self.__osbm.obj_lwpt.update_pages_template(template)
+        else:
+            self.__osbm.obj_lwpt.update_pages_template(None)
 
     def clear_comboxts(self):
         self.__combox_templates.blockSignals(True)
@@ -34,6 +37,9 @@ class ComboxTemplates:
         self.__combox_templates.blockSignals(False)
 
     def update_combox_templates(self, node):
+        """
+        Извне обновляют список шаблонов
+        """
         self.__osbm.obj_logg.debug_logger(f"ComboxTemplates update_combox_templates(node):\nnode = {node}")
         self.clear_comboxts()
         self.__combox_templates.blockSignals(True)
@@ -49,10 +55,10 @@ class ComboxTemplates:
                 if template.get("id_template") == id_active_template:
                     index = i
                 self.__combox_templates.addItem(template.get("name_template"), template)
+            #
             self.__combox_templates.setCurrentIndex(index)
             # обновить cтраницы
-            current_template = self.__combox_templates.itemData(index)
-            self.__osbm.obj_lwpt.update_pages_template(current_template)
+            self.combox_templates_changed(index)
         else:
             self.__osbm.obj_lwpt.update_pages_template(None)
         self.__combox_templates.blockSignals(False)  
