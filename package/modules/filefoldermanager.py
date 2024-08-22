@@ -198,17 +198,26 @@ class FileFolderManager:
         except Exception as e:
             self.__osbm.obj_logg.error_logger(e)
 
-    def copynew_page_for_new_template(self, old_page_filename):
+    def copynew_page_for_new_template(self, old_page_filename, typefile_page):
         self.__osbm.obj_logg.debug_logger(
-            f"FileFolderManager copynew_page_for_new_template(old_page_filename):\nold_page_filename = {old_page_filename}"
+            f"FileFolderManager copynew_page_for_new_template(old_page_filename, typefile_page):\nold_page_filename = {old_page_filename},\ntypefile_page = {typefile_page}"
         )
-        forms_folder_dirpath = self.__osbm.obj_dirm.get_forms_folder_dirpath()
-        old_page_path = os.path.join(forms_folder_dirpath, old_page_filename + ".docx")
-        # генерируем новый id для новой страницы
-        unique_id = f"{str(uuid.uuid4().int)[:3]}-{id(old_page_path)%100}" 
-        new_page_filename = f"docx_{unique_id}_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
-        new_page_path = os.path.join(forms_folder_dirpath, new_page_filename + ".docx")
-        self.copy_file(old_page_path, new_page_path)
+        old_page_path = str()
+        new_page_path = str()
+        # генерируем новый id и имя для новой страницы
+        unique_id = f"{str(uuid.uuid4().hex)[:3]}-{id(old_page_path)%1000}"
+        new_page_filename = f"{unique_id}_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
+        # в зависимости от ...
+        if typefile_page == "DOCX":
+            forms_folder_dirpath = self.__osbm.obj_dirm.get_forms_folder_dirpath()
+            old_page_path = os.path.join(forms_folder_dirpath, old_page_filename + ".docx")
+            new_page_path = os.path.join(forms_folder_dirpath, new_page_filename + ".docx")
+        elif typefile_page == "PDF":
+            pdfs_folder_dirpath = self.__osbm.obj_dirm.get_pdfs_folder_dirpath()
+            old_page_path = os.path.join(pdfs_folder_dirpath, old_page_filename + ".pdf") 
+            new_page_path = os.path.join(pdfs_folder_dirpath, new_page_filename + ".pdf")       
+        # копирование
+        self.copy_file(old_page_path, new_page_path)       
         return new_page_filename
 
     def delete_page_from_project(self, page_filename):

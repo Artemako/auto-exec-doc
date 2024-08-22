@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
 CREATE TABLE IF NOT EXISTS "Project_pages" (
 	"id_page"	INTEGER NOT NULL UNIQUE,
 	"id_parent_template"	INTEGER,
-	"name_page"	TEXT UNIQUE,
+	"name_page"	TEXT,
 	"filename_page"	TEXT UNIQUE,
 	"typefile_page"	TEXT,
 	"order_page"	INTEGER NOT NULL,

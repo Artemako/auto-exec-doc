@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
 CREATE TABLE IF NOT EXISTS "Project_pages" (
 	"id_page"	INTEGER NOT NULL UNIQUE,
 	"id_parent_template"	INTEGER,
-	"name_page"	TEXT UNIQUE,
+	"name_page"	TEXT,
 	"filename_page"	TEXT UNIQUE,
 	"typefile_page"	TEXT,
 	"order_page"	INTEGER NOT NULL,
@@ -117,8 +117,6 @@ CREATE TABLE IF NOT EXISTS "Project_variables" (
 	PRIMARY KEY("id_variable" AUTOINCREMENT),
 	UNIQUE("name_variable")
 );
-INSERT INTO "Project_nodes" VALUES (0,'Проект',NULL,'0','PROJECT',NULL,1);
-COMMIT;
         """
         )
         conn.commit()

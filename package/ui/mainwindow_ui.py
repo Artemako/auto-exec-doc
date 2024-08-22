@@ -381,8 +381,8 @@ class Ui_MainWindow(object):
         ___qtreewidgetitem4.setText(0, QCoreApplication.translate("MainWindow", u"\u041f\u0422-3", None));
         self.treewidget_structure_execdoc.setSortingEnabled(__sortingEnabled)
 
-        self.label_current_template.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0428\u0430\u0431\u043b\u043e\u043d</span></p></body></html>", None))
-        self.label_pages_template.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0421\u0442\u0440\u0430\u043d\u0438\u0446\u044b \u0448\u0430\u0431\u043b\u043e\u043d\u0430</span></p></body></html>", None))
+        self.label_current_template.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0422\u0435\u043a\u0443\u0449\u0438\u0439 \u0448\u0430\u0431\u043b\u043e\u043d</span></p></body></html>", None))
+        self.label_pages_template.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0421\u0442\u0440\u0430\u043d\u0438\u0446\u044b \u0442\u0435\u043a\u0443\u0449\u0435\u0433\u043e \u0448\u0430\u0431\u043b\u043e\u043d\u0430</span></p></body></html>", None))
 
         __sortingEnabled1 = self.lw_pages_template.isSortingEnabled()
         self.lw_pages_template.setSortingEnabled(False)

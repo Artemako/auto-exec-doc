@@ -448,6 +448,10 @@ class TemplatesListDialogWindow(QDialog):
 
 
     def copy_template(self, old_template, new_template):
+        self.__osbm.obj_logg.debug_logger(
+            f"copy_template():\nold_template = {old_template}\nnew_template = {new_template}"
+        )
+        # поэтапно
         self.copy_template_templates_data(old_template, new_template)
         old_to_new_pages = self.copy_template_pages(old_template, new_template)
         self.copy_template_pages_data(old_to_new_pages)
@@ -468,15 +472,17 @@ class TemplatesListDialogWindow(QDialog):
         p_pairs = self.__osbm.obj_prodb.get_pages_by_template(old_template)
         for p_pair in p_pairs:
             old_page_filename = p_pair.get("filename_page")
+            typefile_page = p_pair.get("typefile_page")
             # копирование
             new_page_filename = self.__osbm.obj_film.copynew_page_for_new_template(
-                old_page_filename
+                old_page_filename, typefile_page
             )
             # добавление в бд
             new_page = {
                 "id_parent_template": new_template.get("id_template"),
                 "name_page": p_pair.get("name_page"),
                 "filename_page": new_page_filename,
+                "typefile_page": typefile_page,
                 "order_page": p_pair.get("order_page"),
                 "included": p_pair.get("included"),
             }
