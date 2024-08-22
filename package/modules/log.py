@@ -11,7 +11,6 @@ class Log:
     def __init__(self):
         self.__osbm = None
         self.__logger = logging.getLogger("Main logger")
-        self.__executor = ThreadPoolExecutor(max_workers=2)
 
     def setting_osbm(self, osbm):
         self.__osbm = LogObjectsManager(osbm)
@@ -47,19 +46,19 @@ class Log:
         self.debug_logger("Config logger")
 
     def debug_logger(self, message: str):
-        self.__executor.submit(self.__logger.debug, f"\033[34m {message}\033[00m")
+        self.__logger.debug(f"\033[34m {message}\033[00m")
 
     def info_logger(self, message: str):
-        self.__executor.submit(self.__logger.info, f"\033[32m {message}\033[00m")
+        self.__logger.info(f"\033[32m {message}\033[00m")
 
     def warning_logger(self, message: str):
-        self.__executor.submit(self.__logger.warning, f"\033[93m {message}\033[00m")
+        self.__logger.warning(f"\033[93m {message}\033[00m")
 
     def error_logger(self, message: str):
-        self.__executor.submit(self.__logger.error, f"\033[31m {message}\033[00m")
+        self.__logger.error("\033[31m {message}\033[00m")
 
     def critical_logger(self, message: str):
-        self.__executor.submit(self.__logger.critical, f"\033[95m {message}\033[00m")
+        self.__logger.critical("\033[95m {message}\033[00m")
 
     def disable_logging(self):
         """Отключение логирования, удаление всех обработчиков."""
