@@ -9,8 +9,6 @@ import package.components.dialogwindow.neddw.nedtemplatedialogwindow as nedtempl
 import package.components.dialogwindow.neddw.nedpagedialogwindow as nedpagedialogwindow
 import package.components.widgets.customitemqlistwidget as customitemqlistwidget
 
-# TODO self.__osbm.obj_prodb.set_active_template_for_node_by_id(id_parent_node, id_template) автоматически для единственного шаблона
-
 
 class TemplatesListDialogWindow(QDialog):
     def __init__(self, osbm):
@@ -117,7 +115,6 @@ class TemplatesListDialogWindow(QDialog):
         form = self.ui.combox_forms.currentData()
 
         print(f"form = {form}")
-        # TODO Подумать про PDF_NODE
         if form:
             templates = self.__osbm.obj_prodb.get_templates_by_form(form)
             self.__templates = templates

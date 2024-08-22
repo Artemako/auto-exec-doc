@@ -257,9 +257,6 @@ class ConverterPool:
         
 
 
-
-
-
     def create_pdf_from_docx_page(self, local_osbm, docx_pdf_page_name) -> str:
         local_osbm.obj_logg.debug_logger(
             f"Converter create_pdf_from_docx_page(docx_pdf_page_name) -> str:\ndocx_pdf_page_name = {docx_pdf_page_name}"
@@ -408,7 +405,6 @@ class Converter:
         childs = self.__osbm.obj_prodb.get_childs(parent_node)
         if childs:
             for child in childs:
-                # TODO подумать про PDF node, загруженный пользователем
                 child_included = int(child.get("included"))
                 print("included = ", child_included, type(child_included))
                 if child_included:
@@ -459,12 +455,10 @@ class Converter:
         )
         list_of_pdf_pages = list()
         # с multiprocessing.Pool
-        # TODO processes_number = int()
         processes_number = int()
         app_converter = self.__osbm.obj_setdb.get_app_converter()
         if app_converter == "MSWORD":
-            processes_number = 1
-            # processes_number = max(1, multiprocessing.cpu_count() - 1)
+            processes_number = max(1, multiprocessing.cpu_count() - 1)
         else:
             processes_number = 1
         #
