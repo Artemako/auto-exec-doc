@@ -2,8 +2,6 @@ from PySide6.QtWidgets import QDialog
 
 import package.ui.nedtemplatedialogwindow_ui as nedtemplatedialogwindow_ui
 
-# TODO ПОДУМАТЬ ПРО PDF 
-
 class NedTemplateDialogWindow(QDialog):
     def __init__(self, osbm, type_ned, templates, template=None, is_active = False):
         self.__osbm = osbm

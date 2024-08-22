@@ -2,8 +2,6 @@ from PySide6.QtWidgets import QDialog, QSizePolicy
 
 import package.ui.nednodedialogwindow_ui as nednodedialogwindow_ui
 
-# TODO ПОДУМАТЬ ПРО PDF 
-
 class NedNodeDialogWindow(QDialog):
     def __init__(self, osbm, type_window, type_node, nodes, node=None):
         self.__osbm = osbm
