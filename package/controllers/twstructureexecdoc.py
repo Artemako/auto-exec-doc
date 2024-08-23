@@ -1,8 +1,6 @@
-from PySide6.QtWidgets import QTreeWidgetItem, QMenu
+from PySide6.QtWidgets import QTreeWidgetItem
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QAction
 
-from functools import partial
 
 class TWStructureExecDoc:
     def __init__(self):
@@ -13,10 +11,7 @@ class TWStructureExecDoc:
 
     def setting_all_osbm(self, osbm):
         self.__osbm = osbm
-        self.__osbm.obj_logg.debug_logger(
-            "TWStructureExecDoc setting_all_osbm()"
-        )
-
+        self.__osbm.obj_logg.debug_logger("TWStructureExecDoc setting_all_osbm()")
 
     def connect_structureexecdoc(self, tr_sed):
         """
@@ -38,24 +33,6 @@ class TWStructureExecDoc:
         # раскрытие/свертывание элементов
         self.__tw.itemExpanded.connect(self.on_item_expanded)
         self.__tw.itemCollapsed.connect(self.on_item_collapsed)
-        # окно по правой кнопки мыши
-        self.__tw.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.__tw.customContextMenuRequested.connect(self.context_menu_tree)
-
-    def context_menu_tree(self, pos):
-        # TODO
-        """Создание контекстного меню для QTreeWidget."""
-        current_item = self.__tw.currentItem()
-        if current_item:
-            menu = QMenu(self.__tw)
-            action_edit_variables = QAction("Редактировать переменные", self.__tw)
-            action_edit_variables.setIcon(self.__icons.get("edit_variables"))
-            action_edit_variables.triggered.connect(partial(self.edit_variables, "NODE"))
-            menu.addAction(action_edit_variables)
-            menu.exec(self.__tw.mapToGlobal(pos))
-
-    def edit_variables(self, type):
-        print(f"Я ЗАСКАЗАЛ РЕДАКТИРОВАТЬ ПЕРЕМЕННЫЕ ДЛЯ ЭЛЕМЕНТА {type}")
 
     def get_current_node(self):
         self.__osbm.obj_logg.debug_logger("TWStructureExecDoc get_current_node()")
@@ -112,13 +89,12 @@ class TWStructureExecDoc:
         title = f"{self.__osbm.obj_setdb.get_project_current_name()}"
         self.__tw.setHeaderLabels([title])
         # проход по вершинам
-        self.dfs(self.__osbm.obj_prodb.get_project_node(), open_node) 
-        # 
+        self.dfs(self.__osbm.obj_prodb.get_project_node(), open_node)
+        #
         if self.__tw.topLevelItemCount() > 0 and not self.__open_node_flag:
             self.__tw.setCurrentItem(self.__tw.topLevelItem(0))
-            
 
-    def dfs(self, parent_node, open_node = None):
+    def dfs(self, parent_node, open_node=None):
         """
         Проход по всем вершинам.
         """
@@ -133,7 +109,7 @@ class TWStructureExecDoc:
                 # проход по дочерним вершинам
                 self.dfs(child, open_node)
 
-    def set_item_in_nodes_to_items(self, node, open_node = None):
+    def set_item_in_nodes_to_items(self, node, open_node=None):
         """
         Поставить item в nodes_to_items.
         """
@@ -169,7 +145,6 @@ class TWStructureExecDoc:
             item = QTreeWidgetItem(self.__nodes_to_items[node.get("id_parent")])
             item.setData(0, Qt.UserRole, node)
         return item
-
 
     def set_text_and_icon_for_item_by_node(self, item, node):
         self.__osbm.obj_logg.debug_logger(

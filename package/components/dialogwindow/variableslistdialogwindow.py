@@ -31,9 +31,9 @@ class NumericItem(QTableWidgetItem):
 
 # TODO Сделать open_...
 class VariablesListDialogWindow(QDialog):
-    def __init__(self, osbm):
+    def __init__(self, osbm, open_node, open_template, open_page):
         self.__osbm = osbm
-        self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow __init__(osbm)")
+        self.__osbm.obj_logg.debug_logger(f"VariablesListDialogWindow __init__(osbm, open_node, open_template, open_page): \nopen_node = {open_node}\nopen_template = {open_template}\nopen_page = {open_page}")
         self.initalizate_tabs_objects()
         super(VariablesListDialogWindow, self).__init__()
         self.ui = variableslistdialogwindow_ui.Ui_VariablesListDialog()
@@ -49,8 +49,8 @@ class VariablesListDialogWindow(QDialog):
         self.config_tws()
         # Подключаем действия
         self.connecting_actions()
-        # отобразить первый таб (в нём caf - reconfig)
-        self.show_tab_project()
+        # отобразить (в нём caf - reconfig)
+        self.show_config(open_node, open_template, open_page)
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
@@ -169,24 +169,50 @@ class VariablesListDialogWindow(QDialog):
         typetable = self.get_typetable()
         self.caf_two_tables(typetable)
 
+
+    def show_config(self, open_node, open_template, open_page):
+        self.__osbm.obj_logg.debug_logger(
+            "VariablesListDialogWindow show_config()"
+        )
+        if open_node:
+            type_node = open_node.get("type_node")
+            if type_node == "GROUP":
+                self.show_tab_group(open_node)
+            elif type_node == "FORM":
+                if open_template:
+                    if open_page:
+                        self.show_tab_form_template_page(open_node, open_template, open_page)
+                    else:
+                        self.show_tab_form_template_page(open_node, open_template)
+                else:
+                    self.show_tab_form_template_page(open_node)
+
+        else:
+            self.show_tab_project()
+            
+
+
+
     def show_tab_project(self):
         self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow show_tab_project()")
         self.ui.tabwidget.setCurrentIndex(0)
         self.caf_two_tables("project_variables")
 
-    def show_tab_group(self):
+    def show_tab_group(self, open_node = None):
         self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow show_tab_group()")
         self.ui.tabwidget.setCurrentIndex(1)
-        self.caf_combobox_group()
+        self.caf_combobox_group(open_node)
         self.caf_two_tables("group_variables")
         pass
 
-    def show_tab_form_template_page(self):
+    def show_tab_form_template_page(self, open_node = None, open_template = None, open_page = None):
         self.__osbm.obj_logg.debug_logger(
             "VariablesListDialogWindow show_tab_form_template_page()"
         )
         self.ui.tabwidget.setCurrentIndex(2)
-        self.caf_combobox_form_template_page()
+        self.caf_combobox_form(open_node)
+        self.caf_combobox_template(open_template)
+        self.caf_combobox_page(open_page)
         self.caf_two_tables("form_template_page_variables")
         pass
 
@@ -282,17 +308,13 @@ class VariablesListDialogWindow(QDialog):
         )
         return data
 
-    def caf_combobox_form_template_page(self):
-        self.__osbm.obj_logg.debug_logger(
-            "VariablesListDialogWindow caf_combobox_form_template_page()"
-        )
-        self.caf_combobox_form()
-        self.caf_combobox_template()
-        self.caf_combobox_page()
 
-    def caf_combobox_group(self):
+    def caf_combobox_group(self, open_node = None):
         self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow caf_combobox_group()")
-        current_text = self.ui.combox_groups.currentText()
+        if open_node:
+            current_text = open_node.get("name_node")
+        else:
+            current_text = self.ui.combox_groups.currentText()
         #
         self.ui.combox_groups.blockSignals(True)
         self.ui.combox_groups.clear()
@@ -306,9 +328,12 @@ class VariablesListDialogWindow(QDialog):
         self.ui.combox_groups.blockSignals(False)
         self.ui.combox_groups.show()
 
-    def caf_combobox_form(self):
+    def caf_combobox_form(self, open_node):
         self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow caf_combobox_form()")
-        current_text = self.ui.combox_forms.currentText()
+        if open_node:
+            current_text = open_node.get("name_node")
+        else:
+            current_text = self.ui.combox_forms.currentText()
         #
         self.ui.combox_forms.blockSignals(True)
         self.ui.combox_forms.clear()
@@ -322,11 +347,14 @@ class VariablesListDialogWindow(QDialog):
         self.ui.combox_forms.blockSignals(False)
         self.ui.combox_forms.show()
 
-    def caf_combobox_template(self):
+    def caf_combobox_template(self, open_template = None):
         self.__osbm.obj_logg.debug_logger(
             "VariablesListDialogWindow caf_combobox_template()"
         )
-        current_text = self.ui.combox_templates.currentText()
+        if open_template:
+            current_text = open_template.get("name_template")
+        else:
+            current_text = self.ui.combox_templates.currentText()
         #
         form = self.ui.combox_forms.currentData()
         templates = []
@@ -345,9 +373,12 @@ class VariablesListDialogWindow(QDialog):
         self.ui.combox_templates.blockSignals(False)
         self.ui.combox_templates.show()
 
-    def caf_combobox_page(self):
+    def caf_combobox_page(self, open_page = None):
         self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow caf_combobox_page()")
-        current_text = self.ui.combox_pages.currentText()
+        if open_page:
+            current_text = open_page.get("name_page")
+        else:
+            current_text = self.ui.combox_pages.currentText()
         #
         template = self.ui.combox_templates.currentData()
         pages = []
@@ -428,7 +459,7 @@ class VariablesListDialogWindow(QDialog):
         # table_widget.setSelectionMode(QAbstractItemView.NoSelection)
         # table_widget.sortByColumn(0, Qt.AscendingOrder)
 
-    def caf_table(self, type_table, editor=False, open_variable=None):
+    def caf_table(self, type_table, editor, open_variable=None):
         self.__osbm.obj_logg.debug_logger(
             f"VariablesListDialogWindow caf_table(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}"
         )

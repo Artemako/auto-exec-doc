@@ -58,6 +58,8 @@ class Icons:
             # pdf
             icons["pdf"] = QIcon(":/white-icons/resources/white-icons/pdf.svg")
             # actions
+            icons["edit_composition"] = QIcon(":/white-icons/resources/white-icons/items-tree.svg")
+            icons["edit_templates"] = QIcon(":/white-icons/resources/white-icons/template.svg")
             icons["edit_variables"] = QIcon(":/white-icons/resources/white-icons/text-editor.svg")
             #
             for key, elem in icons.items():

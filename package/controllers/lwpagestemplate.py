@@ -1,18 +1,5 @@
 from PySide6.QtWidgets import QListWidgetItem
-
-
-class MyListWidgetItem(QListWidgetItem):
-    """
-    Кастомный QListWidgetItem с полем page.
-    """
-
-    def __init__(self, page):
-        super().__init__()
-        self.page = page
-
-    def get_page(self):
-        return self.page
-
+from PySide6.QtCore import Qt
 
 class LWPagesTemplate:
     def __init__(self):
@@ -50,9 +37,7 @@ class LWPagesTemplate:
             "LWPagesTemplate get_page_by_current_item()"
         )
         current = self.__lw_pages_template.currentItem()
-        if current is None:
-            return None
-        return current.get_page()
+        return current.data(Qt.UserRole) if current else None
 
     def item_page_updated(self, current):
         """
@@ -61,7 +46,7 @@ class LWPagesTemplate:
         self.__osbm.obj_logg.debug_logger(
             f"LWPagesTemplate item_page_updated(current):\ncurrent = {current}"
         )
-        page = current.get_page()
+        page = current.data(Qt.UserRole)
         # Обновить SAInputForms
         self.__osbm.obj_saif.update_scrollarea(page)
         # открыть pdf форму для текущей страницы
@@ -119,7 +104,7 @@ class LWPagesTemplate:
             "LWPagesTemplate IN current_page_to_pdf()"
         )
         current = self.__lw_pages_template.currentItem()
-        page = current.get_page()
+        page = current.data(Qt.UserRole)
         self.create_and_view_current_page(page)
 
     def clear_pt(self):
@@ -145,10 +130,12 @@ class LWPagesTemplate:
             pages = self.__osbm.obj_prodb.get_pages_by_template(template)
             for page in pages:
                 print(f"page = {page}")
-                item = MyListWidgetItem(page)
+                item = QListWidgetItem()
                 item.setText(page.get("name_page"))
                 item.setIcon(self.__icons.get("page"))
-                self.__lw_pages_template.addItem(item)
+                item.setData(Qt.UserRole, page)
+                self.__lw_pages_template.addItem(item)                
+                
         self.__lw_pages_template.blockSignals(False)
 
 # obj_lwpt = LWPagesTemplate()
