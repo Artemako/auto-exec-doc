@@ -23,7 +23,8 @@ class NedNodeDialogWindow(QDialog):
         self.__data = []
         # одноразовые действия
         self.config_maindata()
-        self.config_placementdata()
+        self.fill_combox_parent()
+        self.fill_combox_neighboor()
         self.connecting_actions()
 
     def keyPressEvent(self, event):
@@ -71,11 +72,6 @@ class NedNodeDialogWindow(QDialog):
             # заполняем форму
             self.ui.lineedit_namenode.setText(self.__node.get("name_node"))
 
-    def config_placementdata(self):
-        self.__osbm.obj_logg.debug_logger("NedNodeDialogWindow config_placementdata()")
-        # заполняем combobox'ы
-        self.fill_combox_parent()
-        self.fill_combox_neighboor()
 
     def fill_combox_parent(self):
         self.__osbm.obj_logg.debug_logger(
@@ -88,8 +84,8 @@ class NedNodeDialogWindow(QDialog):
         index = 0
         project_and_group_nodes = self.get_project_and_group_nodes()
         for prgr_node in project_and_group_nodes:
-            # проверка на одинаковые вершины
-            if self.__type_window == "create":
+            # если create и вершины нет, то в добавить с корень дерева (Project)
+            if self.__type_window == "create" and not self.__node:
                 combobox.addItem(prgr_node.get("name_node"), prgr_node)
             else:
                 # поиск соседа
@@ -134,6 +130,8 @@ class NedNodeDialogWindow(QDialog):
             if self.__type_window == "create":
                 for index, child_node in enumerate(childs_nodes):
                     combobox.addItem("После: " + child_node.get("name_node"), child_node)
+                    # добавить в конец
+                    current_index = index + 1
             else:
                 for index, child_node in enumerate(childs_nodes):
                     if self.__node.get("id_node") != child_node.get("id_node"):

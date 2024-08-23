@@ -1,18 +1,16 @@
-from PySide6.QtWidgets import (
-    QDialog,
-    QTreeWidgetItem
-)
+from PySide6.QtWidgets import QDialog, QTreeWidgetItem
 from PySide6.QtCore import Qt
 
 import package.ui.nodeseditordialogwindow_ui as nodeseditordialogwindow_ui
 
 import package.components.dialogwindow.neddw.nednodedialogwindow as nednodedialogwindow
 
+
 class NodesEditorDialogWindow(QDialog):
-    def __init__(self, osbm):
+    def __init__(self, osbm, open_node):
         self.__osbm = osbm
         self.__osbm.obj_logg.debug_logger(
-            "NodesEditorDialogWindow __init__(osbm)"
+            f"NodesEditorDialogWindow __init__(osbm, open_node): \nopen_node = {open_node}"
         )
         super(NodesEditorDialogWindow, self).__init__()
         self.ui = nodeseditordialogwindow_ui.Ui_NodesEditorDialogWindow()
@@ -23,10 +21,10 @@ class NodesEditorDialogWindow(QDialog):
         self.__icons = self.__osbm.obj_icons.get_icons()
         #
         self.config()
-        self.reconfig()
+        self.reconfig(open_node)
         #
         self.connecting_actions()
-   
+
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
             # Игнорируем нажатие Enter
@@ -40,7 +38,7 @@ class NodesEditorDialogWindow(QDialog):
         self.setWindowFlag(Qt.WindowMinimizeButtonHint, True)
         self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
 
-    def reconfig(self, open_node = None):
+    def reconfig(self, open_node=None):
         self.__osbm.obj_logg.debug_logger("NodesEditorDialogWindow reconfig()")
         #
         tree_widget = self.ui.tw_nodes
@@ -49,24 +47,22 @@ class NodesEditorDialogWindow(QDialog):
         # очистка tw_nodes
         tree_widget.blockSignals(True)
         tree_widget.clear()
-        tree_widget.setHeaderLabels(["Проект"])     
+        tree_widget.setHeaderLabels(["Проект"])
         # заполнения вершинами
         self.__nodes = self.__osbm.obj_prodb.get_nodes()
         print(f"NodesEditorDialogWindow self.__nodes = {self.__nodes}")
-        # запуск 
+        # запуск
         project_node = self.find_project_node()
         self.dfs(project_node, open_node)
         #
         if tree_widget.topLevelItemCount() > 0 and not self.__open_node_flag:
             tree_widget.setCurrentItem(tree_widget.topLevelItem(0))
         # включение сигналов
-        tree_widget.expandAll()   
+        tree_widget.expandAll()
         tree_widget.blockSignals(False)
 
     def find_project_node(self):
-        self.__osbm.obj_logg.debug_logger(
-            "NodesEditorDialogWindow find_project_node()"
-        )
+        self.__osbm.obj_logg.debug_logger("NodesEditorDialogWindow find_project_node()")
         for node in self.__nodes:
             if node.get("type_node") == "PROJECT":
                 return node
@@ -87,7 +83,7 @@ class NodesEditorDialogWindow(QDialog):
         text = node.get("name_node")
         item.setText(0, text)
 
-    def dfs(self, parent_node, open_node = None):
+    def dfs(self, parent_node, open_node=None):
         """
         АНАЛОГ (почти). Проход по всем вершинам.
         """
@@ -110,13 +106,13 @@ class NodesEditorDialogWindow(QDialog):
             )
         )
         childs.sort(key=lambda node: int(node.get("order_node")))
-        
+
         self.__osbm.obj_logg.debug_logger(
             f"NodesEditorDialogWindow get_childs(parent_node):\nparent_node = {parent_node}\nchilds = {childs}"
         )
         return childs
 
-    def set_item_in_nodes_to_items(self, node, open_node = None):
+    def set_item_in_nodes_to_items(self, node, open_node=None):
         """
         АНАЛОГ. Поставить item в nodes_to_items.
         """
@@ -139,9 +135,7 @@ class NodesEditorDialogWindow(QDialog):
             self.__open_node_flag = True
 
     def connecting_actions(self):
-        self.__osbm.obj_logg.debug_logger(
-            "NodesEditorDialogWindow config_actions()"
-        )
+        self.__osbm.obj_logg.debug_logger("NodesEditorDialogWindow config_actions()")
         self.ui.btn_add_form.clicked.connect(self.add_form)
         self.ui.btn_add_form.setShortcut("Ctrl+F")
         self.ui.btn_add_group.clicked.connect(self.add_group)
@@ -154,9 +148,7 @@ class NodesEditorDialogWindow(QDialog):
         self.ui.btn_edit.setShortcut("Ctrl+E")
 
     def update_edit_nodes(self):
-        self.__osbm.obj_logg.debug_logger(
-            "NodesEditorDialogWindow update_bd()"
-        )
+        self.__osbm.obj_logg.debug_logger("NodesEditorDialogWindow update_bd()")
         edit_nodes = self.__osbm.obj_nedndw.get_data()
         # for edit_node in edit_nodes:
         #     print(f"-> edit_node = {edit_node}")
@@ -172,9 +164,7 @@ class NodesEditorDialogWindow(QDialog):
                     self.__osbm.obj_prodb.update_node(edit_node)
 
     def edit_current(self):
-        self.__osbm.obj_logg.debug_logger(
-            "NodesEditorDialogWindow edit_current()"
-        )
+        self.__osbm.obj_logg.debug_logger("NodesEditorDialogWindow edit_current()")
         tree_widget = self.ui.tw_nodes
         current_item = tree_widget.currentItem()
         if current_item is not None:
@@ -195,7 +185,9 @@ class NodesEditorDialogWindow(QDialog):
             node = current_item.data(0, Qt.UserRole)
             type_node = node.get("type_node")
             name_node = node.get("name_node")
-            result = self.__osbm.obj_dw.question_message(f'Вы действительно хотите удалить:\n"{name_node}"?')
+            result = self.__osbm.obj_dw.question_message(
+                f'Вы действительно хотите удалить:\n"{name_node}"?'
+            )
             if result:
                 if type_node == "GROUP":
                     self.delete_group_node(node)
@@ -226,9 +218,7 @@ class NodesEditorDialogWindow(QDialog):
                 for index, parent_child in enumerate(parent_childs):
                     self.__osbm.obj_prodb.set_order_for_node(parent_child, index)
         else:
-            self.__osbm.obj_prodb.delete_node(node) 
-        
-
+            self.__osbm.obj_prodb.delete_node(node)
 
     def add_group(self):
         self.__osbm.obj_logg.debug_logger("NodesEditorDialogWindow add_group()")
@@ -264,15 +254,9 @@ class NodesEditorDialogWindow(QDialog):
             self.reconfig(node)
 
     def ned_node_dw(self, type_window, type_node, node=None) -> bool:
-        self.__osbm.obj_logg.debug_logger(
-            "NodesEditorDialogWindow ned_node_dw()"
-        )
+        self.__osbm.obj_logg.debug_logger("NodesEditorDialogWindow ned_node_dw()")
         self.__osbm.obj_nedndw = nednodedialogwindow.NedNodeDialogWindow(
             self.__osbm, type_window, type_node, self.__nodes, node
         )
         result = self.__osbm.obj_nedndw.exec()
         return result == QDialog.Accepted
-            
-
-
-        

@@ -11,9 +11,11 @@ import package.components.widgets.customitemqlistwidget as customitemqlistwidget
 
 
 class TemplatesListDialogWindow(QDialog):
-    def __init__(self, osbm):
+    def __init__(self, osbm, open_node, open_template, open_page):
         self.__osbm = osbm
-        self.__osbm.obj_logg.debug_logger("TemplatesListDialogWindow __init__(osbm)")
+        self.__osbm.obj_logg.debug_logger(
+            f"TemplatesListDialogWindow __init__(osbm, open_node, open_template, open_page):\nopen_node = {open_node}\nopen_template = {open_template}\nopen_page = {open_page}"
+        )
         super(TemplatesListDialogWindow, self).__init__()
         self.ui = templateslistsialogwindow_ui.Ui_TemplatesListDialogWindow()
         self.ui.setupUi(self)
@@ -29,7 +31,7 @@ class TemplatesListDialogWindow(QDialog):
         # конфигурация
         self.config_lws()
         #
-        self.reconfig("REFORM")
+        self.reconfig("REFORM", open_node, open_template, open_page)
         # # подключаем деействия
         self.connecting_actions()
 
@@ -230,12 +232,15 @@ class TemplatesListDialogWindow(QDialog):
                 self.edit_item,
                 type_window=type_window,
                 data=item_widget.get_data(),
-                is_active=item_widget.get_is_active()
+                is_active=item_widget.get_is_active(),
             )
         )
         delete_button.clicked.connect(
             partial(
-                self.delete_item, type_window=type_window, data=item_widget.get_data(), is_active=item_widget.get_is_active()
+                self.delete_item,
+                type_window=type_window,
+                data=item_widget.get_data(),
+                is_active=item_widget.get_is_active(),
             )
         )
 
@@ -276,7 +281,9 @@ class TemplatesListDialogWindow(QDialog):
                 if is_active:
                     id_parent_node = template.get("id_parent_node")
                     id_template = template.get("id_template")
-                    self.__osbm.obj_prodb.set_active_template_for_node_by_id(id_parent_node, id_template)
+                    self.__osbm.obj_prodb.set_active_template_for_node_by_id(
+                        id_parent_node, id_template
+                    )
                 # было: self.reconfig("RETEMPLATE", None, data, None)
                 open_form = self.ui.combox_forms.currentData()
                 self.reconfig("REFORM", open_form, data, None)
@@ -310,11 +317,10 @@ class TemplatesListDialogWindow(QDialog):
             if result:
                 self.__osbm.obj_prodb.delete_template(data)
                 open_form = self.ui.combox_forms.currentData()
-                if is_active:  
-                    self.set_active_template_after_delete(data, open_form)          
+                if is_active:
+                    self.set_active_template_after_delete(data, open_form)
                 # было: self.reconfig("RETEMPLATE")
                 self.reconfig("REFORM", open_form, None, None)
-
 
         elif type_window == "PAGE":
             name_page = data.get("name_page")
@@ -331,10 +337,11 @@ class TemplatesListDialogWindow(QDialog):
         )
         self.__templates.remove(old_data)
         if self.__templates:
-            id_new_template = self.__templates[0].get("id_template")            
+            id_new_template = self.__templates[0].get("id_template")
             id_parent_node = form.get("id_node")
-            self.__osbm.obj_prodb.set_active_template_for_node_by_id(id_parent_node, id_new_template)
-
+            self.__osbm.obj_prodb.set_active_template_for_node_by_id(
+                id_parent_node, id_new_template
+            )
 
     def delete_page(self, page):
         self.__osbm.obj_logg.debug_logger(
@@ -444,12 +451,13 @@ class TemplatesListDialogWindow(QDialog):
                 if is_active:
                     id_parent_node = form.get("id_node")
                     id_template = id_new_template
-                    self.__osbm.obj_prodb.set_active_template_for_node_by_id(id_parent_node, id_template)
-                
+                    self.__osbm.obj_prodb.set_active_template_for_node_by_id(
+                        id_parent_node, id_template
+                    )
+
                 # было: self.reconfig("RETEMPLATE")
                 open_form = self.ui.combox_forms.currentData()
                 self.reconfig("REFORM", open_form, None, None)
-
 
     def copy_template(self, old_template, new_template):
         self.__osbm.obj_logg.debug_logger(
@@ -527,4 +535,3 @@ class TemplatesListDialogWindow(QDialog):
         )
         result = self.__osbm.obj_nedpagedw.exec()
         return result == QDialog.Accepted
-    

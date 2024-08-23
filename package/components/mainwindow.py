@@ -93,32 +93,33 @@ class MainWindow(QMainWindow):
         if current_item:
             self.general_nenu(current_widget, pos, "PAGE")
 
-
     def general_nenu(self, current_widget, pos, type_item):
         menu = QMenu(current_widget)
-        #
-        action_edit_composition = QAction(
-            "Изменить в редакторе состава ИД", current_widget
-        )
-        action_edit_composition.setIcon(self.__icons.get("edit_composition"))
-        action_edit_composition.triggered.connect(
-            partial(self.edit_menu_item, "COMPOSITION", type_item)
-        )
-        #
+        # action_edit_composition ТОЛЬКО для NODE
+        if type_item == "NODE":
+            action_edit_composition = QAction(
+                "Изменить в редакторе состава ИД", current_widget
+            )
+            action_edit_composition.setIcon(self.__icons.get("edit_composition"))
+            action_edit_composition.triggered.connect(
+                partial(self.edit_menu_item, "COMPOSITION", type_item)
+            )
+            menu.addAction(action_edit_composition)
+        # action_edit_templates для всех
         action_edit_templates = QAction("Изменить в редакторе шаблонов", current_widget)
         action_edit_templates.setIcon(self.__icons.get("edit_templates"))
         action_edit_templates.triggered.connect(
             partial(self.edit_menu_item, "TEMPLATE", type_item)
         )
-        #
-        action_edit_variables = QAction("Изменить в редакторе переменных", current_widget)
+        menu.addAction(action_edit_templates)
+        # action_edit_variables для всех
+        action_edit_variables = QAction(
+            "Изменить в редакторе переменных", current_widget
+        )
         action_edit_variables.setIcon(self.__icons.get("edit_variables"))
         action_edit_variables.triggered.connect(
             partial(self.edit_menu_item, "VARIABLE", type_item)
         )
-        #
-        menu.addAction(action_edit_composition)
-        menu.addAction(action_edit_templates)
         menu.addAction(action_edit_variables)
         #
         menu.exec(current_widget.mapToGlobal(pos))
@@ -136,7 +137,7 @@ class MainWindow(QMainWindow):
         #
         item_page = self.ui.lw_pages_template.currentItem()
         open_page = item_page.data(Qt.UserRole) if item_page else None
-        # TODO 
+        # 
         if type_edit == "VARIABLE":
             if type_item == "NODE":
                 self.edit_variables(open_node)
@@ -146,18 +147,15 @@ class MainWindow(QMainWindow):
                 self.edit_variables(open_node, open_template, open_page)
         elif type_edit == "TEMPLATE":
             if type_item == "NODE":
-                ...
+                self.edit_templates(open_node)
             elif type_item == "TEMPLATE":
-                ...
+                self.edit_templates(open_node, open_template)
             elif type_item == "PAGE":
-                ...
+                self.edit_templates(open_node, open_template, open_page)
         elif type_edit == "COMPOSITION":
+            # только для NODE
             if type_item == "NODE":
-                ...
-            elif type_item == "TEMPLATE":
-                ...
-            elif type_item == "PAGE":
-                ...
+                self.edit_structure_nodes(open_node)
         print(
             f"open_node = {open_node} \n open_template = {open_template} \n open_page = {open_page}"
         )
@@ -235,21 +233,19 @@ class MainWindow(QMainWindow):
         self.ui.action_export_to_pdf.setEnabled(True)
         self.ui.action_edit_templates.setEnabled(True)
 
-    def edit_variables(
-        self, open_node = None, open_template = None, open_page = None
-    ):
-        # TODO
+    def edit_variables(self, open_node=None, open_template=None, open_page=None):
         """Редактирование переменных."""
         self.__osbm.obj_logg.debug_logger("MainWindow edit_variables()")
         self.__osbm.obj_variablesldw = (
-            variableslistdialogwindow.VariablesListDialogWindow(self.__osbm, open_node, open_template, open_page)
+            variableslistdialogwindow.VariablesListDialogWindow(
+                self.__osbm, open_node, open_template, open_page
+            )
         )
         self.__osbm.obj_variablesldw.exec()
         self.update_main_window()
 
-    def edit_templates(self, open_node = None, open_template = None, open_page = None):
+    def edit_templates(self, open_node=None, open_template=None, open_page=None):
         """Редактирование шаблонов."""
-        # TODO
         self.__osbm.obj_logg.debug_logger("MainWindow edit_templates()")
         self.__osbm.obj_templdw = templateslistsialogwindow.TemplatesListDialogWindow(
             self.__osbm, open_node, open_template, open_page
@@ -257,12 +253,11 @@ class MainWindow(QMainWindow):
         self.__osbm.obj_templdw.exec()
         self.update_main_window()
 
-    def edit_structure_nodes(self, open_node = None, open_template = None, open_page = None):
-        # TODO
+    def edit_structure_nodes(self, open_node=None):
         """Редактирование структуры узлов."""
         self.__osbm.obj_logg.debug_logger("MainWindow edit_structure_nodes()")
         self.__osbm.obj_nedw = nodeseditordialogwindow.NodesEditorDialogWindow(
-            self.__osbm, open_node, open_template, open_page
+            self.__osbm, open_node
         )
         self.__osbm.obj_nedw.exec()
         self.update_main_window()
