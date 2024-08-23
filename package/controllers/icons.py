@@ -9,6 +9,7 @@ class Icons:
         self.__icons_cache = dict()
         self.__type_variable_to_key_icon = {
             "TEXT": "text",
+            "LONGTEXT": "longtext",
             "DATE": "date",
             "TABLE": "table",
             "IMAGE": "image"
@@ -33,6 +34,7 @@ class Icons:
             icons = dict()
             # типы переменных
             icons["text"] = QIcon(":/white-icons/resources/white-icons/text.svg")
+            icons["longtext"] = QIcon(":/white-icons/resources/white-icons/longtext.svg")
             icons["date"] = QIcon(":/white-icons/resources/white-icons/calendar.svg")
             icons["table"] = QIcon(":/white-icons/resources/white-icons/table.svg")
             icons["image"] = QIcon(":/white-icons/resources/white-icons/picture.svg")

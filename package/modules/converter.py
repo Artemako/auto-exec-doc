@@ -182,19 +182,22 @@ class ConverterPool:
         self, local_osbm, pair, data_variable, docx_template, is_rerender = False
     ):
         local_osbm.obj_logg.debug_logger(
-            f"Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template):\npair = {pair},\ndata_variable = {data_variable},\ndocx_template = {docx_template}"
+            f"Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):\npair = {pair},\ndata_variable = {data_variable},\ndocx_template = {docx_template} \nis_rerender = {is_rerender}"
         )
+        # TODO 
         id_pair = pair.get("id_pair")
         id_page = pair.get("id_page")
         id_variable = pair.get("id_variable")
-        name_variable = pair.get("name_variable")
+        # name_variable = pair.get("name_variable")
         value = pair.get("value_pair")
         # current_variable
         current_variable = local_osbm.obj_prodb.get_variable_by_id(id_variable)
+        print(f"current_variable = {current_variable}")
         type_variable = current_variable.get("type_variable")
+        name_variable = current_variable.get("name_variable")
         # скипаем если is_rerender
         if not is_rerender:
-            if type_variable == "TEXT":
+            if type_variable == "TEXT" or type_variable == "LONGTEXT":
                 self.type_variable_is_text(local_osbm, data_variable, name_variable, value)
             elif type_variable == "DATE":
                 self.type_variable_is_date(local_osbm, data_variable, name_variable, value)
@@ -231,6 +234,7 @@ class ConverterPool:
         )
         current_path = template_path
         flag = 50
+        is_rerender = False
         # создаем variable из sections_info
         data_variable = dict()
         while flag:
@@ -243,19 +247,21 @@ class ConverterPool:
                 # перебор пар в section_data секции
                 for pair in section_data:
                     self.check_type_variable_and_fill_data_variable(
-                        local_osbm, pair, data_variable, docx_template, is_rerender = True
+                        local_osbm, pair, data_variable, docx_template, is_rerender
                     )
             # первый render
             docx_template.render(data_variable)
             # узнаем новый список переменных
             new_set_of_variables = docx_template.get_undeclared_template_variables()
             # сохраняем документ
+            print(f"BEFORE SAVE data_variable = {data_variable}")
             docx_template.save(docx_path)
             # если список переменных изменился
             if len(new_set_of_variables) == 0 or new_set_of_variables == set_of_variables:
                 flag = False
             else:
                 current_path = docx_path
+                is_rerender = True
                 flag -= 1
         
 

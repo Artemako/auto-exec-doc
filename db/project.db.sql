@@ -15,7 +15,6 @@ CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
 	"id_pair"	INTEGER NOT NULL UNIQUE,
 	"id_node"	INTEGER NOT NULL,
 	"id_variable"	INTEGER NOT NULL,
-	"name_variable"	TEXT,
 	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
 	FOREIGN KEY("id_node") REFERENCES "Project_nodes"("id_node") ON DELETE CASCADE,
@@ -36,7 +35,6 @@ CREATE TABLE IF NOT EXISTS "Project_pages_data" (
 	"id_pair"	INTEGER NOT NULL UNIQUE,
 	"id_page"	INTEGER NOT NULL,
 	"id_variable"	INTEGER NOT NULL,
-	"name_variable"	TEXT,
 	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
 	FOREIGN KEY("id_page") REFERENCES "Project_pages"("id_page") ON DELETE CASCADE,
@@ -53,7 +51,6 @@ CREATE TABLE IF NOT EXISTS "Project_templates_data" (
 	"id_pair"	INTEGER NOT NULL UNIQUE,
 	"id_template"	INTEGER NOT NULL,
 	"id_variable"	INTEGER NOT NULL,
-	"name_variable"	TEXT,
 	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
 	FOREIGN KEY("id_template") REFERENCES "Project_templates"("id_template") ON DELETE CASCADE,
@@ -78,41 +75,41 @@ INSERT INTO "Project_nodes" VALUES (12,'Паспорт трассы',0,'3','GROU
 INSERT INTO "Project_nodes" VALUES (1201,'ПТ-1',12,'1','FORM',3,1);
 INSERT INTO "Project_nodes" VALUES (1202,'ПТ-2',12,'2','FORM',4,1);
 INSERT INTO "Project_nodes" VALUES (1203,'ПТ-3',12,'3','FORM',5,1);
-INSERT INTO "Project_nodes_data" VALUES (100,0,1003,'название_объекта',NULL);
-INSERT INTO "Project_nodes_data" VALUES (101,0,1004,'участок',NULL);
-INSERT INTO "Project_nodes_data" VALUES (102,0,1001,'название_компании',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1000,10,1000,'организационно_правовая_форма',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1001,10,1002,'адрес_компании',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1004,10,1005,'номер_кабеля',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1005,10,1006,'заказчик',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1006,10,1008,'город',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1007,10,1009,'год',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1100,11,1101,'инж_про_ком_фио',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1101,11,1208,'дата',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1200,12,1101,'инж_про_ком_фио',NULL);
-INSERT INTO "Project_nodes_data" VALUES (1201,12,1208,'дата',NULL);
+INSERT INTO "Project_nodes_data" VALUES (100,0,1003,NULL);
+INSERT INTO "Project_nodes_data" VALUES (101,0,1004,NULL);
+INSERT INTO "Project_nodes_data" VALUES (102,0,1001,NULL);
+INSERT INTO "Project_nodes_data" VALUES (1000,10,1000,NULL);
+INSERT INTO "Project_nodes_data" VALUES (1001,10,1002,NULL);
+INSERT INTO "Project_nodes_data" VALUES (1004,10,1005,NULL);
+INSERT INTO "Project_nodes_data" VALUES (1005,10,1006,NULL);
+INSERT INTO "Project_nodes_data" VALUES (1006,10,1008,NULL);
+INSERT INTO "Project_nodes_data" VALUES (1007,10,1009,NULL);
+INSERT INTO "Project_nodes_data" VALUES (1100,11,1101,NULL);
+INSERT INTO "Project_nodes_data" VALUES (1101,11,1208,NULL);
+INSERT INTO "Project_nodes_data" VALUES (1200,12,1101,NULL);
+INSERT INTO "Project_nodes_data" VALUES (1201,12,1208,NULL);
 INSERT INTO "Project_pages" VALUES (10,1,'Л.1. Титульный лист.','10',NULL,0,1);
 INSERT INTO "Project_pages" VALUES (11,1,'Л.2. Титульный лист.','11',NULL,1,1);
 INSERT INTO "Project_pages" VALUES (20,2,'Л.1. Реестр исполнительной документации ВОЛС.','20',NULL,0,1);
 INSERT INTO "Project_pages" VALUES (30,3,'Л.1. Паспорт трассы. Опись документов.','30',NULL,0,1);
 INSERT INTO "Project_pages" VALUES (40,4,'Л.1. Паспорт трассы волоконно-оптической линии связи на участке.','40',NULL,0,1);
 INSERT INTO "Project_pages" VALUES (50,5,'Л.1. Скелетная схема ВОЛП и основные данные цепей кабеля.','50',NULL,0,1);
-INSERT INTO "Project_pages_data" VALUES (100,10,1007,'строительно_монтажная_организация',NULL);
-INSERT INTO "Project_pages_data" VALUES (200,11,1100,'инж_про_ком',NULL);
-INSERT INTO "Project_pages_data" VALUES (201,11,1101,'инж_про_ком_фио',NULL);
-INSERT INTO "Project_pages_data" VALUES (202,11,1102,'гла_инж_компания',NULL);
-INSERT INTO "Project_pages_data" VALUES (203,11,1103,'гла_инж_фио',NULL);
-INSERT INTO "Project_pages_data" VALUES (300,20,1200,'реестр_ид_паспорт_трассы',NULL);
-INSERT INTO "Project_pages_data" VALUES (301,20,1201,'реестр_ид_эл_паспорт_трассы',NULL);
-INSERT INTO "Project_pages_data" VALUES (302,20,1202,'рабочая_документация',NULL);
-INSERT INTO "Project_pages_data" VALUES (400,30,1209,'пт_опись_документов',NULL);
-INSERT INTO "Project_pages_data" VALUES (500,40,1220,'кабеля',NULL);
-INSERT INTO "Project_pages_data" VALUES (501,40,1225,'общая_физ_длина',NULL);
-INSERT INTO "Project_pages_data" VALUES (502,40,1226,'общая_опт_длина',NULL);
-INSERT INTO "Project_pages_data" VALUES (503,40,1227,'год_прокладки_кабеля',NULL);
-INSERT INTO "Project_pages_data" VALUES (504,40,1228,'год_составления_паспорта',NULL);
-INSERT INTO "Project_pages_data" VALUES (505,40,1229,'отв_пред_орг_фио',NULL);
-INSERT INTO "Project_pages_data" VALUES (600,50,1230,'скелетная_схема_ВОЛП',NULL);
+INSERT INTO "Project_pages_data" VALUES (100,10,1007,NULL);
+INSERT INTO "Project_pages_data" VALUES (200,11,1100,NULL);
+INSERT INTO "Project_pages_data" VALUES (201,11,1101,NULL);
+INSERT INTO "Project_pages_data" VALUES (202,11,1102,NULL);
+INSERT INTO "Project_pages_data" VALUES (203,11,1103,NULL);
+INSERT INTO "Project_pages_data" VALUES (300,20,1200,NULL);
+INSERT INTO "Project_pages_data" VALUES (301,20,1201,NULL);
+INSERT INTO "Project_pages_data" VALUES (302,20,1202,NULL);
+INSERT INTO "Project_pages_data" VALUES (400,30,1209,NULL);
+INSERT INTO "Project_pages_data" VALUES (500,40,1220,NULL);
+INSERT INTO "Project_pages_data" VALUES (501,40,1225,NULL);
+INSERT INTO "Project_pages_data" VALUES (502,40,1226,NULL);
+INSERT INTO "Project_pages_data" VALUES (503,40,1227,NULL);
+INSERT INTO "Project_pages_data" VALUES (504,40,1228,NULL);
+INSERT INTO "Project_pages_data" VALUES (505,40,1229,NULL);
+INSERT INTO "Project_pages_data" VALUES (600,50,1230,NULL);
 INSERT INTO "Project_templates" VALUES (1,'main',10);
 INSERT INTO "Project_templates" VALUES (2,'main',11);
 INSERT INTO "Project_templates" VALUES (3,'main',1201);

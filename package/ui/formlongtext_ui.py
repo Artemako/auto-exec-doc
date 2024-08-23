@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'formtext.ui'
+## Form generated from reading UI file 'formlongtext.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.3
 ##
@@ -15,33 +15,33 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QLineEdit,
-    QSizePolicy, QTextBrowser, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QSizePolicy,
+    QTextBrowser, QTextEdit, QVBoxLayout, QWidget)
 
-class Ui_FormTextWidget(object):
-    def setupUi(self, FormTextWidget):
-        if not FormTextWidget.objectName():
-            FormTextWidget.setObjectName(u"FormTextWidget")
-        FormTextWidget.resize(465, 121)
+class Ui_FormLongTextWidget(object):
+    def setupUi(self, FormLongTextWidget):
+        if not FormLongTextWidget.objectName():
+            FormLongTextWidget.setObjectName(u"FormLongTextWidget")
+        FormLongTextWidget.resize(465, 170)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(FormTextWidget.sizePolicy().hasHeightForWidth())
-        FormTextWidget.setSizePolicy(sizePolicy)
-        FormTextWidget.setMaximumSize(QSize(16777215, 16777215))
-        self.verticalLayout = QVBoxLayout(FormTextWidget)
+        sizePolicy.setHeightForWidth(FormLongTextWidget.sizePolicy().hasHeightForWidth())
+        FormLongTextWidget.setSizePolicy(sizePolicy)
+        FormLongTextWidget.setMaximumSize(QSize(16777215, 16777215))
+        self.verticalLayout = QVBoxLayout(FormLongTextWidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.hl = QHBoxLayout()
         self.hl.setSpacing(9)
         self.hl.setObjectName(u"hl")
-        self.label_typevariable = QLabel(FormTextWidget)
+        self.label_typevariable = QLabel(FormLongTextWidget)
         self.label_typevariable.setObjectName(u"label_typevariable")
         self.label_typevariable.setAlignment(Qt.AlignCenter)
 
         self.hl.addWidget(self.label_typevariable)
 
-        self.title = QLabel(FormTextWidget)
+        self.title = QLabel(FormLongTextWidget)
         self.title.setObjectName(u"title")
         self.title.setMinimumSize(QSize(0, 0))
         self.title.setMaximumSize(QSize(16777215, 16))
@@ -55,12 +55,13 @@ class Ui_FormTextWidget(object):
 
         self.verticalLayout.addLayout(self.hl)
 
-        self.lineedit = QLineEdit(FormTextWidget)
-        self.lineedit.setObjectName(u"lineedit")
+        self.textedit = QTextEdit(FormLongTextWidget)
+        self.textedit.setObjectName(u"textedit")
+        self.textedit.setMaximumSize(QSize(16777215, 100))
 
-        self.verticalLayout.addWidget(self.lineedit)
+        self.verticalLayout.addWidget(self.textedit)
 
-        self.textbrowser = QTextBrowser(FormTextWidget)
+        self.textbrowser = QTextBrowser(FormLongTextWidget)
         self.textbrowser.setObjectName(u"textbrowser")
         self.textbrowser.setStyleSheet(u"background-color: #f0f0f0;\n"
 "border: none")
@@ -69,17 +70,16 @@ class Ui_FormTextWidget(object):
         self.verticalLayout.addWidget(self.textbrowser)
 
 
-        self.retranslateUi(FormTextWidget)
+        self.retranslateUi(FormLongTextWidget)
 
-        QMetaObject.connectSlotsByName(FormTextWidget)
+        QMetaObject.connectSlotsByName(FormLongTextWidget)
     # setupUi
 
-    def retranslateUi(self, FormTextWidget):
-        FormTextWidget.setWindowTitle(QCoreApplication.translate("FormTextWidget", u"Form", None))
-        self.label_typevariable.setText(QCoreApplication.translate("FormTextWidget", u"\u0418\u041a", None))
-        self.title.setText(QCoreApplication.translate("FormTextWidget", u"<html><head/><body><p>\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a</p></body></html>", None))
-        self.lineedit.setText("")
-        self.textbrowser.setHtml(QCoreApplication.translate("FormTextWidget", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+    def retranslateUi(self, FormLongTextWidget):
+        FormLongTextWidget.setWindowTitle(QCoreApplication.translate("FormLongTextWidget", u"Form", None))
+        self.label_typevariable.setText(QCoreApplication.translate("FormLongTextWidget", u"\u0418\u041a", None))
+        self.title.setText(QCoreApplication.translate("FormLongTextWidget", u"<html><head/><body><p>\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a</p></body></html>", None))
+        self.textbrowser.setHtml(QCoreApplication.translate("FormLongTextWidget", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"

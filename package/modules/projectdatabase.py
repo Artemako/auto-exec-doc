@@ -61,7 +61,6 @@ CREATE TABLE IF NOT EXISTS "Project_nodes_data" (
 	"id_pair"	INTEGER NOT NULL UNIQUE,
 	"id_node"	INTEGER NOT NULL,
 	"id_variable"	INTEGER NOT NULL,
-	"name_variable"	TEXT,
 	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
 	FOREIGN KEY("id_node") REFERENCES "Project_nodes"("id_node") ON DELETE CASCADE,
@@ -82,7 +81,6 @@ CREATE TABLE IF NOT EXISTS "Project_pages_data" (
 	"id_pair"	INTEGER NOT NULL UNIQUE,
 	"id_page"	INTEGER NOT NULL,
 	"id_variable"	INTEGER NOT NULL,
-	"name_variable"	TEXT,
 	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
 	FOREIGN KEY("id_page") REFERENCES "Project_pages"("id_page") ON DELETE CASCADE,
@@ -99,7 +97,6 @@ CREATE TABLE IF NOT EXISTS "Project_templates_data" (
 	"id_pair"	INTEGER NOT NULL UNIQUE,
 	"id_template"	INTEGER NOT NULL,
 	"id_variable"	INTEGER NOT NULL,
-	"name_variable"	TEXT,
 	"value_pair"	TEXT,
 	PRIMARY KEY("id_pair" AUTOINCREMENT),
 	FOREIGN KEY("id_template") REFERENCES "Project_templates"("id_template") ON DELETE CASCADE,
@@ -116,6 +113,9 @@ CREATE TABLE IF NOT EXISTS "Project_variables" (
 	"is_global"	INTEGER,
 	PRIMARY KEY("id_variable" AUTOINCREMENT),
 	UNIQUE("name_variable")
+);
+INSERT INTO "Project_nodes" VALUES (0,'Проект',NULL,'0','PROJECT',NULL,1);
+COMMIT;
 );
         """
         )

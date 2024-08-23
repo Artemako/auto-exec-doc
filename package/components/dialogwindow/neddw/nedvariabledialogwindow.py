@@ -107,7 +107,7 @@ class NedVariableDialogWindow(QDialog):
         if len(le_namevariable) > 0 and len(le_titlevariable) > 0 and is_valid_jinja_variable:
             # получит config_data в зависимости от типа переменной
             type_variable = self.ui.combox_typevariable.currentData()
-            if type_variable == "TEXT":
+            if type_variable == "TEXT" or type_variable == "LONGTEXT":
                 config_data = {}
             else:
                 config_data = self.__additional_widget.get_save_data()
@@ -219,21 +219,24 @@ class NedVariableDialogWindow(QDialog):
                 index = 0
         self.clear_layout(self.ui.vbl_additional_info)
         self.__additional_widget = None
-        if index == 1:
+        #
+        data = self.__osbm.obj_comwith.variable_types.get_data_by_index(index)
+        if data == "DATE":
             self.__additional_widget = neddatevariable.NedDateVariable(
                 self.__osbm, self.__type_window, self.__variable
             )
             self.ui.vbl_additional_info.addWidget(self.__additional_widget)
-        elif index == 2:
+        elif data == "TABLE":
             self.__additional_widget = nedtablevariable.NedTableVariable(
                 self.__osbm, self.__type_window, self.__variable
             )
             self.ui.vbl_additional_info.addWidget(self.__additional_widget)
-        elif index == 3:
+        elif data == "IMAGE":
             self.__additional_widget = nedimagevariable.NedImageVariable(
                 self.__osbm, self.__type_window, self.__variable
             )
             self.ui.vbl_additional_info.addWidget(self.__additional_widget)
+        #
         QTimer.singleShot(
             0, self, lambda: self.__osbm.obj_comwith.resizeqt.set_temp_max_height(self)
         )

@@ -7,6 +7,7 @@ import package.components.widgets.forms.formdate as formdate
 import package.components.widgets.forms.formimage as formimage
 import package.components.widgets.forms.formtable as formtable
 import package.components.widgets.forms.formtext as formtext
+import package.components.widgets.forms.formlongtext as formlongtext
 
 from PySide6.QtWidgets import QLabel, QVBoxLayout, QPushButton, QSpacerItem, QSizePolicy
 
@@ -53,13 +54,13 @@ class SAInputForms:
         section_name = None
         if section_type == "page":
             page = section_info.get("page")
-            section_name = page.get("name_page")
+            section_name = f'Страница: {page.get("name_page")}'
         elif section_type == "template":
             template = section_info.get("template")
-            section_name = template.get("name_template")
+            section_name = f'Шаблон: {template.get("name_template")}'
         elif section_type == "group":
             group = section_info.get("group")
-            section_name = group.get("name_node")
+            section_name = f'Группа: {group.get("name_node")}'
         elif section_type == "project":
             project = section_info.get("project")
             section_name = project.get("name_node")
@@ -82,6 +83,10 @@ class SAInputForms:
             config_dict = json.loads(config_variable)
         if type_variable == "TEXT":
             item = formtext.FormText(self.__osbm, pair, current_variable)
+            section_layout.addWidget(item)
+
+        elif type_variable == "LONGTEXT":
+            item = formlongtext.FormLongTextWidget(self.__osbm, pair, current_variable)
             section_layout.addWidget(item)
 
         elif type_variable == "DATE":

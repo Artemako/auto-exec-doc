@@ -1,19 +1,17 @@
 from PySide6.QtWidgets import QWidget
 
-import package.ui.formtext_ui as formtext_ui
-
-import package.controllers.sainputforms as sainputforms
+import package.ui.formlongtext_ui as formlongtext_ui
 
 
-class FormText(QWidget):
+class FormLongTextWidget(QWidget):
     def __init__(self, osbm, pair, current_variable):
         self.__osbm = osbm
         self.__pair = pair
         self.__current_variable = current_variable
-        self.__osbm.obj_logg.debug_logger(f"FormText __init__(pair, current_variable): pair = {pair},\ncurrent_variable = {current_variable}")        
+        self.__osbm.obj_logg.debug_logger(f"FormLongTextWidget __init__(pair, current_variable): pair = {pair},\ncurrent_variable = {current_variable}")        
         
-        super(FormText, self).__init__()
-        self.ui = formtext_ui.Ui_FormTextWidget()
+        super(FormLongTextWidget, self).__init__()
+        self.ui = formlongtext_ui.Ui_FormLongTextWidget()
         self.ui.setupUi(self)
         # СТИЛЬ
         self.__osbm.obj_style.set_style_for(self)
@@ -30,7 +28,7 @@ class FormText(QWidget):
         # заголовок 
         self.ui.title.setText(self.__current_variable.get('title_variable'))
         # поле ввода
-        self.ui.lineedit.setText(self.__pair.get("value_pair"))
+        self.ui.textedit.setText(self.__pair.get("value_pair"))
         # описание
         description_variable = self.__current_variable.get('description_variable')
         if description_variable:
@@ -39,8 +37,8 @@ class FormText(QWidget):
             self.ui.textbrowser.hide()
 
         # connect
-        self.ui.lineedit.textChanged.connect(lambda text: self.set_new_value_in_pair(text))
+        self.ui.textedit.textChanged.connect(self.set_new_value_in_pair)
 
-    def set_new_value_in_pair(self, new_value):
-        self.__osbm.obj_logg.debug_logger(f"FormText set_new_value_in_pair(pair, new_value):\nnew_value = {new_value}")
-        self.__pair["value_pair"] = new_value
+    def set_new_value_in_pair(self):
+        self.__osbm.obj_logg.debug_logger(f"FormText set_new_value_in_pair(pair, new_value):\nnew_value = {self.ui.textedit.toPlainText()}")
+        self.__pair["value_pair"] = self.ui.textedit.toPlainText()

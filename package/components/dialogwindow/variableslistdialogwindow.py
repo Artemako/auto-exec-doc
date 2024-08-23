@@ -29,7 +29,6 @@ class NumericItem(QTableWidgetItem):
         return self.data(Qt.UserRole) < other.data(Qt.UserRole)
 
 
-# TODO Сделать open_...
 class VariablesListDialogWindow(QDialog):
     def __init__(self, osbm, open_node, open_template, open_page):
         self.__osbm = osbm

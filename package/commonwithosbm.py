@@ -16,14 +16,26 @@ class VariableTypes:
         self.__icons = self.__osbm.obj_icons.get_icons()
         self.__variable_types = [
             VariableType(0, "Текст", "TEXT", self.__icons.get("text"), False),
-            VariableType(1, "Дата", "DATE", self.__icons.get("date"), False),
-            VariableType(2, "Таблица", "TABLE", self.__icons.get("table"), True),
-            VariableType(3, "Изображение", "IMAGE", self.__icons.get("image"), False),
+            VariableType(1, "Длинный текст", "LONGTEXT", self.__icons.get("longtext"), False),
+            VariableType(2, "Дата", "DATE", self.__icons.get("date"), False),
+            VariableType(3, "Таблица", "TABLE", self.__icons.get("table"), True),
+            VariableType(4, "Изображение", "IMAGE", self.__icons.get("image"), False),
         ]
 
     def get_variable_types(self):
         self.__osbm.obj_logg.debug_logger("VariableTypes get_variable_types()")
         return self.__variable_types
+
+    def get_data_by_index(self, index):
+        result = None
+        for variable in self.__variable_types:
+            if variable.index == index:
+                result = variable.data
+                break
+        self.__osbm.obj_logg.debug_logger(
+            f"VariableTypes get_data_by_index(index):\nindex = {index}\n result = {result}"
+        )
+        return result
 
     def get_index_by_data(self, data):
         result = None
