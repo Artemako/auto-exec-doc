@@ -26,6 +26,8 @@ class FormImage(QWidget):
         #
         self.config()
 
+    # TODO ФОРМА ИЗОБРАЖЕНИЯ 
+
     def config(self):
         self.__osbm.obj_logg.debug_logger("FormImage config()")
         # тип переменной

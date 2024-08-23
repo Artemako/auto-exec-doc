@@ -27,7 +27,7 @@ class FormDate(QWidget):
         #
         self.config()
         
-        
+    # TODO ФОРМА ДАТЫ
 
     def config(self):
         self.__osbm.obj_logg.debug_logger("FormDate config()")

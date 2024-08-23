@@ -145,6 +145,7 @@ class ConverterPool:
             f"Converter type_variable_is_table(data_variable, name_variable, value, id_variable):\ndata_variable = {data_variable},\nname_variable = {name_variable},\nvalue = {value},\nid_variable = {id_variable}"
         )
         try:
+            # TODO Таблица
             if value:
                 current_variable = local_osbm.obj_prodb.get_variable_by_id(id_variable)
                 config_variable = current_variable.get("config_variable")

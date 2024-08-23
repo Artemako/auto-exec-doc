@@ -22,6 +22,8 @@ class FormText(QWidget):
         # 
         self.config()
 
+    # TODO Подумать про LONGTEXT
+
     def config(self):
         # тип переменной
         key_icon = self.__osbm.obj_icons.get_key_icon_by_type_variable(self.__current_variable.get("type_variable"))
