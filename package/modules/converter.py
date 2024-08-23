@@ -9,6 +9,7 @@ import multiprocessing
 import comtypes.client
 import subprocess
 
+from PySide6.QtCore import QDate
 
 from pypdf import PdfWriter
 import datetime
@@ -113,6 +114,7 @@ class ConverterPool:
             f"Converter type_variable_is_date(data_variable, name_variable, value):\ndata_variable = {data_variable},\nname_variable = {name_variable},\nvalue = {value}"
         )
         try:
+            # TODO Подумать про время QDate 
             if value:
                 data_variable[str(name_variable)] = value
         except Exception as e: 

@@ -33,6 +33,13 @@ class TemplatesListDialogWindow(QDialog):
         # # подключаем деействия
         self.connecting_actions()
 
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
+            # Игнорируем нажатие Enter
+            event.ignore()
+        else:
+            super().keyPressEvent(event)
+
     def resizeEvent(self, event):
         super(TemplatesListDialogWindow, self).resizeEvent(event)
         QTimer.singleShot(0, self, self.update_sizes)

@@ -15,14 +15,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QLineEdit,
-    QSizePolicy, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QDateEdit, QFrame, QHBoxLayout,
+    QLabel, QLineEdit, QSizePolicy, QVBoxLayout,
+    QWidget)
 
 class Ui_NedDateVariable(object):
     def setupUi(self, NedDateVariable):
         if not NedDateVariable.objectName():
             NedDateVariable.setObjectName(u"NedDateVariable")
-        NedDateVariable.resize(400, 53)
+        NedDateVariable.resize(400, 107)
         self.verticalLayout = QVBoxLayout(NedDateVariable)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -47,6 +48,28 @@ class Ui_NedDateVariable(object):
 
         self.verticalLayout.addWidget(self.lineedit_format)
 
+        self.hl = QHBoxLayout()
+        self.hl.setObjectName(u"hl")
+        self.label_check = QLabel(NedDateVariable)
+        self.label_check.setObjectName(u"label_check")
+
+        self.hl.addWidget(self.label_check)
+
+        self.dateedit_check = QDateEdit(NedDateVariable)
+        self.dateedit_check.setObjectName(u"dateedit_check")
+
+        self.hl.addWidget(self.dateedit_check)
+
+        self.label_result = QLabel(NedDateVariable)
+        self.label_result.setObjectName(u"label_result")
+
+        self.hl.addWidget(self.label_result)
+
+        self.hl.setStretch(1, 1)
+        self.hl.setStretch(2, 1)
+
+        self.verticalLayout.addLayout(self.hl)
+
         self.line = QFrame(NedDateVariable)
         self.line.setObjectName(u"line")
         self.line.setFrameShape(QFrame.HLine)
@@ -63,5 +86,7 @@ class Ui_NedDateVariable(object):
     def retranslateUi(self, NedDateVariable):
         NedDateVariable.setWindowTitle(QCoreApplication.translate("NedDateVariable", u"Form", None))
         self.formatdate.setText(QCoreApplication.translate("NedDateVariable", u"<html><head/><body><p>\u0424\u043e\u0440\u043c\u0430\u0442 \u0434\u0430\u0442\u044b</p></body></html>", None))
+        self.label_check.setText(QCoreApplication.translate("NedDateVariable", u"\u041f\u0440\u043e\u0432\u0435\u0440\u043a\u0430:", None))
+        self.label_result.setText("")
     # retranslateUi
 

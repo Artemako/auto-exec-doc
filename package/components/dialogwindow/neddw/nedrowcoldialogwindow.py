@@ -1,6 +1,7 @@
 import re
 
 from PySide6.QtWidgets import QDialog
+from PySide6.QtCore import Qt
 
 import package.ui.nedrowcoldialogwindow_ui as nedrowcoldialogwindow_ui
 
@@ -26,6 +27,13 @@ class NedRowcolDialogWindow(QDialog):
         self.config_by_type_window()
         self.config_combox_neighboor()
         self.connecting_actions()
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
+            # Игнорируем нажатие Enter
+            event.ignore()
+        else:
+            super().keyPressEvent(event)
 
     def get_data(self):
         self.__osbm.obj_logg.debug_logger(

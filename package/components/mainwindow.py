@@ -110,6 +110,8 @@ class MainWindow(QMainWindow):
         self.ui.action_edit_composition.triggered.connect(
             lambda: self.edit_structure_nodes()
         )
+    
+
 
     def start_qt_actions(self):
         self.ui.action_new.setEnabled(True)

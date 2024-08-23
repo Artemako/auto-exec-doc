@@ -52,6 +52,13 @@ class VariablesListDialogWindow(QDialog):
         # отобразить первый таб (в нём caf - reconfig)
         self.show_tab_project()
 
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
+            # Игнорируем нажатие Enter
+            event.ignore()
+        else:
+            super().keyPressEvent(event)
+
     def initalizate_tabs_objects(self):
         self.__osbm.obj_logg.debug_logger(
             "VariablesListDialogWindow initalizate_tabs_objects()"

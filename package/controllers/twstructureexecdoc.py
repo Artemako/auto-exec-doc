@@ -1,6 +1,8 @@
-from PySide6.QtWidgets import QTreeWidgetItem
+from PySide6.QtWidgets import QTreeWidgetItem, QMenu
 from PySide6.QtCore import Qt
+from PySide6.QtGui import QAction
 
+from functools import partial
 
 class TWStructureExecDoc:
     def __init__(self):
@@ -25,6 +27,7 @@ class TWStructureExecDoc:
         )
         self.__tw = tr_sed
         self.__icons = self.__osbm.obj_icons.get_icons()
+
         # Очистить при запуске
         self.clear_sed()
 
@@ -35,6 +38,24 @@ class TWStructureExecDoc:
         # раскрытие/свертывание элементов
         self.__tw.itemExpanded.connect(self.on_item_expanded)
         self.__tw.itemCollapsed.connect(self.on_item_collapsed)
+        # окно по правой кнопки мыши
+        self.__tw.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.__tw.customContextMenuRequested.connect(self.context_menu_tree)
+
+    def context_menu_tree(self, pos):
+        # TODO
+        """Создание контекстного меню для QTreeWidget."""
+        current_item = self.__tw.currentItem()
+        if current_item:
+            menu = QMenu(self.__tw)
+            action_edit_variables = QAction("Редактировать переменные", self.__tw)
+            action_edit_variables.setIcon(self.__icons.get("edit_variables"))
+            action_edit_variables.triggered.connect(partial(self.edit_variables, "NODE"))
+            menu.addAction(action_edit_variables)
+            menu.exec(self.__tw.mapToGlobal(pos))
+
+    def edit_variables(self, type):
+        print(f"Я ЗАСКАЗАЛ РЕДАКТИРОВАТЬ ПЕРЕМЕННЫЕ ДЛЯ ЭЛЕМЕНТА {type}")
 
     def get_current_node(self):
         self.__osbm.obj_logg.debug_logger("TWStructureExecDoc get_current_node()")

@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QDialog
-from PySide6.QtCore import QTimer
+from PySide6.QtCore import QTimer, Qt
 
 import re
 
@@ -42,6 +42,13 @@ class NedVariableDialogWindow(QDialog):
         self.update_additional_info()
         # подключаем действия
         self.connecting_actions()
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
+            # Игнорируем нажатие Enter
+            event.ignore()
+        else:
+            super().keyPressEvent(event)
 
     def get_data(self):
         self.__osbm.obj_logg.debug_logger(

@@ -27,6 +27,12 @@ class NodesEditorDialogWindow(QDialog):
         #
         self.connecting_actions()
    
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
+            # Игнорируем нажатие Enter
+            event.ignore()
+        else:
+            super().keyPressEvent(event)
 
     def config(self):
         self.__osbm.obj_logg.debug_logger("NodesEditorDialogWindow config()")

@@ -9,6 +9,8 @@ from PySide6.QtWidgets import (
     QHeaderView,
 )
 
+from PySide6.QtCore import Qt
+
 import package.ui.nedpagedialogwindow_ui as nedpagedialogwindow_ui
 
 import package.components.dialogwindow.neddw.nedvariabledialogwindow as nedvariabledialogwindow
@@ -54,6 +56,13 @@ class NedPageDialogWindow(QDialog):
         self.reconfig_is_edit()
         self.config_combox_neighboor()
         self.connecting_actions()
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
+            # Игнорируем нажатие Enter
+            event.ignore()
+        else:
+            super().keyPressEvent(event)
 
     def set_active_find_variables(self, state):
         """найденные переменные"""

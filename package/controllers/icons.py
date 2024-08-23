@@ -57,6 +57,8 @@ class Icons:
             icons["page"] = QIcon(":/white-icons/resources/white-icons/file-text.svg")
             # pdf
             icons["pdf"] = QIcon(":/white-icons/resources/white-icons/pdf.svg")
+            # actions
+            icons["edit_variables"] = QIcon(":/white-icons/resources/white-icons/text-editor.svg")
             #
             for key, elem in icons.items():
                 if key in ["red_circle", "yellow_circle", "green_circle"]:
