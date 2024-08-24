@@ -186,7 +186,7 @@
      <item>
       <widget class="QPushButton" name="btn_close">
        <property name="text">
-        <string>Закрыть</string>
+        <string>Отмена</string>
        </property>
        <property name="icon">
         <iconset>
@@ -198,8 +198,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../../resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

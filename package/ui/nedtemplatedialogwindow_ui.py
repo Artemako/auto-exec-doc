@@ -18,7 +18,6 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QDialog,
     QFrame, QHBoxLayout, QLabel, QLineEdit,
     QPushButton, QSizePolicy, QVBoxLayout, QWidget)
-import resources_rc
 
 class Ui_NedTemplateDialogWindow(object):
     def setupUi(self, NedTemplateDialogWindow):
@@ -102,6 +101,6 @@ class Ui_NedTemplateDialogWindow(object):
         self.label_copyfrom.setText(QCoreApplication.translate("NedTemplateDialogWindow", u"\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0434\u0430\u043d\u043d\u044b\u0435 \u0441 ", None))
         self.checkbox_is_active.setText(QCoreApplication.translate("NedTemplateDialogWindow", u"\u0421\u0434\u0435\u043b\u0430\u0442\u044c \u0442\u0435\u043a\u0443\u0449\u0438\u043c \u0448\u0430\u0431\u043b\u043e\u043d\u043e\u043c \u0444\u043e\u0440\u043c\u044b", None))
         self.btn_nesvariable.setText(QCoreApplication.translate("NedTemplateDialogWindow", u"...", None))
-        self.btn_close.setText(QCoreApplication.translate("NedTemplateDialogWindow", u"\u0417\u0430\u043a\u0440\u044b\u0442\u044c", None))
+        self.btn_close.setText(QCoreApplication.translate("NedTemplateDialogWindow", u"\u041e\u0442\u043c\u0435\u043d\u0430", None))
     # retranslateUi
 

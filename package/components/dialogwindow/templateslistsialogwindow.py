@@ -121,20 +121,23 @@ class TemplatesListDialogWindow(QDialog):
         self.__osbm.obj_logg.debug_logger(
             "TemplatesListDialogWindow config_templates()"
         )
+        #
+        list_widget = self.ui.lw_templates
+        list_widget.blockSignals(True)
+        list_widget.clear()
+        #
         form = self.ui.combox_forms.currentData()
-
         print(f"form = {form}")
         if form:
             templates = self.__osbm.obj_prodb.get_templates_by_form(form)
             self.__templates = templates
             self.__templates_items = []
-            list_widget = self.ui.lw_templates
+            
             #
             id_active_template = form.get("id_active_template")
             print(f"form = {form}")
             print(f"templates = {templates}")
-            list_widget.blockSignals(True)
-            list_widget.clear()
+            
             for template in templates:
                 is_active = False
                 if template.get("id_template") == id_active_template:
@@ -170,10 +173,15 @@ class TemplatesListDialogWindow(QDialog):
                     list_widget.setCurrentRow(index_template)
                 else:
                     list_widget.setCurrentRow(0)
-            list_widget.blockSignals(False)
+        list_widget.blockSignals(False)
 
     def config_pages(self, open_page=None):
         self.__osbm.obj_logg.debug_logger("TemplatesListDialogWindow config_pages()")
+        #
+        list_widget = self.ui.lw_pages 
+        list_widget.blockSignals(True)
+        list_widget.clear()
+        #
         item_template = self.ui.lw_templates.currentItem()
         if item_template is not None:
             print("if item_template is not None:")
@@ -182,10 +190,6 @@ class TemplatesListDialogWindow(QDialog):
             pages = self.__osbm.obj_prodb.get_pages_by_template(template)
             self.__pages = pages
             self.__pages_items = []
-            list_widget = self.ui.lw_pages
-            #
-            list_widget.blockSignals(True)
-            list_widget.clear()
             for page in pages:
                 custom_widget = customitemqlistwidget.CustomItemQListWidget(
                     self.__osbm, "PAGE", page
@@ -218,7 +222,7 @@ class TemplatesListDialogWindow(QDialog):
                     list_widget.setCurrentRow(0)
             #
 
-            list_widget.blockSignals(False)
+        list_widget.blockSignals(False)
 
     def config_buttons_for_item(self, item_widget):
         self.__osbm.obj_logg.debug_logger(

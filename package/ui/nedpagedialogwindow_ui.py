@@ -19,7 +19,6 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QFrame,
     QHBoxLayout, QHeaderView, QLabel, QLineEdit,
     QPushButton, QSizePolicy, QTableWidget, QTableWidgetItem,
     QVBoxLayout, QWidget)
-import resources_rc
 
 class Ui_NedPageDialogWindow(object):
     def setupUi(self, NedPageDialogWindow):
@@ -161,6 +160,6 @@ class Ui_NedPageDialogWindow(object):
         self.label_variables.setText(QCoreApplication.translate("NedPageDialogWindow", u"<html><head/><body><p>\u041d\u0430\u0439\u0434\u0435\u043d\u043d\u044b\u0435 \u043f\u0435\u0440\u0435\u043c\u0435\u043d\u043d\u044b\u0435 (\u0434\u043b\u044f docx)</p></body></html>", None))
         self.btn_findvariables.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u041f\u043e\u0438\u0441\u043a \u043f\u0435\u0440\u0435\u043c\u0435\u043d\u043d\u044b\u0445 \u0432 \u0432\u044b\u0431\u0440\u0430\u043d\u043d\u043e\u043c \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0435", None))
         self.btn_nedvariable.setText(QCoreApplication.translate("NedPageDialogWindow", u"...", None))
-        self.btn_close.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u0417\u0430\u043a\u0440\u044b\u0442\u044c", None))
+        self.btn_close.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u041e\u0442\u043c\u0435\u043d\u0430", None))
     # retranslateUi
 

@@ -18,7 +18,6 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QFrame,
     QHBoxLayout, QLabel, QLineEdit, QPushButton,
     QSizePolicy, QVBoxLayout, QWidget)
-import resources_rc
 
 class Ui_NedNodeDialogWindow(object):
     def setupUi(self, NedNodeDialogWindow):
@@ -107,6 +106,6 @@ class Ui_NedNodeDialogWindow(object):
         self.lineedit_namenode.setText("")
         self.label_placement.setText(QCoreApplication.translate("NedNodeDialogWindow", u"\u0420\u0430\u0441\u043f\u043e\u043b\u043e\u0436\u0438\u0442\u044c \u0432\u043d\u0443\u0442\u0440\u0438 ", None))
         self.btn_nesvariable.setText(QCoreApplication.translate("NedNodeDialogWindow", u"...", None))
-        self.btn_close.setText(QCoreApplication.translate("NedNodeDialogWindow", u"\u0417\u0430\u043a\u0440\u044b\u0442\u044c", None))
+        self.btn_close.setText(QCoreApplication.translate("NedNodeDialogWindow", u"\u041e\u0442\u043c\u0435\u043d\u0430", None))
     # retranslateUi
 

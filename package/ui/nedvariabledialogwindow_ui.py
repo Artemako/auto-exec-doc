@@ -18,7 +18,6 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QFrame,
     QHBoxLayout, QLabel, QLineEdit, QPushButton,
     QSizePolicy, QVBoxLayout, QWidget)
-import resources_rc
 
 class Ui_NedVariableDialogWindow(object):
     def setupUi(self, NedVariableDialogWindow):
@@ -135,7 +134,7 @@ class Ui_NedVariableDialogWindow(object):
 
     def retranslateUi(self, NedVariableDialogWindow):
         NedVariableDialogWindow.setWindowTitle(QCoreApplication.translate("NedVariableDialogWindow", u"Dialog", None))
-        self.namevariable.setText(QCoreApplication.translate("NedVariableDialogWindow", u"<html><head/><body><p>\u0422\u0435\u0433</p></body></html>", None))
+        self.namevariable.setText(QCoreApplication.translate("NedVariableDialogWindow", u"<html><head/><body><p>\u041f\u0435\u0440\u0435\u043c\u0435\u043d\u043d\u0430\u044f</p></body></html>", None))
         self.lineedit_namevariable.setText("")
         self.titlevariable.setText(QCoreApplication.translate("NedVariableDialogWindow", u"<html><head/><body><p>\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u043f\u0435\u0440\u0435\u043c\u0435\u043d\u043d\u043e\u0439</p></body></html>", None))
         self.lineedit_titlevariable.setText("")

@@ -23,7 +23,7 @@ class Ui_NedDateVariable(object):
     def setupUi(self, NedDateVariable):
         if not NedDateVariable.objectName():
             NedDateVariable.setObjectName(u"NedDateVariable")
-        NedDateVariable.resize(400, 107)
+        NedDateVariable.resize(400, 83)
         self.verticalLayout = QVBoxLayout(NedDateVariable)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)

@@ -24,24 +24,24 @@ class Ui_TemplatesListDialogWindow(object):
     def setupUi(self, TemplatesListDialogWindow):
         if not TemplatesListDialogWindow.objectName():
             TemplatesListDialogWindow.setObjectName(u"TemplatesListDialogWindow")
-        TemplatesListDialogWindow.resize(400, 600)
-        TemplatesListDialogWindow.setMinimumSize(QSize(300, 0))
+        TemplatesListDialogWindow.resize(700, 383)
+        TemplatesListDialogWindow.setMinimumSize(QSize(500, 0))
         TemplatesListDialogWindow.setMaximumSize(QSize(16777215, 16777215))
-        self.verticalLayout_3 = QVBoxLayout(TemplatesListDialogWindow)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.verticalLayout = QVBoxLayout(TemplatesListDialogWindow)
+        self.verticalLayout.setObjectName(u"verticalLayout")
         self.label_form = QLabel(TemplatesListDialogWindow)
         self.label_form.setObjectName(u"label_form")
 
-        self.verticalLayout_3.addWidget(self.label_form)
+        self.verticalLayout.addWidget(self.label_form)
 
         self.combox_forms = QComboBox(TemplatesListDialogWindow)
         self.combox_forms.setObjectName(u"combox_forms")
 
-        self.verticalLayout_3.addWidget(self.combox_forms)
+        self.verticalLayout.addWidget(self.combox_forms)
 
         self.splitter = QSplitter(TemplatesListDialogWindow)
         self.splitter.setObjectName(u"splitter")
-        self.splitter.setOrientation(Qt.Vertical)
+        self.splitter.setOrientation(Qt.Horizontal)
         self.verticalLayoutWidget = QWidget(self.splitter)
         self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
         self.vl_templates = QVBoxLayout(self.verticalLayoutWidget)
@@ -85,20 +85,21 @@ class Ui_TemplatesListDialogWindow(object):
 
         self.splitter.addWidget(self.verticalLayoutWidget_2)
 
-        self.verticalLayout_3.addWidget(self.splitter)
+        self.verticalLayout.addWidget(self.splitter)
 
         self.line = QFrame(TemplatesListDialogWindow)
         self.line.setObjectName(u"line")
         self.line.setFrameShape(QFrame.HLine)
         self.line.setFrameShadow(QFrame.Sunken)
 
-        self.verticalLayout_3.addWidget(self.line)
+        self.verticalLayout.addWidget(self.line)
 
         self.btn_close = QPushButton(TemplatesListDialogWindow)
         self.btn_close.setObjectName(u"btn_close")
 
-        self.verticalLayout_3.addWidget(self.btn_close)
+        self.verticalLayout.addWidget(self.btn_close)
 
+        self.verticalLayout.setStretch(2, 3)
 
         self.retranslateUi(TemplatesListDialogWindow)
 
