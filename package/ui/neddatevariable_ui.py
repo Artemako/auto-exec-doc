@@ -15,15 +15,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QDateEdit, QFrame, QHBoxLayout,
-    QLabel, QLineEdit, QSizePolicy, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QDateEdit, QFrame,
+    QHBoxLayout, QLabel, QLineEdit, QSizePolicy,
+    QVBoxLayout, QWidget)
 
 class Ui_NedDateVariable(object):
     def setupUi(self, NedDateVariable):
         if not NedDateVariable.objectName():
             NedDateVariable.setObjectName(u"NedDateVariable")
-        NedDateVariable.resize(400, 83)
+        NedDateVariable.resize(400, 133)
         self.verticalLayout = QVBoxLayout(NedDateVariable)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -47,6 +47,16 @@ class Ui_NedDateVariable(object):
         self.lineedit_format.setClearButtonEnabled(False)
 
         self.verticalLayout.addWidget(self.lineedit_format)
+
+        self.label_language = QLabel(NedDateVariable)
+        self.label_language.setObjectName(u"label_language")
+
+        self.verticalLayout.addWidget(self.label_language)
+
+        self.combox_language = QComboBox(NedDateVariable)
+        self.combox_language.setObjectName(u"combox_language")
+
+        self.verticalLayout.addWidget(self.combox_language)
 
         self.hl = QHBoxLayout()
         self.hl.setObjectName(u"hl")
@@ -86,6 +96,7 @@ class Ui_NedDateVariable(object):
     def retranslateUi(self, NedDateVariable):
         NedDateVariable.setWindowTitle(QCoreApplication.translate("NedDateVariable", u"Form", None))
         self.formatdate.setText(QCoreApplication.translate("NedDateVariable", u"<html><head/><body><p>\u0424\u043e\u0440\u043c\u0430\u0442 \u0434\u0430\u0442\u044b</p></body></html>", None))
+        self.label_language.setText(QCoreApplication.translate("NedDateVariable", u"<html><head/><body><p><span style=\" font-weight:700;\">\u042f\u0437\u044b\u043a </span></p></body></html>", None))
         self.label_check.setText(QCoreApplication.translate("NedDateVariable", u"\u041f\u0440\u043e\u0432\u0435\u0440\u043a\u0430:", None))
         self.label_result.setText("")
     # retranslateUi

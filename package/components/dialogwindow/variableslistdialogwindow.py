@@ -336,6 +336,7 @@ class VariablesListDialogWindow(QDialog):
         #
         self.ui.combox_forms.blockSignals(True)
         self.ui.combox_forms.clear()
+        #
         for form_node in self.obj_form_template_page.list_of_form_node:
             self.ui.combox_forms.addItem(form_node.get("name_node"), form_node)
         #
@@ -355,20 +356,20 @@ class VariablesListDialogWindow(QDialog):
         else:
             current_text = self.ui.combox_templates.currentText()
         #
+        self.ui.combox_templates.blockSignals(True)
+        self.ui.combox_templates.clear()
+        #
         form = self.ui.combox_forms.currentData()
         templates = []
         if form:
             templates = self.__osbm.obj_prodb.get_templates_by_form(form)
-        #
-        self.ui.combox_templates.blockSignals(True)
-        self.ui.combox_templates.clear()
-        for template in templates:
-            self.ui.combox_templates.addItem(template.get("name_template"), template)
-        #
-        index = self.ui.combox_templates.findText(current_text)
-        if index != -1:
-            self.ui.combox_templates.setCurrentIndex(index)
-        #
+            for template in templates:
+                self.ui.combox_templates.addItem(template.get("name_template"), template)
+            #
+            index = self.ui.combox_templates.findText(current_text)
+            if index != -1:
+                self.ui.combox_templates.setCurrentIndex(index)
+            #
         self.ui.combox_templates.blockSignals(False)
         self.ui.combox_templates.show()
 
@@ -378,22 +379,22 @@ class VariablesListDialogWindow(QDialog):
             current_text = open_page.get("name_page")
         else:
             current_text = self.ui.combox_pages.currentText()
+        # очистка
+        self.ui.combox_pages.blockSignals(True)
+        self.ui.combox_pages.clear()
         #
         template = self.ui.combox_templates.currentData()
         pages = []
         if template:
             pages = self.__osbm.obj_prodb.get_pages_by_template(template)
-        # очистка
-        self.ui.combox_pages.blockSignals(True)
-        self.ui.combox_pages.clear()
-        # пункт - Для всех страниц
-        self.ui.combox_pages.addItem("- Для всех страниц -", "all_pages")
-        for page in pages:
-            self.ui.combox_pages.addItem(page.get("name_page"), page)
-        #
-        index = self.ui.combox_pages.findText(current_text)
-        if index != -1:
-            self.ui.combox_pages.setCurrentIndex(index)
+            # пункт - Для всех страниц
+            self.ui.combox_pages.addItem("- Для всех страниц -", "all_pages")
+            for page in pages:
+                self.ui.combox_pages.addItem(page.get("name_page"), page)
+            #
+            index = self.ui.combox_pages.findText(current_text)
+            if index != -1:
+                self.ui.combox_pages.setCurrentIndex(index)
         #
         self.ui.combox_pages.blockSignals(False)
         self.ui.combox_pages.show()
@@ -432,7 +433,7 @@ class VariablesListDialogWindow(QDialog):
         # заголовки/столбцы
         table_widget.verticalHeader().hide()
         if editor:
-            headers = ["№", "Переменная", "Описание", "Тип", "Вкл", "Действия"]
+            headers = ["№", "Переменная", "Описание", "Тип", "Кол", "Вкл", "Действия"]
             table_widget.setColumnCount(len(headers))
             table_widget.setHorizontalHeaderLabels(headers)
         else:
@@ -463,6 +464,10 @@ class VariablesListDialogWindow(QDialog):
             f"VariablesListDialogWindow caf_table(self, type_table, editor):\ntype_table = {type_table}\neditor = {editor}"
         )
         table_widget = self.get_table_by_parameters(type_table, editor)
+        #
+        if editor:
+            count_all_variable_usages = self.__osbm.obj_prodb.count_all_variable_usages()
+            print("f count_all_variable_usages = ", count_all_variable_usages)
         # вертикальный ползунок
         vertical_scroll_position = table_widget.verticalScrollBar().value()
         self.__vertical_scroll_position_by_parameters[type_table, editor] = (
@@ -477,7 +482,6 @@ class VariablesListDialogWindow(QDialog):
         header = table_widget.horizontalHeaderItem(0)
         header.setData(1000, data)
         table_widget.setRowCount(len(data))
-        # TODO используется ли переменная?
         for row, item in enumerate(data):
             # получение данных
             order_variable = item.get("order_variable") + 1
@@ -503,7 +507,7 @@ class VariablesListDialogWindow(QDialog):
             table_widget.setItem(row, 3, qtwt_type_variable)
             # если editor
             if editor:
-                self.item_tw_editor(table_widget, item, row, type_table)
+                self.item_tw_editor(table_widget, item, row, type_table, count_all_variable_usages)
             # если open_variable
             if open_variable and open_variable.get("id_variable") == item.get("id_variable"):
                 table_widget.selectRow(row)
@@ -520,7 +524,15 @@ class VariablesListDialogWindow(QDialog):
         )
         table_widget.verticalScrollBar().setValue(vertical_scroll_position)
 
-    def item_tw_editor(self, table_widget, item, row, type_table):
+    def item_tw_editor(self, table_widget, item, row, type_table, count_all_variable_usages):
+        # количество использований
+        id_variable = item.get("id_variable")
+        usage_summary_by_id_variable = count_all_variable_usages.get(id_variable, 0)
+        nodes_count = usage_summary_by_id_variable.get("nodes_count", 0)
+        pages_count = usage_summary_by_id_variable.get("pages_count", 0)
+        templates_count = usage_summary_by_id_variable.get("templates_count", 0)
+        all_count = int(nodes_count) + int(pages_count) + int(templates_count)
+        table_widget.setItem(row, 4, QTableWidgetItem(f"{all_count}"))
         # checkbox
         checkbtn = QCheckBox(text="вкл.")
         is_checked = item.get("_checked")
@@ -529,7 +541,7 @@ class VariablesListDialogWindow(QDialog):
         checkbtn.setChecked(is_checked)
         # Добавляем значение для сортировки
         sort_value = "ДА" if is_checked else "НЕТ"
-        table_widget.setItem(row, 4, QTableWidgetItem(sort_value))
+        table_widget.setItem(row, 5, QTableWidgetItem(sort_value))
         # кнопки
         edit_button = QPushButton()
         qicon_edit_button = self.__icons.get("pen")
@@ -549,7 +561,8 @@ class VariablesListDialogWindow(QDialog):
         layout.setContentsMargins(4, 0, 4, 0)
         widget = QWidget()
         widget.setLayout(layout)
-        table_widget.setCellWidget(row, 5, widget)
+        table_widget.setCellWidget(row, 6, widget)
+        
         # обработчики
         edit_button.clicked.connect(partial(self.edit_variable, btn=edit_button))
         delete_button.clicked.connect(
@@ -675,7 +688,7 @@ class VariablesListDialogWindow(QDialog):
         for row in range(row_count):
             item = table_widget_editor.item(row, 1).data(1001)
             checked = (
-                table_widget_editor.cellWidget(row, 5).findChild(QCheckBox).isChecked()
+                table_widget_editor.cellWidget(row, 6).findChild(QCheckBox).isChecked()
             )
             if checked:
                 item.pop("_checked")

@@ -9,7 +9,7 @@ import multiprocessing
 import comtypes.client
 import subprocess
 
-from PySide6.QtCore import QDate
+from PySide6.QtCore import QDate, QLocale
 
 from pypdf import PdfWriter
 import datetime
@@ -106,19 +106,26 @@ class ConverterPool:
             if value:
                 data_variable[str(name_variable)] = value
         except Exception as e: 
-            self.__osbm.obj_logg.error_logger(f"Error in type_variable_is_text: {e}")
+            local_osbm.obj_logg.error_logger(f"Error in type_variable_is_text: {e}")
             
 
-    def type_variable_is_date(self, local_osbm, data_variable, name_variable, value):
+    def type_variable_is_date(self, local_osbm, data_variable, name_variable, value, config_variable):
         local_osbm.obj_logg.debug_logger(
-            f"Converter type_variable_is_date(data_variable, name_variable, value):\ndata_variable = {data_variable},\nname_variable = {name_variable},\nvalue = {value}"
+            f"Converter type_variable_is_date(data_variable, name_variable, value):\ndata_variable = {data_variable},\nname_variable = {name_variable},\nvalue = {value},\nconfig_variable = {config_variable}"
         )
+        
         try:
-            # TODO Подумать про время QDate 
             if value:
-                data_variable[str(name_variable)] = value
+                str_format = config_variable.get("FORMAT", "")
+                language = config_variable.get("LANGUAGE", "ru_RU")
+                #
+                locale = QLocale(language)
+                qdate = QDate.fromString(value, "yyyy-MM-dd")
+                current_value = locale.toString(qdate, str_format)
+                data_variable[str(name_variable)] = current_value
         except Exception as e: 
-            self.__osbm.obj_logg.error_logger(f"Error in type_variable_is_date: {e}")
+            print(f"{e}")
+            local_osbm.obj_logg.error_logger(f"Error in type_variable_is_date: {e}")
 
     def type_variable_is_image(
         self, local_osbm, data_variable, name_variable, value, docx_template
@@ -138,7 +145,7 @@ class ConverterPool:
                 image = InlineImage(docx_template, image_dirpath)
                 data_variable[str(name_variable)] = image
         except Exception as e: 
-            self.__osbm.obj_logg.error_logger(f"Error in type_variable_is_image: {e}")
+            local_osbm.obj_logg.error_logger(f"Error in type_variable_is_image: {e}")
 
     def type_variable_is_table(self, local_osbm, data_variable, name_variable, value, id_variable):
         local_osbm.obj_logg.debug_logger(
@@ -176,7 +183,7 @@ class ConverterPool:
                 print(f"table_values = {table_values}")
                 data_variable[str(name_variable)] = table_values
         except Exception as e: 
-            self.__osbm.obj_logg.error_logger(f"Error in type_variable_is_table: {e}")
+            local_osbm.obj_logg.error_logger(f"Error in type_variable_is_table: {e}")
 
     def check_type_variable_and_fill_data_variable(
         self, local_osbm, pair, data_variable, docx_template, is_rerender = False
@@ -184,23 +191,24 @@ class ConverterPool:
         local_osbm.obj_logg.debug_logger(
             f"Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):\npair = {pair},\ndata_variable = {data_variable},\ndocx_template = {docx_template} \nis_rerender = {is_rerender}"
         )
-        # TODO 
         id_pair = pair.get("id_pair")
         id_page = pair.get("id_page")
         id_variable = pair.get("id_variable")
-        # name_variable = pair.get("name_variable")
         value = pair.get("value_pair")
         # current_variable
         current_variable = local_osbm.obj_prodb.get_variable_by_id(id_variable)
         print(f"current_variable = {current_variable}")
         type_variable = current_variable.get("type_variable")
         name_variable = current_variable.get("name_variable")
+        # из строки в json
+        str_config_variable = current_variable.get("config_variable")
+        config_variable = json.loads(str_config_variable) if str_config_variable else dict()
         # скипаем если is_rerender
         if not is_rerender:
             if type_variable == "TEXT" or type_variable == "LONGTEXT":
                 self.type_variable_is_text(local_osbm, data_variable, name_variable, value)
             elif type_variable == "DATE":
-                self.type_variable_is_date(local_osbm, data_variable, name_variable, value)
+                self.type_variable_is_date(local_osbm, data_variable, name_variable, value, config_variable)
             elif type_variable == "TABLE":
                 self.type_variable_is_table(local_osbm, data_variable, name_variable, value, id_variable)
         # общий для всех
@@ -418,7 +426,7 @@ class Converter:
                 print("included = ", child_included, type(child_included))
                 if child_included:
                     # проход по страницам node
-                    # TODO без id_active_template дальше не пройдет
+                    # TODO 
                     id_active_template = child.get("id_active_template")
                     if id_active_template:
                         template = {"id_template": id_active_template}

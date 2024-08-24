@@ -270,7 +270,7 @@ class MainWindow(QMainWindow):
         node = self.__osbm.obj_twsed.get_current_node()
         self.__osbm.obj_comt.update_combox_templates(node)
         # widget_pdf_view
-        # self.__osbm.obj_pdfv.set_empty_pdf_view()
+        self.__osbm.obj_pdfv.set_empty_pdf_view()
         # scrollarea_inputforms
         page = self.__osbm.obj_lwpt.get_page_by_current_item()
         self.__osbm.obj_saif.update_scrollarea(page)

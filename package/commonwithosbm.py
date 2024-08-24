@@ -234,6 +234,36 @@ class PageTypes:
 #
 #
 
+class language:
+    def __init__(self, index, name, data, emoji):
+        self.index = index
+        self.name = name
+        self.data = data
+        self.emoji = emoji
+
+class Languages:
+    def __init__(self, osbm):
+        self.__osbm = osbm
+        self.__languages = [
+            language(0, "Русский", "ru_RU", "🇷🇺"),
+            language(1, "English", "en_US", "🇬🇧")#,
+            # language(2, "Chinese", "zh_CN", "🇨🇳"),
+            # language(3, "French", "fr_FR", "🇫🇷"),
+            # language(4, "German", "de_DE", "🇩🇪"),
+            # language(5, "Spanish", "es_ES", "🇪🇸"),
+            # language(6, "Portuguese", "pt_BR", "🇵🇹"),
+            # language(7, "Italian", "it_IT", "🇮🇹"),
+            # language(8, "Japanese", "ja_JP", "🇯🇵"),
+            # language(9, "Korean", "ko_KR", "🇰🇷"),
+        ]
+
+    def get_languages(self):
+        self.__osbm.obj_logg.debug_logger("Languages get_languages()")
+        return self.__languages
+
+#
+#
+#
 
 class ResizeQt:
     def __init__(self, osbm):
@@ -258,7 +288,9 @@ class CommonWithOsmb:
         self.units = None
         self.table_types = None
         self.page_types = None
+        self.languages = None
         self.resizeqt = None
+
 
     def setting_all_osbm(self, osbm):
         self.__osbm = osbm
@@ -272,4 +304,5 @@ class CommonWithOsmb:
         self.units = Units(self.__osbm)
         self.table_types = TableTypes(self.__osbm)
         self.page_types = PageTypes(self.__osbm)
+        self.languages = Languages(self.__osbm)
         self.resizeqt = ResizeQt(self.__osbm)

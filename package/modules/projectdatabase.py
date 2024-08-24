@@ -599,7 +599,12 @@ COMMIT;
         SET name_page = ?, filename_page = ?, typefile_page = ?
         WHERE id_page = ?
         """,
-            [page.get("name_page"), page.get("filename_page"), page.get("typefile_page"), page.get("id_page")],
+            [
+                page.get("name_page"),
+                page.get("filename_page"),
+                page.get("typefile_page"),
+                page.get("id_page"),
+            ],
         )
         conn.commit()
         conn.close()
@@ -1308,6 +1313,63 @@ COMMIT;
         conn.commit()
         conn.close()
 
+    def count_all_variable_usages(self):
+        self.__osbm.obj_logg.debug_logger("ProjectDatabase count_all_variable_usages()")
+        #
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        # все id_variable из Project_variables
+        cursor.execute("SELECT id_variable FROM Project_variables;")
+        # cursor.fetchall() а не self.get_fetchall(cursor)
+        variable_ids = [row[0] for row in cursor.fetchall()]
+        if not variable_ids:
+            return {}
+        #
+        placeholders = ", ".join("?" for _ in variable_ids)
+        # Объединенный запрос с подсчетом
+        cursor.execute(
+            f"""
+        SELECT id_variable, 
+            COUNT(DISTINCT id_node) AS nodes_count, 
+            COUNT(DISTINCT id_page) AS pages_count,
+            COUNT(DISTINCT id_template) AS templates_count
+        FROM (
+            SELECT id_variable, id_node, NULL AS id_page, NULL AS id_template
+            FROM Project_nodes_data
+            WHERE id_variable IN ({placeholders})
+
+            UNION ALL
+
+            SELECT id_variable, NULL AS id_node, id_page, NULL AS id_template
+            FROM Project_pages_data
+            WHERE id_variable IN ({placeholders})
+
+            UNION ALL
+
+            SELECT id_variable, NULL AS id_node, NULL AS id_page, id_template
+            FROM Project_templates_data
+            WHERE id_variable IN ({placeholders})
+        )
+        GROUP BY id_variable;
+        """,
+            variable_ids * 3,
+        )  # утраиваем список переменных для трех фильтров
+        # cursor.fetchall() а не self.get_fetchall(cursor)
+        result = cursor.fetchall()
+        conn.close()
+        # Форматируем результат в словарь
+        usage_summary = {
+            id_variable: {"nodes_count": 0, "pages_count": 0, "templates_count": 0}
+            for id_variable in variable_ids
+        }
+        for row in result:
+            usage_summary[row[0]] = {
+                "nodes_count": row[1],
+                "pages_count": row[2],
+                "templates_count": row[3],
+            }
+
+        return usage_summary
 
 
 # obj_prodb = ProjectDatabase()

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>83</height>
+    <height>133</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -66,6 +66,16 @@
       <bool>false</bool>
      </property>
     </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_language">
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Язык &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QComboBox" name="combox_language"/>
    </item>
    <item>
     <layout class="QHBoxLayout" name="hl" stretch="0,1,1">

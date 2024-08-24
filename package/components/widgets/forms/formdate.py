@@ -1,7 +1,7 @@
 import json
 
 from PySide6.QtWidgets import QWidget
-from PySide6.QtCore import QDate
+from PySide6.QtCore import QDate, QLocale
 
 import package.ui.formdate_ui as formdate_ui
 
@@ -22,8 +22,9 @@ class FormDate(QWidget):
         self.__icons = self.__osbm.obj_icons.get_icons()
         # СТИЛЬ
         self.__osbm.obj_style.set_style_for(self)
-        #
+        # по умолчанию сначала
         self.__str_format = "dd.MM.yyyy"
+        self.__language = "ru_RU"
         #
         self.config()
         
@@ -51,35 +52,39 @@ class FormDate(QWidget):
         if format_date:
             self.__str_format = format_date
 
+        language = self.__config_dict.get("LANGUAGE")
+        if format_date:
+            self.__language = language
+
+        self.ui.dateedit.setLocale(QLocale(self.__language))
+
         # поле ввода
         value = self.__pair.get("value_pair")
         if value:
-            self.ui.dateedit.setDate(self.string_to_qdate(value, self.__str_format))
+            # получить ISO дату и преобразовать
+            self.ui.dateedit.setDate(QDate.fromString(value, "yyyy-MM-dd"))
         else:
-            self.ui.dateedit.setDate(QDate.currentDate())
+            # формат ISO
+            self.ui.dateedit.setDate(QDate.currentDate().isoformat())
+
         self.ui.dateedit.setDisplayFormat(self.__str_format)
 
         self.ui.dateedit.editingFinished.connect(
-            lambda: self.set_new_value_in_pair(
-                self.qdate_to_string(self.ui.dateedit.date(), self.__str_format)
-            )
+            self.set_new_value_in_pair
         )
 
-    def string_to_qdate(self, str_date, str_format) -> object:
-        self.__osbm.obj_logg.debug_logger(
-            f"FormDate string_to_date(self, str_date, str_format):\nstr_date = {str_date},\nstr_format = {str_format}"
-        )
-        return QDate.fromString(str_date, str_format)
 
-    def qdate_to_string(self, date, str_format) -> str:
-        self.__osbm.obj_logg.debug_logger(
-            f"FormDate date_to_string(self, date) -> str:\ndate = {date}"
-        )
-        return str(date.toString(str_format))
+    # def qdate_to_string(self, date, str_format) -> str:
+    #     self.__osbm.obj_logg.debug_logger(
+    #         f"FormDate date_to_string(self, date) -> str:\ndate = {date}"
+    #     )
+    #     return str(date.toString(str_format))
 
-    def set_new_value_in_pair(self, new_value):
+    def set_new_value_in_pair(self):
         self.__osbm.obj_logg.debug_logger(
-            f"FormDate set_new_value_in_pair(self, pair, new_value):\nnew_value = {new_value}"
+            "FormDate set_new_value_in_pair(self)"
         )
-        self.__pair["value_pair"] = new_value
+        # self.__pair["value_pair"] = new_value
+        current_date = self.ui.dateedit.date().toPython()
+        self.__pair["value_pair"] = current_date.isoformat()
         print(f"pair = {self.__pair}")
