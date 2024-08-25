@@ -60,27 +60,19 @@ class ImageResizer:
         return width, height
 
     def crop_image(
-        self,
-        temp_image,
-        image_width,
-        image_height,
-        scaled_image_width,
-        scaled_image_height,
+        self, temp_image, new_width, new_height, container_width, container_height
     ):
-        self.__osbm.obj_logg.debug_logger(
-            f"ImageResizer crop_image(temp_image, image_width, image_height, scaled_image_width, scaled_image_height): \n temp_image = {temp_image} \n image_width = {image_width} \n image_height = {image_height} \n scaled_image_width = {scaled_image_width} \n scaled_image_height = {scaled_image_height}"
-        )
+
         # TODO
         image = PilImage.open(temp_image)
-        # 
-        delta_width = image_width - scaled_image_width
-        delta_height = image_height - scaled_image_height
+        # Изменяем размер с последующим обрезанием
+        image = image.resize((new_width, new_height), PilImage.LANCZOS)
+        # Обрезаем изображение до размеров контейнера
+        left = (new_width - container_width) // 2
+        top = (new_height - container_height) // 2
+        right = (new_width + container_width) // 2
+        bottom = (new_height + container_height) // 2
         #
-        left = delta_width / 2
-        top = delta_height / 2
-        right = image_width - delta_width / 2
-        bottom = image_height - delta_height / 2
-        # Обрезка изображения
-        image_cropped = image.crop((left, top, right, bottom))
-        image_cropped.save(temp_image)
-        
+        image = image.crop((left, top, right, bottom))
+        #
+        image.save(temp_image)
