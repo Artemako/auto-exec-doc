@@ -21,21 +21,21 @@ class ImageResizer:
             f"ImageResizer setting_osbm():\nself.__osbm = {self.__osbm}"
         )
 
-    def save_image_then_selected(self, image_dirpath, file_name_with_png):
+    def save_image_then_selected(self, image_dirpath, file_name_with_format):
         self.__osbm.obj_logg.debug_logger(
-            f"ImageResizer save_image_then_selected(image_dirpath, file_name_with_png):\nimage_dirpath = {image_dirpath} \n file_name_with_png = {file_name_with_png}"
+            f"ImageResizer save_image_then_selected(image_dirpath, file_name_with_format):\nimage_dirpath = {image_dirpath} \n file_name_with_format = {file_name_with_format}"
         )
         # пути: к временной папке, к временному файлу
         temp_dir = self.__osbm.obj_dirm.get_temp_dirpath()
-        temp_file_path = os.path.join(temp_dir, file_name_with_png)
+        temp_file_path = os.path.join(temp_dir, file_name_with_format)
         # Открыть изображение, Сохранить изображение в временный файл
         image = PilImage.open(image_dirpath)
         # Получение EXIF данных
-        if hasattr(image, '_getexif'):
+        if hasattr(image, "_getexif"):
             exif = image._getexif()
             if exif is not None:
                 for tag, value in exif.items():
-                    if ExifTags.TAGS.get(tag) == 'Orientation':
+                    if ExifTags.TAGS.get(tag) == "Orientation":
                         orientation = value
                         break
                 # Корректировка ориентации
@@ -48,3 +48,39 @@ class ImageResizer:
         # Сохранить изображение во временный файл
         image.save(temp_file_path, "PNG")
 
+    def get_sizes_image(self, image_dirpath):
+        self.__osbm.obj_logg.debug_logger(
+            f"ImageResizer get_sizes_image(image_dirpath):\nimage_dirpath = {image_dirpath}"
+        )
+        image = PilImage.open(image_dirpath)
+        width, height = image.size
+        self.__osbm.obj_logg.debug_logger(
+            f"ImageResizer get_sizes_image(image_dirpath) -> tuple:\n result = ({width}, {height})"
+        )
+        return width, height
+
+    def crop_image(
+        self,
+        temp_image,
+        image_width,
+        image_height,
+        scaled_image_width,
+        scaled_image_height,
+    ):
+        self.__osbm.obj_logg.debug_logger(
+            f"ImageResizer crop_image(temp_image, image_width, image_height, scaled_image_width, scaled_image_height): \n temp_image = {temp_image} \n image_width = {image_width} \n image_height = {image_height} \n scaled_image_width = {scaled_image_width} \n scaled_image_height = {scaled_image_height}"
+        )
+        # TODO
+        image = PilImage.open(temp_image)
+        # 
+        delta_width = image_width - scaled_image_width
+        delta_height = image_height - scaled_image_height
+        #
+        left = delta_width / 2
+        top = delta_height / 2
+        right = image_width - delta_width / 2
+        bottom = image_height - delta_height / 2
+        # Обрезка изображения
+        image_cropped = image.crop((left, top, right, bottom))
+        image_cropped.save(temp_image)
+        

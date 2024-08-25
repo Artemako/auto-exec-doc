@@ -71,7 +71,6 @@ class ConverterVarImage:
         #
         return emu_width, emu_height
 
-
     def get_mm_width_and_height_by_emu(self, emu_width, emu_height) -> tuple:
         mm_width = emu_width / float(Length._EMUS_PER_MM)
         mm_height = emu_height / float(Length._EMUS_PER_MM)
@@ -81,3 +80,41 @@ class ConverterVarImage:
         )
         #
         return mm_width, mm_height
+
+    def contain_sizing_mode(self, temp_image, mm_width, mm_height) -> tuple:
+        # размеры изображения
+        image_width, image_height = self.__osbm.obj_imgr.get_sizes_image(temp_image)
+        # коэффициенты
+        width_ratio = mm_width / image_width
+        height_ratio = mm_height / image_height
+        # минимальный коэффициент
+        scale_factor = min(width_ratio, height_ratio)
+        # новый размеры
+        scaled_mm_width = image_width * scale_factor
+        scaled_mm_height = image_height * scale_factor
+        #
+        self.__osbm.obj_logg.debug_logger(
+            f"ConverterVarImage contain_sizing_mode() -> tuple:\n result = ({scaled_mm_width}, {scaled_mm_height})"
+        )
+        #
+        return scaled_mm_width, scaled_mm_height
+
+    def cover_sizing_mode(self, temp_image, mm_width, mm_height) -> tuple:
+        # размеры изображения
+        image_width, image_height = self.__osbm.obj_imgr.get_sizes_image(temp_image)
+        print(f"image_width = {image_width}, image_height = {image_height}")
+        # пропорция контейнера
+        ratio_container = mm_width / mm_height
+        ratio_image = image_width / image_height
+        # размер изображения исходя из пропорции контейнера
+        if ratio_container < ratio_image:
+            scaled_image_width = image_width
+            scaled_image_height = image_width / ratio_container
+        else:
+            scaled_image_width = image_width
+            scaled_image_height = image_width / ratio_image
+        #обрезать
+        self.__osbm.obj_imgr.crop_image(temp_image, image_width, image_height, scaled_image_width, scaled_image_height)
+        #
+        return mm_width, mm_height
+        

@@ -147,7 +147,7 @@ class DialogWindows:
                 None,
                 "Выбор изображения",
                 self.__osbm.obj_dirm.get_pictures_dirpath(),
-                "Изображения (*.png *.jpg *.jpeg, *.bmp, *.tiff)",
+                "Изображения (*.png *.jpg *.jpeg)",
             )
             if image_path[0]:
                 self.__osbm.obj_logg.debug_logger(

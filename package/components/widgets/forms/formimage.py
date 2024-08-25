@@ -68,8 +68,8 @@ class FormImage(QWidget):
             self.ui.label.setText(os.path.basename(image_dirpath))
             # имя нового изображения
             file_name = f"img_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
-            file_name_with_png = f"{file_name}.png"
+            file_name_with_format = f"{file_name}.png"
             # сохранение изображения
-            self.__osbm.obj_imgr.save_image_then_selected(image_dirpath, file_name_with_png)
+            self.__osbm.obj_imgr.save_image_then_selected(image_dirpath, file_name_with_format)
             #
-            self.__pair["value_pair"] = file_name_with_png
+            self.__pair["value_pair"] = file_name_with_format

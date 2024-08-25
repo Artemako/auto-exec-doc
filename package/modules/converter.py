@@ -151,13 +151,13 @@ class ConverterPool:
                 sizing_mode = config_variable.get("SIZINGMODE", "NOCHANGES")
                 width = config_variable.get("WIDTH", 0)
                 height = config_variable.get("HEIGHT", 0)
-                #
+                # размер контейнера в emu
                 emu_sizes = convvarimg.get_emu_width_and_height_by_unit(
                     unit, width, height
                 )
                 emu_width = emu_sizes[0]
                 emu_height = emu_sizes[1]
-                #
+                # размер контейнера в мм
                 mm_sizes = convvarimg.get_mm_width_and_height_by_emu(
                     emu_width, emu_height
                 )
@@ -170,8 +170,14 @@ class ConverterPool:
                 if sizing_mode == "NOCHANGES":
                     pass
                 elif sizing_mode == "CONTAIN":
-                    ...
+                    # только ширину ради пропорции
+                    scaled_mm_sizes = convvarimg.contain_sizing_mode(temp_image, mm_width, mm_height)
+                    inline_image.width = Mm(scaled_mm_sizes[0]) 
+                    # inline_image.height = Mm(scaled_mm_sizes[1])
                 elif sizing_mode == "COVER":
+                    # только ширину ради пропорции
+                    scaled_mm_sizes = convvarimg.cover_sizing_mode(temp_image, mm_width, mm_height)
+                    inline_image.width = Mm(scaled_mm_sizes[0]) 
                     ...
                 elif sizing_mode == "FILL":
                     inline_image.width = Mm(mm_width)
