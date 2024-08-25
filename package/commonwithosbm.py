@@ -68,7 +68,7 @@ class Units:
             Unit(0, "Миллиметр (Millimeter)", "MM"),
             Unit(1, "Сантиметр (Centimeter)", "CM"),
             Unit(2, "Дюйм (Inch)", "INCH"),
-            Unit(3, "Пункт (Point)", "PIXEL"),
+            Unit(3, "Пункт (Point)", "PT"),
         ]
 
     def get_units(self):

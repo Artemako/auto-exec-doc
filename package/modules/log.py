@@ -55,10 +55,10 @@ class Log:
         self.__logger.warning(f"\033[93m {message}\033[00m")
 
     def error_logger(self, message: str):
-        self.__logger.error("\033[31m {message}\033[00m")
+        self.__logger.error(f"\033[31m {message}\033[00m")
 
     def critical_logger(self, message: str):
-        self.__logger.critical("\033[95m {message}\033[00m")
+        self.__logger.critical(f"\033[95m {message}\033[00m")
 
     def disable_logging(self):
         """Отключение логирования, удаление всех обработчиков."""

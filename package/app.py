@@ -17,6 +17,8 @@ import package.modules.projectdatabase as projectdatabase
 import package.modules.sectionsinfo as sectionsinfo
 import package.modules.settingsdatabase as settingsdatabase
 import package.modules.officepackets as officepackets
+import package.modules.imageresizer as imageresizer
+
 import package.common as common
 import package.commonwithosbm as commonwithosbm
 
@@ -47,6 +49,7 @@ class ObjectsManager:
         self.obj_seci = None
         self.obj_setdb = None
         self.obj_offp = None
+        self.obj_imgr = None
         # controllers
         self.obj_lwpt = None
         self.obj_pdfv = None
@@ -91,6 +94,7 @@ class ObjectsManager:
         self.obj_seci = sectionsinfo.SectionsInfo()
         self.obj_setdb = settingsdatabase.SettingsDatabase()
         self.obj_offp = officepackets.OfficePackets()        
+        self.obj_imgr = imageresizer.ImageResizer()
 
     def initialize_controllers(self):
         self.obj_lwpt = lwpagestemplate.LWPagesTemplate()
@@ -127,6 +131,7 @@ class App:
         self.osbm.obj_seci.setting_osbm(self.osbm)
         self.osbm.obj_setdb.setting_osbm(self.osbm)
         self.osbm.obj_offp.setting_all_osbm(self.osbm)
+        self.osbm.obj_imgr.setting_osbm(self.osbm)
 
     def setting_osbm_for_controllers(self):    
         self.osbm.obj_lwpt.setting_all_osbm(self.osbm)

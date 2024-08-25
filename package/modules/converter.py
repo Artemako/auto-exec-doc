@@ -3,7 +3,7 @@ import json
 import copy
 import functools
 from docxtpl import DocxTemplate, InlineImage
-from docx.shared import Mm, Pt, Inches
+from docx.shared import Mm
 import multiprocessing
 
 import comtypes.client
@@ -13,6 +13,9 @@ from PySide6.QtCore import QDate, QLocale
 
 from pypdf import PdfWriter
 import datetime
+
+import package.modules.convertervarimage as convertervarimage
+
 
 class ConverterPool:
     def process_object_of_project_pages_objects(self, args) -> dict:
@@ -105,15 +108,16 @@ class ConverterPool:
         try:
             if value:
                 data_variable[str(name_variable)] = value
-        except Exception as e: 
+        except Exception as e:
             local_osbm.obj_logg.error_logger(f"Error in type_variable_is_text: {e}")
-            
 
-    def type_variable_is_date(self, local_osbm, data_variable, name_variable, value, config_variable):
+    def type_variable_is_date(
+        self, local_osbm, data_variable, name_variable, value, config_variable
+    ):
         local_osbm.obj_logg.debug_logger(
             f"Converter type_variable_is_date(data_variable, name_variable, value):\ndata_variable = {data_variable},\nname_variable = {name_variable},\nvalue = {value},\nconfig_variable = {config_variable}"
         )
-        
+
         try:
             if value:
                 str_format = config_variable.get("FORMAT", "")
@@ -123,31 +127,64 @@ class ConverterPool:
                 qdate = QDate.fromString(value, "yyyy-MM-dd")
                 current_value = locale.toString(qdate, str_format)
                 data_variable[str(name_variable)] = current_value
-        except Exception as e: 
+        except Exception as e:
             print(f"{e}")
             local_osbm.obj_logg.error_logger(f"Error in type_variable_is_date: {e}")
 
     def type_variable_is_image(
-        self, local_osbm, data_variable, name_variable, value, docx_template
+        self,
+        local_osbm,
+        data_variable,
+        name_variable,
+        value,
+        config_variable,
+        docx_template,
     ):
         local_osbm.obj_logg.debug_logger(
-            f"Converter type_variable_is_image(data_variable, name_variable, value, docx_template):\ndata_variable = {data_variable},\nname_variable = {name_variable},\nvalue = {value},\ndocx_template = {docx_template}"
+            f"Converter type_variable_is_image(data_variable, name_variable, value, config_variable, docx_template):\n data_variable = {data_variable},\n name_variable = {name_variable},\n value = {value},\n config_variable = {config_variable},\n docx_template = {docx_template}"
         )
         try:
             if value:
-                image_dirpath = os.path.abspath(
-                    os.path.join(
-                        local_osbm.obj_dirm.get_images_folder_dirpath(),
-                        value,
-                    )
+                convvarimg = convertervarimage.ConverterVarImage(local_osbm)
+                #
+                unit = config_variable.get("UNIT", "MM")
+                sizing_mode = config_variable.get("SIZINGMODE", "NOCHANGES")
+                width = config_variable.get("WIDTH", 0)
+                height = config_variable.get("HEIGHT", 0)
+                #
+                emu_sizes = convvarimg.get_emu_width_and_height_by_unit(
+                    unit, width, height
                 )
-                # TODO контент для изображения Inches, Pt, Cm, Mm
-                image = InlineImage(docx_template, image_dirpath)
-                data_variable[str(name_variable)] = image
-        except Exception as e: 
+                emu_width = emu_sizes[0]
+                emu_height = emu_sizes[1]
+                #
+                mm_sizes = convvarimg.get_mm_width_and_height_by_emu(
+                    emu_width, emu_height
+                )
+                mm_width = mm_sizes[0]
+                mm_height = mm_sizes[1]
+                #
+                temp_image = convvarimg.get_temp_image(value)
+                inline_image = InlineImage(docx_template, temp_image)
+                # TODO
+                if sizing_mode == "NOCHANGES":
+                    pass
+                elif sizing_mode == "CONTAIN":
+                    ...
+                elif sizing_mode == "COVER":
+                    ...
+                elif sizing_mode == "FILL":
+                    inline_image.width = Mm(mm_width)
+                    inline_image.height = Mm(mm_height)
+                print(f"mm_width = {mm_width}, mm_height = {mm_height}")
+                data_variable[str(name_variable)] = inline_image
+        except Exception as e:
+            print(e)
             local_osbm.obj_logg.error_logger(f"Error in type_variable_is_image: {e}")
 
-    def type_variable_is_table(self, local_osbm, data_variable, name_variable, value, id_variable):
+    def type_variable_is_table(
+        self, local_osbm, data_variable, name_variable, value, id_variable
+    ):
         local_osbm.obj_logg.debug_logger(
             f"Converter type_variable_is_table(data_variable, name_variable, value, id_variable):\ndata_variable = {data_variable},\nname_variable = {name_variable},\nvalue = {value},\nid_variable = {id_variable}"
         )
@@ -156,7 +193,7 @@ class ConverterPool:
             if value:
                 current_variable = local_osbm.obj_prodb.get_variable_by_id(id_variable)
                 config_variable = current_variable.get("config_variable")
-                config_dict = dict()        
+                config_dict = dict()
                 if config_variable:
                     config_dict = json.loads(config_variable)
                 print(f"config_dict = {config_dict}")
@@ -169,7 +206,7 @@ class ConverterPool:
                     order_config = rowcol.get("ORDER")
                     order_to_variable_config_dict[order_config] = value_config
                     object_variable[value_config] = None
-                        
+
                 print(f"object_variable = {object_variable}")
                 # заполнять data_variable
                 table_values = []
@@ -182,11 +219,11 @@ class ConverterPool:
                         table_values.append(pt)
                 print(f"table_values = {table_values}")
                 data_variable[str(name_variable)] = table_values
-        except Exception as e: 
+        except Exception as e:
             local_osbm.obj_logg.error_logger(f"Error in type_variable_is_table: {e}")
 
     def check_type_variable_and_fill_data_variable(
-        self, local_osbm, pair, data_variable, docx_template, is_rerender = False
+        self, local_osbm, pair, data_variable, docx_template, is_rerender=False
     ):
         local_osbm.obj_logg.debug_logger(
             f"Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):\npair = {pair},\ndata_variable = {data_variable},\ndocx_template = {docx_template} \nis_rerender = {is_rerender}"
@@ -202,19 +239,29 @@ class ConverterPool:
         name_variable = current_variable.get("name_variable")
         # из строки в json
         str_config_variable = current_variable.get("config_variable")
-        config_variable = json.loads(str_config_variable) if str_config_variable else dict()
+        config_variable = (
+            json.loads(str_config_variable) if str_config_variable else dict()
+        )
         # скипаем если is_rerender
-        if not is_rerender:
-            if type_variable == "TEXT" or type_variable == "LONGTEXT":
-                self.type_variable_is_text(local_osbm, data_variable, name_variable, value)
-            elif type_variable == "DATE":
-                self.type_variable_is_date(local_osbm, data_variable, name_variable, value, config_variable)
-            elif type_variable == "TABLE":
-                self.type_variable_is_table(local_osbm, data_variable, name_variable, value, id_variable)
+        if not is_rerender and type_variable == "TEXT" or type_variable == "LONGTEXT":
+            self.type_variable_is_text(local_osbm, data_variable, name_variable, value)
+        elif not is_rerender and type_variable == "DATE":
+            self.type_variable_is_date(
+                local_osbm, data_variable, name_variable, value, config_variable
+            )
+        elif not is_rerender and type_variable == "TABLE":
+            self.type_variable_is_table(
+                local_osbm, data_variable, name_variable, value, id_variable
+            )
         # общий для всех
         elif type_variable == "IMAGE":
             self.type_variable_is_image(
-                local_osbm, data_variable, name_variable, value, docx_template
+                local_osbm,
+                data_variable,
+                name_variable,
+                value,
+                config_variable,
+                docx_template,
             )
 
     def create_docx_page(
@@ -234,7 +281,6 @@ class ConverterPool:
         )
         # TODO ReRender ???
         self.rerender(local_osbm, template_path, docx_path, sections_info)
-        
 
     def rerender(self, local_osbm, template_path, docx_path, sections_info):
         local_osbm.obj_logg.debug_logger(
@@ -257,6 +303,7 @@ class ConverterPool:
                     self.check_type_variable_and_fill_data_variable(
                         local_osbm, pair, data_variable, docx_template, is_rerender
                     )
+            print(f"data variable = {data_variable}")
             # первый render
             docx_template.render(data_variable)
             # узнаем новый список переменных
@@ -265,14 +312,15 @@ class ConverterPool:
             print(f"BEFORE SAVE data_variable = {data_variable}")
             docx_template.save(docx_path)
             # если список переменных изменился
-            if len(new_set_of_variables) == 0 or new_set_of_variables == set_of_variables:
+            if (
+                len(new_set_of_variables) == 0
+                or new_set_of_variables == set_of_variables
+            ):
                 flag = False
             else:
                 current_path = docx_path
                 is_rerender = True
                 flag -= 1
-        
-
 
     def create_pdf_from_docx_page(self, local_osbm, docx_pdf_page_name) -> str:
         local_osbm.obj_logg.debug_logger(
@@ -282,15 +330,11 @@ class ConverterPool:
         docx_page_fullname = docx_pdf_page_name + ".docx"
         pdf_page_fullname = docx_pdf_page_name + ".pdf"
         docx_path = os.path.abspath(
-            os.path.join(
-                local_osbm.obj_dirm.get_temp_dirpath(), docx_page_fullname
-            )
+            os.path.join(local_osbm.obj_dirm.get_temp_dirpath(), docx_page_fullname)
         )
         # путь к pdf в temp проекта
         pdf_path = os.path.abspath(
-            os.path.join(
-                local_osbm.obj_dirm.get_temp_dirpath(), pdf_page_fullname
-            )
+            os.path.join(local_osbm.obj_dirm.get_temp_dirpath(), pdf_page_fullname)
         )
         # преобразовать docx в pdf
         # convert(docx_path, pdf_path)
@@ -303,9 +347,7 @@ class ConverterPool:
         )
         app_converter = local_osbm.obj_setdb.get_app_converter()
         if app_converter == "MSWORD":
-            self.convert_from_docx_to_pdf_using_msword(
-                local_osbm, docx_path, pdf_path
-            )
+            self.convert_from_docx_to_pdf_using_msword(local_osbm, docx_path, pdf_path)
         # elif app_converter == "OPENOFFICE":
         #     self.convert_from_docx_to_pdf_using_openoffice(docx_path, pdf_path)
         elif app_converter == "LIBREOFFICE":
@@ -313,9 +355,7 @@ class ConverterPool:
                 local_osbm, docx_path, pdf_path
             )
 
-    def convert_from_docx_to_pdf_using_msword(
-        self, local_osbm, docx_path, pdf_path
-    ):
+    def convert_from_docx_to_pdf_using_msword(self, local_osbm, docx_path, pdf_path):
         local_osbm.obj_logg.debug_logger(
             "Converter convert_from_docx_to_pdf_using_msword(docx_path, pdf_path)"
         )
@@ -356,7 +396,6 @@ class ConverterPool:
             raise local_osbm.obj_com.errors.LibreOfficeError(e)
 
 
-
 class ConverterObjectsManager:
     def __init__(self, osbm):
         self.obj_dirm = osbm.obj_dirm
@@ -364,6 +403,8 @@ class ConverterObjectsManager:
         self.obj_prodb = osbm.obj_prodb
         self.obj_seci = osbm.obj_seci
         self.obj_setdb = osbm.obj_setdb
+        self.obj_imgr = osbm.obj_imgr
+        self.obj_film = osbm.obj_film
         # общее
         self.obj_com = osbm.obj_com
 
@@ -399,18 +440,13 @@ class Converter:
         # проход по всем вершинам дерева для заполенения project_pages_objects
         project_pages_objects = list()
         self.__number_page = 0
-        self.dfs(
-            self.__osbm.obj_prodb.get_project_node(),
-            project_pages_objects
-        )
+        self.dfs(self.__osbm.obj_prodb.get_project_node(), project_pages_objects)
         print(f"self.__number_page = {self.__number_page}")
         self.__osbm.obj_logg.debug_logger(
             f"Converter project_pages_objects = {project_pages_objects}"
         )
         # проход по project_pages_objects для преобразования каждой страницы в docx, а потом в pdf
-        list_of_pdf_pages = self.get_list_of_created_pdf_pages(
-            project_pages_objects
-        )
+        list_of_pdf_pages = self.get_list_of_created_pdf_pages(project_pages_objects)
         print(f"list_of_pdf_pages = {list_of_pdf_pages}")
         # объеденить несколько pdf файлов в один
         self.merge_pdfs_and_create(multipage_pdf_path, list_of_pdf_pages)
@@ -426,13 +462,11 @@ class Converter:
                 print("included = ", child_included, type(child_included))
                 if child_included:
                     # проход по страницам node
-                    # TODO 
+                    # TODO
                     id_active_template = child.get("id_active_template")
                     if id_active_template:
                         template = {"id_template": id_active_template}
-                        pages = self.__osbm.obj_prodb.get_pages_by_template(
-                            template
-                        )
+                        pages = self.__osbm.obj_prodb.get_pages_by_template(template)
                         for page in pages:
                             object = {
                                 "type": "page",
@@ -481,8 +515,7 @@ class Converter:
         #
         print(f"processes_number = {processes_number}")
         args = [
-            (ConverterObjectsManager(self.__osbm), obj)
-            for obj in project_pages_objects
+            (ConverterObjectsManager(self.__osbm), obj) for obj in project_pages_objects
         ]
         with multiprocessing.Pool(processes=processes_number) as pool:
             results = pool.map(

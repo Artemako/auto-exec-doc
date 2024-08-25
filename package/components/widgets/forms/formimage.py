@@ -1,6 +1,6 @@
 import os
 import datetime
-from PIL import Image
+
 
 from PySide6.QtWidgets import QWidget
 
@@ -26,20 +26,21 @@ class FormImage(QWidget):
         #
         self.config()
 
-    # TODO ФОРМА ИЗОБРАЖЕНИЯ 
-
     def config(self):
         self.__osbm.obj_logg.debug_logger("FormImage config()")
         # тип переменной
-        key_icon = self.__osbm.obj_icons.get_key_icon_by_type_variable(self.__current_variable.get("type_variable"))
+        key_icon = self.__osbm.obj_icons.get_key_icon_by_type_variable(
+            self.__current_variable.get("type_variable")
+        )
         qicon_type_variable = self.__icons.get(key_icon)
         self.ui.label_typevariable.setPixmap(qicon_type_variable)
         # заголовок
         self.ui.title.setText(self.__current_variable.get("title_variable"))
         # поле ввода
+        image_path = self.__pair.get("value_pair")
         self.ui.label.setText(
             "Изображение успешно выбрано"
-            if self.__pair.get("value_pair")
+            if image_path and image_path.endswith(".png")
             else "Выберите изображение"
         )
         # масштаб
@@ -61,24 +62,14 @@ class FormImage(QWidget):
 
     def set_new_value_in_pair(self):
         self.__osbm.obj_logg.debug_logger("FormImage set_new_value_in_pair()")
-        image_dirpath = (
-            self.__osbm.obj_dw.select_image_for_formimage_in_project()
-        )
+        image_dirpath = self.__osbm.obj_dw.select_image_for_formimage_in_project()
         if image_dirpath:
             # текст выбранного изображения
             self.ui.label.setText(os.path.basename(image_dirpath))
             # имя нового изображения
             file_name = f"img_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
             file_name_with_png = f"{file_name}.png"
-
-            # путь к временной папке
-            temp_dir = self.__osbm.obj_dirm.get_temp_dirpath()
-            # Путь к временному файлу
-            temp_file_path = os.path.join(temp_dir, file_name_with_png)
-            # Открыть изображение
-            image = Image.open(image_dirpath)
-            # Сохранить изображение в временный файл
-            image.save(temp_file_path, "PNG")
-            # Вывести путь к временному файлу
-            print("Изображение сохранено в временную папку:", temp_file_path)
+            # сохранение изображения
+            self.__osbm.obj_imgr.save_image_then_selected(image_dirpath, file_name_with_png)
+            #
             self.__pair["value_pair"] = file_name_with_png
