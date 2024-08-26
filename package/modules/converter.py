@@ -18,6 +18,10 @@ import package.modules.convertervarimage as convertervarimage
 
 
 class ConverterPool:
+
+    def __init__(self):
+        self.__cashe_temp_images = dict()
+
     def process_object_of_project_pages_objects(self, args) -> dict:
         local_osbm, object_for_pool = args
         local_osbm.obj_logg.debug_logger(
@@ -163,26 +167,53 @@ class ConverterPool:
                 )
                 mm_width = mm_sizes[0]
                 mm_height = mm_sizes[1]
+                # проверить в словаре
+                is_reimage = True
+                add_dict = dict()
+                cashe_dict = self.__cashe_temp_images.get(value, None)  
+                #              
+                if cashe_dict:
+                    is_reimage = False
+                    temp_image = cashe_dict.get("temp_image", None)
+                    temp_width = cashe_dict.get("width", None)
+                    temp_height = cashe_dict.get("height", None)
+                else:
+                    temp_image = convvarimg.get_temp_image(value)
+                    add_dict["temp_image"] = temp_image
                 #
-                temp_image = convvarimg.get_temp_image(value)
                 inline_image = InlineImage(docx_template, temp_image)
-                # TODO
                 if sizing_mode == "NOCHANGES":
                     pass
                 elif sizing_mode == "CONTAIN":
                     # только ширину ради пропорции
-                    scaled_mm_sizes = convvarimg.contain_sizing_mode(temp_image, mm_width, mm_height)
-                    inline_image.width = Mm(scaled_mm_sizes[0]) 
-                    # inline_image.height = Mm(scaled_mm_sizes[1])
+                    if is_reimage:
+                        scaled_mm_sizes = convvarimg.contain_sizing_mode(temp_image, mm_width, mm_height)
+                        inline_image.width = Mm(scaled_mm_sizes[0]) 
+                        add_dict["width"] = scaled_mm_sizes[0]
+                    else:
+                        inline_image.width = Mm(temp_width)
                 elif sizing_mode == "COVER":
                     # только ширину ради пропорции
-                    scaled_mm_sizes = convvarimg.cover_sizing_mode(temp_image, mm_width, mm_height)
-                    inline_image.width = Mm(scaled_mm_sizes[0]) 
-                    ...
+                    if is_reimage:
+                        scaled_mm_sizes = convvarimg.cover_sizing_mode(temp_image, mm_width, mm_height)
+                        inline_image.width = Mm(scaled_mm_sizes[0])
+                        add_dict["width"] = scaled_mm_sizes[0]
+                    else:
+                        inline_image.width = Mm(temp_width)
                 elif sizing_mode == "FILL":
-                    inline_image.width = Mm(mm_width)
-                    inline_image.height = Mm(mm_height)
-                print(f"mm_width = {mm_width}, mm_height = {mm_height}")
+                    if is_reimage:
+                        inline_image.width = Mm(mm_width)
+                        inline_image.height = Mm(mm_height)
+                        add_dict["width"] = mm_width
+                        add_dict["height"] = mm_height                        
+                    else:
+                        inline_image.width = Mm(temp_width)
+                        inline_image.height = Mm(temp_height)
+                
+                # добавить новое если впервый раз
+                if is_reimage:
+                    self.__cashe_temp_images[value] = add_dict
+                #    
                 data_variable[str(name_variable)] = inline_image
         except Exception as e:
             print(e)
@@ -309,13 +340,13 @@ class ConverterPool:
                     self.check_type_variable_and_fill_data_variable(
                         local_osbm, pair, data_variable, docx_template, is_rerender
                     )
-            print(f"data variable = {data_variable}")
+            # print(f"data variable = {data_variable}")
             # первый render
             docx_template.render(data_variable)
             # узнаем новый список переменных
             new_set_of_variables = docx_template.get_undeclared_template_variables()
             # сохраняем документ
-            print(f"BEFORE SAVE data_variable = {data_variable}")
+            # print(f"BEFORE SAVE data_variable = {data_variable}")
             docx_template.save(docx_path)
             # если список переменных изменился
             if (
