@@ -60,18 +60,20 @@ class ImageResizer:
         return width, height
 
     def crop_image(
-        self, temp_image, new_width, new_height, container_width, container_height
+        self, temp_image, image_width, image_height, new_image_width, new_image_height
     ):
-
         # TODO
+        new_image_width = int(new_image_width)
+        new_image_height = int(new_image_height)
+        #
         image = PilImage.open(temp_image)
         # Изменяем размер с последующим обрезанием
-        image = image.resize((new_width, new_height), PilImage.LANCZOS)
+        image = image.resize((new_image_width, new_image_height), PilImage.LANCZOS)
         # Обрезаем изображение до размеров контейнера
-        left = (new_width - container_width) // 2
-        top = (new_height - container_height) // 2
-        right = (new_width + container_width) // 2
-        bottom = (new_height + container_height) // 2
+        left = (new_image_width - image_width) // 2
+        top = (new_image_height - image_height) // 2
+        right = (new_image_width + image_width) // 2
+        bottom = (new_image_height + image_height) // 2
         #
         image = image.crop((left, top, right, bottom))
         #

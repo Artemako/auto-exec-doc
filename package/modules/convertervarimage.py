@@ -106,34 +106,37 @@ class ConverterVarImage:
         # 
         mm_ratio = mm_width / mm_height
         image_ratio = image_width / image_height
-        image_is_larger_by_height = self.image_is_larger_by_height(image_ratio, mm_ratio, height = 100)
-        # image_is_larger_by_width = self.image_is_larger_by_width(image_ratio, mm_ratio, width = 100)
-        if image_is_larger_by_height == "LARGER":
-            # задать высоту изображения
-        elif image_is_larger_by_height == "SMALLER":
-            # задать ширину изображения
+        #
+        height = 100
+        width_a = image_ratio * height
+        width_b = mm_ratio * height
+        #
+        width = 100
+        height_a = width / image_ratio 
+        height_b = width / mm_ratio
+        #
+        print(f"image_width = {image_width}, image_height = {image_height}")
+        print(f"width_a = {width_a}, width_b = {width_b}")
+        if width_a > width_b:
+            print("width_a > width_b")
+            ratio_width = width_a / width_b
+            new_image_width = image_width * ratio_width
+            new_image_height = image_height * ratio_width
         else:
-            ...
-        
-        # обрезать
-        self.__osbm.obj_imgr.crop_image(temp_image)
+            print("width_a < width_b")
+            ratio_height = height_a / height_b
+            new_image_width = image_width * ratio_height
+            new_image_height = image_height * ratio_height
+        print(f"new_image_width = {new_image_width}, new_image_height = {new_image_height}")
+        #
+        self.__osbm.obj_imgr.crop_image(temp_image, image_width, image_height, new_image_width, new_image_height)
         #
         return mm_width, mm_height
-    
-    def compare_rectangles(self, a, b, height = None, width=None) -> str:
-        if height:
-            # Если высоты одинаковые
-            width_a = a * height
-            width_b = b * height
-            area_a = width_a * height
-            area_b = width_b * height
-        elif width:
-            # Если ширины одинаковые
-            height_a = width / a
-            height_b = width / b
-            area_a = width * height_a
-            area_b = width * height_b
-        return "LARGER" if area_a > area_b else "SMALLER" if area_a > area_b else False if area_a < area_b else "EQUAL"
+        
+
+
+
+
 
 
         
