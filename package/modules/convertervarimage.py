@@ -101,35 +101,22 @@ class ConverterVarImage:
 
     def cover_sizing_mode(self, temp_image, mm_width, mm_height) -> tuple:
         # размеры изображения
-        # TODO
         image_width, image_height = self.__osbm.obj_imgr.get_sizes_image(temp_image)
         # 
-        mm_ratio = mm_width / mm_height
-        image_ratio = image_width / image_height
-        #
-        height = 100
-        width_a = image_ratio * height
-        width_b = mm_ratio * height
-        #
-        width = 100
-        height_a = width / image_ratio 
-        height_b = width / mm_ratio
-        #
-        print(f"image_width = {image_width}, image_height = {image_height}")
-        print(f"width_a = {width_a}, width_b = {width_b}")
+        height = 1000
+        width_a = (image_width / image_height) * height
+        width_b = (mm_width / mm_height) * height
+        # новый уменьшенный размер
         if width_a > width_b:
-            print("width_a > width_b")
-            ratio_width = width_a / width_b
-            new_image_width = image_width * ratio_width
-            new_image_height = image_height * ratio_width
+            new_image_width = image_height * (mm_height / mm_width)
+            new_image_height = image_height
         else:
-            print("width_a < width_b")
-            ratio_height = height_a / height_b
-            new_image_width = image_width * ratio_height
-            new_image_height = image_height * ratio_height
-        print(f"new_image_width = {new_image_width}, new_image_height = {new_image_height}")
+            new_image_width = image_width
+            new_image_height = image_width * (mm_width / mm_height)
         #
         self.__osbm.obj_imgr.crop_image(temp_image, image_width, image_height, new_image_width, new_image_height)
+        #
+        self.__osbm.obj_logg.debug_logger(f"ConverterVarImage cover_sizing_mode() -> tuple:\n result = ({new_image_width}, {new_image_height})")
         #
         return mm_width, mm_height
         

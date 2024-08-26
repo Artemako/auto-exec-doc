@@ -62,18 +62,23 @@ class ImageResizer:
     def crop_image(
         self, temp_image, image_width, image_height, new_image_width, new_image_height
     ):
-        # TODO
+        self.__osbm.obj_logg.debug_logger(
+            f"ImageResizer crop_image(temp_image, image_width, image_height, new_image_width, new_image_height):\n"
+            f"temp_image = {temp_image} \n"
+            f"image_width = {image_width} \n"
+            f"image_height = {image_height} \n"
+            f"new_image_width = {new_image_width} \n"
+            f"new_image_height = {new_image_height}"
+        )
         new_image_width = int(new_image_width)
         new_image_height = int(new_image_height)
         #
         image = PilImage.open(temp_image)
-        # Изменяем размер с последующим обрезанием
-        image = image.resize((new_image_width, new_image_height), PilImage.LANCZOS)
         # Обрезаем изображение до размеров контейнера
-        left = (new_image_width - image_width) // 2
-        top = (new_image_height - image_height) // 2
-        right = (new_image_width + image_width) // 2
-        bottom = (new_image_height + image_height) // 2
+        left = (image_width - new_image_width) // 2
+        top = (image_height - new_image_height) // 2
+        right = (image_width + new_image_width) // 2
+        bottom = (image_height + new_image_height) // 2
         #
         image = image.crop((left, top, right, bottom))
         #

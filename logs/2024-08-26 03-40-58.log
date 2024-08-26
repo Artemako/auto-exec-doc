@@ -1,0 +1,593 @@
+2024-08-26 03:40:58,033 - DEBUG - [34m Config logger[00m
+2024-08-26 03:40:58,033 - DEBUG - [34m self.current_directory = d:\work\project\AutoExecDoc[00m
+2024-08-26 03:40:58,033 - DEBUG - [34m FileFolderManager create_and_setting_files_and_folders()[00m
+2024-08-26 03:40:58,033 - DEBUG - [34m DirPathManager get_default_folder_projects_dirpath() -> str: C:/Users/hayar/Documents\AutoExecDoc Projects[00m
+2024-08-26 03:40:58,033 - DEBUG - [34m SettingsDatabase create_and_setting_db_settings()[00m
+2024-08-26 03:40:58,033 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-26 03:40:58,033 - DEBUG - [34m OfficePackets resetting_office_packets()[00m
+2024-08-26 03:40:58,033 - DEBUG - [34m MsWordThread __init__()[00m
+2024-08-26 03:40:58,033 - DEBUG - [34m OfficePackets run_libreoffice()[00m
+2024-08-26 03:40:58,033 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-26 03:40:58,033 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-26 03:40:58,033 - DEBUG - [34m MsWordThread initialize_msword()[00m
+2024-08-26 03:40:58,033 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-26 03:40:58,033 - DEBUG - [34m SettingsDatabase get_libreoffice_path():
+result = {'value_setting': 'C:\\Program Files\\LibreOffice\\program\\soffice.exe'}[00m
+2024-08-26 03:40:58,229 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-26 03:40:58,246 - DEBUG - [34m MainWindow config()[00m
+2024-08-26 03:40:58,246 - DEBUG - [34m MainWindow update_menu_recent_projects()[00m
+2024-08-26 03:40:58,246 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-26 03:40:58,246 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-26 03:40:58,247 - DEBUG - [34m SettingsDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-26 03:40:58,247 - DEBUG - [34m SettingsDatabase get_last_projects():
+result = [{'id_project': 7, 'name_project': 'Алло', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Алло', 'date_create_project': '2024-08-22 21:47:31', 'date_last_open_project': '2024-08-26 03:30:44'}, {'id_project': 8, 'name_project': 'Копия Алло', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Копия Алло', 'date_create_project': '2024-08-25 00:20:06', 'date_last_open_project': '2024-08-25 00:20:06'}, {'id_project': 6, 'name_project': 'Привт', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Привт', 'date_create_project': '2024-08-22 03:00:26', 'date_last_open_project': '2024-08-22 21:35:49'}, {'id_project': 4, 'name_project': 'бРА', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/бРА', 'date_create_project': '2024-08-22 00:30:47', 'date_last_open_project': '2024-08-22 03:53:58'}, {'id_project': 5, 'name_project': 'Привет Мир', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Привет Мир', 'date_create_project': '2024-08-22 02:56:32', 'date_last_open_project': '2024-08-22 02:58:23'}][00m
+2024-08-26 03:40:58,249 - DEBUG - [34m MainWindow config_controllers()[00m
+2024-08-26 03:40:58,250 - DEBUG - [34m StatusBar connect_statusbar(statusbar)[00m
+2024-08-26 03:40:58,250 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-26 03:40:58,250 - DEBUG - [34m StatusBar config_statusbar()[00m
+2024-08-26 03:40:58,250 - DEBUG - [34m StatusBar config_msword()[00m
+2024-08-26 03:40:58,250 - DEBUG - [34m StatusBar get_red_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x26c75467310) at 0x0000026C78BEB380>[00m
+2024-08-26 03:40:58,251 - DEBUG - [34m StatusBar get_yellow_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x26c754646d0) at 0x0000026C78BEB900>[00m
+2024-08-26 03:40:58,251 - DEBUG - [34m StatusBar get_green_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x26c75464790) at 0x0000026C78BEB980>[00m
+2024-08-26 03:40:58,252 - DEBUG - [34m StatusBar config_libreoffice()[00m
+2024-08-26 03:40:58,252 - DEBUG - [34m StatusBar get_red_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x26c755baf90) at 0x0000026C78BEBAC0>[00m
+2024-08-26 03:40:58,252 - DEBUG - [34m StatusBar get_yellow_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x26c755b8e30) at 0x0000026C78BEBC00>[00m
+2024-08-26 03:40:58,255 - DEBUG - [34m StatusBar get_green_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x26c755b83b0) at 0x0000026C78BEBD40>[00m
+2024-08-26 03:40:58,257 - DEBUG - [34m StatusBar config_update_statusbar()[00m
+2024-08-26 03:40:58,257 - DEBUG - [34m OfficePackets get_status_msword():
+self.__status_msword = False[00m
+2024-08-26 03:40:58,258 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = False[00m
+2024-08-26 03:40:58,258 - DEBUG - [34m OfficePackets get_status_libreoffice():
+self.__status_libreoffice = False[00m
+2024-08-26 03:40:58,258 - DEBUG - [34m StatusBar update_status_libreoffice_label(status_libreoffice):
+status_libreoffice = False[00m
+2024-08-26 03:40:58,258 - DEBUG - [34m StatusBar set_message(message):
+message = Проект не открыт[00m
+2024-08-26 03:40:58,268 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-26 03:40:58,269 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-26 03:40:58,272 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-26 03:40:58,278 - DEBUG - [34m SettingsDatabase get_app_converter():
+result = {'value_setting': 'MSWORD'}[00m
+2024-08-26 03:40:58,280 - DEBUG - [34m StatusBar update_name_app_converter()[00m
+2024-08-26 03:40:58,280 - DEBUG - [34m StatusBar connecting_actions()[00m
+2024-08-26 03:40:58,296 - DEBUG - [34m TWStructureExecDoc connect_structureexecdoc(tr_sed)[00m
+2024-08-26 03:40:58,331 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-26 03:40:58,336 - DEBUG - [34m TWStructureExecDoc clear_tr_sed()[00m
+2024-08-26 03:40:58,386 - DEBUG - [34m LWPagesTemplate connect_pages_template(lw_pt):
+lw_pt = <PySide6.QtWidgets.QListWidget(0x26c72f66970, name="lw_pages_template") at 0x0000026C7655F5C0>[00m
+2024-08-26 03:40:58,394 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-26 03:40:58,402 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-08-26 03:40:58,403 - DEBUG - [34m ComboxTemplates connect_combox_templates(combox_templates):
+combox_templates = <PySide6.QtWidgets.QComboBox(0x26c750f64a0, name="combox_templates") at 0x0000026C7655F4C0>[00m
+2024-08-26 03:40:58,407 - DEBUG - [34m SAInputForms connect_inputforms(sa_if, sa_ifl):
+sa_if = <PySide6.QtWidgets.QScrollArea(0x26c72f72a80, name="scrollarea_inputforms") at 0x0000026C7655FB00>,
+sa_ifl = <PySide6.QtWidgets.QWidget(0x26c700fd950, name="scrollarea_inputforms_layout") at 0x0000026C78BE5300>[00m
+2024-08-26 03:40:58,411 - DEBUG - [34m PdfView connect_pdfview()[00m
+2024-08-26 03:40:58,411 - DEBUG - [34m PdfView config_pdf_view_in_mainwindow()[00m
+2024-08-26 03:40:58,411 - DEBUG - [34m MainWindow connecting_actions()[00m
+2024-08-26 03:40:58,427 - DEBUG - [34m CommonWithOsmb run()[00m
+2024-08-26 03:40:58,430 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-26 03:40:58,443 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-26 03:40:58,451 - DEBUG - [34m ResizeQt __init__(osbm)[00m
+2024-08-26 03:40:58,522 - DEBUG - [34m OfficePackets update_status_msword(status):
+status = None[00m
+2024-08-26 03:40:58,525 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = None[00m
+2024-08-26 03:40:58,786 - DEBUG - [34m OfficePackets update_status_msword(status):
+status = True[00m
+2024-08-26 03:40:58,786 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = True[00m
+2024-08-26 03:40:59,167 - DEBUG - [34m Project open_project()[00m
+2024-08-26 03:40:59,167 - DEBUG - [34m Project check_project_before_new_or_open()[00m
+2024-08-26 03:40:59,167 - DEBUG - [34m DirPathManager get_default_folder_projects_dirpath() -> str: C:/Users/hayar/Documents\AutoExecDoc Projects[00m
+2024-08-26 03:41:00,540 - DEBUG - [34m DialogWindows select_folder_for_open_project() -> C:/Users/hayar/Documents/AutoExecDoc Projects/Алло/Алло.aed[00m
+2024-08-26 03:41:00,540 - DEBUG - [34m Project set_project_dirpaths(folder_path: str):
+folder_path = C:/Users/hayar/Documents/AutoExecDoc Projects/Алло[00m
+2024-08-26 03:41:00,540 - DEBUG - [34m DirPathManager set_project_dirpath(dirpath: str):
+dirpath = C:/Users/hayar/Documents/AutoExecDoc Projects/Алло[00m
+2024-08-26 03:41:00,540 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло[00m
+2024-08-26 03:41:00,540 - DEBUG - [34m DirPathManager set_db_project_dirpath(dirpath: str):
+dirpath = C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:00,540 - DEBUG - [34m Project clear_window_before_new_or_open_project()[00m
+2024-08-26 03:41:00,540 - DEBUG - [34m TWStructureExecDoc clear_tr_sed()[00m
+2024-08-26 03:41:00,540 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-08-26 03:41:00,540 - DEBUG - [34m PdfView set_empty_pdf_view()[00m
+2024-08-26 03:41:00,540 - DEBUG - [34m SAInputForms delete_all_widgets_in_sa()[00m
+2024-08-26 03:41:00,540 - DEBUG - [34m Project config_open_project()[00m
+2024-08-26 03:41:00,540 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло[00m
+2024-08-26 03:41:00,540 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-26 03:41:00,540 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-26 03:41:00,540 - DEBUG - [34m SettingsDatabase set_project_current_name(project_name):
+project_name = Алло[00m
+2024-08-26 03:41:00,540 - DEBUG - [34m SettingsDatabase add_or_update_open_project_to_db()[00m
+2024-08-26 03:41:00,540 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-26 03:41:00,540 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-26 03:41:00,554 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло[00m
+2024-08-26 03:41:00,554 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло[00m
+2024-08-26 03:41:00,554 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-26 03:41:00,555 - DEBUG - [34m SettingsDatabase update_project_to_db()[00m
+2024-08-26 03:41:00,555 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-26 03:41:00,555 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-26 03:41:00,556 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло[00m
+2024-08-26 03:41:00,556 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло[00m
+2024-08-26 03:41:00,559 - DEBUG - [34m ProjectDatabase create_and_config_db_project()[00m
+2024-08-26 03:41:00,560 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:00,560 - DEBUG - [34m ProjectDatabase set_all_included_in_db_project_to_true()[00m
+2024-08-26 03:41:00,560 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:00,560 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:00,561 - DEBUG - [34m MainWindow update_main_window()[00m
+2024-08-26 03:41:00,562 - DEBUG - [34m TWStructureExecDoc update_structure_exec_doc()[00m
+2024-08-26 03:41:00,562 - DEBUG - [34m TWStructureExecDoc get_current_node()[00m
+2024-08-26 03:41:00,562 - DEBUG - [34m TWStructureExecDoc clear_tr_sed()[00m
+2024-08-26 03:41:00,562 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-26 03:41:00,562 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-26 03:41:00,562 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-26 03:41:00,562 - DEBUG - [34m SettingsDatabase get_project_current_name():
+result = {'value_setting': 'Алло'}[00m
+2024-08-26 03:41:00,562 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:00,562 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:00,562 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-26 03:41:00,562 - DEBUG - [34m ProjectDatabase get_project_node() -> object:
+result = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}[00m
+2024-08-26 03:41:00,562 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-08-26 03:41:00,566 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:00,566 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:00,567 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-26 03:41:00,567 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}
+result = [{'id_node': 3, 'name_node': 'Ранетки', 'id_parent': 0, 'order_node': '0', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}][00m
+2024-08-26 03:41:00,568 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 3, 'name_node': 'Ранетки', 'id_parent': 0, 'order_node': '0', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-26 03:41:00,568 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 3, 'name_node': 'Ранетки', 'id_parent': 0, 'order_node': '0', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-26 03:41:00,569 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026C7655F640>,
+node = {'id_node': 3, 'name_node': 'Ранетки', 'id_parent': 0, 'order_node': '0', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-26 03:41:00,570 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026C7655F640>,
+node = {'id_node': 3, 'name_node': 'Ранетки', 'id_parent': 0, 'order_node': '0', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-26 03:41:00,570 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 3, 'name_node': 'Ранетки', 'id_parent': 0, 'order_node': '0', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-08-26 03:41:00,570 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:00,570 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:00,570 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-26 03:41:00,573 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 3, 'name_node': 'Ранетки', 'id_parent': 0, 'order_node': '0', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+result = [{'id_node': 4, 'name_node': 'Раз', 'id_parent': 3, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 19, 'included': 1}, {'id_node': 5, 'name_node': 'вапвап', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}][00m
+2024-08-26 03:41:00,573 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 4, 'name_node': 'Раз', 'id_parent': 3, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 19, 'included': 1}[00m
+2024-08-26 03:41:00,574 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 4, 'name_node': 'Раз', 'id_parent': 3, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 19, 'included': 1}[00m
+2024-08-26 03:41:00,574 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026C78BF6D80>,
+node = {'id_node': 4, 'name_node': 'Раз', 'id_parent': 3, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 19, 'included': 1}[00m
+2024-08-26 03:41:00,575 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026C78BF6D80>,
+node = {'id_node': 4, 'name_node': 'Раз', 'id_parent': 3, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 19, 'included': 1}[00m
+2024-08-26 03:41:00,575 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 4, 'name_node': 'Раз', 'id_parent': 3, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 19, 'included': 1}
+ open_node = None[00m
+2024-08-26 03:41:00,576 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:00,577 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:00,578 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-26 03:41:00,578 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 4, 'name_node': 'Раз', 'id_parent': 3, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 19, 'included': 1}
+result = [][00m
+2024-08-26 03:41:00,578 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 5, 'name_node': 'вапвап', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}[00m
+2024-08-26 03:41:00,579 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 5, 'name_node': 'вапвап', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}[00m
+2024-08-26 03:41:00,580 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026C78BF6900>,
+node = {'id_node': 5, 'name_node': 'вапвап', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}[00m
+2024-08-26 03:41:00,580 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026C78BF6900>,
+node = {'id_node': 5, 'name_node': 'вапвап', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}[00m
+2024-08-26 03:41:00,581 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 5, 'name_node': 'вапвап', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-08-26 03:41:00,581 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:00,582 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:00,582 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-26 03:41:00,582 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 5, 'name_node': 'вапвап', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}
+result = [][00m
+2024-08-26 03:41:00,582 - DEBUG - [34m TWStructureExecDoc current_item_changed(current):
+current = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026C7655F640>[00m
+2024-08-26 03:41:00,582 - DEBUG - [34m ComboxTemplates update_combox_templates(node):
+node = {'id_active_template': None, 'id_node': 3, 'id_parent': 0, 'included': 1, 'name_node': 'Ранетки', 'order_node': '0', 'type_node': 'GROUP'}[00m
+2024-08-26 03:41:00,582 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:00,582 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:00,582 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-26 03:41:00,582 - DEBUG - [34m ProjectDatabase get_templates_by_form(form) -> list: form = {'id_node': 3}
+result = [][00m
+2024-08-26 03:41:00,582 - DEBUG - [34m ComboxTemplates combox_templates_changed(index):
+index = 0[00m
+2024-08-26 03:41:00,587 - DEBUG - [34m LWPagesTemplate update_pages_template(template):
+template = None[00m
+2024-08-26 03:41:00,587 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-08-26 03:41:00,588 - DEBUG - [34m TWStructureExecDoc get_current_node()[00m
+2024-08-26 03:41:00,588 - DEBUG - [34m ComboxTemplates update_combox_templates(node):
+node = {'id_active_template': None, 'id_node': 3, 'id_parent': 0, 'included': 1, 'name_node': 'Ранетки', 'order_node': '0', 'type_node': 'GROUP'}[00m
+2024-08-26 03:41:00,588 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:00,588 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:00,590 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-26 03:41:00,590 - DEBUG - [34m ProjectDatabase get_templates_by_form(form) -> list: form = {'id_node': 3}
+result = [][00m
+2024-08-26 03:41:00,590 - DEBUG - [34m ComboxTemplates combox_templates_changed(index):
+index = 0[00m
+2024-08-26 03:41:00,590 - DEBUG - [34m LWPagesTemplate update_pages_template(template):
+template = None[00m
+2024-08-26 03:41:00,590 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-08-26 03:41:00,590 - DEBUG - [34m PdfView set_empty_pdf_view()[00m
+2024-08-26 03:41:00,590 - DEBUG - [34m LWPagesTemplate get_page_by_current_item()[00m
+2024-08-26 03:41:00,590 - DEBUG - [34m SAInputForms update_scrollarea()[00m
+2024-08-26 03:41:00,590 - DEBUG - [34m SAInputForms delete_all_widgets_in_sa()[00m
+2024-08-26 03:41:00,590 - DEBUG - [34m DirPathManager set_new_dirpaths_for_project()[00m
+2024-08-26 03:41:00,590 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло[00m
+2024-08-26 03:41:00,590 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло[00m
+2024-08-26 03:41:00,590 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло[00m
+2024-08-26 03:41:00,590 - DEBUG - [34m Project set_true_actives_project()[00m
+2024-08-26 03:41:00,594 - DEBUG - [34m StatusBar set_message(message):
+message = Проект c именем Алло открыт.[00m
+2024-08-26 03:41:00,594 - DEBUG - [34m FileFolderManager create_folders_and_aed_for_project()[00m
+2024-08-26 03:41:00,595 - DEBUG - [34m FileFolderManager check_aed_file()[00m
+2024-08-26 03:41:00,596 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-26 03:41:00,596 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-26 03:41:00,596 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-26 03:41:00,596 - DEBUG - [34m SettingsDatabase get_project_current_name():
+result = {'value_setting': 'Алло'}[00m
+2024-08-26 03:41:00,596 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло[00m
+2024-08-26 03:41:00,596 - DEBUG - [34m DirPathManager get_forms_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\forms[00m
+2024-08-26 03:41:00,596 - DEBUG - [34m DirPathManager get_image_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\images[00m
+2024-08-26 03:41:00,596 - DEBUG - [34m get_pdfs_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\pdfs[00m
+2024-08-26 03:41:00,596 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-26 03:41:00,596 - DEBUG - [34m MainWindow update_menu_recent_projects()[00m
+2024-08-26 03:41:00,596 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-26 03:41:00,596 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-26 03:41:00,596 - DEBUG - [34m SettingsDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-26 03:41:00,596 - DEBUG - [34m SettingsDatabase get_last_projects():
+result = [{'id_project': 7, 'name_project': 'Алло', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Алло', 'date_create_project': '2024-08-22 21:47:31', 'date_last_open_project': '2024-08-26 03:41:00'}, {'id_project': 8, 'name_project': 'Копия Алло', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Копия Алло', 'date_create_project': '2024-08-25 00:20:06', 'date_last_open_project': '2024-08-25 00:20:06'}, {'id_project': 6, 'name_project': 'Привт', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Привт', 'date_create_project': '2024-08-22 03:00:26', 'date_last_open_project': '2024-08-22 21:35:49'}, {'id_project': 4, 'name_project': 'бРА', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/бРА', 'date_create_project': '2024-08-22 00:30:47', 'date_last_open_project': '2024-08-22 03:53:58'}, {'id_project': 5, 'name_project': 'Привет Мир', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Привет Мир', 'date_create_project': '2024-08-22 02:56:32', 'date_last_open_project': '2024-08-22 02:58:23'}][00m
+2024-08-26 03:41:01,866 - DEBUG - [34m TWStructureExecDoc current_item_changed(current):
+current = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026C78BF6D80>[00m
+2024-08-26 03:41:01,866 - DEBUG - [34m ComboxTemplates update_combox_templates(node):
+node = {'id_active_template': 19, 'id_node': 4, 'id_parent': 3, 'included': 1, 'name_node': 'Раз', 'order_node': '0', 'type_node': 'FORM'}[00m
+2024-08-26 03:41:01,866 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:01,866 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:01,866 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-26 03:41:01,866 - DEBUG - [34m ProjectDatabase get_templates_by_form(form) -> list: form = {'id_node': 4}
+result = [{'id_template': 19, 'name_template': 'Основа', 'id_parent_node': 4}][00m
+2024-08-26 03:41:01,866 - DEBUG - [34m ComboxTemplates combox_templates_changed(index):
+index = 0[00m
+2024-08-26 03:41:01,866 - DEBUG - [34m ProjectDatabase set_active_template_for_node_by_id(id_node, id_template):
+id_node = 4
+id_template = 19[00m
+2024-08-26 03:41:01,866 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:01,866 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:01,872 - DEBUG - [34m LWPagesTemplate update_pages_template(template):
+template = {'id_parent_node': 4, 'id_template': 19, 'name_template': 'Основа'}[00m
+2024-08-26 03:41:01,872 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-08-26 03:41:01,873 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:01,873 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:01,875 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-26 03:41:01,875 - DEBUG - [34m ProjectDatabase get_pages_by_template(template) -> list: template = {'id_parent_node': 4, 'id_template': 19, 'name_template': 'Основа'}
+result = [{'id_page': 5, 'id_parent_template': 19, 'name_page': 'Первая', 'filename_page': 'DOCX_2024-08-25_23-55-43', 'typefile_page': 'DOCX', 'order_page': 0, 'included': 1}][00m
+2024-08-26 03:41:02,623 - DEBUG - [34m LWPagesTemplate item_page_updated(current):
+current = <PySide6.QtWidgets.QListWidgetItem object at 0x0000026C78C04480>[00m
+2024-08-26 03:41:02,623 - DEBUG - [34m SAInputForms update_scrollarea()[00m
+2024-08-26 03:41:02,623 - DEBUG - [34m SAInputForms delete_all_widgets_in_sa()[00m
+2024-08-26 03:41:02,623 - DEBUG - [34m SectionsInfo add_page_for_datas(page):
+page = {'filename_page': 'DOCX_2024-08-25_23-55-43', 'id_page': 5, 'id_parent_template': 19, 'included': 1, 'name_page': 'Первая', 'order_page': 0, 'typefile_page': 'DOCX'}[00m
+2024-08-26 03:41:02,623 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:02,623 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:02,623 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-26 03:41:02,623 - DEBUG - [34m ProjectDatabase get_page_data(page) -> list: page = {'filename_page': 'DOCX_2024-08-25_23-55-43', 'id_page': 5, 'id_parent_template': 19, 'included': 1, 'name_page': 'Первая', 'order_page': 0, 'typefile_page': 'DOCX'}
+result = [{'id_pair': 7, 'id_page': 5, 'id_variable': 1, 'name_variable': None, 'value_pair': 'img_2024-08-26_02-31-49.png'}][00m
+2024-08-26 03:41:02,630 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:02,630 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:02,630 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-26 03:41:02,632 - DEBUG - [34m ProjectDatabase get_parent_template() -> object
+result = {'id_template': 19, 'name_template': 'Основа', 'id_parent_node': 4}[00m
+2024-08-26 03:41:02,632 - DEBUG - [34m SectionsInfo add_template_for_datas(page):
+page = {'id_template': 19, 'name_template': 'Основа', 'id_parent_node': 4}[00m
+2024-08-26 03:41:02,632 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:02,632 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:02,633 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-26 03:41:02,633 - DEBUG - [34m ProjectDatabase get_template_data(template) -> list: template = {'id_template': 19, 'name_template': 'Основа', 'id_parent_node': 4}
+result = [][00m
+2024-08-26 03:41:02,634 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:02,634 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:02,634 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-26 03:41:02,635 - DEBUG - [34m ProjectDatabase get_parent_node_template() -> object
+result = {'id_node': 4, 'name_node': 'Раз', 'id_parent': 3, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 19, 'included': 1}[00m
+2024-08-26 03:41:02,635 - DEBUG - [34m SectionsInfo add_nodes_for_sections_info(node):
+node = {'id_node': 4, 'name_node': 'Раз', 'id_parent': 3, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 19, 'included': 1}[00m
+2024-08-26 03:41:02,635 - DEBUG - [34m SectionsInfo add_node_for_datas(node):
+node = {'id_node': 4, 'name_node': 'Раз', 'id_parent': 3, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 19, 'included': 1}[00m
+2024-08-26 03:41:02,636 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:02,636 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:02,637 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-26 03:41:02,637 - DEBUG - [34m ProjectDatabase get_node_data(node) -> list: node = {'id_node': 4, 'name_node': 'Раз', 'id_parent': 3, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 19, 'included': 1}
+result = [][00m
+2024-08-26 03:41:02,638 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:02,638 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:02,638 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-26 03:41:02,639 - DEBUG - [34m ProjectDatabase get_node_parent(node) -> object: node = {'id_node': 4, 'name_node': 'Раз', 'id_parent': 3, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 19, 'included': 1}
+result = {'id_node': 3, 'name_node': 'Ранетки', 'id_parent': 0, 'order_node': '0', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-26 03:41:02,639 - DEBUG - [34m SectionsInfo add_node_for_datas(node):
+node = {'id_node': 3, 'name_node': 'Ранетки', 'id_parent': 0, 'order_node': '0', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-26 03:41:02,639 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:02,640 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:02,640 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-26 03:41:02,640 - DEBUG - [34m ProjectDatabase get_node_data(node) -> list: node = {'id_node': 3, 'name_node': 'Ранетки', 'id_parent': 0, 'order_node': '0', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+result = [][00m
+2024-08-26 03:41:02,641 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:02,641 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:02,642 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-26 03:41:02,643 - DEBUG - [34m ProjectDatabase get_node_parent(node) -> object: node = {'id_node': 3, 'name_node': 'Ранетки', 'id_parent': 0, 'order_node': '0', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+result = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}[00m
+2024-08-26 03:41:02,644 - DEBUG - [34m SectionsInfo add_node_for_datas(node):
+node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}[00m
+2024-08-26 03:41:02,644 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:02,644 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:02,645 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-26 03:41:02,645 - DEBUG - [34m ProjectDatabase get_node_data(node) -> list: node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}
+result = [][00m
+2024-08-26 03:41:02,646 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:02,646 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:02,647 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-26 03:41:02,647 - DEBUG - [34m ProjectDatabase get_node_parent(node) -> object: node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}
+result = {}[00m
+2024-08-26 03:41:02,647 - DEBUG - [34m SAInputForms add_sections_in_sa()[00m
+2024-08-26 03:41:02,647 - DEBUG - [34m SectionsInfo self.__sections_info = [{'type': 'page', 'page': {'filename_page': 'DOCX_2024-08-25_23-55-43', 'id_page': 5, 'id_parent_template': 19, 'included': 1, 'name_page': 'Первая', 'order_page': 0, 'typefile_page': 'DOCX'}, 'data': [{'id_pair': 7, 'id_page': 5, 'id_variable': 1, 'name_variable': None, 'value_pair': 'img_2024-08-26_02-31-49.png'}]}][00m
+2024-08-26 03:41:02,647 - DEBUG - [34m SAInputForms get_section_name(section_info):
+section_info = {'type': 'page', 'page': {'filename_page': 'DOCX_2024-08-25_23-55-43', 'id_page': 5, 'id_parent_template': 19, 'included': 1, 'name_page': 'Первая', 'order_page': 0, 'typefile_page': 'DOCX'}, 'data': [{'id_pair': 7, 'id_page': 5, 'id_variable': 1, 'name_variable': None, 'value_pair': 'img_2024-08-26_02-31-49.png'}]}[00m
+2024-08-26 03:41:02,653 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:02,653 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:02,653 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-26 03:41:02,653 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 1
+result = {'id_variable': 1, 'name_variable': 'участок', 'type_variable': 'IMAGE', 'title_variable': 'участок', 'order_variable': 0, 'config_variable': '{"UNIT": "CM", "SIZINGMODE": "COVER", "WIDTH": 11.0, "HEIGHT": 11.0}', 'description_variable': '', 'is_global': None}[00m
+2024-08-26 03:41:02,653 - DEBUG - [34m FormImage __init__(self, pair, current_variable, config_dict):
+pair = {'id_pair': 7, 'id_page': 5, 'id_variable': 1, 'name_variable': None, 'value_pair': 'img_2024-08-26_02-31-49.png'},
+current_variable = {'id_variable': 1, 'name_variable': 'участок', 'type_variable': 'IMAGE', 'title_variable': 'участок', 'order_variable': 0, 'config_variable': '{"UNIT": "CM", "SIZINGMODE": "COVER", "WIDTH": 11.0, "HEIGHT": 11.0}', 'description_variable': '', 'is_global': None},
+config_dict = {'UNIT': 'CM', 'SIZINGMODE': 'COVER', 'WIDTH': 11.0, 'HEIGHT': 11.0}[00m
+2024-08-26 03:41:02,656 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-26 03:41:02,659 - DEBUG - [34m FormImage config()[00m
+2024-08-26 03:41:02,675 - DEBUG - [34m LWPagesTemplate create_and_view_current_page(page):
+page = {'filename_page': 'DOCX_2024-08-25_23-55-43', 'id_page': 5, 'id_parent_template': 19, 'included': 1, 'name_page': 'Первая', 'order_page': 0, 'typefile_page': 'DOCX'}[00m
+2024-08-26 03:41:02,675 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-26 03:41:02,676 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-26 03:41:02,676 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-26 03:41:02,677 - DEBUG - [34m SettingsDatabase get_app_converter():
+result = {'value_setting': 'MSWORD'}[00m
+2024-08-26 03:41:02,677 - DEBUG - [34m OfficePackets get_status_msword():
+self.__status_msword = True[00m
+2024-08-26 03:41:02,678 - DEBUG - [34m OfficePackets get_status_libreoffice():
+self.__status_libreoffice = False[00m
+2024-08-26 03:41:02,678 - DEBUG - [34m Converter create_one_page_pdf(page) -> str:
+page = {'filename_page': 'DOCX_2024-08-25_23-55-43', 'id_page': 5, 'id_parent_template': 19, 'included': 1, 'name_page': 'Первая', 'order_page': 0, 'typefile_page': 'DOCX'}[00m
+2024-08-26 03:41:02,679 - DEBUG - [34m Converter create_page_pdf(page):
+page = {'filename_page': 'DOCX_2024-08-25_23-55-43', 'id_page': 5, 'id_parent_template': 19, 'included': 1, 'name_page': 'Первая', 'order_page': 0, 'typefile_page': 'DOCX'}[00m
+2024-08-26 03:41:02,679 - DEBUG - [34m SectionsInfo self.__sections_info = [{'type': 'page', 'page': {'filename_page': 'DOCX_2024-08-25_23-55-43', 'id_page': 5, 'id_parent_template': 19, 'included': 1, 'name_page': 'Первая', 'order_page': 0, 'typefile_page': 'DOCX'}, 'data': [{'id_pair': 7, 'id_page': 5, 'id_variable': 1, 'name_variable': None, 'value_pair': 'img_2024-08-26_02-31-49.png'}]}][00m
+2024-08-26 03:41:02,679 - DEBUG - [34m Converter create_docx_page(sections_info, form_page_name, docx_pdf_page_name):
+sections_info = [{'type': 'page', 'page': {'filename_page': 'DOCX_2024-08-25_23-55-43', 'id_page': 5, 'id_parent_template': 19, 'included': 1, 'name_page': 'Первая', 'order_page': 0, 'typefile_page': 'DOCX'}, 'data': [{'id_pair': 7, 'id_page': 5, 'id_variable': 1, 'name_variable': None, 'value_pair': 'img_2024-08-26_02-31-49.png'}]}],
+form_page_name = DOCX_2024-08-25_23-55-43,
+docx_pdf_page_name = page_5_2024-08-26_03-41-02679643[00m
+2024-08-26 03:41:02,679 - DEBUG - [34m Converter get_form_page_fullname_and_docx_page_fullname(form_page_name, docx_pdf_page_name):
+form_page_name = DOCX_2024-08-25_23-55-43,
+docx_pdf_page_name = page_5_2024-08-26_03-41-02679643[00m
+2024-08-26 03:41:02,682 - DEBUG - [34m Converter get_template_path_and_docx_path(form_page_fullname, docx_page_fullname):
+form_page_fullname = DOCX_2024-08-25_23-55-43.docx,
+docx_page_fullname = page_5_2024-08-26_03-41-02679643.docx[00m
+2024-08-26 03:41:02,682 - DEBUG - [34m DirPathManager get_forms_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\forms[00m
+2024-08-26 03:41:02,682 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-26 03:41:02,682 - DEBUG - [34m Converter rerender(template_path, docx_path, sections_info):
+template_path = C:\Users\hayar\Documents\AutoExecDoc Projects\Алло\forms\DOCX_2024-08-25_23-55-43.docx,
+docx_path = C:\Users\hayar\AppData\Local\Temp\tmpxwpcjekh\page_5_2024-08-26_03-41-02679643.docx,
+sections_info = [{'type': 'page', 'page': {'filename_page': 'DOCX_2024-08-25_23-55-43', 'id_page': 5, 'id_parent_template': 19, 'included': 1, 'name_page': 'Первая', 'order_page': 0, 'typefile_page': 'DOCX'}, 'data': [{'id_pair': 7, 'id_page': 5, 'id_variable': 1, 'name_variable': None, 'value_pair': 'img_2024-08-26_02-31-49.png'}]}][00m
+2024-08-26 03:41:02,700 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 7, 'id_page': 5, 'id_variable': 1, 'name_variable': None, 'value_pair': 'img_2024-08-26_02-31-49.png'},
+data_variable = {},
+docx_template = <docxtpl.template.DocxTemplate object at 0x0000026C765489D0> 
+is_rerender = False[00m
+2024-08-26 03:41:02,700 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:02,700 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:02,700 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-26 03:41:02,700 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 1
+result = {'id_variable': 1, 'name_variable': 'участок', 'type_variable': 'IMAGE', 'title_variable': 'участок', 'order_variable': 0, 'config_variable': '{"UNIT": "CM", "SIZINGMODE": "COVER", "WIDTH": 11.0, "HEIGHT": 11.0}', 'description_variable': '', 'is_global': None}[00m
+2024-08-26 03:41:02,700 - DEBUG - [34m Converter type_variable_is_image(data_variable, name_variable, value, config_variable, docx_template):
+ data_variable = {},
+ name_variable = участок,
+ value = img_2024-08-26_02-31-49.png,
+ config_variable = {'UNIT': 'CM', 'SIZINGMODE': 'COVER', 'WIDTH': 11.0, 'HEIGHT': 11.0},
+ docx_template = <docxtpl.template.DocxTemplate object at 0x0000026C765489D0>[00m
+2024-08-26 03:41:02,700 - DEBUG - [34m ConverterVarImage get_emu_width_and_height_by_unit() -> tuple:
+ result = (3960000.0, 3960000.0)[00m
+2024-08-26 03:41:02,700 - DEBUG - [34m ConverterVarImage get_mm_width_and_height_by_emu() -> tuple:
+ result = (110.0, 110.0)[00m
+2024-08-26 03:41:02,700 - DEBUG - [34m DirPathManager get_image_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\images[00m
+2024-08-26 03:41:02,700 - DEBUG - [34m ConverterVarImage get_original_image_path_by_file_name_with_png() -> str:
+ result = C:\Users\hayar\Documents\AutoExecDoc Projects\Алло\images\img_2024-08-26_02-31-49.png[00m
+2024-08-26 03:41:02,700 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-26 03:41:02,700 - DEBUG - [34m ConverterVarImage get_temp_image_path() -> str:
+ result = C:\Users\hayar\AppData\Local\Temp\tmpxwpcjekh\img_2024-08-26_02-31-49.png[00m
+2024-08-26 03:41:02,700 - DEBUG - [34m FileFolderManager copy_file(src_path, dest_path):
+src_path = C:\Users\hayar\Documents\AutoExecDoc Projects\Алло\images\img_2024-08-26_02-31-49.png,
+dest_path = C:\Users\hayar\AppData\Local\Temp\tmpxwpcjekh\img_2024-08-26_02-31-49.png[00m
+2024-08-26 03:41:02,707 - DEBUG - [34m ConverterVarImage get_temp_image(file_name_with_png) -> str:
+file_name_with_png = img_2024-08-26_02-31-49.png 
+ result = C:\Users\hayar\AppData\Local\Temp\tmpxwpcjekh\img_2024-08-26_02-31-49.png[00m
+2024-08-26 03:41:02,707 - DEBUG - [34m ImageResizer get_sizes_image(image_dirpath):
+image_dirpath = C:\Users\hayar\AppData\Local\Temp\tmpxwpcjekh\img_2024-08-26_02-31-49.png[00m
+2024-08-26 03:41:02,717 - DEBUG - [34m ImageResizer get_sizes_image(image_dirpath) -> tuple:
+ result = (1920, 1080)[00m
+2024-08-26 03:41:02,919 - DEBUG - [34m Converter create_pdf_from_docx_page(docx_pdf_page_name) -> str:
+docx_pdf_page_name = page_5_2024-08-26_03-41-02679643[00m
+2024-08-26 03:41:02,921 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-26 03:41:02,921 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-26 03:41:02,922 - DEBUG - [34m Converter convert_from_docx_to_pdf(docx_path, pdf_path):
+docx_path = C:\Users\hayar\AppData\Local\Temp\tmpxwpcjekh\page_5_2024-08-26_03-41-02679643.docx,
+pdf_path = C:\Users\hayar\AppData\Local\Temp\tmpxwpcjekh\page_5_2024-08-26_03-41-02679643.pdf[00m
+2024-08-26 03:41:02,922 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-26 03:41:02,922 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-26 03:41:02,923 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-26 03:41:02,923 - DEBUG - [34m SettingsDatabase get_app_converter():
+result = {'value_setting': 'MSWORD'}[00m
+2024-08-26 03:41:02,924 - DEBUG - [34m Converter convert_from_docx_to_pdf_using_msword(docx_path, pdf_path)[00m
+2024-08-26 03:41:03,137 - DEBUG - [34m PdfView load_and_show_pdf_document(pdf_path):
+pdf_path = C:\Users\hayar\AppData\Local\Temp\tmpxwpcjekh\page_5_2024-08-26_03-41-02679643.pdf[00m
+2024-08-26 03:41:10,855 - DEBUG - [34m FormImage set_new_value_in_pair()[00m
+2024-08-26 03:41:10,855 - DEBUG - [34m DialogWindows select_image_for_formimage_in_project() -> str[00m
+2024-08-26 03:41:10,855 - DEBUG - [34m DirPathManager get_pictures_dirpath() -> str: C:/Users/hayar/Pictures[00m
+2024-08-26 03:41:15,052 - DEBUG - [34m DialogWindows select_image_for_formimage_in_project() -> D:/фото с Nikon/текущий 100D5100/DSC_0001.JPG[00m
+2024-08-26 03:41:15,052 - DEBUG - [34m ImageResizer save_image_then_selected(image_dirpath, file_name_with_format):
+image_dirpath = D:/фото с Nikon/текущий 100D5100/DSC_0001.JPG 
+ file_name_with_format = img_2024-08-26_03-41-15.png[00m
+2024-08-26 03:41:15,054 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-26 03:41:22,539 - DEBUG - [34m Project save_project()[00m
+2024-08-26 03:41:22,539 - DEBUG - [34m SectionsInfo save_data_to_database()[00m
+2024-08-26 03:41:22,539 - DEBUG - [34m SectionsInfo update_data_with_pair(section_type, pair):
+section_type = page,
+id_pair = 7,
+value = img_2024-08-26_03-41-15.png[00m
+2024-08-26 03:41:22,539 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:22,539 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:22,539 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-26 03:41:22,539 - DEBUG - [34m ProjectDatabase get_page_value_pair_by_id_pair(id_pair): id_pair = 7
+result = {'value_pair': 'img_2024-08-26_02-31-49.png'}[00m
+2024-08-26 03:41:22,539 - DEBUG - [34m ProjectDatabase update_page_data(id_pair, value_pair): id_pair = 7, value_pair = img_2024-08-26_03-41-15.png[00m
+2024-08-26 03:41:22,539 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:22,539 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:22,559 - DEBUG - [34m SectionsInfo save_image(id_variable, old_value, value):
+id_variable = 1,
+old_value = img_2024-08-26_02-31-49.png,
+value = img_2024-08-26_03-41-15.png[00m
+2024-08-26 03:41:22,560 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:22,560 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:22,561 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-26 03:41:22,561 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 1
+result = {'id_variable': 1, 'name_variable': 'участок', 'type_variable': 'IMAGE', 'title_variable': 'участок', 'order_variable': 0, 'config_variable': '{"UNIT": "CM", "SIZINGMODE": "COVER", "WIDTH": 11.0, "HEIGHT": 11.0}', 'description_variable': '', 'is_global': None}[00m
+2024-08-26 03:41:22,562 - DEBUG - [34m FileFolderManager delete_image_from_project(image_dirpath):
+image_dirpath = img_2024-08-26_02-31-49.png[00m
+2024-08-26 03:41:22,563 - DEBUG - [34m DirPathManager get_image_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\images[00m
+2024-08-26 03:41:22,564 - DEBUG - [34m FileFolderManager move_image_from_temp_to_project()[00m
+2024-08-26 03:41:22,564 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-26 03:41:22,564 - DEBUG - [34m DirPathManager get_image_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\images[00m
+2024-08-26 03:41:22,565 - DEBUG - [34m LWPagesTemplate get_lw_pages_template()[00m
+2024-08-26 03:41:22,565 - DEBUG - [34m PdfView get_view_height()[00m
+2024-08-26 03:41:22,565 - DEBUG - [34m LWPagesTemplate IN current_page_to_pdf()[00m
+2024-08-26 03:41:22,566 - DEBUG - [34m LWPagesTemplate create_and_view_current_page(page):
+page = {'filename_page': 'DOCX_2024-08-25_23-55-43', 'id_page': 5, 'id_parent_template': 19, 'included': 1, 'name_page': 'Первая', 'order_page': 0, 'typefile_page': 'DOCX'}[00m
+2024-08-26 03:41:22,566 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-26 03:41:22,566 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-26 03:41:22,567 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-26 03:41:22,567 - DEBUG - [34m SettingsDatabase get_app_converter():
+result = {'value_setting': 'MSWORD'}[00m
+2024-08-26 03:41:22,567 - DEBUG - [34m OfficePackets get_status_msword():
+self.__status_msword = True[00m
+2024-08-26 03:41:22,568 - DEBUG - [34m OfficePackets get_status_libreoffice():
+self.__status_libreoffice = False[00m
+2024-08-26 03:41:22,568 - DEBUG - [34m Converter create_one_page_pdf(page) -> str:
+page = {'filename_page': 'DOCX_2024-08-25_23-55-43', 'id_page': 5, 'id_parent_template': 19, 'included': 1, 'name_page': 'Первая', 'order_page': 0, 'typefile_page': 'DOCX'}[00m
+2024-08-26 03:41:22,568 - DEBUG - [34m Converter create_page_pdf(page):
+page = {'filename_page': 'DOCX_2024-08-25_23-55-43', 'id_page': 5, 'id_parent_template': 19, 'included': 1, 'name_page': 'Первая', 'order_page': 0, 'typefile_page': 'DOCX'}[00m
+2024-08-26 03:41:22,569 - DEBUG - [34m SectionsInfo self.__sections_info = [{'type': 'page', 'page': {'filename_page': 'DOCX_2024-08-25_23-55-43', 'id_page': 5, 'id_parent_template': 19, 'included': 1, 'name_page': 'Первая', 'order_page': 0, 'typefile_page': 'DOCX'}, 'data': [{'id_pair': 7, 'id_page': 5, 'id_variable': 1, 'name_variable': None, 'value_pair': 'img_2024-08-26_03-41-15.png'}]}][00m
+2024-08-26 03:41:22,570 - DEBUG - [34m Converter create_docx_page(sections_info, form_page_name, docx_pdf_page_name):
+sections_info = [{'type': 'page', 'page': {'filename_page': 'DOCX_2024-08-25_23-55-43', 'id_page': 5, 'id_parent_template': 19, 'included': 1, 'name_page': 'Первая', 'order_page': 0, 'typefile_page': 'DOCX'}, 'data': [{'id_pair': 7, 'id_page': 5, 'id_variable': 1, 'name_variable': None, 'value_pair': 'img_2024-08-26_03-41-15.png'}]}],
+form_page_name = DOCX_2024-08-25_23-55-43,
+docx_pdf_page_name = page_5_2024-08-26_03-41-22569497[00m
+2024-08-26 03:41:22,571 - DEBUG - [34m Converter get_form_page_fullname_and_docx_page_fullname(form_page_name, docx_pdf_page_name):
+form_page_name = DOCX_2024-08-25_23-55-43,
+docx_pdf_page_name = page_5_2024-08-26_03-41-22569497[00m
+2024-08-26 03:41:22,571 - DEBUG - [34m Converter get_template_path_and_docx_path(form_page_fullname, docx_page_fullname):
+form_page_fullname = DOCX_2024-08-25_23-55-43.docx,
+docx_page_fullname = page_5_2024-08-26_03-41-22569497.docx[00m
+2024-08-26 03:41:22,571 - DEBUG - [34m DirPathManager get_forms_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\forms[00m
+2024-08-26 03:41:22,572 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-26 03:41:22,572 - DEBUG - [34m Converter rerender(template_path, docx_path, sections_info):
+template_path = C:\Users\hayar\Documents\AutoExecDoc Projects\Алло\forms\DOCX_2024-08-25_23-55-43.docx,
+docx_path = C:\Users\hayar\AppData\Local\Temp\tmpxwpcjekh\page_5_2024-08-26_03-41-22569497.docx,
+sections_info = [{'type': 'page', 'page': {'filename_page': 'DOCX_2024-08-25_23-55-43', 'id_page': 5, 'id_parent_template': 19, 'included': 1, 'name_page': 'Первая', 'order_page': 0, 'typefile_page': 'DOCX'}, 'data': [{'id_pair': 7, 'id_page': 5, 'id_variable': 1, 'name_variable': None, 'value_pair': 'img_2024-08-26_03-41-15.png'}]}][00m
+2024-08-26 03:41:22,585 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 7, 'id_page': 5, 'id_variable': 1, 'name_variable': None, 'value_pair': 'img_2024-08-26_03-41-15.png'},
+data_variable = {},
+docx_template = <docxtpl.template.DocxTemplate object at 0x0000026C00E2EE20> 
+is_rerender = False[00m
+2024-08-26 03:41:22,585 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-26 03:41:22,585 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\project.db[00m
+2024-08-26 03:41:22,585 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-26 03:41:22,585 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 1
+result = {'id_variable': 1, 'name_variable': 'участок', 'type_variable': 'IMAGE', 'title_variable': 'участок', 'order_variable': 0, 'config_variable': '{"UNIT": "CM", "SIZINGMODE": "COVER", "WIDTH": 11.0, "HEIGHT": 11.0}', 'description_variable': '', 'is_global': None}[00m
+2024-08-26 03:41:22,585 - DEBUG - [34m Converter type_variable_is_image(data_variable, name_variable, value, config_variable, docx_template):
+ data_variable = {},
+ name_variable = участок,
+ value = img_2024-08-26_03-41-15.png,
+ config_variable = {'UNIT': 'CM', 'SIZINGMODE': 'COVER', 'WIDTH': 11.0, 'HEIGHT': 11.0},
+ docx_template = <docxtpl.template.DocxTemplate object at 0x0000026C00E2EE20>[00m
+2024-08-26 03:41:22,585 - DEBUG - [34m ConverterVarImage get_emu_width_and_height_by_unit() -> tuple:
+ result = (3960000.0, 3960000.0)[00m
+2024-08-26 03:41:22,585 - DEBUG - [34m ConverterVarImage get_mm_width_and_height_by_emu() -> tuple:
+ result = (110.0, 110.0)[00m
+2024-08-26 03:41:22,585 - DEBUG - [34m DirPathManager get_image_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Алло\images[00m
+2024-08-26 03:41:22,585 - DEBUG - [34m ConverterVarImage get_original_image_path_by_file_name_with_png() -> str:
+ result = C:\Users\hayar\Documents\AutoExecDoc Projects\Алло\images\img_2024-08-26_03-41-15.png[00m
+2024-08-26 03:41:22,585 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-26 03:41:22,585 - DEBUG - [34m ConverterVarImage get_temp_image_path() -> str:
+ result = C:\Users\hayar\AppData\Local\Temp\tmpxwpcjekh\img_2024-08-26_03-41-15.png[00m
+2024-08-26 03:41:22,591 - DEBUG - [34m FileFolderManager copy_file(src_path, dest_path):
+src_path = C:\Users\hayar\Documents\AutoExecDoc Projects\Алло\images\img_2024-08-26_03-41-15.png,
+dest_path = C:\Users\hayar\AppData\Local\Temp\tmpxwpcjekh\img_2024-08-26_03-41-15.png[00m
+2024-08-26 03:41:22,600 - DEBUG - [34m ConverterVarImage get_temp_image(file_name_with_png) -> str:
+file_name_with_png = img_2024-08-26_03-41-15.png 
+ result = C:\Users\hayar\AppData\Local\Temp\tmpxwpcjekh\img_2024-08-26_03-41-15.png[00m
+2024-08-26 03:41:22,601 - DEBUG - [34m ImageResizer get_sizes_image(image_dirpath):
+image_dirpath = C:\Users\hayar\AppData\Local\Temp\tmpxwpcjekh\img_2024-08-26_03-41-15.png[00m
+2024-08-26 03:41:22,602 - DEBUG - [34m ImageResizer get_sizes_image(image_dirpath) -> tuple:
+ result = (3264, 4928)[00m
+2024-08-26 03:41:26,467 - DEBUG - [34m Converter create_pdf_from_docx_page(docx_pdf_page_name) -> str:
+docx_pdf_page_name = page_5_2024-08-26_03-41-22569497[00m
+2024-08-26 03:41:26,475 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-26 03:41:26,475 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-26 03:41:26,475 - DEBUG - [34m Converter convert_from_docx_to_pdf(docx_path, pdf_path):
+docx_path = C:\Users\hayar\AppData\Local\Temp\tmpxwpcjekh\page_5_2024-08-26_03-41-22569497.docx,
+pdf_path = C:\Users\hayar\AppData\Local\Temp\tmpxwpcjekh\page_5_2024-08-26_03-41-22569497.pdf[00m
+2024-08-26 03:41:26,475 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-26 03:41:26,475 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: d:\work\project\AutoExecDoc\db\settings.db[00m
+2024-08-26 03:41:26,477 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-26 03:41:26,477 - DEBUG - [34m SettingsDatabase get_app_converter():
+result = {'value_setting': 'MSWORD'}[00m
+2024-08-26 03:41:26,477 - DEBUG - [34m Converter convert_from_docx_to_pdf_using_msword(docx_path, pdf_path)[00m
+2024-08-26 03:41:27,017 - DEBUG - [34m PdfView load_and_show_pdf_document(pdf_path):
+pdf_path = C:\Users\hayar\AppData\Local\Temp\tmpxwpcjekh\page_5_2024-08-26_03-41-22569497.pdf[00m
+2024-08-26 03:41:27,027 - DEBUG - [34m PdfView set_view_height(480):
+value = 480[00m
+2024-08-26 03:41:27,027 - DEBUG - [34m StatusBar set_message(message):
+message = Проект c именем Алло сохранён.[00m
+2024-08-26 03:41:39,516 - DEBUG - [34m FormImage set_new_value_in_pair()[00m
+2024-08-26 03:41:39,516 - DEBUG - [34m DialogWindows select_image_for_formimage_in_project() -> str[00m
+2024-08-26 03:41:39,516 - DEBUG - [34m DirPathManager get_pictures_dirpath() -> str: C:/Users/hayar/Pictures[00m
+2024-08-26 03:41:40,876 - DEBUG - [34m DialogWindows select_image_for_formimage_in_project() -> None[00m
+2024-08-26 03:41:42,213 - DEBUG - [34m MainWindow ()[00m
+2024-08-26 03:41:42,214 - DEBUG - [34m PdfView set_empty_pdf_view()[00m
+2024-08-26 03:41:42,215 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-26 03:41:42,215 - DEBUG - [34m FileFolderManager clear_temp_folder(is_del_folder):
+is_del_folder = True,
+temp_dirpath = C:\Users\hayar\AppData\Local\Temp\tmpxwpcjekh[00m
+2024-08-26 03:41:42,215 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-26 03:41:42,218 - DEBUG - [34m OfficePackets terminate_msword()[00m
+2024-08-26 03:41:42,218 - DEBUG - [34m MsWordThread terminate_msword()[00m
+2024-08-26 03:41:42,219 - ERROR - [31m Error in OfficePackets.terminate_msword():
+(-2147220995, 'Объект не подключен к серверу', (None, None, None, 0, None))[00m
