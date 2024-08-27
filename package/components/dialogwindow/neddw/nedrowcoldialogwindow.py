@@ -47,17 +47,21 @@ class NedRowcolDialogWindow(QDialog):
         )
         if self.__type_ned == "create":
             if self.__type_rowcol == "ROW":
-                self.ui.label_rowcol.setText("Название новой строки")
+                self.ui.label_attr.setText("<b>Атрибут новой строки</b>")
+                self.ui.label_rowcol.setText("Название (заголовок) новой строки")
                 self.ui.btn_nesvariable.setText("Добавить строку")
             elif self.__type_rowcol == "COL":
-                self.ui.label_rowcol.setText("Название нового столбца")
+                self.ui.label_attr.setText("<b>Атрибут нового столбца</b>")
+                self.ui.label_rowcol.setText("Название (заголовок) нового столбца")
                 self.ui.btn_nesvariable.setText("Добавить столбец")
         elif self.__type_ned == "edit":
             if self.__type_rowcol == "ROW":
-                self.ui.label_rowcol.setText("Название строки")
+                self.ui.label_attr.setText("<b>Атрибут строки</b>")
+                self.ui.label_rowcol.setText("Название (заголовок) строки")
                 self.ui.btn_nesvariable.setText("Изменить строку")
             elif self.__type_rowcol == "COL":
-                self.ui.label_rowcol.setText("Название столбца")
+                self.ui.label_attr.setText("<b>Атрибут столбца</b>")
+                self.ui.label_rowcol.setText("Название (заголовок) столбца")
                 self.ui.btn_nesvariable.setText("Изменить столбец")
             #
             self.ui.lineedit_attr.setText(self.__rowcol.get("ATTR"))
@@ -103,7 +107,7 @@ class NedRowcolDialogWindow(QDialog):
         self.ui.btn_nesvariable.setShortcut("Ctrl+S")
 
     def get_is_valid_jinja_attr(self, name_attr):
-        pattern = r'[А-яЁёA-z0-9_-]+'
+        pattern = r'^[А-яЁёA-z0-9_-]+$'
         result = bool(re.match(pattern, name_attr))
         self.__osbm.obj_logg.debug_logger(
             f"NedRowcolDialogWindow get_is_valid_jinja_attr(name_variable):\n name_attr = {name_attr} \n result = {result}"

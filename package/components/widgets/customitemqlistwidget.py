@@ -28,7 +28,7 @@ class CustomItemQListWidget(QWidget):
             text = self.__data.get("name_template")
         elif self.__type_window == "PAGE":
             text = self.__data.get("name_page")
-        elif self.__type_window == "ROWCOL":
+        elif self.__type_window == "ROWCOLS":
             text = f'{self.__data.get("TITLE")} ({self.__data.get("ATTR")})'
         # формат
         if self.__is_active:

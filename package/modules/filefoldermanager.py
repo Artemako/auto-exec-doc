@@ -86,23 +86,6 @@ class FileFolderManager:
         if not os.path.exists(self.__osbm.obj_dirm.get_temp_dirpath()):
             os.makedirs(self.__osbm.obj_dirm.get_temp_dirpath())
 
-    def copy_templates_to_forms_folder(self):
-        """
-        Копирование шаблонов в папку forms.
-        """
-        self.__osbm.obj_logg.debug_logger(
-            "FileFolderManager copy_templates_to_forms_folder()"
-        )
-
-        templates_main_dirpath = self.__osbm.obj_dirm.get_templates_main_dirpath()
-        forms_folder_dirpath = self.__osbm.obj_dirm.get_forms_folder_dirpath()
-
-        # копирование шаблонов в папку проекта forms
-        for f in os.listdir(templates_main_dirpath):
-            shutil.copy(
-                os.path.join(templates_main_dirpath, f),
-                os.path.join(forms_folder_dirpath, f),
-            )
 
     def clear_temp_folder(self, is_del_folder=False):
         """

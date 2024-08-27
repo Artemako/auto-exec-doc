@@ -106,9 +106,8 @@ class Project:
         self.__osbm.obj_mw.update_main_window()
         # пути для проекта
         self.__osbm.obj_dirm.set_new_dirpaths_for_project()
-        # добавляем папки форм в новый проект
+        # добавляем папки в новый проект
         self.__osbm.obj_film.create_folders_and_aed_for_project()
-        self.__osbm.obj_film.copy_templates_to_forms_folder()
         # активируем проект
         self.set_true_actives_project()
         # сообщение для статусбара

@@ -90,7 +90,7 @@ class NedVariableDialogWindow(QDialog):
 
 
     def get_is_valid_jinja_variable(self, name_variable):
-        pattern = r'[А-яЁёA-z0-9_-]+' 
+        pattern = r'^[А-яЁёA-z0-9_-]+$' 
         result = bool(re.match(pattern, name_variable))
         self.__osbm.obj_logg.debug_logger(
             f"NedVariableDialogWindow get_is_valid_jinja_variable(name_variable):\name_variable = {name_variable}\n result = {result}"

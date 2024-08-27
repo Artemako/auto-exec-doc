@@ -20,8 +20,6 @@ class DirPathManager:
         self.__project_dirpath = ""
         self.__db_project_dirpath = ""
         self.__logs_dirpath = ""
-        self.__templates_dirpath = ""
-        self.__templates_main_dirpath = ""
         self.__forms_folder_dirpath = ""
         self.__images_folder_dirpath = ""
         self.__global_documents_dirpath = ""
@@ -73,14 +71,6 @@ class DirPathManager:
             self.__main_dirpath, "logs"
         )
 
-        # путь к папке с формами
-        self.__templates_dirpath = os.path.join(
-            self.__main_dirpath, "templates"
-        )
-        self.__templates_main_dirpath = os.path.join(
-            self.__templates_dirpath, "main"
-        )
-
         # путь к папке с формами (по умолчанию проект не загружен поэтому и пусто)
         self.__forms_folder_dirpath = None
         self.__images_folder_dirpath = None
@@ -121,12 +111,6 @@ class DirPathManager:
             f"get_pdfs_folder_dirpath() -> str: {self.__pdfs_filder_dirpath}"
         )
         return self.__pdfs_filder_dirpath
-
-    def get_templates_main_dirpath(self) -> str:
-        self.__osbm.obj_logg.debug_logger(
-            f"DirPathManager get_templates_main_dirpath() -> str: {self.__templates_main_dirpath}"
-        )
-        return self.__templates_main_dirpath
 
     def set_project_dirpath(self, dirpath: str):
         self.__project_dirpath = dirpath
@@ -195,12 +179,6 @@ class DirPathManager:
             f"DirPathManager get_db_original_project_dirpath() -> str: {self.__db_original_project_dirpath}"
         )
         return self.__db_original_project_dirpath
-
-    def get_templates_dirpath(self) -> str:
-        self.__osbm.obj_logg.debug_logger(
-            f"DirPathManager get_templates_dirpath() -> str: {self.__templates_dirpath}"
-        )
-        return self.__templates_dirpath
 
     def get_temp_dirpath(self) -> str:
         self.__osbm.obj_logg.debug_logger("DirPathManager get_temp_dirpath() -> str:")

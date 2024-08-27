@@ -2,7 +2,7 @@ import package.app as app
 import os
 import sys
 
-
+# TODO Окно (при сохранении)
 
 def main():
     current_directory = os.path.dirname(os.path.abspath(sys.argv[0]))

@@ -151,14 +151,14 @@ class TableTypes:
     def __init__(self, osbm):
         self.__osbm = osbm
         self.__table_types = [
-            TableType(0, "Произвольный", "FULL", False),
-            TableType(1, "По строкам", "ROW", True),
-            TableType(2, "По столбцам", "COL", True),
+            # TableType(0, "Произвольный", "FULL", False),
+            TableType(0, "По строкам", "ROW", True),
+            TableType(1, "По столбцам", "COL", True),
         ]
         self.__text_btns = {
-            "0": ("Строки/Столбцы", "Добавить строку/столбец"),
-            "1": ("Строки", "Добавить строку"),
-            "2": ("Столбцы", "Добавить столбец"),
+            # "0": ("Строки/Столбцы", "Добавить строку/столбец"),
+            "0": ("Строки", "Добавить строку"),
+            "1": ("Столбцы", "Добавить столбец"),
         }
 
     def get_table_types(self):

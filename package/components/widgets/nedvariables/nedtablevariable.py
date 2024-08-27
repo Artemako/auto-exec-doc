@@ -13,8 +13,7 @@ import package.components.dialogwindow.neddw.nedrowcoldialogwindow as nedrowcold
 
 import package.components.widgets.customitemqlistwidget as customitemqlistwidget
 
-
-# TODO !!! РАБОТА С ТАБЛИЦАМИ
+# TODO Проверка переменной и атрибута на правильность имени
 class NedTableVariable(QWidget):
     def __init__(self, osbm, type_window, variable=None):
         self.__osbm = osbm
@@ -29,7 +28,7 @@ class NedTableVariable(QWidget):
         #
         self.__data = {
             "TYPETABLE": None,
-            "ROWCOL": [{"ID": None, "ATTR": None, "TITLE": None, "ORDER": None}],
+            "ROWCOLS": [{"ID": None, "ATTR": None, "TITLE": None, "ORDER": None}],
         }
         self.__config_dict = dict()
         self.__rowcols_items = []
@@ -76,7 +75,7 @@ class NedTableVariable(QWidget):
         rowcols = self.get_sorted_rowcols()
         for rowcol in rowcols:
             custom_widget = customitemqlistwidget.CustomItemQListWidget(
-                self.__osbm, "ROWCOL", rowcol
+                self.__osbm, "ROWCOLS", rowcol
             )
             item = QListWidgetItem()
             item.setData(0, rowcol)
@@ -236,7 +235,7 @@ class NedTableVariable(QWidget):
         rowcols = self.get_sorted_rowcols()
         self.__data = {
             "TYPETABLE": typetable,
-            "ROWCOL": rowcols,
+            "ROWCOLS": rowcols,
         }
 
     def get_sorted_rowcols(self):

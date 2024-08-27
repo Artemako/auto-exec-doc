@@ -15,15 +15,14 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QHeaderView, QLabel,
-    QPushButton, QSizePolicy, QTableWidget, QTableWidgetItem,
-    QTextBrowser, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QPushButton,
+    QSizePolicy, QTextBrowser, QVBoxLayout, QWidget)
 
 class Ui_FormTableWidget(object):
     def setupUi(self, FormTableWidget):
         if not FormTableWidget.objectName():
             FormTableWidget.setObjectName(u"FormTableWidget")
-        FormTableWidget.resize(429, 202)
+        FormTableWidget.resize(431, 123)
         FormTableWidget.setMaximumSize(QSize(16777215, 16777215))
         self.verticalLayout = QVBoxLayout(FormTableWidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -50,25 +49,10 @@ class Ui_FormTableWidget(object):
 
         self.verticalLayout.addLayout(self.hl)
 
-        self.table = QTableWidget(FormTableWidget)
-        self.table.setObjectName(u"table")
+        self.btn_edittable = QPushButton(FormTableWidget)
+        self.btn_edittable.setObjectName(u"btn_edittable")
 
-        self.verticalLayout.addWidget(self.table)
-
-        self.buttons_layout = QHBoxLayout()
-        self.buttons_layout.setObjectName(u"buttons_layout")
-        self.add_button = QPushButton(FormTableWidget)
-        self.add_button.setObjectName(u"add_button")
-
-        self.buttons_layout.addWidget(self.add_button)
-
-        self.delete_button = QPushButton(FormTableWidget)
-        self.delete_button.setObjectName(u"delete_button")
-
-        self.buttons_layout.addWidget(self.delete_button)
-
-
-        self.verticalLayout.addLayout(self.buttons_layout)
+        self.verticalLayout.addWidget(self.btn_edittable)
 
         self.textbrowser = QTextBrowser(FormTableWidget)
         self.textbrowser.setObjectName(u"textbrowser")
@@ -83,6 +67,7 @@ class Ui_FormTableWidget(object):
 
         self.verticalLayout.addWidget(self.textbrowser)
 
+        self.verticalLayout.setStretch(0, 1)
 
         self.retranslateUi(FormTableWidget)
 
@@ -93,8 +78,7 @@ class Ui_FormTableWidget(object):
         FormTableWidget.setWindowTitle(QCoreApplication.translate("FormTableWidget", u"Form", None))
         self.label_typevariable.setText(QCoreApplication.translate("FormTableWidget", u"\u0418\u041a", None))
         self.title.setText(QCoreApplication.translate("FormTableWidget", u"<html><head/><body><p>\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a</p></body></html>", None))
-        self.add_button.setText(QCoreApplication.translate("FormTableWidget", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0441\u0442\u0440\u043e\u043a\u0443/\u0441\u0442\u043e\u043b\u0431\u0435\u0446", None))
-        self.delete_button.setText(QCoreApplication.translate("FormTableWidget", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0441\u0442\u0440\u043e\u043a\u0443/\u0441\u0442\u043e\u043b\u0431\u0435\u0446", None))
+        self.btn_edittable.setText(QCoreApplication.translate("FormTableWidget", u"\u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0442\u0430\u0431\u043b\u0438\u0446\u0443", None))
         self.textbrowser.setHtml(QCoreApplication.translate("FormTableWidget", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"

@@ -116,7 +116,6 @@ CREATE TABLE IF NOT EXISTS "Project_variables" (
 );
 INSERT INTO "Project_nodes" VALUES (0,'Проект',NULL,'0','PROJECT',NULL,1);
 COMMIT;
-);
         """
         )
         conn.commit()
