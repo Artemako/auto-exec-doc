@@ -31,72 +31,97 @@ class FormTableDialogWindow(QDialog):
         self.__osbm.obj_style.set_style_for(self)
         #
         self.__typetable = None
-        self.__rowc
+        self.__rowcols = []
+        #
+        self.__data = []
         #
         self.config()
         self.config_tw()
         self.config_context_menu()
         #
-        # self.connecting_actions()
-
+        self.connecting_actions()
 
     # current_variable = (
-        #     {
-        #         "id_variable": 7,
-        #         "name_variable": "таблица",
-        #         "type_variable": "TABLE",
-        #         "title_variable": "Таблица",
-        #         "order_variable": 6,
-        #         "config_variable": '{"TYPETABLE": "ROW", "ROWCOLS": [{"ID": "7c90b765640811ef90f1dce9947e4a05", "ATTR": "\\u043c\\u0430\\u0448\\u0438\\u043d\\u0430", "TITLE": "\\u041c\\u0430\\u0448\\u0438\\u043d\\u0430", "ORDER": 0}, {"ID": "850e17de640811ef88cbdce9947e4a05", "ATTR": "\\u0441\\u043a\\u043e\\u0440\\u043e\\u0441\\u0442\\u044c", "TITLE": "\\u0421\\u043a\\u043e\\u0440\\u043e\\u0441\\u0442\\u044c", "ORDER": 1}, {"ID": "8c4b4f4a640811efb62ddce9947e4a05", "ATTR": "\\u043a\\u0438\\u043b\\u043e\\u043c\\u0435\\u0442\\u0440\\u0430\\u0436", "TITLE": "\\u043a\\u0438\\u043b\\u043e\\u043c\\u0435\\u0442\\u0440\\u0430\\u0436", "ORDER": 2}]}',
-        #         "description_variable": "",
-        #         "is_global": None,
-        #     },
-        # )
-        # config_dict = (
-        #     {
-        #         "TYPETABLE": "ROW",
-        #         "ROWCOLS": [
-        #             {
-        #                 "ID": "7c90b765640811ef90f1dce9947e4a05",
-        #                 "ATTR": "машина",
-        #                 "TITLE": "Машина",
-        #                 "ORDER": 0,
-        #             },
-        #             {
-        #                 "ID": "850e17de640811ef88cbdce9947e4a05",
-        #                 "ATTR": "скорость",
-        #                 "TITLE": "Скорость",
-        #                 "ORDER": 1,
-        #             },
-        #             {
-        #                 "ID": "8c4b4f4a640811efb62ddce9947e4a05",
-        #                 "ATTR": "километраж",
-        #                 "TITLE": "километраж",
-        #                 "ORDER": 2,
-        #             },
-        #         ],
-        #     },
-        # )
-        # value_pair = None
+    #     {
+    #         "id_variable": 7,
+    #         "name_variable": "таблица",
+    #         "type_variable": "TABLE",
+    #         "title_variable": "Таблица",
+    #         "order_variable": 6,
+    #         "config_variable": '{"TYPETABLE": "ROW", "ROWCOLS": [{"ID": "7c90b765640811ef90f1dce9947e4a05", "ATTR": "\\u043c\\u0430\\u0448\\u0438\\u043d\\u0430", "TITLE": "\\u041c\\u0430\\u0448\\u0438\\u043d\\u0430", "ORDER": 0}, {"ID": "850e17de640811ef88cbdce9947e4a05", "ATTR": "\\u0441\\u043a\\u043e\\u0440\\u043e\\u0441\\u0442\\u044c", "TITLE": "\\u0421\\u043a\\u043e\\u0440\\u043e\\u0441\\u0442\\u044c", "ORDER": 1}, {"ID": "8c4b4f4a640811efb62ddce9947e4a05", "ATTR": "\\u043a\\u0438\\u043b\\u043e\\u043c\\u0435\\u0442\\u0440\\u0430\\u0436", "TITLE": "\\u043a\\u0438\\u043b\\u043e\\u043c\\u0435\\u0442\\u0440\\u0430\\u0436", "ORDER": 2}]}',
+    #         "description_variable": "",
+    #         "is_global": None,
+    #     },
+    # )
+    # config_dict = (
+    #     {
+    #         "TYPETABLE": "ROW",
+    #         "ROWCOLS": [
+    #             {
+    #                 "ID": "7c90b765640811ef90f1dce9947e4a05",
+    #                 "ATTR": "машина",
+    #                 "TITLE": "Машина",
+    #                 "ORDER": 0,
+    #             },
+    #             {
+    #                 "ID": "850e17de640811ef88cbdce9947e4a05",
+    #                 "ATTR": "скорость",
+    #                 "TITLE": "Скорость",
+    #                 "ORDER": 1,
+    #             },
+    #             {
+    #                 "ID": "8c4b4f4a640811efb62ddce9947e4a05",
+    #                 "ATTR": "километраж",
+    #                 "TITLE": "километраж",
+    #                 "ORDER": 2,
+    #             },
+    #         ],
+    #     },
+    # )
+    # value_pair = None
+
+    def get_data(self):
+        self.__osbm.obj_logg.debug_logger(
+            f"FormTableDialogWindow get_data():\nself.__data = {self.__data}"
+        )
+        return self.__data
 
     def config(self):
-        self.__osbm.obj_logg.debug_logger("FormTable config()")
+        self.__osbm.obj_logg.debug_logger("FormTableDialogWindow config()")
         #
-        self.ui.label_nametable.setText(self.__current_variable.get("name_variable", "Таблица"))
+        self.ui.label_nametable.setText(
+            self.__current_variable.get("name_variable", "Таблица")
+        )
+        #
+        self.ui.table.clear()
+        #
+        self.__typetable = self.__config_dict.get("TYPETABLE")
+        self.__rowcols = self.__config_dict.get("ROWCOLS")
+        #
+        if self.__typetable == "COL":
+            self.ui.add_button.setText("Добавить строку")
+            self.ui.delete_button.setText("Удалить строку")
+        elif self.__typetable == "ROW":
+            self.ui.add_button.setText("Добавить столбец")
+            self.ui.delete_button.setText("Удалить столбец")
 
     def config_tw(self):
-        # ОСОБЕННОСТИ из self.config_dict
-        
-        
+        self.__osbm.obj_logg.debug_logger("FormTableDialogWindow config_tw()")
+        headers = []
+        ids_rowcols = []
+        self.__rowcols = sorted(self.__rowcols, key=lambda x: x.get("ORDER"))
+        for rowcol in self.__rowcols:
+            headers.append(rowcol.get("TITLE"))
+            ids_rowcols.append(rowcol.get("ID"))
+        #
+        table_data, len_data = self.get_table_data_from_value_pair(ids_rowcols) 
+        self.fill_tw_table(table_data, headers, len_data)
 
-        # создать столбцы таблицы
-        self.ui.table.setColumnCount(len(headers))
-        self.ui.table.setHorizontalHeaderLabels(headers)
-        # поставить значения из таблицы
-        self.create_table_from_value(self.pair.get("value_pair"))
+        
 
     def config_context_menu(self):
-        self.__osbm.obj_logg.debug_logger("FormTable config_context_menu()")
+        
+        self.__osbm.obj_logg.debug_logger("FormTableDialogWindow config_context_menu()")
         # контекстное меню
         self.context_menu = QMenu(self)
         # Копировать - copy_values_to_clipboard
@@ -111,37 +136,53 @@ class FormTableDialogWindow(QDialog):
         self.ui.table.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.ui.table.customContextMenuRequested.connect(self.show_context_menu)
 
-    # TODO ниже
-    def connect_actions(self):
-        self.__osbm.obj_logg.debug_logger("FormTable connect_actions()")
-        self.ui.add_button.clicked.connect(self.add_row)
-        self.ui.delete_button.clicked.connect(self.delete_row)
-        self.ui.table.cellChanged.connect(
-            lambda: self.set_new_value_in_pair(self.__pair, self.get_data_from_table())
-        )
-
     def show_context_menu(self, position):
         # Show the context menu at the mouse position
         self.__osbm.obj_logg.debug_logger(
-            f"FormTable show_context_menu(position):\nposition = {position}"
+            f"FormTableDialogWindow show_context_menu(position):\nposition = {position}"
         )
         self.context_menu.exec_(self.ui.table.mapToGlobal(position))
 
+    def connecting_actions(self):
+        self.__osbm.obj_logg.debug_logger("FormTableDialogWindow connecting_actions()")
+        # действия в завимости от типа таблицы
+        if self.__typetable == "COL":
+            self.ui.add_button.clicked.connect(self.add_row)
+            self.ui.delete_button.clicked.connect(self.delete_row)
+        elif self.__typetable == "ROW":
+            self.ui.add_button.clicked.connect(self.add_column)
+            self.ui.delete_button.clicked.connect(self.delete_column)
+        #
+        self.ui.btn_save.clicked.connect(self.save)
+        self.ui.btn_close.clicked.connect(self.close)
+
     def add_row(self):
-        self.__osbm.obj_logg.debug_logger("FormTable add_row()")
+        self.__osbm.obj_logg.debug_logger("FormTableDialogWindow add_row()")
         row_count = self.ui.table.rowCount()
         self.ui.table.insertRow(row_count)
         for column in range(self.ui.table.columnCount()):
             item = QTableWidgetItem()
             self.ui.table.setItem(row_count, column, item)
-        self.set_new_value_in_pair(self.__pair, self.get_data_from_table())
+
+    def add_column(self):
+        self.__osbm.obj_logg.debug_logger("FormTableDialogWindow add_column()")
+        column_count = self.ui.table.columnCount()
+        self.ui.table.insertColumn(column_count)
+        for row in range(self.ui.table.rowCount()):
+            item = QTableWidgetItem()
+            self.ui.table.setItem(row, column_count, item)
 
     def delete_row(self):
-        self.__osbm.obj_logg.debug_logger("FormTable delete_row()")
+        self.__osbm.obj_logg.debug_logger("FormTableDialogWindow delete_row()")
         current_row = self.ui.table.currentRow()
         if current_row >= 0:
             self.ui.table.removeRow(current_row)
-        self.set_new_value_in_pair(self.__pair, self.get_data_from_table())
+
+    def delete_column(self):
+        self.__osbm.obj_logg.debug_logger("FormTableDialogWindow delete_column()")
+        current_column = self.ui.table.currentColumn()
+        if current_column >= 0:
+            self.ui.table.removeColumn(current_column)
 
     # def update_cell(self, row, column):
     #     item = self.ui.table.item(row, column)
@@ -152,7 +193,9 @@ class FormTableDialogWindow(QDialog):
         """
         Копирование значения в буфер обмена
         """
-        self.__osbm.obj_logg.debug_logger("FormTable copy_values_to_clipboard()")
+        self.__osbm.obj_logg.debug_logger(
+            "FormTableDialogWindow copy_values_to_clipboard()"
+        )
         selected_items = self.ui.table.selectedItems()
         # values = []
         # for item in selected_items:
@@ -180,7 +223,9 @@ class FormTableDialogWindow(QDialog):
         """
         Вставка значений из буфера обмена
         """
-        self.__osbm.obj_logg.debug_logger("FormTable paste_values_from_clipboard()")
+        self.__osbm.obj_logg.debug_logger(
+            "FormTableDialogWindow paste_values_from_clipboard()"
+        )
         clipboard = QApplication.clipboard()
         text = clipboard.text()
         rows = text.split("\n")
@@ -198,32 +243,69 @@ class FormTableDialogWindow(QDialog):
                         if item:
                             item.setText(value)
 
-    def create_table_from_value(self, json_data):
-        self.__osbm.obj_logg.debug_logger(
-            f"FormTable create_table_from_value(self, json_data):\ndata = {json_data}"
-        )
+    def get_table_data_from_value_pair(self, ids_rowcols):
+        self.__osbm.obj_logg.debug_logger(f"FormTableDialogWindow get_table_data_from_value_pair(ids_rowcols):\nids_rowcols = {ids_rowcols}")
+        json_data = self.__value_pair
         if json_data:
             data = json.loads(json_data)
-            self.ui.table.setRowCount(len(data))
-            self.ui.table.setColumnCount(len(data[0]))
-            for row, row_data in enumerate(data):
-                for column, value in enumerate(row_data):
-                    item = QTableWidgetItem(value)
-                    self.ui.table.setItem(row, column, item)
+            # заполнить информацией исходя из ID
+            table_data = []
+            # словарь ключ-значение
+            data_rowcol_by_id_rowcol = dict()
+            for elem_data in data:
+                data_rowcol_by_id_rowcol[elem_data.get("id_rowcol")] = elem_data.get("data_rowcol")
+            #
+            len_data = 0
+            for ids_rowcol in ids_rowcols:
+                data_rowcol = data_rowcol_by_id_rowcol.get(ids_rowcol, [])
+                len_data = max(len_data, len(data_rowcol))
+                table_data.append(data_rowcol)
+            return (table_data, len_data)
+        return ([[]], 0)
 
+    def fill_tw_table(self, table_data, headers, len_data):
+        self.__osbm.obj_logg.debug_logger(f"FormTableDialogWindow fill_tw_table(table_data, headers, len_data):\n table_data = {table_data}\n headers = {headers}\n len_data = {len_data}")
+        if self.__typetable == "COL":
+            # заголовки 
+            self.ui.table.setRowCount(len_data)
+            self.ui.table.setColumnCount(len(headers))
+            self.ui.table.setHorizontalHeaderLabels(headers)
+            self.ui.table.verticalHeader().setVisible(False)
+            #
+            for col, col_data in enumerate(table_data):
+                for row, value in enumerate(col_data):
+                    item = QTableWidgetItem(value)
+                    self.ui.table.setItem(row, col, item)
+            
+        elif self.__typetable == "ROW":
+            # заголовки 
+            self.ui.table.setRowCount(len(headers))
+            self.ui.table.setColumnCount(len_data)
+            self.ui.table.setVerticalHeaderLabels(headers)
+            self.ui.table.horizontalHeader().setVisible(False)
+            #
+            for row, row_data in enumerate(table_data):
+                for col, value in enumerate(row_data):
+                    item = QTableWidgetItem(value)
+                    self.ui.table.setItem(row, col, item)
+            
+            
     def get_data_from_table(self) -> list:
-        self.__osbm.obj_logg.debug_logger("FormTable to_json(self) -> list:")
-        table_data = []
+        self.__osbm.obj_logg.debug_logger("FormTableDialogWindow to_json() -> list:")
+        data = [{"id_rowcol": rowcol.get("ID"), "data_rowcol": []} for rowcol in self.__rowcols]
         for row in range(self.ui.table.rowCount()):
-            print("row = ", row)
-            row_data = []
             for column in range(self.ui.table.columnCount()):
-                print("column = ", column)
                 item = self.ui.table.item(row, column)
-                if item:
-                    row_data.append(item.text())
-                else:
-                    row_data.append("")
-            table_data.append(row_data)
-        print(f"table_data = {table_data}")
-        return json.dumps(table_data)
+                text = item.text() if item else ""
+                #
+                if self.__typetable == "COL":
+                    data[column]["data_rowcol"].append(text)
+                elif self.__typetable == "ROW":
+                    data[row]["data_rowcol"].append(text)
+        print(f"table_data = {data}")
+        return json.dumps(data)
+
+    def save(self):
+        self.__osbm.obj_logg.debug_logger("FormTableDialogWindow save()")
+        self.__data = self.get_data_from_table()
+        self.accept()

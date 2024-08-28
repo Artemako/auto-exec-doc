@@ -433,11 +433,11 @@ class VariablesListDialogWindow(QDialog):
         # заголовки/столбцы
         table_widget.verticalHeader().hide()
         if editor:
-            headers = ["№", "Переменная", "Описание", "Тип", "Кол", "Вкл", "Действия"]
+            headers = ["№", "Переменная", "Название", "Тип", "Кол", "Вкл", "Действия"]
             table_widget.setColumnCount(len(headers))
             table_widget.setHorizontalHeaderLabels(headers)
         else:
-            headers = ["№", "Переменная", "Описание", "Тип"]
+            headers = ["№", "Переменная", "Название", "Тип"]
             table_widget.setColumnCount(len(headers))
             table_widget.setHorizontalHeaderLabels(headers)
         #

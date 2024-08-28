@@ -54,9 +54,9 @@
     <file>resources/white-icons/save.svg</file>
     <file>resources/white-icons/table.svg</file>
     <file>resources/white-icons/longtext.svg</file>
-    <file>resources/white-icons/table-add.svg</file>
-    <file>resources/white-icons/table-remove.svg</file>
     <file>resources/white-icons/template.svg</file>
+    <file>resources/white-icons/table-columns.svg</file>
+    <file>resources/white-icons/table-rows.svg</file>
     <file>resources/white-icons/text.svg</file>
     <file>resources/white-icons/text-editor.svg</file>
     <file>resources/white-icons/trash.svg</file>

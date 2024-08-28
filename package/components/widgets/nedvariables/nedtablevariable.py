@@ -63,7 +63,7 @@ class NedTableVariable(QWidget):
         combobox.clear()
         self.__table_types = self.__osbm.obj_comwith.table_types.get_table_types()
         for table_type in self.__table_types:
-            combobox.addItem(table_type.name, table_type.data)
+            combobox.addItem(table_type.icon, table_type.name, table_type.data)
         combobox.blockSignals(False)
 
     def config_lw_attrs(self, open_rowcol = None):

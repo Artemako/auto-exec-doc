@@ -21,8 +21,6 @@ class FormTable(QWidget):
         # СТИЛЬ
         self.__osbm.obj_style.set_style_for(self)
         #
-        self.__value_pair = pair.get("value_pair")
-        #
         self.config()
         #
         self.ui.btn_edittable.clicked.connect(self.btn_edittable_clicked)
@@ -30,8 +28,9 @@ class FormTable(QWidget):
     def btn_edittable_clicked(self):
         result = self.formtabledw()
         if result:
-            # TODO
-            ...
+            data = self.__osbm.obj_formtabledw.get_data()
+            print(f"obj_formtabledw data = {data}")
+            self.set_new_value_in_pair(data)
 
     def config(self):
         # тип переменной
@@ -52,7 +51,7 @@ class FormTable(QWidget):
     def formtabledw(self) -> bool:
         self.__osbm.obj_logg.debug_logger("FormTable formtabledw()")
         self.__osbm.obj_formtabledw = formtabledialogwindow.FormTableDialogWindow(
-            self.__osbm, self.__current_variable, self.__config_dict, self.__value_pair
+            self.__osbm, self.__current_variable, self.__config_dict, self.__pair.get("value_pair")
         )
         result = self.__osbm.obj_formtabledw.exec_()
         return result == QDialog.Accepted

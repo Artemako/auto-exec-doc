@@ -11,12 +11,14 @@ class VariableType:
 
 
 class VariableTypes:
-    def __init__(self, osbm):
+    def __init__(self, osbm, icons):
         self.__osbm = osbm
-        self.__icons = self.__osbm.obj_icons.get_icons()
+        self.__icons = icons
         self.__variable_types = [
             VariableType(0, "Текст", "TEXT", self.__icons.get("text"), False),
-            VariableType(1, "Длинный текст", "LONGTEXT", self.__icons.get("longtext"), False),
+            VariableType(
+                1, "Длинный текст", "LONGTEXT", self.__icons.get("longtext"), False
+            ),
             VariableType(2, "Дата", "DATE", self.__icons.get("date"), False),
             VariableType(3, "Таблица", "TABLE", self.__icons.get("table"), True),
             VariableType(4, "Изображение", "IMAGE", self.__icons.get("image"), False),
@@ -140,25 +142,27 @@ class SizingModes:
 
 
 class TableType:
-    def __init__(self, index, name, data, is_edit_rowcols):
+    def __init__(self, index, name, data, icon, is_edit_rowcols):
         self.index = index
         self.name = name
         self.data = data
+        self.icon = icon
         self.is_edit_rowcols = is_edit_rowcols
 
 
 class TableTypes:
-    def __init__(self, osbm):
+    def __init__(self, osbm, icons):
         self.__osbm = osbm
+        self.__icons = icons
         self.__table_types = [
             # TableType(0, "Произвольный", "FULL", False),
-            TableType(0, "По строкам", "ROW", True),
-            TableType(1, "По столбцам", "COL", True),
+            TableType(0, "Настройка столбцов таблицы", "COL", self.__icons.get("table-columns"), True),
+            TableType(1, "Настройка строк таблицы", "ROW", self.__icons.get("table-rows"), True),
         ]
         self.__text_btns = {
             # "0": ("Строки/Столбцы", "Добавить строку/столбец"),
-            "0": ("Строки", "Добавить строку"),
-            "1": ("Столбцы", "Добавить столбец"),
+            "0": ("Столбцы", "Добавить столбец"),
+            "1": ("Строки", "Добавить строку"),
         }
 
     def get_table_types(self):
@@ -200,6 +204,7 @@ class TableTypes:
 #
 #
 
+
 class PageType:
     def __init__(self, index, name, data, icon):
         self.index = index
@@ -207,10 +212,11 @@ class PageType:
         self.data = data
         self.icon = icon
 
+
 class PageTypes:
-    def __init__(self, osbm):
+    def __init__(self, osbm, icons):
         self.__osbm = osbm
-        self.__icons = self.__osbm.obj_icons.get_icons()
+        self.__icons = icons
         self.__page_types = [
             PageType(0, "Файл DOCX", "DOCX", self.__icons.get("page")),
             PageType(1, "Файл PDF", "PDF", self.__icons.get("pdf")),
@@ -230,9 +236,12 @@ class PageTypes:
             f"PageTypes get_index_by_data(data):\ndata = {data}\n result = {result}"
         )
         return result
+
+
 #
 #
 #
+
 
 class language:
     def __init__(self, index, name, data, emoji):
@@ -241,12 +250,13 @@ class language:
         self.data = data
         self.emoji = emoji
 
+
 class Languages:
     def __init__(self, osbm):
         self.__osbm = osbm
         self.__languages = [
             language(0, "Русский", "ru_RU", "🇷🇺"),
-            language(1, "English", "en_US", "🇬🇧")#,
+            language(1, "English", "en_US", "🇬🇧"),  # ,
             # language(2, "Chinese", "zh_CN", "🇨🇳"),
             # language(3, "French", "fr_FR", "🇫🇷"),
             # language(4, "German", "de_DE", "🇩🇪"),
@@ -261,9 +271,11 @@ class Languages:
         self.__osbm.obj_logg.debug_logger("Languages get_languages()")
         return self.__languages
 
+
 #
 #
 #
+
 
 class ResizeQt:
     def __init__(self, osbm):
@@ -282,6 +294,7 @@ class ResizeQt:
 class CommonWithOsmb:
     def __init__(self):
         self.__osbm = None
+        self.__icons = None
         #
         self.variable_types = None
         self.sizing_modes = None
@@ -291,7 +304,6 @@ class CommonWithOsmb:
         self.languages = None
         self.resizeqt = None
 
-
     def setting_all_osbm(self, osbm):
         self.__osbm = osbm
         self.__osbm.obj_logg.debug_logger("CommonWithOsmb setting_all_osbm()")
@@ -299,10 +311,12 @@ class CommonWithOsmb:
     def run(self):
         self.__osbm.obj_logg.debug_logger("CommonWithOsmb run()")
         #
-        self.variable_types = VariableTypes(self.__osbm)
+        self.__icons = self.__osbm.obj_icons.get_icons()
+        #
+        self.variable_types = VariableTypes(self.__osbm, self.__icons)
         self.sizing_modes = SizingModes(self.__osbm)
         self.units = Units(self.__osbm)
-        self.table_types = TableTypes(self.__osbm)
-        self.page_types = PageTypes(self.__osbm)
+        self.table_types = TableTypes(self.__osbm, self.__icons)
+        self.page_types = PageTypes(self.__osbm, self.__icons)
         self.languages = Languages(self.__osbm)
         self.resizeqt = ResizeQt(self.__osbm)

@@ -64,6 +64,9 @@ class Icons:
             icons["edit_templates"] = QIcon(":/white-icons/resources/white-icons/template.svg")
             icons["edit_variables"] = QIcon(":/white-icons/resources/white-icons/text-editor.svg")
             #
+            icons["table-rows"] = QIcon(":/white-icons/resources/white-icons/table-rows.svg")
+            icons["table-columns"] = QIcon(":/white-icons/resources/white-icons/table-columns.svg")
+            #
             for key, elem in icons.items():
                 if key in ["red_circle", "yellow_circle", "green_circle"]:
                     icons[key] = icons[key].pixmap(QSize(size / 2, size / 2))
