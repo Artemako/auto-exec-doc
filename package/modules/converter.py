@@ -18,7 +18,6 @@ import package.modules.convertervarimage as convertervarimage
 
 
 class ConverterPool:
-
     def __init__(self):
         self.__cashe_temp_images = dict()
 
@@ -170,8 +169,8 @@ class ConverterPool:
                 # проверить в словаре
                 is_reimage = True
                 add_dict = dict()
-                cashe_dict = self.__cashe_temp_images.get(value, None)  
-                #              
+                cashe_dict = self.__cashe_temp_images.get(value, None)
+                #
                 if cashe_dict:
                     is_reimage = False
                     temp_image = cashe_dict.get("temp_image", None)
@@ -187,15 +186,19 @@ class ConverterPool:
                 elif sizing_mode == "CONTAIN":
                     # только ширину ради пропорции
                     if is_reimage:
-                        scaled_mm_sizes = convvarimg.contain_sizing_mode(temp_image, mm_width, mm_height)
-                        inline_image.width = Mm(scaled_mm_sizes[0]) 
+                        scaled_mm_sizes = convvarimg.contain_sizing_mode(
+                            temp_image, mm_width, mm_height
+                        )
+                        inline_image.width = Mm(scaled_mm_sizes[0])
                         add_dict["width"] = scaled_mm_sizes[0]
                     else:
                         inline_image.width = Mm(temp_width)
                 elif sizing_mode == "COVER":
                     # только ширину ради пропорции
                     if is_reimage:
-                        scaled_mm_sizes = convvarimg.cover_sizing_mode(temp_image, mm_width, mm_height)
+                        scaled_mm_sizes = convvarimg.cover_sizing_mode(
+                            temp_image, mm_width, mm_height
+                        )
                         inline_image.width = Mm(scaled_mm_sizes[0])
                         add_dict["width"] = scaled_mm_sizes[0]
                     else:
@@ -205,15 +208,15 @@ class ConverterPool:
                         inline_image.width = Mm(mm_width)
                         inline_image.height = Mm(mm_height)
                         add_dict["width"] = mm_width
-                        add_dict["height"] = mm_height                        
+                        add_dict["height"] = mm_height
                     else:
                         inline_image.width = Mm(temp_width)
                         inline_image.height = Mm(temp_height)
-                
+
                 # добавить новое если впервый раз
                 if is_reimage:
                     self.__cashe_temp_images[value] = add_dict
-                #    
+                #
                 data_variable[str(name_variable)] = inline_image
         except Exception as e:
             print(e)
@@ -226,7 +229,6 @@ class ConverterPool:
             f"Converter type_variable_is_table(data_variable, name_variable, value, id_variable):\ndata_variable = {data_variable},\nname_variable = {name_variable},\nvalue = {value},\nid_variable = {id_variable}"
         )
         try:
-            # TODO Таблица
             if value:
                 current_variable = local_osbm.obj_prodb.get_variable_by_id(id_variable)
                 config_variable = current_variable.get("config_variable")
@@ -234,27 +236,37 @@ class ConverterPool:
                 if config_variable:
                     config_dict = json.loads(config_variable)
                 print(f"config_dict = {config_dict}")
-                # узнать content в таблице
-                order_to_variable_config_dict = dict()
-                object_variable = dict()
+                # config_dict: шаблон записи
+                id_to_attr_dict = dict()
+                object_entry = dict()
                 rowcols = config_dict.get("ROWCOLS")
                 for rowcol in rowcols:
-                    value_config = rowcol.get("VALUE")
-                    order_config = rowcol.get("ORDER")
-                    order_to_variable_config_dict[order_config] = value_config
-                    object_variable[value_config] = None
-
-                print(f"object_variable = {object_variable}")
+                    attr_rowcol = rowcol.get("ATTR")
+                    id_rowcol = rowcol.get("ID")
+                    id_to_attr_dict[id_rowcol] = attr_rowcol
+                    object_entry[attr_rowcol] = str()
                 # заполнять data_variable
+                data = json.loads(value)
+                # таблица и словрь записей 
                 table_values = []
-                if value:
-                    table = json.loads(value)
-                    for row, row_data in enumerate(table):
-                        pt = copy.deepcopy(object_variable)
-                        for col, cell_value in enumerate(row_data):
-                            pt[order_to_variable_config_dict.get(col)] = cell_value
-                        table_values.append(pt)
-                print(f"table_values = {table_values}")
+                entrys = dict()
+                # проходим по всем rowcol
+                for rowcol in data:
+                    id_rowcol = rowcol.get("id_rowcol")
+                    # если есть атрибут в config_dict
+                    if id_rowcol in id_to_attr_dict:
+                        attr_rowcol = id_to_attr_dict.get(id_rowcol)
+                        data_rowcol = rowcol.get("data_rowcol")
+                        # проходим по всем значениям data_rowcol с именем attr_rowcol
+                        for i, cell_value in enumerate(data_rowcol):
+                            entry = entrys.get(i)
+                            entry = entry if entry else copy.deepcopy(object_entry)
+                            entry[attr_rowcol] = cell_value
+                            entrys[i] = entry
+                # проходим по записям entrys
+                for object_entry in entrys.values():
+                    table_values.append(object_entry)
+                #
                 data_variable[str(name_variable)] = table_values
         except Exception as e:
             local_osbm.obj_logg.error_logger(f"Error in type_variable_is_table: {e}")
@@ -316,7 +328,6 @@ class ConverterPool:
         template_path, docx_path = self.get_template_path_and_docx_path(
             local_osbm, form_page_fullname, docx_page_fullname
         )
-        # TODO ReRender ???
         self.rerender(local_osbm, template_path, docx_path, sections_info)
 
     def rerender(self, local_osbm, template_path, docx_path, sections_info):
@@ -499,7 +510,6 @@ class Converter:
                 print("included = ", child_included, type(child_included))
                 if child_included:
                     # проход по страницам node
-                    # TODO
                     id_active_template = child.get("id_active_template")
                     if id_active_template:
                         template = {"id_template": id_active_template}

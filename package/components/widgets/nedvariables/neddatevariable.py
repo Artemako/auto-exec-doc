@@ -6,7 +6,7 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import QDate, QLocale
 
 import package.ui.neddatevariable_ui as neddatevariable_ui
-# TODO РАБОТА С ДАТАМИ
+
 class NedDateVariable(QWidget):
     def __init__(self, osbm, type_window, variable=None):
         self.__osbm = osbm

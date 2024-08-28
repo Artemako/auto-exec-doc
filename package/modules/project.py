@@ -124,6 +124,7 @@ class Project:
         self.__osbm.obj_logg.debug_logger("Project save_project()")
         if self.__status_active:
             # сохранить в базу данных
+            # TODO ОКно
             self.__osbm.obj_seci.save_data_to_database()
             if self.__osbm.obj_lwpt.is_page_template_selected():
                 # получить значение высоты страницы

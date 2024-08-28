@@ -31,11 +31,6 @@ class Ui_FormTableDialogWindow(object):
 
         self.verticalLayout.addWidget(self.label_nametable)
 
-        self.table = QTableWidget(FormTableDialogWindow)
-        self.table.setObjectName(u"table")
-
-        self.verticalLayout.addWidget(self.table)
-
         self.buttons_layout = QHBoxLayout()
         self.buttons_layout.setObjectName(u"buttons_layout")
         self.add_button = QPushButton(FormTableDialogWindow)
@@ -50,6 +45,11 @@ class Ui_FormTableDialogWindow(object):
 
 
         self.verticalLayout.addLayout(self.buttons_layout)
+
+        self.table = QTableWidget(FormTableDialogWindow)
+        self.table.setObjectName(u"table")
+
+        self.verticalLayout.addWidget(self.table)
 
         self.line = QFrame(FormTableDialogWindow)
         self.line.setObjectName(u"line")

@@ -5,7 +5,7 @@ from PySide6.QtWidgets import (
 )
 
 import package.ui.nedimagevariable_ui as nedimagevariable_ui
-# TODO РАБОТА С ИЗОБРАЖЕНИЯМИ
+
 class NedImageVariable(QWidget):
     def __init__(self, osbm, type_window, variable=None):
         self.__osbm = osbm

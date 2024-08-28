@@ -12,8 +12,6 @@ from PySide6.QtGui import QAction
 
 import package.ui.formtabledialogwindow_ui as formtabledialogwindow_ui
 
-# TODO ФОРМА ТАБЛИЦЫ
-
 
 class FormTableDialogWindow(QDialog):
     def __init__(self, osbm, current_variable, config_dict, value_pair):
@@ -41,44 +39,6 @@ class FormTableDialogWindow(QDialog):
         #
         self.connecting_actions()
 
-    # current_variable = (
-    #     {
-    #         "id_variable": 7,
-    #         "name_variable": "таблица",
-    #         "type_variable": "TABLE",
-    #         "title_variable": "Таблица",
-    #         "order_variable": 6,
-    #         "config_variable": '{"TYPETABLE": "ROW", "ROWCOLS": [{"ID": "7c90b765640811ef90f1dce9947e4a05", "ATTR": "\\u043c\\u0430\\u0448\\u0438\\u043d\\u0430", "TITLE": "\\u041c\\u0430\\u0448\\u0438\\u043d\\u0430", "ORDER": 0}, {"ID": "850e17de640811ef88cbdce9947e4a05", "ATTR": "\\u0441\\u043a\\u043e\\u0440\\u043e\\u0441\\u0442\\u044c", "TITLE": "\\u0421\\u043a\\u043e\\u0440\\u043e\\u0441\\u0442\\u044c", "ORDER": 1}, {"ID": "8c4b4f4a640811efb62ddce9947e4a05", "ATTR": "\\u043a\\u0438\\u043b\\u043e\\u043c\\u0435\\u0442\\u0440\\u0430\\u0436", "TITLE": "\\u043a\\u0438\\u043b\\u043e\\u043c\\u0435\\u0442\\u0440\\u0430\\u0436", "ORDER": 2}]}',
-    #         "description_variable": "",
-    #         "is_global": None,
-    #     },
-    # )
-    # config_dict = (
-    #     {
-    #         "TYPETABLE": "ROW",
-    #         "ROWCOLS": [
-    #             {
-    #                 "ID": "7c90b765640811ef90f1dce9947e4a05",
-    #                 "ATTR": "машина",
-    #                 "TITLE": "Машина",
-    #                 "ORDER": 0,
-    #             },
-    #             {
-    #                 "ID": "850e17de640811ef88cbdce9947e4a05",
-    #                 "ATTR": "скорость",
-    #                 "TITLE": "Скорость",
-    #                 "ORDER": 1,
-    #             },
-    #             {
-    #                 "ID": "8c4b4f4a640811efb62ddce9947e4a05",
-    #                 "ATTR": "километраж",
-    #                 "TITLE": "километраж",
-    #                 "ORDER": 2,
-    #             },
-    #         ],
-    #     },
-    # )
-    # value_pair = None
 
     def get_data(self):
         self.__osbm.obj_logg.debug_logger(
@@ -104,6 +64,9 @@ class FormTableDialogWindow(QDialog):
         elif self.__typetable == "ROW":
             self.ui.add_button.setText("Добавить столбец")
             self.ui.delete_button.setText("Удалить столбец")
+        # свернуть/развернуть окно
+        self.setWindowFlag(Qt.WindowMinimizeButtonHint, True)
+        self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
 
     def config_tw(self):
         self.__osbm.obj_logg.debug_logger("FormTableDialogWindow config_tw()")
@@ -154,7 +117,9 @@ class FormTableDialogWindow(QDialog):
             self.ui.delete_button.clicked.connect(self.delete_column)
         #
         self.ui.btn_save.clicked.connect(self.save)
+        self.ui.btn_save.setShortcut("Ctrl+S")
         self.ui.btn_close.clicked.connect(self.close)
+        self.ui.btn_close.setShortcut("Ctrl+Q")
 
     def add_row(self):
         self.__osbm.obj_logg.debug_logger("FormTableDialogWindow add_row()")

@@ -27,8 +27,7 @@ class FormDate(QWidget):
         self.__language = "ru_RU"
         #
         self.config()
-        
-    # TODO ФОРМА ДАТЫ
+
 
     def config(self):
         self.__osbm.obj_logg.debug_logger("FormDate config()")

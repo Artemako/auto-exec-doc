@@ -13,7 +13,7 @@ import package.components.dialogwindow.neddw.nedrowcoldialogwindow as nedrowcold
 
 import package.components.widgets.customitemqlistwidget as customitemqlistwidget
 
-# TODO Проверка переменной и атрибута на правильность имени
+
 class NedTableVariable(QWidget):
     def __init__(self, osbm, type_window, variable=None):
         self.__osbm = osbm
@@ -229,7 +229,7 @@ class NedTableVariable(QWidget):
             self.ui.combox_typetable.setCurrentIndex(index)
 
     def save_data(self):
-        # TODO save_data
+
         self.__osbm.obj_logg.debug_logger("NedTableVariable save_data()")
         typetable = self.ui.combox_typetable.currentData()
         rowcols = self.get_sorted_rowcols()

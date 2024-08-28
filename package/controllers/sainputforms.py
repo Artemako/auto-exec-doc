@@ -114,7 +114,7 @@ class SAInputForms:
                 # Создание секции виджета
                 section = customsection.Section(self.__osbm, section_name)
                 section_layout = QVBoxLayout()
-                section_layout.setSpacing(6)
+                section_layout.setSpacing(9)
                 # data секции
                 section_data = section_info.get("data")
                 # перебор пар в section_data секции
