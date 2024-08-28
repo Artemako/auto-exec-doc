@@ -28,7 +28,7 @@ class Ui_FormImageWidget(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.hl = QHBoxLayout()
-        self.hl.setSpacing(4)
+        self.hl.setSpacing(9)
         self.hl.setObjectName(u"hl")
         self.label_typevariable = QLabel(FormImageWidget)
         self.label_typevariable.setObjectName(u"label_typevariable")

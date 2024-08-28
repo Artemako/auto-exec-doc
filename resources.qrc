@@ -2,6 +2,7 @@
   <qresource prefix="color-icons">
     <file>resources/color-icons/green-circle.svg</file>
     <file>resources/color-icons/libreoffice.svg</file>
+    <file>resources/color-icons/logo.svg</file>
     <file>resources/color-icons/msword.svg</file>
     <file>resources/color-icons/red-circle.svg</file>
     <file>resources/color-icons/yellow-circle.svg</file>

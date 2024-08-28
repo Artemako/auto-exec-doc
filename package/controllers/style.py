@@ -81,6 +81,9 @@ QTreeView#espList::item {
     padding: 0.3em 0;
     */
 }
+QListView#lw_pages_template::item {
+    padding: 0.2em 0;
+}
 
 /* to enable border color */
 QTreeView,

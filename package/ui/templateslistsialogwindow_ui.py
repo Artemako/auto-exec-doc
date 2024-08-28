@@ -107,7 +107,7 @@ class Ui_TemplatesListDialogWindow(object):
     # setupUi
 
     def retranslateUi(self, TemplatesListDialogWindow):
-        TemplatesListDialogWindow.setWindowTitle(QCoreApplication.translate("TemplatesListDialogWindow", u"Dialog", None))
+        TemplatesListDialogWindow.setWindowTitle(QCoreApplication.translate("TemplatesListDialogWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u043e\u0440 \u0448\u0430\u0431\u043b\u043e\u043d\u043e\u0432", None))
         self.label_form.setText(QCoreApplication.translate("TemplatesListDialogWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0424\u043e\u0440\u043c\u0430</span></p></body></html>", None))
         self.label_template.setText(QCoreApplication.translate("TemplatesListDialogWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0428\u0430\u0431\u043b\u043e\u043d\u044b</span></p></body></html>", None))
         self.btn_add_template.setText(QCoreApplication.translate("TemplatesListDialogWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0448\u0430\u0431\u043b\u043e\u043d", None))

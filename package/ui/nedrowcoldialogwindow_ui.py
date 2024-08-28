@@ -98,7 +98,7 @@ class Ui_NedRowcolDialogWindow(object):
     # setupUi
 
     def retranslateUi(self, NedRowcolDialogWindow):
-        NedRowcolDialogWindow.setWindowTitle(QCoreApplication.translate("NedRowcolDialogWindow", u"Dialog", None))
+        NedRowcolDialogWindow.setWindowTitle(QCoreApplication.translate("NedRowcolDialogWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u043e\u0440 \u0441\u0442\u0440\u043e\u043a\u0438/\u0441\u0442\u043e\u043b\u0431\u0446\u0430 \u0442\u0430\u0431\u043b\u0438\u0446\u044b", None))
         self.label_attr.setText(QCoreApplication.translate("NedRowcolDialogWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0410\u0442\u0440\u0438\u0431\u0443\u0442 \u043f\u0435\u0440\u0435\u043c\u0435\u043d\u043d\u043e\u0439</span></p></body></html>", None))
         self.label_rowcol.setText(QCoreApplication.translate("NedRowcolDialogWindow", u"<html><head/><body><p>\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 ...</p></body></html>", None))
         self.lineedit_rowcoltitle.setText("")

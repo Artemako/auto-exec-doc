@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Редактор шаблонов</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,3,0,0">
    <item>

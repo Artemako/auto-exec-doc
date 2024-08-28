@@ -22,14 +22,16 @@ class MainWindow(QMainWindow):
         # СТИЛЬ
         self.__osbm.obj_style.set_style_for(self)
         self.__icons = self.__osbm.obj_icons.get_icons()
+        self.setWindowIcon(self.__icons.get("logo"))
         # config
         self.config()
         # настройка контроллеров
         self.config_controllers()
         # Подключаем действия
         self.connecting_actions()
-        # Запускаем Common после инициализации QGuiApplication
+        # Запускаем Common после инициализации QGuiApplication + dialogWindows
         self.__osbm.obj_comwith.run()
+        self.__osbm.obj_dw.run()
 
     def config(self):
         self.__osbm.obj_logg.debug_logger("MainWindow config()")

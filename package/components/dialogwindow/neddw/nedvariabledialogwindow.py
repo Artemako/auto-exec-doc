@@ -24,6 +24,8 @@ class NedVariableDialogWindow(QDialog):
         self.ui.setupUi(self)
         # СТИЛЬ
         self.__osbm.obj_style.set_style_for(self)
+        self.__icons = self.__osbm.obj_icons.get_icons()
+        self.setWindowIcon(self.__icons.get("logo"))
         # одноразовые действия
         self.__additional_widget = None
         self.__data = {

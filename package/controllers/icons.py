@@ -49,6 +49,8 @@ class Icons:
             # word, libreoffice
             icons["libreoffice"] = QIcon(":/color-icons/resources/color-icons/libreoffice.svg")
             icons["msword"] = QIcon(":/color-icons/resources/color-icons/msword.svg")
+            # иконка
+            icons["logo"] = QIcon(":/color-icons/resources/color-icons/logo.svg")
             # ручка и корзина
             icons["pen"] = QIcon(":/white-icons/resources/white-icons/pen.svg")
             icons["trash"] = QIcon(":/white-icons/resources/white-icons/trash.svg")

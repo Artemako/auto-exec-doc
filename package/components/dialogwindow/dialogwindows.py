@@ -1,16 +1,46 @@
 import os
 
-from PySide6.QtWidgets import QMessageBox, QFileDialog
+from PySide6.QtWidgets import QMessageBox, QFileDialog, QWidget, QVBoxLayout, QLabel, QProgressBar
 from PySide6.QtCore import Qt
+
+class ProcessWindow(QWidget):
+    def __init__(self, title, icon):
+        super().__init__()
+        self.__is_close = False
+        self.setWindowTitle(title)
+        self.setWindowIcon(icon)
+        self.setFixedSize(300, 100)  # Минимальные размеры окна
+        layout = QVBoxLayout()
+        label = QLabel("Пожалуйста, подождите...")
+        layout.addWidget(label)
+        self.progress = QProgressBar()
+        self.progress.setRange(0, 0)  # Индикатор загрузки в бесконечном режиме
+        layout.addWidget(self.progress)
+        self.setLayout(layout)
+
+    def close_window(self):
+        self.__is_close = True
+        self.close()
+
+    def closeEvent(self, event):
+        if self.__is_close:
+            event.accept()
+        else:
+            event.ignore() 
 
 
 class DialogWindows:
     def __init__(self):
         self.__dw = None
-        pass
+        self.__miniw = None
+        self.__icons = None
 
     def setting_all_osbm(self, osbm):
         self.__osbm = osbm
+
+    def run(self):
+        self.__osbm.obj_logg.debug_logger("DialogWindows run()")
+        self.__icons = self.__osbm.obj_icons.get_icons()     
 
     def get_new_prepare_dw(self) -> object:
         self.__osbm.obj_logg.debug_logger(
@@ -18,7 +48,35 @@ class DialogWindows:
         )
         dw = QMessageBox()
         self.__osbm.obj_style.set_style_for(dw)
+        dw.setWindowIcon(self.__icons.get("logo"))
         return dw
+
+    def process_save_start(self):
+        self.__osbm.obj_logg.debug_logger("DialogWindows process_save_start()")
+        self.__miniw = ProcessWindow("Идет процесс сохранения", self.__icons.get("logo"))
+        self.__miniw.show()
+
+    def process_save_end(self):
+        self.__osbm.obj_logg.debug_logger("DialogWindows process_save_end()")
+        self.__miniw.close_window()
+
+    def process_export_start(self):
+        self.__osbm.obj_logg.debug_logger("DialogWindows process_export_start()")
+        self.__miniw = ProcessWindow("Идет процесс экспорта", self.__icons.get("logo"))
+        self.__miniw.show()
+
+    def process_export_end(self):
+        self.__osbm.obj_logg.debug_logger("DialogWindows process_export_end()")
+        self.__miniw.close_window()
+
+    def process_show_start(self):
+        self.__osbm.obj_logg.debug_logger("DialogWindows process_show_start()")
+        self.__miniw = ProcessWindow("Идет процесс отображения", self.__icons.get("logo"))
+        self.__miniw.show()
+    
+    def process_show_end(self):
+        self.__osbm.obj_logg.debug_logger("DialogWindows process_show_end()")
+        self.__miniw.close_window()
 
     def save_active_project(self) -> str:
         """Диалоговое окно 'Вы не сохранили текущий проект. Сохранить?'."""

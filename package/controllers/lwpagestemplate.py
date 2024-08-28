@@ -69,7 +69,9 @@ class LWPagesTemplate:
             self.__osbm.obj_dw.warning_message(msg)
             self.__osbm.obj_stab.set_message(msg)
             is_convert_flag = False
+        #
         pdf_path = str()
+        self.__osbm.obj_dw.process_show_start()
         try:
             pdf_path = self.__osbm.obj_conv.create_one_page_pdf(page)
         except self.__osbm.obj_com.errors.MsWordError:
@@ -93,7 +95,8 @@ class LWPagesTemplate:
                 f"Error in create_and_view_current_page(page): {e}"
             )
             self.__osbm.obj_dw.warning_message(f"Ошибка: {e}" )
-
+        #
+        self.__osbm.obj_dw.process_show_end()
         if pdf_path:
             self.__osbm.obj_pdfv.load_and_show_pdf_document(pdf_path)
         else:

@@ -335,7 +335,7 @@ class ConverterPool:
             f"Converter rerender(template_path, docx_path, sections_info):\ntemplate_path = {template_path},\ndocx_path = {docx_path},\nsections_info = {sections_info}"
         )
         current_path = template_path
-        flag = 50
+        flag = 10
         is_rerender = False
         # создаем variable из sections_info
         data_variable = dict()

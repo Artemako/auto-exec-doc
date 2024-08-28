@@ -149,7 +149,7 @@ class Ui_NedPageDialogWindow(object):
     # setupUi
 
     def retranslateUi(self, NedPageDialogWindow):
-        NedPageDialogWindow.setWindowTitle(QCoreApplication.translate("NedPageDialogWindow", u"Dialog", None))
+        NedPageDialogWindow.setWindowTitle(QCoreApplication.translate("NedPageDialogWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u043e\u0440 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u044b", None))
         self.label_namepage.setText(QCoreApplication.translate("NedPageDialogWindow", u"<html><head/><body><p>\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u044b</p></body></html>", None))
         self.lineedit_namepage.setText("")
         self.label_after.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u0420\u0430\u0441\u043f\u043e\u043b\u043e\u0436\u0438\u0442\u044c \u043f\u043e\u0441\u043b\u0435 ", None))

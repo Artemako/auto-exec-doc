@@ -36,6 +36,8 @@ class NedPageDialogWindow(QDialog):
         self.ui.setupUi(self)
         # СТИЛЬ
         self.__osbm.obj_style.set_style_for(self)
+        self.__icons = self.__osbm.obj_icons.get_icons()
+        self.setWindowIcon(self.__icons.get("logo"))
         #
         self.__select_filename = str()
         self.__temp_copy_file_path = str()

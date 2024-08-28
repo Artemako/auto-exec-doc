@@ -39,8 +39,9 @@ class VariablesListDialogWindow(QDialog):
         self.ui.setupUi(self)
         # СТИЛЬ
         self.__osbm.obj_style.set_style_for(self)
-        #
         self.__icons = self.__osbm.obj_icons.get_icons()
+        self.setWindowIcon(self.__icons.get("logo"))
+        #
         self.__all_variables = None
         self.__vertical_scroll_position_by_parameters = {}
         # config

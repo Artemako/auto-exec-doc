@@ -124,7 +124,7 @@ class Project:
         self.__osbm.obj_logg.debug_logger("Project save_project()")
         if self.__status_active:
             # сохранить в базу данных
-            # TODO ОКно
+            self.__osbm.obj_dw.process_save_start()
             self.__osbm.obj_seci.save_data_to_database()
             if self.__osbm.obj_lwpt.is_page_template_selected():
                 # получить значение высоты страницы
@@ -138,6 +138,7 @@ class Project:
             self.__osbm.obj_stab.set_message(
                 f"Проект c именем {self.__current_name} сохранён."
             )
+            self.__osbm.obj_dw.process_save_end()
         else:
             self.__osbm.obj_stab.set_message(
                 "Нечего сохранять. Либо проект не открыт, либо форма не выбрана."
@@ -262,7 +263,9 @@ class Project:
                 flag_converter = True
             elif app_converter == "LIBREOFFICE" and status_libreoffice:
                 flag_converter = True
+            #
             if flag_converter:
+                self.__osbm.obj_dw.process_export_start()
                 start_time = time.time()
                 try:
                     self.__osbm.obj_conv.export_to_pdf(multipage_pdf_path)
@@ -289,7 +292,8 @@ class Project:
                     self.__osbm.obj_stab.set_message(msg)
                     self.__osbm.obj_offp.terminate_libreoffice()
                     self.__osbm.obj_stab.update_status_libreoffice_label(False)
-
+                #
+                self.__osbm.obj_dw.process_export_end()
             else:
                 msg = "Экспорт отменён! Выбранный конвертер не работает."
                 self.__osbm.obj_dw.warning_message(msg)
