@@ -25,8 +25,9 @@ class FormLongTextWidget(QWidget):
         key_icon = self.__osbm.obj_icons.get_key_icon_by_type_variable(self.__current_variable.get("type_variable"))
         qicon_type_variable = self.__icons.get(key_icon)
         self.ui.label_typevariable.setPixmap(qicon_type_variable)
-        # заголовок 
+        # заголовок + перменная
         self.ui.title.setText(self.__current_variable.get('title_variable'))
+        self.ui.label_variable.setText(f"<i>{self.__current_variable.get('name_variable')}</i>")
         # поле ввода
         self.ui.textedit.setText(self.__pair.get("value_pair"))
         # описание

@@ -354,4 +354,19 @@ class MainWindow(QMainWindow):
             self.__osbm.obj_logg.error_logger(e)
         # 
         self.__osbm.obj_dw.process_delete_trash_end()
-        
+
+
+    def config_combox_default(self):
+        self.__osbm.obj_logg.debug_logger("MainWindow config_combox_default()")
+        combobox = self.ui.combox_default
+        combobox.blockSignals(True)
+        combobox.clear()
+        combobox.addItem("Пустое значение", "null")
+        combobox.addItem("Переменная", "variable")
+        combobox.blockSignals(False)
+        combobox.currentIndexChanged.connect(self.combox_default_changed)
+        combobox.setCurrentIndex(0)
+
+    def combox_default_changed(self):
+        self.__osbm.obj_logg.debug_logger("MainWindow combox_default_changed()")
+        self.__osbm.obj_com.default_value = self.ui.combox_default.currentData()

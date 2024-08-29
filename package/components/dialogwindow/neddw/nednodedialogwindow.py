@@ -86,10 +86,15 @@ class NedNodeDialogWindow(QDialog):
         index = 0
         project_and_group_nodes = self.get_project_and_group_nodes()
         for prgr_node in project_and_group_nodes:
-            # если create и вершины нет, то в добавить с корень дерева (Project)
-            if self.__type_window == "create" and not self.__node:
+            # если create и вершины нет, то в добавить с корень дерева (Project) and not self.__node
+            if self.__type_window == "create":
                 combobox.addItem(prgr_node.get("name_node"), prgr_node)
-            else:
+                if self.__node and prgr_node.get("id_node") == self.__node.get(
+                    "id_parent"
+                ):
+                    current_index = index
+                index += 1
+            elif self.__type_window == "edit":
                 # поиск соседа
                 if prgr_node.get("id_node") == self.__node.get("id_parent"):
                     current_index = index

@@ -550,7 +550,10 @@ class VariablesListDialogWindow(QDialog):
             ):
                 table_widget.selectRow(row)
                 try:
-                    self.__qtimer.stop()
+                    if self.__qtimer:
+                        self.__qtimer.stop()
+                except Exception as e:
+                    pass
                 finally:
                     self.__qtimer = QTimer.singleShot(3000, lambda: table_widget.clearSelection())
         # включить сортировку после заполнения данных

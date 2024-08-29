@@ -36,8 +36,9 @@ class FormDate(QWidget):
         key_icon = self.__osbm.obj_icons.get_key_icon_by_type_variable(self.__current_variable.get("type_variable"))
         qicon_type_variable = self.__icons.get(key_icon)
         self.ui.label_typevariable.setPixmap(qicon_type_variable)
-        # заголовок
-        self.ui.title.setText(self.__current_variable.get("title_variable"))
+        # заголовок + перменная
+        self.ui.title.setText(self.__current_variable.get('title_variable'))
+        self.ui.label_variable.setText(f"<i>{self.__current_variable.get('name_variable')}</i>")
 
         # описание
         description_variable = self.__current_variable.get("description_variable")
@@ -64,7 +65,7 @@ class FormDate(QWidget):
             self.ui.dateedit.setDate(QDate.fromString(value, "yyyy-MM-dd"))
         else:
             # формат ISO
-            self.ui.dateedit.setDate(QDate.currentDate().isoformat())
+            self.ui.dateedit.setDate(QDate.currentDate())
 
         self.ui.dateedit.setDisplayFormat(self.__str_format)
 
@@ -84,6 +85,7 @@ class FormDate(QWidget):
             "FormDate set_new_value_in_pair(self)"
         )
         # self.__pair["value_pair"] = new_value
-        current_date = self.ui.dateedit.date().toPython()
-        self.__pair["value_pair"] = current_date.isoformat()
+        current_date = self.ui.dateedit.date()
+        iso_date = current_date.toString("yyyy-MM-dd")
+        self.__pair["value_pair"] = iso_date
         print(f"pair = {self.__pair}")

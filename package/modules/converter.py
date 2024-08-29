@@ -111,6 +111,12 @@ class ConverterPool:
         try:
             if value:
                 data_variable[str(name_variable)] = value
+            else:
+                default_value = local_osbm.obj_com.default_value
+                if default_value == "variable":
+                    data_variable[str(name_variable)] = name_variable
+                else:
+                    data_variable[str(name_variable)] = ""
         except Exception as e:
             local_osbm.obj_logg.error_logger(f"Error in type_variable_is_text: {e}")
 
@@ -130,6 +136,12 @@ class ConverterPool:
                 qdate = QDate.fromString(value, "yyyy-MM-dd")
                 current_value = locale.toString(qdate, str_format)
                 data_variable[str(name_variable)] = current_value
+            else:
+                default_value = local_osbm.obj_com.default_value
+                if default_value == "variable":
+                    data_variable[str(name_variable)] = name_variable
+                else:
+                    data_variable[str(name_variable)] = ""
         except Exception as e:
             print(f"{e}")
             local_osbm.obj_logg.error_logger(f"Error in type_variable_is_date: {e}")
@@ -218,6 +230,12 @@ class ConverterPool:
                     self.__cashe_temp_images[value] = add_dict
                 #
                 data_variable[str(name_variable)] = inline_image
+            else:
+                default_value = local_osbm.obj_com.default_value
+                if default_value == "variable":
+                    data_variable[str(name_variable)] = name_variable
+                else:
+                    data_variable[str(name_variable)] = ""
         except Exception as e:
             print(e)
             local_osbm.obj_logg.error_logger(f"Error in type_variable_is_image: {e}")
@@ -268,6 +286,12 @@ class ConverterPool:
                     table_values.append(object_entry)
                 #
                 data_variable[str(name_variable)] = table_values
+            else:
+                default_value = local_osbm.obj_com.default_value
+                if default_value == "variable":
+                    data_variable[str(name_variable)] = "..."
+                else:
+                    data_variable[str(name_variable)] = ""
         except Exception as e:
             local_osbm.obj_logg.error_logger(f"Error in type_variable_is_table: {e}")
 

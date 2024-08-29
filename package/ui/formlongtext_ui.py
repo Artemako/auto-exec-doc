@@ -51,6 +51,11 @@ class Ui_FormLongTextWidget(object):
 
         self.hl.addWidget(self.title)
 
+        self.label_variable = QLabel(FormLongTextWidget)
+        self.label_variable.setObjectName(u"label_variable")
+
+        self.hl.addWidget(self.label_variable)
+
         self.hl.setStretch(1, 1)
 
         self.verticalLayout.addLayout(self.hl)
@@ -79,6 +84,7 @@ class Ui_FormLongTextWidget(object):
         FormLongTextWidget.setWindowTitle(QCoreApplication.translate("FormLongTextWidget", u"Form", None))
         self.label_typevariable.setText(QCoreApplication.translate("FormLongTextWidget", u"\u0418\u041a", None))
         self.title.setText(QCoreApplication.translate("FormLongTextWidget", u"<html><head/><body><p>\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a</p></body></html>", None))
+        self.label_variable.setText(QCoreApplication.translate("FormLongTextWidget", u"<html><head/><body><p><span style=\" font-style:italic;\">variable</span></p></body></html>", None))
         self.textbrowser.setHtml(QCoreApplication.translate("FormLongTextWidget", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"

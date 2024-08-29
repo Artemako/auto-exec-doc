@@ -45,6 +45,11 @@ class Ui_FormTableWidget(object):
 
         self.hl.addWidget(self.title)
 
+        self.label_variable = QLabel(FormTableWidget)
+        self.label_variable.setObjectName(u"label_variable")
+
+        self.hl.addWidget(self.label_variable)
+
         self.hl.setStretch(1, 1)
 
         self.verticalLayout.addLayout(self.hl)
@@ -78,6 +83,7 @@ class Ui_FormTableWidget(object):
         FormTableWidget.setWindowTitle(QCoreApplication.translate("FormTableWidget", u"Form", None))
         self.label_typevariable.setText(QCoreApplication.translate("FormTableWidget", u"\u0418\u041a", None))
         self.title.setText(QCoreApplication.translate("FormTableWidget", u"<html><head/><body><p>\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a</p></body></html>", None))
+        self.label_variable.setText(QCoreApplication.translate("FormTableWidget", u"<html><head/><body><p><span style=\" font-style:italic;\">TextLabel</span></p></body></html>", None))
         self.btn_edittable.setText(QCoreApplication.translate("FormTableWidget", u"\u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0442\u0430\u0431\u043b\u0438\u0446\u0443", None))
         self.textbrowser.setHtml(QCoreApplication.translate("FormTableWidget", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"

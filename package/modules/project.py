@@ -242,6 +242,9 @@ class Project:
         self.__status_save = True
         # активировать qactions в статусбаре
         self.__osbm.obj_mw.enable_qt_actions()
+        # значение по умолчанию включить
+        self.__osbm.obj_mw.config_combox_default()
+
 
     def export_to_pdf(self):
         """

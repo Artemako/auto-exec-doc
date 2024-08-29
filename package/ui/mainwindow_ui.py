@@ -251,7 +251,7 @@ class Ui_MainWindow(object):
         self.scrollarea_inputforms.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
         self.scrollarea_inputforms_layout = QWidget()
         self.scrollarea_inputforms_layout.setObjectName(u"scrollarea_inputforms_layout")
-        self.scrollarea_inputforms_layout.setGeometry(QRect(0, 0, 271, 657))
+        self.scrollarea_inputforms_layout.setGeometry(QRect(0, 0, 271, 607))
         self.scrollarea_inputforms_layout.setMouseTracking(True)
         self.verticalLayout_5 = QVBoxLayout(self.scrollarea_inputforms_layout)
         self.verticalLayout_5.setSpacing(4)
@@ -260,6 +260,16 @@ class Ui_MainWindow(object):
         self.scrollarea_inputforms.setWidget(self.scrollarea_inputforms_layout)
 
         self.verticalLayout_4.addWidget(self.scrollarea_inputforms)
+
+        self.label_default = QLabel(self.gb_right)
+        self.label_default.setObjectName(u"label_default")
+
+        self.verticalLayout_4.addWidget(self.label_default)
+
+        self.combox_default = QComboBox(self.gb_right)
+        self.combox_default.setObjectName(u"combox_default")
+
+        self.verticalLayout_4.addWidget(self.combox_default)
 
         self.verticalLayout_4.setStretch(1, 1)
         self.centralwidget_splitter.addWidget(self.gb_right)
@@ -401,6 +411,7 @@ class Ui_MainWindow(object):
 
         self.label_realview.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0420\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442 \u0432 \u0440\u0435\u0436\u0438\u043c\u0435 \u0440\u0435\u0430\u043b\u044c\u043d\u043e\u0433\u043e \u0432\u0440\u0435\u043c\u0435\u043d\u0438</span></p></body></html>", None))
         self.label_variables.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0424\u043e\u0440\u043c\u0430 \u0437\u0430\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u044f</span></p></body></html>", None))
+        self.label_default.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0417\u043d\u0430\u0447\u0435\u043d\u0438\u0435 \u043f\u0435\u0440\u0435\u043c\u0435\u043d\u043d\u043e\u0439 \u043f\u043e \u0443\u043c\u043e\u043b\u0447\u0430\u043d\u0438\u044e</span></p></body></html>", None))
         self.menu_file.setTitle(QCoreApplication.translate("MainWindow", u"\u0424\u0430\u0439\u043b", None))
         self.menu_recent_projects.setTitle(QCoreApplication.translate("MainWindow", u"\u041d\u0435\u0434\u0430\u0432\u043d\u0438\u0435 \u043f\u0440\u043e\u0435\u043a\u0442\u044b", None))
         self.menu_editors.setTitle(QCoreApplication.translate("MainWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u043e\u0440\u044b", None))

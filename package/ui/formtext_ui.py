@@ -51,6 +51,11 @@ class Ui_FormTextWidget(object):
 
         self.hl.addWidget(self.title)
 
+        self.label_variable = QLabel(FormTextWidget)
+        self.label_variable.setObjectName(u"label_variable")
+
+        self.hl.addWidget(self.label_variable)
+
         self.hl.setStretch(1, 1)
 
         self.verticalLayout.addLayout(self.hl)
@@ -78,6 +83,7 @@ class Ui_FormTextWidget(object):
         FormTextWidget.setWindowTitle(QCoreApplication.translate("FormTextWidget", u"Form", None))
         self.label_typevariable.setText(QCoreApplication.translate("FormTextWidget", u"\u0418\u041a", None))
         self.title.setText(QCoreApplication.translate("FormTextWidget", u"<html><head/><body><p>\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a</p></body></html>", None))
+        self.label_variable.setText(QCoreApplication.translate("FormTextWidget", u"<html><head/><body><p><span style=\" font-style:italic;\">variable</span></p></body></html>", None))
         self.lineedit.setText("")
         self.textbrowser.setHtml(QCoreApplication.translate("FormTextWidget", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"

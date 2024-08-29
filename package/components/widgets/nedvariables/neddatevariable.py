@@ -72,6 +72,8 @@ class NedDateVariable(QWidget):
             combobox.setCurrentIndex(0)
         elif self.__type_window == "edit":
             index_by_data = combobox.findData(self.__language)
+            if index_by_data == -1:
+                index_by_data = 0
             combobox.setCurrentIndex(index_by_data)
         #
         combobox.blockSignals(False)

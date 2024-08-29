@@ -33,7 +33,7 @@
     <number>0</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" name="hl" stretch="0,1">
+    <layout class="QHBoxLayout" name="hl" stretch="0,1,0">
      <property name="spacing">
       <number>9</number>
      </property>
@@ -69,6 +69,13 @@
        </property>
        <property name="textFormat">
         <enum>Qt::AutoText</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_variable">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;TextLabel&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>

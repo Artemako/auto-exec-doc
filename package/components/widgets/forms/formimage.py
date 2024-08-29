@@ -34,8 +34,9 @@ class FormImage(QWidget):
         )
         qicon_type_variable = self.__icons.get(key_icon)
         self.ui.label_typevariable.setPixmap(qicon_type_variable)
-        # заголовок
-        self.ui.title.setText(self.__current_variable.get("title_variable"))
+        # заголовок + перменная
+        self.ui.title.setText(self.__current_variable.get('title_variable'))
+        self.ui.label_variable.setText(f"<i>{self.__current_variable.get('name_variable')}</i>")
         # поле ввода
         image_path = self.__pair.get("value_pair")
         self.ui.label.setText(
