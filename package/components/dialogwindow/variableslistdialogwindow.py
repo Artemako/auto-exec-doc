@@ -32,7 +32,9 @@ class NumericItem(QTableWidgetItem):
 class VariablesListDialogWindow(QDialog):
     def __init__(self, osbm, open_node, open_template, open_page):
         self.__osbm = osbm
-        self.__osbm.obj_logg.debug_logger(f"VariablesListDialogWindow __init__(osbm, open_node, open_template, open_page): \nopen_node = {open_node}\nopen_template = {open_template}\nopen_page = {open_page}")
+        self.__osbm.obj_logg.debug_logger(
+            f"VariablesListDialogWindow __init__(osbm, open_node, open_template, open_page): \nopen_node = {open_node}\nopen_template = {open_template}\nopen_page = {open_page}"
+        )
         self.initalizate_tabs_objects()
         super(VariablesListDialogWindow, self).__init__()
         self.ui = variableslistdialogwindow_ui.Ui_VariablesListDialog()
@@ -44,6 +46,7 @@ class VariablesListDialogWindow(QDialog):
         #
         self.__all_variables = None
         self.__vertical_scroll_position_by_parameters = {}
+        self.__qtimer = None
         # config
         self.config()
         self.config_tws()
@@ -93,7 +96,9 @@ class VariablesListDialogWindow(QDialog):
         self.setWindowFlag(Qt.WindowMaximizeButtonHint, True)
 
     def connecting_actions(self):
-        self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow connecting_actions()")
+        self.__osbm.obj_logg.debug_logger(
+            "VariablesListDialogWindow connecting_actions()"
+        )
         # смена tab
         self.ui.tabwidget.currentChanged.connect(self.on_tab_changed)
         # КОМБОБОКСЫ
@@ -169,11 +174,8 @@ class VariablesListDialogWindow(QDialog):
         typetable = self.get_typetable()
         self.caf_two_tables(typetable)
 
-
     def show_config(self, open_node, open_template, open_page):
-        self.__osbm.obj_logg.debug_logger(
-            "VariablesListDialogWindow show_config()"
-        )
+        self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow show_config()")
         if open_node:
             type_node = open_node.get("type_node")
             if type_node == "GROUP":
@@ -181,7 +183,9 @@ class VariablesListDialogWindow(QDialog):
             elif type_node == "FORM":
                 if open_template:
                     if open_page:
-                        self.show_tab_form_template_page(open_node, open_template, open_page)
+                        self.show_tab_form_template_page(
+                            open_node, open_template, open_page
+                        )
                     else:
                         self.show_tab_form_template_page(open_node, open_template)
                 else:
@@ -189,23 +193,24 @@ class VariablesListDialogWindow(QDialog):
 
         else:
             self.show_tab_project()
-            
-
-
 
     def show_tab_project(self):
-        self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow show_tab_project()")
+        self.__osbm.obj_logg.debug_logger(
+            "VariablesListDialogWindow show_tab_project()"
+        )
         self.ui.tabwidget.setCurrentIndex(0)
         self.caf_two_tables("project_variables")
 
-    def show_tab_group(self, open_node = None):
+    def show_tab_group(self, open_node=None):
         self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow show_tab_group()")
         self.ui.tabwidget.setCurrentIndex(1)
         self.caf_combobox_group(open_node)
         self.caf_two_tables("group_variables")
         pass
 
-    def show_tab_form_template_page(self, open_node = None, open_template = None, open_page = None):
+    def show_tab_form_template_page(
+        self, open_node=None, open_template=None, open_page=None
+    ):
         self.__osbm.obj_logg.debug_logger(
             "VariablesListDialogWindow show_tab_form_template_page()"
         )
@@ -259,7 +264,9 @@ class VariablesListDialogWindow(QDialog):
             )
             print(f"node_data = {node_data}")
             for pair in node_data:
-                data.append(self.__osbm.obj_prodb.get_variable_by_id(pair.get("id_variable")))
+                data.append(
+                    self.__osbm.obj_prodb.get_variable_by_id(pair.get("id_variable"))
+                )
             print(f"data = {data}")
         elif type_table == "group_variables":
             group_node = self.ui.combox_groups.currentData()
@@ -267,7 +274,11 @@ class VariablesListDialogWindow(QDialog):
             if group_node:
                 node_data = self.__osbm.obj_prodb.get_node_data(group_node)
                 for pair in node_data:
-                    data.append(self.__osbm.obj_prodb.get_variable_by_id(pair.get("id_variable")))
+                    data.append(
+                        self.__osbm.obj_prodb.get_variable_by_id(
+                            pair.get("id_variable")
+                        )
+                    )
         elif type_table == "form_template_page_variables":
             page = self.ui.combox_pages.currentData()
             if page is None:
@@ -278,12 +289,18 @@ class VariablesListDialogWindow(QDialog):
                     template_data = self.__osbm.obj_prodb.get_template_data(template)
                     for pair in template_data:
                         data.append(
-                            self.__osbm.obj_prodb.get_variable_by_id(pair.get("id_variable"))
+                            self.__osbm.obj_prodb.get_variable_by_id(
+                                pair.get("id_variable")
+                            )
                         )
             else:
                 page_data = self.__osbm.obj_prodb.get_page_data(page)
                 for pair in page_data:
-                    data.append(self.__osbm.obj_prodb.get_variable_by_id(pair.get("id_variable")))
+                    data.append(
+                        self.__osbm.obj_prodb.get_variable_by_id(
+                            pair.get("id_variable")
+                        )
+                    )
         if editor:
             editor_data = []
             cashe = dict()
@@ -308,9 +325,10 @@ class VariablesListDialogWindow(QDialog):
         )
         return data
 
-
-    def caf_combobox_group(self, open_node = None):
-        self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow caf_combobox_group()")
+    def caf_combobox_group(self, open_node=None):
+        self.__osbm.obj_logg.debug_logger(
+            "VariablesListDialogWindow caf_combobox_group()"
+        )
         if open_node:
             current_text = open_node.get("name_node")
         else:
@@ -329,7 +347,9 @@ class VariablesListDialogWindow(QDialog):
         self.ui.combox_groups.show()
 
     def caf_combobox_form(self, open_node):
-        self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow caf_combobox_form()")
+        self.__osbm.obj_logg.debug_logger(
+            "VariablesListDialogWindow caf_combobox_form()"
+        )
         if open_node:
             current_text = open_node.get("name_node")
         else:
@@ -348,7 +368,7 @@ class VariablesListDialogWindow(QDialog):
         self.ui.combox_forms.blockSignals(False)
         self.ui.combox_forms.show()
 
-    def caf_combobox_template(self, open_template = None):
+    def caf_combobox_template(self, open_template=None):
         self.__osbm.obj_logg.debug_logger(
             "VariablesListDialogWindow caf_combobox_template()"
         )
@@ -365,7 +385,9 @@ class VariablesListDialogWindow(QDialog):
         if form:
             templates = self.__osbm.obj_prodb.get_templates_by_form(form)
             for template in templates:
-                self.ui.combox_templates.addItem(template.get("name_template"), template)
+                self.ui.combox_templates.addItem(
+                    template.get("name_template"), template
+                )
             #
             index = self.ui.combox_templates.findText(current_text)
             if index != -1:
@@ -374,8 +396,10 @@ class VariablesListDialogWindow(QDialog):
         self.ui.combox_templates.blockSignals(False)
         self.ui.combox_templates.show()
 
-    def caf_combobox_page(self, open_page = None):
-        self.__osbm.obj_logg.debug_logger("VariablesListDialogWindow caf_combobox_page()")
+    def caf_combobox_page(self, open_page=None):
+        self.__osbm.obj_logg.debug_logger(
+            "VariablesListDialogWindow caf_combobox_page()"
+        )
         if open_page:
             current_text = open_page.get("name_page")
         else:
@@ -459,6 +483,7 @@ class VariablesListDialogWindow(QDialog):
         # Отключаем возможность выделения
         # table_widget.setSelectionMode(QAbstractItemView.NoSelection)
         # table_widget.sortByColumn(0, Qt.AscendingOrder)
+            
 
     def caf_table(self, type_table, editor, open_variable=None):
         self.__osbm.obj_logg.debug_logger(
@@ -467,7 +492,9 @@ class VariablesListDialogWindow(QDialog):
         table_widget = self.get_table_by_parameters(type_table, editor)
         #
         if editor:
-            count_all_variable_usages = self.__osbm.obj_prodb.count_all_variable_usages()
+            count_all_variable_usages = (
+                self.__osbm.obj_prodb.count_all_variable_usages()
+            )
             print("f count_all_variable_usages = ", count_all_variable_usages)
         # вертикальный ползунок
         vertical_scroll_position = table_widget.verticalScrollBar().value()
@@ -497,7 +524,9 @@ class VariablesListDialogWindow(QDialog):
             qtwt_title_variable = QTableWidgetItem(title_variable)
             qtwt_type_variable = QTableWidgetItem(type_variable)
             # Иконка и текст в зависимости от типа переменной
-            key_icon = self.__osbm.obj_icons.get_key_icon_by_type_variable(type_variable)
+            key_icon = self.__osbm.obj_icons.get_key_icon_by_type_variable(
+                type_variable
+            )
             qicon_type_variable = self.__icons.get(key_icon)
             qtwt_type_variable.setIcon(qicon_type_variable)
             qtwt_type_variable.setText(type_variable)
@@ -506,14 +535,24 @@ class VariablesListDialogWindow(QDialog):
             table_widget.setItem(row, 1, qtwt_name_variable)
             table_widget.setItem(row, 2, qtwt_title_variable)
             table_widget.setItem(row, 3, qtwt_type_variable)
+            #
+            table_widget.item(row, 0).setTextAlignment(Qt.AlignCenter)
             # если editor
             if editor:
-                self.item_tw_editor(table_widget, item, row, type_table, count_all_variable_usages)
+                self.item_tw_editor(
+                    table_widget, item, row, type_table, count_all_variable_usages
+                )
+                table_widget.item(row, 4).setTextAlignment(Qt.AlignCenter)
+                table_widget.item(row, 5).setTextAlignment(Qt.AlignCenter)
             # если open_variable
-            if open_variable and open_variable.get("id_variable") == item.get("id_variable"):
+            if open_variable and open_variable.get("id_variable") == item.get(
+                "id_variable"
+            ):
                 table_widget.selectRow(row)
-                QTimer.singleShot(3000, lambda: table_widget.clearSelection())
-
+                try:
+                    self.__qtimer.stop()
+                finally:
+                    self.__qtimer = QTimer.singleShot(3000, lambda: table_widget.clearSelection())
         # включить сортировку после заполнения данных
         table_widget.setSortingEnabled(True)
         table_widget.sortByColumn(0, Qt.AscendingOrder)
@@ -525,7 +564,10 @@ class VariablesListDialogWindow(QDialog):
         )
         table_widget.verticalScrollBar().setValue(vertical_scroll_position)
 
-    def item_tw_editor(self, table_widget, item, row, type_table, count_all_variable_usages):
+
+    def item_tw_editor(
+        self, table_widget, item, row, type_table, count_all_variable_usages
+    ):
         # количество использований
         id_variable = item.get("id_variable")
         usage_summary_by_id_variable = count_all_variable_usages.get(id_variable, 0)
@@ -563,7 +605,7 @@ class VariablesListDialogWindow(QDialog):
         widget = QWidget()
         widget.setLayout(layout)
         table_widget.setCellWidget(row, 6, widget)
-        
+
         # обработчики
         edit_button.clicked.connect(partial(self.edit_variable, btn=edit_button))
         delete_button.clicked.connect(
