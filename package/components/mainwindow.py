@@ -10,6 +10,7 @@ import package.components.dialogwindow.variableslistdialogwindow as variableslis
 import package.components.dialogwindow.nodeseditordialogwindow as nodeseditordialogwindow
 import package.components.dialogwindow.templateslistsialogwindow as templateslistsialogwindow
 
+import os
 from functools import partial
 
 
@@ -139,7 +140,7 @@ class MainWindow(QMainWindow):
         #
         item_page = self.ui.lw_pages_template.currentItem()
         open_page = item_page.data(Qt.UserRole) if item_page else None
-        # 
+        #
         if type_edit == "VARIABLE":
             if type_item == "NODE":
                 self.edit_variables(open_node)
@@ -207,6 +208,8 @@ class MainWindow(QMainWindow):
         self.ui.action_edit_composition.triggered.connect(
             lambda: self.edit_structure_nodes()
         )
+        #
+        self.ui.action_clear_trash.triggered.connect(lambda: self.clear_trash())
 
     def start_qt_actions(self):
         self.ui.action_new.setEnabled(True)
@@ -220,6 +223,7 @@ class MainWindow(QMainWindow):
         self.ui.action_zoomin.setEnabled(False)
         self.ui.action_zoomout.setEnabled(False)
         self.ui.action_zoomfitpage.setEnabled(False)
+        self.ui.action_clear_trash.setEnabled(False)
 
     def enable_qt_actions(self):
         """
@@ -234,6 +238,7 @@ class MainWindow(QMainWindow):
         self.ui.action_zoomfitpage.setEnabled(True)
         self.ui.action_export_to_pdf.setEnabled(True)
         self.ui.action_edit_templates.setEnabled(True)
+        self.ui.action_clear_trash.setEnabled(True)
 
     def edit_variables(self, open_node=None, open_template=None, open_page=None):
         """Редактирование переменных."""
@@ -293,3 +298,60 @@ class MainWindow(QMainWindow):
         )
         project = item.data()
         self.__osbm.obj_proj.open_recent_project(project)
+
+    def clear_trash(self):
+        self.__osbm.obj_logg.debug_logger("MainWindow clear_trash()")
+        #
+        self.__osbm.obj_dw.process_delete_trash_start()
+        try:
+            # временные файлы в temp
+            self.__osbm.obj_film.clear_temp_folder(False)
+            # временные файлы в проекте
+            list_of_pages = self.__osbm.obj_prodb.get_all_pages()
+            list_of_images = self.__osbm.obj_prodb.get_all_images()
+            #
+            list_of_docx_in_forms = self.__osbm.obj_film.get_list_of_docx_in_forms_folder()
+            list_of_pdfs_in_pdfs = self.__osbm.obj_film.get_list_of_pdfs_in_pdfs_folder()
+            list_of_images_in_images = self.__osbm.obj_film.get_list_of_images_in_images_folder()
+            #
+            active_docx_pages = dict()
+            active_pdfs_pages = dict()
+            active_images = dict()
+            #
+            for page in list_of_pages:
+                filename_page = page.get("filename_page")
+                typefile_page = page.get("typefile_page")
+                if typefile_page == "DOCX":
+                    active_docx_pages[filename_page] = True
+                elif typefile_page == "PDF":
+                    active_pdfs_pages[filename_page] = True
+            #
+            for image in list_of_images:
+                value_pair = image.get("value_pair")
+                active_images[value_pair] = True
+            #
+            for docx in list_of_docx_in_forms:
+                filename_without_format = os.path.splitext(docx)[0]
+                if not active_docx_pages.get(filename_without_format):
+                    self.__osbm.obj_film.delete_page_from_project(
+                        filename_without_format, "DOCX"
+                    )
+            #
+            for pdf in list_of_pdfs_in_pdfs:
+                filename_without_format = os.path.splitext(pdf)[0]
+                if not active_pdfs_pages.get(filename_without_format):
+                    self.__osbm.obj_film.delete_page_from_project(
+                        filename_without_format, "PDF"
+                    )
+            #
+            for image in list_of_images_in_images:
+                if not active_images.get(image):
+                    self.__osbm.obj_film.delete_image_from_project(
+                        image
+                    )
+                    
+        except Exception as e:
+            self.__osbm.obj_logg.error_logger(e)
+        # 
+        self.__osbm.obj_dw.process_delete_trash_end()
+        

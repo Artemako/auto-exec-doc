@@ -2,8 +2,6 @@ import package.app as app
 import os
 import sys
 
-# TODO ICON
-
 def main():
     current_directory = os.path.dirname(os.path.abspath(sys.argv[0]))
     app.App(current_directory)

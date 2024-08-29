@@ -78,6 +78,15 @@ class DialogWindows:
         self.__osbm.obj_logg.debug_logger("DialogWindows process_show_end()")
         self.__miniw.close_window()
 
+    def process_delete_trash_start(self):
+        self.__osbm.obj_logg.debug_logger("DialogWindows process_delete_trash_start()")
+        self.__miniw = ProcessWindow("Идет процесс удаления", self.__icons.get("logo"))
+        self.__miniw.show()
+
+    def process_delete_trash_end(self):
+        self.__osbm.obj_logg.debug_logger("DialogWindows process_delete_trash_end()")
+        self.__miniw.close_window()
+
     def save_active_project(self) -> str:
         """Диалоговое окно 'Вы не сохранили текущий проект. Сохранить?'."""
 

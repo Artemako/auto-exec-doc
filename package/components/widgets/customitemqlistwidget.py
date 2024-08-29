@@ -5,11 +5,12 @@ import package.ui.customitemqlistwidget_ui as customitemqlistwidget_ui
 
 
 class CustomItemQListWidget(QWidget):
-    def __init__(self, osbm, type_window, data, is_active = False):
+    def __init__(self, osbm, type_window, data, is_active = False, icons = None):
         self.__osbm = osbm
         self.__type_window = type_window
         self.__data = data
         self.__is_active = is_active
+        self.__icons = icons
         self.__osbm.obj_logg.debug_logger(
             f"CustomItemQListWidget __init__(osbm, data):\nosbm = {osbm}\ntype_window = {type_window}\ndata = {data}"
         )
@@ -24,10 +25,22 @@ class CustomItemQListWidget(QWidget):
 
     def config(self):
         text = str()
+        self.ui.label_icon.hide()
+        self.ui.horizontalLayout.setContentsMargins(4, 2, 2, 2)
+        self.ui.horizontalLayout.setSpacing(2)
+        #
         if self.__type_window == "TEMPLATE":
             text = self.__data.get("name_template")
         elif self.__type_window == "PAGE":
             text = self.__data.get("name_page")
+            typefile_page = self.__data.get("typefile_page")
+            if typefile_page == "DOCX":
+                self.ui.label_icon.setPixmap(self.__icons.get("page"))
+            elif typefile_page == "PDF":
+                self.ui.label_icon.setPixmap(self.__icons.get("pdf"))
+            self.ui.label_icon.show()
+            self.ui.horizontalLayout.setContentsMargins(2, 2, 2, 2)
+        #
         elif self.__type_window == "ROWCOLS":
             text = f'{self.__data.get("TITLE")} ({self.__data.get("ATTR")})'
         # формат

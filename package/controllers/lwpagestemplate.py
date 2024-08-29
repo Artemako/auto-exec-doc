@@ -135,7 +135,13 @@ class LWPagesTemplate:
                 print(f"page = {page}")
                 item = QListWidgetItem()
                 item.setText(page.get("name_page"))
-                item.setIcon(self.__icons.get("page"))
+                #
+                typefile_page = page.get("typefile_page")
+                if typefile_page == "DOCX":
+                    item.setIcon(self.__icons.get("page"))
+                elif typefile_page == "PDF":
+                    item.setIcon(self.__icons.get("pdf"))
+                #
                 item.setData(Qt.UserRole, page)
                 self.__lw_pages_template.addItem(item)                
                 

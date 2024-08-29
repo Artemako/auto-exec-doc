@@ -283,6 +283,25 @@ COMMIT;
         )
         return result
 
+    def get_all_pages(self) -> list:
+        """
+        Запрос на получение всех pages из таблицы Project_pages.
+        """
+        conn = self.get_conn()
+        cursor = conn.cursor()
+
+        cursor.execute(
+            """
+        SELECT * FROM Project_pages
+        """
+        )
+        result = self.get_fetchall(cursor)
+        conn.close()
+        self.__osbm.obj_logg.debug_logger(
+            f"ProjectDatabase get_all_pages() -> list:\nresult = {result}"
+        )
+        return result
+
     def get_pages_by_template(self, template) -> list:
         """
         Запрос на получение pages из таблицы Project_pages.
@@ -1369,6 +1388,45 @@ COMMIT;
             }
 
         return usage_summary
+    
+    def get_all_images(self) -> list:
+        """
+        Запрос на получение всех value_pair в таблицах _data, если type_variable равен IMAGE.
+        """
+        self.__osbm.obj_logg.debug_logger("ProjectDatabase get_all_images()")
+        conn = self.get_conn()
+        cursor = conn.cursor()
+
+        cursor.execute("""
+        SELECT nd.value_pair
+        FROM Project_nodes_data nd
+        JOIN Project_variables v ON v.id_variable = nd.id_variable
+        WHERE v.type_variable = 'IMAGE'
+        
+        UNION ALL
+        
+        SELECT pd.value_pair
+        FROM Project_pages_data pd
+        JOIN Project_variables v ON v.id_variable = pd.id_variable
+        WHERE v.type_variable = 'IMAGE'
+        
+        UNION ALL
+        
+        SELECT td.value_pair
+        FROM Project_templates_data td
+        JOIN Project_variables v ON v.id_variable = td.id_variable
+        WHERE v.type_variable = 'IMAGE';
+        """)
+
+        result = self.get_fetchall(cursor)
+        conn.close()
+        self.__osbm.obj_logg.debug_logger(
+            f"ProjectDatabase get_all_images() -> list:\nresult = {result}"
+        )
+        return result
+
+
+
 
 
 # obj_prodb = ProjectDatabase()

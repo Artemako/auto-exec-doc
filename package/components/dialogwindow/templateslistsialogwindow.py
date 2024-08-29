@@ -193,10 +193,11 @@ class TemplatesListDialogWindow(QDialog):
             self.__pages_items = []
             for page in pages:
                 custom_widget = customitemqlistwidget.CustomItemQListWidget(
-                    self.__osbm, "PAGE", page
+                    self.__osbm, "PAGE", page, is_active=False, icons=self.__icons
                 )
                 item = QListWidgetItem()
                 item.setData(0, page)
+                #
                 # Указываем размер элемента
                 item.setSizeHint(custom_widget.sizeHint())
                 item.setSizeHint(item.sizeHint().boundedTo(list_widget.sizeHint()))
@@ -353,7 +354,8 @@ class TemplatesListDialogWindow(QDialog):
             f"TemplatesListDialogWindow delete_page(page):\npage = {page}"
         )
         filename_page = page.get("filename_page")
-        self.__osbm.obj_film.delete_page_from_project(filename_page)
+        typefile_page = page.get("typefile_page")
+        self.__osbm.obj_film.delete_page_from_project(filename_page, typefile_page)
         self.__osbm.obj_prodb.delete_page(page)
 
     def add_page(self):
@@ -412,7 +414,6 @@ class TemplatesListDialogWindow(QDialog):
             self.__osbm.obj_prodb.update_page(edit_page)
             # обновить order
             self.update_order_pages(data, data.get("order_page"))
-            # TODO (Проверять и Удалять в отдельном потоке периодически)
             # перемещение из temp в forms
             new_filename_page = data.get("filename_page")
             temp_copy_file_path = data.get("TEMP_COPY_FILE_PATH")
@@ -424,6 +425,7 @@ class TemplatesListDialogWindow(QDialog):
                 self.__osbm.obj_film.pdf_from_temp_to_pdfs(
                     temp_copy_file_path, new_filename_page
                 )
+            #
             self.reconfig("REPAGE", None, None, data)
 
     def add_template(self):

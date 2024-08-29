@@ -203,16 +203,45 @@ class FileFolderManager:
         self.copy_file(old_page_path, new_page_path)       
         return new_page_filename
 
-    def delete_page_from_project(self, page_filename):
+    def delete_page_from_project(self, page_filename, typefile_page):
         self.__osbm.obj_logg.debug_logger(
-            f"FileFolderManager delete_page_from_project(page_filename):\npage_filename = {page_filename}"
+            f"FileFolderManager delete_page_from_project(page_filename, typefile_page):\npage_filename = {page_filename}\n typefile_page = {typefile_page}"
         )
-        forms_folder_dirpath = self.__osbm.obj_dirm.get_forms_folder_dirpath()
-        page_path = os.path.join(forms_folder_dirpath, page_filename + ".docx")
+        if typefile_page == "DOCX":
+            forms_folder_dirpath = self.__osbm.obj_dirm.get_forms_folder_dirpath()
+            page_path = os.path.join(forms_folder_dirpath, page_filename + ".docx")
+        elif typefile_page == "PDF":
+            pdfs_folder_dirpath = self.__osbm.obj_dirm.get_pdfs_folder_dirpath()
+            page_path = os.path.join(pdfs_folder_dirpath, page_filename + ".pdf")
+        #
         try:
             os.remove(page_path)
         except Exception as e:
             self.__osbm.obj_logg.error_logger(e)
 
+    def get_list_of_docx_in_forms_folder(self):
+        forms_folder_dirpath = self.__osbm.obj_dirm.get_forms_folder_dirpath()
+        result = os.listdir(forms_folder_dirpath)
+        self.__osbm.obj_logg.debug_logger(
+            f"FileFolderManager get_list_of_docx_in_forms_folder(): \n result = {result}"
+        )
+        return result
+    
+    def get_list_of_pdfs_in_pdfs_folder(self):
+        pdfs_folder_dirpath = self.__osbm.obj_dirm.get_pdfs_folder_dirpath()
+        result = os.listdir(pdfs_folder_dirpath)
+        self.__osbm.obj_logg.debug_logger(
+            f"FileFolderManager get_list_of_pdfs_in_pdfs_folder(): \n result = {result}"
+        )
+        return result
+    
+    def get_list_of_images_in_images_folder(self):
+        images_folder_dirpath = self.__osbm.obj_dirm.get_images_folder_dirpath()
+        result = os.listdir(images_folder_dirpath)
+        self.__osbm.obj_logg.debug_logger(
+            f"FileFolderManager get_list_of_images_in_images_folder(): \n result = {result}"
+        )
+        return result
+    
 
-# obj_film = FileFolderManager()
+# obj_film = FileFolderManager()  

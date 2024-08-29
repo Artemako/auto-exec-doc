@@ -214,7 +214,6 @@ class Project:
         self.__osbm.obj_film.create_folders_and_aed_for_project()
         # обновляем меню
         self.__osbm.obj_mw.update_menu_recent_projects()
-        # TODO Подумать про оцищения от мусора
 
     def open_recent_project(self, project):
         """Открытие недавнего проекта."""
