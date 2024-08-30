@@ -36,10 +36,10 @@ class FormLongTextWidget(QWidget):
             self.ui.textbrowser.setHtml(description_variable)
         else:
             self.ui.textbrowser.hide()
-
+        #
+        self.ui.textedit.setTabStopDistance(27)
         # connect
         self.ui.textedit.textChanged.connect(self.set_new_value_in_pair)
 
     def set_new_value_in_pair(self):
-        self.__osbm.obj_logg.debug_logger(f"FormText set_new_value_in_pair(pair, new_value):\nnew_value = {self.ui.textedit.toPlainText()}")
         self.__pair["value_pair"] = self.ui.textedit.toPlainText()

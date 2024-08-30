@@ -63,6 +63,7 @@ class Ui_FormLongTextWidget(object):
         self.textedit = QTextEdit(FormLongTextWidget)
         self.textedit.setObjectName(u"textedit")
         self.textedit.setMaximumSize(QSize(16777215, 100))
+        self.textedit.setAcceptRichText(False)
 
         self.verticalLayout.addWidget(self.textedit)
 

@@ -71,6 +71,7 @@ class LWPagesTemplate:
             is_convert_flag = False
         #
         pdf_path = str()
+        is_error = False
         self.__osbm.obj_dw.process_show_start()
         try:
             pdf_path = self.__osbm.obj_conv.create_one_page_pdf(page)
@@ -81,6 +82,7 @@ class LWPagesTemplate:
                 msg = "Отображение недоступно! Выбранный конвертер перестал работать. Сохранение при этом доступно."
                 self.__osbm.obj_dw.warning_message(msg)
                 self.__osbm.obj_stab.set_message(msg)
+            is_error = True
 
         except self.__osbm.obj_com.errors.LibreOfficeError:
             self.__osbm.obj_offp.terminate_libreoffice()
@@ -89,15 +91,18 @@ class LWPagesTemplate:
                 msg = "Отображение недоступно! Выбранный конвертер перестал работать. Сохранение при этом доступно."
                 self.__osbm.obj_dw.warning_message(msg)
                 self.__osbm.obj_stab.set_message(msg)
+            is_error = True
 
         except Exception as e:
             self.__osbm.obj_logg.error_logger(
                 f"Error in create_and_view_current_page(page): {e}"
             )
             self.__osbm.obj_dw.warning_message(f"Ошибка: {e}" )
+            is_error = True
         #
         self.__osbm.obj_dw.process_show_end()
-        if pdf_path:
+        print(f"is error = {is_error}, pdf_path = {pdf_path}")
+        if is_convert_flag and not is_error and pdf_path:
             self.__osbm.obj_pdfv.load_and_show_pdf_document(pdf_path)
         else:
             self.__osbm.obj_pdfv.set_empty_pdf_view()

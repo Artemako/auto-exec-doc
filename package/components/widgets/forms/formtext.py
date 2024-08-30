@@ -38,10 +38,8 @@ class FormText(QWidget):
             self.ui.textbrowser.setHtml(description_variable)
         else:
             self.ui.textbrowser.hide()
-
         # connect
         self.ui.lineedit.textChanged.connect(lambda text: self.set_new_value_in_pair(text))
 
     def set_new_value_in_pair(self, new_value):
-        self.__osbm.obj_logg.debug_logger(f"FormText set_new_value_in_pair(pair, new_value):\nnew_value = {new_value}")
         self.__pair["value_pair"] = new_value

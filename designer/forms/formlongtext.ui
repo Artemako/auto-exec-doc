@@ -98,6 +98,9 @@
        <height>100</height>
       </size>
      </property>
+     <property name="acceptRichText">
+      <bool>false</bool>
+     </property>
     </widget>
    </item>
    <item>
