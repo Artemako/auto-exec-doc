@@ -524,6 +524,7 @@ class TemplatesListDialogWindow(QDialog):
             for pd_pair in pd_pairs:
                 pair = {
                     "id_variable": pd_pair.get("id_variable"),
+                    "value_pair": pd_pair.get("value_pair"),
                 }
                 self.__osbm.obj_prodb.insert_page_data(new_page, pair)
 

@@ -827,11 +827,11 @@ COMMIT;
         cursor.execute(
             """
         INSERT INTO Project_templates_data
-        (id_template, id_variable)
+        (id_template, id_variable, value_pair)
         VALUES
-        (?, ?)
+        (?, ?, ?)
         """,
-            [template.get("id_template"), pair.get("id_variable")],
+            [template.get("id_template"), pair.get("id_variable"), pair.get("value_pair")],
         )
         conn.commit()
         conn.close()
@@ -870,11 +870,11 @@ COMMIT;
         cursor.execute(
             """
         INSERT INTO Project_pages_data
-        (id_page, id_variable)
+        (id_page, id_variable, value_pair)
         VALUES
-        (?, ?)
+        (?, ?, ?)
         """,
-            [page.get("id_page"), pair.get("id_variable")],
+            [page.get("id_page"), pair.get("id_variable"), pair.get("value_pair")],
         )
         conn.commit()
         conn.close()
