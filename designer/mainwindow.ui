@@ -240,7 +240,7 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>300</width>
+         <width>400</width>
          <height>0</height>
         </size>
        </property>
@@ -282,7 +282,7 @@
            <enum>Qt::ScrollBarAlwaysOff</enum>
           </property>
           <property name="sizeAdjustPolicy">
-           <enum>QAbstractScrollArea::AdjustIgnored</enum>
+           <enum>QAbstractScrollArea::AdjustToContents</enum>
           </property>
           <property name="widgetResizable">
            <bool>true</bool>
@@ -295,7 +295,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>271</width>
+             <width>389</width>
              <height>607</height>
             </rect>
            </property>

@@ -7,6 +7,7 @@ from PySide6.QtWidgets import (
     QGridLayout,
     QSizePolicy,
 )
+from PySide6 import QtGui
 
 
 class Section(QWidget):
@@ -32,7 +33,9 @@ class Section(QWidget):
         toggleButton.setStyleSheet("QToolButton { border: none; }")
         toggleButton.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
         toggleButton.setArrowType(QtCore.Qt.RightArrow)
-        toggleButton.setText(section_name)
+
+        metrics = QtGui.QFontMetrics(self.toggleButton.font())
+        toggleButton.setText(metrics.elidedText(section_name, QtCore.Qt.ElideRight, 280))
         toggleButton.setCheckable(True)
         toggleButton.setChecked(False)
 
@@ -96,4 +99,3 @@ class Section(QWidget):
         contentAnimation.setDuration(self.animationDuration)
         contentAnimation.setStartValue(0)
         contentAnimation.setEndValue(contentHeight)
-

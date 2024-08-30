@@ -1,0 +1,829 @@
+2024-08-30 08:19:50,354 - DEBUG - [34m Config logger[00m
+2024-08-30 08:19:50,354 - DEBUG - [34m self.current_directory = D:\work\project\AutoExecDoc\main.dist[00m
+2024-08-30 08:19:50,354 - DEBUG - [34m FileFolderManager create_and_setting_files_and_folders()[00m
+2024-08-30 08:19:50,354 - DEBUG - [34m DirPathManager get_default_folder_projects_dirpath() -> str: C:/Users/hayar/Documents\AutoExecDoc Projects[00m
+2024-08-30 08:19:50,354 - DEBUG - [34m SettingsDatabase create_and_setting_db_settings()[00m
+2024-08-30 08:19:50,354 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:19:50,354 - DEBUG - [34m OfficePackets resetting_office_packets()[00m
+2024-08-30 08:19:50,354 - DEBUG - [34m MsWordThread __init__()[00m
+2024-08-30 08:19:50,354 - DEBUG - [34m OfficePackets run_libreoffice()[00m
+2024-08-30 08:19:50,354 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:19:50,354 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:19:50,354 - DEBUG - [34m MsWordThread initialize_msword()[00m
+2024-08-30 08:19:50,354 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:50,354 - DEBUG - [34m SettingsDatabase get_libreoffice_path():
+result = {'value_setting': 'C:\\Program Files\\LibreOffice\\program\\soffice.exe'}[00m
+2024-08-30 08:19:50,556 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:50,556 - DEBUG - [34m MainWindow config()[00m
+2024-08-30 08:19:50,556 - DEBUG - [34m MainWindow update_menu_recent_projects()[00m
+2024-08-30 08:19:50,556 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:19:50,556 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:19:50,556 - DEBUG - [34m SettingsDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:19:50,556 - DEBUG - [34m SettingsDatabase get_last_projects():
+result = [{'id_project': 0, 'name_project': 'Привет', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Привет', 'date_create_project': '2024-08-21 21:10:54', 'date_last_open_project': '2024-08-21 23:18:26'}][00m
+2024-08-30 08:19:50,571 - DEBUG - [34m MainWindow config_controllers()[00m
+2024-08-30 08:19:50,571 - DEBUG - [34m StatusBar connect_statusbar(statusbar)[00m
+2024-08-30 08:19:50,573 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:50,573 - DEBUG - [34m StatusBar config_statusbar()[00m
+2024-08-30 08:19:50,574 - DEBUG - [34m StatusBar config_msword()[00m
+2024-08-30 08:19:50,575 - DEBUG - [34m StatusBar get_red_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x26582aa01b0) at 0x00000265855A6240>[00m
+2024-08-30 08:19:50,575 - DEBUG - [34m StatusBar get_yellow_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x26582aa00f0) at 0x00000265855A6500>[00m
+2024-08-30 08:19:50,575 - DEBUG - [34m StatusBar get_green_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x26582aa0930) at 0x00000265855A6580>[00m
+2024-08-30 08:19:50,577 - DEBUG - [34m StatusBar config_libreoffice()[00m
+2024-08-30 08:19:50,577 - DEBUG - [34m StatusBar get_red_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x26582aa1c50) at 0x00000265855A65C0>[00m
+2024-08-30 08:19:50,578 - DEBUG - [34m StatusBar get_yellow_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x26582aa12f0) at 0x00000265855A6800>[00m
+2024-08-30 08:19:50,578 - DEBUG - [34m StatusBar get_green_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x26582a3f810) at 0x00000265855A69C0>[00m
+2024-08-30 08:19:50,581 - DEBUG - [34m StatusBar config_update_statusbar()[00m
+2024-08-30 08:19:50,581 - DEBUG - [34m OfficePackets get_status_msword():
+self.__status_msword = False[00m
+2024-08-30 08:19:50,582 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = False[00m
+2024-08-30 08:19:50,584 - DEBUG - [34m OfficePackets get_status_libreoffice():
+self.__status_libreoffice = False[00m
+2024-08-30 08:19:50,584 - DEBUG - [34m StatusBar update_status_libreoffice_label(status_libreoffice):
+status_libreoffice = False[00m
+2024-08-30 08:19:50,585 - DEBUG - [34m StatusBar set_message(message):
+message = Проект не открыт[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m SettingsDatabase get_app_converter():
+result = {'value_setting': 'MSWORD'}[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m StatusBar update_name_app_converter()[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m StatusBar connecting_actions()[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m TWStructureExecDoc connect_structureexecdoc(tr_sed)[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m TWStructureExecDoc clear_tr_sed()[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m LWPagesTemplate connect_pages_template(lw_pt):
+lw_pt = <PySide6.QtWidgets.QListWidget(0x265829fd0f0, name="lw_pages_template") at 0x0000026585594300>[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m ComboxTemplates connect_combox_templates(combox_templates):
+combox_templates = <PySide6.QtWidgets.QComboBox(0x265829ef750, name="combox_templates") at 0x0000026585594200>[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m SAInputForms connect_inputforms(sa_if, sa_ifl):
+sa_if = <PySide6.QtWidgets.QScrollArea(0x26582a27270, name="scrollarea_inputforms") at 0x0000026585594840>,
+sa_ifl = <PySide6.QtWidgets.QWidget(0x265819537c0, name="scrollarea_inputforms_layout") at 0x0000026585596080>[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m PdfView connect_pdfview()[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m PdfView config_pdf_view_in_mainwindow()[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m MainWindow connecting_actions()[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m CommonWithOsmb run()[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m ResizeQt __init__(osbm)[00m
+2024-08-30 08:19:50,587 - DEBUG - [34m DialogWindows run()[00m
+2024-08-30 08:19:50,602 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:50,651 - DEBUG - [34m OfficePackets update_status_msword(status):
+status = None[00m
+2024-08-30 08:19:50,651 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = None[00m
+2024-08-30 08:19:53,353 - DEBUG - [34m Project open_project()[00m
+2024-08-30 08:19:53,353 - DEBUG - [34m Project check_project_before_new_or_open()[00m
+2024-08-30 08:19:53,369 - DEBUG - [34m DirPathManager get_default_folder_projects_dirpath() -> str: C:/Users/hayar/Documents\AutoExecDoc Projects[00m
+2024-08-30 08:19:54,733 - DEBUG - [34m DialogWindows select_folder_for_open_project() -> C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка/На примере ИД Славянка.aed[00m
+2024-08-30 08:19:54,733 - DEBUG - [34m Project set_project_dirpaths(folder_path: str):
+folder_path = C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:19:54,733 - DEBUG - [34m DirPathManager set_project_dirpath(dirpath: str):
+dirpath = C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:19:54,733 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:19:54,733 - DEBUG - [34m DirPathManager set_db_project_dirpath(dirpath: str):
+dirpath = C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:54,733 - DEBUG - [34m Project clear_window_before_new_or_open_project()[00m
+2024-08-30 08:19:54,733 - DEBUG - [34m TWStructureExecDoc clear_tr_sed()[00m
+2024-08-30 08:19:54,733 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-08-30 08:19:54,733 - DEBUG - [34m PdfView set_empty_pdf_view()[00m
+2024-08-30 08:19:54,733 - DEBUG - [34m SAInputForms delete_all_widgets_in_sa()[00m
+2024-08-30 08:19:54,733 - DEBUG - [34m Project config_open_project()[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m SettingsDatabase set_project_current_name(project_name):
+project_name = На примере ИД Славянка[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m SettingsDatabase add_or_update_open_project_to_db()[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m SettingsDatabase add_new_project_to_db()[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m ProjectDatabase create_and_config_db_project()[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m ProjectDatabase set_all_included_in_db_project_to_true()[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m MainWindow update_main_window()[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m TWStructureExecDoc update_structure_exec_doc()[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m TWStructureExecDoc get_current_node()[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m TWStructureExecDoc clear_tr_sed()[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:19:54,749 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m SettingsDatabase get_project_current_name():
+result = {'value_setting': 'На примере ИД Славянка'}[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m ProjectDatabase get_project_node() -> object:
+result = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}
+result = [{'id_node': 6, 'name_node': 'Титульные листы', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}, {'id_node': 2, 'name_node': 'Реестр ИД', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}, {'id_node': 3, 'name_node': 'Паспорт трассы', 'id_parent': 0, 'order_node': '2', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}, {'id_node': 4, 'name_node': 'Прочее (автокад)', 'id_parent': 0, 'order_node': '3', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}, {'id_node': 5, 'name_node': 'Картограммы', 'id_parent': 0, 'order_node': '4', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}][00m
+2024-08-30 08:19:54,765 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 6, 'name_node': 'Титульные листы', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 6, 'name_node': 'Титульные листы', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026589F540C0>,
+node = {'id_node': 6, 'name_node': 'Титульные листы', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026589F540C0>,
+node = {'id_node': 6, 'name_node': 'Титульные листы', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 6, 'name_node': 'Титульные листы', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}
+ open_node = None[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 6, 'name_node': 'Титульные листы', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}
+result = [][00m
+2024-08-30 08:19:54,765 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 2, 'name_node': 'Реестр ИД', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 2, 'name_node': 'Реестр ИД', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026589F54B00>,
+node = {'id_node': 2, 'name_node': 'Реестр ИД', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026589F54B00>,
+node = {'id_node': 2, 'name_node': 'Реестр ИД', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,765 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 2, 'name_node': 'Реестр ИД', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-08-30 08:19:54,775 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,775 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:54,776 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:19:54,776 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 2, 'name_node': 'Реестр ИД', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+result = [{'id_node': 8, 'name_node': 'Реестр исполнительной документации ВОЛС', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 6, 'included': 1}][00m
+2024-08-30 08:19:54,777 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 8, 'name_node': 'Реестр исполнительной документации ВОЛС', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 6, 'included': 1}[00m
+2024-08-30 08:19:54,777 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 8, 'name_node': 'Реестр исполнительной документации ВОЛС', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 6, 'included': 1}[00m
+2024-08-30 08:19:54,777 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026589F54B80>,
+node = {'id_node': 8, 'name_node': 'Реестр исполнительной документации ВОЛС', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 6, 'included': 1}[00m
+2024-08-30 08:19:54,778 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026589F54B80>,
+node = {'id_node': 8, 'name_node': 'Реестр исполнительной документации ВОЛС', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 6, 'included': 1}[00m
+2024-08-30 08:19:54,778 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 8, 'name_node': 'Реестр исполнительной документации ВОЛС', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 6, 'included': 1}
+ open_node = None[00m
+2024-08-30 08:19:54,778 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,779 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:54,779 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:19:54,780 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 8, 'name_node': 'Реестр исполнительной документации ВОЛС', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 6, 'included': 1}
+result = [][00m
+2024-08-30 08:19:54,780 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 3, 'name_node': 'Паспорт трассы', 'id_parent': 0, 'order_node': '2', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,780 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 3, 'name_node': 'Паспорт трассы', 'id_parent': 0, 'order_node': '2', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,781 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026589F54FC0>,
+node = {'id_node': 3, 'name_node': 'Паспорт трассы', 'id_parent': 0, 'order_node': '2', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,781 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026589F54FC0>,
+node = {'id_node': 3, 'name_node': 'Паспорт трассы', 'id_parent': 0, 'order_node': '2', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,782 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 3, 'name_node': 'Паспорт трассы', 'id_parent': 0, 'order_node': '2', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-08-30 08:19:54,782 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,782 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:54,783 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:19:54,783 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 3, 'name_node': 'Паспорт трассы', 'id_parent': 0, 'order_node': '2', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+result = [{'id_node': 10, 'name_node': 'ПТ волоконно-оптической кабельной линии связи', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 5, 'included': 1}, {'id_node': 11, 'name_node': 'Скелетная схема ВОЛП и основные данные цепей кабеля', 'id_parent': 3, 'order_node': '2', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}, {'id_node': 12, 'name_node': 'Схемы распределения ОВ на кассетах оптических муфт\nОМ-05', 'id_parent': 3, 'order_node': '3', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}][00m
+2024-08-30 08:19:54,784 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 10, 'name_node': 'ПТ волоконно-оптической кабельной линии связи', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 5, 'included': 1}[00m
+2024-08-30 08:19:54,784 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 10, 'name_node': 'ПТ волоконно-оптической кабельной линии связи', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 5, 'included': 1}[00m
+2024-08-30 08:19:54,785 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026589F57940>,
+node = {'id_node': 10, 'name_node': 'ПТ волоконно-оптической кабельной линии связи', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 5, 'included': 1}[00m
+2024-08-30 08:19:54,785 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026589F57940>,
+node = {'id_node': 10, 'name_node': 'ПТ волоконно-оптической кабельной линии связи', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 5, 'included': 1}[00m
+2024-08-30 08:19:54,785 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 10, 'name_node': 'ПТ волоконно-оптической кабельной линии связи', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 5, 'included': 1}
+ open_node = None[00m
+2024-08-30 08:19:54,786 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,786 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:54,787 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:19:54,787 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 10, 'name_node': 'ПТ волоконно-оптической кабельной линии связи', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 5, 'included': 1}
+result = [][00m
+2024-08-30 08:19:54,787 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 11, 'name_node': 'Скелетная схема ВОЛП и основные данные цепей кабеля', 'id_parent': 3, 'order_node': '2', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,788 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 11, 'name_node': 'Скелетная схема ВОЛП и основные данные цепей кабеля', 'id_parent': 3, 'order_node': '2', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,788 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026589F57BC0>,
+node = {'id_node': 11, 'name_node': 'Скелетная схема ВОЛП и основные данные цепей кабеля', 'id_parent': 3, 'order_node': '2', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,788 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026589F57BC0>,
+node = {'id_node': 11, 'name_node': 'Скелетная схема ВОЛП и основные данные цепей кабеля', 'id_parent': 3, 'order_node': '2', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 11, 'name_node': 'Скелетная схема ВОЛП и основные данные цепей кабеля', 'id_parent': 3, 'order_node': '2', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 11, 'name_node': 'Скелетная схема ВОЛП и основные данные цепей кабеля', 'id_parent': 3, 'order_node': '2', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}
+result = [][00m
+2024-08-30 08:19:54,790 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 12, 'name_node': 'Схемы распределения ОВ на кассетах оптических муфт\nОМ-05', 'id_parent': 3, 'order_node': '3', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 12, 'name_node': 'Схемы распределения ОВ на кассетах оптических муфт\nОМ-05', 'id_parent': 3, 'order_node': '3', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026589F57680>,
+node = {'id_node': 12, 'name_node': 'Схемы распределения ОВ на кассетах оптических муфт\nОМ-05', 'id_parent': 3, 'order_node': '3', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026589F57680>,
+node = {'id_node': 12, 'name_node': 'Схемы распределения ОВ на кассетах оптических муфт\nОМ-05', 'id_parent': 3, 'order_node': '3', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 12, 'name_node': 'Схемы распределения ОВ на кассетах оптических муфт\nОМ-05', 'id_parent': 3, 'order_node': '3', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 12, 'name_node': 'Схемы распределения ОВ на кассетах оптических муфт\nОМ-05', 'id_parent': 3, 'order_node': '3', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}
+result = [][00m
+2024-08-30 08:19:54,790 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 4, 'name_node': 'Прочее (автокад)', 'id_parent': 0, 'order_node': '3', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 4, 'name_node': 'Прочее (автокад)', 'id_parent': 0, 'order_node': '3', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026589F575C0>,
+node = {'id_node': 4, 'name_node': 'Прочее (автокад)', 'id_parent': 0, 'order_node': '3', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026589F575C0>,
+node = {'id_node': 4, 'name_node': 'Прочее (автокад)', 'id_parent': 0, 'order_node': '3', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 4, 'name_node': 'Прочее (автокад)', 'id_parent': 0, 'order_node': '3', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 4, 'name_node': 'Прочее (автокад)', 'id_parent': 0, 'order_node': '3', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+result = [][00m
+2024-08-30 08:19:54,790 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 5, 'name_node': 'Картограммы', 'id_parent': 0, 'order_node': '4', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 5, 'name_node': 'Картограммы', 'id_parent': 0, 'order_node': '4', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026589F53880>,
+node = {'id_node': 5, 'name_node': 'Картограммы', 'id_parent': 0, 'order_node': '4', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026589F53880>,
+node = {'id_node': 5, 'name_node': 'Картограммы', 'id_parent': 0, 'order_node': '4', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 5, 'name_node': 'Картограммы', 'id_parent': 0, 'order_node': '4', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 5, 'name_node': 'Картограммы', 'id_parent': 0, 'order_node': '4', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+result = [][00m
+2024-08-30 08:19:54,790 - DEBUG - [34m TWStructureExecDoc current_item_changed(current):
+current = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000026589F540C0>[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m ComboxTemplates update_combox_templates(node):
+node = {'id_active_template': 1, 'id_node': 6, 'id_parent': 0, 'included': 1, 'name_node': 'Титульные листы', 'order_node': '0', 'type_node': 'FORM'}[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,790 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m ProjectDatabase get_templates_by_form(form) -> list: form = {'id_node': 6}
+result = [{'id_template': 1, 'name_template': 'Основа', 'id_parent_node': 6}][00m
+2024-08-30 08:19:54,806 - DEBUG - [34m ComboxTemplates combox_templates_changed(index):
+index = 0[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m ProjectDatabase set_active_template_for_node_by_id(id_node, id_template):
+id_node = 6
+id_template = 1[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m LWPagesTemplate update_pages_template(template):
+template = {'id_parent_node': 6, 'id_template': 1, 'name_template': 'Основа'}[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m ProjectDatabase get_pages_by_template(template) -> list: template = {'id_parent_node': 6, 'id_template': 1, 'name_template': 'Основа'}
+result = [{'id_page': 1, 'id_parent_template': 1, 'name_page': 'ИД 1', 'filename_page': 'DOCX_2024-08-29_12-34-27', 'typefile_page': 'DOCX', 'order_page': 0, 'included': 1}, {'id_page': 2, 'id_parent_template': 1, 'name_page': 'ИД 2', 'filename_page': 'DOCX_2024-08-29_12-53-14', 'typefile_page': 'DOCX', 'order_page': 1, 'included': 1}, {'id_page': 9, 'id_parent_template': 1, 'name_page': 'Копия ИД 2', 'filename_page': 'DOCX_2024-08-30_07-53-15', 'typefile_page': 'DOCX', 'order_page': 2, 'included': 1}][00m
+2024-08-30 08:19:54,806 - DEBUG - [34m TWStructureExecDoc get_current_node()[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m ComboxTemplates update_combox_templates(node):
+node = {'id_active_template': 1, 'id_node': 6, 'id_parent': 0, 'included': 1, 'name_node': 'Титульные листы', 'order_node': '0', 'type_node': 'FORM'}[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m ProjectDatabase get_templates_by_form(form) -> list: form = {'id_node': 6}
+result = [{'id_template': 1, 'name_template': 'Основа', 'id_parent_node': 6}][00m
+2024-08-30 08:19:54,806 - DEBUG - [34m ComboxTemplates combox_templates_changed(index):
+index = 0[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m ProjectDatabase set_active_template_for_node_by_id(id_node, id_template):
+id_node = 6
+id_template = 1[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m LWPagesTemplate update_pages_template(template):
+template = {'id_parent_node': 6, 'id_template': 1, 'name_template': 'Основа'}[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m ProjectDatabase get_pages_by_template(template) -> list: template = {'id_parent_node': 6, 'id_template': 1, 'name_template': 'Основа'}
+result = [{'id_page': 1, 'id_parent_template': 1, 'name_page': 'ИД 1', 'filename_page': 'DOCX_2024-08-29_12-34-27', 'typefile_page': 'DOCX', 'order_page': 0, 'included': 1}, {'id_page': 2, 'id_parent_template': 1, 'name_page': 'ИД 2', 'filename_page': 'DOCX_2024-08-29_12-53-14', 'typefile_page': 'DOCX', 'order_page': 1, 'included': 1}, {'id_page': 9, 'id_parent_template': 1, 'name_page': 'Копия ИД 2', 'filename_page': 'DOCX_2024-08-30_07-53-15', 'typefile_page': 'DOCX', 'order_page': 2, 'included': 1}][00m
+2024-08-30 08:19:54,806 - DEBUG - [34m PdfView set_empty_pdf_view()[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m LWPagesTemplate get_page_by_current_item()[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m SAInputForms update_scrollarea()[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m SAInputForms delete_all_widgets_in_sa()[00m
+2024-08-30 08:19:54,806 - DEBUG - [34m DirPathManager set_new_dirpaths_for_project()[00m
+2024-08-30 08:19:54,822 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:19:54,822 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:19:54,823 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:19:54,823 - DEBUG - [34m Project set_true_actives_project()[00m
+2024-08-30 08:19:54,824 - DEBUG - [34m MainWindow config_combox_default()[00m
+2024-08-30 08:19:54,824 - DEBUG - [34m StatusBar set_message(message):
+message = Проект c именем На примере ИД Славянка открыт.[00m
+2024-08-30 08:19:54,824 - DEBUG - [34m FileFolderManager create_folders_and_aed_for_project()[00m
+2024-08-30 08:19:54,825 - DEBUG - [34m FileFolderManager check_aed_file()[00m
+2024-08-30 08:19:54,825 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,825 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:19:54,826 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:54,826 - DEBUG - [34m SettingsDatabase get_project_current_name():
+result = {'value_setting': 'На примере ИД Славянка'}[00m
+2024-08-30 08:19:54,826 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:19:54,827 - DEBUG - [34m DirPathManager get_forms_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\forms[00m
+2024-08-30 08:19:54,828 - DEBUG - [34m DirPathManager get_image_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\images[00m
+2024-08-30 08:19:54,828 - DEBUG - [34m get_pdfs_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\pdfs[00m
+2024-08-30 08:19:54,828 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-30 08:19:54,829 - DEBUG - [34m MainWindow update_menu_recent_projects()[00m
+2024-08-30 08:19:54,829 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:19:54,830 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:19:54,830 - DEBUG - [34m SettingsDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:19:54,831 - DEBUG - [34m SettingsDatabase get_last_projects():
+result = [{'id_project': 13, 'name_project': 'На примере ИД Славянка', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка', 'date_create_project': '2024-08-30 08:19:54', 'date_last_open_project': '2024-08-30 08:19:54'}, {'id_project': 0, 'name_project': 'Привет', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Привет', 'date_create_project': '2024-08-21 21:10:54', 'date_last_open_project': '2024-08-21 23:18:26'}][00m
+2024-08-30 08:19:55,733 - DEBUG - [34m LWPagesTemplate item_page_updated(current):
+current = <PySide6.QtWidgets.QListWidgetItem object at 0x0000026589F5C940>[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m SAInputForms update_scrollarea()[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m SAInputForms delete_all_widgets_in_sa()[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m SectionsInfo add_page_for_datas(page):
+page = {'filename_page': 'DOCX_2024-08-29_12-34-27', 'id_page': 1, 'id_parent_template': 1, 'included': 1, 'name_page': 'ИД 1', 'order_page': 0, 'typefile_page': 'DOCX'}[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_page_data(page) -> list: page = {'filename_page': 'DOCX_2024-08-29_12-34-27', 'id_page': 1, 'id_parent_template': 1, 'included': 1, 'name_page': 'ИД 1', 'order_page': 0, 'typefile_page': 'DOCX'}
+result = [][00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_parent_template() -> object
+result = {'id_template': 1, 'name_template': 'Основа', 'id_parent_node': 6}[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m SectionsInfo add_template_for_datas(page):
+page = {'id_template': 1, 'name_template': 'Основа', 'id_parent_node': 6}[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_template_data(template) -> list: template = {'id_template': 1, 'name_template': 'Основа', 'id_parent_node': 6}
+result = [][00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_parent_node_template() -> object
+result = {'id_node': 6, 'name_node': 'Титульные листы', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m SectionsInfo add_nodes_for_sections_info(node):
+node = {'id_node': 6, 'name_node': 'Титульные листы', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m SectionsInfo add_node_for_datas(node):
+node = {'id_node': 6, 'name_node': 'Титульные листы', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_node_data(node) -> list: node = {'id_node': 6, 'name_node': 'Титульные листы', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}
+result = [][00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_node_parent(node) -> object: node = {'id_node': 6, 'name_node': 'Титульные листы', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}
+result = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m SectionsInfo add_node_for_datas(node):
+node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:19:55,733 - DEBUG - [34m ProjectDatabase get_node_data(node) -> list: node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}
+result = [{'id_pair': 1, 'id_node': 0, 'id_variable': 3, 'value_pair': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ'}, {'id_pair': 2, 'id_node': 0, 'id_variable': 8, 'value_pair': 'Константа'}, {'id_pair': 3, 'id_node': 0, 'id_variable': 1, 'value_pair': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4'}, {'id_pair': 4, 'id_node': 0, 'id_variable': 9, 'value_pair': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"'}, {'id_pair': 5, 'id_node': 0, 'id_variable': 2, 'value_pair': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"'}, {'id_pair': 7, 'id_node': 0, 'id_variable': 6, 'value_pair': 'АО "Ленгазспецстрой"'}, {'id_pair': 8, 'id_node': 0, 'id_variable': 7, 'value_pair': 'ООО "Константа"'}, {'id_pair': 9, 'id_node': 0, 'id_variable': 4, 'value_pair': '2023-01-01'}, {'id_pair': 10, 'id_node': 0, 'id_variable': 10, 'value_pair': 'Санкт-Петербург'}, {'id_pair': 11, 'id_node': 0, 'id_variable': 11, 'value_pair': 'ООО "Константа":'}, {'id_pair': 12, 'id_node': 0, 'id_variable': 12, 'value_pair': 'Лысаков Д.Ю'}, {'id_pair': 15, 'id_node': 0, 'id_variable': 15, 'value_pair': 'Никонов А.Н.'}, {'id_pair': 16, 'id_node': 0, 'id_variable': 16, 'value_pair': 'ООО "Константа":'}, {'id_pair': 17, 'id_node': 0, 'id_variable': 20, 'value_pair': '2024-08-31'}][00m
+2024-08-30 08:19:55,749 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,749 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,749 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:55,749 - DEBUG - [34m ProjectDatabase get_node_parent(node) -> object: node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}
+result = {}[00m
+2024-08-30 08:19:55,749 - DEBUG - [34m SAInputForms add_sections_in_sa()[00m
+2024-08-30 08:19:55,749 - DEBUG - [34m SectionsInfo self.__sections_info = [{'type': 'project', 'project': {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}, 'data': [{'id_pair': 1, 'id_node': 0, 'id_variable': 3, 'value_pair': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ'}, {'id_pair': 2, 'id_node': 0, 'id_variable': 8, 'value_pair': 'Константа'}, {'id_pair': 3, 'id_node': 0, 'id_variable': 1, 'value_pair': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4'}, {'id_pair': 4, 'id_node': 0, 'id_variable': 9, 'value_pair': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"'}, {'id_pair': 5, 'id_node': 0, 'id_variable': 2, 'value_pair': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"'}, {'id_pair': 7, 'id_node': 0, 'id_variable': 6, 'value_pair': 'АО "Ленгазспецстрой"'}, {'id_pair': 8, 'id_node': 0, 'id_variable': 7, 'value_pair': 'ООО "Константа"'}, {'id_pair': 9, 'id_node': 0, 'id_variable': 4, 'value_pair': '2023-01-01'}, {'id_pair': 10, 'id_node': 0, 'id_variable': 10, 'value_pair': 'Санкт-Петербург'}, {'id_pair': 11, 'id_node': 0, 'id_variable': 11, 'value_pair': 'ООО "Константа":'}, {'id_pair': 12, 'id_node': 0, 'id_variable': 12, 'value_pair': 'Лысаков Д.Ю'}, {'id_pair': 15, 'id_node': 0, 'id_variable': 15, 'value_pair': 'Никонов А.Н.'}, {'id_pair': 16, 'id_node': 0, 'id_variable': 16, 'value_pair': 'ООО "Константа":'}, {'id_pair': 17, 'id_node': 0, 'id_variable': 20, 'value_pair': '2024-08-31'}]}][00m
+2024-08-30 08:19:55,749 - DEBUG - [34m SAInputForms get_section_name(section_info):
+section_info = {'type': 'project', 'project': {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}, 'data': [{'id_pair': 1, 'id_node': 0, 'id_variable': 3, 'value_pair': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ'}, {'id_pair': 2, 'id_node': 0, 'id_variable': 8, 'value_pair': 'Константа'}, {'id_pair': 3, 'id_node': 0, 'id_variable': 1, 'value_pair': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4'}, {'id_pair': 4, 'id_node': 0, 'id_variable': 9, 'value_pair': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"'}, {'id_pair': 5, 'id_node': 0, 'id_variable': 2, 'value_pair': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"'}, {'id_pair': 7, 'id_node': 0, 'id_variable': 6, 'value_pair': 'АО "Ленгазспецстрой"'}, {'id_pair': 8, 'id_node': 0, 'id_variable': 7, 'value_pair': 'ООО "Константа"'}, {'id_pair': 9, 'id_node': 0, 'id_variable': 4, 'value_pair': '2023-01-01'}, {'id_pair': 10, 'id_node': 0, 'id_variable': 10, 'value_pair': 'Санкт-Петербург'}, {'id_pair': 11, 'id_node': 0, 'id_variable': 11, 'value_pair': 'ООО "Константа":'}, {'id_pair': 12, 'id_node': 0, 'id_variable': 12, 'value_pair': 'Лысаков Д.Ю'}, {'id_pair': 15, 'id_node': 0, 'id_variable': 15, 'value_pair': 'Никонов А.Н.'}, {'id_pair': 16, 'id_node': 0, 'id_variable': 16, 'value_pair': 'ООО "Константа":'}, {'id_pair': 17, 'id_node': 0, 'id_variable': 20, 'value_pair': '2024-08-31'}]}[00m
+2024-08-30 08:19:55,749 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,749 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,749 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:55,749 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 3
+result = {'id_variable': 3, 'name_variable': 'организационно_правовая_форма', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Организационно-правовая форма', 'order_variable': 0, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,749 - DEBUG - [34m FormText __init__(pair, current_variable): pair = {'id_pair': 1, 'id_node': 0, 'id_variable': 3, 'value_pair': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ'},
+current_variable = {'id_variable': 3, 'name_variable': 'организационно_правовая_форма', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Организационно-правовая форма', 'order_variable': 0, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,749 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:55,765 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,765 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,765 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:55,765 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 8
+result = {'id_variable': 8, 'name_variable': 'название_компании', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Название компании "..."', 'order_variable': 1, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,765 - DEBUG - [34m FormText __init__(pair, current_variable): pair = {'id_pair': 2, 'id_node': 0, 'id_variable': 8, 'value_pair': 'Константа'},
+current_variable = {'id_variable': 8, 'name_variable': 'название_компании', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Название компании "..."', 'order_variable': 1, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,765 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:55,765 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,765 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,775 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:55,775 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 1
+result = {'id_variable': 1, 'name_variable': 'адрес_компании', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Адрес компании', 'order_variable': 2, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,776 - DEBUG - [34m FormText __init__(pair, current_variable): pair = {'id_pair': 3, 'id_node': 0, 'id_variable': 1, 'value_pair': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4'},
+current_variable = {'id_variable': 1, 'name_variable': 'адрес_компании', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Адрес компании', 'order_variable': 2, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,779 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:55,782 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,782 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,783 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:55,783 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 9
+result = {'id_variable': 9, 'name_variable': 'название_объекта', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Название объекта', 'order_variable': 3, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,784 - DEBUG - [34m FormText __init__(pair, current_variable): pair = {'id_pair': 4, 'id_node': 0, 'id_variable': 9, 'value_pair': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"'},
+current_variable = {'id_variable': 9, 'name_variable': 'название_объекта', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Название объекта', 'order_variable': 3, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,788 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:55,789 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,789 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,789 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:55,789 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 2
+result = {'id_variable': 2, 'name_variable': 'участок', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Участок', 'order_variable': 4, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,789 - DEBUG - [34m FormText __init__(pair, current_variable): pair = {'id_pair': 5, 'id_node': 0, 'id_variable': 2, 'value_pair': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"'},
+current_variable = {'id_variable': 2, 'name_variable': 'участок', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Участок', 'order_variable': 4, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,789 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:55,789 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,789 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,789 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:55,789 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 6
+result = {'id_variable': 6, 'name_variable': 'заказчик', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Заказчик', 'order_variable': 5, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,789 - DEBUG - [34m FormText __init__(pair, current_variable): pair = {'id_pair': 7, 'id_node': 0, 'id_variable': 6, 'value_pair': 'АО "Ленгазспецстрой"'},
+current_variable = {'id_variable': 6, 'name_variable': 'заказчик', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Заказчик', 'order_variable': 5, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,789 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:55,789 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,789 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,805 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:55,805 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 7
+result = {'id_variable': 7, 'name_variable': 'строительно_монтажная_организация', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Строительно-монтажная организация', 'order_variable': 6, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,805 - DEBUG - [34m FormText __init__(pair, current_variable): pair = {'id_pair': 8, 'id_node': 0, 'id_variable': 7, 'value_pair': 'ООО "Константа"'},
+current_variable = {'id_variable': 7, 'name_variable': 'строительно_монтажная_организация', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Строительно-монтажная организация', 'order_variable': 6, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,805 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:55,805 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,805 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,805 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:55,805 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 4
+result = {'id_variable': 4, 'name_variable': 'год', 'type_variable': 'DATE', 'title_variable': 'ГЛ Год', 'order_variable': 7, 'config_variable': '{"FORMAT": "yyyy", "LANGUAGE": "ru_RU"}', 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,805 - DEBUG - [34m FormDate __init__(self, pair, current_variable, config_dict):
+pair = {'id_pair': 9, 'id_node': 0, 'id_variable': 4, 'value_pair': '2023-01-01'},
+current_variable = {'id_variable': 4, 'name_variable': 'год', 'type_variable': 'DATE', 'title_variable': 'ГЛ Год', 'order_variable': 7, 'config_variable': '{"FORMAT": "yyyy", "LANGUAGE": "ru_RU"}', 'description_variable': '', 'is_global': None},
+config_dict = {'FORMAT': 'yyyy', 'LANGUAGE': 'ru_RU'}[00m
+2024-08-30 08:19:55,805 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:55,805 - DEBUG - [34m FormDate config()[00m
+2024-08-30 08:19:55,805 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,805 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,805 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:55,805 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 10
+result = {'id_variable': 10, 'name_variable': 'город', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Город', 'order_variable': 8, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,820 - DEBUG - [34m FormText __init__(pair, current_variable): pair = {'id_pair': 10, 'id_node': 0, 'id_variable': 10, 'value_pair': 'Санкт-Петербург'},
+current_variable = {'id_variable': 10, 'name_variable': 'город', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Город', 'order_variable': 8, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,824 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:55,825 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,825 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,826 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:55,826 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 11
+result = {'id_variable': 11, 'name_variable': 'инж_про_ком', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Компания инженера-проект.', 'order_variable': 9, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,827 - DEBUG - [34m FormText __init__(pair, current_variable): pair = {'id_pair': 11, 'id_node': 0, 'id_variable': 11, 'value_pair': 'ООО "Константа":'},
+current_variable = {'id_variable': 11, 'name_variable': 'инж_про_ком', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Компания инженера-проект.', 'order_variable': 9, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,830 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:55,831 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,832 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,833 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:55,833 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 12
+result = {'id_variable': 12, 'name_variable': 'гла_инж_фио', 'type_variable': 'TEXT', 'title_variable': 'ГЛ ФИО Главного инженера', 'order_variable': 12, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,833 - DEBUG - [34m FormText __init__(pair, current_variable): pair = {'id_pair': 12, 'id_node': 0, 'id_variable': 12, 'value_pair': 'Лысаков Д.Ю'},
+current_variable = {'id_variable': 12, 'name_variable': 'гла_инж_фио', 'type_variable': 'TEXT', 'title_variable': 'ГЛ ФИО Главного инженера', 'order_variable': 12, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,836 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:55,838 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,838 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,838 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:55,838 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 15
+result = {'id_variable': 15, 'name_variable': 'инж_про_ком_фио', 'type_variable': 'TEXT', 'title_variable': 'ГЛ ФИО инженера-проект.', 'order_variable': 10, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,838 - DEBUG - [34m FormText __init__(pair, current_variable): pair = {'id_pair': 15, 'id_node': 0, 'id_variable': 15, 'value_pair': 'Никонов А.Н.'},
+current_variable = {'id_variable': 15, 'name_variable': 'инж_про_ком_фио', 'type_variable': 'TEXT', 'title_variable': 'ГЛ ФИО инженера-проект.', 'order_variable': 10, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,838 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:55,838 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,838 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,838 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:55,838 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 16
+result = {'id_variable': 16, 'name_variable': 'гла_инж_компания', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Компания главного инженера', 'order_variable': 11, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,838 - DEBUG - [34m FormText __init__(pair, current_variable): pair = {'id_pair': 16, 'id_node': 0, 'id_variable': 16, 'value_pair': 'ООО "Константа":'},
+current_variable = {'id_variable': 16, 'name_variable': 'гла_инж_компания', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Компания главного инженера', 'order_variable': 11, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,838 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:55,838 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,838 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:55,853 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:55,853 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 20
+result = {'id_variable': 20, 'name_variable': 'дата', 'type_variable': 'DATE', 'title_variable': 'ГЛ Дата', 'order_variable': 13, 'config_variable': '{"FORMAT": "dd.MM.yyyy", "LANGUAGE": "ru_RU"}', 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:55,853 - DEBUG - [34m FormDate __init__(self, pair, current_variable, config_dict):
+pair = {'id_pair': 17, 'id_node': 0, 'id_variable': 20, 'value_pair': '2024-08-31'},
+current_variable = {'id_variable': 20, 'name_variable': 'дата', 'type_variable': 'DATE', 'title_variable': 'ГЛ Дата', 'order_variable': 13, 'config_variable': '{"FORMAT": "dd.MM.yyyy", "LANGUAGE": "ru_RU"}', 'description_variable': '', 'is_global': None},
+config_dict = {'FORMAT': 'dd.MM.yyyy', 'LANGUAGE': 'ru_RU'}[00m
+2024-08-30 08:19:55,853 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:19:55,853 - DEBUG - [34m FormDate config()[00m
+2024-08-30 08:19:55,966 - DEBUG - [34m LWPagesTemplate create_and_view_current_page(page):
+page = {'filename_page': 'DOCX_2024-08-29_12-34-27', 'id_page': 1, 'id_parent_template': 1, 'included': 1, 'name_page': 'ИД 1', 'order_page': 0, 'typefile_page': 'DOCX'}[00m
+2024-08-30 08:19:55,966 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:19:55,966 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:19:55,966 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:55,966 - DEBUG - [34m SettingsDatabase get_app_converter():
+result = {'value_setting': 'MSWORD'}[00m
+2024-08-30 08:19:55,970 - DEBUG - [34m OfficePackets get_status_msword():
+self.__status_msword = None[00m
+2024-08-30 08:19:55,970 - DEBUG - [34m OfficePackets get_status_libreoffice():
+self.__status_libreoffice = False[00m
+2024-08-30 08:19:55,970 - DEBUG - [34m DialogWindows warning_message(message: str):
+message = Отображение недоступно! Выбранный конвертер не работает. Сохранение при этом доступно.[00m
+2024-08-30 08:19:55,971 - DEBUG - [34m DialogWindows get_new_prepare_dw() -> object[00m
+2024-08-30 08:19:57,096 - DEBUG - [34m StatusBar set_message(message):
+message = Отображение недоступно! Выбранный конвертер не работает. Сохранение при этом доступно.[00m
+2024-08-30 08:19:57,096 - DEBUG - [34m DialogWindows process_show_start()[00m
+2024-08-30 08:19:57,107 - DEBUG - [34m Converter create_one_page_pdf(page) -> str:
+page = {'filename_page': 'DOCX_2024-08-29_12-34-27', 'id_page': 1, 'id_parent_template': 1, 'included': 1, 'name_page': 'ИД 1', 'order_page': 0, 'typefile_page': 'DOCX'}[00m
+2024-08-30 08:19:57,107 - DEBUG - [34m Converter create_page_pdf(page):
+page = {'filename_page': 'DOCX_2024-08-29_12-34-27', 'id_page': 1, 'id_parent_template': 1, 'included': 1, 'name_page': 'ИД 1', 'order_page': 0, 'typefile_page': 'DOCX'}[00m
+2024-08-30 08:19:57,107 - DEBUG - [34m SectionsInfo self.__sections_info = [{'type': 'project', 'project': {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}, 'data': [{'id_pair': 1, 'id_node': 0, 'id_variable': 3, 'value_pair': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ'}, {'id_pair': 2, 'id_node': 0, 'id_variable': 8, 'value_pair': 'Константа'}, {'id_pair': 3, 'id_node': 0, 'id_variable': 1, 'value_pair': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4'}, {'id_pair': 4, 'id_node': 0, 'id_variable': 9, 'value_pair': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"'}, {'id_pair': 5, 'id_node': 0, 'id_variable': 2, 'value_pair': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"'}, {'id_pair': 7, 'id_node': 0, 'id_variable': 6, 'value_pair': 'АО "Ленгазспецстрой"'}, {'id_pair': 8, 'id_node': 0, 'id_variable': 7, 'value_pair': 'ООО "Константа"'}, {'id_pair': 9, 'id_node': 0, 'id_variable': 4, 'value_pair': '2023-01-01'}, {'id_pair': 10, 'id_node': 0, 'id_variable': 10, 'value_pair': 'Санкт-Петербург'}, {'id_pair': 11, 'id_node': 0, 'id_variable': 11, 'value_pair': 'ООО "Константа":'}, {'id_pair': 12, 'id_node': 0, 'id_variable': 12, 'value_pair': 'Лысаков Д.Ю'}, {'id_pair': 15, 'id_node': 0, 'id_variable': 15, 'value_pair': 'Никонов А.Н.'}, {'id_pair': 16, 'id_node': 0, 'id_variable': 16, 'value_pair': 'ООО "Константа":'}, {'id_pair': 17, 'id_node': 0, 'id_variable': 20, 'value_pair': '2024-08-31'}]}][00m
+2024-08-30 08:19:57,107 - DEBUG - [34m Converter create_docx_page(sections_info, form_page_name, docx_pdf_page_name):
+sections_info = [{'type': 'project', 'project': {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}, 'data': [{'id_pair': 1, 'id_node': 0, 'id_variable': 3, 'value_pair': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ'}, {'id_pair': 2, 'id_node': 0, 'id_variable': 8, 'value_pair': 'Константа'}, {'id_pair': 3, 'id_node': 0, 'id_variable': 1, 'value_pair': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4'}, {'id_pair': 4, 'id_node': 0, 'id_variable': 9, 'value_pair': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"'}, {'id_pair': 5, 'id_node': 0, 'id_variable': 2, 'value_pair': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"'}, {'id_pair': 7, 'id_node': 0, 'id_variable': 6, 'value_pair': 'АО "Ленгазспецстрой"'}, {'id_pair': 8, 'id_node': 0, 'id_variable': 7, 'value_pair': 'ООО "Константа"'}, {'id_pair': 9, 'id_node': 0, 'id_variable': 4, 'value_pair': '2023-01-01'}, {'id_pair': 10, 'id_node': 0, 'id_variable': 10, 'value_pair': 'Санкт-Петербург'}, {'id_pair': 11, 'id_node': 0, 'id_variable': 11, 'value_pair': 'ООО "Константа":'}, {'id_pair': 12, 'id_node': 0, 'id_variable': 12, 'value_pair': 'Лысаков Д.Ю'}, {'id_pair': 15, 'id_node': 0, 'id_variable': 15, 'value_pair': 'Никонов А.Н.'}, {'id_pair': 16, 'id_node': 0, 'id_variable': 16, 'value_pair': 'ООО "Константа":'}, {'id_pair': 17, 'id_node': 0, 'id_variable': 20, 'value_pair': '2024-08-31'}]}],
+form_page_name = DOCX_2024-08-29_12-34-27,
+docx_pdf_page_name = page_1_2024-08-30_08-19-57107365[00m
+2024-08-30 08:19:57,117 - DEBUG - [34m Converter get_form_page_fullname_and_docx_page_fullname(form_page_name, docx_pdf_page_name):
+form_page_name = DOCX_2024-08-29_12-34-27,
+docx_pdf_page_name = page_1_2024-08-30_08-19-57107365[00m
+2024-08-30 08:19:57,117 - DEBUG - [34m Converter get_template_path_and_docx_path(form_page_fullname, docx_page_fullname):
+form_page_fullname = DOCX_2024-08-29_12-34-27.docx,
+docx_page_fullname = page_1_2024-08-30_08-19-57107365.docx[00m
+2024-08-30 08:19:57,117 - DEBUG - [34m DirPathManager get_forms_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\forms[00m
+2024-08-30 08:19:57,117 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-30 08:19:57,117 - DEBUG - [34m Converter rerender(template_path, docx_path, sections_info):
+template_path = C:\Users\hayar\Documents\AutoExecDoc Projects\На примере ИД Славянка\forms\DOCX_2024-08-29_12-34-27.docx,
+docx_path = C:\Users\hayar\AppData\Local\Temp\tmp9_p77nje\page_1_2024-08-30_08-19-57107365.docx,
+sections_info = [{'type': 'project', 'project': {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}, 'data': [{'id_pair': 1, 'id_node': 0, 'id_variable': 3, 'value_pair': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ'}, {'id_pair': 2, 'id_node': 0, 'id_variable': 8, 'value_pair': 'Константа'}, {'id_pair': 3, 'id_node': 0, 'id_variable': 1, 'value_pair': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4'}, {'id_pair': 4, 'id_node': 0, 'id_variable': 9, 'value_pair': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"'}, {'id_pair': 5, 'id_node': 0, 'id_variable': 2, 'value_pair': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"'}, {'id_pair': 7, 'id_node': 0, 'id_variable': 6, 'value_pair': 'АО "Ленгазспецстрой"'}, {'id_pair': 8, 'id_node': 0, 'id_variable': 7, 'value_pair': 'ООО "Константа"'}, {'id_pair': 9, 'id_node': 0, 'id_variable': 4, 'value_pair': '2023-01-01'}, {'id_pair': 10, 'id_node': 0, 'id_variable': 10, 'value_pair': 'Санкт-Петербург'}, {'id_pair': 11, 'id_node': 0, 'id_variable': 11, 'value_pair': 'ООО "Константа":'}, {'id_pair': 12, 'id_node': 0, 'id_variable': 12, 'value_pair': 'Лысаков Д.Ю'}, {'id_pair': 15, 'id_node': 0, 'id_variable': 15, 'value_pair': 'Никонов А.Н.'}, {'id_pair': 16, 'id_node': 0, 'id_variable': 16, 'value_pair': 'ООО "Константа":'}, {'id_pair': 17, 'id_node': 0, 'id_variable': 20, 'value_pair': '2024-08-31'}]}][00m
+2024-08-30 08:19:57,139 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 1, 'id_node': 0, 'id_variable': 3, 'value_pair': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ'},
+data_variable = {},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002658507C970> 
+is_rerender = False[00m
+2024-08-30 08:19:57,139 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:57,139 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:57,139 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:57,139 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 3
+result = {'id_variable': 3, 'name_variable': 'организационно_правовая_форма', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Организационно-правовая форма', 'order_variable': 0, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:57,139 - DEBUG - [34m Converter type_variable_is_text(data_variable, name_variable, value):
+data_variable = {},
+name_variable = организационно_правовая_форма,
+value = ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ[00m
+2024-08-30 08:19:57,139 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 2, 'id_node': 0, 'id_variable': 8, 'value_pair': 'Константа'},
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002658507C970> 
+is_rerender = False[00m
+2024-08-30 08:19:57,139 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:57,139 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:57,139 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:57,139 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 8
+result = {'id_variable': 8, 'name_variable': 'название_компании', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Название компании "..."', 'order_variable': 1, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:57,139 - DEBUG - [34m Converter type_variable_is_text(data_variable, name_variable, value):
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ'},
+name_variable = название_компании,
+value = Константа[00m
+2024-08-30 08:19:57,150 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 3, 'id_node': 0, 'id_variable': 1, 'value_pair': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4'},
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002658507C970> 
+is_rerender = False[00m
+2024-08-30 08:19:57,150 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:57,150 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:57,150 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:57,150 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 1
+result = {'id_variable': 1, 'name_variable': 'адрес_компании', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Адрес компании', 'order_variable': 2, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:57,150 - DEBUG - [34m Converter type_variable_is_text(data_variable, name_variable, value):
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа'},
+name_variable = адрес_компании,
+value = Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4[00m
+2024-08-30 08:19:57,150 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 4, 'id_node': 0, 'id_variable': 9, 'value_pair': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"'},
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002658507C970> 
+is_rerender = False[00m
+2024-08-30 08:19:57,150 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:57,150 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:57,155 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:57,155 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 9
+result = {'id_variable': 9, 'name_variable': 'название_объекта', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Название объекта', 'order_variable': 3, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:57,155 - DEBUG - [34m Converter type_variable_is_text(data_variable, name_variable, value):
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4'},
+name_variable = название_объекта,
+value = "Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"[00m
+2024-08-30 08:19:57,155 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 5, 'id_node': 0, 'id_variable': 2, 'value_pair': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"'},
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4', 'название_объекта': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002658507C970> 
+is_rerender = False[00m
+2024-08-30 08:19:57,155 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:57,155 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:57,155 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:57,155 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 2
+result = {'id_variable': 2, 'name_variable': 'участок', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Участок', 'order_variable': 4, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m Converter type_variable_is_text(data_variable, name_variable, value):
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4', 'название_объекта': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"'},
+name_variable = участок,
+value = Узел связи пл. КС Славянская - ГРС "Усть-Луга"[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 7, 'id_node': 0, 'id_variable': 6, 'value_pair': 'АО "Ленгазспецстрой"'},
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4', 'название_объекта': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"', 'участок': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002658507C970> 
+is_rerender = False[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 6
+result = {'id_variable': 6, 'name_variable': 'заказчик', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Заказчик', 'order_variable': 5, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m Converter type_variable_is_text(data_variable, name_variable, value):
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4', 'название_объекта': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"', 'участок': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"'},
+name_variable = заказчик,
+value = АО "Ленгазспецстрой"[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 8, 'id_node': 0, 'id_variable': 7, 'value_pair': 'ООО "Константа"'},
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4', 'название_объекта': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"', 'участок': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"', 'заказчик': 'АО "Ленгазспецстрой"'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002658507C970> 
+is_rerender = False[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 7
+result = {'id_variable': 7, 'name_variable': 'строительно_монтажная_организация', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Строительно-монтажная организация', 'order_variable': 6, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m Converter type_variable_is_text(data_variable, name_variable, value):
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4', 'название_объекта': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"', 'участок': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"', 'заказчик': 'АО "Ленгазспецстрой"'},
+name_variable = строительно_монтажная_организация,
+value = ООО "Константа"[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 9, 'id_node': 0, 'id_variable': 4, 'value_pair': '2023-01-01'},
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4', 'название_объекта': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"', 'участок': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"', 'заказчик': 'АО "Ленгазспецстрой"', 'строительно_монтажная_организация': 'ООО "Константа"'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002658507C970> 
+is_rerender = False[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 4
+result = {'id_variable': 4, 'name_variable': 'год', 'type_variable': 'DATE', 'title_variable': 'ГЛ Год', 'order_variable': 7, 'config_variable': '{"FORMAT": "yyyy", "LANGUAGE": "ru_RU"}', 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m Converter type_variable_is_date(data_variable, name_variable, value):
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4', 'название_объекта': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"', 'участок': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"', 'заказчик': 'АО "Ленгазспецстрой"', 'строительно_монтажная_организация': 'ООО "Константа"'},
+name_variable = год,
+value = 2023-01-01,
+config_variable = {'FORMAT': 'yyyy', 'LANGUAGE': 'ru_RU'}[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 10, 'id_node': 0, 'id_variable': 10, 'value_pair': 'Санкт-Петербург'},
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4', 'название_объекта': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"', 'участок': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"', 'заказчик': 'АО "Ленгазспецстрой"', 'строительно_монтажная_организация': 'ООО "Константа"', 'год': '2023'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002658507C970> 
+is_rerender = False[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:57,160 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:57,172 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:57,172 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 10
+result = {'id_variable': 10, 'name_variable': 'город', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Город', 'order_variable': 8, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:57,173 - DEBUG - [34m Converter type_variable_is_text(data_variable, name_variable, value):
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4', 'название_объекта': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"', 'участок': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"', 'заказчик': 'АО "Ленгазспецстрой"', 'строительно_монтажная_организация': 'ООО "Константа"', 'год': '2023'},
+name_variable = город,
+value = Санкт-Петербург[00m
+2024-08-30 08:19:57,174 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 11, 'id_node': 0, 'id_variable': 11, 'value_pair': 'ООО "Константа":'},
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4', 'название_объекта': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"', 'участок': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"', 'заказчик': 'АО "Ленгазспецстрой"', 'строительно_монтажная_организация': 'ООО "Константа"', 'год': '2023', 'город': 'Санкт-Петербург'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002658507C970> 
+is_rerender = False[00m
+2024-08-30 08:19:57,174 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:57,174 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:57,175 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:57,175 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 11
+result = {'id_variable': 11, 'name_variable': 'инж_про_ком', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Компания инженера-проект.', 'order_variable': 9, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:57,176 - DEBUG - [34m Converter type_variable_is_text(data_variable, name_variable, value):
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4', 'название_объекта': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"', 'участок': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"', 'заказчик': 'АО "Ленгазспецстрой"', 'строительно_монтажная_организация': 'ООО "Константа"', 'год': '2023', 'город': 'Санкт-Петербург'},
+name_variable = инж_про_ком,
+value = ООО "Константа":[00m
+2024-08-30 08:19:57,177 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 12, 'id_node': 0, 'id_variable': 12, 'value_pair': 'Лысаков Д.Ю'},
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4', 'название_объекта': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"', 'участок': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"', 'заказчик': 'АО "Ленгазспецстрой"', 'строительно_монтажная_организация': 'ООО "Константа"', 'год': '2023', 'город': 'Санкт-Петербург', 'инж_про_ком': 'ООО "Константа":'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002658507C970> 
+is_rerender = False[00m
+2024-08-30 08:19:57,177 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:57,178 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:57,178 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:57,179 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 12
+result = {'id_variable': 12, 'name_variable': 'гла_инж_фио', 'type_variable': 'TEXT', 'title_variable': 'ГЛ ФИО Главного инженера', 'order_variable': 12, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:57,179 - DEBUG - [34m Converter type_variable_is_text(data_variable, name_variable, value):
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4', 'название_объекта': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"', 'участок': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"', 'заказчик': 'АО "Ленгазспецстрой"', 'строительно_монтажная_организация': 'ООО "Константа"', 'год': '2023', 'город': 'Санкт-Петербург', 'инж_про_ком': 'ООО "Константа":'},
+name_variable = гла_инж_фио,
+value = Лысаков Д.Ю[00m
+2024-08-30 08:19:57,179 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 15, 'id_node': 0, 'id_variable': 15, 'value_pair': 'Никонов А.Н.'},
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4', 'название_объекта': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"', 'участок': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"', 'заказчик': 'АО "Ленгазспецстрой"', 'строительно_монтажная_организация': 'ООО "Константа"', 'год': '2023', 'город': 'Санкт-Петербург', 'инж_про_ком': 'ООО "Константа":', 'гла_инж_фио': 'Лысаков Д.Ю'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002658507C970> 
+is_rerender = False[00m
+2024-08-30 08:19:57,180 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:57,180 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:57,181 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:57,181 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 15
+result = {'id_variable': 15, 'name_variable': 'инж_про_ком_фио', 'type_variable': 'TEXT', 'title_variable': 'ГЛ ФИО инженера-проект.', 'order_variable': 10, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:57,182 - DEBUG - [34m Converter type_variable_is_text(data_variable, name_variable, value):
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4', 'название_объекта': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"', 'участок': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"', 'заказчик': 'АО "Ленгазспецстрой"', 'строительно_монтажная_организация': 'ООО "Константа"', 'год': '2023', 'город': 'Санкт-Петербург', 'инж_про_ком': 'ООО "Константа":', 'гла_инж_фио': 'Лысаков Д.Ю'},
+name_variable = инж_про_ком_фио,
+value = Никонов А.Н.[00m
+2024-08-30 08:19:57,182 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 16, 'id_node': 0, 'id_variable': 16, 'value_pair': 'ООО "Константа":'},
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4', 'название_объекта': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"', 'участок': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"', 'заказчик': 'АО "Ленгазспецстрой"', 'строительно_монтажная_организация': 'ООО "Константа"', 'год': '2023', 'город': 'Санкт-Петербург', 'инж_про_ком': 'ООО "Константа":', 'гла_инж_фио': 'Лысаков Д.Ю', 'инж_про_ком_фио': 'Никонов А.Н.'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002658507C970> 
+is_rerender = False[00m
+2024-08-30 08:19:57,183 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:57,183 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:57,184 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:57,185 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 16
+result = {'id_variable': 16, 'name_variable': 'гла_инж_компания', 'type_variable': 'TEXT', 'title_variable': 'ГЛ Компания главного инженера', 'order_variable': 11, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:57,185 - DEBUG - [34m Converter type_variable_is_text(data_variable, name_variable, value):
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4', 'название_объекта': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"', 'участок': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"', 'заказчик': 'АО "Ленгазспецстрой"', 'строительно_монтажная_организация': 'ООО "Константа"', 'год': '2023', 'город': 'Санкт-Петербург', 'инж_про_ком': 'ООО "Константа":', 'гла_инж_фио': 'Лысаков Д.Ю', 'инж_про_ком_фио': 'Никонов А.Н.'},
+name_variable = гла_инж_компания,
+value = ООО "Константа":[00m
+2024-08-30 08:19:57,185 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 17, 'id_node': 0, 'id_variable': 20, 'value_pair': '2024-08-31'},
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4', 'название_объекта': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"', 'участок': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"', 'заказчик': 'АО "Ленгазспецстрой"', 'строительно_монтажная_организация': 'ООО "Константа"', 'год': '2023', 'город': 'Санкт-Петербург', 'инж_про_ком': 'ООО "Константа":', 'гла_инж_фио': 'Лысаков Д.Ю', 'инж_про_ком_фио': 'Никонов А.Н.', 'гла_инж_компания': 'ООО "Константа":'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002658507C970> 
+is_rerender = False[00m
+2024-08-30 08:19:57,185 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:19:57,185 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:19:57,185 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:57,185 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 20
+result = {'id_variable': 20, 'name_variable': 'дата', 'type_variable': 'DATE', 'title_variable': 'ГЛ Дата', 'order_variable': 13, 'config_variable': '{"FORMAT": "dd.MM.yyyy", "LANGUAGE": "ru_RU"}', 'description_variable': '', 'is_global': None}[00m
+2024-08-30 08:19:57,185 - DEBUG - [34m Converter type_variable_is_date(data_variable, name_variable, value):
+data_variable = {'организационно_правовая_форма': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ', 'название_компании': 'Константа', 'адрес_компании': 'Российская Федерация, 195220, г. Санкт-Петербург, ул. Верности, д. 17, кв. 4', 'название_объекта': '"Газопровод-отвод и ГРС "Усть-Луга". Кабельная линия связи"', 'участок': 'Узел связи пл. КС Славянская - ГРС "Усть-Луга"', 'заказчик': 'АО "Ленгазспецстрой"', 'строительно_монтажная_организация': 'ООО "Константа"', 'год': '2023', 'город': 'Санкт-Петербург', 'инж_про_ком': 'ООО "Константа":', 'гла_инж_фио': 'Лысаков Д.Ю', 'инж_про_ком_фио': 'Никонов А.Н.', 'гла_инж_компания': 'ООО "Константа":'},
+name_variable = дата,
+value = 2024-08-31,
+config_variable = {'FORMAT': 'dd.MM.yyyy', 'LANGUAGE': 'ru_RU'}[00m
+2024-08-30 08:19:57,237 - DEBUG - [34m Converter create_pdf_from_docx_page(docx_pdf_page_name) -> str:
+docx_pdf_page_name = page_1_2024-08-30_08-19-57107365[00m
+2024-08-30 08:19:57,237 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-30 08:19:57,237 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-30 08:19:57,237 - DEBUG - [34m Converter convert_from_docx_to_pdf(docx_path, pdf_path):
+docx_path = C:\Users\hayar\AppData\Local\Temp\tmp9_p77nje\page_1_2024-08-30_08-19-57107365.docx,
+pdf_path = C:\Users\hayar\AppData\Local\Temp\tmp9_p77nje\page_1_2024-08-30_08-19-57107365.pdf[00m
+2024-08-30 08:19:57,237 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:19:57,237 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:19:57,237 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:19:57,237 - DEBUG - [34m SettingsDatabase get_app_converter():
+result = {'value_setting': 'MSWORD'}[00m
+2024-08-30 08:19:57,237 - DEBUG - [34m Converter convert_from_docx_to_pdf_using_msword(docx_path, pdf_path)[00m

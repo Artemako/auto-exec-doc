@@ -1,0 +1,436 @@
+2024-08-30 08:20:19,255 - DEBUG - [34m Config logger[00m
+2024-08-30 08:20:19,255 - DEBUG - [34m self.current_directory = D:\work\project\AutoExecDoc\main.dist[00m
+2024-08-30 08:20:19,256 - DEBUG - [34m FileFolderManager create_and_setting_files_and_folders()[00m
+2024-08-30 08:20:19,257 - DEBUG - [34m DirPathManager get_default_folder_projects_dirpath() -> str: C:/Users/hayar/Documents\AutoExecDoc Projects[00m
+2024-08-30 08:20:19,257 - DEBUG - [34m SettingsDatabase create_and_setting_db_settings()[00m
+2024-08-30 08:20:19,257 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:20:19,257 - DEBUG - [34m OfficePackets resetting_office_packets()[00m
+2024-08-30 08:20:19,258 - DEBUG - [34m MsWordThread __init__()[00m
+2024-08-30 08:20:19,258 - DEBUG - [34m OfficePackets run_libreoffice()[00m
+2024-08-30 08:20:19,258 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:20:19,258 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:20:19,259 - DEBUG - [34m MsWordThread initialize_msword()[00m
+2024-08-30 08:20:19,259 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:20:19,259 - DEBUG - [34m SettingsDatabase get_libreoffice_path():
+result = {'value_setting': 'C:\\Program Files\\LibreOffice\\program\\soffice.exe'}[00m
+2024-08-30 08:20:19,442 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:20:19,449 - DEBUG - [34m MainWindow config()[00m
+2024-08-30 08:20:19,450 - DEBUG - [34m MainWindow update_menu_recent_projects()[00m
+2024-08-30 08:20:19,450 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:20:19,450 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:20:19,451 - DEBUG - [34m SettingsDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:20:19,451 - DEBUG - [34m SettingsDatabase get_last_projects():
+result = [{'id_project': 13, 'name_project': 'На примере ИД Славянка', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка', 'date_create_project': '2024-08-30 08:19:54', 'date_last_open_project': '2024-08-30 08:19:54'}, {'id_project': 0, 'name_project': 'Привет', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Привет', 'date_create_project': '2024-08-21 21:10:54', 'date_last_open_project': '2024-08-21 23:18:26'}][00m
+2024-08-30 08:20:19,451 - DEBUG - [34m MainWindow config_controllers()[00m
+2024-08-30 08:20:19,452 - DEBUG - [34m StatusBar connect_statusbar(statusbar)[00m
+2024-08-30 08:20:19,453 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:20:19,454 - DEBUG - [34m StatusBar config_statusbar()[00m
+2024-08-30 08:20:19,454 - DEBUG - [34m StatusBar config_msword()[00m
+2024-08-30 08:20:19,454 - DEBUG - [34m StatusBar get_red_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x2de4d87ef20) at 0x000002DE4C086200>[00m
+2024-08-30 08:20:19,455 - DEBUG - [34m StatusBar get_yellow_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x2de4d87e6e0) at 0x000002DE4C086340>[00m
+2024-08-30 08:20:19,455 - DEBUG - [34m StatusBar get_green_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x2de4d87e980) at 0x000002DE4C0863C0>[00m
+2024-08-30 08:20:19,456 - DEBUG - [34m StatusBar config_libreoffice()[00m
+2024-08-30 08:20:19,456 - DEBUG - [34m StatusBar get_red_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x2de4d881ce0) at 0x000002DE4C086540>[00m
+2024-08-30 08:20:19,457 - DEBUG - [34m StatusBar get_yellow_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x2de4d8820a0) at 0x000002DE4C0866C0>[00m
+2024-08-30 08:20:19,457 - DEBUG - [34m StatusBar get_green_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x2de4d881200) at 0x000002DE4C086700>[00m
+2024-08-30 08:20:19,459 - DEBUG - [34m StatusBar config_update_statusbar()[00m
+2024-08-30 08:20:19,460 - DEBUG - [34m OfficePackets get_status_msword():
+self.__status_msword = False[00m
+2024-08-30 08:20:19,460 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = False[00m
+2024-08-30 08:20:19,460 - DEBUG - [34m OfficePackets get_status_libreoffice():
+self.__status_libreoffice = False[00m
+2024-08-30 08:20:19,461 - DEBUG - [34m StatusBar update_status_libreoffice_label(status_libreoffice):
+status_libreoffice = False[00m
+2024-08-30 08:20:19,461 - DEBUG - [34m StatusBar set_message(message):
+message = Проект не открыт[00m
+2024-08-30 08:20:19,462 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:20:19,462 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:20:19,463 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:20:19,463 - DEBUG - [34m SettingsDatabase get_app_converter():
+result = {'value_setting': 'MSWORD'}[00m
+2024-08-30 08:20:19,465 - DEBUG - [34m StatusBar update_name_app_converter()[00m
+2024-08-30 08:20:19,466 - DEBUG - [34m StatusBar connecting_actions()[00m
+2024-08-30 08:20:19,473 - DEBUG - [34m TWStructureExecDoc connect_structureexecdoc(tr_sed)[00m
+2024-08-30 08:20:19,473 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:20:19,477 - DEBUG - [34m TWStructureExecDoc clear_tr_sed()[00m
+2024-08-30 08:20:19,478 - DEBUG - [34m LWPagesTemplate connect_pages_template(lw_pt):
+lw_pt = <PySide6.QtWidgets.QListWidget(0x2de4989df50, name="lw_pages_template") at 0x000002DE4C0780C0>[00m
+2024-08-30 08:20:19,479 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:20:19,482 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-08-30 08:20:19,562 - DEBUG - [34m ComboxTemplates connect_combox_templates(combox_templates):
+combox_templates = <PySide6.QtWidgets.QComboBox(0x2de49890da0, name="combox_templates") at 0x000002DE4AABEF80>[00m
+2024-08-30 08:20:19,579 - DEBUG - [34m SAInputForms connect_inputforms(sa_if, sa_ifl):
+sa_if = <PySide6.QtWidgets.QScrollArea(0x2de498c4530, name="scrollarea_inputforms") at 0x000002DE4C078600>,
+sa_ifl = <PySide6.QtWidgets.QWidget(0x2de498cd590, name="scrollarea_inputforms_layout") at 0x000002DE4C078E00>[00m
+2024-08-30 08:20:19,585 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:20:19,591 - DEBUG - [34m PdfView connect_pdfview()[00m
+2024-08-30 08:20:19,594 - DEBUG - [34m PdfView config_pdf_view_in_mainwindow()[00m
+2024-08-30 08:20:19,654 - DEBUG - [34m MainWindow connecting_actions()[00m
+2024-08-30 08:20:19,773 - DEBUG - [34m CommonWithOsmb run()[00m
+2024-08-30 08:20:19,773 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:20:19,776 - DEBUG - [34m ResizeQt __init__(osbm)[00m
+2024-08-30 08:20:19,776 - DEBUG - [34m DialogWindows run()[00m
+2024-08-30 08:20:19,778 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:20:19,826 - DEBUG - [34m OfficePackets update_status_msword(status):
+status = None[00m
+2024-08-30 08:20:19,827 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = None[00m
+2024-08-30 08:20:20,702 - DEBUG - [34m Project open_project()[00m
+2024-08-30 08:20:20,703 - DEBUG - [34m Project check_project_before_new_or_open()[00m
+2024-08-30 08:20:20,704 - DEBUG - [34m DirPathManager get_default_folder_projects_dirpath() -> str: C:/Users/hayar/Documents\AutoExecDoc Projects[00m
+2024-08-30 08:20:21,951 - DEBUG - [34m DialogWindows select_folder_for_open_project() -> C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка/На примере ИД Славянка.aed[00m
+2024-08-30 08:20:21,952 - DEBUG - [34m Project set_project_dirpaths(folder_path: str):
+folder_path = C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:20:21,953 - DEBUG - [34m DirPathManager set_project_dirpath(dirpath: str):
+dirpath = C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:20:21,954 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:20:21,954 - DEBUG - [34m DirPathManager set_db_project_dirpath(dirpath: str):
+dirpath = C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:20:21,955 - DEBUG - [34m Project clear_window_before_new_or_open_project()[00m
+2024-08-30 08:20:21,955 - DEBUG - [34m TWStructureExecDoc clear_tr_sed()[00m
+2024-08-30 08:20:21,956 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-08-30 08:20:21,956 - DEBUG - [34m PdfView set_empty_pdf_view()[00m
+2024-08-30 08:20:21,957 - DEBUG - [34m SAInputForms delete_all_widgets_in_sa()[00m
+2024-08-30 08:20:21,957 - DEBUG - [34m Project config_open_project()[00m
+2024-08-30 08:20:21,958 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:20:21,958 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:20:21,959 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:20:21,960 - DEBUG - [34m SettingsDatabase set_project_current_name(project_name):
+project_name = На примере ИД Славянка[00m
+2024-08-30 08:20:21,960 - DEBUG - [34m SettingsDatabase add_or_update_open_project_to_db()[00m
+2024-08-30 08:20:21,960 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:20:21,961 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:20:21,962 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:20:21,962 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:20:21,966 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:20:21,967 - DEBUG - [34m SettingsDatabase update_project_to_db()[00m
+2024-08-30 08:20:21,967 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:20:21,968 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:20:21,969 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:20:21,969 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:20:21,973 - DEBUG - [34m ProjectDatabase create_and_config_db_project()[00m
+2024-08-30 08:20:21,973 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:20:21,974 - DEBUG - [34m ProjectDatabase set_all_included_in_db_project_to_true()[00m
+2024-08-30 08:20:21,975 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:20:21,975 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:20:21,976 - DEBUG - [34m MainWindow update_main_window()[00m
+2024-08-30 08:20:21,976 - DEBUG - [34m TWStructureExecDoc update_structure_exec_doc()[00m
+2024-08-30 08:20:21,977 - DEBUG - [34m TWStructureExecDoc get_current_node()[00m
+2024-08-30 08:20:21,977 - DEBUG - [34m TWStructureExecDoc clear_tr_sed()[00m
+2024-08-30 08:20:21,978 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:20:21,978 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:20:21,981 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:20:21,981 - DEBUG - [34m SettingsDatabase get_project_current_name():
+result = {'value_setting': 'На примере ИД Славянка'}[00m
+2024-08-30 08:20:21,982 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:20:21,982 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:20:21,983 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:20:21,983 - DEBUG - [34m ProjectDatabase get_project_node() -> object:
+result = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:21,984 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-08-30 08:20:21,984 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:20:21,985 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:20:21,986 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:20:21,986 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}
+result = [{'id_node': 6, 'name_node': 'Титульные листы', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}, {'id_node': 2, 'name_node': 'Реестр ИД', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}, {'id_node': 3, 'name_node': 'Паспорт трассы', 'id_parent': 0, 'order_node': '2', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}, {'id_node': 4, 'name_node': 'Прочее (автокад)', 'id_parent': 0, 'order_node': '3', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}, {'id_node': 5, 'name_node': 'Картограммы', 'id_parent': 0, 'order_node': '4', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}][00m
+2024-08-30 08:20:21,987 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 6, 'name_node': 'Титульные листы', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}[00m
+2024-08-30 08:20:21,987 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 6, 'name_node': 'Титульные листы', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}[00m
+2024-08-30 08:20:21,988 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002DE48E56080>,
+node = {'id_node': 6, 'name_node': 'Титульные листы', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}[00m
+2024-08-30 08:20:21,989 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002DE48E56080>,
+node = {'id_node': 6, 'name_node': 'Титульные листы', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}[00m
+2024-08-30 08:20:21,989 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 6, 'name_node': 'Титульные листы', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}
+ open_node = None[00m
+2024-08-30 08:20:21,990 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:20:21,990 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:20:21,991 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:20:21,991 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 6, 'name_node': 'Титульные листы', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}
+result = [][00m
+2024-08-30 08:20:21,992 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 2, 'name_node': 'Реестр ИД', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:21,992 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 2, 'name_node': 'Реестр ИД', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:21,993 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002DE48E41840>,
+node = {'id_node': 2, 'name_node': 'Реестр ИД', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:21,996 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002DE48E41840>,
+node = {'id_node': 2, 'name_node': 'Реестр ИД', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:21,996 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 2, 'name_node': 'Реестр ИД', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-08-30 08:20:21,997 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:20:21,997 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:20:21,998 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:20:21,998 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 2, 'name_node': 'Реестр ИД', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+result = [{'id_node': 8, 'name_node': 'Реестр исполнительной документации ВОЛС', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 6, 'included': 1}][00m
+2024-08-30 08:20:21,999 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 8, 'name_node': 'Реестр исполнительной документации ВОЛС', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 6, 'included': 1}[00m
+2024-08-30 08:20:21,999 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 8, 'name_node': 'Реестр исполнительной документации ВОЛС', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 6, 'included': 1}[00m
+2024-08-30 08:20:22,000 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002DE48E588C0>,
+node = {'id_node': 8, 'name_node': 'Реестр исполнительной документации ВОЛС', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 6, 'included': 1}[00m
+2024-08-30 08:20:22,001 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002DE48E588C0>,
+node = {'id_node': 8, 'name_node': 'Реестр исполнительной документации ВОЛС', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 6, 'included': 1}[00m
+2024-08-30 08:20:22,001 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 8, 'name_node': 'Реестр исполнительной документации ВОЛС', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 6, 'included': 1}
+ open_node = None[00m
+2024-08-30 08:20:22,002 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:20:22,002 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:20:22,003 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:20:22,004 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 8, 'name_node': 'Реестр исполнительной документации ВОЛС', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 6, 'included': 1}
+result = [][00m
+2024-08-30 08:20:22,004 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 3, 'name_node': 'Паспорт трассы', 'id_parent': 0, 'order_node': '2', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:22,005 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 3, 'name_node': 'Паспорт трассы', 'id_parent': 0, 'order_node': '2', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:22,005 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002DE48E58CC0>,
+node = {'id_node': 3, 'name_node': 'Паспорт трассы', 'id_parent': 0, 'order_node': '2', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:22,006 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002DE48E58CC0>,
+node = {'id_node': 3, 'name_node': 'Паспорт трассы', 'id_parent': 0, 'order_node': '2', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:22,006 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 3, 'name_node': 'Паспорт трассы', 'id_parent': 0, 'order_node': '2', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-08-30 08:20:22,007 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:20:22,007 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:20:22,008 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:20:22,008 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 3, 'name_node': 'Паспорт трассы', 'id_parent': 0, 'order_node': '2', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+result = [{'id_node': 10, 'name_node': 'ПТ волоконно-оптической кабельной линии связи', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 5, 'included': 1}, {'id_node': 11, 'name_node': 'Скелетная схема ВОЛП и основные данные цепей кабеля', 'id_parent': 3, 'order_node': '2', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}, {'id_node': 12, 'name_node': 'Схемы распределения ОВ на кассетах оптических муфт\nОМ-05', 'id_parent': 3, 'order_node': '3', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}][00m
+2024-08-30 08:20:22,009 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 10, 'name_node': 'ПТ волоконно-оптической кабельной линии связи', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 5, 'included': 1}[00m
+2024-08-30 08:20:22,010 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 10, 'name_node': 'ПТ волоконно-оптической кабельной линии связи', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 5, 'included': 1}[00m
+2024-08-30 08:20:22,013 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002DE48E58C00>,
+node = {'id_node': 10, 'name_node': 'ПТ волоконно-оптической кабельной линии связи', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 5, 'included': 1}[00m
+2024-08-30 08:20:22,013 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002DE48E58C00>,
+node = {'id_node': 10, 'name_node': 'ПТ волоконно-оптической кабельной линии связи', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 5, 'included': 1}[00m
+2024-08-30 08:20:22,014 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 10, 'name_node': 'ПТ волоконно-оптической кабельной линии связи', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 5, 'included': 1}
+ open_node = None[00m
+2024-08-30 08:20:22,014 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:20:22,015 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:20:22,016 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:20:22,016 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 10, 'name_node': 'ПТ волоконно-оптической кабельной линии связи', 'id_parent': 3, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 5, 'included': 1}
+result = [][00m
+2024-08-30 08:20:22,016 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 11, 'name_node': 'Скелетная схема ВОЛП и основные данные цепей кабеля', 'id_parent': 3, 'order_node': '2', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:22,017 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 11, 'name_node': 'Скелетная схема ВОЛП и основные данные цепей кабеля', 'id_parent': 3, 'order_node': '2', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:22,017 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002DE4E9D7780>,
+node = {'id_node': 11, 'name_node': 'Скелетная схема ВОЛП и основные данные цепей кабеля', 'id_parent': 3, 'order_node': '2', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:22,018 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002DE4E9D7780>,
+node = {'id_node': 11, 'name_node': 'Скелетная схема ВОЛП и основные данные цепей кабеля', 'id_parent': 3, 'order_node': '2', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:22,018 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 11, 'name_node': 'Скелетная схема ВОЛП и основные данные цепей кабеля', 'id_parent': 3, 'order_node': '2', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-08-30 08:20:22,019 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:20:22,019 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:20:22,020 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:20:22,020 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 11, 'name_node': 'Скелетная схема ВОЛП и основные данные цепей кабеля', 'id_parent': 3, 'order_node': '2', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}
+result = [][00m
+2024-08-30 08:20:22,021 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 12, 'name_node': 'Схемы распределения ОВ на кассетах оптических муфт\nОМ-05', 'id_parent': 3, 'order_node': '3', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:22,022 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 12, 'name_node': 'Схемы распределения ОВ на кассетах оптических муфт\nОМ-05', 'id_parent': 3, 'order_node': '3', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:22,022 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002DE48E566C0>,
+node = {'id_node': 12, 'name_node': 'Схемы распределения ОВ на кассетах оптических муфт\nОМ-05', 'id_parent': 3, 'order_node': '3', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:22,023 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002DE48E566C0>,
+node = {'id_node': 12, 'name_node': 'Схемы распределения ОВ на кассетах оптических муфт\nОМ-05', 'id_parent': 3, 'order_node': '3', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:22,023 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 12, 'name_node': 'Схемы распределения ОВ на кассетах оптических муфт\nОМ-05', 'id_parent': 3, 'order_node': '3', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-08-30 08:20:22,024 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:20:22,024 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:20:22,025 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:20:22,025 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 12, 'name_node': 'Схемы распределения ОВ на кассетах оптических муфт\nОМ-05', 'id_parent': 3, 'order_node': '3', 'type_node': 'FORM', 'id_active_template': None, 'included': 1}
+result = [][00m
+2024-08-30 08:20:22,026 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 4, 'name_node': 'Прочее (автокад)', 'id_parent': 0, 'order_node': '3', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:22,028 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 4, 'name_node': 'Прочее (автокад)', 'id_parent': 0, 'order_node': '3', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:22,029 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002DE4E9D1F00>,
+node = {'id_node': 4, 'name_node': 'Прочее (автокад)', 'id_parent': 0, 'order_node': '3', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:22,029 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002DE4E9D1F00>,
+node = {'id_node': 4, 'name_node': 'Прочее (автокад)', 'id_parent': 0, 'order_node': '3', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:22,030 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 4, 'name_node': 'Прочее (автокад)', 'id_parent': 0, 'order_node': '3', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-08-30 08:20:22,030 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:20:22,031 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:20:22,032 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:20:22,032 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 4, 'name_node': 'Прочее (автокад)', 'id_parent': 0, 'order_node': '3', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+result = [][00m
+2024-08-30 08:20:22,033 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 5, 'name_node': 'Картограммы', 'id_parent': 0, 'order_node': '4', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:22,033 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 5, 'name_node': 'Картограммы', 'id_parent': 0, 'order_node': '4', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:22,034 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002DE4E9DA580>,
+node = {'id_node': 5, 'name_node': 'Картограммы', 'id_parent': 0, 'order_node': '4', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:22,034 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002DE4E9DA580>,
+node = {'id_node': 5, 'name_node': 'Картограммы', 'id_parent': 0, 'order_node': '4', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-08-30 08:20:22,035 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 5, 'name_node': 'Картограммы', 'id_parent': 0, 'order_node': '4', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-08-30 08:20:22,035 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:20:22,036 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:20:22,037 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:20:22,037 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 5, 'name_node': 'Картограммы', 'id_parent': 0, 'order_node': '4', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+result = [][00m
+2024-08-30 08:20:22,039 - DEBUG - [34m TWStructureExecDoc current_item_changed(current):
+current = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002DE48E56080>[00m
+2024-08-30 08:20:22,039 - DEBUG - [34m ComboxTemplates update_combox_templates(node):
+node = {'id_active_template': 1, 'id_node': 6, 'id_parent': 0, 'included': 1, 'name_node': 'Титульные листы', 'order_node': '0', 'type_node': 'FORM'}[00m
+2024-08-30 08:20:22,040 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:20:22,040 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:20:22,041 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:20:22,041 - DEBUG - [34m ProjectDatabase get_templates_by_form(form) -> list: form = {'id_node': 6}
+result = [{'id_template': 1, 'name_template': 'Основа', 'id_parent_node': 6}][00m
+2024-08-30 08:20:22,042 - DEBUG - [34m ComboxTemplates combox_templates_changed(index):
+index = 0[00m
+2024-08-30 08:20:22,044 - DEBUG - [34m ProjectDatabase set_active_template_for_node_by_id(id_node, id_template):
+id_node = 6
+id_template = 1[00m
+2024-08-30 08:20:22,045 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:20:22,045 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:20:22,046 - DEBUG - [34m LWPagesTemplate update_pages_template(template):
+template = {'id_parent_node': 6, 'id_template': 1, 'name_template': 'Основа'}[00m
+2024-08-30 08:20:22,046 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-08-30 08:20:22,047 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:20:22,047 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:20:22,048 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:20:22,049 - DEBUG - [34m ProjectDatabase get_pages_by_template(template) -> list: template = {'id_parent_node': 6, 'id_template': 1, 'name_template': 'Основа'}
+result = [{'id_page': 1, 'id_parent_template': 1, 'name_page': 'ИД 1', 'filename_page': 'DOCX_2024-08-29_12-34-27', 'typefile_page': 'DOCX', 'order_page': 0, 'included': 1}, {'id_page': 2, 'id_parent_template': 1, 'name_page': 'ИД 2', 'filename_page': 'DOCX_2024-08-29_12-53-14', 'typefile_page': 'DOCX', 'order_page': 1, 'included': 1}, {'id_page': 9, 'id_parent_template': 1, 'name_page': 'Копия ИД 2', 'filename_page': 'DOCX_2024-08-30_07-53-15', 'typefile_page': 'DOCX', 'order_page': 2, 'included': 1}][00m
+2024-08-30 08:20:22,051 - DEBUG - [34m TWStructureExecDoc get_current_node()[00m
+2024-08-30 08:20:22,052 - DEBUG - [34m ComboxTemplates update_combox_templates(node):
+node = {'id_active_template': 1, 'id_node': 6, 'id_parent': 0, 'included': 1, 'name_node': 'Титульные листы', 'order_node': '0', 'type_node': 'FORM'}[00m
+2024-08-30 08:20:22,052 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:20:22,053 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:20:22,054 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:20:22,054 - DEBUG - [34m ProjectDatabase get_templates_by_form(form) -> list: form = {'id_node': 6}
+result = [{'id_template': 1, 'name_template': 'Основа', 'id_parent_node': 6}][00m
+2024-08-30 08:20:22,054 - DEBUG - [34m ComboxTemplates combox_templates_changed(index):
+index = 0[00m
+2024-08-30 08:20:22,055 - DEBUG - [34m ProjectDatabase set_active_template_for_node_by_id(id_node, id_template):
+id_node = 6
+id_template = 1[00m
+2024-08-30 08:20:22,055 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:20:22,056 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:20:22,057 - DEBUG - [34m LWPagesTemplate update_pages_template(template):
+template = {'id_parent_node': 6, 'id_template': 1, 'name_template': 'Основа'}[00m
+2024-08-30 08:20:22,057 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-08-30 08:20:22,058 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-08-30 08:20:22,060 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\project.db[00m
+2024-08-30 08:20:22,061 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:20:22,062 - DEBUG - [34m ProjectDatabase get_pages_by_template(template) -> list: template = {'id_parent_node': 6, 'id_template': 1, 'name_template': 'Основа'}
+result = [{'id_page': 1, 'id_parent_template': 1, 'name_page': 'ИД 1', 'filename_page': 'DOCX_2024-08-29_12-34-27', 'typefile_page': 'DOCX', 'order_page': 0, 'included': 1}, {'id_page': 2, 'id_parent_template': 1, 'name_page': 'ИД 2', 'filename_page': 'DOCX_2024-08-29_12-53-14', 'typefile_page': 'DOCX', 'order_page': 1, 'included': 1}, {'id_page': 9, 'id_parent_template': 1, 'name_page': 'Копия ИД 2', 'filename_page': 'DOCX_2024-08-30_07-53-15', 'typefile_page': 'DOCX', 'order_page': 2, 'included': 1}][00m
+2024-08-30 08:20:22,064 - DEBUG - [34m PdfView set_empty_pdf_view()[00m
+2024-08-30 08:20:22,064 - DEBUG - [34m LWPagesTemplate get_page_by_current_item()[00m
+2024-08-30 08:20:22,065 - DEBUG - [34m SAInputForms update_scrollarea()[00m
+2024-08-30 08:20:22,065 - DEBUG - [34m SAInputForms delete_all_widgets_in_sa()[00m
+2024-08-30 08:20:22,066 - DEBUG - [34m DirPathManager set_new_dirpaths_for_project()[00m
+2024-08-30 08:20:22,066 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:20:22,067 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:20:22,067 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:20:22,068 - DEBUG - [34m Project set_true_actives_project()[00m
+2024-08-30 08:20:22,069 - DEBUG - [34m MainWindow config_combox_default()[00m
+2024-08-30 08:20:22,069 - DEBUG - [34m StatusBar set_message(message):
+message = Проект c именем На примере ИД Славянка открыт.[00m
+2024-08-30 08:20:22,070 - DEBUG - [34m FileFolderManager create_folders_and_aed_for_project()[00m
+2024-08-30 08:20:22,070 - DEBUG - [34m FileFolderManager check_aed_file()[00m
+2024-08-30 08:20:22,071 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:20:22,071 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:20:22,072 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:20:22,072 - DEBUG - [34m SettingsDatabase get_project_current_name():
+result = {'value_setting': 'На примере ИД Славянка'}[00m
+2024-08-30 08:20:22,073 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка[00m
+2024-08-30 08:20:22,074 - DEBUG - [34m DirPathManager get_forms_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\forms[00m
+2024-08-30 08:20:22,076 - DEBUG - [34m DirPathManager get_image_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\images[00m
+2024-08-30 08:20:22,076 - DEBUG - [34m get_pdfs_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка\pdfs[00m
+2024-08-30 08:20:22,077 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-08-30 08:20:22,077 - DEBUG - [34m MainWindow update_menu_recent_projects()[00m
+2024-08-30 08:20:22,078 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:20:22,078 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:20:22,079 - DEBUG - [34m SettingsDatabase get_fetchall(cursor, conn) -> list[00m
+2024-08-30 08:20:22,079 - DEBUG - [34m SettingsDatabase get_last_projects():
+result = [{'id_project': 13, 'name_project': 'На примере ИД Славянка', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/На примере ИД Славянка', 'date_create_project': '2024-08-30 08:19:54', 'date_last_open_project': '2024-08-30 08:20:21'}, {'id_project': 0, 'name_project': 'Привет', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Привет', 'date_create_project': '2024-08-21 21:10:54', 'date_last_open_project': '2024-08-21 23:18:26'}][00m
+2024-08-30 08:20:23,550 - DEBUG - [34m StatusBar show_converter_settings()[00m
+2024-08-30 08:20:23,550 - DEBUG - [34m ConverterSettingsDialogWindow __init__(osbm)[00m
+2024-08-30 08:20:23,578 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-08-30 08:20:23,578 - DEBUG - [34m ConverterSettingsDialogWindow config()[00m
+2024-08-30 08:20:23,583 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:20:23,583 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:20:23,585 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:20:23,585 - DEBUG - [34m SettingsDatabase get_app_converter():
+result = {'value_setting': 'MSWORD'}[00m
+2024-08-30 08:20:23,591 - DEBUG - [34m ConverterSettingsDialogWindow connecting_actions()[00m
+2024-08-30 08:20:24,373 - DEBUG - [34m ConverterSettingsDialogWindow save()[00m
+2024-08-30 08:20:24,374 - DEBUG - [34m ConverterSettingsDialogWindow get_active_radiobutton() -> str:
+result = MSWORD[00m
+2024-08-30 08:20:24,375 - DEBUG - [34m SettingsDatabase set_app_converter(app_converter):
+app_converter = MSWORD[00m
+2024-08-30 08:20:24,376 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:20:24,376 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:20:24,377 - DEBUG - [34m OfficePackets resetting_office_packets()[00m
+2024-08-30 08:20:24,377 - DEBUG - [34m MsWordThread __init__()[00m
+2024-08-30 08:20:24,378 - DEBUG - [34m OfficePackets run_libreoffice()[00m
+2024-08-30 08:20:24,378 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:20:24,379 - DEBUG - [34m MsWordThread initialize_msword()[00m
+2024-08-30 08:20:24,379 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:20:24,381 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:20:24,381 - DEBUG - [34m SettingsDatabase get_libreoffice_path():
+result = {'value_setting': 'C:\\Program Files\\LibreOffice\\program\\soffice.exe'}[00m
+2024-08-30 08:20:24,382 - DEBUG - [34m StatusBar update_status_libreoffice_label(status_libreoffice):
+status_libreoffice = False[00m
+2024-08-30 08:20:24,383 - DEBUG - [34m StatusBar set_message(message):
+message = Настройка конвертера: сохранение прошло успешно![00m
+2024-08-30 08:20:24,384 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-08-30 08:20:24,384 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 08:20:24,385 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-08-30 08:20:24,386 - DEBUG - [34m SettingsDatabase get_app_converter():
+result = {'value_setting': 'MSWORD'}[00m
+2024-08-30 08:20:24,388 - DEBUG - [34m StatusBar update_name_app_converter()[00m
+2024-08-30 08:20:24,391 - DEBUG - [34m OfficePackets update_status_msword(status):
+status = None[00m
+2024-08-30 08:20:24,392 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = None[00m
+2024-08-30 08:20:25,014 - DEBUG - [34m ConverterSettingsDialogWindow close_window()[00m
+2024-08-30 08:20:28,913 - DEBUG - [34m OfficePackets update_status_msword(status):
+status = True[00m
+2024-08-30 08:20:28,915 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = True[00m

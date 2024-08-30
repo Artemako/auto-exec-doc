@@ -12,12 +12,13 @@ import package.components.widgets.forms.formlongtext as formlongtext
 from PySide6.QtWidgets import QLabel, QVBoxLayout, QPushButton, QSpacerItem, QSizePolicy, QMenu
 from PySide6.QtGui import QAction, Qt
 
-
 class SAInputForms:
 
     def __init__(self):
         self.__scrollarea_input = None
         self.__scrollarea_input_layout = None
+        #
+        self.__sections = []
     
     def setting_all_osbm(self, osbm):
         self.__osbm = osbm
@@ -31,6 +32,7 @@ class SAInputForms:
         self.__scrollarea_input = sa_if
         self.__scrollarea_input_layout = sa_ifl
         self.__icons = self.__osbm.obj_icons.get_icons()
+        #
 
     def delete_all_widgets_in_sa(self):
         """
@@ -126,6 +128,7 @@ class SAInputForms:
         self.__osbm.obj_logg.debug_logger("SAInputForms add_sections_in_sa()")
 
         sections_info = self.__osbm.obj_seci.get_sections_info()
+        self.__sections = []
         # перебор секций
         for section_info in sections_info:
             try:
@@ -142,6 +145,7 @@ class SAInputForms:
                     print(f"КОКОКО {pair}")
                     self.add_form_in_section(pair, type_section, section_layout)
                 # Добавление виджета в секцию
+                self.__sections.append(section)
                 section.setContentLayout(section_layout)
                 self.__scrollarea_input_layout.layout().insertWidget(0, section)
             except Exception as e:
@@ -163,7 +167,6 @@ class SAInputForms:
             self.__osbm.obj_seci.update_sections_info(page)
             # Добавление новых секций в self
             self.add_sections_in_sa()
-
 
 
 
