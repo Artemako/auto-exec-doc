@@ -196,6 +196,7 @@ class NedPageDialogWindow(QDialog):
     def reconfig_tw_variables(self):
         self.__osbm.obj_logg.debug_logger("NedPageDialogWindow reconfig_tw_variables()")
         tablewidget = self.ui.tw_variables
+        scroll_value = tablewidget.verticalScrollBar().value()
         tablewidget.blockSignals(True)
         tablewidget.clearContents()
         tablewidget.setRowCount(0)
@@ -204,6 +205,7 @@ class NedPageDialogWindow(QDialog):
             jinja_variables = self.extract_jinja_variables(self.__temp_copy_file_path)
             if jinja_variables:
                 self.fill_tw_variables(jinja_variables)
+        tablewidget.verticalScrollBar().setValue(scroll_value)
         tablewidget.blockSignals(False)
 
     def clear_tw_variables(self):
