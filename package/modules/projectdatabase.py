@@ -531,6 +531,7 @@ COMMIT;
             """
         SELECT * FROM Project_pages_data
         WHERE id_page = ?
+        ORDER BY (SELECT order_variable FROM Project_variables WHERE id_variable = Project_pages_data.id_variable)
         """,
             [page.get("id_page")],
         )
@@ -569,6 +570,7 @@ COMMIT;
             """
         SELECT * FROM Project_templates_data
         WHERE id_template = ?
+        ORDER BY (SELECT order_variable FROM Project_variables WHERE id_variable = Project_templates_data.id_variable)
         """,
             [template.get("id_template")],
         )
@@ -590,6 +592,7 @@ COMMIT;
             """
         SELECT * FROM Project_nodes_data
         WHERE id_node = ?
+        ORDER BY (SELECT order_variable FROM Project_variables WHERE id_variable = Project_nodes_data.id_variable)
         """,
             [node.get("id_node")],
         )

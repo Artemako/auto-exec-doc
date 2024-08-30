@@ -38,9 +38,12 @@ class NedTableVariable(QWidget):
             if self.__config_variable:
                 self.__config_dict = json.loads(self.__config_variable)
         #
-        self.config_combox_typetable()
-        self.config_lw_attrs()
-        self.config_by_type_window()
+        self.ui.label_rowcol.setText("Столбцы")
+        self.ui.btn_addrowcol.setText("Добавить столбец")
+        #
+        # self.config_combox_typetable()
+        self.config_lw_attrs()        
+        # self.config_by_type_window()
         #
         self.connecting_actions()
 
@@ -53,18 +56,18 @@ class NedTableVariable(QWidget):
 
     def connecting_actions(self):
         self.__osbm.obj_logg.debug_logger("NedTableVariable connecting_actions()")
-        self.ui.combox_typetable.currentIndexChanged.connect(self.typetable_changed)
+        # self.ui.combox_typetable.currentIndexChanged.connect(self.typetable_changed)
         self.ui.btn_addrowcol.clicked.connect(self.add_item)
 
-    def config_combox_typetable(self):
-        self.__osbm.obj_logg.debug_logger("NedTableVariable config_combox_typetable()")
-        combobox = self.ui.combox_typetable
-        combobox.blockSignals(True)
-        combobox.clear()
-        self.__table_types = self.__osbm.obj_comwith.table_types.get_table_types()
-        for table_type in self.__table_types:
-            combobox.addItem(table_type.icon, table_type.name, table_type.data)
-        combobox.blockSignals(False)
+    # def config_combox_typetable(self):
+    #     self.__osbm.obj_logg.debug_logger("NedTableVariable config_combox_typetable()")
+    #     combobox = self.ui.combox_typetable
+    #     combobox.blockSignals(True)
+    #     combobox.clear()
+    #     self.__table_types = self.__osbm.obj_comwith.table_types.get_table_types()
+    #     for table_type in self.__table_types:
+    #         combobox.addItem(table_type.icon, table_type.name, table_type.data)
+    #     combobox.blockSignals(False)
 
     def config_lw_attrs(self, open_rowcol = None):
         self.__osbm.obj_logg.debug_logger("NedTableVariable config_lw_attrs()")
@@ -144,7 +147,8 @@ class NedTableVariable(QWidget):
             f"NedTableVariable edit_item(data):\ndata = {data}"
         )
         self.__osbm.obj_logg.debug_logger("NedTableVariable add_item()")
-        type_rowcol = self.ui.combox_typetable.currentData()
+        # type_rowcol = self.ui.combox_typetable.currentData()
+        type_rowcol = "COL"
         rowcols = self.get_sorted_rowcols()
         result = self.nedrowcoldw("edit", type_rowcol, rowcols, data)
         if result:
@@ -170,7 +174,8 @@ class NedTableVariable(QWidget):
 
     def add_item(self):
         self.__osbm.obj_logg.debug_logger("NedTableVariable add_item()")
-        type_rowcol = self.ui.combox_typetable.currentData()
+        # type_rowcol = self.ui.combox_typetable.currentData()
+        type_rowcol = "COL"
         rowcols = self.get_sorted_rowcols()
         result = self.nedrowcoldw("create", type_rowcol, rowcols, None)
         if result:
@@ -201,37 +206,38 @@ class NedTableVariable(QWidget):
         result = self.__osbm.obj_nedrowcoldw.exec()
         return result == QDialog.Accepted
 
-    def config_by_type_window(self):
-        self.__osbm.obj_logg.debug_logger("NedTableVariable config_by_type_window()")
-        index = 0
-        if self.__type_window == "edit":
-            typetable = self.__config_dict.get("TYPETABLE")
-            index = self.__osbm.obj_comwith.table_types.get_index_by_data(typetable)
-        self.typetable_changed(index)
+    # def config_by_type_window(self):
+    #     self.__osbm.obj_logg.debug_logger("NedTableVariable config_by_type_window()")
+    #     index = 0
+    #     if self.__type_window == "edit":
+    #         typetable = self.__config_dict.get("TYPETABLE")
+    #         index = self.__osbm.obj_comwith.table_types.get_index_by_data(typetable)
+    #     self.typetable_changed(index)
 
-    def typetable_changed(self, index):
-        self.__osbm.obj_logg.debug_logger(
-            f"NedTableVariable typetable_changed(index):\nindex = {index}"
-        )
-        #
-        is_view_rowcols = self.__osbm.obj_comwith.table_types.get_is_edit_rowcols_by_index(
-            index
-        )
-        self.ui.label_rowcol.setEnabled(is_view_rowcols)
-        self.ui.lw_attrs.setEnabled(is_view_rowcols)
-        self.ui.btn_addrowcol.setEnabled(is_view_rowcols)
-        #
-        if is_view_rowcols:
-            text_btns = self.__osbm.obj_comwith.table_types.get_text_btns_by_index(index)
-            if text_btns:
-                self.ui.label_rowcol.setText(text_btns[0])
-                self.ui.btn_addrowcol.setText(text_btns[1])
-            self.ui.combox_typetable.setCurrentIndex(index)
+    # def typetable_changed(self, index):
+    #     self.__osbm.obj_logg.debug_logger(
+    #         f"NedTableVariable typetable_changed(index):\nindex = {index}"
+    #     )
+    #     #
+    #     is_view_rowcols = self.__osbm.obj_comwith.table_types.get_is_edit_rowcols_by_index(
+    #         index
+    #     )
+    #     self.ui.label_rowcol.setEnabled(is_view_rowcols)
+    #     self.ui.lw_attrs.setEnabled(is_view_rowcols)
+    #     self.ui.btn_addrowcol.setEnabled(is_view_rowcols)
+    #     #
+    #     if is_view_rowcols:
+    #         text_btns = self.__osbm.obj_comwith.table_types.get_text_btns_by_index(index)
+    #         if text_btns:
+    #             self.ui.label_rowcol.setText(text_btns[0])
+    #             self.ui.btn_addrowcol.setText(text_btns[1])
+    #         self.ui.combox_typetable.setCurrentIndex(index)
 
     def save_data(self):
 
         self.__osbm.obj_logg.debug_logger("NedTableVariable save_data()")
-        typetable = self.ui.combox_typetable.currentData()
+        # typetable = self.ui.combox_typetable.currentData()
+        typetable = "COL"
         rowcols = self.get_sorted_rowcols()
         self.__data = {
             "TYPETABLE": typetable,

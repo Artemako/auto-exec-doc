@@ -696,8 +696,8 @@ class VariablesListDialogWindow(QDialog):
                 "description_variable": description_variable,
             }
             # сортировочный процесс
-            self.__all_variables.remove(item)
             self.__all_variables.insert(order_variable, edit_variable)
+            self.__all_variables.remove(item)
             # замена информации
             self.__osbm.obj_prodb.update_variable(edit_variable)
             # Меняем порядок в БД - кому нужно

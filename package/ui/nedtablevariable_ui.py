@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QLabel,
-    QListWidget, QListWidgetItem, QPushButton, QSizePolicy,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QListWidget,
+    QListWidgetItem, QPushButton, QSizePolicy, QVBoxLayout,
+    QWidget)
 
 class Ui_NedTableVariable(object):
     def setupUi(self, NedTableVariable):
@@ -27,16 +27,6 @@ class Ui_NedTableVariable(object):
         self.verticalLayout = QVBoxLayout(NedTableVariable)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.label_typetable = QLabel(NedTableVariable)
-        self.label_typetable.setObjectName(u"label_typetable")
-
-        self.verticalLayout.addWidget(self.label_typetable)
-
-        self.combox_typetable = QComboBox(NedTableVariable)
-        self.combox_typetable.setObjectName(u"combox_typetable")
-
-        self.verticalLayout.addWidget(self.combox_typetable)
-
         self.label_rowcol = QLabel(NedTableVariable)
         self.label_rowcol.setObjectName(u"label_rowcol")
         self.label_rowcol.setMinimumSize(QSize(0, 0))
@@ -72,7 +62,6 @@ class Ui_NedTableVariable(object):
 
     def retranslateUi(self, NedTableVariable):
         NedTableVariable.setWindowTitle(QCoreApplication.translate("NedTableVariable", u"Form", None))
-        self.label_typetable.setText(QCoreApplication.translate("NedTableVariable", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0422\u0438\u043f \u0442\u0430\u0431\u043b\u0438\u0446\u044b</span></p></body></html>", None))
         self.label_rowcol.setText(QCoreApplication.translate("NedTableVariable", u"<html><head/><body><p>\u0421\u0442\u0440\u043e\u043a\u0438/\u0441\u0442\u043e\u043b\u0431\u0446\u044b</p></body></html>", None))
         self.btn_addrowcol.setText(QCoreApplication.translate("NedTableVariable", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0441\u0442\u0440\u043e\u043a\u0443/\u0441\u0442\u043e\u043b\u0431\u0435\u0446", None))
     # retranslateUi

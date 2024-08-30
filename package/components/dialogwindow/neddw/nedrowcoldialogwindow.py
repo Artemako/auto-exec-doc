@@ -109,7 +109,7 @@ class NedRowcolDialogWindow(QDialog):
         self.ui.btn_nesvariable.setShortcut("Ctrl+S")
 
     def get_is_valid_jinja_attr(self, name_attr):
-        pattern = r'^[А-яЁёA-z0-9_-]+$'
+        pattern = r'^[А-яЁёA-z0-9_]+$'
         result = bool(re.match(pattern, name_attr))
         self.__osbm.obj_logg.debug_logger(
             f"NedRowcolDialogWindow get_is_valid_jinja_attr(name_variable):\n name_attr = {name_attr} \n result = {result}"

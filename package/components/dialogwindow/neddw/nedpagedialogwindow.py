@@ -52,13 +52,16 @@ class NedPageDialogWindow(QDialog):
             "included": 1,
         }
         self.__variables_for_add = []
-        self.__is_edit = self.__type_ned == "edit"
+        if self.__type_ned == "edit":
+            self.__is_edit = True
+        elif self.__type_ned == "create":
+            self.__is_edit = False
         self.__typefile_page = None
         # одноразовые действия
         self.config_by_type_window()
-        self.reconfig_is_edit()
         self.config_combox_neighboor()
         self.config_combox_pages()
+        self.reconfig_is_edit()
         self.connecting_actions()
 
     def keyPressEvent(self, event):
@@ -97,10 +100,11 @@ class NedPageDialogWindow(QDialog):
 
     def reconfig_is_edit(self):
         self.__osbm.obj_logg.debug_logger("NedPageDialogWindow reconfig_is_edit()")
+        print(f"self.__is_edit = {self.__is_edit}")
         if not self.__is_edit:
             self.ui.btn_select.setText("Выбрать файл")
-            self.ui.btn_open_docx.setEnabled(False)
             self.ui.label_file.setText("Файл не выбран")
+            self.ui.btn_open_docx.setEnabled(False)
         elif self.__is_edit:
             self.ui.btn_select.setText("Выбрать новый файл")
             self.ui.label_file.setText("Файл выбран")
@@ -139,7 +143,10 @@ class NedPageDialogWindow(QDialog):
         if index == 0:
             self.ui.label_document.setEnabled(True)
             self.ui.btn_select.setEnabled(True)
-            self.ui.btn_open_docx.setEnabled(True)
+            if self.__is_edit:
+                self.ui.btn_open_docx.setEnabled(True)
+            else:
+                self.ui.btn_open_docx.setEnabled(False)
             self.ui.label_file.setEnabled(True)
             self.ui.label_variables.setEnabled(True)
             self.ui.tw_variables.setEnabled(True)

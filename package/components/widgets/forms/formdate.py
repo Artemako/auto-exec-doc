@@ -66,6 +66,7 @@ class FormDate(QWidget):
         else:
             # формат ISO
             self.ui.dateedit.setDate(QDate.currentDate())
+            self.set_new_value_in_pair()
 
         self.ui.dateedit.setDisplayFormat(self.__str_format)
 
