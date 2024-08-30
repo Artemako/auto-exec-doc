@@ -127,7 +127,7 @@ class MainWindow(QMainWindow):
         #
         menu.exec(current_widget.mapToGlobal(pos))
 
-    def edit_menu_item(self, type_edit, type_item):
+    def edit_menu_item(self, type_edit, type_item, edit_variable = None, type_section = None):
         item_node = self.ui.treewidget_structure_execdoc.currentItem()
         open_node = item_node.data(0, Qt.UserRole) if item_node else None
         #
@@ -148,6 +148,17 @@ class MainWindow(QMainWindow):
                 self.edit_variables(open_node, open_template)
             elif type_item == "PAGE":
                 self.edit_variables(open_node, open_template, open_page)
+            elif type_item == "EDIT":
+                # для SAInputForms
+                if type_section == "project":
+                    self.edit_variables(None, None, None, edit_variable)
+                elif type_section == "group":
+                    self.edit_variables(open_node, None, None, edit_variable)
+                elif type_section == "template":
+                    self.edit_variables(open_node, open_template, None, edit_variable)
+                elif type_section == "page":
+                    self.edit_variables(open_node, open_template, open_page, edit_variable)
+
         elif type_edit == "TEMPLATE":
             if type_item == "NODE":
                 self.edit_templates(open_node)
@@ -240,12 +251,12 @@ class MainWindow(QMainWindow):
         self.ui.action_edit_templates.setEnabled(True)
         self.ui.action_clear_trash.setEnabled(True)
 
-    def edit_variables(self, open_node=None, open_template=None, open_page=None):
+    def edit_variables(self, open_node=None, open_template=None, open_page=None, current_variable = None):
         """Редактирование переменных."""
         self.__osbm.obj_logg.debug_logger("MainWindow edit_variables()")
         self.__osbm.obj_variablesldw = (
             variableslistdialogwindow.VariablesListDialogWindow(
-                self.__osbm, open_node, open_template, open_page
+                self.__osbm, open_node, open_template, open_page, current_variable
             )
         )
         self.__osbm.obj_variablesldw.exec()

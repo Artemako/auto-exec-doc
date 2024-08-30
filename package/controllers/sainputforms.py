@@ -9,7 +9,8 @@ import package.components.widgets.forms.formtable as formtable
 import package.components.widgets.forms.formtext as formtext
 import package.components.widgets.forms.formlongtext as formlongtext
 
-from PySide6.QtWidgets import QLabel, QVBoxLayout, QPushButton, QSpacerItem, QSizePolicy
+from PySide6.QtWidgets import QLabel, QVBoxLayout, QPushButton, QSpacerItem, QSizePolicy, QMenu
+from PySide6.QtGui import QAction, Qt
 
 
 class SAInputForms:
@@ -29,6 +30,7 @@ class SAInputForms:
         self.__osbm.obj_logg.debug_logger(f"SAInputForms connect_inputforms(sa_if, sa_ifl):\nsa_if = {sa_if},\nsa_ifl = {sa_ifl}")
         self.__scrollarea_input = sa_if
         self.__scrollarea_input_layout = sa_ifl
+        self.__icons = self.__osbm.obj_icons.get_icons()
 
     def delete_all_widgets_in_sa(self):
         """
@@ -66,7 +68,7 @@ class SAInputForms:
             section_name = project.get("name_node")
         return section_name
 
-    def add_form_in_section(self, pair, section_layout):
+    def add_form_in_section(self, pair, type_section, section_layout):
         """
         Добавление формы в секцию в зависимости от типа контента.
         НЕ ВКЛЮЧЕН В logger!!!
@@ -81,26 +83,43 @@ class SAInputForms:
         config_dict = dict()        
         if config_variable:
             config_dict = json.loads(config_variable)
+        #
+        item = None
         if type_variable == "TEXT":
             item = formtext.FormText(self.__osbm, pair, current_variable)
-            section_layout.addWidget(item)
-
         elif type_variable == "LONGTEXT":
             item = formlongtext.FormLongTextWidget(self.__osbm, pair, current_variable)
-            section_layout.addWidget(item)
-
         elif type_variable == "DATE":
             item = formdate.FormDate(self.__osbm, pair, current_variable, config_dict)
-            section_layout.addWidget(item)
-
         elif type_variable == "IMAGE":
             item = formimage.FormImage(self.__osbm, pair, current_variable, config_dict)
-            section_layout.addWidget(item)
-
         elif type_variable == "TABLE":
             item = formtable.FormTable(self.__osbm, pair, current_variable, config_dict)
+        #
+        if item:
+            # окно по правой кнопки мыши (ui.treewidget_structure_execdoc)
+            item.setContextMenuPolicy(Qt.CustomContextMenu)
+            item.customContextMenuRequested.connect(
+                lambda pos: self.context_menu(pos, item, current_variable, type_section)
+            )
             section_layout.addWidget(item)
 
+    def context_menu(self, pos, item, current_variable, type_section, *args):
+        """
+        Меню по правой кнопки мыши (ui.treewidget_structure_execdoc)
+        """
+        menu = QMenu(item)
+        # action_edit_variables для всех
+        action_edit_variables = QAction(
+            "Изменить в редакторе переменных", item
+        )
+        action_edit_variables.setIcon(self.__icons.get("edit_variables"))
+        action_edit_variables.triggered.connect(
+            lambda: self.__osbm.obj_mw.edit_menu_item("VARIABLE", "EDIT", current_variable, type_section)
+        )
+        menu.addAction(action_edit_variables)
+        #
+        menu.exec(item.mapToGlobal(pos))
 
     def add_sections_in_sa(self):
         """ """
@@ -116,10 +135,12 @@ class SAInputForms:
                 section_layout = QVBoxLayout()
                 section_layout.setSpacing(9)
                 # data секции
-                section_data = section_info.get("data")
+                data_section = section_info.get("data")
+                type_section = section_info.get("type")
                 # перебор пар в section_data секции
-                for pair in section_data:
-                    self.add_form_in_section(pair, section_layout)
+                for pair in data_section:
+                    print(f"КОКОКО {pair}")
+                    self.add_form_in_section(pair, type_section, section_layout)
                 # Добавление виджета в секцию
                 section.setContentLayout(section_layout)
                 self.__scrollarea_input_layout.layout().insertWidget(0, section)

@@ -30,7 +30,7 @@ class NumericItem(QTableWidgetItem):
 
 
 class VariablesListDialogWindow(QDialog):
-    def __init__(self, osbm, open_node, open_template, open_page):
+    def __init__(self, osbm, open_node, open_template, open_page, edit_variable = None):
         self.__osbm = osbm
         self.__osbm.obj_logg.debug_logger(
             f"VariablesListDialogWindow __init__(osbm, open_node, open_template, open_page): \nopen_node = {open_node}\nopen_template = {open_template}\nopen_page = {open_page}"
@@ -54,6 +54,8 @@ class VariablesListDialogWindow(QDialog):
         self.connecting_actions()
         # отобразить (в нём caf - reconfig)
         self.show_config(open_node, open_template, open_page)
+        #
+        self.open_edit_variable(edit_variable)
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
@@ -193,6 +195,14 @@ class VariablesListDialogWindow(QDialog):
 
         else:
             self.show_tab_project()
+
+    def open_edit_variable(self, edit_variable):
+        self.__osbm.obj_logg.debug_logger(
+            f"VariablesListDialogWindow open_edit_variable(edit_variable):\nedit_variable = {edit_variable}"
+        )
+        if edit_variable:
+            self.edit_variable(edit_variable)
+            
 
     def show_tab_project(self):
         self.__osbm.obj_logg.debug_logger(
@@ -610,7 +620,7 @@ class VariablesListDialogWindow(QDialog):
         table_widget.setCellWidget(row, 6, widget)
 
         # обработчики
-        edit_button.clicked.connect(partial(self.edit_variable, btn=edit_button))
+        edit_button.clicked.connect(partial(self.edit_variable, item=edit_button.custom_data))
         delete_button.clicked.connect(
             partial(self.delete_variable, btn=delete_button, type_table=type_table)
         )
@@ -651,11 +661,11 @@ class VariablesListDialogWindow(QDialog):
             type_table = self.get_typetable()
             self.caf_two_tables(type_table, create_variable)
 
-    def edit_variable(self, btn):
+    def edit_variable(self, item):
         self.__osbm.obj_logg.debug_logger(
-            f"VariablesListDialogWindow edit_variable(btn):\nbtn = {btn}"
+            f"VariablesListDialogWindow edit_variable(btn):\n item = {item}"
         )
-        item = btn.custom_data
+        # item = btn.custom_data
         result = self.ned_variable_dw("edit", item)
         if result:
             # получить data
