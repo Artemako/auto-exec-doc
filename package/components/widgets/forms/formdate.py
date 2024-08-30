@@ -28,17 +28,21 @@ class FormDate(QWidget):
         #
         self.config()
 
-
     def config(self):
         self.__osbm.obj_logg.debug_logger("FormDate config()")
         # ПО УМОЛЧАНИЮ из current_variable
         # тип переменной
-        key_icon = self.__osbm.obj_icons.get_key_icon_by_type_variable(self.__current_variable.get("type_variable"))
-        qicon_type_variable = self.__icons.get(key_icon)
+        qicon_type_variable = (
+            self.__osbm.obj_comwith.variable_types.get_icon_by_type_variable(
+                self.__current_variable.get("type_variable")
+            )
+        )
         self.ui.label_typevariable.setPixmap(qicon_type_variable)
         # заголовок + перменная
-        self.ui.title.setText(self.__current_variable.get('title_variable'))
-        self.ui.label_variable.setText(f"<i>{self.__current_variable.get('name_variable')}</i>")
+        self.ui.title.setText(self.__current_variable.get("title_variable"))
+        self.ui.label_variable.setText(
+            f"<i>{self.__current_variable.get('name_variable')}</i>"
+        )
 
         # описание
         description_variable = self.__current_variable.get("description_variable")
@@ -70,10 +74,7 @@ class FormDate(QWidget):
 
         self.ui.dateedit.setDisplayFormat(self.__str_format)
 
-        self.ui.dateedit.editingFinished.connect(
-            self.set_new_value_in_pair
-        )
-
+        self.ui.dateedit.editingFinished.connect(self.set_new_value_in_pair)
 
     # def qdate_to_string(self, date, str_format) -> str:
     #     self.__osbm.obj_logg.debug_logger(
@@ -82,9 +83,7 @@ class FormDate(QWidget):
     #     return str(date.toString(str_format))
 
     def set_new_value_in_pair(self):
-        self.__osbm.obj_logg.debug_logger(
-            "FormDate set_new_value_in_pair(self)"
-        )
+        self.__osbm.obj_logg.debug_logger("FormDate set_new_value_in_pair(self)")
         # self.__pair["value_pair"] = new_value
         current_date = self.ui.dateedit.date()
         iso_date = current_date.toString("yyyy-MM-dd")

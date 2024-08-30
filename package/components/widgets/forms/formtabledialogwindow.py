@@ -74,7 +74,7 @@ class FormTableDialogWindow(QDialog):
         ids_rowcols = []
         self.__rowcols = sorted(self.__rowcols, key=lambda x: x.get("ORDER"))
         for rowcol in self.__rowcols:
-            headers.append(rowcol.get("TITLE"))
+            headers.append(f'{rowcol.get("TITLE")} ({rowcol.get("ATTR")})')
             ids_rowcols.append(rowcol.get("ID"))
         #
         table_data, len_data = self.get_table_data_from_value_pair(ids_rowcols)

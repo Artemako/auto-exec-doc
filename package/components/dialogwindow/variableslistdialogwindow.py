@@ -539,11 +539,10 @@ class VariablesListDialogWindow(QDialog):
             qtwt_title_variable = QTableWidgetItem(title_variable)
             qtwt_type_variable = QTableWidgetItem(type_variable)
             # Иконка и текст в зависимости от типа переменной
-            key_icon = self.__osbm.obj_icons.get_key_icon_by_type_variable(
+            qicon = self.__osbm.obj_comwith.variable_types.get_icon_by_type_variable(
                 type_variable
             )
-            qicon_type_variable = self.__icons.get(key_icon)
-            qtwt_type_variable.setIcon(qicon_type_variable)
+            qtwt_type_variable.setIcon(qicon)
             qtwt_type_variable.setText(type_variable)
             # Добавляем виджеты в ячейки таблицы
             table_widget.setItem(row, 0, qtwt_order_variable)

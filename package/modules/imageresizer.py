@@ -34,6 +34,7 @@ class ImageResizer:
         if hasattr(image, "_getexif"):
             exif = image._getexif()
             if exif is not None:
+                orientation = None
                 for tag, value in exif.items():
                     if ExifTags.TAGS.get(tag) == "Orientation":
                         orientation = value

@@ -7,23 +7,11 @@ import resources_rc
 class Icons:
     def __init__(self):
         self.__icons_cache = dict()
-        self.__type_variable_to_key_icon = {
-            "TEXT": "text",
-            "LONGTEXT": "longtext",
-            "DATE": "date",
-            "TABLE": "table",
-            "IMAGE": "image"
-        }
 
     def setting_all_osbm(self, osbm):
         self.__osbm = osbm
         self.__osbm.obj_logg.debug_logger(f"Icons setting_osbm():\nself.__osbm = {self.__osbm}")
 
-    def get_key_icon_by_type_variable(self, type_variable):
-        """
-        БЕЗ logger
-        """
-        return self.__type_variable_to_key_icon.get(type_variable)
         
     def get_icons(self, size = 16) -> dict:
         self.__osbm.obj_logg.debug_logger(f"Icons get_icons(size):\nsize = {size}")

@@ -375,7 +375,7 @@ class ConverterPool:
                     self.check_type_variable_and_fill_data_variable(
                         local_osbm, pair, data_variable, docx_template, is_rerender
                     )
-            # print(f"data variable = {data_variable}")
+            print(f"data variable = {data_variable}")
             # первый render
             docx_template.render(data_variable)
             # узнаем новый список переменных

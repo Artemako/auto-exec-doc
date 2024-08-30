@@ -29,10 +29,9 @@ class FormImage(QWidget):
     def config(self):
         self.__osbm.obj_logg.debug_logger("FormImage config()")
         # тип переменной
-        key_icon = self.__osbm.obj_icons.get_key_icon_by_type_variable(
+        qicon_type_variable = self.__osbm.obj_comwith.variable_types.get_icon_by_type_variable(
             self.__current_variable.get("type_variable")
         )
-        qicon_type_variable = self.__icons.get(key_icon)
         self.ui.label_typevariable.setPixmap(qicon_type_variable)
         # заголовок + перменная
         self.ui.title.setText(self.__current_variable.get('title_variable'))

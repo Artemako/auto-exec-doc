@@ -20,9 +20,18 @@ class VariableTypes:
                 1, "Длинный текст", "LONGTEXT", self.__icons.get("longtext"), False
             ),
             VariableType(2, "Дата", "DATE", self.__icons.get("date"), False),
-            VariableType(3, "Таблица", "TABLE", self.__icons.get("table"), True),
+            VariableType(3, "Таблица", "TABLE", self.__icons.get("table-columns"), True),
             VariableType(4, "Изображение", "IMAGE", self.__icons.get("image"), False),
         ]
+    
+    def get_icon_by_type_variable(self, type_variable):
+        result = None
+        for variable in self.__variable_types:
+            if variable.data == type_variable:
+                result = variable.icon
+                break
+        self.__osbm.obj_logg.debug_logger(f"VariableTypes get_icon_by_type_variable(type_variable):\ntype_variable = {type_variable}\n result = {result}")
+        return result
 
     def get_variable_types(self):
         self.__osbm.obj_logg.debug_logger("VariableTypes get_variable_types()")
