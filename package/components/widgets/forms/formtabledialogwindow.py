@@ -32,13 +32,13 @@ class FormTableDialogWindow(QDialog):
         self.__rowcols = []
         #
         self.__data = []
+        self.__clipboard = None
         #
         self.config()
         self.config_tw()
         self.config_context_menu()
         #
         self.connecting_actions()
-
 
     def get_data(self):
         self.__osbm.obj_logg.debug_logger(
@@ -77,13 +77,10 @@ class FormTableDialogWindow(QDialog):
             headers.append(rowcol.get("TITLE"))
             ids_rowcols.append(rowcol.get("ID"))
         #
-        table_data, len_data = self.get_table_data_from_value_pair(ids_rowcols) 
+        table_data, len_data = self.get_table_data_from_value_pair(ids_rowcols)
         self.fill_tw_table(table_data, headers, len_data)
 
-        
-
     def config_context_menu(self):
-        
         self.__osbm.obj_logg.debug_logger("FormTableDialogWindow config_context_menu()")
         # контекстное меню
         self.context_menu = QMenu(self)
@@ -154,6 +151,7 @@ class FormTableDialogWindow(QDialog):
     #     if item:
     #         print(f"Cell ({row}, {column}) changed to {item.text()}")
 
+
     def copy_values_to_clipboard(self):
         """
         Копирование значения в буфер обмена
@@ -162,26 +160,22 @@ class FormTableDialogWindow(QDialog):
             "FormTableDialogWindow copy_values_to_clipboard()"
         )
         selected_items = self.ui.table.selectedItems()
-        # values = []
-        # for item in selected_items:
-        #     values.append('\t'.join(item.text()))
-        # text = '\n'.join(values)
-        text = str()
-        selected_items = self.ui.table.selectedItems()
-        col = -1
+        values_array = {}
+
+        # Формируем словарь значений для хранения строк и их значений
         for item in selected_items:
-            new_col = item.column()
-            if new_col > col:
-                col = new_col
-                text += item.text() + "\t"
-            else:
-                col = new_col
-                text += "\n" + item.text() + "\t"
-        if text[-1] == "\t":
-            text = text[:-1]
-        clipboard = QApplication.clipboard()
-        clipboard.clear()
-        clipboard.setText(text)
+            row = item.row()
+            col = item.column()
+            if row not in values_array:
+                values_array[row] = {}
+            values_array[row][col] = item.text()
+
+        # Преобразуем словарь в JSON
+        text = json.dumps(values_array)
+
+        self.__clipboard = QApplication.clipboard()
+        self.__clipboard.clear()
+        self.__clipboard.setText(text)
         print(f"text = {text}")
 
     def paste_values_from_clipboard(self):
@@ -191,25 +185,32 @@ class FormTableDialogWindow(QDialog):
         self.__osbm.obj_logg.debug_logger(
             "FormTableDialogWindow paste_values_from_clipboard()"
         )
-        clipboard = QApplication.clipboard()
-        text = clipboard.text()
-        rows = text.split("\n")
+        if self.__clipboard:
+            text = self.__clipboard.text()
+        else:
+            return
+
+        # Декодируем JSON
+        values_dict = json.loads(text) if text else {}
         selected_items = self.ui.table.selectedItems()
         start_row = selected_items[0].row() if selected_items else 0
         start_col = selected_items[0].column() if selected_items else 0
-        # print(f"rows = {rows}")
-        for i, row in enumerate(rows):
-            columns = row.split("\t")
-            # print(f"columns = {columns}")
-            if start_row + i < self.ui.table.rowCount():
-                for j, value in enumerate(columns):
-                    if start_col + j < self.ui.table.columnCount():
-                        item = self.ui.table.item(start_row + i, start_col + j)
+
+        for row, columns in values_dict.items():
+            row_index = int(row)  # Преобразуем строку в целое число
+            if start_row + row_index < self.ui.table.rowCount():
+                for col, value in columns.items():
+                    col_index = int(col)  # Преобразуем строку в целое число
+                    if start_col + col_index < self.ui.table.columnCount():
+                        item = self.ui.table.item(start_row + row_index, start_col + col_index)
                         if item:
                             item.setText(value)
 
+
     def get_table_data_from_value_pair(self, ids_rowcols):
-        self.__osbm.obj_logg.debug_logger(f"FormTableDialogWindow get_table_data_from_value_pair(ids_rowcols):\nids_rowcols = {ids_rowcols}")
+        self.__osbm.obj_logg.debug_logger(
+            f"FormTableDialogWindow get_table_data_from_value_pair(ids_rowcols):\nids_rowcols = {ids_rowcols}"
+        )
         json_data = self.__value_pair
         if json_data:
             data = json.loads(json_data)
@@ -218,7 +219,9 @@ class FormTableDialogWindow(QDialog):
             # словарь ключ-значение
             data_rowcol_by_id_rowcol = dict()
             for elem_data in data:
-                data_rowcol_by_id_rowcol[elem_data.get("id_rowcol")] = elem_data.get("data_rowcol")
+                data_rowcol_by_id_rowcol[elem_data.get("id_rowcol")] = elem_data.get(
+                    "data_rowcol"
+                )
             #
             len_data = 0
             for ids_rowcol in ids_rowcols:
@@ -229,9 +232,11 @@ class FormTableDialogWindow(QDialog):
         return ([[]], 0)
 
     def fill_tw_table(self, table_data, headers, len_data):
-        self.__osbm.obj_logg.debug_logger(f"FormTableDialogWindow fill_tw_table(table_data, headers, len_data):\n table_data = {table_data}\n headers = {headers}\n len_data = {len_data}")
+        self.__osbm.obj_logg.debug_logger(
+            f"FormTableDialogWindow fill_tw_table(table_data, headers, len_data):\n table_data = {table_data}\n headers = {headers}\n len_data = {len_data}"
+        )
         if self.__typetable == "COL":
-            # заголовки 
+            # заголовки
             self.ui.table.setRowCount(len_data)
             self.ui.table.setColumnCount(len(headers))
             self.ui.table.setHorizontalHeaderLabels(headers)
@@ -241,9 +246,9 @@ class FormTableDialogWindow(QDialog):
                 for row, value in enumerate(col_data):
                     item = QTableWidgetItem(value)
                     self.ui.table.setItem(row, col, item)
-            
+
         elif self.__typetable == "ROW":
-            # заголовки 
+            # заголовки
             self.ui.table.setRowCount(len(headers))
             self.ui.table.setColumnCount(len_data)
             self.ui.table.setVerticalHeaderLabels(headers)
@@ -253,11 +258,13 @@ class FormTableDialogWindow(QDialog):
                 for col, value in enumerate(row_data):
                     item = QTableWidgetItem(value)
                     self.ui.table.setItem(row, col, item)
-            
-            
+
     def get_data_from_table(self) -> list:
         self.__osbm.obj_logg.debug_logger("FormTableDialogWindow to_json() -> list:")
-        data = [{"id_rowcol": rowcol.get("ID"), "data_rowcol": []} for rowcol in self.__rowcols]
+        data = [
+            {"id_rowcol": rowcol.get("ID"), "data_rowcol": []}
+            for rowcol in self.__rowcols
+        ]
         for row in range(self.ui.table.rowCount()):
             for column in range(self.ui.table.columnCount()):
                 item = self.ui.table.item(row, column)
