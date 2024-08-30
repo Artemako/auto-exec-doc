@@ -30,8 +30,9 @@ class NumericItem(QTableWidgetItem):
 
 
 class VariablesListDialogWindow(QDialog):
-    def __init__(self, osbm, open_node, open_template, open_page, edit_variable = None):
+    def __init__(self, osbm, open_node, open_template, open_page, edit_variable=None):
         self.__osbm = osbm
+        self.__edit_variable = edit_variable
         self.__osbm.obj_logg.debug_logger(
             f"VariablesListDialogWindow __init__(osbm, open_node, open_template, open_page): \nopen_node = {open_node}\nopen_template = {open_template}\nopen_page = {open_page}"
         )
@@ -47,6 +48,7 @@ class VariablesListDialogWindow(QDialog):
         self.__all_variables = None
         self.__vertical_scroll_position_by_parameters = {}
         self.__qtimer = None
+        self.__edit_button = None
         # config
         self.config()
         self.config_tws()
@@ -54,9 +56,19 @@ class VariablesListDialogWindow(QDialog):
         self.connecting_actions()
         # отобразить (в нём caf - reconfig)
         self.show_config(open_node, open_template, open_page)
-        #
-        self.open_edit_variable(edit_variable)
 
+    def showEvent(self, event):
+        super().showEvent(event)
+        print("showEvent showEvent showEvent")
+        # Вызов функции edit_variable
+        print(f"self.__edit_variable = {self.__edit_variable} self.__edit_button = {self.__edit_button}")
+        if self.__edit_variable and self.__edit_button:
+            self.edit_variable(self.__edit_button)
+        self.__edit_variable = None
+        self.__edit_button = None
+
+        
+    
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
             # Игнорируем нажатие Enter
@@ -195,13 +207,6 @@ class VariablesListDialogWindow(QDialog):
 
         else:
             self.show_tab_project()
-
-    def open_edit_variable(self, edit_variable):
-        self.__osbm.obj_logg.debug_logger(
-            f"VariablesListDialogWindow open_edit_variable(edit_variable):\nedit_variable = {edit_variable}"
-        )
-        if edit_variable:
-            self.edit_variable(edit_variable)
             
 
     def show_tab_project(self):
@@ -620,10 +625,14 @@ class VariablesListDialogWindow(QDialog):
         table_widget.setCellWidget(row, 6, widget)
 
         # обработчики
-        edit_button.clicked.connect(partial(self.edit_variable, item=edit_button.custom_data))
+        edit_button.clicked.connect(partial(self.edit_variable, btn=edit_button))
         delete_button.clicked.connect(
             partial(self.delete_variable, btn=delete_button, type_table=type_table)
         )
+        # для edit_variable
+        if self.__edit_variable and id_variable == self.__edit_variable.get("id_variable"):
+            self.__edit_button = edit_button
+
 
     def create_variable(self):
         """
@@ -661,11 +670,11 @@ class VariablesListDialogWindow(QDialog):
             type_table = self.get_typetable()
             self.caf_two_tables(type_table, create_variable)
 
-    def edit_variable(self, item):
+    def edit_variable(self, btn):
         self.__osbm.obj_logg.debug_logger(
-            f"VariablesListDialogWindow edit_variable(btn):\n item = {item}"
+            f"VariablesListDialogWindow edit_variable(btn):\n btn = {btn}"
         )
-        # item = btn.custom_data
+        item = btn.custom_data
         result = self.ned_variable_dw("edit", item)
         if result:
             # получить data

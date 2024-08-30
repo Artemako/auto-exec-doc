@@ -133,7 +133,7 @@ class Ui_NedVariableDialogWindow(object):
     # setupUi
 
     def retranslateUi(self, NedVariableDialogWindow):
-        NedVariableDialogWindow.setWindowTitle(QCoreApplication.translate("NedVariableDialogWindow", u"\u0420\u0435\u0434\u043a\u0430\u0442\u043e\u0440 \u043f\u0435\u0440\u0435\u043c\u0435\u043d\u043d\u043e\u0439", None))
+        NedVariableDialogWindow.setWindowTitle(QCoreApplication.translate("NedVariableDialogWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u043e\u0440 \u043f\u0435\u0440\u0435\u043c\u0435\u043d\u043d\u043e\u0439", None))
         self.namevariable.setText(QCoreApplication.translate("NedVariableDialogWindow", u"<html><head/><body><p>\u041f\u0435\u0440\u0435\u043c\u0435\u043d\u043d\u0430\u044f</p></body></html>", None))
         self.lineedit_namevariable.setText("")
         self.titlevariable.setText(QCoreApplication.translate("NedVariableDialogWindow", u"<html><head/><body><p>\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u043f\u0435\u0440\u0435\u043c\u0435\u043d\u043d\u043e\u0439</p></body></html>", None))

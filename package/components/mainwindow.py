@@ -251,12 +251,12 @@ class MainWindow(QMainWindow):
         self.ui.action_edit_templates.setEnabled(True)
         self.ui.action_clear_trash.setEnabled(True)
 
-    def edit_variables(self, open_node=None, open_template=None, open_page=None, current_variable = None):
+    def edit_variables(self, open_node=None, open_template=None, open_page=None, edit_variable = None):
         """Редактирование переменных."""
         self.__osbm.obj_logg.debug_logger("MainWindow edit_variables()")
         self.__osbm.obj_variablesldw = (
             variableslistdialogwindow.VariablesListDialogWindow(
-                self.__osbm, open_node, open_template, open_page, current_variable
+                self.__osbm, open_node, open_template, open_page, edit_variable
             )
         )
         self.__osbm.obj_variablesldw.exec()
