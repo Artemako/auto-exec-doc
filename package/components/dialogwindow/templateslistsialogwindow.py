@@ -133,12 +133,12 @@ class TemplatesListDialogWindow(QDialog):
             templates = self.__osbm.obj_prodb.get_templates_by_form(form)
             self.__templates = templates
             self.__templates_items = []
-            
+
             #
             id_active_template = form.get("id_active_template")
             print(f"form = {form}")
             print(f"templates = {templates}")
-            
+
             for template in templates:
                 is_active = False
                 if template.get("id_template") == id_active_template:
@@ -179,7 +179,7 @@ class TemplatesListDialogWindow(QDialog):
     def config_pages(self, open_page=None):
         self.__osbm.obj_logg.debug_logger("TemplatesListDialogWindow config_pages()")
         #
-        list_widget = self.ui.lw_pages 
+        list_widget = self.ui.lw_pages
         list_widget.blockSignals(True)
         list_widget.clear()
         #
@@ -371,31 +371,66 @@ class TemplatesListDialogWindow(QDialog):
             name_page = data.get("name_page")
             typefile_page = data.get("typefile_page")
             order_page = data.get("order_page")
+            copy_page = data.get("copy_page")
             # "order_page": -111, ТАК ДОЛЖНО БЫТЬ!!!
-            new_page = {
-                "id_parent_template": id_parent_template,
-                "name_page": name_page,
-                "filename_page": filename_page,
-                "typefile_page": typefile_page,
-                "order_page": -111,
-                "included": 1,
-            }
+            # копировать?
+            if copy_page == "empty":
+                new_page = {
+                    "id_parent_template": id_parent_template,
+                    "name_page": name_page,
+                    "filename_page": filename_page,
+                    "typefile_page": typefile_page,
+                    "order_page": -111,
+                    "included": 1,
+                }
+            else:
+                # TODO sqlite3.IntegrityError: UNIQUE constraint failed: Project_pages.filename_page
+                # копирование
+                new_page_filename = self.__osbm.obj_film.copynew_page_for_new_template(
+                    copy_page.get("filename_page"), copy_page.get("typefile_page")
+                )
+                #
+                new_page = {
+                    "id_parent_template": copy_page.get("id_parent_template"),
+                    "name_page": name_page,
+                    "filename_page": new_page_filename,
+                    "typefile_page": copy_page.get("typefile_page"),
+                    "order_page": -111,
+                    "included": 1,
+                }
             # добавляем вершину
             primary_key = self.__osbm.obj_prodb.insert_page(new_page)
             # обновляем order
             page_for_order = self.__osbm.obj_prodb.get_page_by_id(primary_key)
             self.update_order_pages(page_for_order, order_page)
-            # перемещение из temp в forms
-            temp_copy_file_path = data.get("TEMP_COPY_FILE_PATH")
-            if typefile_page == "DOCX":
-                self.__osbm.obj_film.docx_from_temp_to_forms(
-                    temp_copy_file_path, filename_page
-                )
-            elif typefile_page == "PDF":
-                self.__osbm.obj_film.pdf_from_temp_to_pdfs(
-                    temp_copy_file_path, filename_page
-                )
+            # копирование
+            if copy_page == "empty":
+                # перемещение из temp в forms
+                temp_copy_file_path = data.get("TEMP_COPY_FILE_PATH")
+                if typefile_page == "DOCX":
+                    self.__osbm.obj_film.docx_from_temp_to_forms(
+                        temp_copy_file_path, filename_page
+                    )
+                elif typefile_page == "PDF":
+                    self.__osbm.obj_film.pdf_from_temp_to_pdfs(
+                        temp_copy_file_path, filename_page
+                    )
+            else:
+                self.copy_page(copy_page, new_page)
+            #
             self.reconfig("REPAGE")
+
+    def copy_page(self, copy_page, new_page):
+        self.__osbm.obj_logg.debug_logger(
+            f"TemplatesListDialogWindow copy_page(copy_page, new_page):\ncopy_page = {copy_page}\nnew_page = {new_page}"
+        )
+        pd_pairs = self.__osbm.obj_prodb.get_page_data(copy_page)
+        for pd_pair in pd_pairs:
+            pair = {
+                "id_variable": pd_pair.get("id_variable"),
+                "value_pair": pd_pair.get("value_pair"),
+            }
+            self.__osbm.obj_prodb.insert_page_data(new_page, pair)
 
     def edit_page(self, data):
         page = data
@@ -473,7 +508,7 @@ class TemplatesListDialogWindow(QDialog):
         # поэтапно
         self.copy_template_templates_data(old_template, new_template)
         old_to_new_pages = self.copy_template_pages(old_template, new_template)
-        self.copy_template_pages_data(old_to_new_pages)
+        self.copy_pages_data(old_to_new_pages)
 
     def copy_template_templates_data(self, old_template, new_template):
         self.__osbm.obj_logg.debug_logger(
@@ -488,30 +523,34 @@ class TemplatesListDialogWindow(QDialog):
             f"copy_template_pages() -> dict:\nold_template = {old_template}\nnew_template = {new_template}"
         )
         old_to_new_pages = dict()
+        id_parent_template = new_template.get("id_template")
         p_pairs = self.__osbm.obj_prodb.get_pages_by_template(old_template)
         for p_pair in p_pairs:
-            old_page_filename = p_pair.get("filename_page")
-            typefile_page = p_pair.get("typefile_page")
-            # копирование
-            new_page_filename = self.__osbm.obj_film.copynew_page_for_new_template(
-                old_page_filename, typefile_page
-            )
-            # добавление в бд
-            new_page = {
-                "id_parent_template": new_template.get("id_template"),
-                "name_page": p_pair.get("name_page"),
-                "filename_page": new_page_filename,
-                "typefile_page": typefile_page,
-                "order_page": p_pair.get("order_page"),
-                "included": p_pair.get("included"),
-            }
-            new_id_page = self.__osbm.obj_prodb.insert_page(new_page)
-            old_to_new_pages[p_pair.get("id_page")] = new_id_page
+            self.copy_template_page(p_pair, id_parent_template, old_to_new_pages)
         return old_to_new_pages
 
-    def copy_template_pages_data(self, old_to_new_pages):
+    def copy_template_page(self, p_pair, id_parent_template, old_to_new_pages):
+        old_page_filename = p_pair.get("filename_page")
+        typefile_page = p_pair.get("typefile_page")
+        # копирование
+        new_page_filename = self.__osbm.obj_film.copynew_page_for_new_template(
+            old_page_filename, typefile_page
+        )
+        # добавление в бд
+        new_page = {
+            "id_parent_template": id_parent_template,
+            "name_page": p_pair.get("name_page"),
+            "filename_page": new_page_filename,
+            "typefile_page": typefile_page,
+            "order_page": p_pair.get("order_page"),
+            "included": p_pair.get("included"),
+        }
+        new_id_page = self.__osbm.obj_prodb.insert_page(new_page)
+        old_to_new_pages[p_pair.get("id_page")] = new_id_page
+
+    def copy_pages_data(self, old_to_new_pages):
         self.__osbm.obj_logg.debug_logger(
-            f"copy_template_pages_data():\nold_to_new_pages = {old_to_new_pages}"
+            f"copy_pages_data():\nold_to_new_pages = {old_to_new_pages}"
         )
         for old_id_page, new_id_page in old_to_new_pages.items():
             old_page = {

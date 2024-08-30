@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>450</width>
-    <height>450</height>
+    <height>603</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -74,6 +74,27 @@
     </widget>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="hl_copypage" stretch="0,1">
+     <item>
+      <widget class="QLabel" name="label_copyfrom">
+       <property name="text">
+        <string>Скопировать данные с </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="combox_pages"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="Line" name="line_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QLabel" name="label_document">
      <property name="minimumSize">
       <size>
@@ -102,7 +123,7 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="hl_select_open">
      <item>
       <widget class="QPushButton" name="btn_select">
        <property name="text">

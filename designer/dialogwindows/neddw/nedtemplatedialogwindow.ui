@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>425</width>
-    <height>159</height>
+    <height>168</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,6 +49,13 @@
     <widget class="QLineEdit" name="lineedit_nametemplate">
      <property name="text">
       <string/>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>

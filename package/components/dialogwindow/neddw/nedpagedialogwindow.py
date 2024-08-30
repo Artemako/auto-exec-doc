@@ -43,6 +43,7 @@ class NedPageDialogWindow(QDialog):
         self.__temp_copy_file_path = str()
         self.__data = {
             "TEMP_COPY_FILE_PATH": None,
+            "copy_page": None,
             "id_parent_template": None,
             "name_page": None,
             "filename_page": None,
@@ -54,9 +55,10 @@ class NedPageDialogWindow(QDialog):
         self.__is_edit = self.__type_ned == "edit"
         self.__typefile_page = None
         # одноразовые действия
-        self.config()
+        self.config_by_type_window()
         self.reconfig_is_edit()
         self.config_combox_neighboor()
+        self.config_combox_pages()
         self.connecting_actions()
 
     def keyPressEvent(self, event):
@@ -72,7 +74,7 @@ class NedPageDialogWindow(QDialog):
         self.ui.tw_variables.setEnabled(state)
         self.ui.btn_findvariables.setEnabled(state)
 
-    def config(self):
+    def config_by_type_window(self):
         """
         по умолчанию
         """
@@ -81,6 +83,7 @@ class NedPageDialogWindow(QDialog):
             self.ui.lineedit_namepage.setText("")
             self.ui.btn_nedvariable.setText("Добавить страницу")
             self.__typefile_page = "DOCX"  # по умолчанию
+
         elif self.__type_ned == "edit":
             self.ui.lineedit_namepage.setText(self.__page.get("name_page"))
             self.ui.btn_nedvariable.setText("Сохранить страницу")
@@ -88,6 +91,7 @@ class NedPageDialogWindow(QDialog):
             self.__typefile_page = self.__page.get("typefile_page")
             # Создать копию для редактирования
             self.do_temp_copy_for_edit(self.__page.get("filename_page"))
+
         # отключить найденные переменные
         self.set_active_find_variables(False)
 
@@ -108,6 +112,46 @@ class NedPageDialogWindow(QDialog):
             elif self.__typefile_page == "PDF":
                 self.ui.btn_open_docx.setText("Открыть pdf")
                 self.set_active_find_variables(False)
+
+    def config_combox_pages(self):
+        self.__osbm.obj_logg.debug_logger("NedPageDialogWindow config_combox_pages()")
+        combobox = self.ui.combox_pages
+        if self.__type_ned == "create":
+            combobox.blockSignals(True)
+            combobox.clear()
+            combobox.addItem("- Пустая страница -", "empty")
+            for elem in self.__pages:
+                combobox.addItem(elem.get("name_page"), elem)
+            combobox.setCurrentIndex(0)
+            combobox.blockSignals(False)
+            combobox.currentIndexChanged.connect(self.select_copy_page)
+            self.select_copy_page(0)
+
+        elif self.__type_ned == "edit":
+            # комбобокс отключить
+            self.ui.label_copyfrom.setEnabled(False)
+            self.ui.combox_pages.setEnabled(False)
+
+    def select_copy_page(self, index):
+        self.__osbm.obj_logg.debug_logger(
+            f"NedPageDialogWindow select_copy_page():\nindex = {index}"
+        )
+        if index == 0:
+            self.ui.label_document.setEnabled(True)
+            self.ui.btn_select.setEnabled(True)
+            self.ui.btn_open_docx.setEnabled(True)
+            self.ui.label_file.setEnabled(True)
+            self.ui.label_variables.setEnabled(True)
+            self.ui.tw_variables.setEnabled(True)
+            self.ui.btn_findvariables.setEnabled(True)
+        else:
+            self.ui.label_document.setEnabled(False)
+            self.ui.btn_select.setEnabled(False)
+            self.ui.btn_open_docx.setEnabled(False)
+            self.ui.label_file.setEnabled(False)
+            self.ui.label_variables.setEnabled(False)
+            self.ui.tw_variables.setEnabled(False)
+            self.ui.btn_findvariables.setEnabled(False)
 
     def config_combox_neighboor(self):
         self.__osbm.obj_logg.debug_logger(
@@ -295,10 +339,14 @@ class NedPageDialogWindow(QDialog):
             old_page_path = str()
             if self.__typefile_page == "DOCX":
                 forms_folder_dirpath = self.__osbm.obj_dirm.get_forms_folder_dirpath()
-                old_page_path = os.path.join(forms_folder_dirpath, old_filename_page + ".docx")
+                old_page_path = os.path.join(
+                    forms_folder_dirpath, old_filename_page + ".docx"
+                )
             elif self.__typefile_page == "PDF":
                 pdfs_folder_dirpath = self.__osbm.obj_dirm.get_pdfs_folder_dirpath()
-                old_page_path = os.path.join(pdfs_folder_dirpath, old_filename_page + ".pdf")
+                old_page_path = os.path.join(
+                    pdfs_folder_dirpath, old_filename_page + ".pdf"
+                )
             # временный - как бы новый
             temp_dir = self.__osbm.obj_dirm.get_temp_dirpath()
             self.__temp_copy_file_path = os.path.join(temp_dir, file_name_with_format)
@@ -329,7 +377,9 @@ class NedPageDialogWindow(QDialog):
                 file_name_with_format = f"{file_name}{file_format}"
                 # пути + копирование
                 temp_dir = self.__osbm.obj_dirm.get_temp_dirpath()
-                self.__temp_copy_file_path = os.path.join(temp_dir, file_name_with_format)
+                self.__temp_copy_file_path = os.path.join(
+                    temp_dir, file_name_with_format
+                )
                 self.__osbm.obj_film.copy_file(docxpdf_path, self.__temp_copy_file_path)
                 # файл выбран
                 self.__is_edit = True
@@ -381,7 +431,10 @@ class NedPageDialogWindow(QDialog):
         )
         select_filename_page = self.__select_filename
         namepage = self.ui.lineedit_namepage.text()
-        if len(namepage) > 0 and len(select_filename_page) > 0:
+        copy_page = self.ui.combox_pages.currentData()
+        if len(namepage) > 0 and (
+            len(select_filename_page) > 0 or copy_page != "empty"
+        ):
             # поиск по имени
             find_page = self.find_page_by_namepage_in_pages(namepage)
             # выбранный сосед
@@ -396,6 +449,7 @@ class NedPageDialogWindow(QDialog):
                     self.__data["typefile_page"] = self.__typefile_page
                     self.__data["order_page"] = order_page
                     self.__data["TEMP_COPY_FILE_PATH"] = self.__temp_copy_file_path
+                    self.__data["copy_page"] = copy_page
                     self.accept()
                 else:
                     msg = "Другая страница с таким именем уже существует!"

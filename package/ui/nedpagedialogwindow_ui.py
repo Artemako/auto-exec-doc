@@ -24,7 +24,7 @@ class Ui_NedPageDialogWindow(object):
     def setupUi(self, NedPageDialogWindow):
         if not NedPageDialogWindow.objectName():
             NedPageDialogWindow.setObjectName(u"NedPageDialogWindow")
-        NedPageDialogWindow.resize(450, 450)
+        NedPageDialogWindow.resize(450, 603)
         self.verticalLayout = QVBoxLayout(NedPageDialogWindow)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(-1, -1, -1, 9)
@@ -66,6 +66,29 @@ class Ui_NedPageDialogWindow(object):
 
         self.verticalLayout.addWidget(self.line_2)
 
+        self.hl_copypage = QHBoxLayout()
+        self.hl_copypage.setObjectName(u"hl_copypage")
+        self.label_copyfrom = QLabel(NedPageDialogWindow)
+        self.label_copyfrom.setObjectName(u"label_copyfrom")
+
+        self.hl_copypage.addWidget(self.label_copyfrom)
+
+        self.combox_pages = QComboBox(NedPageDialogWindow)
+        self.combox_pages.setObjectName(u"combox_pages")
+
+        self.hl_copypage.addWidget(self.combox_pages)
+
+        self.hl_copypage.setStretch(1, 1)
+
+        self.verticalLayout.addLayout(self.hl_copypage)
+
+        self.line_3 = QFrame(NedPageDialogWindow)
+        self.line_3.setObjectName(u"line_3")
+        self.line_3.setFrameShape(QFrame.HLine)
+        self.line_3.setFrameShadow(QFrame.Sunken)
+
+        self.verticalLayout.addWidget(self.line_3)
+
         self.label_document = QLabel(NedPageDialogWindow)
         self.label_document.setObjectName(u"label_document")
         self.label_document.setMinimumSize(QSize(0, 0))
@@ -76,20 +99,20 @@ class Ui_NedPageDialogWindow(object):
 
         self.verticalLayout.addWidget(self.label_document)
 
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.hl_select_open = QHBoxLayout()
+        self.hl_select_open.setObjectName(u"hl_select_open")
         self.btn_select = QPushButton(NedPageDialogWindow)
         self.btn_select.setObjectName(u"btn_select")
 
-        self.horizontalLayout.addWidget(self.btn_select)
+        self.hl_select_open.addWidget(self.btn_select)
 
         self.btn_open_docx = QPushButton(NedPageDialogWindow)
         self.btn_open_docx.setObjectName(u"btn_open_docx")
 
-        self.horizontalLayout.addWidget(self.btn_open_docx)
+        self.hl_select_open.addWidget(self.btn_open_docx)
 
 
-        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.verticalLayout.addLayout(self.hl_select_open)
 
         self.label_file = QLabel(NedPageDialogWindow)
         self.label_file.setObjectName(u"label_file")
@@ -153,6 +176,7 @@ class Ui_NedPageDialogWindow(object):
         self.label_namepage.setText(QCoreApplication.translate("NedPageDialogWindow", u"<html><head/><body><p>\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u044b</p></body></html>", None))
         self.lineedit_namepage.setText("")
         self.label_after.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u0420\u0430\u0441\u043f\u043e\u043b\u043e\u0436\u0438\u0442\u044c \u043f\u043e\u0441\u043b\u0435 ", None))
+        self.label_copyfrom.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0434\u0430\u043d\u043d\u044b\u0435 \u0441 ", None))
         self.label_document.setText(QCoreApplication.translate("NedPageDialogWindow", u"<html><head/><body><p>\u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442 (docx \u0438\u043b\u0438 pdf)</p></body></html>", None))
         self.btn_select.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u0412\u044b\u0431\u0440\u0430\u0442\u044c \u0444\u0430\u0439\u043b", None))
         self.btn_open_docx.setText(QCoreApplication.translate("NedPageDialogWindow", u"\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u0438 docx", None))

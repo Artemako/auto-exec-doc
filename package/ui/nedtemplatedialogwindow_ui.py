@@ -23,7 +23,7 @@ class Ui_NedTemplateDialogWindow(object):
     def setupUi(self, NedTemplateDialogWindow):
         if not NedTemplateDialogWindow.objectName():
             NedTemplateDialogWindow.setObjectName(u"NedTemplateDialogWindow")
-        NedTemplateDialogWindow.resize(425, 159)
+        NedTemplateDialogWindow.resize(425, 168)
         self.verticalLayout = QVBoxLayout(NedTemplateDialogWindow)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(-1, -1, -1, 9)
@@ -41,6 +41,13 @@ class Ui_NedTemplateDialogWindow(object):
         self.lineedit_nametemplate.setObjectName(u"lineedit_nametemplate")
 
         self.verticalLayout.addWidget(self.lineedit_nametemplate)
+
+        self.line_2 = QFrame(NedTemplateDialogWindow)
+        self.line_2.setObjectName(u"line_2")
+        self.line_2.setFrameShape(QFrame.HLine)
+        self.line_2.setFrameShadow(QFrame.Sunken)
+
+        self.verticalLayout.addWidget(self.line_2)
 
         self.hl_copytemplate = QHBoxLayout()
         self.hl_copytemplate.setObjectName(u"hl_copytemplate")
