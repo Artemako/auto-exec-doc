@@ -395,6 +395,7 @@ QSlider::handle:vertical:disabled {
 
 
 /* Check boxes and Radio buttons common #QCheckBox, #QRadioButton */
+QListView::indicator,
 QGroupBox::indicator,
 QTreeView::indicator,
 QCheckBox::indicator,
@@ -406,7 +407,7 @@ QRadioButton::indicator {
     border-style: solid;
     border-width: 1px;
 }
-
+QListView::indicator:hover,
 QGroupBox::indicator:hover,
 QTreeView::indicator:hover,
 QCheckBox::indicator:hover,
@@ -414,19 +415,18 @@ QRadioButton::indicator:hover {
     background-color: #3f3f46;
     border-color: #007acc;
 }
-
+QListView::indicator:checked,
 QGroupBox::indicator:checked,
 QTreeView::indicator:checked,
 QCheckBox::indicator:checked {
     image: url(:/png/resources/png/checkbox-check.png);
 }
-
+QListView::indicator:checked:disabled,
 QGroupBox::indicator:disabled,
 QTreeView::indicator:checked:disabled,
 QCheckBox::indicator:checked:disabled {
     image: url(:/png/resources/png/checkbox-check-disabled.png);
 }
-
 
 /* Check boxes special */
 QTreeView#modList::indicator {

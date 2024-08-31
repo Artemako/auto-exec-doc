@@ -188,6 +188,7 @@ class Ui_MainWindow(object):
         __qlistwidgetitem1 = QListWidgetItem(self.lw_pages_template)
         __qlistwidgetitem1.setCheckState(Qt.Checked);
         self.lw_pages_template.setObjectName(u"lw_pages_template")
+        self.lw_pages_template.setStyleSheet(u"")
 
         self.vbl_pages.addWidget(self.lw_pages_template)
 

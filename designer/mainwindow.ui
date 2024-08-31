@@ -153,6 +153,9 @@
             </item>
             <item>
              <widget class="QListWidget" name="lw_pages_template">
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
               <item>
                <property name="text">
                 <string>Лист 1</string>
