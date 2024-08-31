@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>530</width>
-    <height>241</height>
+    <width>500</width>
+    <height>289</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -25,7 +25,7 @@
   <property name="windowTitle">
    <string>Редактор переменной</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,0,0,1,0">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,0,0,0,0,0,1,0">
    <property name="bottomMargin">
     <number>9</number>
    </property>
@@ -100,6 +100,48 @@
     </widget>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="hl_placement" stretch="0,1">
+     <item>
+      <widget class="QLabel" name="label_placement">
+       <property name="text">
+        <string>Расположить после</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="combox_neighboor"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="Line" name="line_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="hl_copyvariable" stretch="0,1">
+     <item>
+      <widget class="QLabel" name="label_copyfrom">
+       <property name="text">
+        <string>Скопировать данные с </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="combox_variables"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="Line" name="line_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QLabel" name="typevariable">
      <property name="minimumSize">
       <size>
@@ -129,20 +171,6 @@
    </item>
    <item>
     <widget class="QComboBox" name="combox_typevariable"/>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="hl_placement" stretch="0,1">
-     <item>
-      <widget class="QLabel" name="label_placement">
-       <property name="text">
-        <string>Расположить после</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="combox_neighboor"/>
-     </item>
-    </layout>
    </item>
    <item>
     <widget class="Line" name="line">

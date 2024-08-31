@@ -34,6 +34,9 @@ class DialogWindows:
         self.__dw = None
         self.__miniw = None
         self.__icons = None
+        #
+        self.__formimage_dirpath = None
+        self.__select_docxpdf_dirpath = None
 
     def setting_all_osbm(self, osbm):
         self.__osbm = osbm
@@ -210,16 +213,21 @@ class DialogWindows:
             "DialogWindows select_image_for_formimage_in_project() -> str"
         )
         while True:
+            if self.__formimage_dirpath and os.path.exists(self.__formimage_dirpath): 
+                pass
+            else:
+                self.__formimage_dirpath = self.__osbm.obj_dirm.get_pictures_dirpath()
             image_path = QFileDialog.getOpenFileName(
                 None,
                 "Выбор изображения",
-                self.__osbm.obj_dirm.get_pictures_dirpath(),
+                self.__formimage_dirpath,
                 "Изображения (*.png *.jpg *.jpeg)",
             )
             if image_path[0]:
                 self.__osbm.obj_logg.debug_logger(
                     f"DialogWindows select_image_for_formimage_in_project() -> {image_path[0]}"
                 )
+                self.__formimage_dirpath = os.path.dirname(image_path[0])
                 return image_path[0]
             else:
                 self.__osbm.obj_logg.debug_logger(
@@ -233,16 +241,21 @@ class DialogWindows:
         self.__osbm.obj_logg.debug_logger("DialogWindows select_docx_or_pdf_file() -> str")
 
         while True:
+            if self.__select_docxpdf_dirpath and os.path.exists(self.__select_docxpdf_dirpath): 
+                pass
+            else:
+                self.__select_docxpdf_dirpath = self.__osbm.obj_dirm.get_documents_dirpath()
             docx_path = QFileDialog.getOpenFileName(
                 None,
                 "Выбор документа",
-                self.__osbm.obj_dirm.get_documents_dirpath(),
+                self.__select_docxpdf_dirpath,
                 "Документы (*.docx *.pdf)",
             )
             if docx_path[0]:
                 self.__osbm.obj_logg.debug_logger(
                     f"DialogWindows select_docx_or_pdf_file() -> {docx_path[0]}"
                 )
+                self.__select_docxpdf_dirpath = os.path.dirname(docx_path[0])
                 return docx_path[0]
             else:
                 self.__osbm.obj_logg.debug_logger(
