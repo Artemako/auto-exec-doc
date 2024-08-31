@@ -30,7 +30,7 @@ class VariableTypes:
             if variable.data == type_variable:
                 result = variable.icon
                 break
-        self.__osbm.obj_logg.debug_logger(f"VariableTypes get_icon_by_type_variable(type_variable):\ntype_variable = {type_variable}\n result = {result}")
+        # self.__osbm.obj_logg.debug_logger(f"VariableTypes get_icon_by_type_variable(type_variable):\ntype_variable = {type_variable}\n result = {result}")
         return result
 
     def get_variable_types(self):

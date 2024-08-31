@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>425</width>
-    <height>153</height>
+    <height>155</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -82,11 +82,25 @@
     </layout>
    </item>
    <item>
-    <widget class="QPushButton" name="select_button">
-     <property name="text">
-      <string>Выбрать изображение</string>
+    <layout class="QHBoxLayout" name="hl_select_clear" stretch="1,0">
+     <property name="spacing">
+      <number>6</number>
      </property>
-    </widget>
+     <item>
+      <widget class="QPushButton" name="select_button">
+       <property name="text">
+        <string>Выбрать изображение</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_reset">
+       <property name="text">
+        <string>Сбросить</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QLabel" name="label">

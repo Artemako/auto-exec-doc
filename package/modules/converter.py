@@ -253,20 +253,23 @@ class ConverterPool:
                 config_dict = dict()
                 if config_variable:
                     config_dict = json.loads(config_variable)
-                print(f"config_dict = {config_dict}")
                 # config_dict: шаблон записи
                 id_to_attr_dict = dict()
                 object_entry = dict()
-                rowcols = config_dict.get("ROWCOLS")
+                #
+                headers_table = []
+                rowcols = sorted(config_dict.get("ROWCOLS", []), key=lambda x: x.get("ORDER", 0))
                 for rowcol in rowcols:
                     attr_rowcol = rowcol.get("ATTR")
                     id_rowcol = rowcol.get("ID")
+                    title_rowcol = rowcol.get("TITLE")
                     id_to_attr_dict[id_rowcol] = attr_rowcol
                     object_entry[attr_rowcol] = str()
+                    headers_table.append(title_rowcol)
                 # заполнять data_variable
                 data = json.loads(value)
                 # таблица и словрь записей 
-                table_values = []
+                values_table = []
                 entrys = dict()
                 # проходим по всем rowcol
                 for rowcol in data:
@@ -283,15 +286,28 @@ class ConverterPool:
                             entrys[i] = entry
                 # проходим по записям entrys
                 for object_entry in entrys.values():
-                    table_values.append(object_entry)
+                    values_table.append(object_entry)
                 #
-                data_variable[str(name_variable)] = table_values
+                data_table = {
+                    "h": headers_table,
+                    "v": values_table
+                }
+                data_variable[str(name_variable)] = data_table
+                # data_variable[str(name_variable)]["h"] = headers
             else:
                 default_value = local_osbm.obj_com.default_value
                 if default_value == "variable":
-                    data_variable[str(name_variable)] = "..."
+                    data_table = {
+                        "h": ["..."],
+                        "v": ["..."]
+                    }
+                    data_variable[str(name_variable)] = data_table
                 else:
-                    data_variable[str(name_variable)] = ""
+                    data_table = {
+                        "h": [""],
+                        "v": [""]
+                    }
+                    data_variable[str(name_variable)] = data_table
         except Exception as e:
             local_osbm.obj_logg.error_logger(f"Error in type_variable_is_table: {e}")
 

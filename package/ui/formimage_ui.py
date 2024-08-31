@@ -22,7 +22,7 @@ class Ui_FormImageWidget(object):
     def setupUi(self, FormImageWidget):
         if not FormImageWidget.objectName():
             FormImageWidget.setObjectName(u"FormImageWidget")
-        FormImageWidget.resize(425, 153)
+        FormImageWidget.resize(425, 155)
         FormImageWidget.setMaximumSize(QSize(16777215, 16777215))
         self.verticalLayout = QVBoxLayout(FormImageWidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -54,10 +54,22 @@ class Ui_FormImageWidget(object):
 
         self.verticalLayout.addLayout(self.hl)
 
+        self.hl_select_clear = QHBoxLayout()
+        self.hl_select_clear.setSpacing(6)
+        self.hl_select_clear.setObjectName(u"hl_select_clear")
         self.select_button = QPushButton(FormImageWidget)
         self.select_button.setObjectName(u"select_button")
 
-        self.verticalLayout.addWidget(self.select_button)
+        self.hl_select_clear.addWidget(self.select_button)
+
+        self.btn_reset = QPushButton(FormImageWidget)
+        self.btn_reset.setObjectName(u"btn_reset")
+
+        self.hl_select_clear.addWidget(self.btn_reset)
+
+        self.hl_select_clear.setStretch(0, 1)
+
+        self.verticalLayout.addLayout(self.hl_select_clear)
 
         self.label = QLabel(FormImageWidget)
         self.label.setObjectName(u"label")
@@ -90,6 +102,7 @@ class Ui_FormImageWidget(object):
         self.title.setText(QCoreApplication.translate("FormImageWidget", u"<html><head/><body><p>\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a</p></body></html>", None))
         self.label_variable.setText(QCoreApplication.translate("FormImageWidget", u"<html><head/><body><p><span style=\" font-style:italic;\">variable</span></p></body></html>", None))
         self.select_button.setText(QCoreApplication.translate("FormImageWidget", u"\u0412\u044b\u0431\u0440\u0430\u0442\u044c \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435", None))
+        self.btn_reset.setText(QCoreApplication.translate("FormImageWidget", u"\u0421\u0431\u0440\u043e\u0441\u0438\u0442\u044c", None))
         self.label.setText(QCoreApplication.translate("FormImageWidget", u"\u0412\u044b\u0431\u0440\u0430\u043d\u043d\u044b\u0439 \u0444\u0430\u0439\u043b", None))
         self.textbrowser.setHtml(QCoreApplication.translate("FormImageWidget", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"

@@ -1,0 +1,7 @@
+2024-08-30 15:14:27,857 - DEBUG - [34m Config logger[00m
+2024-08-30 15:14:27,857 - DEBUG - [34m self.current_directory = D:\work\project\AutoExecDoc\main.dist[00m
+2024-08-30 15:14:27,857 - DEBUG - [34m FileFolderManager create_and_setting_files_and_folders()[00m
+2024-08-30 15:14:27,857 - DEBUG - [34m DirPathManager get_default_folder_projects_dirpath() -> str: C:/Users/hayar/Documents\AutoExecDoc Projects[00m
+2024-08-30 15:14:27,857 - DEBUG - [34m SettingsDatabase create_and_setting_db_settings()[00m
+2024-08-30 15:14:27,857 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-08-30 15:14:27,857 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m

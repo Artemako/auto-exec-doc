@@ -322,7 +322,10 @@ class NedPageDialogWindow(QDialog):
         try:
             docx_template = DocxTemplate(docx_path)
             set_of_variables = docx_template.get_undeclared_template_variables()
-            return set_of_variables
+            sorted_set_of_variables = sorted(
+                set_of_variables, key=lambda x: x.lower()
+            )
+            return sorted_set_of_variables
         except Exception as error:
             self.__osbm.obj_logg.error_logger(
                 f"NedPageDialogWindow extract_jinja_variables(docx_path) -> set:\nerror = {error}"

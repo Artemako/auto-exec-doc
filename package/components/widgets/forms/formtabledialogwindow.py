@@ -85,13 +85,17 @@ class FormTableDialogWindow(QDialog):
         # контекстное меню
         self.context_menu = QMenu(self)
         # Копировать - copy_values_to_clipboard
-        self.copy_action = QAction("Копировать", self)
+        self.copy_action = QAction("Копировать выделенное", self)
         self.copy_action.triggered.connect(lambda: self.copy_values_to_clipboard())
         self.context_menu.addAction(self.copy_action)
         # Вставить - paste_values_from_clipboard
-        self.paste_action = QAction("Вставить", self)
+        self.paste_action = QAction("Вставить выделенное", self)
         self.paste_action.triggered.connect(lambda: self.paste_values_from_clipboard())
         self.context_menu.addAction(self.paste_action)
+        # Очистиь значения выделенного
+        self.clear_action = QAction("Очистить значения выделенного", self)
+        self.clear_action.triggered.connect(lambda: self.clear_selected_values())
+        self.context_menu.addAction(self.clear_action)
         # контекстное меню по правой кнопкой мыши по таблице.
         self.ui.table.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.ui.table.customContextMenuRequested.connect(self.show_context_menu)
@@ -151,6 +155,12 @@ class FormTableDialogWindow(QDialog):
     #     if item:
     #         print(f"Cell ({row}, {column}) changed to {item.text()}")
 
+
+    def clear_selected_values(self):
+        self.__osbm.obj_logg.debug_logger("FormTableDialogWindow clear_selected_values()")
+        selected_items = self.ui.table.selectedItems()
+        for item in selected_items:
+            item.setText("")
 
     def copy_values_to_clipboard(self):
         """
