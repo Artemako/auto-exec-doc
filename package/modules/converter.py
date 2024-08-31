@@ -586,14 +586,16 @@ class Converter:
                         template = {"id_template": id_active_template}
                         pages = self.__osbm.obj_prodb.get_pages_by_template(template)
                         for page in pages:
-                            object = {
-                                "type": "page",
-                                "page": page,
-                                "number_page": self.__number_page,
-                            }
-                            print(f"object = {object}")
-                            project_pages_objects.append(object)
-                            self.__number_page += 1
+                            # если страница включена
+                            if page.get("included"):
+                                object = {
+                                    "type": "page",
+                                    "page": page,
+                                    "number_page": self.__number_page,
+                                }
+                                # print(f"object = {object}")
+                                project_pages_objects.append(object)
+                                self.__number_page += 1
                     # проход по дочерним вершинам
                     self.dfs(child, project_pages_objects)
 

@@ -427,6 +427,7 @@ QCheckBox::indicator:checked:disabled {
     image: url(:/png/resources/png/checkbox-check-disabled.png);
 }
 
+
 /* Check boxes special */
 QTreeView#modList::indicator {
     width: 15px;

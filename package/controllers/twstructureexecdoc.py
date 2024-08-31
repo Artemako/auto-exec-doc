@@ -124,7 +124,8 @@ class TWStructureExecDoc:
         # раскрытие вершины
         self.set_expanded_for_item(item, node)
         # С галочкой по умолчанию
-        item.setCheckState(0, Qt.Checked)
+        state = node.get("included")
+        item.setCheckState(0, Qt.Checked if state else Qt.Unchecked)
         self.__nodes_to_items[node.get("id_node")] = item
         # если было до clear
         if open_node and open_node.get("id_node") == node.get("id_node"):

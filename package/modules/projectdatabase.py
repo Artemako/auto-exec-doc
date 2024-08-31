@@ -31,7 +31,7 @@ class ProjectDatabase:
             self.add_tables_and_datas_to_empty_db_project()
 
         # set всем included = True
-        self.set_all_included_in_db_project_to_true()
+        # self.set_all_included_in_db_project_to_true()
 
     def add_tables_and_datas_to_empty_db_project(self):
         """
@@ -1428,7 +1428,25 @@ COMMIT;
         )
         return result
 
-
+    def set_included_for_page(self, page, new_state):
+        """
+        Установка включения для страницы.
+        """
+        self.__osbm.obj_logg.debug_logger(
+            f"ProjectDatabase set_included_for_page(page, new_state):\npage = {page}\nincluded = {new_state}"
+        )
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+        UPDATE Project_pages
+        SET included = ?
+        WHERE id_page = ?
+        """,
+            [new_state, page.get("id_page")],
+        )
+        conn.commit()
+        conn.close()
 
 
 

@@ -3,6 +3,7 @@ import json
 from PySide6.QtWidgets import (
     QDialog,
     QTableWidget,
+    QHeaderView,
     QMenu,
     QApplication,
     QTableWidgetItem,
@@ -70,6 +71,11 @@ class FormTableDialogWindow(QDialog):
 
     def config_tw(self):
         self.__osbm.obj_logg.debug_logger("FormTableDialogWindow config_tw()")
+        #
+        self.ui.table.horizontalHeader().setSectionResizeMode(
+            QHeaderView.ResizeMode.ResizeToContents
+        )
+        #
         headers = []
         ids_rowcols = []
         self.__rowcols = sorted(self.__rowcols, key=lambda x: x.get("ORDER"))

@@ -30,14 +30,6 @@ class Ui_CustomItemQListWidget(object):
         self.horizontalLayout.setSpacing(2)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(4, 2, 2, 2)
-        self.label_icon = QLabel(CustomItemQListWidget)
-        self.label_icon.setObjectName(u"label_icon")
-        self.label_icon.setMinimumSize(QSize(24, 0))
-        self.label_icon.setMaximumSize(QSize(24, 16777215))
-        self.label_icon.setAlignment(Qt.AlignCenter)
-
-        self.horizontalLayout.addWidget(self.label_icon)
-
         self.label_text = QLabel(CustomItemQListWidget)
         self.label_text.setObjectName(u"label_text")
         self.label_text.setMaximumSize(QSize(16777215, 16777215))
@@ -62,7 +54,7 @@ class Ui_CustomItemQListWidget(object):
 
         self.horizontalLayout.addWidget(self.btn_delete)
 
-        self.horizontalLayout.setStretch(1, 1)
+        self.horizontalLayout.setStretch(0, 1)
 
         self.retranslateUi(CustomItemQListWidget)
 
@@ -71,7 +63,6 @@ class Ui_CustomItemQListWidget(object):
 
     def retranslateUi(self, CustomItemQListWidget):
         CustomItemQListWidget.setWindowTitle(QCoreApplication.translate("CustomItemQListWidget", u"Form", None))
-        self.label_icon.setText(QCoreApplication.translate("CustomItemQListWidget", u"IC", None))
         self.label_text.setText(QCoreApplication.translate("CustomItemQListWidget", u"224", None))
         self.btn_edit.setText("")
         self.btn_delete.setText("")

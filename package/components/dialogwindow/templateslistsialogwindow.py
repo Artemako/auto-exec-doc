@@ -1,5 +1,6 @@
-from PySide6.QtWidgets import QDialog, QListWidgetItem, QListWidget
-from PySide6.QtCore import Qt, QTimer, QSize
+from PySide6.QtWidgets import QDialog, QListWidgetItem, QListWidget, QAbstractItemView
+from PySide6.QtCore import Qt, QTimer, QSize, QRect
+
 
 from functools import partial
 
@@ -64,7 +65,7 @@ class TemplatesListDialogWindow(QDialog):
             if widget is not None:
                 widget_size = widget.sizeHint()
                 widget.setFixedSize(
-                    QSize(self.ui.lw_pages.size().width() - 2, widget_size.height())
+                    QSize(self.ui.lw_pages.size().width() - 44, widget_size.height())
                 )
 
     def reconfig(
@@ -89,6 +90,27 @@ class TemplatesListDialogWindow(QDialog):
             list_widget.setResizeMode(QListWidget.Adjust)
             list_widget.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
             list_widget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+
+        self.ui.lw_pages.itemPressed.connect(self.on_item_pressed)
+
+    def on_item_pressed(self, item):
+        """Странный баг, который можно обойти чере этот костыль"""
+        self.__osbm.obj_logg.debug_logger(
+            f"TemplatesListDialogWindow on_item_pressed(item):\nitem = {item}"
+        )
+        # проверка на чекбокс
+        item_rect = self.ui.lw_pages.visualItemRect(item)
+        mouse_position = self.ui.lw_pages.mapFromGlobal(
+            self.ui.lw_pages.cursor().pos()
+        )
+        # Определяем область чекбокса
+        checkbox_rect = QRect(item_rect.topLeft(), item_rect.size())
+        checkbox_rect.setWidth(
+            20
+        )  # ширина области чекбокса, измените при необходимости
+        if checkbox_rect.contains(mouse_position):
+            self.checkbox_changing_state(item)
+
 
     def config_forms(self, open_form=None):
         self.__osbm.obj_logg.debug_logger("TemplatesListDialogWindow config_forms()")
@@ -180,7 +202,7 @@ class TemplatesListDialogWindow(QDialog):
         self.__osbm.obj_logg.debug_logger("TemplatesListDialogWindow config_pages()")
         #
         list_widget = self.ui.lw_pages
-        list_widget.blockSignals(True)
+        # list_widget.blockSignals(True)
         list_widget.clear()
         #
         item_template = self.ui.lw_templates.currentItem()
@@ -193,10 +215,17 @@ class TemplatesListDialogWindow(QDialog):
             self.__pages_items = []
             for page in pages:
                 custom_widget = customitemqlistwidget.CustomItemQListWidget(
-                    self.__osbm, "PAGE", page, is_active=False, icons=self.__icons
+                    self.__osbm, "PAGE", page, is_active=False
                 )
                 item = QListWidgetItem()
                 item.setData(0, page)
+                item.setCheckState(Qt.Checked if page.get("included") else Qt.Unchecked)
+                #
+                typefile_page = page.get("typefile_page")
+                if typefile_page == "PDF":
+                    item.setIcon(self.__icons.get("pdf"))
+                else:  # "DOCX"
+                    item.setIcon(self.__icons.get("page"))
                 #
                 # Указываем размер элемента
                 item.setSizeHint(custom_widget.sizeHint())
@@ -223,8 +252,8 @@ class TemplatesListDialogWindow(QDialog):
                 elif self.__templates_items:
                     list_widget.setCurrentRow(0)
             #
-
-        list_widget.blockSignals(False)
+        # list_widget.blockSignals(False)
+        
 
     def config_buttons_for_item(self, item_widget):
         self.__osbm.obj_logg.debug_logger(
@@ -249,6 +278,20 @@ class TemplatesListDialogWindow(QDialog):
                 is_active=item_widget.get_is_active(),
             )
         )
+
+    def checkbox_changing_state(self, item):
+        """Странный баг, который можно обойти чере этот костыль"""
+        self.__osbm.obj_logg.debug_logger(
+            f"TemplatesListDialogWindow checkbox_changing_state(item)\nitem = {item}"
+        )
+        if item.checkState() == Qt.Checked:
+            new_state = Qt.Unchecked
+            self.__osbm.obj_prodb.set_included_for_page(item.data(0), 0)
+        else:
+            new_state = Qt.Checked
+            self.__osbm.obj_prodb.set_included_for_page(item.data(0), 1)
+        # Устанавливаем новое состояние
+        item.setCheckState(new_state)
 
     def connecting_actions(self):
         self.__osbm.obj_logg.debug_logger(
