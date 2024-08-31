@@ -25,6 +25,7 @@ class Icons:
             icons["longtext"] = QIcon(":/white-icons/resources/white-icons/longtext.svg")
             icons["date"] = QIcon(":/white-icons/resources/white-icons/calendar.svg")
             icons["table"] = QIcon(":/white-icons/resources/white-icons/table.svg")
+            icons["list"] = QIcon(":/white-icons/resources/white-icons/items-list.svg")
             icons["image"] = QIcon(":/white-icons/resources/white-icons/picture.svg")
             # прочее
             icons["save"] = QIcon(":/white-icons/resources/white-icons/save.svg")

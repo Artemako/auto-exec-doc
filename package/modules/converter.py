@@ -120,6 +120,23 @@ class ConverterPool:
         except Exception as e:
             local_osbm.obj_logg.error_logger(f"Error in type_variable_is_text: {e}")
 
+    def type_variable_is_list(self, local_osbm, data_variable, name_variable, value):
+        local_osbm.obj_logg.debug_logger(
+            f"Converter type_variable_is_list(data_variable, name_variable, value):\ndata_variable = {data_variable},\nname_variable = {name_variable},\nvalue = {value}"
+        )
+        try:
+            if value:
+                data = json.loads(value)
+                data_variable[str(name_variable)] = data
+            else:
+                default_value = local_osbm.obj_com.default_value
+                if default_value == "variable":
+                    data_variable[str(name_variable)] = [name_variable]
+                else:
+                    data_variable[str(name_variable)] = []
+        except Exception as e:
+            local_osbm.obj_logg.error_logger(f"Error in type_variable_is_list: {e}")
+
     def type_variable_is_date(
         self, local_osbm, data_variable, name_variable, value, config_variable
     ):
@@ -258,7 +275,9 @@ class ConverterPool:
                 object_entry = dict()
                 #
                 headers_table = []
-                rowcols = sorted(config_dict.get("ROWCOLS", []), key=lambda x: x.get("ORDER", 0))
+                rowcols = sorted(
+                    config_dict.get("ROWCOLS", []), key=lambda x: x.get("ORDER", 0)
+                )
                 for rowcol in rowcols:
                     attr_rowcol = rowcol.get("ATTR")
                     id_rowcol = rowcol.get("ID")
@@ -268,7 +287,7 @@ class ConverterPool:
                     headers_table.append(title_rowcol)
                 # заполнять data_variable
                 data = json.loads(value)
-                # таблица и словрь записей 
+                # таблица и словрь записей
                 values_table = []
                 entrys = dict()
                 # проходим по всем rowcol
@@ -286,30 +305,40 @@ class ConverterPool:
                             entrys[i] = entry
                 # проходим по записям entrys
                 for object_entry in entrys.values():
+                    for key, value in object_entry.items():
+                        print(f"key = {key}, value = {value}")
+                        object_entry[key] = self.get_cell_value(data_variable, value)
                     values_table.append(object_entry)
                 #
-                data_table = {
-                    "h": headers_table,
-                    "v": values_table
-                }
+                data_table = {"h": headers_table, "v": values_table}
                 data_variable[str(name_variable)] = data_table
-                # data_variable[str(name_variable)]["h"] = headers
             else:
                 default_value = local_osbm.obj_com.default_value
                 if default_value == "variable":
-                    data_table = {
-                        "h": ["..."],
-                        "v": ["..."]
-                    }
+                    data_table = {"h": ["..."], "v": ["..."]}
                     data_variable[str(name_variable)] = data_table
                 else:
-                    data_table = {
-                        "h": [""],
-                        "v": [""]
-                    }
+                    data_table = {"h": [""], "v": [""]}
                     data_variable[str(name_variable)] = data_table
         except Exception as e:
             local_osbm.obj_logg.error_logger(f"Error in type_variable_is_table: {e}")
+
+    def get_cell_value(self, data_variable, cell_value):
+        result = cell_value
+        if cell_value:
+            if str(cell_value).startswith("{{ ") and str(cell_value).endswith(" }}"):
+                print("ПОПАЛ", cell_value[3:-3])
+                result = data_variable.get(cell_value[3:-3], cell_value)
+            else:
+                try:
+                    json_data = json.loads(cell_value)
+                    if isinstance(json_data, list):
+                        print("ПОПАЛ", json_data)
+                        result = json_data
+                except Exception as e:
+                    pass
+        print(f"get_cell_value: cell_value = {cell_value}, result = {result}")
+        return result
 
     def check_type_variable_and_fill_data_variable(
         self, local_osbm, pair, data_variable, docx_template, is_rerender=False
@@ -342,6 +371,8 @@ class ConverterPool:
             self.type_variable_is_table(
                 local_osbm, data_variable, name_variable, value, id_variable
             )
+        elif not is_rerender and type_variable == "LIST":
+            self.type_variable_is_list(local_osbm, data_variable, name_variable, value)
         # общий для всех
         elif type_variable == "IMAGE":
             self.type_variable_is_image(

@@ -384,7 +384,6 @@ class TemplatesListDialogWindow(QDialog):
                     "included": 1,
                 }
             else:
-                # TODO sqlite3.IntegrityError: UNIQUE constraint failed: Project_pages.filename_page
                 # копирование
                 new_page_filename = self.__osbm.obj_film.copynew_page_for_new_template(
                     copy_page.get("filename_page"), copy_page.get("typefile_page")

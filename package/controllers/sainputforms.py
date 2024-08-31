@@ -8,6 +8,7 @@ import package.components.widgets.forms.formimage as formimage
 import package.components.widgets.forms.formtable as formtable
 import package.components.widgets.forms.formtext as formtext
 import package.components.widgets.forms.formlongtext as formlongtext
+import package.components.widgets.forms.formlist as formlist
 
 from PySide6.QtWidgets import QLabel, QVBoxLayout, QPushButton, QSpacerItem, QSizePolicy, QMenu
 from PySide6.QtGui import QAction, Qt
@@ -97,6 +98,8 @@ class SAInputForms:
             item = formimage.FormImage(self.__osbm, pair, current_variable, config_dict)
         elif type_variable == "TABLE":
             item = formtable.FormTable(self.__osbm, pair, current_variable, config_dict)
+        elif type_variable == "LIST":
+            item = formlist.FormList(self.__osbm, pair, current_variable)
         #
         if item:
             # окно по правой кнопки мыши (ui.treewidget_structure_execdoc)

@@ -109,7 +109,7 @@ class NedVariableDialogWindow(QDialog):
         if len(le_namevariable) > 0 and len(le_titlevariable) > 0 and is_valid_jinja_variable:
             # получит config_data в зависимости от типа переменной
             type_variable = self.ui.combox_typevariable.currentData()
-            if type_variable == "TEXT" or type_variable == "LONGTEXT":
+            if type_variable == "TEXT" or type_variable == "LONGTEXT" or type_variable == "LIST":
                 config_data = {}
             else:
                 config_data = self.__additional_widget.get_save_data()

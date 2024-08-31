@@ -71,6 +71,7 @@ class ObjectsManager:
         self.obj_nedpagedw = None
         self.obj_nedrowcoldw = None
         self.obj_formtabledw = None
+        self.obj_formlistdw = None
         # общее
         self.obj_com = None
         self.obj_comwith = None

@@ -21,7 +21,8 @@ class VariableTypes:
             ),
             VariableType(2, "Дата", "DATE", self.__icons.get("date"), False),
             VariableType(3, "Таблица", "TABLE", self.__icons.get("table-columns"), True),
-            VariableType(4, "Изображение", "IMAGE", self.__icons.get("image"), False),
+            VariableType(4, "Список", "LIST", self.__icons.get("list"), True),
+            VariableType(5, "Изображение", "IMAGE", self.__icons.get("image"), False),
         ]
     
     def get_icon_by_type_variable(self, type_variable):
