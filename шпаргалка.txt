@@ -2,8 +2,8 @@ python -m nuitka --follow-imports main.py
 
 # исключит templates
 python -m nuitka --follow-imports --noinclude-data-files=templates/**/*.docx main.py
-python -m nuitka --standalone --follow-imports --plugin-enable=pyside6 --noinclude-data-files=templates/**/*.docx main.py
---disable-console
+python -m nuitka --standalone --follow-imports --plugin-enable=pyside6 --noinclude-data-files=templates/**/*.docx --disable-console main.pyw
+
 python -m nuitka main.py
 
 pyside6-uic designer/mainwindow.ui -o package/ui/mainwindow_ui.py

@@ -143,7 +143,11 @@ class FormTableDialogWindow(QDialog):
 
     def add_row(self):
         self.__osbm.obj_logg.debug_logger("FormTableDialogWindow add_row()")
-        row_count = self.ui.table.rowCount()
+        selected_row = self.ui.table.currentRow()
+        if selected_row == -1:
+            row_count = self.ui.table.rowCount()
+        else:
+            row_count = selected_row + 1
         self.ui.table.insertRow(row_count)
         for column in range(self.ui.table.columnCount()):
             item = QTableWidgetItem()
@@ -151,11 +155,11 @@ class FormTableDialogWindow(QDialog):
 
     def add_column(self):
         self.__osbm.obj_logg.debug_logger("FormTableDialogWindow add_column()")
-        column_count = self.ui.table.columnCount()
-        self.ui.table.insertColumn(column_count)
-        for row in range(self.ui.table.rowCount()):
-            item = QTableWidgetItem()
-            self.ui.table.setItem(row, column_count, item)
+        # column_count = self.ui.table.columnCount()
+        # self.ui.table.insertColumn(column_count)
+        # for row in range(self.ui.table.rowCount()):
+        #     item = QTableWidgetItem()
+        #     self.ui.table.setItem(row, column_count, item)
 
     def delete_row(self):
         self.__osbm.obj_logg.debug_logger("FormTableDialogWindow delete_row()")
@@ -165,9 +169,9 @@ class FormTableDialogWindow(QDialog):
 
     def delete_column(self):
         self.__osbm.obj_logg.debug_logger("FormTableDialogWindow delete_column()")
-        current_column = self.ui.table.currentColumn()
-        if current_column >= 0:
-            self.ui.table.removeColumn(current_column)
+        # current_column = self.ui.table.currentColumn()
+        # if current_column >= 0:
+        #     self.ui.table.removeColumn(current_column)
 
     # def update_cell(self, row, column):
     #     item = self.ui.table.item(row, column)
