@@ -327,13 +327,11 @@ class ConverterPool:
         result = cell_value
         if cell_value:
             if str(cell_value).startswith("{{ ") and str(cell_value).endswith(" }}"):
-                print("ПОПАЛ", cell_value[3:-3])
                 result = data_variable.get(cell_value[3:-3], cell_value)
             else:
                 try:
                     json_data = json.loads(cell_value)
-                    if isinstance(json_data, list):
-                        print("ПОПАЛ", json_data)
+                    if isinstance(json_data, list) or isinstance(json_data, dict) or isinstance(json_data, str):
                         result = json_data
                 except Exception as e:
                     pass

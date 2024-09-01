@@ -442,6 +442,7 @@ class TemplatesListDialogWindow(QDialog):
                 }
             # добавляем вершину
             primary_key = self.__osbm.obj_prodb.insert_page(new_page)
+            new_page["id_page"] = primary_key
             # обновляем order
             page_for_order = self.__osbm.obj_prodb.get_page_by_id(primary_key)
             self.update_order_pages(page_for_order, order_page)
