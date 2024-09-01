@@ -55,7 +55,7 @@ class SAInputForms:
             else:
                 del item
 
-    def get_section_name(self, section_info):
+    def get_section_name(self, section_info) -> str:
         """
         Определение типа/названия секции
         """
@@ -76,21 +76,26 @@ class SAInputForms:
             section_name = project.get("name_node")
         return section_name
     
-    def get_section_id(self, section_info):
+    def get_section_id(self, section_info) -> str:
         self.__osbm.obj_logg.debug_logger(f"SAInputForms get_section_id(section_info):\nsection_info = {section_info}")
         section_type = section_info.get("type")
         section_id = None
         if section_type == "page":
             page = section_info.get("page")
             section_id = f"page_{page.get('id_page')}" 
+
         elif section_type == "template":
             template = section_info.get("template")
             section_id = f"template_{template.get('id_template')}"
+
+        elif section_type == "group":
             group = section_info.get("group")
             section_id = f"group_{group.get('id_node')}"
+
         elif section_type == "project":
             project = section_info.get("project")
             section_id = f"project_{project.get('id_node')}"
+
         return section_id
 
     def add_form_in_section(self, pair, type_section, section_layout):
@@ -160,7 +165,6 @@ class SAInputForms:
         for section_info in sections_info:
             try:
                 section_id = self.get_section_id(section_info)
-                print(f"section_id = {section_id}")
                 section_name = self.get_section_name(section_info)
                 #
                 is_checked = False

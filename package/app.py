@@ -1,7 +1,7 @@
 import sys
 
 from PySide6.QtWidgets import QApplication
-from PySide6.QtGui import QFontDatabase
+from PySide6.QtGui import QFontDatabase, QFont
 
 import package.components.mainwindow as mainwindow
 
@@ -176,8 +176,17 @@ class App:
         try:
             self.app = QApplication(sys.argv)
             # настройка шрифтов
-            self.__font_1_id = QFontDatabase.addApplicationFont(":/fonts/resources/fonts/OpenSans-Italic-VariableFont_wdth,wght.ttf")
-            self.__font_2_id = QFontDatabase.addApplicationFont(":/fonts/resources/fonts/OpenSans-VariableFont_wdth,wght.ttf")
+            self.__font_main = QFontDatabase.addApplicationFont(":/fonts/resources/fonts/OpenSans-VariableFont_wdth,wght.ttf")
+            self.__font_italic = QFontDatabase.addApplicationFont(":/fonts/resources/fonts/OpenSans-Italic-VariableFont_wdth,wght.ttf")
+            # Получаем название шрифта
+            try:
+                font_families = QFontDatabase.applicationFontFamilies(self.__font_main)
+                if font_families:
+                    self.__size_font = 10
+                    self.__custom_font = QFont(font_families[0], self.__size_font)
+                    self.app.setFont(self.__custom_font) 
+            except Exception as e:
+                self.osbm.obj_logg.error_logger(f"Error: {e}")
             # создание окна
             self.window = mainwindow.MainWindow(self.osbm)
             # подключение MainWindow к osbm
