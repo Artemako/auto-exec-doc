@@ -21,6 +21,10 @@ class SAInputForms:
         #
         self.__sections = []        
         self.__sections_checked = dict()
+
+    def clear_sections_checked(self):
+        self.__osbm.obj_logg.debug_logger("SAInputForms clear_sections_checked()")
+        self.__sections_checked = dict()
     
     def setting_all_osbm(self, osbm):
         self.__osbm = osbm
@@ -72,21 +76,21 @@ class SAInputForms:
             section_name = project.get("name_node")
         return section_name
     
-    def get_section_id(self, section_info, project_name):
-        self.__osbm.obj_logg.debug_logger(f"SAInputForms get_section_id(section_info, project_name):\nsection_info = {section_info},\nproject_name = {project_name}")
+    def get_section_id(self, section_info):
+        self.__osbm.obj_logg.debug_logger(f"SAInputForms get_section_id(section_info):\nsection_info = {section_info}")
         section_type = section_info.get("type")
         section_id = None
         if section_type == "page":
             page = section_info.get("page")
-            section_id = f"{project_name}_page_{page.get('id_page')}" 
+            section_id = f"page_{page.get('id_page')}" 
         elif section_type == "template":
             template = section_info.get("template")
-            section_id = f"{project_name}_template_{template.get('id_template')}"
+            section_id = f"template_{template.get('id_template')}"
             group = section_info.get("group")
-            section_id = f"{project_name}_group_{group.get('id_node')}"
+            section_id = f"group_{group.get('id_node')}"
         elif section_type == "project":
             project = section_info.get("project")
-            section_id = f" {project_name}_project_{project.get('id_node')}"
+            section_id = f"project_{project.get('id_node')}"
         return section_id
 
     def add_form_in_section(self, pair, type_section, section_layout):
@@ -151,12 +155,11 @@ class SAInputForms:
         sections_info = self.__osbm.obj_seci.get_sections_info()
         self.__sections = []
         # 
-        project_name = self.__osbm.obj_setdb.get_project_current_name()
         sections_checked = self.__sections_checked
         # перебор секций
         for section_info in sections_info:
             try:
-                section_id = self.get_section_id(section_info, project_name)
+                section_id = self.get_section_id(section_info)
                 print(f"section_id = {section_id}")
                 section_name = self.get_section_name(section_info)
                 #

@@ -244,6 +244,8 @@ class Project:
         self.__osbm.obj_mw.enable_qt_actions()
         # значение по умолчанию включить
         self.__osbm.obj_mw.config_combox_default()
+        # очистить список выбранных секций
+        self.__osbm.obj_saif.clear_sections_checked()
 
 
     def export_to_pdf(self):
