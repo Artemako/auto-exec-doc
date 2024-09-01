@@ -244,8 +244,10 @@ class NedPageDialogWindow(QDialog):
             #
             result_bd = self.__osbm.obj_prodb.get_variable_by_name(name_variable)
             result_variables_for_add = self.get_variable_by_name(name_variable)
-            if result_bd or result_variables_for_add:
+            if result_bd:
                 tablewidget.setItem(row, 1, QTableWidgetItem("Имеется"))
+            elif result_variables_for_add:
+                tablewidget.setItem(row, 1, QTableWidgetItem("Добавлена"))
             else:
                 add_button.setText("Добавить переменную")
                 add_button.clicked.connect(partial(self.add_variable, name_variable))

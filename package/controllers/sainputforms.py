@@ -14,12 +14,13 @@ from PySide6.QtWidgets import QLabel, QVBoxLayout, QPushButton, QSpacerItem, QSi
 from PySide6.QtGui import QAction, Qt
 
 class SAInputForms:
-
+    
     def __init__(self):
         self.__scrollarea_input = None
         self.__scrollarea_input_layout = None
         #
-        self.__sections = []
+        self.__sections = []        
+        self.__sections_checked = dict()
     
     def setting_all_osbm(self, osbm):
         self.__osbm = osbm
@@ -70,6 +71,23 @@ class SAInputForms:
             project = section_info.get("project")
             section_name = project.get("name_node")
         return section_name
+    
+    def get_section_id(self, section_info, project_name):
+        self.__osbm.obj_logg.debug_logger(f"SAInputForms get_section_id(section_info, project_name):\nsection_info = {section_info},\nproject_name = {project_name}")
+        section_type = section_info.get("type")
+        section_id = None
+        if section_type == "page":
+            page = section_info.get("page")
+            section_id = f"{project_name}_page_{page.get('id_page')}" 
+        elif section_type == "template":
+            template = section_info.get("template")
+            section_id = f"{project_name}_template_{template.get('id_template')}"
+            group = section_info.get("group")
+            section_id = f"{project_name}_group_{group.get('id_node')}"
+        elif section_type == "project":
+            project = section_info.get("project")
+            section_id = f" {project_name}_project_{project.get('id_node')}"
+        return section_id
 
     def add_form_in_section(self, pair, type_section, section_layout):
         """
@@ -129,15 +147,28 @@ class SAInputForms:
     def add_sections_in_sa(self):
         """ """
         self.__osbm.obj_logg.debug_logger("SAInputForms add_sections_in_sa()")
-
+        
         sections_info = self.__osbm.obj_seci.get_sections_info()
         self.__sections = []
+        # 
+        project_name = self.__osbm.obj_setdb.get_project_current_name()
+        sections_checked = self.__sections_checked
         # перебор секций
         for section_info in sections_info:
             try:
+                section_id = self.get_section_id(section_info, project_name)
+                print(f"section_id = {section_id}")
                 section_name = self.get_section_name(section_info)
+                #
+                is_checked = False
+                if section_id:
+                    result = sections_checked.get(section_id)
+                    if result is not None:
+                        is_checked = result
+                    else:
+                        sections_checked[section_id] = False
                 # Создание секции виджета
-                section = customsection.Section(self.__osbm, section_name)
+                section = customsection.Section(self.__osbm, section_id, section_name, sections_checked, is_checked)
                 section_layout = QVBoxLayout()
                 section_layout.setSpacing(9)
                 # data секции
@@ -157,6 +188,7 @@ class SAInputForms:
         self.__scrollarea_input_layout.layout().addItem(
             QSpacerItem(0, 0, QSizePolicy.Minimum, QSizePolicy.Expanding)
         )
+        print(f"AFTER sections_checked = {sections_checked}")
 
     def update_scrollarea(self, page):
         """

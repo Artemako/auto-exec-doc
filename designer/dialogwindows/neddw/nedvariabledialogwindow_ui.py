@@ -93,10 +93,10 @@ class Ui_NedVariableDialogWindow(object):
 
         self.hl_copyvariable.addWidget(self.label_copyfrom)
 
-        self.combox_variables = QComboBox(NedVariableDialogWindow)
-        self.combox_variables.setObjectName(u"combox_variables")
+        self.combox_copyvariables = QComboBox(NedVariableDialogWindow)
+        self.combox_copyvariables.setObjectName(u"combox_copyvariables")
 
-        self.hl_copyvariable.addWidget(self.combox_variables)
+        self.hl_copyvariable.addWidget(self.combox_copyvariables)
 
         self.hl_copyvariable.setStretch(1, 1)
 

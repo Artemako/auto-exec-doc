@@ -130,7 +130,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="combox_variables"/>
+      <widget class="QComboBox" name="combox_copyvariables"/>
      </item>
     </layout>
    </item>

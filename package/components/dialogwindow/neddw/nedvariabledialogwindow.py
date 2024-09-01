@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QDialog
 from PySide6.QtCore import QTimer, Qt
 
 import re
+import json
 
 import package.ui.nedvariabledialogwindow_ui as nedvariabledialogwindow_ui
 
@@ -35,10 +36,11 @@ class NedVariableDialogWindow(QDialog):
             "ORDER": None,
             "CONFIG": {},
             "DESCRIPTION": {},
+            "copy_variable": None,
         }
-        #
         self.config_combox_typevariable()
         self.config_combox_neighboor()
+        self.config_combox_copyvariables()
         self.config_by_type_window()
         # многоразовые действия
         self.update_additional_info()
@@ -79,12 +81,50 @@ class NedVariableDialogWindow(QDialog):
         combobox.setCurrentIndex(current_index)
         combobox.blockSignals(False)
 
+    def config_combox_copyvariables(self):
+        if self.__type_window == "create":
+            self.__osbm.obj_logg.debug_logger("NedVariableDialogWindow config_combox_copyvariables()")
+            combobox = self.ui.combox_copyvariables
+            combobox.blockSignals(True)
+            combobox.clear()
+            # по умолчанию - начало
+            combobox.addItem("- Пустая переменная -", "empty")
+            for index, variable in enumerate(self.__variables):
+                combobox.addItem(f'{variable.get("order_variable")+1}) {variable.get("name_variable")}', variable)
+            combobox.setCurrentIndex(0)
+            combobox.blockSignals(False)
+        else:
+            self.ui.label_copyfrom.setEnabled(False)
+            self.ui.combox_copyvariables.setEnabled(False)
+
+
+    def on_combox_copyvariables_changed(self, index):
+        self.__osbm.obj_logg.debug_logger("NedVariableDialogWindow on_combox_copyvariables_changed()")
+        copy_variable = self.ui.combox_copyvariables.itemData(index)
+        if index == 0:
+            self.ui.typevariable.setEnabled(True)
+            self.ui.combox_typevariable.setEnabled(True)
+            self.update_additional_info()
+        else:
+            self.ui.typevariable.setEnabled(False)
+            self.ui.combox_typevariable.setEnabled(False)
+            index = self.__osbm.obj_comwith.variable_types.get_index_by_data(
+                copy_variable.get("type_variable")
+            )
+            self.ui.combox_typevariable.setCurrentIndex(index)
+            self.update_additional_info(None, False)
+            
 
     def connecting_actions(self):
         self.__osbm.obj_logg.debug_logger("NedVariableDialogWindow connecting_actions()")
         self.ui.combox_typevariable.currentIndexChanged.connect(
             self.on_combox_typevariable_changed
         )
+        #
+        self.ui.combox_copyvariables.currentIndexChanged.connect(
+            self.on_combox_copyvariables_changed
+        )
+        #
         self.ui.btn_close.clicked.connect(self.close)
         self.ui.btn_close.setShortcut("Ctrl+Q")
         self.ui.btn_nesvariable.clicked.connect(self.btn_nesvariable_clicked)
@@ -107,12 +147,18 @@ class NedVariableDialogWindow(QDialog):
         # проверка на пустоту (уникальность присутствует)
         is_valid_jinja_variable = self.get_is_valid_jinja_variable(le_namevariable)
         if len(le_namevariable) > 0 and len(le_titlevariable) > 0 and is_valid_jinja_variable:
-            # получит config_data в зависимости от типа переменной
-            type_variable = self.ui.combox_typevariable.currentData()
-            if type_variable == "TEXT" or type_variable == "LONGTEXT" or type_variable == "LIST":
-                config_data = {}
+            # copy_variable 
+            copy_variable = self.ui.combox_copyvariables.currentData()
+            if copy_variable == "empty" or copy_variable is None:
+                # получит config_variable в зависимости от типа переменной
+                type_variable = self.ui.combox_typevariable.currentData()
+                if type_variable == "TEXT" or type_variable == "LONGTEXT" or type_variable == "LIST":
+                    config_variable = {}
+                else:
+                    config_variable = self.__additional_widget.get_save_data()
             else:
-                config_data = self.__additional_widget.get_save_data()
+                type_variable = copy_variable.get("type_variable")
+                config_variable = json.loads(copy_variable.get("config_variable"))
             #
             neighboor_data = self.ui.combox_neighboor.currentData()
             print(f"neighboor_data = {neighboor_data}")
@@ -122,8 +168,8 @@ class NedVariableDialogWindow(QDialog):
                 "TYPE": type_variable,
                 "TITLE": le_titlevariable,
                 "ORDER": order_variable,
-                "CONFIG": config_data,
-                "DESCRIPTION": "",
+                "CONFIG": config_variable,
+                "DESCRIPTION": ""
             }
             # пытаемся accept
             if self.__type_window == "create":
@@ -208,37 +254,38 @@ class NedVariableDialogWindow(QDialog):
             else:
                 self.clear_layout(item.layout())
 
-    def update_additional_info(self, index=None):
+    def update_additional_info(self, index=None, is_show = True):
         self.__osbm.obj_logg.debug_logger(
             f"NedVariableDialogWindow config_additional_info(index):\nindex = {index}"
         )
-        if index is None:
-            if self.__variable:
-                index = self.__osbm.obj_comwith.variable_types.get_index_by_data(
-                    self.__variable.get("type_variable")
-                )
-            else:
-                index = 0
         self.clear_layout(self.ui.vbl_additional_info)
         self.__additional_widget = None
-        #
-        data = self.__osbm.obj_comwith.variable_types.get_data_by_index(index)
-        if data == "DATE":
-            self.__additional_widget = neddatevariable.NedDateVariable(
-                self.__osbm, self.__type_window, self.__variable
-            )
-            self.ui.vbl_additional_info.addWidget(self.__additional_widget)
-        elif data == "TABLE":
-            self.__additional_widget = nedtablevariable.NedTableVariable(
-                self.__osbm, self.__type_window, self.__variable
-            )
-            self.ui.vbl_additional_info.addWidget(self.__additional_widget)
-        elif data == "IMAGE":
-            self.__additional_widget = nedimagevariable.NedImageVariable(
-                self.__osbm, self.__type_window, self.__variable
-            )
-            self.ui.vbl_additional_info.addWidget(self.__additional_widget)
-        #
+        if is_show:
+            if index is None:
+                if self.__variable:
+                    index = self.__osbm.obj_comwith.variable_types.get_index_by_data(
+                        self.__variable.get("type_variable")
+                    )
+                else:
+                    index = 0
+            #
+            data = self.__osbm.obj_comwith.variable_types.get_data_by_index(index)
+            if data == "DATE":
+                self.__additional_widget = neddatevariable.NedDateVariable(
+                    self.__osbm, self.__type_window, self.__variable
+                )
+                self.ui.vbl_additional_info.addWidget(self.__additional_widget)
+            elif data == "TABLE":
+                self.__additional_widget = nedtablevariable.NedTableVariable(
+                    self.__osbm, self.__type_window, self.__variable
+                )
+                self.ui.vbl_additional_info.addWidget(self.__additional_widget)
+            elif data == "IMAGE":
+                self.__additional_widget = nedimagevariable.NedImageVariable(
+                    self.__osbm, self.__type_window, self.__variable
+                )
+                self.ui.vbl_additional_info.addWidget(self.__additional_widget)
+            #
         QTimer.singleShot(
             0, self, lambda: self.__osbm.obj_comwith.resizeqt.set_temp_max_height(self)
         )

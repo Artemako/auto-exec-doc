@@ -11,13 +11,17 @@ from PySide6 import QtGui
 
 
 class Section(QWidget):
-    def __init__(self, osbm, section_name = "Секция"):
+    def __init__(self, osbm, section_id, section_name, sections_checked, is_checked):
         """
         References:
             # Adapted from c++ version
             http://stackoverflow.com/questions/32476006/how-to-make-an-expandable-collapsable-section-widget-in-qt
         """
         self.__osbm = osbm
+        self.__section_id = section_id
+        self.__section_name = section_name
+        self.__sections_checked = sections_checked
+        self.__is_checked = is_checked
         super(Section, self).__init__(None)
 
         self.__osbm.obj_style.set_style_for(self)
@@ -35,16 +39,15 @@ class Section(QWidget):
         toggleButton.setArrowType(QtCore.Qt.RightArrow)
 
         metrics = QtGui.QFontMetrics(self.toggleButton.font())
-        toggleButton.setText(metrics.elidedText(section_name, QtCore.Qt.ElideRight, 280))
+        toggleButton.setText(metrics.elidedText(self.__section_name, QtCore.Qt.ElideRight, 280))
         toggleButton.setCheckable(True)
-        toggleButton.setChecked(False)
-
+        toggleButton.setChecked(self.__is_checked)
+    
         headerLine = self.headerLine
         headerLine.setFrameShape(QFrame.HLine)
         headerLine.setFrameShadow(QFrame.Sunken)
         headerLine.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Maximum)
         headerLine.setStyleSheet("QFrame { background-color: #3F3F46; }")
-
 
         self.contentArea.setStyleSheet("QScrollArea { border: none; }")
         self.contentArea.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
@@ -70,6 +73,7 @@ class Section(QWidget):
         self.setLayout(self.mainLayout)
 
         def start_animation(checked):
+            print(f"checked = {checked}")
             arrow_type = QtCore.Qt.DownArrow if checked else QtCore.Qt.RightArrow
             direction = (
                 QtCore.QAbstractAnimation.Forward
@@ -79,8 +83,13 @@ class Section(QWidget):
             toggleButton.setArrowType(arrow_type)
             self.toggleAnimation.setDirection(direction)
             self.toggleAnimation.start()
+            self.__sections_checked[self.__section_id] = checked
+
 
         self.toggleButton.clicked.connect(start_animation)
+
+        if self.__is_checked:
+            start_animation(self.__is_checked)
 
     def setContentLayout(self, contentLayout):
         # Not sure if this is equivalent to self.contentArea.destroy()
