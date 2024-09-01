@@ -61,4 +61,4 @@ class FormTable(QWidget):
             f"FormTable set_new_value_in_pair(new_value):\nnew_value = {new_value}"
         )
         self.__pair["value_pair"] = new_value
-        print(self.__pair)
+        print(f"set_new_value_in_pair pair = {self.__pair}") 

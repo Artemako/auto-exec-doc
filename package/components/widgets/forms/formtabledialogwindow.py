@@ -33,7 +33,6 @@ class FormTableDialogWindow(QDialog):
         self.__rowcols = []
         #
         self.__data = []
-        self.__clipboard = None
         #
         self.config()
         self.config_tw()
@@ -90,19 +89,28 @@ class FormTableDialogWindow(QDialog):
         self.fill_tw_table(table_data, headers, len_data)
         self.resize_headers_tw_table(headers)
 
+
     def config_context_menu(self):
         self.__osbm.obj_logg.debug_logger("FormTableDialogWindow config_context_menu()")
         # контекстное меню
         self.context_menu = QMenu(self)
         self.context_menu.addSeparator()
+        # Вырезать - cut_values_to_clipboard
+        self.cut_action = QAction("Вырезать", self)
+        self.cut_action.triggered.connect(lambda: self.cut_values_to_clipboard())
+        self.context_menu.addAction(self.cut_action)
         # Копировать - copy_values_to_clipboard
-        self.copy_action = QAction("Копировать в буфер обмена", self)
+        self.copy_action = QAction("Копировать", self)
         self.copy_action.triggered.connect(lambda: self.copy_values_to_clipboard())
-        self.context_menu.addAction(self.copy_action)
+        self.context_menu.addAction(self.copy_action)        
         #
-        self.paste_action = QAction("Вставить из буфера обмена", self)
+        self.context_menu.addSeparator()
+        #
+        self.paste_action = QAction("Вставить ", self)
         self.paste_action.triggered.connect(lambda: self.paste_values_from_clipboard())
         self.context_menu.addAction(self.paste_action)
+        #
+        self.context_menu.addSeparator()
         # Очистиь значения выделенного
         self.clear_action = QAction("Очистить выделенное", self)
         self.clear_action.triggered.connect(lambda: self.clear_selected_values())
@@ -173,6 +181,15 @@ class FormTableDialogWindow(QDialog):
         selected_items = self.ui.table.selectedItems()
         for item in selected_items:
             item.setText("")
+
+
+    def cut_values_to_clipboard(self):
+        self.__osbm.obj_logg.debug_logger(
+            "FormTableDialogWindow cut_values_to_clipboard()"
+        )
+        self.copy_values_to_clipboard()
+        self.clear_selected_values()
+
 
     def copy_values_to_clipboard(self):
         """
@@ -338,7 +355,7 @@ class FormTableDialogWindow(QDialog):
         table_widget = self.ui.table
         for index in range(len(headers)):
             header_width = table_widget.horizontalHeader().fontMetrics().horizontalAdvance(headers[index])
-            table_widget.setColumnWidth(index, header_width + 10)
+            table_widget.setColumnWidth(index, header_width + 20)
 
     def get_data_from_table(self) -> list:
         self.__osbm.obj_logg.debug_logger("FormTableDialogWindow to_json() -> list:")

@@ -73,8 +73,10 @@ class FormDate(QWidget):
             self.set_new_value_in_pair()
 
         self.ui.dateedit.setDisplayFormat(self.__str_format)
-
-        self.ui.dateedit.editingFinished.connect(self.set_new_value_in_pair)
+        # self.ui.dateedit.editingFinished.connect(self.set_new_value_in_pair)
+        self.ui.dateedit.dateChanged.connect(self.set_new_value_in_pair)
+        #
+        self.ui.btn_set_current.clicked.connect(lambda: self.ui.dateedit.setDate(QDate.currentDate()))
 
     # def qdate_to_string(self, date, str_format) -> str:
     #     self.__osbm.obj_logg.debug_logger(
@@ -83,9 +85,7 @@ class FormDate(QWidget):
     #     return str(date.toString(str_format))
 
     def set_new_value_in_pair(self):
-        self.__osbm.obj_logg.debug_logger("FormDate set_new_value_in_pair(self)")
         # self.__pair["value_pair"] = new_value
         current_date = self.ui.dateedit.date()
         iso_date = current_date.toString("yyyy-MM-dd")
         self.__pair["value_pair"] = iso_date
-        print(f"pair = {self.__pair}")

@@ -16,7 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QDateEdit, QHBoxLayout, QLabel,
-    QSizePolicy, QTextBrowser, QVBoxLayout, QWidget)
+    QPushButton, QSizePolicy, QTextBrowser, QVBoxLayout,
+    QWidget)
 
 class Ui_FormDateWidget(object):
     def setupUi(self, FormDateWidget):
@@ -54,11 +55,22 @@ class Ui_FormDateWidget(object):
 
         self.verticalLayout.addLayout(self.hl)
 
+        self.hl_date = QHBoxLayout()
+        self.hl_date.setObjectName(u"hl_date")
         self.dateedit = QDateEdit(FormDateWidget)
         self.dateedit.setObjectName(u"dateedit")
         self.dateedit.setTimeSpec(Qt.UTC)
 
-        self.verticalLayout.addWidget(self.dateedit)
+        self.hl_date.addWidget(self.dateedit)
+
+        self.btn_set_current = QPushButton(FormDateWidget)
+        self.btn_set_current.setObjectName(u"btn_set_current")
+
+        self.hl_date.addWidget(self.btn_set_current)
+
+        self.hl_date.setStretch(0, 1)
+
+        self.verticalLayout.addLayout(self.hl_date)
 
         self.textbrowser = QTextBrowser(FormDateWidget)
         self.textbrowser.setObjectName(u"textbrowser")
@@ -79,6 +91,7 @@ class Ui_FormDateWidget(object):
         self.label_typevariable.setText(QCoreApplication.translate("FormDateWidget", u"\u0418\u041a", None))
         self.title.setText(QCoreApplication.translate("FormDateWidget", u"<html><head/><body><p>\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a</p></body></html>", None))
         self.label_variable.setText(QCoreApplication.translate("FormDateWidget", u"<html><head/><body><p><span style=\" font-style:italic;\">variable</span></p></body></html>", None))
+        self.btn_set_current.setText(QCoreApplication.translate("FormDateWidget", u"\u0412\u044b\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u0442\u0435\u043a\u0443\u0449\u0443\u044e \u0434\u0430\u0442\u0443", None))
         self.textbrowser.setHtml(QCoreApplication.translate("FormDateWidget", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"

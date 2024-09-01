@@ -79,11 +79,22 @@
     </layout>
    </item>
    <item>
-    <widget class="QDateEdit" name="dateedit">
-     <property name="timeSpec">
-      <enum>Qt::UTC</enum>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="hl_date" stretch="1,0">
+     <item>
+      <widget class="QDateEdit" name="dateedit">
+       <property name="timeSpec">
+        <enum>Qt::UTC</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_set_current">
+       <property name="text">
+        <string>Выставить текущую дату</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QTextBrowser" name="textbrowser">

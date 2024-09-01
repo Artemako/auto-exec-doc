@@ -31,13 +31,13 @@ class PdfView:
         self.__widget_pdf_view.setDocument(self.__document)
 
     def zoom_in(self):
-        if (self.__zoom + DELTA_ZOOM) < MAX_ZOOM:
+        if (self.__zoom + DELTA_ZOOM) < MAX_ZOOM and self.__widget_pdf_view.zoomMode() == QPdfView.ZoomMode.Custom:
             self.__zoom += DELTA_ZOOM
             self.__widget_pdf_view.setZoomFactor(self.__zoom)
             self.__osbm.obj_logg.debug_logger(f"PdfView zoom_in():\nself.__zoom = {self.__zoom}")
 
     def zoom_out(self):
-        if (self.__zoom - DELTA_ZOOM) > MIN_ZOOM:
+        if (self.__zoom - DELTA_ZOOM) > MIN_ZOOM and self.__widget_pdf_view.zoomMode() == QPdfView.ZoomMode.Custom:
             self.__zoom -= DELTA_ZOOM
             self.__widget_pdf_view.setZoomFactor(self.__zoom)
             self.__osbm.obj_logg.debug_logger(f"PdfView zoom_out():\nself.__zoom = {self.__zoom}")
@@ -46,9 +46,9 @@ class PdfView:
         self.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.FitToWidth)
         self.__osbm.obj_logg.debug_logger("PdfView set_zoom_to_fit_width()")
 
-    def set_zoom_to_fit_view(self):
-        self.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.FitInView)
-        self.__osbm.obj_logg.debug_logger("PdfView set_zoom_to_fit_view()")
+    # def set_zoom_to_fit_view(self):
+    #     self.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.FitInView)
+    #     self.__osbm.obj_logg.debug_logger("PdfView set_zoom_to_fit_view()")
 
     def set_zoom_custom(self):
         self.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.Custom)
