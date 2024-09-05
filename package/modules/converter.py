@@ -8,6 +8,7 @@ from docx.shared import Mm
 # from docx.enum.text import WD_BREAK
 # from docx import Document
 
+import threading
 import multiprocessing
 
 import comtypes.client
@@ -24,6 +25,7 @@ import package.modules.convertervarimage as convertervarimage
 class ConverterPool:
     def __init__(self):
         self.__cashe_temp_images = dict()
+        self.__is_word_active = False
 
     def process_object_of_project_pages_objects(self, args) -> dict:
         local_osbm, object_for_pool = args
@@ -476,16 +478,43 @@ class ConverterPool:
                 local_osbm, docx_path, pdf_path
             )
 
+    def get_active_msword(self, local_osbm) -> object:
+        local_osbm.obj_logg.debug_logger("Converter get_active_msword()")
+        try:
+            word = comtypes.client.GetActiveObject("Word.Application")
+            self.__is_word_active = True
+            return word
+        except Exception as e:
+            local_osbm.obj_logg.error_logger(
+                f"Error in Converter.get_active_msword(): {e}"
+            )
+            raise local_osbm.obj_com.errors.MsWordError(e)
+        
     def convert_from_docx_to_pdf_using_msword(self, local_osbm, docx_path, pdf_path):
         local_osbm.obj_logg.debug_logger(
             "Converter convert_from_docx_to_pdf_using_msword(docx_path, pdf_path)"
         )
         try:
-            wdFormatPDF = 17
-            word = comtypes.client.GetActiveObject("Word.Application")
+            self.__is_word_active = False
+            thread = threading.Thread(target=self.get_active_msword, args=(local_osbm,))
+            thread.start()
+            # ждём 3 секунды
+            thread.join(3)
+            if thread.is_alive():
+                raise local_osbm.obj_com.errors.MsWordError(
+                    "Error in convert_from_docx_to_pdf_using_msword(): Timeout"
+                )
+            if not self.__is_word_active:
+                raise local_osbm.obj_com.errors.MsWordError(
+                    "Error in convert_from_docx_to_pdf_using_msword(): Word object is not available"
+                )
+            
+            word = self.get_active_msword(local_osbm)
             doc = word.Documents.Open(docx_path)
+            wdFormatPDF = 17
             doc.SaveAs(pdf_path, FileFormat=wdFormatPDF)
             doc.Close()
+
         except Exception as e:
             local_osbm.obj_logg.error_logger(
                 f"Error in convert_from_docx_to_pdf_using_msword(docx_path, pdf_path): {e}"

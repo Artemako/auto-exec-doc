@@ -24,7 +24,6 @@ class MsWordThread(QThread):
         try:
             self.__word = comtypes.client.GetActiveObject("Word.Application")
             self.__status_msword = True
-            time.sleep(2)
         except Exception as e:
             self.__osbm.obj_logg.error_logger(f"Error in get_active_msword(): {e}")
         
@@ -32,15 +31,14 @@ class MsWordThread(QThread):
     def initialize_msword(self):
         self.__osbm.obj_logg.debug_logger("MsWordThread initialize_msword()")
         try:
-            # TODO 
             pythoncom.CoInitialize()
             self.__status_msword = None
             self.status_changed.emit(self.__status_msword)
             #
             thread = threading.Thread(target=self.get_active_msword)
             thread.start()
-            # ждём три секунды
-            thread.join(1)
+            # ждём 3 секунды
+            thread.join(3)
             if thread.is_alive() or not self.__status_msword:
                 self.__word = comtypes.client.CreateObject("Word.Application")
                 self.__status_msword = True
