@@ -1,0 +1,699 @@
+2024-09-01 14:33:42,301 - DEBUG - [34m Config logger[00m
+2024-09-01 14:33:42,301 - DEBUG - [34m self.current_directory = D:\work\project\AutoExecDoc\main.dist[00m
+2024-09-01 14:33:42,302 - DEBUG - [34m FileFolderManager create_and_setting_files_and_folders()[00m
+2024-09-01 14:33:42,302 - DEBUG - [34m DirPathManager get_default_folder_projects_dirpath() -> str: C:/Users/hayar/Documents\AutoExecDoc Projects[00m
+2024-09-01 14:33:42,302 - DEBUG - [34m SettingsDatabase create_and_setting_db_settings()[00m
+2024-09-01 14:33:42,302 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-09-01 14:33:42,302 - DEBUG - [34m OfficePackets resetting_office_packets()[00m
+2024-09-01 14:33:42,303 - DEBUG - [34m MsWordThread __init__()[00m
+2024-09-01 14:33:42,303 - DEBUG - [34m OfficePackets run_libreoffice()[00m
+2024-09-01 14:33:42,303 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-09-01 14:33:42,303 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-09-01 14:33:42,303 - DEBUG - [34m MsWordThread initialize_msword()[00m
+2024-09-01 14:33:42,304 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:42,304 - DEBUG - [34m SettingsDatabase get_libreoffice_path():
+result = {'value_setting': 'C:\\Program Files\\LibreOffice\\program\\soffice.exe'}[00m
+2024-09-01 14:33:42,493 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-09-01 14:33:42,501 - DEBUG - [34m MainWindow config()[00m
+2024-09-01 14:33:42,501 - DEBUG - [34m MainWindow update_menu_recent_projects()[00m
+2024-09-01 14:33:42,501 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-09-01 14:33:42,501 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-09-01 14:33:42,502 - DEBUG - [34m SettingsDatabase get_fetchall(cursor, conn) -> list[00m
+2024-09-01 14:33:42,502 - DEBUG - [34m SettingsDatabase get_last_projects():
+result = [][00m
+2024-09-01 14:33:42,502 - DEBUG - [34m MainWindow config_controllers()[00m
+2024-09-01 14:33:42,502 - DEBUG - [34m StatusBar connect_statusbar(statusbar)[00m
+2024-09-01 14:33:42,502 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-09-01 14:33:42,502 - DEBUG - [34m StatusBar config_statusbar()[00m
+2024-09-01 14:33:42,502 - DEBUG - [34m StatusBar config_msword()[00m
+2024-09-01 14:33:42,502 - DEBUG - [34m StatusBar get_red_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x2136fcd64a0) at 0x000002136E144400>[00m
+2024-09-01 14:33:42,503 - DEBUG - [34m StatusBar get_yellow_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x2136fcd6200) at 0x000002136E1445C0>[00m
+2024-09-01 14:33:42,503 - DEBUG - [34m StatusBar get_green_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x2136fcd4400) at 0x000002136E144640>[00m
+2024-09-01 14:33:42,503 - DEBUG - [34m StatusBar config_libreoffice()[00m
+2024-09-01 14:33:42,503 - DEBUG - [34m StatusBar get_red_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x2136ff39ad0) at 0x000002136E144780>[00m
+2024-09-01 14:33:42,504 - DEBUG - [34m StatusBar get_yellow_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x2136ff38cf0) at 0x000002136E1448C0>[00m
+2024-09-01 14:33:42,504 - DEBUG - [34m StatusBar get_green_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x2136ff38a50) at 0x000002136E144940>[00m
+2024-09-01 14:33:42,505 - DEBUG - [34m StatusBar config_update_statusbar()[00m
+2024-09-01 14:33:42,506 - DEBUG - [34m OfficePackets get_status_msword():
+self.__status_msword = False[00m
+2024-09-01 14:33:42,506 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = False[00m
+2024-09-01 14:33:42,506 - DEBUG - [34m OfficePackets get_status_libreoffice():
+self.__status_libreoffice = False[00m
+2024-09-01 14:33:42,506 - DEBUG - [34m StatusBar update_status_libreoffice_label(status_libreoffice):
+status_libreoffice = False[00m
+2024-09-01 14:33:42,506 - DEBUG - [34m StatusBar set_message(message):
+message = Проект не открыт[00m
+2024-09-01 14:33:42,506 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-09-01 14:33:42,506 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-09-01 14:33:42,506 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:42,506 - DEBUG - [34m SettingsDatabase get_app_converter():
+result = {'value_setting': 'MSWORD'}[00m
+2024-09-01 14:33:42,507 - DEBUG - [34m StatusBar update_name_app_converter()[00m
+2024-09-01 14:33:42,507 - DEBUG - [34m StatusBar connecting_actions()[00m
+2024-09-01 14:33:42,507 - DEBUG - [34m TWStructureExecDoc connect_structureexecdoc(tr_sed)[00m
+2024-09-01 14:33:42,507 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-09-01 14:33:42,507 - DEBUG - [34m TWStructureExecDoc clear_tr_sed()[00m
+2024-09-01 14:33:42,507 - DEBUG - [34m LWPagesTemplate connect_pages_template(lw_pt):
+lw_pt = <PySide6.QtWidgets.QListWidget(0x2136ceddc90, name="lw_pages_template") at 0x000002136E1373C0>[00m
+2024-09-01 14:33:42,507 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-09-01 14:33:42,507 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-09-01 14:33:42,508 - DEBUG - [34m ComboxTemplates connect_combox_templates(combox_templates):
+combox_templates = <PySide6.QtWidgets.QComboBox(0x2136cf7fd40, name="combox_templates") at 0x000002136E1372C0>[00m
+2024-09-01 14:33:42,508 - DEBUG - [34m SAInputForms connect_inputforms(sa_if, sa_ifl):
+sa_if = <PySide6.QtWidgets.QScrollArea(0x2136cf95c50, name="scrollarea_inputforms") at 0x000002136E137900>,
+sa_ifl = <PySide6.QtWidgets.QWidget(0x2136cf9b470, name="scrollarea_inputforms_layout") at 0x000002136E13C140>[00m
+2024-09-01 14:33:42,508 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-09-01 14:33:42,508 - DEBUG - [34m PdfView connect_pdfview()[00m
+2024-09-01 14:33:42,508 - DEBUG - [34m PdfView config_pdf_view_in_mainwindow()[00m
+2024-09-01 14:33:42,509 - DEBUG - [34m MainWindow connecting_actions()[00m
+2024-09-01 14:33:42,510 - DEBUG - [34m CommonWithOsmb run()[00m
+2024-09-01 14:33:42,510 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-09-01 14:33:42,510 - DEBUG - [34m ResizeQt __init__(osbm)[00m
+2024-09-01 14:33:42,510 - DEBUG - [34m DialogWindows run()[00m
+2024-09-01 14:33:42,510 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-09-01 14:33:42,571 - DEBUG - [34m OfficePackets update_status_msword(status):
+status = None[00m
+2024-09-01 14:33:42,573 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = None[00m
+2024-09-01 14:33:42,970 - DEBUG - [34m OfficePackets update_status_msword(status):
+status = True[00m
+2024-09-01 14:33:42,970 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = True[00m
+2024-09-01 14:33:43,897 - DEBUG - [34m Project open_project()[00m
+2024-09-01 14:33:43,898 - DEBUG - [34m Project check_project_before_new_or_open()[00m
+2024-09-01 14:33:43,898 - DEBUG - [34m DirPathManager get_default_folder_projects_dirpath() -> str: C:/Users/hayar/Documents\AutoExecDoc Projects[00m
+2024-09-01 14:33:46,238 - DEBUG - [34m DialogWindows select_folder_for_open_project() -> C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация/Демонстрация.aed[00m
+2024-09-01 14:33:46,238 - DEBUG - [34m Project set_project_dirpaths(folder_path: str):
+folder_path = C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация[00m
+2024-09-01 14:33:46,238 - DEBUG - [34m DirPathManager set_project_dirpath(dirpath: str):
+dirpath = C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация[00m
+2024-09-01 14:33:46,238 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация[00m
+2024-09-01 14:33:46,239 - DEBUG - [34m DirPathManager set_db_project_dirpath(dirpath: str):
+dirpath = C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:46,239 - DEBUG - [34m Project clear_window_before_new_or_open_project()[00m
+2024-09-01 14:33:46,239 - DEBUG - [34m TWStructureExecDoc clear_tr_sed()[00m
+2024-09-01 14:33:46,239 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-09-01 14:33:46,239 - DEBUG - [34m PdfView set_empty_pdf_view()[00m
+2024-09-01 14:33:46,239 - DEBUG - [34m SAInputForms delete_all_widgets_in_sa()[00m
+2024-09-01 14:33:46,239 - DEBUG - [34m Project config_open_project()[00m
+2024-09-01 14:33:46,239 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация[00m
+2024-09-01 14:33:46,239 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-09-01 14:33:46,239 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-09-01 14:33:46,241 - DEBUG - [34m SettingsDatabase set_project_current_name(project_name):
+project_name = Демонстрация[00m
+2024-09-01 14:33:46,244 - DEBUG - [34m SettingsDatabase add_or_update_open_project_to_db()[00m
+2024-09-01 14:33:46,244 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-09-01 14:33:46,244 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-09-01 14:33:46,244 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация[00m
+2024-09-01 14:33:46,244 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация[00m
+2024-09-01 14:33:46,245 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:46,245 - DEBUG - [34m SettingsDatabase add_new_project_to_db()[00m
+2024-09-01 14:33:46,245 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-09-01 14:33:46,245 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-09-01 14:33:46,245 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация[00m
+2024-09-01 14:33:46,245 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация[00m
+2024-09-01 14:33:46,248 - DEBUG - [34m ProjectDatabase create_and_config_db_project()[00m
+2024-09-01 14:33:46,248 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:46,248 - DEBUG - [34m MainWindow update_main_window()[00m
+2024-09-01 14:33:46,248 - DEBUG - [34m TWStructureExecDoc update_structure_exec_doc()[00m
+2024-09-01 14:33:46,248 - DEBUG - [34m TWStructureExecDoc get_current_node()[00m
+2024-09-01 14:33:46,248 - DEBUG - [34m TWStructureExecDoc clear_tr_sed()[00m
+2024-09-01 14:33:46,248 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-09-01 14:33:46,248 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-09-01 14:33:46,249 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:46,249 - DEBUG - [34m SettingsDatabase get_project_current_name():
+result = {'value_setting': 'Демонстрация'}[00m
+2024-09-01 14:33:46,249 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:46,249 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:46,249 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:46,249 - DEBUG - [34m ProjectDatabase get_project_node() -> object:
+result = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}[00m
+2024-09-01 14:33:46,249 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-09-01 14:33:46,249 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:46,249 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:46,250 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-09-01 14:33:46,250 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}
+result = [{'id_node': 1, 'name_node': 'Текст', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}, {'id_node': 2, 'name_node': 'Не текст', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}][00m
+2024-09-01 14:33:46,250 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 1, 'name_node': 'Текст', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}[00m
+2024-09-01 14:33:46,250 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 1, 'name_node': 'Текст', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}[00m
+2024-09-01 14:33:46,250 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002136E12DFC0>,
+node = {'id_node': 1, 'name_node': 'Текст', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}[00m
+2024-09-01 14:33:46,250 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002136E12DFC0>,
+node = {'id_node': 1, 'name_node': 'Текст', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}[00m
+2024-09-01 14:33:46,250 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 1, 'name_node': 'Текст', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}
+ open_node = None[00m
+2024-09-01 14:33:46,251 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:46,251 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:46,251 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-09-01 14:33:46,251 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 1, 'name_node': 'Текст', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}
+result = [][00m
+2024-09-01 14:33:46,251 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 2, 'name_node': 'Не текст', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-09-01 14:33:46,251 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 2, 'name_node': 'Не текст', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-09-01 14:33:46,251 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002136E157E40>,
+node = {'id_node': 2, 'name_node': 'Не текст', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-09-01 14:33:46,251 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002136E157E40>,
+node = {'id_node': 2, 'name_node': 'Не текст', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}[00m
+2024-09-01 14:33:46,252 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 2, 'name_node': 'Не текст', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+ open_node = None[00m
+2024-09-01 14:33:46,252 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:46,252 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:46,252 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-09-01 14:33:46,252 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 2, 'name_node': 'Не текст', 'id_parent': 0, 'order_node': '1', 'type_node': 'GROUP', 'id_active_template': None, 'included': 1}
+result = [{'id_node': 4, 'name_node': 'Таблицы', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 2, 'included': 1}, {'id_node': 3, 'name_node': 'Изображения', 'id_parent': 2, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 3, 'included': 1}][00m
+2024-09-01 14:33:46,252 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 4, 'name_node': 'Таблицы', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 2, 'included': 1}[00m
+2024-09-01 14:33:46,252 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 4, 'name_node': 'Таблицы', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 2, 'included': 1}[00m
+2024-09-01 14:33:46,252 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002136E157D80>,
+node = {'id_node': 4, 'name_node': 'Таблицы', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 2, 'included': 1}[00m
+2024-09-01 14:33:46,252 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002136E157D80>,
+node = {'id_node': 4, 'name_node': 'Таблицы', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 2, 'included': 1}[00m
+2024-09-01 14:33:46,252 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 4, 'name_node': 'Таблицы', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 2, 'included': 1}
+ open_node = None[00m
+2024-09-01 14:33:46,253 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:46,253 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:46,253 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-09-01 14:33:46,253 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 4, 'name_node': 'Таблицы', 'id_parent': 2, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 2, 'included': 1}
+result = [][00m
+2024-09-01 14:33:46,253 - DEBUG - [34m TWStructureExecDoc set_item_in_nodes_to_items(node):
+node = {'id_node': 3, 'name_node': 'Изображения', 'id_parent': 2, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 3, 'included': 1}[00m
+2024-09-01 14:33:46,253 - DEBUG - [34m TWStructureExecDoc add_item_in_tree_widget(node):
+node = {'id_node': 3, 'name_node': 'Изображения', 'id_parent': 2, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 3, 'included': 1}[00m
+2024-09-01 14:33:46,253 - DEBUG - [34m TWStructureExecDoc get_text_by_node(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000021370CFC7C0>,
+node = {'id_node': 3, 'name_node': 'Изображения', 'id_parent': 2, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 3, 'included': 1}[00m
+2024-09-01 14:33:46,253 - DEBUG - [34m TWStructureExecDoc set_expanded_for_item(item, node):
+item = <PySide6.QtWidgets.QTreeWidgetItem object at 0x0000021370CFC7C0>,
+node = {'id_node': 3, 'name_node': 'Изображения', 'id_parent': 2, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 3, 'included': 1}[00m
+2024-09-01 14:33:46,253 - DEBUG - [34m TWStructureExecDoc dfs(parent_node):
+parent_node = {'id_node': 3, 'name_node': 'Изображения', 'id_parent': 2, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 3, 'included': 1}
+ open_node = None[00m
+2024-09-01 14:33:46,253 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:46,253 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:46,254 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-09-01 14:33:46,254 - DEBUG - [34m ProjectDatabase get_childs(parent_node) -> list: parent_node = {'id_node': 3, 'name_node': 'Изображения', 'id_parent': 2, 'order_node': '1', 'type_node': 'FORM', 'id_active_template': 3, 'included': 1}
+result = [][00m
+2024-09-01 14:33:46,255 - DEBUG - [34m TWStructureExecDoc current_item_changed(current):
+current = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002136E12DFC0>[00m
+2024-09-01 14:33:46,255 - DEBUG - [34m ComboxTemplates update_combox_templates(node):
+node = {'id_active_template': 1, 'id_node': 1, 'id_parent': 0, 'included': 1, 'name_node': 'Текст', 'order_node': '0', 'type_node': 'FORM'}[00m
+2024-09-01 14:33:46,255 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:46,255 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:46,256 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-09-01 14:33:46,256 - DEBUG - [34m ProjectDatabase get_templates_by_form(form) -> list: form = {'id_node': 1}
+result = [{'id_template': 1, 'name_template': 'Стандарт', 'id_parent_node': 1}][00m
+2024-09-01 14:33:46,256 - DEBUG - [34m ComboxTemplates combox_templates_changed(index):
+index = 0[00m
+2024-09-01 14:33:46,256 - DEBUG - [34m ProjectDatabase set_active_template_for_node_by_id(id_node, id_template):
+id_node = 1
+id_template = 1[00m
+2024-09-01 14:33:46,256 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:46,256 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:46,256 - DEBUG - [34m LWPagesTemplate update_pages_template(template):
+template = {'id_parent_node': 1, 'id_template': 1, 'name_template': 'Стандарт'}[00m
+2024-09-01 14:33:46,256 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-09-01 14:33:46,257 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:46,257 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:46,257 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-09-01 14:33:46,257 - DEBUG - [34m ProjectDatabase get_pages_by_template(template) -> list: template = {'id_parent_node': 1, 'id_template': 1, 'name_template': 'Стандарт'}
+result = [{'id_page': 1, 'id_parent_template': 1, 'name_page': 'Текст', 'filename_page': 'DOCX_2024-08-30_12-14-31', 'typefile_page': 'DOCX', 'order_page': 0, 'included': 1}][00m
+2024-09-01 14:33:46,257 - DEBUG - [34m TWStructureExecDoc get_current_node()[00m
+2024-09-01 14:33:46,257 - DEBUG - [34m ComboxTemplates update_combox_templates(node):
+node = {'id_active_template': 1, 'id_node': 1, 'id_parent': 0, 'included': 1, 'name_node': 'Текст', 'order_node': '0', 'type_node': 'FORM'}[00m
+2024-09-01 14:33:46,258 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:46,258 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:46,258 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-09-01 14:33:46,258 - DEBUG - [34m ProjectDatabase get_templates_by_form(form) -> list: form = {'id_node': 1}
+result = [{'id_template': 1, 'name_template': 'Стандарт', 'id_parent_node': 1}][00m
+2024-09-01 14:33:46,258 - DEBUG - [34m ComboxTemplates combox_templates_changed(index):
+index = 0[00m
+2024-09-01 14:33:46,258 - DEBUG - [34m ProjectDatabase set_active_template_for_node_by_id(id_node, id_template):
+id_node = 1
+id_template = 1[00m
+2024-09-01 14:33:46,258 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:46,258 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:46,259 - DEBUG - [34m LWPagesTemplate update_pages_template(template):
+template = {'id_parent_node': 1, 'id_template': 1, 'name_template': 'Стандарт'}[00m
+2024-09-01 14:33:46,259 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-09-01 14:33:46,259 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:46,259 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:46,259 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-09-01 14:33:46,260 - DEBUG - [34m ProjectDatabase get_pages_by_template(template) -> list: template = {'id_parent_node': 1, 'id_template': 1, 'name_template': 'Стандарт'}
+result = [{'id_page': 1, 'id_parent_template': 1, 'name_page': 'Текст', 'filename_page': 'DOCX_2024-08-30_12-14-31', 'typefile_page': 'DOCX', 'order_page': 0, 'included': 1}][00m
+2024-09-01 14:33:46,260 - DEBUG - [34m PdfView set_empty_pdf_view()[00m
+2024-09-01 14:33:46,260 - DEBUG - [34m LWPagesTemplate get_page_by_current_item()[00m
+2024-09-01 14:33:46,260 - DEBUG - [34m SAInputForms update_scrollarea()[00m
+2024-09-01 14:33:46,260 - DEBUG - [34m SAInputForms delete_all_widgets_in_sa()[00m
+2024-09-01 14:33:46,260 - DEBUG - [34m DirPathManager set_new_dirpaths_for_project()[00m
+2024-09-01 14:33:46,260 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация[00m
+2024-09-01 14:33:46,260 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация[00m
+2024-09-01 14:33:46,260 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация[00m
+2024-09-01 14:33:46,260 - DEBUG - [34m Project set_true_actives_project()[00m
+2024-09-01 14:33:46,260 - DEBUG - [34m MainWindow config_combox_default()[00m
+2024-09-01 14:33:46,260 - DEBUG - [34m SAInputForms clear_sections_checked()[00m
+2024-09-01 14:33:46,260 - DEBUG - [34m StatusBar set_message(message):
+message = Проект c именем Демонстрация открыт.[00m
+2024-09-01 14:33:46,261 - DEBUG - [34m FileFolderManager create_folders_and_aed_for_project()[00m
+2024-09-01 14:33:46,261 - DEBUG - [34m FileFolderManager check_aed_file()[00m
+2024-09-01 14:33:46,261 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-09-01 14:33:46,261 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-09-01 14:33:46,261 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:46,261 - DEBUG - [34m SettingsDatabase get_project_current_name():
+result = {'value_setting': 'Демонстрация'}[00m
+2024-09-01 14:33:46,261 - DEBUG - [34m DirPathManager get_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация[00m
+2024-09-01 14:33:46,261 - DEBUG - [34m DirPathManager get_forms_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\forms[00m
+2024-09-01 14:33:46,261 - DEBUG - [34m DirPathManager get_image_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\images[00m
+2024-09-01 14:33:46,262 - DEBUG - [34m get_pdfs_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\pdfs[00m
+2024-09-01 14:33:46,262 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-09-01 14:33:46,262 - DEBUG - [34m MainWindow update_menu_recent_projects()[00m
+2024-09-01 14:33:46,262 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-09-01 14:33:46,262 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-09-01 14:33:46,262 - DEBUG - [34m SettingsDatabase get_fetchall(cursor, conn) -> list[00m
+2024-09-01 14:33:46,262 - DEBUG - [34m SettingsDatabase get_last_projects():
+result = [{'id_project': 17, 'name_project': 'Демонстрация', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация', 'date_create_project': '2024-09-01 14:33:46', 'date_last_open_project': '2024-09-01 14:33:46'}][00m
+2024-09-01 14:33:48,030 - DEBUG - [34m TWStructureExecDoc current_item_changed(current):
+current = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002136E157D80>[00m
+2024-09-01 14:33:48,030 - DEBUG - [34m ComboxTemplates update_combox_templates(node):
+node = {'id_active_template': 2, 'id_node': 4, 'id_parent': 2, 'included': 1, 'name_node': 'Таблицы', 'order_node': '0', 'type_node': 'FORM'}[00m
+2024-09-01 14:33:48,030 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:48,030 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:48,031 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-09-01 14:33:48,031 - DEBUG - [34m ProjectDatabase get_templates_by_form(form) -> list: form = {'id_node': 4}
+result = [{'id_template': 2, 'name_template': 'Первый шаблон', 'id_parent_node': 4}][00m
+2024-09-01 14:33:48,031 - DEBUG - [34m ComboxTemplates combox_templates_changed(index):
+index = 0[00m
+2024-09-01 14:33:48,031 - DEBUG - [34m ProjectDatabase set_active_template_for_node_by_id(id_node, id_template):
+id_node = 4
+id_template = 2[00m
+2024-09-01 14:33:48,031 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:48,031 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:48,032 - DEBUG - [34m LWPagesTemplate update_pages_template(template):
+template = {'id_parent_node': 4, 'id_template': 2, 'name_template': 'Первый шаблон'}[00m
+2024-09-01 14:33:48,032 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-09-01 14:33:48,032 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:48,032 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:48,032 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-09-01 14:33:48,032 - DEBUG - [34m ProjectDatabase get_pages_by_template(template) -> list: template = {'id_parent_node': 4, 'id_template': 2, 'name_template': 'Первый шаблон'}
+result = [{'id_page': 4, 'id_parent_template': 2, 'name_page': 'Таблицы и списки', 'filename_page': 'DOCX_2024-08-31_15-00-12', 'typefile_page': 'DOCX', 'order_page': 0, 'included': 1}][00m
+2024-09-01 14:33:48,949 - DEBUG - [34m TWStructureExecDoc current_item_changed(current):
+current = <PySide6.QtWidgets.QTreeWidgetItem object at 0x000002136E12DFC0>[00m
+2024-09-01 14:33:48,949 - DEBUG - [34m ComboxTemplates update_combox_templates(node):
+node = {'id_active_template': 1, 'id_node': 1, 'id_parent': 0, 'included': 1, 'name_node': 'Текст', 'order_node': '0', 'type_node': 'FORM'}[00m
+2024-09-01 14:33:48,949 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:48,949 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:48,949 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-09-01 14:33:48,949 - DEBUG - [34m ProjectDatabase get_templates_by_form(form) -> list: form = {'id_node': 1}
+result = [{'id_template': 1, 'name_template': 'Стандарт', 'id_parent_node': 1}][00m
+2024-09-01 14:33:48,950 - DEBUG - [34m ComboxTemplates combox_templates_changed(index):
+index = 0[00m
+2024-09-01 14:33:48,950 - DEBUG - [34m ProjectDatabase set_active_template_for_node_by_id(id_node, id_template):
+id_node = 1
+id_template = 1[00m
+2024-09-01 14:33:48,950 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:48,950 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:48,950 - DEBUG - [34m LWPagesTemplate update_pages_template(template):
+template = {'id_parent_node': 1, 'id_template': 1, 'name_template': 'Стандарт'}[00m
+2024-09-01 14:33:48,950 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2024-09-01 14:33:48,950 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:48,950 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:48,951 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-09-01 14:33:48,951 - DEBUG - [34m ProjectDatabase get_pages_by_template(template) -> list: template = {'id_parent_node': 1, 'id_template': 1, 'name_template': 'Стандарт'}
+result = [{'id_page': 1, 'id_parent_template': 1, 'name_page': 'Текст', 'filename_page': 'DOCX_2024-08-30_12-14-31', 'typefile_page': 'DOCX', 'order_page': 0, 'included': 1}][00m
+2024-09-01 14:33:49,546 - DEBUG - [34m LWPagesTemplate on_item_clicked(item):
+item = <PySide6.QtWidgets.QListWidgetItem object at 0x0000021370CFC940>[00m
+2024-09-01 14:33:49,547 - DEBUG - [34m LWPagesTemplate item_page_updated(current):
+current = <PySide6.QtWidgets.QListWidgetItem object at 0x0000021370CFC940>[00m
+2024-09-01 14:33:49,547 - DEBUG - [34m SAInputForms update_scrollarea()[00m
+2024-09-01 14:33:49,547 - DEBUG - [34m SAInputForms delete_all_widgets_in_sa()[00m
+2024-09-01 14:33:49,547 - DEBUG - [34m SectionsInfo add_page_for_datas(page):
+page = {'filename_page': 'DOCX_2024-08-30_12-14-31', 'id_page': 1, 'id_parent_template': 1, 'included': 1, 'name_page': 'Текст', 'order_page': 0, 'typefile_page': 'DOCX'}[00m
+2024-09-01 14:33:49,547 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,547 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,548 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-09-01 14:33:49,548 - DEBUG - [34m ProjectDatabase get_page_data(page) -> list: page = {'filename_page': 'DOCX_2024-08-30_12-14-31', 'id_page': 1, 'id_parent_template': 1, 'included': 1, 'name_page': 'Текст', 'order_page': 0, 'typefile_page': 'DOCX'}
+result = [{'id_pair': 1, 'id_page': 1, 'id_variable': 2, 'value_pair': 'Простой однострочный текст'}, {'id_pair': 2, 'id_page': 1, 'id_variable': 3, 'value_pair': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."'}, {'id_pair': 4, 'id_page': 1, 'id_variable': 5, 'value_pair': 'Раз, два, три, четыре. Условие не пустое'}, {'id_pair': 3, 'id_page': 1, 'id_variable': 4, 'value_pair': 'Милая кроватка'}, {'id_pair': 5, 'id_page': 1, 'id_variable': 6, 'value_pair': '==true (любое не пустое значение)'}, {'id_pair': 6, 'id_page': 1, 'id_variable': 7, 'value_pair': '1987-08-08'}, {'id_pair': 7, 'id_page': 1, 'id_variable': 8, 'value_pair': '2027-07-30'}, {'id_pair': 8, 'id_page': 1, 'id_variable': 9, 'value_pair': '2026-12-19'}][00m
+2024-09-01 14:33:49,548 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,548 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,548 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,548 - DEBUG - [34m ProjectDatabase get_parent_template() -> object
+result = {'id_template': 1, 'name_template': 'Стандарт', 'id_parent_node': 1}[00m
+2024-09-01 14:33:49,548 - DEBUG - [34m SectionsInfo add_template_for_datas(page):
+page = {'id_template': 1, 'name_template': 'Стандарт', 'id_parent_node': 1}[00m
+2024-09-01 14:33:49,549 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,549 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,549 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-09-01 14:33:49,549 - DEBUG - [34m ProjectDatabase get_template_data(template) -> list: template = {'id_template': 1, 'name_template': 'Стандарт', 'id_parent_node': 1}
+result = [][00m
+2024-09-01 14:33:49,549 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,549 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,550 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,550 - DEBUG - [34m ProjectDatabase get_parent_node_template() -> object
+result = {'id_node': 1, 'name_node': 'Текст', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}[00m
+2024-09-01 14:33:49,550 - DEBUG - [34m SectionsInfo add_nodes_for_sections_info(node):
+node = {'id_node': 1, 'name_node': 'Текст', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}[00m
+2024-09-01 14:33:49,550 - DEBUG - [34m SectionsInfo add_node_for_datas(node):
+node = {'id_node': 1, 'name_node': 'Текст', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}[00m
+2024-09-01 14:33:49,550 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,550 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,550 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-09-01 14:33:49,550 - DEBUG - [34m ProjectDatabase get_node_data(node) -> list: node = {'id_node': 1, 'name_node': 'Текст', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}
+result = [][00m
+2024-09-01 14:33:49,551 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,551 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,551 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,551 - DEBUG - [34m ProjectDatabase get_node_parent(node) -> object: node = {'id_node': 1, 'name_node': 'Текст', 'id_parent': 0, 'order_node': '0', 'type_node': 'FORM', 'id_active_template': 1, 'included': 1}
+result = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}[00m
+2024-09-01 14:33:49,551 - DEBUG - [34m SectionsInfo add_node_for_datas(node):
+node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}[00m
+2024-09-01 14:33:49,551 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,551 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,551 - DEBUG - [34m ProjectDatabase get_fetchall(cursor, conn) -> list[00m
+2024-09-01 14:33:49,551 - DEBUG - [34m ProjectDatabase get_node_data(node) -> list: node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}
+result = [{'id_pair': 1, 'id_node': 0, 'id_variable': 1, 'value_pair': 'Да, я могу быть во всех шаблонах и страницах'}][00m
+2024-09-01 14:33:49,552 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,552 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,552 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,552 - DEBUG - [34m ProjectDatabase get_node_parent(node) -> object: node = {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}
+result = {}[00m
+2024-09-01 14:33:49,552 - DEBUG - [34m SAInputForms add_sections_in_sa()[00m
+2024-09-01 14:33:49,552 - DEBUG - [34m SectionsInfo self.__sections_info = [{'type': 'page', 'page': {'filename_page': 'DOCX_2024-08-30_12-14-31', 'id_page': 1, 'id_parent_template': 1, 'included': 1, 'name_page': 'Текст', 'order_page': 0, 'typefile_page': 'DOCX'}, 'data': [{'id_pair': 1, 'id_page': 1, 'id_variable': 2, 'value_pair': 'Простой однострочный текст'}, {'id_pair': 2, 'id_page': 1, 'id_variable': 3, 'value_pair': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."'}, {'id_pair': 4, 'id_page': 1, 'id_variable': 5, 'value_pair': 'Раз, два, три, четыре. Условие не пустое'}, {'id_pair': 3, 'id_page': 1, 'id_variable': 4, 'value_pair': 'Милая кроватка'}, {'id_pair': 5, 'id_page': 1, 'id_variable': 6, 'value_pair': '==true (любое не пустое значение)'}, {'id_pair': 6, 'id_page': 1, 'id_variable': 7, 'value_pair': '1987-08-08'}, {'id_pair': 7, 'id_page': 1, 'id_variable': 8, 'value_pair': '2027-07-30'}, {'id_pair': 8, 'id_page': 1, 'id_variable': 9, 'value_pair': '2026-12-19'}]}, {'type': 'project', 'project': {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}, 'data': [{'id_pair': 1, 'id_node': 0, 'id_variable': 1, 'value_pair': 'Да, я могу быть во всех шаблонах и страницах'}]}][00m
+2024-09-01 14:33:49,552 - DEBUG - [34m SAInputForms get_section_id(section_info):
+section_info = {'type': 'page', 'page': {'filename_page': 'DOCX_2024-08-30_12-14-31', 'id_page': 1, 'id_parent_template': 1, 'included': 1, 'name_page': 'Текст', 'order_page': 0, 'typefile_page': 'DOCX'}, 'data': [{'id_pair': 1, 'id_page': 1, 'id_variable': 2, 'value_pair': 'Простой однострочный текст'}, {'id_pair': 2, 'id_page': 1, 'id_variable': 3, 'value_pair': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."'}, {'id_pair': 4, 'id_page': 1, 'id_variable': 5, 'value_pair': 'Раз, два, три, четыре. Условие не пустое'}, {'id_pair': 3, 'id_page': 1, 'id_variable': 4, 'value_pair': 'Милая кроватка'}, {'id_pair': 5, 'id_page': 1, 'id_variable': 6, 'value_pair': '==true (любое не пустое значение)'}, {'id_pair': 6, 'id_page': 1, 'id_variable': 7, 'value_pair': '1987-08-08'}, {'id_pair': 7, 'id_page': 1, 'id_variable': 8, 'value_pair': '2027-07-30'}, {'id_pair': 8, 'id_page': 1, 'id_variable': 9, 'value_pair': '2026-12-19'}]}[00m
+2024-09-01 14:33:49,552 - DEBUG - [34m SAInputForms get_section_name(section_info):
+section_info = {'type': 'page', 'page': {'filename_page': 'DOCX_2024-08-30_12-14-31', 'id_page': 1, 'id_parent_template': 1, 'included': 1, 'name_page': 'Текст', 'order_page': 0, 'typefile_page': 'DOCX'}, 'data': [{'id_pair': 1, 'id_page': 1, 'id_variable': 2, 'value_pair': 'Простой однострочный текст'}, {'id_pair': 2, 'id_page': 1, 'id_variable': 3, 'value_pair': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."'}, {'id_pair': 4, 'id_page': 1, 'id_variable': 5, 'value_pair': 'Раз, два, три, четыре. Условие не пустое'}, {'id_pair': 3, 'id_page': 1, 'id_variable': 4, 'value_pair': 'Милая кроватка'}, {'id_pair': 5, 'id_page': 1, 'id_variable': 6, 'value_pair': '==true (любое не пустое значение)'}, {'id_pair': 6, 'id_page': 1, 'id_variable': 7, 'value_pair': '1987-08-08'}, {'id_pair': 7, 'id_page': 1, 'id_variable': 8, 'value_pair': '2027-07-30'}, {'id_pair': 8, 'id_page': 1, 'id_variable': 9, 'value_pair': '2026-12-19'}]}[00m
+2024-09-01 14:33:49,555 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,556 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,556 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,556 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 2
+result = {'id_variable': 2, 'name_variable': 'текст', 'type_variable': 'TEXT', 'title_variable': 'текст', 'order_variable': 1, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,556 - DEBUG - [34m FormText __init__(pair, current_variable): pair = {'id_pair': 1, 'id_page': 1, 'id_variable': 2, 'value_pair': 'Простой однострочный текст'},
+current_variable = {'id_variable': 2, 'name_variable': 'текст', 'type_variable': 'TEXT', 'title_variable': 'текст', 'order_variable': 1, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,559 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-09-01 14:33:49,560 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,560 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,560 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,560 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 3
+result = {'id_variable': 3, 'name_variable': 'дл_текст', 'type_variable': 'LONGTEXT', 'title_variable': 'Длинный текст (многострочный)', 'order_variable': 2, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,561 - DEBUG - [34m FormLongTextWidget __init__(pair, current_variable): pair = {'id_pair': 2, 'id_page': 1, 'id_variable': 3, 'value_pair': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."'},
+current_variable = {'id_variable': 3, 'name_variable': 'дл_текст', 'type_variable': 'LONGTEXT', 'title_variable': 'Длинный текст (многострочный)', 'order_variable': 2, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,564 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-09-01 14:33:49,564 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,564 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,565 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,565 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 5
+result = {'id_variable': 5, 'name_variable': 'если_условие_истина', 'type_variable': 'TEXT', 'title_variable': 'если_условие_истина', 'order_variable': 3, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,565 - DEBUG - [34m FormText __init__(pair, current_variable): pair = {'id_pair': 4, 'id_page': 1, 'id_variable': 5, 'value_pair': 'Раз, два, три, четыре. Условие не пустое'},
+current_variable = {'id_variable': 5, 'name_variable': 'если_условие_истина', 'type_variable': 'TEXT', 'title_variable': 'если_условие_истина', 'order_variable': 3, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,568 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-09-01 14:33:49,569 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,569 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,569 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,569 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 4
+result = {'id_variable': 4, 'name_variable': 'условие_вт_текст', 'type_variable': 'TEXT', 'title_variable': 'Для условия', 'order_variable': 4, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,569 - DEBUG - [34m FormText __init__(pair, current_variable): pair = {'id_pair': 3, 'id_page': 1, 'id_variable': 4, 'value_pair': 'Милая кроватка'},
+current_variable = {'id_variable': 4, 'name_variable': 'условие_вт_текст', 'type_variable': 'TEXT', 'title_variable': 'Для условия', 'order_variable': 4, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,572 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-09-01 14:33:49,573 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,573 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,573 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,573 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 6
+result = {'id_variable': 6, 'name_variable': 'условие_текст', 'type_variable': 'TEXT', 'title_variable': 'условие_текст', 'order_variable': 5, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,573 - DEBUG - [34m FormText __init__(pair, current_variable): pair = {'id_pair': 5, 'id_page': 1, 'id_variable': 6, 'value_pair': '==true (любое не пустое значение)'},
+current_variable = {'id_variable': 6, 'name_variable': 'условие_текст', 'type_variable': 'TEXT', 'title_variable': 'условие_текст', 'order_variable': 5, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,576 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-09-01 14:33:49,577 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,577 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,578 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,578 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 7
+result = {'id_variable': 7, 'name_variable': 'дата_1', 'type_variable': 'DATE', 'title_variable': 'Дата', 'order_variable': 6, 'config_variable': '{"FORMAT": "dd.MM.yyyy", "LANGUAGE": "ru_RU"}', 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,578 - DEBUG - [34m FormDate __init__(self, pair, current_variable, config_dict):
+pair = {'id_pair': 6, 'id_page': 1, 'id_variable': 7, 'value_pair': '1987-08-08'},
+current_variable = {'id_variable': 7, 'name_variable': 'дата_1', 'type_variable': 'DATE', 'title_variable': 'Дата', 'order_variable': 6, 'config_variable': '{"FORMAT": "dd.MM.yyyy", "LANGUAGE": "ru_RU"}', 'description_variable': '', 'is_global': None},
+config_dict = {'FORMAT': 'dd.MM.yyyy', 'LANGUAGE': 'ru_RU'}[00m
+2024-09-01 14:33:49,580 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-09-01 14:33:49,582 - DEBUG - [34m FormDate config()[00m
+2024-09-01 14:33:49,583 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,583 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,583 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,584 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 8
+result = {'id_variable': 8, 'name_variable': 'дата_2', 'type_variable': 'DATE', 'title_variable': 'Дата (месяц и год)', 'order_variable': 7, 'config_variable': '{"FORMAT": "\\u041c\\u0435\\u0441\\u044f\\u0446: MMM / \\u0413\\u041e\\u0414: yyyy", "LANGUAGE": "ru_RU"}', 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,584 - DEBUG - [34m FormDate __init__(self, pair, current_variable, config_dict):
+pair = {'id_pair': 7, 'id_page': 1, 'id_variable': 8, 'value_pair': '2027-07-30'},
+current_variable = {'id_variable': 8, 'name_variable': 'дата_2', 'type_variable': 'DATE', 'title_variable': 'Дата (месяц и год)', 'order_variable': 7, 'config_variable': '{"FORMAT": "\\u041c\\u0435\\u0441\\u044f\\u0446: MMM / \\u0413\\u041e\\u0414: yyyy", "LANGUAGE": "ru_RU"}', 'description_variable': '', 'is_global': None},
+config_dict = {'FORMAT': 'Месяц: MMM / ГОД: yyyy', 'LANGUAGE': 'ru_RU'}[00m
+2024-09-01 14:33:49,585 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-09-01 14:33:49,587 - DEBUG - [34m FormDate config()[00m
+2024-09-01 14:33:49,588 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,588 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,588 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,589 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 9
+result = {'id_variable': 9, 'name_variable': 'дата_3', 'type_variable': 'DATE', 'title_variable': 'Дата еще одна', 'order_variable': 8, 'config_variable': '{"FORMAT": "yyyy / MM / dd", "LANGUAGE": "ru_RU"}', 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,589 - DEBUG - [34m FormDate __init__(self, pair, current_variable, config_dict):
+pair = {'id_pair': 8, 'id_page': 1, 'id_variable': 9, 'value_pair': '2026-12-19'},
+current_variable = {'id_variable': 9, 'name_variable': 'дата_3', 'type_variable': 'DATE', 'title_variable': 'Дата еще одна', 'order_variable': 8, 'config_variable': '{"FORMAT": "yyyy / MM / dd", "LANGUAGE": "ru_RU"}', 'description_variable': '', 'is_global': None},
+config_dict = {'FORMAT': 'yyyy / MM / dd', 'LANGUAGE': 'ru_RU'}[00m
+2024-09-01 14:33:49,590 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-09-01 14:33:49,592 - DEBUG - [34m FormDate config()[00m
+2024-09-01 14:33:49,657 - DEBUG - [34m SAInputForms get_section_id(section_info):
+section_info = {'type': 'project', 'project': {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}, 'data': [{'id_pair': 1, 'id_node': 0, 'id_variable': 1, 'value_pair': 'Да, я могу быть во всех шаблонах и страницах'}]}[00m
+2024-09-01 14:33:49,657 - DEBUG - [34m SAInputForms get_section_name(section_info):
+section_info = {'type': 'project', 'project': {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}, 'data': [{'id_pair': 1, 'id_node': 0, 'id_variable': 1, 'value_pair': 'Да, я могу быть во всех шаблонах и страницах'}]}[00m
+2024-09-01 14:33:49,659 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,660 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,660 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,660 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 1
+result = {'id_variable': 1, 'name_variable': 'гл_текст', 'type_variable': 'TEXT', 'title_variable': 'Глобальный текст для всех', 'order_variable': 0, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,661 - DEBUG - [34m FormText __init__(pair, current_variable): pair = {'id_pair': 1, 'id_node': 0, 'id_variable': 1, 'value_pair': 'Да, я могу быть во всех шаблонах и страницах'},
+current_variable = {'id_variable': 1, 'name_variable': 'гл_текст', 'type_variable': 'TEXT', 'title_variable': 'Глобальный текст для всех', 'order_variable': 0, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,663 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2024-09-01 14:33:49,674 - DEBUG - [34m LWPagesTemplate create_and_view_current_page(page):
+page = {'filename_page': 'DOCX_2024-08-30_12-14-31', 'id_page': 1, 'id_parent_template': 1, 'included': 1, 'name_page': 'Текст', 'order_page': 0, 'typefile_page': 'DOCX'}[00m
+2024-09-01 14:33:49,674 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,674 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-09-01 14:33:49,675 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,675 - DEBUG - [34m SettingsDatabase get_app_converter():
+result = {'value_setting': 'MSWORD'}[00m
+2024-09-01 14:33:49,675 - DEBUG - [34m OfficePackets get_status_msword():
+self.__status_msword = True[00m
+2024-09-01 14:33:49,675 - DEBUG - [34m OfficePackets get_status_libreoffice():
+self.__status_libreoffice = False[00m
+2024-09-01 14:33:49,675 - DEBUG - [34m DialogWindows process_show_start()[00m
+2024-09-01 14:33:49,683 - DEBUG - [34m Converter create_one_page_pdf(page) -> str:
+page = {'filename_page': 'DOCX_2024-08-30_12-14-31', 'id_page': 1, 'id_parent_template': 1, 'included': 1, 'name_page': 'Текст', 'order_page': 0, 'typefile_page': 'DOCX'}[00m
+2024-09-01 14:33:49,684 - DEBUG - [34m Converter create_page_pdf(page):
+page = {'filename_page': 'DOCX_2024-08-30_12-14-31', 'id_page': 1, 'id_parent_template': 1, 'included': 1, 'name_page': 'Текст', 'order_page': 0, 'typefile_page': 'DOCX'}[00m
+2024-09-01 14:33:49,684 - DEBUG - [34m SectionsInfo self.__sections_info = [{'type': 'page', 'page': {'filename_page': 'DOCX_2024-08-30_12-14-31', 'id_page': 1, 'id_parent_template': 1, 'included': 1, 'name_page': 'Текст', 'order_page': 0, 'typefile_page': 'DOCX'}, 'data': [{'id_pair': 1, 'id_page': 1, 'id_variable': 2, 'value_pair': 'Простой однострочный текст'}, {'id_pair': 2, 'id_page': 1, 'id_variable': 3, 'value_pair': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."'}, {'id_pair': 4, 'id_page': 1, 'id_variable': 5, 'value_pair': 'Раз, два, три, четыре. Условие не пустое'}, {'id_pair': 3, 'id_page': 1, 'id_variable': 4, 'value_pair': 'Милая кроватка'}, {'id_pair': 5, 'id_page': 1, 'id_variable': 6, 'value_pair': '==true (любое не пустое значение)'}, {'id_pair': 6, 'id_page': 1, 'id_variable': 7, 'value_pair': '1987-08-08'}, {'id_pair': 7, 'id_page': 1, 'id_variable': 8, 'value_pair': '2027-07-30'}, {'id_pair': 8, 'id_page': 1, 'id_variable': 9, 'value_pair': '2026-12-19'}]}, {'type': 'project', 'project': {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}, 'data': [{'id_pair': 1, 'id_node': 0, 'id_variable': 1, 'value_pair': 'Да, я могу быть во всех шаблонах и страницах'}]}][00m
+2024-09-01 14:33:49,684 - DEBUG - [34m Converter create_docx_page(sections_info, form_page_name, docx_pdf_page_name):
+sections_info = [{'type': 'page', 'page': {'filename_page': 'DOCX_2024-08-30_12-14-31', 'id_page': 1, 'id_parent_template': 1, 'included': 1, 'name_page': 'Текст', 'order_page': 0, 'typefile_page': 'DOCX'}, 'data': [{'id_pair': 1, 'id_page': 1, 'id_variable': 2, 'value_pair': 'Простой однострочный текст'}, {'id_pair': 2, 'id_page': 1, 'id_variable': 3, 'value_pair': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."'}, {'id_pair': 4, 'id_page': 1, 'id_variable': 5, 'value_pair': 'Раз, два, три, четыре. Условие не пустое'}, {'id_pair': 3, 'id_page': 1, 'id_variable': 4, 'value_pair': 'Милая кроватка'}, {'id_pair': 5, 'id_page': 1, 'id_variable': 6, 'value_pair': '==true (любое не пустое значение)'}, {'id_pair': 6, 'id_page': 1, 'id_variable': 7, 'value_pair': '1987-08-08'}, {'id_pair': 7, 'id_page': 1, 'id_variable': 8, 'value_pair': '2027-07-30'}, {'id_pair': 8, 'id_page': 1, 'id_variable': 9, 'value_pair': '2026-12-19'}]}, {'type': 'project', 'project': {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}, 'data': [{'id_pair': 1, 'id_node': 0, 'id_variable': 1, 'value_pair': 'Да, я могу быть во всех шаблонах и страницах'}]}],
+form_page_name = DOCX_2024-08-30_12-14-31,
+docx_pdf_page_name = page_1_2024-09-01_14-33-49684231[00m
+2024-09-01 14:33:49,684 - DEBUG - [34m Converter get_form_page_fullname_and_docx_page_fullname(form_page_name, docx_pdf_page_name):
+form_page_name = DOCX_2024-08-30_12-14-31,
+docx_pdf_page_name = page_1_2024-09-01_14-33-49684231[00m
+2024-09-01 14:33:49,684 - DEBUG - [34m Converter get_template_path_and_docx_path(form_page_fullname, docx_page_fullname):
+form_page_fullname = DOCX_2024-08-30_12-14-31.docx,
+docx_page_fullname = page_1_2024-09-01_14-33-49684231.docx[00m
+2024-09-01 14:33:49,684 - DEBUG - [34m DirPathManager get_forms_folder_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\forms[00m
+2024-09-01 14:33:49,684 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-09-01 14:33:49,684 - DEBUG - [34m Converter rerender(template_path, docx_path, sections_info):
+template_path = C:\Users\hayar\Documents\AutoExecDoc Projects\Демонстрация\forms\DOCX_2024-08-30_12-14-31.docx,
+docx_path = C:\Users\hayar\AppData\Local\Temp\tmp6rfn4d_b\page_1_2024-09-01_14-33-49684231.docx,
+sections_info = [{'type': 'page', 'page': {'filename_page': 'DOCX_2024-08-30_12-14-31', 'id_page': 1, 'id_parent_template': 1, 'included': 1, 'name_page': 'Текст', 'order_page': 0, 'typefile_page': 'DOCX'}, 'data': [{'id_pair': 1, 'id_page': 1, 'id_variable': 2, 'value_pair': 'Простой однострочный текст'}, {'id_pair': 2, 'id_page': 1, 'id_variable': 3, 'value_pair': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."'}, {'id_pair': 4, 'id_page': 1, 'id_variable': 5, 'value_pair': 'Раз, два, три, четыре. Условие не пустое'}, {'id_pair': 3, 'id_page': 1, 'id_variable': 4, 'value_pair': 'Милая кроватка'}, {'id_pair': 5, 'id_page': 1, 'id_variable': 6, 'value_pair': '==true (любое не пустое значение)'}, {'id_pair': 6, 'id_page': 1, 'id_variable': 7, 'value_pair': '1987-08-08'}, {'id_pair': 7, 'id_page': 1, 'id_variable': 8, 'value_pair': '2027-07-30'}, {'id_pair': 8, 'id_page': 1, 'id_variable': 9, 'value_pair': '2026-12-19'}]}, {'type': 'project', 'project': {'id_node': 0, 'name_node': 'Проект', 'id_parent': None, 'order_node': '0', 'type_node': 'PROJECT', 'id_active_template': None, 'included': 1}, 'data': [{'id_pair': 1, 'id_node': 0, 'id_variable': 1, 'value_pair': 'Да, я могу быть во всех шаблонах и страницах'}]}][00m
+2024-09-01 14:33:49,695 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 1, 'id_page': 1, 'id_variable': 2, 'value_pair': 'Простой однострочный текст'},
+data_variable = {},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002136E155EB0> 
+is_rerender = False[00m
+2024-09-01 14:33:49,695 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,695 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,696 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,696 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 2
+result = {'id_variable': 2, 'name_variable': 'текст', 'type_variable': 'TEXT', 'title_variable': 'текст', 'order_variable': 1, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,696 - DEBUG - [34m Converter type_variable_is_text(data_variable, name_variable, value):
+data_variable = {},
+name_variable = текст,
+value = Простой однострочный текст[00m
+2024-09-01 14:33:49,696 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 2, 'id_page': 1, 'id_variable': 3, 'value_pair': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."'},
+data_variable = {'текст': 'Простой однострочный текст'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002136E155EB0> 
+is_rerender = False[00m
+2024-09-01 14:33:49,696 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,696 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,697 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,697 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 3
+result = {'id_variable': 3, 'name_variable': 'дл_текст', 'type_variable': 'LONGTEXT', 'title_variable': 'Длинный текст (многострочный)', 'order_variable': 2, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,697 - DEBUG - [34m Converter type_variable_is_text(data_variable, name_variable, value):
+data_variable = {'текст': 'Простой однострочный текст'},
+name_variable = дл_текст,
+value = Раз строка.
+Два строка.
+	Табуляция
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."[00m
+2024-09-01 14:33:49,697 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 4, 'id_page': 1, 'id_variable': 5, 'value_pair': 'Раз, два, три, четыре. Условие не пустое'},
+data_variable = {'текст': 'Простой однострочный текст', 'дл_текст': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002136E155EB0> 
+is_rerender = False[00m
+2024-09-01 14:33:49,697 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,697 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,698 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,698 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 5
+result = {'id_variable': 5, 'name_variable': 'если_условие_истина', 'type_variable': 'TEXT', 'title_variable': 'если_условие_истина', 'order_variable': 3, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,698 - DEBUG - [34m Converter type_variable_is_text(data_variable, name_variable, value):
+data_variable = {'текст': 'Простой однострочный текст', 'дл_текст': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."'},
+name_variable = если_условие_истина,
+value = Раз, два, три, четыре. Условие не пустое[00m
+2024-09-01 14:33:49,698 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 3, 'id_page': 1, 'id_variable': 4, 'value_pair': 'Милая кроватка'},
+data_variable = {'текст': 'Простой однострочный текст', 'дл_текст': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."', 'если_условие_истина': 'Раз, два, три, четыре. Условие не пустое'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002136E155EB0> 
+is_rerender = False[00m
+2024-09-01 14:33:49,698 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,698 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,698 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,699 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 4
+result = {'id_variable': 4, 'name_variable': 'условие_вт_текст', 'type_variable': 'TEXT', 'title_variable': 'Для условия', 'order_variable': 4, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,699 - DEBUG - [34m Converter type_variable_is_text(data_variable, name_variable, value):
+data_variable = {'текст': 'Простой однострочный текст', 'дл_текст': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."', 'если_условие_истина': 'Раз, два, три, четыре. Условие не пустое'},
+name_variable = условие_вт_текст,
+value = Милая кроватка[00m
+2024-09-01 14:33:49,699 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 5, 'id_page': 1, 'id_variable': 6, 'value_pair': '==true (любое не пустое значение)'},
+data_variable = {'текст': 'Простой однострочный текст', 'дл_текст': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."', 'если_условие_истина': 'Раз, два, три, четыре. Условие не пустое', 'условие_вт_текст': 'Милая кроватка'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002136E155EB0> 
+is_rerender = False[00m
+2024-09-01 14:33:49,699 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,699 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,699 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,699 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 6
+result = {'id_variable': 6, 'name_variable': 'условие_текст', 'type_variable': 'TEXT', 'title_variable': 'условие_текст', 'order_variable': 5, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,699 - DEBUG - [34m Converter type_variable_is_text(data_variable, name_variable, value):
+data_variable = {'текст': 'Простой однострочный текст', 'дл_текст': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."', 'если_условие_истина': 'Раз, два, три, четыре. Условие не пустое', 'условие_вт_текст': 'Милая кроватка'},
+name_variable = условие_текст,
+value = ==true (любое не пустое значение)[00m
+2024-09-01 14:33:49,699 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 6, 'id_page': 1, 'id_variable': 7, 'value_pair': '1987-08-08'},
+data_variable = {'текст': 'Простой однострочный текст', 'дл_текст': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."', 'если_условие_истина': 'Раз, два, три, четыре. Условие не пустое', 'условие_вт_текст': 'Милая кроватка', 'условие_текст': '==true (любое не пустое значение)'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002136E155EB0> 
+is_rerender = False[00m
+2024-09-01 14:33:49,699 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,700 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,700 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,700 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 7
+result = {'id_variable': 7, 'name_variable': 'дата_1', 'type_variable': 'DATE', 'title_variable': 'Дата', 'order_variable': 6, 'config_variable': '{"FORMAT": "dd.MM.yyyy", "LANGUAGE": "ru_RU"}', 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,700 - DEBUG - [34m Converter type_variable_is_date(data_variable, name_variable, value):
+data_variable = {'текст': 'Простой однострочный текст', 'дл_текст': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."', 'если_условие_истина': 'Раз, два, три, четыре. Условие не пустое', 'условие_вт_текст': 'Милая кроватка', 'условие_текст': '==true (любое не пустое значение)'},
+name_variable = дата_1,
+value = 1987-08-08,
+config_variable = {'FORMAT': 'dd.MM.yyyy', 'LANGUAGE': 'ru_RU'}[00m
+2024-09-01 14:33:49,700 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 7, 'id_page': 1, 'id_variable': 8, 'value_pair': '2027-07-30'},
+data_variable = {'текст': 'Простой однострочный текст', 'дл_текст': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."', 'если_условие_истина': 'Раз, два, три, четыре. Условие не пустое', 'условие_вт_текст': 'Милая кроватка', 'условие_текст': '==true (любое не пустое значение)', 'дата_1': '08.08.1987'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002136E155EB0> 
+is_rerender = False[00m
+2024-09-01 14:33:49,700 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,700 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,701 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,701 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 8
+result = {'id_variable': 8, 'name_variable': 'дата_2', 'type_variable': 'DATE', 'title_variable': 'Дата (месяц и год)', 'order_variable': 7, 'config_variable': '{"FORMAT": "\\u041c\\u0435\\u0441\\u044f\\u0446: MMM / \\u0413\\u041e\\u0414: yyyy", "LANGUAGE": "ru_RU"}', 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,701 - DEBUG - [34m Converter type_variable_is_date(data_variable, name_variable, value):
+data_variable = {'текст': 'Простой однострочный текст', 'дл_текст': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."', 'если_условие_истина': 'Раз, два, три, четыре. Условие не пустое', 'условие_вт_текст': 'Милая кроватка', 'условие_текст': '==true (любое не пустое значение)', 'дата_1': '08.08.1987'},
+name_variable = дата_2,
+value = 2027-07-30,
+config_variable = {'FORMAT': 'Месяц: MMM / ГОД: yyyy', 'LANGUAGE': 'ru_RU'}[00m
+2024-09-01 14:33:49,701 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 8, 'id_page': 1, 'id_variable': 9, 'value_pair': '2026-12-19'},
+data_variable = {'текст': 'Простой однострочный текст', 'дл_текст': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."', 'если_условие_истина': 'Раз, два, три, четыре. Условие не пустое', 'условие_вт_текст': 'Милая кроватка', 'условие_текст': '==true (любое не пустое значение)', 'дата_1': '08.08.1987', 'дата_2': 'Месяц: июл. / ГОД: 2027'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002136E155EB0> 
+is_rerender = False[00m
+2024-09-01 14:33:49,701 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,701 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,702 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,702 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 9
+result = {'id_variable': 9, 'name_variable': 'дата_3', 'type_variable': 'DATE', 'title_variable': 'Дата еще одна', 'order_variable': 8, 'config_variable': '{"FORMAT": "yyyy / MM / dd", "LANGUAGE": "ru_RU"}', 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,702 - DEBUG - [34m Converter type_variable_is_date(data_variable, name_variable, value):
+data_variable = {'текст': 'Простой однострочный текст', 'дл_текст': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."', 'если_условие_истина': 'Раз, два, три, четыре. Условие не пустое', 'условие_вт_текст': 'Милая кроватка', 'условие_текст': '==true (любое не пустое значение)', 'дата_1': '08.08.1987', 'дата_2': 'Месяц: июл. / ГОД: 2027'},
+name_variable = дата_3,
+value = 2026-12-19,
+config_variable = {'FORMAT': 'yyyy / MM / dd', 'LANGUAGE': 'ru_RU'}[00m
+2024-09-01 14:33:49,702 - DEBUG - [34m Converter check_type_variable_and_fill_data_variable(pair, data_variable, docx_template, is_rerender):
+pair = {'id_pair': 1, 'id_node': 0, 'id_variable': 1, 'value_pair': 'Да, я могу быть во всех шаблонах и страницах'},
+data_variable = {'текст': 'Простой однострочный текст', 'дл_текст': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."', 'если_условие_истина': 'Раз, два, три, четыре. Условие не пустое', 'условие_вт_текст': 'Милая кроватка', 'условие_текст': '==true (любое не пустое значение)', 'дата_1': '08.08.1987', 'дата_2': 'Месяц: июл. / ГОД: 2027', 'дата_3': '2026 / 12 / 19'},
+docx_template = <docxtpl.template.DocxTemplate object at 0x000002136E155EB0> 
+is_rerender = False[00m
+2024-09-01 14:33:49,702 - DEBUG - [34m ProjectDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,702 - DEBUG - [34m DirPathManager get_db_project_dirpath() -> str: C:/Users/hayar/Documents/AutoExecDoc Projects/Демонстрация\project.db[00m
+2024-09-01 14:33:49,703 - DEBUG - [34m ProjectDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,703 - DEBUG - [34m ProjectDatabase get_config_variable(id_variable) -> list: id_variable = 1
+result = {'id_variable': 1, 'name_variable': 'гл_текст', 'type_variable': 'TEXT', 'title_variable': 'Глобальный текст для всех', 'order_variable': 0, 'config_variable': None, 'description_variable': '', 'is_global': None}[00m
+2024-09-01 14:33:49,703 - DEBUG - [34m Converter type_variable_is_text(data_variable, name_variable, value):
+data_variable = {'текст': 'Простой однострочный текст', 'дл_текст': 'Раз строка.\nДва строка.\n\tТабуляция\n\t"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."', 'если_условие_истина': 'Раз, два, три, четыре. Условие не пустое', 'условие_вт_текст': 'Милая кроватка', 'условие_текст': '==true (любое не пустое значение)', 'дата_1': '08.08.1987', 'дата_2': 'Месяц: июл. / ГОД: 2027', 'дата_3': '2026 / 12 / 19'},
+name_variable = гл_текст,
+value = Да, я могу быть во всех шаблонах и страницах[00m
+2024-09-01 14:33:49,726 - DEBUG - [34m Converter create_pdf_from_docx_page(docx_pdf_page_name) -> str:
+docx_pdf_page_name = page_1_2024-09-01_14-33-49684231[00m
+2024-09-01 14:33:49,726 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-09-01 14:33:49,726 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-09-01 14:33:49,726 - DEBUG - [34m Converter convert_from_docx_to_pdf(docx_path, pdf_path):
+docx_path = C:\Users\hayar\AppData\Local\Temp\tmp6rfn4d_b\page_1_2024-09-01_14-33-49684231.docx,
+pdf_path = C:\Users\hayar\AppData\Local\Temp\tmp6rfn4d_b\page_1_2024-09-01_14-33-49684231.pdf[00m
+2024-09-01 14:33:49,726 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2024-09-01 14:33:49,726 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\work\project\AutoExecDoc\main.dist\db\settings.db[00m
+2024-09-01 14:33:49,726 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2024-09-01 14:33:49,726 - DEBUG - [34m SettingsDatabase get_app_converter():
+result = {'value_setting': 'MSWORD'}[00m
+2024-09-01 14:33:49,726 - DEBUG - [34m Converter convert_from_docx_to_pdf_using_msword(docx_path, pdf_path)[00m
+2024-09-01 14:33:49,977 - DEBUG - [34m DialogWindows process_show_end()[00m
+2024-09-01 14:33:49,983 - DEBUG - [34m PdfView load_and_show_pdf_document(pdf_path):
+pdf_path = C:\Users\hayar\AppData\Local\Temp\tmp6rfn4d_b\page_1_2024-09-01_14-33-49684231.pdf[00m
+2024-09-01 14:33:51,081 - DEBUG - [34m PdfView set_zoom_to_fit_width()[00m
+2024-09-01 14:33:55,426 - DEBUG - [34m MainWindow ()[00m
+2024-09-01 14:33:55,427 - DEBUG - [34m PdfView set_empty_pdf_view()[00m
+2024-09-01 14:33:55,427 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-09-01 14:33:55,427 - DEBUG - [34m FileFolderManager clear_temp_folder(is_del_folder):
+is_del_folder = True,
+temp_dirpath = C:\Users\hayar\AppData\Local\Temp\tmp6rfn4d_b[00m
+2024-09-01 14:33:55,427 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2024-09-01 14:33:55,428 - DEBUG - [34m OfficePackets terminate_msword()[00m
+2024-09-01 14:33:55,428 - DEBUG - [34m MsWordThread terminate_msword()[00m
+2024-09-01 14:33:55,428 - ERROR - [31m Error in OfficePackets.terminate_msword():
+(-2147220995, 'Объект не подключен к серверу', (None, None, None, 0, None))[00m

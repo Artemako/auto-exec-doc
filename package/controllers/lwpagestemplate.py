@@ -92,7 +92,7 @@ class LWPagesTemplate:
             self.__osbm.obj_dw.warning_message(msg)
             self.__osbm.obj_stab.set_message(msg)
             is_convert_flag = False
-        #
+        # TODO is_convert_flag
         pdf_path = str()
         is_error = False
         self.__osbm.obj_dw.process_show_start()

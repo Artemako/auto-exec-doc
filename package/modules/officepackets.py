@@ -1,5 +1,6 @@
 from PySide6.QtCore import QThread, Signal
 
+import time
 import comtypes.client
 import pythoncom
 import os
@@ -18,21 +19,33 @@ class MsWordThread(QThread):
     def run(self):
         self.initialize_msword()
 
+    def get_active_msword(self):
+        self.__osbm.obj_logg.debug_logger("MsWordThread get_active_msword()")
+        try:
+            self.__word = comtypes.client.GetActiveObject("Word.Application")
+            self.__status_msword = True
+            time.sleep(2)
+        except Exception as e:
+            self.__osbm.obj_logg.error_logger(f"Error in get_active_msword(): {e}")
+        
+
     def initialize_msword(self):
         self.__osbm.obj_logg.debug_logger("MsWordThread initialize_msword()")
         try:
+            # TODO 
             pythoncom.CoInitialize()
             self.__status_msword = None
             self.status_changed.emit(self.__status_msword)
-            try:
-                self.__word = comtypes.client.GetActiveObject("Word.Application")
-                self.__status_msword = True
-            except Exception as e:
-                print(f"Error in initialize_msword(): {e}")
+            #
+            thread = threading.Thread(target=self.get_active_msword)
+            thread.start()
+            # ждём три секунды
+            thread.join(1)
+            if thread.is_alive() or not self.__status_msword:
                 self.__word = comtypes.client.CreateObject("Word.Application")
                 self.__status_msword = True
         except Exception as e:
-            print(f"Error in initialize_msword(): {e}")
+            self.__osbm.obj_logg.error_logger(f"Error in initialize_msword(): {e}")
             self.__status_msword = False
         self.status_changed.emit(self.__status_msword)
 

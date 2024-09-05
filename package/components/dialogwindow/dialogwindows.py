@@ -86,6 +86,8 @@ class DialogWindows:
         self.__miniw = ProcessWindow("Идет процесс удаления", self.__icons.get("logo"))
         self.__miniw.show()
 
+    # todo Выбор изображения в форме
+
     def process_delete_trash_end(self):
         self.__osbm.obj_logg.debug_logger("DialogWindows process_delete_trash_end()")
         self.__miniw.close_window()
