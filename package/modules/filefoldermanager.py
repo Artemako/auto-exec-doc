@@ -100,7 +100,7 @@ class FileFolderManager:
             if not is_del_folder:
                 os.mkdir(temp_dirpath)
         except Exception as e:
-            self.__osbm.obj_logg.error_logger(e)
+            self.__osbm.obj_logg.error_logger(f"Error in clear_temp_folder(): {e}")
 
     def move_image_from_temp_to_project(self, name_image):
         self.__osbm.obj_logg.debug_logger(

@@ -315,8 +315,6 @@ class MainWindow(QMainWindow):
         #
         self.__osbm.obj_dw.process_delete_trash_start()
         try:
-            # временные файлы в temp
-            self.__osbm.obj_film.clear_temp_folder(False)
             # временные файлы в проекте
             list_of_pages = self.__osbm.obj_prodb.get_all_pages()
             list_of_images = self.__osbm.obj_prodb.get_all_images()
@@ -355,6 +353,8 @@ class MainWindow(QMainWindow):
                         filename_without_format, "PDF"
                     )
             #
+            print(f"list_of_images = {list_of_images}")
+            print(f"list_of_images_in_images = {list_of_images_in_images}")
             for image in list_of_images_in_images:
                 if not active_images.get(image):
                     self.__osbm.obj_film.delete_image_from_project(
@@ -362,8 +362,8 @@ class MainWindow(QMainWindow):
                     )
                     
         except Exception as e:
-            self.__osbm.obj_logg.error_logger(e)
-        # 
+            self.__osbm.obj_logg.error_logger(f"Error in clear_trash(): {e}")
+        #
         self.__osbm.obj_dw.process_delete_trash_end()
 
 

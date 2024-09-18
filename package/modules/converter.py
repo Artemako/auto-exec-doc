@@ -11,6 +11,7 @@ from docx.shared import Mm
 import threading
 import multiprocessing
 
+import pythoncom
 import comtypes.client
 import subprocess
 
@@ -478,17 +479,18 @@ class ConverterPool:
                 local_osbm, docx_path, pdf_path
             )
 
-    def get_active_msword(self, local_osbm) -> object:
+    def get_active_msword(self, local_osbm):
         local_osbm.obj_logg.debug_logger("Converter get_active_msword()")
         try:
+            pythoncom.CoInitialize()
             word = comtypes.client.GetActiveObject("Word.Application")
             self.__is_word_active = True
-            return word
         except Exception as e:
             local_osbm.obj_logg.error_logger(
-                f"Error in Converter.get_active_msword(): {e}"
+                "Error in Converter.get_active_msword():"
             )
-            raise local_osbm.obj_com.errors.MsWordError(e)
+            self.__is_word_active = False
+            # raise local_osbm.obj_com.errors.MsWordError(e)
         
     def convert_from_docx_to_pdf_using_msword(self, local_osbm, docx_path, pdf_path):
         local_osbm.obj_logg.debug_logger(
@@ -508,10 +510,9 @@ class ConverterPool:
                 raise local_osbm.obj_com.errors.MsWordError(
                     "Error in convert_from_docx_to_pdf_using_msword(): Word object is not available"
                 )
-            
-            word = self.get_active_msword(local_osbm)
-            doc = word.Documents.Open(docx_path)
             wdFormatPDF = 17
+            word = comtypes.client.GetActiveObject("Word.Application")
+            doc = word.Documents.Open(docx_path)            
             doc.SaveAs(pdf_path, FileFormat=wdFormatPDF)
             doc.Close()
 

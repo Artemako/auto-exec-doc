@@ -59,15 +59,16 @@ class PdfView:
         self.__widget_pdf_view.setDocument(self.__document)
         self.__osbm.obj_logg.debug_logger("PdfView set_empty_pdf_view()")
 
-    def get_view_height(self):
-        self.__osbm.obj_logg.debug_logger("PdfView get_view_height()")
-        return self.__widget_pdf_view.verticalScrollBar().value()
+    def get_view_sizes(self):
+        self.__osbm.obj_logg.debug_logger("PdfView get_view_sizes()")
+        return (self.__widget_pdf_view.horizontalScrollBar().value(), self.__widget_pdf_view.verticalScrollBar().value())
 
-    def set_view_height(self, value):
+    def set_view_sizes(self, value):
         self.__osbm.obj_logg.debug_logger(
-            f"PdfView set_view_height({value}):\nvalue = {value}"
+            f"PdfView set_view_sizes({value}):\nvalue = {value}"
         )
-        self.__widget_pdf_view.verticalScrollBar().setValue(value)
+        self.__widget_pdf_view.horizontalScrollBar().setValue(value[0])
+        self.__widget_pdf_view.verticalScrollBar().setValue(value[1])
 
     def load_and_show_pdf_document(self, pdf_path):
         self.__osbm.obj_logg.debug_logger(

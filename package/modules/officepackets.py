@@ -22,6 +22,7 @@ class MsWordThread(QThread):
     def get_active_msword(self):
         self.__osbm.obj_logg.debug_logger("MsWordThread get_active_msword()")
         try:
+            pythoncom.CoInitialize()
             self.__word = comtypes.client.GetActiveObject("Word.Application")
             self.__status_msword = True
         except Exception as e:
