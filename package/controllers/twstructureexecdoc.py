@@ -103,11 +103,14 @@ class TWStructureExecDoc:
         )
         childs = self.__osbm.obj_prodb.get_childs(parent_node)
         if childs:
+            # Сортировка по order_node
+            childs.sort(key=lambda node: int(node.get("order_node")))
             for child in childs:
                 # действие
                 self.set_item_in_nodes_to_items(child, open_node)
                 # проход по дочерним вершинам
                 self.dfs(child, open_node)
+
 
     def set_item_in_nodes_to_items(self, node, open_node=None):
         """
