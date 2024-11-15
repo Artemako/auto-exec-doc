@@ -634,6 +634,7 @@ COMMIT;
         """
         Запрос на обновление данных страницы в Project_pages_data.
         """
+        print(f"update_page_data(id_pair, value_pair): id_pair = {id_pair}, value_pair = {value_pair}")
         self.__osbm.obj_logg.debug_logger(
             f"ProjectDatabase update_page_data(id_pair, value_pair): id_pair = {id_pair}, value_pair = {value_pair}"
         )

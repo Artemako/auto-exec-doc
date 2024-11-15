@@ -55,6 +55,7 @@ class FormTable(QWidget):
         )
         result = self.__osbm.obj_formtabledw.exec_()
         return result == QDialog.Accepted
+    
 
     def set_new_value_in_pair(self, new_value):
         self.__osbm.obj_logg.debug_logger(

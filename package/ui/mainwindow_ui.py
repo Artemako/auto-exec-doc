@@ -1184,9 +1184,6 @@ class Ui_MainWindow(object):
 
         self.tabw_inputforms = QTabWidget(self.gb_right)
         self.tabw_inputforms.setObjectName(u"tabw_inputforms")
-        self.tab = QWidget()
-        self.tab.setObjectName(u"tab")
-        self.tabw_inputforms.addTab(self.tab, "")
 
         self.verticalLayout_4.addWidget(self.tabw_inputforms)
 
@@ -1268,7 +1265,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabw_inputforms.setCurrentIndex(0)
+        self.tabw_inputforms.setCurrentIndex(-1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1342,7 +1339,6 @@ class Ui_MainWindow(object):
 
         self.label_realview.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0420\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442 \u0432 \u0440\u0435\u0436\u0438\u043c\u0435 \u0440\u0435\u0430\u043b\u044c\u043d\u043e\u0433\u043e \u0432\u0440\u0435\u043c\u0435\u043d\u0438</span></p></body></html>", None))
         self.label_variables.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0424\u043e\u0440\u043c\u0430 \u0437\u0430\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u044f</span></p></body></html>", None))
-        self.tabw_inputforms.setTabText(self.tabw_inputforms.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Tab 1", None))
         self.label_default.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0417\u043d\u0430\u0447\u0435\u043d\u0438\u0435 \u043f\u0435\u0440\u0435\u043c\u0435\u043d\u043d\u043e\u0439 \u043f\u043e \u0443\u043c\u043e\u043b\u0447\u0430\u043d\u0438\u044e</span></p></body></html>", None))
         self.menu_file.setTitle(QCoreApplication.translate("MainWindow", u"\u0424\u0430\u0439\u043b", None))
         self.menu_recent_projects.setTitle(QCoreApplication.translate("MainWindow", u"\u041d\u0435\u0434\u0430\u0432\u043d\u0438\u0435 \u043f\u0440\u043e\u0435\u043a\u0442\u044b", None))

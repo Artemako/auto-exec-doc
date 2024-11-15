@@ -68,7 +68,6 @@ class FormDate(QWidget):
             # получить ISO дату и преобразовать
             self.ui.dateedit.setDate(QDate.fromString(value, "yyyy-MM-dd"))
         else:
-            # формат ISO
             self.ui.dateedit.setDate(QDate.currentDate())
             self.set_new_value_in_pair()
 
@@ -83,6 +82,7 @@ class FormDate(QWidget):
     #         f"FormDate date_to_string(self, date) -> str:\ndate = {date}"
     #     )
     #     return str(date.toString(str_format))
+
 
     def set_new_value_in_pair(self):
         # self.__pair["value_pair"] = new_value

@@ -1,5 +1,6 @@
 import os
 import json
+from functools import partial
 
 import package.components.widgets.customsection as customsection
 
@@ -75,7 +76,7 @@ class TabWInputForms:
         if type_variable == "TEXT":
             item = formtext.FormText(self.__osbm, pair, current_variable)
         elif type_variable == "LONGTEXT":
-            item = formlongtext.FormLongTextWidget(self.__osbm, pair, current_variable)
+            item = formlongtext.FormLongText(self.__osbm, pair, current_variable)
         elif type_variable == "DATE":
             item = formdate.FormDate(self.__osbm, pair, current_variable, config_dict)
         elif type_variable == "IMAGE":
@@ -117,7 +118,6 @@ class TabWInputForms:
         self.__osbm.obj_logg.debug_logger("TabWInputForms add_sections_in_tabs()")
         
         sections_info = self.__osbm.obj_seci.get_sections_info()
-        self.__sections = []
 
         for section_info in sections_info:
             try:
@@ -137,13 +137,28 @@ class TabWInputForms:
                 for pair in data_section:
                     self.add_form_in_tab(tab_layout, pair, type_section)
 
+                # Добавление кнопки "Сбросить значения"
+                reset_button = QPushButton("Сбросить все значения вкладки")
+                reset_button.clicked.connect(partial(self.reset_tab_values, tab_layout))
+                tab_layout.addWidget(reset_button)
+
+                # Добавление пустого виджета
                 tab_layout.addItem(
                     QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Expanding)
                 )
+                # Добавление виджета и вкладки
                 scroll_area.setWidget(tab_content)
                 self.__tab_widget.addTab(scroll_area, section_name)
+
             except Exception as e:
                 self.__osbm.obj_logg.error_logger(f"Error in add_sections_in_tabs(): {e}")
+
+    def reset_tab_values(self, tab_layout):
+        for i in range(tab_layout.count()):
+            widget = tab_layout.itemAt(i).widget()
+            if hasattr(widget, 'reset_value'):
+                widget.reset_value()
+        # TODO сделать валидацию
 
     def update_tabs(self, page):
         self.__osbm.obj_logg.debug_logger("TabWInputForms update_tabs()")

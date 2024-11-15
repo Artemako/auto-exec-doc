@@ -10,14 +10,14 @@ class Errors:
         self.MsWordError = Errors.MsWordError
         self.LibreOfficeError = Errors.LibreOfficeError
 
-class DefaultValue:
+# class DefaultValue:
 
-    def __init__(self):
-        self.default_value = None
+#     def __init__(self):
+#         self.default_value = None
 
 
 class Common:
     def __init__(self):
         self.errors = Errors()
-        self.default_value = DefaultValue()
+        self.default_value = None
 

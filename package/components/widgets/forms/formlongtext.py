@@ -3,7 +3,7 @@ from PySide6.QtWidgets import QWidget
 import package.ui.formlongtext_ui as formlongtext_ui
 
 
-class FormLongTextWidget(QWidget):
+class FormLongText(QWidget):
     def __init__(self, osbm, pair, current_variable):
         self.__osbm = osbm
         self.__pair = pair
@@ -12,8 +12,8 @@ class FormLongTextWidget(QWidget):
             f"FormLongTextWidget __init__(pair, current_variable): pair = {pair},\ncurrent_variable = {current_variable}"
         )
 
-        super(FormLongTextWidget, self).__init__()
-        self.ui = formlongtext_ui.Ui_FormLongTextWidget()
+        super(FormLongText, self).__init__()
+        self.ui = formlongtext_ui.Ui_FormLongText()
         self.ui.setupUi(self)
         # СТИЛЬ
         self.__osbm.obj_style.set_style_for(self)
