@@ -39,10 +39,12 @@ class Section(QWidget):
         toggleButton.setArrowType(QtCore.Qt.RightArrow)
 
         metrics = QtGui.QFontMetrics(self.toggleButton.font())
-        toggleButton.setText(metrics.elidedText(self.__section_name, QtCore.Qt.ElideRight, 300))
+        toggleButton.setText(
+            metrics.elidedText(self.__section_name, QtCore.Qt.ElideRight, 300)
+        )
         toggleButton.setCheckable(True)
         toggleButton.setChecked(self.__is_checked)
-    
+
         headerLine = self.headerLine
         headerLine.setFrameShape(QFrame.HLine)
         headerLine.setFrameShadow(QFrame.Sunken)
@@ -84,7 +86,6 @@ class Section(QWidget):
             self.toggleAnimation.setDirection(direction)
             self.toggleAnimation.start()
             self.__sections_checked[self.__section_id] = checked
-
 
         self.toggleButton.clicked.connect(start_animation)
 

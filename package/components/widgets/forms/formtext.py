@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QWidget
 
 import package.ui.formtext_ui as formtext_ui
 
-import package.controllers.sainputforms as sainputforms
+import package.controllers.tabwinputforms as tabwinputforms
 
 
 class FormText(QWidget):

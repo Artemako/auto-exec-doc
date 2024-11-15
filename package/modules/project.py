@@ -86,7 +86,7 @@ class Project:
         # очистка pdfview
         self.__osbm.obj_pdfv.set_empty_pdf_view()
         # очистка inputforms
-        self.__osbm.obj_saif.delete_all_widgets_in_sa()
+        self.__osbm.obj_tabwif.delete_all_tabs()
 
     def config_new_project(self):
         """
@@ -244,8 +244,6 @@ class Project:
         self.__osbm.obj_mw.enable_qt_actions()
         # значение по умолчанию включить
         self.__osbm.obj_mw.config_combox_default()
-        # очистить список выбранных секций
-        self.__osbm.obj_saif.clear_sections_checked()
 
 
     def export_to_pdf(self):

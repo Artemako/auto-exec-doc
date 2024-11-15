@@ -56,8 +56,8 @@ class MainWindow(QMainWindow):
         # настройка comboboxtemplates
         self.__osbm.obj_comt.connect_combox_templates(self.ui.combox_templates)
         # настройка inputforms
-        self.__osbm.obj_saif.connect_inputforms(
-            self.ui.scrollarea_inputforms, self.ui.scrollarea_inputforms_layout
+        self.__osbm.obj_tabwif.connect_inputforms(
+            self.ui.tabw_inputforms
         )
         # ПОДКЛЮЧИТЬ PDF
         self.__osbm.obj_pdfv.connect_pdfview(self.ui.widget_pdf_view)
@@ -149,7 +149,7 @@ class MainWindow(QMainWindow):
             elif type_item == "PAGE":
                 self.edit_variables(open_node, open_template, open_page)
             elif type_item == "EDIT":
-                # для SAInputForms
+                # для TabWInputForms
                 if type_section == "project":
                     self.edit_variables(None, None, None, edit_variable)
                 elif type_section == "group":
@@ -291,7 +291,7 @@ class MainWindow(QMainWindow):
         self.__osbm.obj_pdfv.set_empty_pdf_view()
         # scrollarea_inputforms
         page = self.__osbm.obj_lwpt.get_page_by_current_item()
-        self.__osbm.obj_saif.update_scrollarea(page)
+        self.__osbm.obj_tabwif.update_tabs(page)
 
     def update_menu_recent_projects(self):
         self.__osbm.obj_logg.debug_logger("MainWindow update_menu_recent_projects()")

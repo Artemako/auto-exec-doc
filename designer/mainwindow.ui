@@ -1172,7 +1172,7 @@ QToolBar QToolButton:checked {
          <height>0</height>
         </size>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,1,0,0">
+       <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,0,0,0">
         <property name="leftMargin">
          <number>4</number>
         </property>
@@ -1193,61 +1193,10 @@ QToolBar QToolButton:checked {
          </widget>
         </item>
         <item>
-         <widget class="QScrollArea" name="scrollarea_inputforms">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <widget class="QTabWidget" name="tabw_inputforms">
+          <property name="currentIndex">
+           <number>-1</number>
           </property>
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="verticalScrollBarPolicy">
-           <enum>Qt::ScrollBarAlwaysOn</enum>
-          </property>
-          <property name="horizontalScrollBarPolicy">
-           <enum>Qt::ScrollBarAlwaysOff</enum>
-          </property>
-          <property name="sizeAdjustPolicy">
-           <enum>QAbstractScrollArea::AdjustToContents</enum>
-          </property>
-          <property name="widgetResizable">
-           <bool>true</bool>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-          </property>
-          <widget class="QWidget" name="scrollarea_inputforms_layout">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>386</width>
-             <height>608</height>
-            </rect>
-           </property>
-           <property name="mouseTracking">
-            <bool>true</bool>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_5">
-            <property name="spacing">
-             <number>4</number>
-            </property>
-            <property name="leftMargin">
-             <number>4</number>
-            </property>
-            <property name="topMargin">
-             <number>4</number>
-            </property>
-            <property name="rightMargin">
-             <number>4</number>
-            </property>
-            <property name="bottomMargin">
-             <number>4</number>
-            </property>
-           </layout>
-          </widget>
          </widget>
         </item>
         <item>

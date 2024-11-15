@@ -70,8 +70,8 @@ class LWPagesTemplate:
             f"LWPagesTemplate item_page_updated(current):\ncurrent = {current}"
         )
         page = current.data(Qt.UserRole)
-        # Обновить SAInputForms
-        self.__osbm.obj_saif.update_scrollarea(page)
+        # Обновить TabWInputForms
+        self.__osbm.obj_tabwif.update_tabs(page)
         # открыть pdf форму для текущей страницы
         self.create_and_view_current_page(page)
 

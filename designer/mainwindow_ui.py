@@ -17,12 +17,11 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
 from PySide6.QtPdfWidgets import QPdfView
-from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QComboBox, QFrame,
-    QGroupBox, QHeaderView, QLabel, QListWidget,
-    QListWidgetItem, QMainWindow, QMenu, QMenuBar,
-    QScrollArea, QSizePolicy, QSplitter, QStatusBar,
-    QToolBar, QTreeWidget, QTreeWidgetItem, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QGroupBox, QHeaderView,
+    QLabel, QListWidget, QListWidgetItem, QMainWindow,
+    QMenu, QMenuBar, QSizePolicy, QSplitter,
+    QStatusBar, QTabWidget, QToolBar, QTreeWidget,
+    QTreeWidgetItem, QVBoxLayout, QWidget)
 import resources_rc
 
 class Ui_MainWindow(object):
@@ -1183,30 +1182,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_4.addWidget(self.label_variables)
 
-        self.scrollarea_inputforms = QScrollArea(self.gb_right)
-        self.scrollarea_inputforms.setObjectName(u"scrollarea_inputforms")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.scrollarea_inputforms.sizePolicy().hasHeightForWidth())
-        self.scrollarea_inputforms.setSizePolicy(sizePolicy2)
-        self.scrollarea_inputforms.setFrameShape(QFrame.StyledPanel)
-        self.scrollarea_inputforms.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.scrollarea_inputforms.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.scrollarea_inputforms.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
-        self.scrollarea_inputforms.setWidgetResizable(True)
-        self.scrollarea_inputforms.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
-        self.scrollarea_inputforms_layout = QWidget()
-        self.scrollarea_inputforms_layout.setObjectName(u"scrollarea_inputforms_layout")
-        self.scrollarea_inputforms_layout.setGeometry(QRect(0, 0, 386, 608))
-        self.scrollarea_inputforms_layout.setMouseTracking(True)
-        self.verticalLayout_5 = QVBoxLayout(self.scrollarea_inputforms_layout)
-        self.verticalLayout_5.setSpacing(4)
-        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
-        self.verticalLayout_5.setContentsMargins(4, 4, 4, 4)
-        self.scrollarea_inputforms.setWidget(self.scrollarea_inputforms_layout)
+        self.tabw_inputforms = QTabWidget(self.gb_right)
+        self.tabw_inputforms.setObjectName(u"tabw_inputforms")
 
-        self.verticalLayout_4.addWidget(self.scrollarea_inputforms)
+        self.verticalLayout_4.addWidget(self.tabw_inputforms)
 
         self.label_default = QLabel(self.gb_right)
         self.label_default.setObjectName(u"label_default")
@@ -1218,7 +1197,6 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_4.addWidget(self.combox_default)
 
-        self.verticalLayout_4.setStretch(1, 1)
         self.centralwidget_splitter.addWidget(self.gb_right)
 
         self.verticalLayout_6.addWidget(self.centralwidget_splitter)
@@ -1286,6 +1264,9 @@ class Ui_MainWindow(object):
         self.tb_main.addAction(self.action_zoomfitpage)
 
         self.retranslateUi(MainWindow)
+
+        self.tabw_inputforms.setCurrentIndex(-1)
+
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi

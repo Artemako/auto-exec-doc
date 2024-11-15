@@ -25,7 +25,7 @@ import package.commonwithosbm as commonwithosbm
 # Импорт всех controllers
 import package.controllers.lwpagestemplate as lwpagestemplate
 import package.controllers.pdfview as pdfview
-import package.controllers.sainputforms as sainputforms
+import package.controllers.tabwinputforms as tabwinputforms
 import package.controllers.statusbar as statusbar
 import package.controllers.twstructureexecdoc as twstructureexecdoc
 import package.controllers.comboxtemplates as comboxtemplates
@@ -53,7 +53,7 @@ class ObjectsManager:
         # controllers
         self.obj_lwpt = None
         self.obj_pdfv = None
-        self.obj_saif = None
+        self.obj_tabwif = None
         self.obj_stab = None
         self.obj_twsed = None
         self.obj_comt = None
@@ -101,7 +101,7 @@ class ObjectsManager:
     def initialize_controllers(self):
         self.obj_lwpt = lwpagestemplate.LWPagesTemplate()
         self.obj_pdfv = pdfview.PdfView()
-        self.obj_saif = sainputforms.SAInputForms()
+        self.obj_tabwif = tabwinputforms.TabWInputForms()
         self.obj_stab = statusbar.StatusBar()
         self.obj_twsed = twstructureexecdoc.TWStructureExecDoc()
         self.obj_icons = icons.Icons()
@@ -138,7 +138,7 @@ class App:
     def setting_osbm_for_controllers(self):    
         self.osbm.obj_lwpt.setting_all_osbm(self.osbm)
         self.osbm.obj_pdfv.setting_all_osbm(self.osbm)
-        self.osbm.obj_saif.setting_all_osbm(self.osbm)
+        self.osbm.obj_tabwif.setting_all_osbm(self.osbm)
         self.osbm.obj_stab.setting_all_osbm(self.osbm)
         self.osbm.obj_twsed.setting_all_osbm(self.osbm)
         self.osbm.obj_icons.setting_all_osbm(self.osbm)

@@ -18,5 +18,5 @@ python -m nuitka --recurse-all --portable your-program.py
 python setup.py build
 
 
-БЕЗ ПАРАЛЛЕЗАЦИИ
-export_to_pdf() -> time: 2.232374429702759
+
+Убрать scrollarea_inputforms вместо него  tabw_inputforms 
