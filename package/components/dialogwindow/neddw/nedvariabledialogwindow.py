@@ -149,6 +149,7 @@ class NedVariableDialogWindow(QDialog):
         if len(le_namevariable) > 0 and len(le_titlevariable) > 0 and is_valid_jinja_variable:
             # copy_variable 
             copy_variable = self.ui.combox_copyvariables.currentData()
+            print(f"copy_variable = {copy_variable}")
             if copy_variable == "empty" or copy_variable is None:
                 # получит config_variable в зависимости от типа переменной
                 type_variable = self.ui.combox_typevariable.currentData()
@@ -158,8 +159,9 @@ class NedVariableDialogWindow(QDialog):
                     config_variable = self.__additional_widget.get_save_data()
             else:
                 type_variable = copy_variable.get("type_variable")
-                config_variable = json.loads(copy_variable.get("config_variable"))
-            #
+                config_copy_variable = copy_variable.get("config_variable")
+                config_copy_variable = config_copy_variable if config_copy_variable else "{}"
+                config_variable = json.loads(config_copy_variable)
             neighboor_data = self.ui.combox_neighboor.currentData()
             print(f"neighboor_data = {neighboor_data}")
             order_variable = int(neighboor_data.get("order_variable")) + 1 if neighboor_data != "START" else 0

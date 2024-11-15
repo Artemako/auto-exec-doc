@@ -1,6 +1,6 @@
 from PySide6.QtCore import QThread, Signal
 
-import time
+import traceback
 import comtypes.client
 import pythoncom
 import os
@@ -26,7 +26,7 @@ class MsWordThread(QThread):
             self.__word = comtypes.client.GetActiveObject("Word.Application")
             self.__status_msword = True
         except Exception as e:
-            self.__osbm.obj_logg.error_logger(f"Error in get_active_msword(): {e}")
+            self.__osbm.obj_logg.error_logger(f"Error in get_active_msword(): {e} ? {traceback.format_exc()}")
         
 
     def initialize_msword(self):
@@ -42,9 +42,10 @@ class MsWordThread(QThread):
             thread.join(3)
             if thread.is_alive() or not self.__status_msword:
                 self.__word = comtypes.client.CreateObject("Word.Application")
+                # TODO dynamic=True
                 self.__status_msword = True
         except Exception as e:
-            self.__osbm.obj_logg.error_logger(f"Error in initialize_msword(): {e}")
+            self.__osbm.obj_logg.error_logger(f"Error in initialize_msword(): {e} ? {traceback.format_exc()}")
             self.__status_msword = False
         self.status_changed.emit(self.__status_msword)
 
@@ -119,7 +120,7 @@ class OfficePackets:
         try:
             self.__msword_thread.terminate_msword()
         except Exception as e:
-            self.__osbm.obj_logg.error_logger("Error in OfficePackets.terminate_msword():\n" + str(e))
+            self.__osbm.obj_logg.error_logger(f"Error in OfficePackets.terminate_msword():\n {e}  ? {traceback.format_exc()}")
         self.__msword_thread.quit()
         self.__msword_thread.wait()
         self.__status_msword = False
@@ -136,7 +137,7 @@ class OfficePackets:
                 word = comtypes.client.CreateObject("Word.Application")
             except Exception as e:
                 self.__osbm.obj_logg.error_logger(
-                    f"OfficePackets run_individual_msword():\nerror = {e}"
+                    f"OfficePackets run_individual_msword():\nerror = {e} ? {traceback.format_exc()}"
                 )
         individual_thread = threading.Thread(target=run_msword)
         individual_thread.start()
