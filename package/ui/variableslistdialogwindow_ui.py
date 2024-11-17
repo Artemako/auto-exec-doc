@@ -26,7 +26,7 @@ class Ui_VariablesListDialog(object):
         if not VariablesListDialog.objectName():
             VariablesListDialog.setObjectName(u"VariablesListDialog")
         VariablesListDialog.setWindowModality(Qt.ApplicationModal)
-        VariablesListDialog.resize(1282, 720)
+        VariablesListDialog.resize(1250, 720)
         icon = QIcon()
         icon.addFile(u":/icons/resources/icons/text-editor.svg", QSize(), QIcon.Normal, QIcon.Off)
         VariablesListDialog.setWindowIcon(icon)

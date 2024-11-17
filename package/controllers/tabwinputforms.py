@@ -138,9 +138,9 @@ class TabWInputForms:
                     self.add_form_in_tab(tab_layout, pair, type_section)
 
                 # Добавление кнопки "Сбросить значения"
-                reset_button = QPushButton("Сбросить все значения вкладки")
-                reset_button.clicked.connect(partial(self.reset_tab_values, tab_layout))
-                tab_layout.addWidget(reset_button)
+                # reset_button = QPushButton("Сбросить все значения вкладки")
+                # reset_button.clicked.connect(partial(self.reset_tab_values, tab_layout))
+                # tab_layout.addWidget(reset_button)
 
                 # Добавление пустого виджета
                 tab_layout.addItem(
@@ -158,7 +158,9 @@ class TabWInputForms:
             widget = tab_layout.itemAt(i).widget()
             if hasattr(widget, 'reset_value'):
                 widget.reset_value()
-        # TODO сделать валидацию
+        # TODO сделать reset_value (data_rowcol -> [""])
+        # [{"id_rowcol": "4b73557866c011ef8fbfdce9947e4a05", "data_rowcol": [""]}, {"id_rowcol": "5207feeb66c011ef8450dce9947e4a05", "data_rowcol": [""]}]
+        
 
     def update_tabs(self, page):
         self.__osbm.obj_logg.debug_logger("TabWInputForms update_tabs()")

@@ -23,7 +23,7 @@ class Ui_FormListDialogWindow(object):
     def setupUi(self, FormListDialogWindow):
         if not FormListDialogWindow.objectName():
             FormListDialogWindow.setObjectName(u"FormListDialogWindow")
-        FormListDialogWindow.resize(350, 350)
+        FormListDialogWindow.resize(500, 350)
         self.verticalLayout = QVBoxLayout(FormListDialogWindow)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.label_nametable = QLabel(FormListDialogWindow)

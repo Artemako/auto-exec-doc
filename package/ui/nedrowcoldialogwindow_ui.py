@@ -23,7 +23,7 @@ class Ui_NedRowcolDialogWindow(object):
     def setupUi(self, NedRowcolDialogWindow):
         if not NedRowcolDialogWindow.objectName():
             NedRowcolDialogWindow.setObjectName(u"NedRowcolDialogWindow")
-        NedRowcolDialogWindow.resize(530, 183)
+        NedRowcolDialogWindow.resize(500, 183)
         NedRowcolDialogWindow.setMaximumSize(QSize(16777215, 183))
         self.verticalLayout = QVBoxLayout(NedRowcolDialogWindow)
         self.verticalLayout.setObjectName(u"verticalLayout")

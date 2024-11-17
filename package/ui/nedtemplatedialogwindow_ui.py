@@ -23,7 +23,7 @@ class Ui_NedTemplateDialogWindow(object):
     def setupUi(self, NedTemplateDialogWindow):
         if not NedTemplateDialogWindow.objectName():
             NedTemplateDialogWindow.setObjectName(u"NedTemplateDialogWindow")
-        NedTemplateDialogWindow.resize(425, 168)
+        NedTemplateDialogWindow.resize(500, 168)
         self.verticalLayout = QVBoxLayout(NedTemplateDialogWindow)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(-1, -1, -1, 9)

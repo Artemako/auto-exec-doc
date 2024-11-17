@@ -24,7 +24,7 @@ class Ui_NodesEditorDialogWindow(object):
     def setupUi(self, NodesEditorDialogWindow):
         if not NodesEditorDialogWindow.objectName():
             NodesEditorDialogWindow.setObjectName(u"NodesEditorDialogWindow")
-        NodesEditorDialogWindow.resize(573, 500)
+        NodesEditorDialogWindow.resize(700, 500)
         self.verticalLayout_2 = QVBoxLayout(NodesEditorDialogWindow)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.hl_main = QHBoxLayout()
