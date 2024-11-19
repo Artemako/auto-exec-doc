@@ -127,6 +127,7 @@ class FormListDialogWindow(QDialog):
         data = []
         for i in range(self.ui.lw.count()):
             data.append(self.ui.lw.item(i).text())
+        print("LALA data = ", data, json.dumps(data))
         return json.dumps(data)
 
     def save(self):

@@ -42,3 +42,8 @@ class FormText(QWidget):
 
     def set_new_value_in_pair(self, new_value):
         self.__pair["value_pair"] = new_value
+
+
+    def reset_value(self):
+        self.__pair["value_pair"] = ""
+        self.ui.lineedit.setText(self.__pair.get("value_pair"))

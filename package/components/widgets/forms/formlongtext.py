@@ -50,3 +50,7 @@ class FormLongText(QWidget):
 
     def set_new_value_in_pair(self):
         self.__pair["value_pair"] = self.ui.textedit.toPlainText()
+
+    def reset_value(self):
+        self.__pair["value_pair"] = ""
+        self.ui.textedit.setText(self.__pair.get("value_pair"))

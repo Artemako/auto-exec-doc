@@ -65,7 +65,7 @@ class FormImage(QWidget):
     def reset_image(self):
         self.__osbm.obj_logg.debug_logger("FormImage reset_image()")
         self.ui.label.setText("Выберите изображение")
-        self.__pair["value_pair"] = None
+        self.__pair["value_pair"] = ""
 
     def set_new_value_in_pair(self):
         self.__osbm.obj_logg.debug_logger("FormImage set_new_value_in_pair()")
@@ -80,3 +80,6 @@ class FormImage(QWidget):
             self.__osbm.obj_imgr.save_image_then_selected(image_dirpath, file_name_with_format)
             #
             self.__pair["value_pair"] = file_name_with_format
+
+    def reset_value(self):
+        self.reset_image()

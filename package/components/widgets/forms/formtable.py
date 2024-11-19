@@ -25,8 +25,8 @@ class FormTable(QWidget):
         #
         self.ui.btn_edittable.clicked.connect(self.btn_edittable_clicked)
 
-    def btn_edittable_clicked(self):
-        result = self.formtabledw()
+    def btn_edittable_clicked(self, is_fake = False):
+        result = self.formtabledw(is_fake)
         if result:
             data = self.__osbm.obj_formtabledw.get_data()
             print(f"obj_formtabledw data = {data}")
@@ -48,13 +48,17 @@ class FormTable(QWidget):
         else:
             self.ui.textbrowser.hide()
 
-    def formtabledw(self) -> bool:
+    def formtabledw(self, is_fake) -> bool:
         self.__osbm.obj_logg.debug_logger("FormTable formtabledw()")
         self.__osbm.obj_formtabledw = formtabledialogwindow.FormTableDialogWindow(
             self.__osbm, self.__current_variable, self.__config_dict, self.__pair.get("value_pair")
         )
-        result = self.__osbm.obj_formtabledw.exec_()
-        return result == QDialog.Accepted
+        if is_fake:
+            self.__osbm.obj_formtabledw.save()
+            return True
+        else:
+            result = self.__osbm.obj_formtabledw.exec_()
+            return result == QDialog.Accepted
     
 
     def set_new_value_in_pair(self, new_value):
@@ -63,3 +67,9 @@ class FormTable(QWidget):
         )
         self.__pair["value_pair"] = new_value
         print(f"set_new_value_in_pair pair = {self.__pair}") 
+
+
+    def reset_value(self):
+        self.__pair["value_pair"] = ""
+        self.btn_edittable_clicked(is_fake=True)
+        

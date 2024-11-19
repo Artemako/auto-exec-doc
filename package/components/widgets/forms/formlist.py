@@ -24,8 +24,8 @@ class FormList(QWidget):
         #
         self.ui.btn_edittable.clicked.connect(self.btn_edittable_clicked)
 
-    def btn_edittable_clicked(self):
-        result = self.formlistdw()
+    def btn_edittable_clicked(self, is_fake = False):
+        result = self.formlistdw(is_fake)
         if result:
             data = self.__osbm.obj_formlistdw.get_data()
             print(f"obj_formlistdw data = {data}")
@@ -51,13 +51,17 @@ class FormList(QWidget):
         else:
             self.ui.textbrowser.hide()
 
-    def formlistdw(self) -> bool:
+    def formlistdw(self, is_fake) -> bool:
         self.__osbm.obj_logg.debug_logger("FormList formlistdw()")
         self.__osbm.obj_formlistdw = formlistdialogwindow.FormListDialogWindow(
             self.__osbm, self.__current_variable, self.__pair.get("value_pair")
         )
-        result = self.__osbm.obj_formlistdw.exec_()
-        return result == QDialog.Accepted
+        if is_fake:
+            self.__osbm.obj_formlistdw.save()
+            return True
+        else:
+            result = self.__osbm.obj_formlistdw.exec_()
+            return result == QDialog.Accepted
 
     def set_new_value_in_pair(self, new_value):
         self.__osbm.obj_logg.debug_logger(
@@ -65,3 +69,7 @@ class FormList(QWidget):
         )
         self.__pair["value_pair"] = new_value
         print(self.__pair)
+
+    def reset_value(self):
+        self.__pair["value_pair"] = ""
+        self.btn_edittable_clicked(is_fake=True)

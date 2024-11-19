@@ -138,9 +138,9 @@ class TabWInputForms:
                     self.add_form_in_tab(tab_layout, pair, type_section)
 
                 # Добавление кнопки "Сбросить значения"
-                # reset_button = QPushButton("Сбросить все значения вкладки")
-                # reset_button.clicked.connect(partial(self.reset_tab_values, tab_layout))
-                # tab_layout.addWidget(reset_button)
+                reset_button = QPushButton("Сбросить все значения вкладки")
+                reset_button.clicked.connect(partial(self.reset_tab_values, tab_layout))
+                tab_layout.addWidget(reset_button)
 
                 # Добавление пустого виджета
                 tab_layout.addItem(
