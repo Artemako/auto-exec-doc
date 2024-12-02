@@ -17,6 +17,8 @@ python -m nuitka --recurse-all --portable your-program.py
 
 python setup.py build
 
+pip freeze > requirements.txt 
+
 
 
 Убрать scrollarea_inputforms вместо него  tabw_inputforms 
