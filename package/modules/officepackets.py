@@ -26,8 +26,9 @@ class MsWordThread(QThread):
             self.__word = comtypes.client.GetActiveObject("Word.Application")
             self.__status_msword = True
         except Exception as e:
-            self.__osbm.obj_logg.error_logger(f"Error in get_active_msword(): {e} ? {traceback.format_exc()}")
-        
+            self.__osbm.obj_logg.debug_logger(f"No active Word instance: {e}")
+            self.__status_msword = False
+            
 
     def initialize_msword(self):
         self.__osbm.obj_logg.debug_logger("MsWordThread initialize_msword()")
@@ -35,28 +36,34 @@ class MsWordThread(QThread):
             pythoncom.CoInitialize()
             self.__status_msword = None
             self.status_changed.emit(self.__status_msword)
-            #
+            
             thread = threading.Thread(target=self.get_active_msword)
             thread.start()
-            # ждём 3 секунды
             thread.join(3)
+            
             if thread.is_alive() or not self.__status_msword:
-                self.__word = comtypes.client.CreateObject("Word.Application")
-                # TODO dynamic=True
-                self.__status_msword = True
+                try:
+                    self.__word = comtypes.client.CreateObject("Word.Application")
+                    self.__status_msword = True
+                except Exception as create_error:
+                    self.__osbm.obj_logg.error_logger(f"Error creating Word.Application: {create_error}")
+                    self.__status_msword = False
+                    
         except Exception as e:
             self.__osbm.obj_logg.error_logger(f"Error in initialize_msword(): {e} ? {traceback.format_exc()}")
             self.__status_msword = False
-        self.status_changed.emit(self.__status_msword)
-
+        finally:
+            self.status_changed.emit(self.__status_msword)
 
     def terminate_msword(self):
         self.__osbm.obj_logg.debug_logger("MsWordThread terminate_msword()")
         try:
-            self.__word.Quit()
+            if hasattr(self, '_MsWordThread__word') and self.__word:
+                self.__word.Quit()
+                self.__status_msword = False
         except Exception as e:
             self.__status_msword = False
-            raise e
+            self.__osbm.obj_logg.error_logger(f"Error in terminate_msword(): {e} ? {traceback.format_exc()}")
         
 
 
@@ -73,15 +80,19 @@ class OfficePackets:
         self.__osbm.obj_logg.debug_logger("OfficePackets resetting_office_packets()")
         # экземпляр QThread
         if not self.__status_msword:
-            self.__msword_thread = MsWordThread(self.__osbm)
-            # подключение сигнала к слоту и запуск потока
-            self.__msword_thread.status_changed.connect(self.update_status_msword)
-            self.__msword_thread.start()
+            try:
+                self.__msword_thread = MsWordThread(self.__osbm)
+                # подключение сигнала к слоту и запуск потока
+                self.__msword_thread.status_changed.connect(self.update_status_msword)
+                self.__msword_thread.start()
+            except Exception as e:
+                self.__osbm.obj_logg.error_logger(f"Error creating MsWordThread: {e}")
+                self.__status_msword = False
         else:
             print("MsWordThread is already running")
         # проверка наличия LibreOffice
         self.run_libreoffice()
-        
+            
         
     def update_status_msword(self, status):
         self.__osbm.obj_logg.debug_logger(
@@ -118,12 +129,14 @@ class OfficePackets:
     def terminate_msword(self):
         self.__osbm.obj_logg.debug_logger("OfficePackets terminate_msword()")
         try:
-            self.__msword_thread.terminate_msword()
+            if hasattr(self, '_OfficePackets__msword_thread') and self.__msword_thread:
+                self.__msword_thread.terminate_msword()
+                self.__msword_thread.quit()
+                self.__msword_thread.wait()
         except Exception as e:
             self.__osbm.obj_logg.error_logger(f"Error in OfficePackets.terminate_msword():\n {e}  ? {traceback.format_exc()}")
-        self.__msword_thread.quit()
-        self.__msword_thread.wait()
-        self.__status_msword = False
+        finally:
+            self.__status_msword = False
 
     def terminate_libreoffice(self):
         self.__osbm.obj_logg.debug_logger("OfficePackets terminate_libreoffice()")

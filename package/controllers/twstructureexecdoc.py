@@ -42,6 +42,13 @@ class TWStructureExecDoc:
         else:
             return current_item.data(0, Qt.UserRole)
 
+    def get_all_items_with_states(self):
+        """Получить все items с их состояниями включения"""
+        items_states = {}
+        for id_node, item in self.__nodes_to_items.items():
+            items_states[id_node] = item.checkState(0) == Qt.Checked
+        return items_states
+
     def current_item_changed(self, current):
         self.__osbm.obj_logg.debug_logger(
             f"TWStructureExecDoc current_item_changed(current):\ncurrent = {current}"
@@ -59,7 +66,7 @@ class TWStructureExecDoc:
             node = item.data(0, Qt.UserRole)
             state = int(item.checkState(0) == Qt.Checked)
             self.set_state_included_for_child(node, item.checkState(0) == Qt.Checked)
-            self.__osbm.obj_prodb.set_included_for_node(node, state)
+            self.__osbm.obj_prodb.set_included_for_node(node, state)  # Сохраняем сразу в БД
             self.__tw.blockSignals(False)
 
     def clear_sed(self):
@@ -184,6 +191,9 @@ class TWStructureExecDoc:
         item = self.__nodes_to_items.get(node.get("id_node"))
         if item is not None:
             item.setCheckState(0, Qt.Checked if state else Qt.Unchecked)
+            # Сохраняем состояние текущего узла
+            self.__osbm.obj_prodb.set_included_for_node(node, state)
+            
             childs = self.__osbm.obj_prodb.get_childs(node)
             if childs:
                 for child in childs:

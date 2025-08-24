@@ -479,6 +479,32 @@ COMMIT;
         )
         return result
 
+    def update_nodes_included_states(self, nodes_states):
+        """
+        Массовое обновление состояний включения узлов
+        nodes_states: словарь {id_node: included_state}
+        """
+        self.__osbm.obj_logg.debug_logger(
+            f"ProjectDatabase update_nodes_included_states(nodes_states):\nnodes_states = {nodes_states}"
+        )
+        
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        
+        for id_node, included_state in nodes_states.items():
+            cursor.execute(
+                """
+                UPDATE Project_nodes
+                SET included = ?
+                WHERE id_node = ?
+                """,
+                [included_state, id_node]
+            )
+        
+        conn.commit()
+        conn.close()
+
+
     def set_included_for_node(self, node, state):
         """
         Запрос на установку включенности для вершины.
@@ -487,18 +513,21 @@ COMMIT;
             f"ProjectDatabase set_included_for_node(node, state): node = {node}, state = {state}"
         )
 
-        conn = self.get_conn()
-        cursor = conn.cursor()
-        cursor.execute(
-            """
-        UPDATE Project_nodes
-        SET included = ?
-        WHERE id_node = ?
-        """,
-            [state, node.get("id_node")],
-        )
-        conn.commit()
-        conn.close()
+        try:
+            conn = self.get_conn()
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                UPDATE Project_nodes
+                SET included = ?
+                WHERE id_node = ?
+                """,
+                [state, node.get("id_node")],
+            )
+            conn.commit()
+            conn.close()
+        except Exception as e:
+            self.__osbm.obj_logg.error_logger(f"Error in set_included_for_node: {e}")
 
     def delete_page(self, page):
         """

@@ -1,0 +1,179 @@
+2025-05-26 10:27:58,158 - DEBUG - [34m Config logger[00m
+2025-05-26 10:27:58,158 - DEBUG - [34m self.current_directory = D:\projects\auto-exec-doc\main.dist[00m
+2025-05-26 10:27:58,158 - DEBUG - [34m FileFolderManager create_and_setting_files_and_folders()[00m
+2025-05-26 10:27:58,158 - DEBUG - [34m DirPathManager get_default_folder_projects_dirpath() -> str: C:/Users/hayar/Documents\AutoExecDoc Projects[00m
+2025-05-26 10:27:58,158 - DEBUG - [34m SettingsDatabase create_and_setting_db_settings()[00m
+2025-05-26 10:27:58,158 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\projects\auto-exec-doc\main.dist\db\settings.db[00m
+2025-05-26 10:27:58,158 - DEBUG - [34m OfficePackets resetting_office_packets()[00m
+2025-05-26 10:27:58,158 - DEBUG - [34m MsWordThread __init__()[00m
+2025-05-26 10:27:58,166 - DEBUG - [34m OfficePackets run_libreoffice()[00m
+2025-05-26 10:27:58,166 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2025-05-26 10:27:58,166 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\projects\auto-exec-doc\main.dist\db\settings.db[00m
+2025-05-26 10:27:58,166 - DEBUG - [34m MsWordThread initialize_msword()[00m
+2025-05-26 10:27:58,166 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2025-05-26 10:27:58,166 - DEBUG - [34m SettingsDatabase get_libreoffice_path():
+result = {'value_setting': 'C:\\Program Files\\LibreOffice\\program\\soffice.exe'}[00m
+2025-05-26 10:27:58,222 - DEBUG - [34m MsWordThread get_active_msword()[00m
+2025-05-26 10:27:59,229 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2025-05-26 10:27:59,253 - DEBUG - [34m MainWindow config()[00m
+2025-05-26 10:27:59,253 - DEBUG - [34m MainWindow update_menu_recent_projects()[00m
+2025-05-26 10:27:59,253 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2025-05-26 10:27:59,253 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\projects\auto-exec-doc\main.dist\db\settings.db[00m
+2025-05-26 10:27:59,261 - DEBUG - [34m SettingsDatabase get_fetchall(cursor, conn) -> list[00m
+2025-05-26 10:27:59,261 - DEBUG - [34m SettingsDatabase get_last_projects():
+result = [{'id_project': 0, 'name_project': 'Мини-пример ИД', 'directory_project': 'C:/Users/hayar/Documents/AutoExecDoc Projects/Мини-пример ИД', 'date_create_project': '2024-09-02 21:50:23', 'date_last_open_project': '2024-11-15 20:18:00'}][00m
+2025-05-26 10:27:59,261 - DEBUG - [34m MainWindow config_controllers()[00m
+2025-05-26 10:27:59,261 - DEBUG - [34m StatusBar connect_statusbar(statusbar)[00m
+2025-05-26 10:27:59,261 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2025-05-26 10:27:59,261 - DEBUG - [34m StatusBar config_statusbar()[00m
+2025-05-26 10:27:59,261 - DEBUG - [34m StatusBar config_msword()[00m
+2025-05-26 10:27:59,261 - DEBUG - [34m StatusBar get_red_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x138899cc110) at 0x00000138881C4400>[00m
+2025-05-26 10:27:59,261 - DEBUG - [34m StatusBar get_yellow_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x138899cc2f0) at 0x00000138881C4580>[00m
+2025-05-26 10:27:59,261 - DEBUG - [34m StatusBar get_green_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x138899cbb10) at 0x00000138881C4600>[00m
+2025-05-26 10:27:59,261 - DEBUG - [34m StatusBar config_libreoffice()[00m
+2025-05-26 10:27:59,261 - DEBUG - [34m StatusBar get_red_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x13889bfd4b0) at 0x00000138881C4740>[00m
+2025-05-26 10:27:59,261 - DEBUG - [34m StatusBar get_yellow_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x13889bfe230) at 0x00000138881C4880>[00m
+2025-05-26 10:27:59,261 - DEBUG - [34m StatusBar get_green_circle() -> QLabel:
+label = <PySide6.QtWidgets.QLabel(0x13889bfdd50) at 0x00000138881C4900>[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m StatusBar config_update_statusbar()[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m OfficePackets get_status_msword():
+self.__status_msword = False[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = False[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m OfficePackets get_status_libreoffice():
+self.__status_libreoffice = False[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m StatusBar update_status_libreoffice_label(status_libreoffice):
+status_libreoffice = False[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m StatusBar set_message(message):
+message = Проект не открыт[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\projects\auto-exec-doc\main.dist\db\settings.db[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m SettingsDatabase get_app_converter():
+result = {'value_setting': 'MSWORD'}[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m StatusBar update_name_app_converter()[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m StatusBar connecting_actions()[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m TWStructureExecDoc connect_structureexecdoc(tr_sed)[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m TWStructureExecDoc clear_tr_sed()[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m LWPagesTemplate connect_pages_template(lw_pt):
+lw_pt = <PySide6.QtWidgets.QListWidget(0x1388992d650, name="lw_pages_template") at 0x00000138881B3AC0>[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m LWPagesTemplate clear_pt()[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m ComboxTemplates connect_combox_templates(combox_templates):
+combox_templates = <PySide6.QtWidgets.QComboBox(0x1388712a3c0, name="combox_templates") at 0x00000138881B3740>[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m TabWInputForms connect_inputforms(tab_widget)[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m PdfView connect_pdfview()[00m
+2025-05-26 10:27:59,269 - DEBUG - [34m PdfView config_pdf_view_in_mainwindow()[00m
+2025-05-26 10:27:59,277 - DEBUG - [34m MainWindow connecting_actions()[00m
+2025-05-26 10:27:59,277 - DEBUG - [34m CommonWithOsmb run()[00m
+2025-05-26 10:27:59,277 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2025-05-26 10:27:59,277 - DEBUG - [34m ResizeQt __init__(osbm)[00m
+2025-05-26 10:27:59,277 - DEBUG - [34m DialogWindows run()[00m
+2025-05-26 10:27:59,277 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2025-05-26 10:27:59,373 - DEBUG - [34m OfficePackets update_status_msword(status):
+status = None[00m
+2025-05-26 10:27:59,373 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = None[00m
+2025-05-26 10:28:09,479 - DEBUG - [34m StatusBar show_converter_settings()[00m
+2025-05-26 10:28:09,479 - DEBUG - [34m ConverterSettingsDialogWindow __init__(osbm)[00m
+2025-05-26 10:28:09,487 - DEBUG - [34m Icons get_icons(size):
+size = 16[00m
+2025-05-26 10:28:09,487 - DEBUG - [34m ConverterSettingsDialogWindow config()[00m
+2025-05-26 10:28:09,503 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2025-05-26 10:28:09,503 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\projects\auto-exec-doc\main.dist\db\settings.db[00m
+2025-05-26 10:28:09,503 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2025-05-26 10:28:09,503 - DEBUG - [34m SettingsDatabase get_app_converter():
+result = {'value_setting': 'MSWORD'}[00m
+2025-05-26 10:28:09,519 - DEBUG - [34m ConverterSettingsDialogWindow connecting_actions()[00m
+2025-05-26 10:28:11,213 - DEBUG - [34m ConverterSettingsDialogWindow save()[00m
+2025-05-26 10:28:11,213 - DEBUG - [34m ConverterSettingsDialogWindow get_active_radiobutton() -> str:
+result = LIBREOFFICE[00m
+2025-05-26 10:28:11,213 - DEBUG - [34m SettingsDatabase set_app_converter(app_converter):
+app_converter = LIBREOFFICE[00m
+2025-05-26 10:28:11,213 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2025-05-26 10:28:11,213 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\projects\auto-exec-doc\main.dist\db\settings.db[00m
+2025-05-26 10:28:11,221 - DEBUG - [34m OfficePackets resetting_office_packets()[00m
+2025-05-26 10:28:11,221 - DEBUG - [34m MsWordThread __init__()[00m
+2025-05-26 10:28:11,221 - DEBUG - [34m OfficePackets run_libreoffice()[00m
+2025-05-26 10:28:11,221 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2025-05-26 10:28:11,221 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\projects\auto-exec-doc\main.dist\db\settings.db[00m
+2025-05-26 10:28:11,221 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2025-05-26 10:28:11,221 - DEBUG - [34m SettingsDatabase get_libreoffice_path():
+result = {'value_setting': 'C:\\Program Files\\LibreOffice\\program\\soffice.exe'}[00m
+2025-05-26 10:28:11,221 - DEBUG - [34m MsWordThread initialize_msword()[00m
+2025-05-26 10:28:11,221 - DEBUG - [34m StatusBar update_status_libreoffice_label(status_libreoffice):
+status_libreoffice = False[00m
+2025-05-26 10:28:11,221 - DEBUG - [34m StatusBar set_message(message):
+message = Настройка конвертера: сохранение прошло успешно![00m
+2025-05-26 10:28:11,229 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2025-05-26 10:28:11,229 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\projects\auto-exec-doc\main.dist\db\settings.db[00m
+2025-05-26 10:28:11,229 - DEBUG - [34m MsWordThread get_active_msword()[00m
+2025-05-26 10:28:11,229 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2025-05-26 10:28:11,229 - DEBUG - [34m SettingsDatabase get_app_converter():
+result = {'value_setting': 'LIBREOFFICE'}[00m
+2025-05-26 10:28:11,229 - DEBUG - [34m StatusBar update_name_app_converter()[00m
+2025-05-26 10:28:11,229 - DEBUG - [34m OfficePackets update_status_msword(status):
+status = None[00m
+2025-05-26 10:28:11,229 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = None[00m
+2025-05-26 10:28:13,105 - DEBUG - [34m ConverterSettingsDialogWindow save()[00m
+2025-05-26 10:28:13,105 - DEBUG - [34m ConverterSettingsDialogWindow get_active_radiobutton() -> str:
+result = MSWORD[00m
+2025-05-26 10:28:13,105 - DEBUG - [34m SettingsDatabase set_app_converter(app_converter):
+app_converter = MSWORD[00m
+2025-05-26 10:28:13,105 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2025-05-26 10:28:13,105 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\projects\auto-exec-doc\main.dist\db\settings.db[00m
+2025-05-26 10:28:13,113 - DEBUG - [34m OfficePackets resetting_office_packets()[00m
+2025-05-26 10:28:13,113 - DEBUG - [34m MsWordThread __init__()[00m
+2025-05-26 10:28:13,113 - DEBUG - [34m OfficePackets run_libreoffice()[00m
+2025-05-26 10:28:13,113 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2025-05-26 10:28:13,113 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\projects\auto-exec-doc\main.dist\db\settings.db[00m
+2025-05-26 10:28:13,113 - DEBUG - [34m MsWordThread initialize_msword()[00m
+2025-05-26 10:28:13,113 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2025-05-26 10:28:13,113 - DEBUG - [34m SettingsDatabase get_libreoffice_path():
+result = {'value_setting': 'C:\\Program Files\\LibreOffice\\program\\soffice.exe'}[00m
+2025-05-26 10:28:13,113 - DEBUG - [34m StatusBar update_status_libreoffice_label(status_libreoffice):
+status_libreoffice = False[00m
+2025-05-26 10:28:13,121 - DEBUG - [34m StatusBar set_message(message):
+message = Настройка конвертера: сохранение прошло успешно![00m
+2025-05-26 10:28:13,121 - DEBUG - [34m MsWordThread get_active_msword()[00m
+2025-05-26 10:28:13,121 - DEBUG - [34m SettingsDatabase get_conn() -> object[00m
+2025-05-26 10:28:13,121 - DEBUG - [34m DirPathManager get_db_settings_dirpath() -> str: D:\projects\auto-exec-doc\main.dist\db\settings.db[00m
+2025-05-26 10:28:13,121 - DEBUG - [34m SettingsDatabase get_fetchone(cursor, conn) -> list[00m
+2025-05-26 10:28:13,121 - DEBUG - [34m SettingsDatabase get_app_converter():
+result = {'value_setting': 'MSWORD'}[00m
+2025-05-26 10:28:13,121 - DEBUG - [34m StatusBar update_name_app_converter()[00m
+2025-05-26 10:28:13,121 - DEBUG - [34m OfficePackets update_status_msword(status):
+status = None[00m
+2025-05-26 10:28:13,121 - DEBUG - [34m StatusBar update_status_status_msword_label(status_msword):
+status_msword = None[00m
+2025-05-26 10:28:15,212 - DEBUG - [34m ConverterSettingsDialogWindow close_window()[00m
+2025-05-26 10:28:19,992 - DEBUG - [34m MainWindow ()[00m
+2025-05-26 10:28:19,992 - DEBUG - [34m PdfView set_empty_pdf_view()[00m
+2025-05-26 10:28:19,992 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2025-05-26 10:28:19,992 - DEBUG - [34m FileFolderManager clear_temp_folder(is_del_folder):
+is_del_folder = True,
+temp_dirpath = C:\Users\hayar\AppData\Local\Temp\tmpfs3duaxl[00m
+2025-05-26 10:28:19,992 - DEBUG - [34m DirPathManager get_temp_dirpath() -> str:[00m
+2025-05-26 10:28:20,000 - DEBUG - [34m OfficePackets terminate_msword()[00m
+2025-05-26 10:28:20,000 - DEBUG - [34m MsWordThread terminate_msword()[00m
+2025-05-26 10:28:20,000 - ERROR - [31m Error in OfficePackets.terminate_msword():
+ 'MsWordThread' object has no attribute '_MsWordThread__word'  ? Traceback (most recent call last):
+  File "D:\projects\auto-exec-doc\main.dist\package\modules\officepackets.py", line 121, in terminate_msword
+  File "D:\projects\auto-exec-doc\main.dist\package\modules\officepackets.py", line 56, in terminate_msword
+AttributeError: 'MsWordThread' object has no attribute '_MsWordThread__word'
+[00m

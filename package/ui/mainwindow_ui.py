@@ -1204,7 +1204,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menu_bar = QMenuBar(MainWindow)
         self.menu_bar.setObjectName(u"menu_bar")
-        self.menu_bar.setGeometry(QRect(0, 0, 1366, 20))
+        self.menu_bar.setGeometry(QRect(0, 0, 1366, 23))
         self.menu_file = QMenu(self.menu_bar)
         self.menu_file.setObjectName(u"menu_file")
         self.menu_recent_projects = QMenu(self.menu_file)
@@ -1259,8 +1259,6 @@ class Ui_MainWindow(object):
         self.tb_main.addAction(self.action_edit_templates)
         self.tb_main.addAction(self.action_edit_variables)
         self.tb_main.addSeparator()
-        self.tb_main.addAction(self.action_zoomin)
-        self.tb_main.addAction(self.action_zoomout)
         self.tb_main.addAction(self.action_zoomfitpage)
 
         self.retranslateUi(MainWindow)

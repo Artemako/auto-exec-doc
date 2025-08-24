@@ -1221,7 +1221,7 @@ QToolBar QToolButton:checked {
      <x>0</x>
      <y>0</y>
      <width>1366</width>
-     <height>20</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_file">
@@ -1312,8 +1312,6 @@ QToolBar QToolButton:checked {
    <addaction name="action_edit_templates"/>
    <addaction name="action_edit_variables"/>
    <addaction name="separator"/>
-   <addaction name="action_zoomin"/>
-   <addaction name="action_zoomout"/>
    <addaction name="action_zoomfitpage"/>
   </widget>
   <widget class="QStatusBar" name="status_bar">

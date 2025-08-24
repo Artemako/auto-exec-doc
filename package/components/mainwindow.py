@@ -205,10 +205,10 @@ class MainWindow(QMainWindow):
         self.ui.action_export_to_pdf.triggered.connect(
             lambda: self.__osbm.obj_proj.export_to_pdf()
         )
-        self.ui.action_zoomin.triggered.connect(lambda: self.__osbm.obj_pdfv.zoom_in())
-        self.ui.action_zoomout.triggered.connect(
-            lambda: self.__osbm.obj_pdfv.zoom_out()
-        )
+        # self.ui.action_zoomin.triggered.connect(lambda: self.__osbm.obj_pdfv.zoom_in())
+        # self.ui.action_zoomout.triggered.connect(
+        #     lambda: self.__osbm.obj_pdfv.zoom_out()
+        # )
         self.ui.action_zoomfitpage.triggered.connect(
             lambda checked: self.__osbm.obj_pdfv.set_zoom_to_fit_width()
             if checked
