@@ -34,7 +34,7 @@ class ConverterSettingsDialogWindow(QDialog):
         self.__osbm.obj_logg.debug_logger("ConverterSettingsDialogWindow config()")
         # постоянный размер
         self.setFixedSize(self.sizeHint())
-        app_converter = self.__osbm.obj_setdb.get_app_converter()
+        app_converter = self.__osbm.obj_settings.get_app_converter()
         if app_converter == "MSWORD":
             self.ui.radbtn_msword.setChecked(True)
         # elif app_converter == "OPENOFFICE":
@@ -69,7 +69,7 @@ class ConverterSettingsDialogWindow(QDialog):
         self.__osbm.obj_logg.debug_logger("ConverterSettingsDialogWindow save()")
         result = self.get_active_radiobutton()
         if result:
-            self.__osbm.obj_setdb.set_app_converter(result)
+            self.__osbm.obj_settings.set_app_converter(result)
             self.__osbm.obj_offp.resetting_office_packets()
             self.__osbm.obj_stab.set_message(f"{self.windowTitle()}: сохранение прошло успешно!")
         else:

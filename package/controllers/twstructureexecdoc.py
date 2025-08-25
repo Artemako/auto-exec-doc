@@ -93,7 +93,7 @@ class TWStructureExecDoc:
         # очистка
         self.clear_sed()
         # Задать название столбца
-        title = f"{self.__osbm.obj_setdb.get_project_current_name()}"
+        title = f"{self.__osbm.obj_settings.get_project_current_name()}"
         self.__tw.setHeaderLabels([title])
         # проход по вершинам
         self.dfs(self.__osbm.obj_prodb.get_project_node(), open_node)

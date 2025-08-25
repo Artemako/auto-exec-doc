@@ -97,9 +97,9 @@ class Project:
         self.__current_name = os.path.basename(
             self.__osbm.obj_dirm.get_project_dirpath()
         )
-        self.__osbm.obj_setdb.set_project_current_name(self.__current_name)
+        self.__osbm.obj_settings.set_project_current_name(self.__current_name)
 
-        self.__osbm.obj_setdb.add_new_project_to_db()
+        self.__osbm.obj_settings.add_new_project_to_db()
         self.__osbm.obj_prodb.create_and_config_db_project()
         # настраиваем контроллеры
         # обновляем окно
@@ -196,9 +196,9 @@ class Project:
         self.__current_name = os.path.basename(
             self.__osbm.obj_dirm.get_project_dirpath()
         )
-        self.__osbm.obj_setdb.set_project_current_name(self.__current_name)
+        self.__osbm.obj_settings.set_project_current_name(self.__current_name)
         # настраиваем базы данных
-        self.__osbm.obj_setdb.add_or_update_open_project_to_db()
+        self.__osbm.obj_settings.add_or_update_project()
         self.__osbm.obj_prodb.create_and_config_db_project()
         # обновляем окно
         self.__osbm.obj_mw.update_main_window()
@@ -230,7 +230,7 @@ class Project:
                 f"Проект с именем {project.get('name_project')} не существует."
             )
             # удаляем проект из БД и обновляем меню
-            self.__osbm.obj_setdb.delete_project_from_db(project)
+            self.__osbm.obj_settings.delete_project_from_db(project)
             self.__osbm.obj_mw.update_menu_recent_projects()
 
     def set_true_actives_project(self):
@@ -258,7 +258,7 @@ class Project:
             self.__osbm.obj_stab.set_message("Процесс экспорта в PDF...")
             # проверка на доступность конвертера
             flag_converter = False
-            app_converter = self.__osbm.obj_setdb.get_app_converter()
+            app_converter = self.__osbm.obj_settings.get_app_converter()
             status_msword = self.__osbm.obj_offp.get_status_msword()
             status_libreoffice = self.__osbm.obj_offp.get_status_libreoffice()
             if app_converter == "MSWORD" and status_msword:

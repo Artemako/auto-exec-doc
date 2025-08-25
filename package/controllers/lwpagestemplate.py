@@ -79,7 +79,7 @@ class LWPagesTemplate:
         self.__osbm.obj_logg.debug_logger(
             f"LWPagesTemplate create_and_view_current_page(page):\npage = {page}"
         )
-        app_converter = self.__osbm.obj_setdb.get_app_converter()
+        app_converter = self.__osbm.obj_settings.get_app_converter()
         status_msword = self.__osbm.obj_offp.get_status_msword()
         status_libreoffice = self.__osbm.obj_offp.get_status_libreoffice()
         is_convert_flag = True

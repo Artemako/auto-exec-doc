@@ -1254,14 +1254,13 @@ QToolBar QToolButton:checked {
     <property name="title">
      <string>Масштаб</string>
     </property>
-    <addaction name="action_zoomin"/>
-    <addaction name="action_zoomout"/>
     <addaction name="action_zoomfitpage"/>
    </widget>
    <widget class="QMenu" name="menu">
     <property name="title">
      <string>Прочее</string>
     </property>
+    <addaction name="action_settings"/>
     <addaction name="action_clear_trash"/>
    </widget>
    <addaction name="menu_file"/>
@@ -1373,45 +1372,6 @@ QToolBar QToolButton:checked {
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="action_zoomin">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../resources.qrc">
-     <normaloff>:/white-icons/resources/white-icons/zoom-in.svg</normaloff>:/white-icons/resources/white-icons/zoom-in.svg</iconset>
-   </property>
-   <property name="text">
-    <string>Увеличить</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl++</string>
-   </property>
-   <property name="menuRole">
-    <enum>QAction::TextHeuristicRole</enum>
-   </property>
-  </action>
-  <action name="action_zoomout">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../resources.qrc">
-     <normaloff>:/white-icons/resources/white-icons/zoom-out.svg</normaloff>:/white-icons/resources/white-icons/zoom-out.svg</iconset>
-   </property>
-   <property name="text">
-    <string>Уменьшить</string>
-   </property>
-   <property name="toolTip">
-    <string>Уменьшить</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+-</string>
-   </property>
-   <property name="menuRole">
-    <enum>QAction::TextHeuristicRole</enum>
-   </property>
-  </action>
   <action name="action_edit_variables">
    <property name="enabled">
     <bool>false</bool>
@@ -1497,6 +1457,15 @@ QToolBar QToolButton:checked {
    </property>
    <property name="text">
     <string>Очистка от мусора</string>
+   </property>
+  </action>
+  <action name="action_settings">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/white-icons/resources/white-icons/settings.svg</normaloff>:/white-icons/resources/white-icons/settings.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Параметры</string>
    </property>
   </action>
  </widget>

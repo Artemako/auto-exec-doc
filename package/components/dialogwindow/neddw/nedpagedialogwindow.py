@@ -418,7 +418,7 @@ class NedPageDialogWindow(QDialog):
             docx_path = self.__temp_copy_file_path
             # открытие
             if os.path.exists(docx_path):
-                app_converter = self.__osbm.obj_setdb.get_app_converter()
+                app_converter = self.__osbm.obj_settings.get_app_converter()
                 try:
                     if self.__typefile_page == "DOCX" and app_converter == "MSWORD":
                         # запустить в отдельном потоке

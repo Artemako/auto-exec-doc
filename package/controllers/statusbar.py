@@ -197,7 +197,7 @@ class StatusBar:
         )
 
     def update_name_app_converter(self):
-        app_converter = self.__osbm.obj_setdb.get_app_converter()
+        app_converter = self.__osbm.obj_settings.get_app_converter()
         print(f"app_converter = {app_converter}")
         name_app_converter = "None"
         if app_converter == "MSWORD":

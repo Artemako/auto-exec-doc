@@ -15,7 +15,8 @@ import package.modules.log as log
 import package.modules.project as project
 import package.modules.projectdatabase as projectdatabase
 import package.modules.sectionsinfo as sectionsinfo
-import package.modules.settingsdatabase as settingsdatabase
+# import package.modules.settingsdatabase as settingsdatabase
+import package.modules.settingsmanager as settingsmanager
 import package.modules.officepackets as officepackets
 import package.modules.imageresizer as imageresizer
 
@@ -47,7 +48,7 @@ class ObjectsManager:
         self.obj_proj = None
         self.obj_prodb = None
         self.obj_seci = None
-        self.obj_setdb = None
+        self.obj_settings = None
         self.obj_offp = None
         self.obj_imgr = None
         # controllers
@@ -72,6 +73,8 @@ class ObjectsManager:
         self.obj_nedrowcoldw = None
         self.obj_formtabledw = None
         self.obj_formlistdw = None
+        self.obj_setdw = None
+        
         # общее
         self.obj_com = None
         self.obj_comwith = None
@@ -94,7 +97,7 @@ class ObjectsManager:
         self.obj_proj = project.Project()
         self.obj_prodb = projectdatabase.ProjectDatabase()
         self.obj_seci = sectionsinfo.SectionsInfo()
-        self.obj_setdb = settingsdatabase.SettingsDatabase()
+        self.obj_settings = settingsmanager.SettingsManager()
         self.obj_offp = officepackets.OfficePackets()        
         self.obj_imgr = imageresizer.ImageResizer()
 
@@ -106,9 +109,9 @@ class ObjectsManager:
         self.obj_twsed = twstructureexecdoc.TWStructureExecDoc()
         self.obj_icons = icons.Icons()
         self.obj_comt = comboxtemplates.ComboxTemplates()
+        self.obj_style = style.StyleController()
 
     def initialize_components(self):
-        self.obj_style = style.Style()
         self.obj_dw = dialogwindows.DialogWindows()
 
 class App:
@@ -131,7 +134,7 @@ class App:
         self.osbm.obj_proj.setting_all_osbm(self.osbm)
         self.osbm.obj_prodb.setting_osbm(self.osbm)
         self.osbm.obj_seci.setting_osbm(self.osbm)
-        self.osbm.obj_setdb.setting_osbm(self.osbm)
+        self.osbm.obj_settings.setting_osbm(self.osbm)
         self.osbm.obj_offp.setting_all_osbm(self.osbm)
         self.osbm.obj_imgr.setting_osbm(self.osbm)
 
@@ -143,6 +146,7 @@ class App:
         self.osbm.obj_twsed.setting_all_osbm(self.osbm)
         self.osbm.obj_icons.setting_all_osbm(self.osbm)
         self.osbm.obj_comt.setting_all_osbm(self.osbm)
+        self.osbm.obj_style.setting_all_osbm(self.osbm)
 
     def setting_osbm_for_components(self):
         self.osbm.obj_dw.setting_all_osbm(self.osbm)
@@ -165,7 +169,7 @@ class App:
         # Проверка наличия папок.
         self.osbm.obj_film.create_and_setting_files_and_folders()
         # настроить БД
-        self.osbm.obj_setdb.create_and_setting_db_settings()
+        self.osbm.obj_settings.initialize_default_settings()
         # настройка officepackets
         self.osbm.obj_offp.resetting_office_packets()
 

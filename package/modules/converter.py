@@ -469,7 +469,7 @@ class ConverterPool:
         local_osbm.obj_logg.debug_logger(
             f"Converter convert_from_docx_to_pdf(docx_path, pdf_path):\ndocx_path = {docx_path},\npdf_path = {pdf_path}"
         )
-        app_converter = local_osbm.obj_setdb.get_app_converter()
+        app_converter = local_osbm.obj_settings.get_app_converter()
         if app_converter == "MSWORD":
             self.convert_from_docx_to_pdf_using_msword(local_osbm, docx_path, pdf_path)
         # elif app_converter == "OPENOFFICE":
@@ -529,7 +529,7 @@ class ConverterPool:
             "Converter convert_from_docx_to_pdf_using_libreoffice(docx_path, pdf_path)"
         )
         try:
-            libreoffice_path = local_osbm.obj_setdb.get_libreoffice_path()
+            libreoffice_path = local_osbm.obj_settings.get_libreoffice_path()
             command = [
                 libreoffice_path,
                 "--headless",
@@ -553,7 +553,7 @@ class ConverterObjectsManager:
         self.obj_logg = osbm.obj_logg
         self.obj_prodb = osbm.obj_prodb
         self.obj_seci = osbm.obj_seci
-        self.obj_setdb = osbm.obj_setdb
+        self.obj_settings = osbm.obj_settings
         self.obj_imgr = osbm.obj_imgr
         self.obj_film = osbm.obj_film
         # общее
@@ -659,7 +659,7 @@ class Converter:
         list_of_pdf_pages = list()
         # с multiprocessing.Pool
         processes_number = int()
-        app_converter = self.__osbm.obj_setdb.get_app_converter()
+        app_converter = self.__osbm.obj_settings.get_app_converter()
         if app_converter == "MSWORD":
             processes_number = max(1, multiprocessing.cpu_count() - 1)
         else:

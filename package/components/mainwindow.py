@@ -9,6 +9,7 @@ import package.ui.mainwindow_ui as mainwindow_ui
 import package.components.dialogwindow.variableslistdialogwindow as variableslistdialogwindow
 import package.components.dialogwindow.nodeseditordialogwindow as nodeseditordialogwindow
 import package.components.dialogwindow.templateslistsialogwindow as templateslistsialogwindow
+import package.components.dialogwindow.settingsdialogwindow as settingsdialogwindow
 
 import os
 from functools import partial
@@ -20,8 +21,9 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
         self.ui = mainwindow_ui.Ui_MainWindow()
         self.ui.setupUi(self)
-        # СТИЛЬ
-        self.__osbm.obj_style.set_style_for(self)
+        # СТИЛЬ (загрузка сохраненной темы и применение к главному окну)
+        saved_theme = self.__osbm.obj_settings.get_theme()
+        self.__osbm.obj_style.set_style_for_mw_by_name(self, saved_theme)
         self.__icons = self.__osbm.obj_icons.get_icons()
         self.setWindowIcon(self.__icons.get("logo"))
         # config
@@ -56,9 +58,7 @@ class MainWindow(QMainWindow):
         # настройка comboboxtemplates
         self.__osbm.obj_comt.connect_combox_templates(self.ui.combox_templates)
         # настройка inputforms
-        self.__osbm.obj_tabwif.connect_inputforms(
-            self.ui.tabw_inputforms
-        )
+        self.__osbm.obj_tabwif.connect_inputforms(self.ui.tabw_inputforms)
         # ПОДКЛЮЧИТЬ PDF
         self.__osbm.obj_pdfv.connect_pdfview(self.ui.widget_pdf_view)
 
@@ -127,7 +127,9 @@ class MainWindow(QMainWindow):
         #
         menu.exec(current_widget.mapToGlobal(pos))
 
-    def edit_menu_item(self, type_edit, type_item, edit_variable = None, type_section = None):
+    def edit_menu_item(
+        self, type_edit, type_item, edit_variable=None, type_section=None
+    ):
         item_node = self.ui.treewidget_structure_execdoc.currentItem()
         open_node = item_node.data(0, Qt.UserRole) if item_node else None
         #
@@ -157,7 +159,9 @@ class MainWindow(QMainWindow):
                 elif type_section == "template":
                     self.edit_variables(open_node, open_template, None, edit_variable)
                 elif type_section == "page":
-                    self.edit_variables(open_node, open_template, open_page, edit_variable)
+                    self.edit_variables(
+                        open_node, open_template, open_page, edit_variable
+                    )
 
         elif type_edit == "TEMPLATE":
             if type_item == "NODE":
@@ -175,13 +179,18 @@ class MainWindow(QMainWindow):
         )
 
     def clear_before_end(self):
-        self.__osbm.obj_logg.debug_logger("MainWindow ()")
-        # удаление pdf из виджета pdfview
-        self.__osbm.obj_pdfv.set_empty_pdf_view()
-        # очистка временных файлов
-        self.__osbm.obj_film.clear_temp_folder(True)
-        # очистка word из памяти
-        self.__osbm.obj_offp.terminate_msword()
+        self.__osbm.obj_logg.debug_logger("MainWindow clear_before_end()")
+        try:
+            if hasattr(self.__osbm.obj_pdfv, 'set_empty_pdf_view'):
+                self.__osbm.obj_pdfv.set_empty_pdf_view()
+            if hasattr(self.__osbm.obj_film, 'clear_temp_folder'):
+                self.__osbm.obj_film.clear_temp_folder(True)
+            if (hasattr(self.__osbm.obj_offp, 'terminate_msword') and 
+                self.__osbm.obj_offp.get_status_msword()):
+                self.__osbm.obj_offp.terminate_msword()
+                
+        except Exception as e:
+            self.__osbm.obj_logg.error_logger(f"Error in clear_before_end(): {e}")
 
     def closeEvent(self, event):
         self.clear_before_end()
@@ -220,7 +229,9 @@ class MainWindow(QMainWindow):
             lambda: self.edit_structure_nodes()
         )
         #
+        self.ui.action_settings.triggered.connect(self.open_settings)
         self.ui.action_clear_trash.triggered.connect(lambda: self.clear_trash())
+        #
 
     def start_qt_actions(self):
         self.ui.action_new.setEnabled(True)
@@ -231,8 +242,6 @@ class MainWindow(QMainWindow):
         self.ui.action_edit_variables.setEnabled(False)
         self.ui.action_edit_composition.setEnabled(False)
         self.ui.action_edit_templates.setEnabled(False)
-        self.ui.action_zoomin.setEnabled(False)
-        self.ui.action_zoomout.setEnabled(False)
         self.ui.action_zoomfitpage.setEnabled(False)
         self.ui.action_clear_trash.setEnabled(False)
 
@@ -242,8 +251,6 @@ class MainWindow(QMainWindow):
         """
         self.ui.action_save.setEnabled(True)
         self.ui.action_saveas.setEnabled(True)
-        self.ui.action_zoomin.setEnabled(True)
-        self.ui.action_zoomout.setEnabled(True)
         self.ui.action_edit_variables.setEnabled(True)
         self.ui.action_edit_composition.setEnabled(True)
         self.ui.action_zoomfitpage.setEnabled(True)
@@ -251,7 +258,9 @@ class MainWindow(QMainWindow):
         self.ui.action_edit_templates.setEnabled(True)
         self.ui.action_clear_trash.setEnabled(True)
 
-    def edit_variables(self, open_node=None, open_template=None, open_page=None, edit_variable = None):
+    def edit_variables(
+        self, open_node=None, open_template=None, open_page=None, edit_variable=None
+    ):
         """Редактирование переменных."""
         self.__osbm.obj_logg.debug_logger("MainWindow edit_variables()")
         self.__osbm.obj_variablesldw = (
@@ -296,7 +305,7 @@ class MainWindow(QMainWindow):
     def update_menu_recent_projects(self):
         self.__osbm.obj_logg.debug_logger("MainWindow update_menu_recent_projects()")
         self.ui.menu_recent_projects.clear()
-        last_projects = self.__osbm.obj_setdb.get_last_projects()
+        last_projects = self.__osbm.obj_settings.get_last_projects()
         for project in last_projects:
             name_project = project.get("name_project")
             action = self.ui.menu_recent_projects.addAction(name_project)
@@ -310,6 +319,12 @@ class MainWindow(QMainWindow):
         project = item.data()
         self.__osbm.obj_proj.open_recent_project(project)
 
+    def open_settings(self):
+        """Открыть диалог настроек"""
+        self.__osbm.obj_logg.debug_logger("MainWindow open_settings()")
+        self.__osbm.obj_setdw = settingsdialogwindow.SettingsDialogWindow(self.__osbm)
+        self.__osbm.obj_setdw.exec()
+
     def clear_trash(self):
         self.__osbm.obj_logg.debug_logger("MainWindow clear_trash()")
         #
@@ -319,9 +334,15 @@ class MainWindow(QMainWindow):
             list_of_pages = self.__osbm.obj_prodb.get_all_pages()
             list_of_images = self.__osbm.obj_prodb.get_all_images()
             #
-            list_of_docx_in_forms = self.__osbm.obj_film.get_list_of_docx_in_forms_folder()
-            list_of_pdfs_in_pdfs = self.__osbm.obj_film.get_list_of_pdfs_in_pdfs_folder()
-            list_of_images_in_images = self.__osbm.obj_film.get_list_of_images_in_images_folder()
+            list_of_docx_in_forms = (
+                self.__osbm.obj_film.get_list_of_docx_in_forms_folder()
+            )
+            list_of_pdfs_in_pdfs = (
+                self.__osbm.obj_film.get_list_of_pdfs_in_pdfs_folder()
+            )
+            list_of_images_in_images = (
+                self.__osbm.obj_film.get_list_of_images_in_images_folder()
+            )
             #
             active_docx_pages = dict()
             active_pdfs_pages = dict()
@@ -357,15 +378,12 @@ class MainWindow(QMainWindow):
             print(f"list_of_images_in_images = {list_of_images_in_images}")
             for image in list_of_images_in_images:
                 if not active_images.get(image):
-                    self.__osbm.obj_film.delete_image_from_project(
-                        image
-                    )
-                    
+                    self.__osbm.obj_film.delete_image_from_project(image)
+
         except Exception as e:
             self.__osbm.obj_logg.error_logger(f"Error in clear_trash(): {e}")
         #
         self.__osbm.obj_dw.process_delete_trash_end()
-
 
     def config_combox_default(self):
         self.__osbm.obj_logg.debug_logger("MainWindow config_combox_default()")

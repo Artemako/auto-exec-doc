@@ -8,7 +8,7 @@ class FileFolderManagerObjectsManager:
     def __init__(self, osbm):
         self.obj_logg = osbm.obj_logg
         self.obj_dirm = osbm.obj_dirm
-        self.obj_setdb = osbm.obj_setdb
+        self.obj_settings = osbm.obj_settings
 
 
 class FileFolderManager:
@@ -38,7 +38,7 @@ class FileFolderManager:
         """
         self.__osbm.obj_logg.debug_logger("FileFolderManager check_aed_file()")
         # создать указатель файл
-        name_aed = self.__osbm.obj_setdb.get_project_current_name()
+        name_aed = self.__osbm.obj_settings.get_project_current_name()
         aedfilename = f"{name_aed}.aed"
         aedfilepath = os.path.join(
             self.__osbm.obj_dirm.get_project_dirpath(), aedfilename

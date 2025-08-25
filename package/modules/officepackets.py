@@ -55,16 +55,20 @@ class MsWordThread(QThread):
         finally:
             self.status_changed.emit(self.__status_msword)
 
+
     def terminate_msword(self):
-        self.__osbm.obj_logg.debug_logger("MsWordThread terminate_msword()")
+        self.__osbm.obj_logg.debug_logger("OfficePackets terminate_msword()")
         try:
-            if hasattr(self, '_MsWordThread__word') and self.__word:
-                self.__word.Quit()
-                self.__status_msword = False
+            if hasattr(self, '__word') and self.__word:
+                try:
+                    _ = self.__word.Version
+                    self.__word.Quit()
+                    self.__word = None
+                except Exception:
+                    self.__word = None
         except Exception as e:
-            self.__status_msword = False
-            self.__osbm.obj_logg.error_logger(f"Error in terminate_msword(): {e} ? {traceback.format_exc()}")
-        
+            self.__osbm.obj_logg.error_logger(f"Error in terminate_msword(): {e}")
+            
 
 
 class OfficePackets:
@@ -102,11 +106,13 @@ class OfficePackets:
         if self.__osbm.obj_stab.get_is_active():
             self.__osbm.obj_stab.update_status_msword_label(self.__status_msword)
 
+
     def get_status_msword(self):
-        self.__osbm.obj_logg.debug_logger(
-            f"OfficePackets get_status_msword():\nself.__status_msword = {self.__status_msword}"
-        )
-        return self.__status_msword
+        """Проверяет, доступен ли Word"""
+        try:
+            return hasattr(self, '__word') and self.__word
+        except Exception:
+            return False
 
     def get_status_libreoffice(self):
         self.__osbm.obj_logg.debug_logger(
@@ -116,7 +122,7 @@ class OfficePackets:
     
     def run_libreoffice(self):
         self.__osbm.obj_logg.debug_logger("OfficePackets run_libreoffice()")
-        libreoffice_path = self.__osbm.obj_setdb.get_libreoffice_path()
+        libreoffice_path = self.__osbm.obj_settings.get_libreoffice_path()
         if os.path.exists(libreoffice_path):
             self.__status_libreoffice = True
         else:
