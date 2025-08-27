@@ -1053,6 +1053,11 @@ class Ui_MainWindow(object):
         icon9 = QIcon()
         icon9.addFile(u":/white-icons/resources/white-icons/settings.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.action_settings.setIcon(icon9)
+        self.action_storage = QAction(MainWindow)
+        self.action_storage.setObjectName(u"action_storage")
+        icon10 = QIcon()
+        icon10.addFile(u":/white-icons/resources/white-icons/folder.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.action_storage.setIcon(icon10)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_6 = QVBoxLayout(self.centralwidget)
@@ -1239,6 +1244,7 @@ class Ui_MainWindow(object):
         self.menu_editors.addAction(self.action_edit_variables)
         self.menu_scale.addAction(self.action_zoomfitpage)
         self.menu.addAction(self.action_settings)
+        self.menu.addAction(self.action_storage)
         self.menu.addAction(self.action_clear_trash)
         self.tb_main.addAction(self.action_new)
         self.tb_main.addAction(self.action_open)
@@ -1250,6 +1256,8 @@ class Ui_MainWindow(object):
         self.tb_main.addAction(self.action_edit_variables)
         self.tb_main.addSeparator()
         self.tb_main.addAction(self.action_zoomfitpage)
+        self.tb_main.addSeparator()
+        self.tb_main.addAction(self.action_storage)
 
         self.retranslateUi(MainWindow)
 
@@ -1288,6 +1296,7 @@ class Ui_MainWindow(object):
         self.action_edit_composition.setText(QCoreApplication.translate("MainWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u043e\u0440 \u0441\u043e\u0441\u0442\u0430\u0432\u0430 \u0418\u0414", None))
         self.action_clear_trash.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0447\u0438\u0441\u0442\u043a\u0430 \u043e\u0442 \u043c\u0443\u0441\u043e\u0440\u0430", None))
         self.action_settings.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0430\u0440\u0430\u043c\u0435\u0442\u0440\u044b", None))
+        self.action_storage.setText(QCoreApplication.translate("MainWindow", u"\u0425\u0440\u0430\u043d\u0438\u043b\u0438\u0449\u0435", None))
         self.label_structure_execdoc.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">\u0421\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0430 \u043f\u0440\u043e\u0435\u043a\u0442\u0430</span></p></body></html>", None))
 
         __sortingEnabled = self.treewidget_structure_execdoc.isSortingEnabled()

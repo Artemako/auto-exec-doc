@@ -28,7 +28,13 @@ class FormText(QWidget):
         self.ui.label_typevariable.setPixmap(qicon_type_variable)
         # заголовок + перменная
         self.ui.title.setText(self.__current_variable.get('title_variable'))
-        self.ui.label_variable.setText(f"<i>{self.__current_variable.get('name_variable')}</i>")
+        
+        # Отображение тега названия переменной в зависимости от настроек
+        show_variable_name_tag = self.__osbm.obj_settings.get_show_variable_name_tag()
+        if show_variable_name_tag:
+            self.ui.label_variable.setText(f"<i>{self.__current_variable.get('name_variable')}</i>")
+        else:
+            self.ui.label_variable.setText("")
         # поле ввода
         self.ui.lineedit.setText(self.__pair.get("value_pair"))
         # описание
@@ -47,3 +53,11 @@ class FormText(QWidget):
     def reset_value(self):
         self.__pair["value_pair"] = ""
         self.ui.lineedit.setText(self.__pair.get("value_pair"))
+
+    def update_variable_name_tag(self):
+        """Обновляет отображение тега названия переменной"""
+        show_variable_name_tag = self.__osbm.obj_settings.get_show_variable_name_tag()
+        if show_variable_name_tag:
+            self.ui.label_variable.setText(f"<i>{self.__current_variable.get('name_variable')}</i>")
+        else:
+            self.ui.label_variable.setText("")

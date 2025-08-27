@@ -35,7 +35,13 @@ class FormImage(QWidget):
         self.ui.label_typevariable.setPixmap(qicon_type_variable)
         # заголовок + перменная
         self.ui.title.setText(self.__current_variable.get('title_variable'))
-        self.ui.label_variable.setText(f"<i>{self.__current_variable.get('name_variable')}</i>")
+        
+        # Отображение тега названия переменной в зависимости от настроек
+        show_variable_name_tag = self.__osbm.obj_settings.get_show_variable_name_tag()
+        if show_variable_name_tag:
+            self.ui.label_variable.setText(f"<i>{self.__current_variable.get('name_variable')}</i>")
+        else:
+            self.ui.label_variable.setText("")
         # поле ввода
         image_path = self.__pair.get("value_pair")
         self.ui.label.setText(
@@ -83,3 +89,11 @@ class FormImage(QWidget):
 
     def reset_value(self):
         self.reset_image()
+
+    def update_variable_name_tag(self):
+        """Обновляет отображение тега названия переменной"""
+        show_variable_name_tag = self.__osbm.obj_settings.get_show_variable_name_tag()
+        if show_variable_name_tag:
+            self.ui.label_variable.setText(f"<i>{self.__current_variable.get('name_variable')}</i>")
+        else:
+            self.ui.label_variable.setText("")

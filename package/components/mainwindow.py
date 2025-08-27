@@ -10,6 +10,7 @@ import package.components.dialogwindow.variableslistdialogwindow as variableslis
 import package.components.dialogwindow.nodeseditordialogwindow as nodeseditordialogwindow
 import package.components.dialogwindow.templateslistsialogwindow as templateslistsialogwindow
 import package.components.dialogwindow.settingsdialogwindow as settingsdialogwindow
+import package.components.dialogwindow.storagedialogwindow as storagedialogwindow
 
 import os
 from functools import partial
@@ -230,6 +231,7 @@ class MainWindow(QMainWindow):
         )
         #
         self.ui.action_settings.triggered.connect(self.open_settings)
+        self.ui.action_storage.triggered.connect(self.open_storage)
         self.ui.action_clear_trash.triggered.connect(lambda: self.clear_trash())
         #
 
@@ -324,6 +326,12 @@ class MainWindow(QMainWindow):
         self.__osbm.obj_logg.debug_logger("MainWindow open_settings()")
         self.__osbm.obj_setdw = settingsdialogwindow.SettingsDialogWindow(self.__osbm)
         self.__osbm.obj_setdw.exec()
+
+    def open_storage(self):
+        """Открыть диалог хранилища"""
+        self.__osbm.obj_logg.debug_logger("MainWindow open_storage()")
+        self.__osbm.obj_storagedw = storagedialogwindow.StorageDialogWindow(self.__osbm)
+        self.__osbm.obj_storagedw.exec()
 
     def clear_trash(self):
         self.__osbm.obj_logg.debug_logger("MainWindow clear_trash()")

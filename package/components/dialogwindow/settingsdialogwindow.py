@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QDialog, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, QFileDialog, QMessageBox, QComboBox
+from PySide6.QtWidgets import QDialog, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, QFileDialog, QMessageBox, QComboBox, QCheckBox
 from PySide6.QtCore import Qt
 
 class SettingsDialogWindow(QDialog):
@@ -44,6 +44,10 @@ class SettingsDialogWindow(QDialog):
         libreoffice_layout.addWidget(self.browse_libreoffice_btn)
         main_layout.addLayout(libreoffice_layout)
         
+        # Отображение тега названия переменной
+        self.show_variable_name_tag_checkbox = QCheckBox("Отображать тег названия переменной в формах ввода")
+        main_layout.addWidget(self.show_variable_name_tag_checkbox)
+        
         # Кнопки
         buttons_layout = QHBoxLayout()
         self.save_btn = QPushButton("Сохранить")
@@ -53,7 +57,7 @@ class SettingsDialogWindow(QDialog):
         main_layout.addLayout(buttons_layout)
         
         self.setLayout(main_layout)
-        self.resize(500, 150)
+        self.resize(500, 180)
 
     def connecting_actions(self):
         """Подключение обработчиков событий"""
@@ -86,6 +90,10 @@ class SettingsDialogWindow(QDialog):
         # Загрузка пути к LibreOffice
         libreoffice_path = self.__osbm.obj_settings.get_libreoffice_path()
         self.libreoffice_path_edit.setText(libreoffice_path)
+        
+        # Загрузка настройки отображения тега названия переменной
+        self.__original_show_variable_name_tag = self.__osbm.obj_settings.get_show_variable_name_tag()
+        self.show_variable_name_tag_checkbox.setChecked(self.__original_show_variable_name_tag)
 
     def save_settings(self):
         """Сохранение настроек"""
@@ -111,6 +119,11 @@ class SettingsDialogWindow(QDialog):
                 return
             
             self.__osbm.obj_settings.set_libreoffice_path(libreoffice_path)
+            
+            # Сохранение настройки отображения тега названия переменной
+            show_variable_name_tag = self.show_variable_name_tag_checkbox.isChecked()
+            self.__osbm.obj_settings.set_show_variable_name_tag(show_variable_name_tag)
+            
             self.__osbm.obj_settings.sync()
             
             # Обновление статуса LibreOffice в главном окне
@@ -119,6 +132,10 @@ class SettingsDialogWindow(QDialog):
                 self.__osbm.obj_stab.update_status_libreoffice_label(
                     self.__osbm.obj_offp.get_status_libreoffice()
                 )
+            
+            # Обновление отображения тегов названий переменных в формах ввода только если настройка изменилась
+            if show_variable_name_tag != self.__original_show_variable_name_tag:
+                self.__osbm.obj_tabwif.update_variable_name_tags()
             
             self.accept()
             

@@ -168,3 +168,25 @@ class TabWInputForms:
         if page is not None:
             self.__osbm.obj_seci.update_sections_info(page)
             self.add_sections_in_tabs()
+
+    def update_variable_name_tags(self):
+        """Обновляет отображение тегов названий переменных во всех формах"""
+        self.__osbm.obj_logg.debug_logger("TabWInputForms update_variable_name_tags()")
+        
+        # Проходим по всем вкладкам
+        for tab_index in range(self.__tab_widget.count()):
+            tab_widget = self.__tab_widget.widget(tab_index)
+            if hasattr(tab_widget, 'widget'):
+                scroll_area = tab_widget
+                if hasattr(scroll_area, 'widget'):
+                    tab_content = scroll_area.widget()
+                    if hasattr(tab_content, 'layout'):
+                        tab_layout = tab_content.layout()
+                        # Проходим по всем виджетам в вкладке
+                        for i in range(tab_layout.count()):
+                            item = tab_layout.itemAt(i)
+                            if item and item.widget():
+                                widget = item.widget()
+                                # Проверяем, является ли виджет формой и имеет ли метод обновления тега
+                                if hasattr(widget, 'update_variable_name_tag'):
+                                    widget.update_variable_name_tag()

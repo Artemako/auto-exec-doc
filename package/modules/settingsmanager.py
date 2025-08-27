@@ -51,6 +51,10 @@ class SettingsManager:
         if not self.__settings.contains("theme"):
             self.__settings.setValue("theme", "dark")
 
+        # настройка отображения тега названия переменной
+        if not self.__settings.contains("show_variable_name_tag"):
+            self.__settings.setValue("show_variable_name_tag", True)
+
     # region Методы для работы с темой
 
     def get_theme(self) -> str:
@@ -229,3 +233,22 @@ class SettingsManager:
     def sync(self):
         """Синхронизировать настройки"""
         self.__settings.sync()
+
+    # region Методы для работы с отображением тега названия переменной
+
+    def get_show_variable_name_tag(self) -> bool:
+        """Получить настройку отображения тега названия переменной"""
+        result = self.__settings.value("show_variable_name_tag", True, type=bool)
+        self.__osbm.obj_logg.debug_logger(
+            f"SettingsManager get_show_variable_name_tag(): {result}"
+        )
+        return result
+
+    def set_show_variable_name_tag(self, show: bool):
+        """Установить настройку отображения тега названия переменной"""
+        self.__osbm.obj_logg.debug_logger(
+            f"SettingsManager set_show_variable_name_tag(): {show}"
+        )
+        self.__settings.setValue("show_variable_name_tag", show)
+
+    # endregion

@@ -74,6 +74,7 @@ class ObjectsManager:
         self.obj_formtabledw = None
         self.obj_formlistdw = None
         self.obj_setdw = None
+        self.obj_storagedw = None
         
         # общее
         self.obj_com = None
