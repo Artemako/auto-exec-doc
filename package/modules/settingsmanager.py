@@ -55,6 +55,16 @@ class SettingsManager:
         if not self.__settings.contains("show_variable_name_tag"):
             self.__settings.setValue("show_variable_name_tag", True)
 
+        # настройки масштабирования PDF
+        if not self.__settings.contains("pdf_min_zoom"):
+            self.__settings.setValue("pdf_min_zoom", 0.1)
+        
+        if not self.__settings.contains("pdf_max_zoom"):
+            self.__settings.setValue("pdf_max_zoom", 4.0)
+        
+        if not self.__settings.contains("pdf_delta_zoom"):
+            self.__settings.setValue("pdf_delta_zoom", 0.1)
+
     # region Методы для работы с темой
 
     def get_theme(self) -> str:
@@ -250,5 +260,54 @@ class SettingsManager:
             f"SettingsManager set_show_variable_name_tag(): {show}"
         )
         self.__settings.setValue("show_variable_name_tag", show)
+
+    # endregion
+
+    # region Методы для работы с настройками масштабирования PDF
+
+    def get_pdf_min_zoom(self) -> float:
+        """Получить минимальный масштаб PDF"""
+        result = self.__settings.value("pdf_min_zoom", 0.1, type=float)
+        self.__osbm.obj_logg.debug_logger(
+            f"SettingsManager get_pdf_min_zoom(): {result}"
+        )
+        return result
+
+    def set_pdf_min_zoom(self, min_zoom: float):
+        """Установить минимальный масштаб PDF"""
+        self.__osbm.obj_logg.debug_logger(
+            f"SettingsManager set_pdf_min_zoom(): {min_zoom}"
+        )
+        self.__settings.setValue("pdf_min_zoom", min_zoom)
+
+    def get_pdf_max_zoom(self) -> float:
+        """Получить максимальный масштаб PDF"""
+        result = self.__settings.value("pdf_max_zoom", 4.0, type=float)
+        self.__osbm.obj_logg.debug_logger(
+            f"SettingsManager get_pdf_max_zoom(): {result}"
+        )
+        return result
+
+    def set_pdf_max_zoom(self, max_zoom: float):
+        """Установить максимальный масштаб PDF"""
+        self.__osbm.obj_logg.debug_logger(
+            f"SettingsManager set_pdf_max_zoom(): {max_zoom}"
+        )
+        self.__settings.setValue("pdf_max_zoom", max_zoom)
+
+    def get_pdf_delta_zoom(self) -> float:
+        """Получить шаг изменения масштаба PDF"""
+        result = self.__settings.value("pdf_delta_zoom", 0.1, type=float)
+        self.__osbm.obj_logg.debug_logger(
+            f"SettingsManager get_pdf_delta_zoom(): {result}"
+        )
+        return result
+
+    def set_pdf_delta_zoom(self, delta_zoom: float):
+        """Установить шаг изменения масштаба PDF"""
+        self.__osbm.obj_logg.debug_logger(
+            f"SettingsManager set_pdf_delta_zoom(): {delta_zoom}"
+        )
+        self.__settings.setValue("pdf_delta_zoom", delta_zoom)
 
     # endregion

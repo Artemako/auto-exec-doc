@@ -347,17 +347,16 @@ QGroupBox {
     border-color: #3f3f46;
     border-style: solid;
     border-width: 1px;
-    /*
-    padding: 1em 0.3em 0.3em 0.3em;
-    margin-top: 0.65em;
-    */
+    padding: 10px 5px 5px 5px;
+    margin-top: 10px;
 }
 
 QGroupBox::title {
     subcontrol-origin: margin;
     subcontrol-position: top left;
-    padding: 2px;
+    padding: 0 5px;
     left: 10px;
+    top: 0px;
 }
 
 /* LCD Count */
@@ -1241,20 +1240,21 @@ QToolButton::menu-indicator {
 }
 /* Group Boxes #QGroupBox */
 QGroupBox {
-    border-color: #cccccc;
+    border-color: #3f3f46;
     border-style: solid;
     border-width: 1px;
-    /*
-    padding: 1em 0.3em 0.3em 0.3em;
-    margin-top: 0.65em;
-    */
+    padding: 10px 5px 5px 5px;
+    margin-top: 10px;
 }
+
 QGroupBox::title {
     subcontrol-origin: margin;
     subcontrol-position: top left;
-    padding: 2px;
+    padding: 0 5px;
     left: 10px;
+    top: 0px;
 }
+
 /* LCD Count */
 QLCDNumber {
     border-color: #cccccc;

@@ -5,17 +5,13 @@ from PySide6.QtCore import QUrl, Qt, QObject
 from PySide6.QtGui import QMouseEvent, QWheelEvent
 import sys
 
-DELTA_ZOOM = 0.1
-MAX_ZOOM = 4
-MIN_ZOOM = 0.1
-
 
 class PdfView(QObject):
     def __init__(self):
         super().__init__()
         self.__widget_pdf_view = None
         self.__document = None
-        self.__zoom = 1
+        self.__zoom = 1.0
         self.__is_dragging = False
         self.__last_mouse_pos = None
         self.__last_mouse_pos_before_zoom = None
@@ -23,8 +19,7 @@ class PdfView(QObject):
     def __del__(self):
         """Деструктор для правильного удаления eventFilter"""
         try:
-            if (self.__widget_pdf_view and 
-                self.__widget_pdf_view.viewport()):
+            if self.__widget_pdf_view and self.__widget_pdf_view.viewport():
                 self.__widget_pdf_view.viewport().removeEventFilter(self)
         except (RuntimeError, AttributeError):
             # Объекты уже удалены - это нормально
@@ -32,7 +27,12 @@ class PdfView(QObject):
         except Exception as e:
             # Логируем другие ошибки, если logger доступен
             try:
-                if hasattr(self, '_PdfView__osbm') and self.__osbm and hasattr(self.__osbm, 'obj_logg') and self.__osbm.obj_logg:
+                if (
+                    hasattr(self, "_PdfView__osbm")
+                    and self.__osbm
+                    and hasattr(self.__osbm, "obj_logg")
+                    and self.__osbm.obj_logg
+                ):
                     self.__osbm.obj_logg.error_logger(f"Error in PdfView __del__: {e}")
             except:
                 pass
@@ -78,7 +78,7 @@ class PdfView(QObject):
             if "already deleted" in str(e):
                 return False
             raise
-        
+
         # Если объект не совпадает с viewport, передаем событие дальше
         return False
 
@@ -143,9 +143,13 @@ class PdfView(QObject):
         self.__widget_pdf_view.setDocument(self.__document)
 
     def zoom_in(self):
+        # Получаем настройки масштабирования из QSettings
+        delta_zoom = self.__osbm.obj_settings.get_pdf_delta_zoom()
+        max_zoom = self.__osbm.obj_settings.get_pdf_max_zoom()
+
         if (
-            self.__zoom + DELTA_ZOOM
-        ) < MAX_ZOOM and self.__widget_pdf_view.zoomMode() == QPdfView.ZoomMode.Custom:
+            round(self.__zoom + delta_zoom, 2)
+        ) <= max_zoom and self.__widget_pdf_view.zoomMode() == QPdfView.ZoomMode.Custom:
             # Сохраняем текущие позиции скроллбаров
             h_scroll = self.__widget_pdf_view.horizontalScrollBar()
             v_scroll = self.__widget_pdf_view.verticalScrollBar()
@@ -154,12 +158,12 @@ class PdfView(QObject):
 
             # Применяем масштабирование
             old_zoom = self.__zoom
-            self.__zoom += DELTA_ZOOM
+            self.__zoom = round(self.__zoom + delta_zoom, 2)
             self.__widget_pdf_view.setZoomFactor(self.__zoom)
 
             # Корректируем скролл для центрирования по курсору мыши
             if self.__last_mouse_pos_before_zoom:
-                zoom_ratio = self.__zoom / old_zoom
+                zoom_ratio = round(self.__zoom / old_zoom, 4)
                 mouse_pos = self.__last_mouse_pos_before_zoom
 
                 new_h_value = (old_h_value + mouse_pos.x()) * zoom_ratio - mouse_pos.x()
@@ -173,9 +177,13 @@ class PdfView(QObject):
             )
 
     def zoom_out(self):
+        # Получаем настройки масштабирования из QSettings
+        delta_zoom = self.__osbm.obj_settings.get_pdf_delta_zoom()
+        min_zoom = self.__osbm.obj_settings.get_pdf_min_zoom()
+
         if (
-            self.__zoom - DELTA_ZOOM
-        ) > MIN_ZOOM and self.__widget_pdf_view.zoomMode() == QPdfView.ZoomMode.Custom:
+            round(self.__zoom - delta_zoom, 2)
+        ) >= min_zoom and self.__widget_pdf_view.zoomMode() == QPdfView.ZoomMode.Custom:
             # Сохраняем текущие позиции скроллбаров
             h_scroll = self.__widget_pdf_view.horizontalScrollBar()
             v_scroll = self.__widget_pdf_view.verticalScrollBar()
@@ -184,12 +192,12 @@ class PdfView(QObject):
 
             # Применяем масштабирование
             old_zoom = self.__zoom
-            self.__zoom -= DELTA_ZOOM
+            self.__zoom = round(self.__zoom - delta_zoom, 2)
             self.__widget_pdf_view.setZoomFactor(self.__zoom)
 
             # Корректируем скролл для центрирования по курсору мыши
             if self.__last_mouse_pos_before_zoom:
-                zoom_ratio = self.__zoom / old_zoom
+                zoom_ratio = round(self.__zoom / old_zoom, 4)
                 mouse_pos = self.__last_mouse_pos_before_zoom
 
                 new_h_value = (old_h_value + mouse_pos.x()) * zoom_ratio - mouse_pos.x()
@@ -208,17 +216,35 @@ class PdfView(QObject):
 
     def set_zoom_custom(self):
         self.__widget_pdf_view.setZoomMode(QPdfView.ZoomMode.Custom)
-        self.__osbm.obj_logg.debug_logger("PdfView set_zoom_custom()")
+
+        # Проверяем, что текущий масштаб находится в допустимых пределах
+        min_zoom = self.__osbm.obj_settings.get_pdf_min_zoom()
+        max_zoom = self.__osbm.obj_settings.get_pdf_max_zoom()
+
+        if self.__zoom < min_zoom:
+            self.__zoom = round(min_zoom, 2)
+        elif self.__zoom > max_zoom:
+            self.__zoom = round(max_zoom, 2)
+
+        self.__widget_pdf_view.setZoomFactor(self.__zoom)
+
+        self.__osbm.obj_logg.debug_logger(
+            f"PdfView set_zoom_custom(): zoom = {self.__zoom}"
+        )
 
     def set_empty_pdf_view(self):
         # Проверяем, что logger доступен
-        if hasattr(self, '_PdfView__osbm') and self.__osbm and hasattr(self.__osbm, 'obj_logg') and self.__osbm.obj_logg:
+        if (
+            hasattr(self, "_PdfView__osbm")
+            and self.__osbm
+            and hasattr(self.__osbm, "obj_logg")
+            and self.__osbm.obj_logg
+        ):
             self.__osbm.obj_logg.debug_logger("PdfView set_empty_pdf_view()")
-        
+
         try:
             # Отключаем event filter перед очисткой
-            if (self.__widget_pdf_view and 
-                self.__widget_pdf_view.viewport()):
+            if self.__widget_pdf_view and self.__widget_pdf_view.viewport():
                 self.__widget_pdf_view.viewport().removeEventFilter(self)
 
             # Очищаем документ
@@ -240,11 +266,25 @@ class PdfView(QObject):
                 # Объекты уже удалены - это нормально при закрытии
                 pass
             else:
-                if hasattr(self, '_PdfView__osbm') and self.__osbm and hasattr(self.__osbm, 'obj_logg') and self.__osbm.obj_logg:
-                    self.__osbm.obj_logg.error_logger(f"Error in set_empty_pdf_view(): {e}")
+                if (
+                    hasattr(self, "_PdfView__osbm")
+                    and self.__osbm
+                    and hasattr(self.__osbm, "obj_logg")
+                    and self.__osbm.obj_logg
+                ):
+                    self.__osbm.obj_logg.error_logger(
+                        f"Error in set_empty_pdf_view(): {e}"
+                    )
         except Exception as e:
-            if hasattr(self, '_PdfView__osbm') and self.__osbm and hasattr(self.__osbm, 'obj_logg') and self.__osbm.obj_logg:
-                self.__osbm.obj_logg.error_logger(f"Unexpected error in set_empty_pdf_view(): {e}")
+            if (
+                hasattr(self, "_PdfView__osbm")
+                and self.__osbm
+                and hasattr(self.__osbm, "obj_logg")
+                and self.__osbm.obj_logg
+            ):
+                self.__osbm.obj_logg.error_logger(
+                    f"Unexpected error in set_empty_pdf_view(): {e}"
+                )
 
     def get_view_sizes(self):
         self.__osbm.obj_logg.debug_logger("PdfView get_view_sizes()")
@@ -269,3 +309,16 @@ class PdfView(QObject):
         if doc_location.isLocalFile():
             print(f"doc_location = {doc_location}")
             self.__document.load(doc_location.toLocalFile())
+
+            # Проверяем, что текущий масштаб находится в допустимых пределах
+            min_zoom = self.__osbm.obj_settings.get_pdf_min_zoom()
+            max_zoom = self.__osbm.obj_settings.get_pdf_max_zoom()
+
+            if self.__zoom < min_zoom:
+                self.__zoom = round(min_zoom, 2)
+            elif self.__zoom > max_zoom:
+                self.__zoom = round(max_zoom, 2)
+
+            # Устанавливаем масштаб, если мы в кастомном режиме
+            if self.__widget_pdf_view.zoomMode() == QPdfView.ZoomMode.Custom:
+                self.__widget_pdf_view.setZoomFactor(self.__zoom)

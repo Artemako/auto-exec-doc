@@ -292,6 +292,7 @@ class MainWindow(QMainWindow):
         self.ui.action_edit_templates.setEnabled(False)
         self.ui.action_zoomfitpage.setEnabled(False)
         self.ui.action_clear_trash.setEnabled(False)
+        self.ui.action_storage.setEnabled(True)
 
     def enable_qt_actions(self):
         """
@@ -305,6 +306,7 @@ class MainWindow(QMainWindow):
         self.ui.action_export_to_pdf.setEnabled(True)
         self.ui.action_edit_templates.setEnabled(True)
         self.ui.action_clear_trash.setEnabled(True)
+        self.ui.action_storage.setEnabled(True)
 
     def edit_variables(
         self, open_node=None, open_template=None, open_page=None, edit_variable=None
