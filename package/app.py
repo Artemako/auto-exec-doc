@@ -198,7 +198,7 @@ class App:
             self.osbm.obj_mw = self.window
             self.window.show()
             # sys.exit(self.app.exec())
-            self.app.exec_()
+            return self.app.exec()
         except Exception as e:
             self.osbm.obj_logg.error_logger(f"Error: {e}")
 

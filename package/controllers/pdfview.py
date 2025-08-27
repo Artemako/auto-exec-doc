@@ -20,6 +20,23 @@ class PdfView(QObject):
         self.__last_mouse_pos = None
         self.__last_mouse_pos_before_zoom = None
 
+    def __del__(self):
+        """Деструктор для правильного удаления eventFilter"""
+        try:
+            if (self.__widget_pdf_view and 
+                self.__widget_pdf_view.viewport()):
+                self.__widget_pdf_view.viewport().removeEventFilter(self)
+        except (RuntimeError, AttributeError):
+            # Объекты уже удалены - это нормально
+            pass
+        except Exception as e:
+            # Логируем другие ошибки, если logger доступен
+            try:
+                if hasattr(self, '_PdfView__osbm') and self.__osbm and hasattr(self.__osbm, 'obj_logg') and self.__osbm.obj_logg:
+                    self.__osbm.obj_logg.error_logger(f"Error in PdfView __del__: {e}")
+            except:
+                pass
+
     def setting_all_osbm(self, osbm):
         self.__osbm = osbm
         self.__osbm.obj_logg.debug_logger("PdfView setting_all_osbm()")
@@ -53,12 +70,17 @@ class PdfView(QObject):
                     return self.mouseMoveEvent(event)
                 elif event.type() == QMouseEvent.Wheel:
                     return self.wheelEvent(event)
+                # Если событие не обработано, передаем его дальше
+                return False
 
         except RuntimeError as e:
             # Объект уже удален - игнорируем ошибку
             if "already deleted" in str(e):
                 return False
             raise
+        
+        # Если объект не совпадает с viewport, передаем событие дальше
+        return False
 
     def mousePressEvent(self, event):
         """Обработка нажатия кнопки мыши"""
@@ -189,10 +211,14 @@ class PdfView(QObject):
         self.__osbm.obj_logg.debug_logger("PdfView set_zoom_custom()")
 
     def set_empty_pdf_view(self):
-        self.__osbm.obj_logg.debug_logger("PdfView set_empty_pdf_view()")
+        # Проверяем, что logger доступен
+        if hasattr(self, '_PdfView__osbm') and self.__osbm and hasattr(self.__osbm, 'obj_logg') and self.__osbm.obj_logg:
+            self.__osbm.obj_logg.debug_logger("PdfView set_empty_pdf_view()")
+        
         try:
             # Отключаем event filter перед очисткой
-            if self.__widget_pdf_view and self.__widget_pdf_view.viewport():
+            if (self.__widget_pdf_view and 
+                self.__widget_pdf_view.viewport()):
                 self.__widget_pdf_view.viewport().removeEventFilter(self)
 
             # Очищаем документ
@@ -201,19 +227,24 @@ class PdfView(QObject):
                 self.__document = None
 
             # Создаем новый пустой документ
-            self.__document = QPdfDocument(self.__widget_pdf_view)
-            self.__widget_pdf_view.setDocument(self.__document)
+            if self.__widget_pdf_view:
+                self.__document = QPdfDocument(self.__widget_pdf_view)
+                self.__widget_pdf_view.setDocument(self.__document)
 
-            # Снова устанавливаем event filter
-            if self.__widget_pdf_view and self.__widget_pdf_view.viewport():
-                self.__widget_pdf_view.viewport().installEventFilter(self)
+                # Снова устанавливаем event filter
+                if self.__widget_pdf_view.viewport():
+                    self.__widget_pdf_view.viewport().installEventFilter(self)
 
-        except RuntimeError as e:
+        except (RuntimeError, AttributeError) as e:
             if "already deleted" in str(e):
                 # Объекты уже удалены - это нормально при закрытии
                 pass
             else:
-                self.__osbm.obj_logg.error_logger(f"Error in set_empty_pdf_view(): {e}")
+                if hasattr(self, '_PdfView__osbm') and self.__osbm and hasattr(self.__osbm, 'obj_logg') and self.__osbm.obj_logg:
+                    self.__osbm.obj_logg.error_logger(f"Error in set_empty_pdf_view(): {e}")
+        except Exception as e:
+            if hasattr(self, '_PdfView__osbm') and self.__osbm and hasattr(self.__osbm, 'obj_logg') and self.__osbm.obj_logg:
+                self.__osbm.obj_logg.error_logger(f"Unexpected error in set_empty_pdf_view(): {e}")
 
     def get_view_sizes(self):
         self.__osbm.obj_logg.debug_logger("PdfView get_view_sizes()")

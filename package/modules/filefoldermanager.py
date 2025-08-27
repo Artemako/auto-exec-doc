@@ -96,9 +96,15 @@ class FileFolderManager:
         )
         temp_dirpath = self.__osbm.obj_dirm.get_temp_dirpath()
         try:
-            shutil.rmtree(temp_dirpath)
-            if not is_del_folder:
-                os.mkdir(temp_dirpath)
+            # Проверяем существование папки перед удалением
+            if os.path.exists(temp_dirpath):
+                shutil.rmtree(temp_dirpath)
+                if not is_del_folder:
+                    os.mkdir(temp_dirpath)
+            else:
+                # Если папка не существует, создаем её только если не нужно удалять
+                if not is_del_folder:
+                    os.makedirs(temp_dirpath, exist_ok=True)
         except Exception as e:
             self.__osbm.obj_logg.error_logger(f"Error in clear_temp_folder(): {e}")
 
@@ -125,9 +131,13 @@ class FileFolderManager:
         image_folder_dirpath = self.__osbm.obj_dirm.get_images_folder_dirpath()
         print(f"image_folder_dirpath = {image_folder_dirpath}")
         try:
-            os.remove(os.path.join(image_folder_dirpath, image_dirpath))
+            image_path = os.path.join(image_folder_dirpath, image_dirpath)
+            if os.path.exists(image_path):
+                os.remove(image_path)
+            else:
+                self.__osbm.obj_logg.debug_logger(f"Image file not found: {image_path}")
         except Exception as e:
-            self.__osbm.obj_logg.error_logger(e)
+            self.__osbm.obj_logg.error_logger(f"Error deleting image {image_dirpath}: {e}")
 
     def copy_project_for_saveas(self, old_folder_path, new_folder_path):
         self.__osbm.obj_logg.debug_logger(
@@ -213,15 +223,31 @@ class FileFolderManager:
         elif typefile_page == "PDF":
             pdfs_folder_dirpath = self.__osbm.obj_dirm.get_pdfs_folder_dirpath()
             page_path = os.path.join(pdfs_folder_dirpath, page_filename + ".pdf")
+        else:
+            self.__osbm.obj_logg.error_logger(f"Unknown file type: {typefile_page}")
+            return
         #
         try:
-            os.remove(page_path)
+            if os.path.exists(page_path):
+                os.remove(page_path)
+                self.__osbm.obj_logg.debug_logger(f"Successfully deleted: {page_path}")
+            else:
+                self.__osbm.obj_logg.debug_logger(f"File not found: {page_path}")
         except Exception as e:
-            self.__osbm.obj_logg.error_logger(e)
+            self.__osbm.obj_logg.error_logger(f"Error deleting page {page_filename}: {e}")
 
     def get_list_of_docx_in_forms_folder(self):
         forms_folder_dirpath = self.__osbm.obj_dirm.get_forms_folder_dirpath()
-        result = os.listdir(forms_folder_dirpath)
+        try:
+            if os.path.exists(forms_folder_dirpath):
+                result = os.listdir(forms_folder_dirpath)
+            else:
+                result = []
+                self.__osbm.obj_logg.debug_logger(f"Forms folder does not exist: {forms_folder_dirpath}")
+        except Exception as e:
+            result = []
+            self.__osbm.obj_logg.error_logger(f"Error reading forms folder: {e}")
+        
         self.__osbm.obj_logg.debug_logger(
             f"FileFolderManager get_list_of_docx_in_forms_folder(): \n result = {result}"
         )
@@ -229,7 +255,16 @@ class FileFolderManager:
     
     def get_list_of_pdfs_in_pdfs_folder(self):
         pdfs_folder_dirpath = self.__osbm.obj_dirm.get_pdfs_folder_dirpath()
-        result = os.listdir(pdfs_folder_dirpath)
+        try:
+            if os.path.exists(pdfs_folder_dirpath):
+                result = os.listdir(pdfs_folder_dirpath)
+            else:
+                result = []
+                self.__osbm.obj_logg.debug_logger(f"PDFs folder does not exist: {pdfs_folder_dirpath}")
+        except Exception as e:
+            result = []
+            self.__osbm.obj_logg.error_logger(f"Error reading PDFs folder: {e}")
+        
         self.__osbm.obj_logg.debug_logger(
             f"FileFolderManager get_list_of_pdfs_in_pdfs_folder(): \n result = {result}"
         )
@@ -237,7 +272,16 @@ class FileFolderManager:
     
     def get_list_of_images_in_images_folder(self):
         images_folder_dirpath = self.__osbm.obj_dirm.get_images_folder_dirpath()
-        result = os.listdir(images_folder_dirpath)
+        try:
+            if os.path.exists(images_folder_dirpath):
+                result = os.listdir(images_folder_dirpath)
+            else:
+                result = []
+                self.__osbm.obj_logg.debug_logger(f"Images folder does not exist: {images_folder_dirpath}")
+        except Exception as e:
+            result = []
+            self.__osbm.obj_logg.error_logger(f"Error reading images folder: {e}")
+        
         self.__osbm.obj_logg.debug_logger(
             f"FileFolderManager get_list_of_images_in_images_folder(): \n result = {result}"
         )

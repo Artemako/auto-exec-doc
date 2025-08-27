@@ -180,21 +180,67 @@ class MainWindow(QMainWindow):
         )
 
     def clear_before_end(self):
-        self.__osbm.obj_logg.debug_logger("MainWindow clear_before_end()")
+        # Проверяем, что logger доступен
+        if hasattr(self, '_MainWindow__osbm') and self.__osbm and hasattr(self.__osbm, 'obj_logg') and self.__osbm.obj_logg:
+            self.__osbm.obj_logg.debug_logger("MainWindow clear_before_end()")
+        
         try:
-            if hasattr(self.__osbm.obj_pdfv, 'set_empty_pdf_view'):
-                self.__osbm.obj_pdfv.set_empty_pdf_view()
-            if hasattr(self.__osbm.obj_film, 'clear_temp_folder'):
-                self.__osbm.obj_film.clear_temp_folder(True)
-            if (hasattr(self.__osbm.obj_offp, 'terminate_msword') and 
-                self.__osbm.obj_offp.get_status_msword()):
-                self.__osbm.obj_offp.terminate_msword()
+            # Проверяем, что объекты еще существуют
+            if not hasattr(self, '_MainWindow__osbm') or not self.__osbm:
+                if hasattr(self, '_MainWindow__osbm') and self.__osbm and hasattr(self.__osbm, 'obj_logg') and self.__osbm.obj_logg:
+                    self.__osbm.obj_logg.debug_logger("OSBM object not available for cleanup")
+                return
+                
+            # Безопасно очищаем PDF view
+            if hasattr(self.__osbm, 'obj_pdfv') and self.__osbm.obj_pdfv and hasattr(self.__osbm.obj_pdfv, 'set_empty_pdf_view'):
+                try:
+                    self.__osbm.obj_pdfv.set_empty_pdf_view()
+                except Exception as e:
+                    if hasattr(self.__osbm, 'obj_logg') and self.__osbm.obj_logg:
+                        self.__osbm.obj_logg.error_logger(f"Error clearing PDF view: {e}")
+            
+            # Очищаем временные файлы
+            if hasattr(self.__osbm, 'obj_film') and self.__osbm.obj_film and hasattr(self.__osbm.obj_film, 'clear_temp_folder'):
+                try:
+                    self.__osbm.obj_film.clear_temp_folder(True)
+                except Exception as e:
+                    if hasattr(self.__osbm, 'obj_logg') and self.__osbm.obj_logg:
+                        self.__osbm.obj_logg.error_logger(f"Error clearing temp folder: {e}")
+            
+            # Завершаем MS Word
+            if (hasattr(self.__osbm, 'obj_offp') and self.__osbm.obj_offp and 
+                hasattr(self.__osbm.obj_offp, 'terminate_msword') and 
+                hasattr(self.__osbm.obj_offp, 'get_status_msword')):
+                try:
+                    if self.__osbm.obj_offp.get_status_msword():
+                        self.__osbm.obj_offp.terminate_msword()
+                except Exception as e:
+                    if hasattr(self.__osbm, 'obj_logg') and self.__osbm.obj_logg:
+                        self.__osbm.obj_logg.error_logger(f"Error terminating MS Word: {e}")
                 
         except Exception as e:
-            self.__osbm.obj_logg.error_logger(f"Error in clear_before_end(): {e}")
+            if hasattr(self.__osbm, 'obj_logg') and self.__osbm.obj_logg:
+                self.__osbm.obj_logg.error_logger(f"Error in clear_before_end(): {e}")
 
     def closeEvent(self, event):
         self.clear_before_end()
+        event.accept()
+
+    def __del__(self):
+        """Деструктор для дополнительной очистки при удалении объекта"""
+        try:
+            if hasattr(self, '_MainWindow__osbm') and self.__osbm:
+                # Проверяем, что logger еще доступен
+                if hasattr(self.__osbm, 'obj_logg') and self.__osbm.obj_logg:
+                    self.__osbm.obj_logg.debug_logger("MainWindow __del__() called")
+                self.clear_before_end()
+        except Exception as e:
+            # Игнорируем ошибки при удалении, но логируем если возможно
+            try:
+                if hasattr(self, '_MainWindow__osbm') and self.__osbm and hasattr(self.__osbm, 'obj_logg') and self.__osbm.obj_logg:
+                    self.__osbm.obj_logg.error_logger(f"Error in MainWindow __del__: {e}")
+            except:
+                pass
 
     def connecting_actions(self):
         """
