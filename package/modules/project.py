@@ -261,10 +261,14 @@ class Project:
             app_converter = self.__osbm.obj_settings.get_app_converter()
             status_msword = self.__osbm.obj_offp.get_status_msword()
             status_libreoffice = self.__osbm.obj_offp.get_status_libreoffice()
-            if app_converter == "MSWORD" and status_msword:
-                flag_converter = True
-            elif app_converter == "LIBREOFFICE" and status_libreoffice:
-                flag_converter = True
+            
+            # Проверяем реальное состояние конвертеров
+            if app_converter == "MSWORD":
+                if status_msword:
+                    flag_converter = True
+            elif app_converter == "LIBREOFFICE":
+                if status_libreoffice:
+                    flag_converter = True
             #
             if flag_converter:
                 self.__osbm.obj_dw.process_export_start()

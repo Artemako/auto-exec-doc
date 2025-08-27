@@ -211,6 +211,12 @@ class StatusBar:
     def connecting_actions(self):
         self.__osbm.obj_logg.debug_logger("StatusBar connecting_actions()")
         self.__btn_setting_converter.clicked.connect(self.show_converter_settings)
+        # Добавляем кнопку для переинициализации конвертеров
+        self.__btn_reinitialize_converters = QPushButton("🔄")
+        self.__btn_reinitialize_converters.setToolTip("Переинициализировать конвертеры")
+        self.__btn_reinitialize_converters.setMaximumWidth(30)
+        self.__btn_reinitialize_converters.clicked.connect(self.reinitialize_converters)
+        self.__statusbar.addPermanentWidget(self.__btn_reinitialize_converters)
 
     def show_converter_settings(self):
         self.__osbm.obj_logg.debug_logger("StatusBar show_converter_settings()")
@@ -220,6 +226,12 @@ class StatusBar:
             )
         )
         self.__osbm.obj_convsdw.exec()
+
+    def reinitialize_converters(self):
+        """Переинициализация конвертеров"""
+        self.__osbm.obj_logg.debug_logger("StatusBar reinitialize_converters()")
+        self.__osbm.obj_offp.force_reinitialize_converters()
+        self.__osbm.obj_stab.set_message("Конвертеры переинициализированы")
 
 
 # obj_stab = StatusBar()

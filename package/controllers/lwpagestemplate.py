@@ -83,15 +83,21 @@ class LWPagesTemplate:
         status_msword = self.__osbm.obj_offp.get_status_msword()
         status_libreoffice = self.__osbm.obj_offp.get_status_libreoffice()
         is_convert_flag = True
-        if app_converter == "MSWORD" and status_msword:
-            pass
-        elif app_converter == "LIBREOFFICE" and status_libreoffice:
-            pass
-        else:
-            msg = "Отображение недоступно! Выбранный конвертер не работает. Сохранение при этом доступно."
-            self.__osbm.obj_dw.warning_message(msg)
-            self.__osbm.obj_stab.set_message(msg)
-            is_convert_flag = False
+        
+        # Проверяем реальное состояние конвертеров
+        if app_converter == "MSWORD":
+            if not status_msword:
+                msg = "Отображение недоступно! Выбранный конвертер не работает. Сохранение при этом доступно."
+                self.__osbm.obj_dw.warning_message(msg)
+                self.__osbm.obj_stab.set_message(msg)
+                is_convert_flag = False
+        elif app_converter == "LIBREOFFICE":
+            if not status_libreoffice:
+                msg = "Отображение недоступно! Выбранный конвертер не работает. Сохранение при этом доступно."
+                self.__osbm.obj_dw.warning_message(msg)
+                self.__osbm.obj_stab.set_message(msg)
+                is_convert_flag = False
+        
         #
         if is_convert_flag:
             pdf_path = str()
@@ -102,19 +108,17 @@ class LWPagesTemplate:
             except self.__osbm.obj_com.errors.MsWordError:
                 self.__osbm.obj_offp.terminate_msword()
                 self.__osbm.obj_stab.update_status_msword_label(False)
-                if is_convert_flag:
-                    msg = "Отображение недоступно! Выбранный конвертер перестал работать. Сохранение при этом доступно."
-                    self.__osbm.obj_dw.warning_message(msg)
-                    self.__osbm.obj_stab.set_message(msg)
+                msg = "Отображение недоступно! Выбранный конвертер перестал работать. Сохранение при этом доступно."
+                self.__osbm.obj_dw.warning_message(msg)
+                self.__osbm.obj_stab.set_message(msg)
                 is_error = True
 
             except self.__osbm.obj_com.errors.LibreOfficeError:
                 self.__osbm.obj_offp.terminate_libreoffice()
                 self.__osbm.obj_stab.update_status_libreoffice_label(False)
-                if is_convert_flag:
-                    msg = "Отображение недоступно! Выбранный конвертер перестал работать. Сохранение при этом доступно."
-                    self.__osbm.obj_dw.warning_message(msg)
-                    self.__osbm.obj_stab.set_message(msg)
+                msg = "Отображение недоступно! Выбранный конвертер перестал работать. Сохранение при этом доступно."
+                self.__osbm.obj_dw.warning_message(msg)
+                self.__osbm.obj_stab.set_message(msg)
                 is_error = True
 
             except Exception as e:
