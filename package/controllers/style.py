@@ -1240,7 +1240,7 @@ QToolButton::menu-indicator {
 }
 /* Group Boxes #QGroupBox */
 QGroupBox {
-    border-color: #3f3f46;
+    border-color: #cccccc;
     border-style: solid;
     border-width: 1px;
     padding: 10px 5px 5px 5px;

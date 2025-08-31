@@ -1055,7 +1055,6 @@ class Ui_MainWindow(object):
         self.action_settings.setIcon(icon9)
         self.action_storage = QAction(MainWindow)
         self.action_storage.setObjectName(u"action_storage")
-        self.action_storage.setEnabled(True)
         icon10 = QIcon()
         icon10.addFile(u":/white-icons/resources/white-icons/folder.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.action_storage.setIcon(icon10)
