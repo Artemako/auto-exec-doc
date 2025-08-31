@@ -469,7 +469,25 @@ class ConverterPool:
         local_osbm.obj_logg.debug_logger(
             f"Converter convert_from_docx_to_pdf(docx_path, pdf_path):\ndocx_path = {docx_path},\npdf_path = {pdf_path}"
         )
-        app_converter = local_osbm.obj_settings.get_app_converter()
+        app_converter = local_osbm.settings_data.app_converter
+        local_osbm.obj_logg.debug_logger(
+            f"Converter convert_from_docx_to_pdf: используемый конвертер = {app_converter}"
+        )
+        # Дополнительное логирование для отладки
+        local_osbm.obj_logg.debug_logger(
+            f"Converter convert_from_docx_to_pdf: settings_data.app_converter = {local_osbm.settings_data.app_converter}"
+        )
+        if hasattr(local_osbm, 'obj_settings') and local_osbm.obj_settings:
+            direct_app_converter = local_osbm.obj_settings.get_app_converter()
+            local_osbm.obj_logg.debug_logger(
+                f"Converter convert_from_docx_to_pdf: прямой вызов obj_settings.get_app_converter() = {direct_app_converter}"
+            )
+            # Если настройки не совпадают, используем прямые настройки
+            if direct_app_converter != local_osbm.settings_data.app_converter:
+                local_osbm.obj_logg.debug_logger(
+                    f"Converter convert_from_docx_to_pdf: НЕСООТВЕТСТВИЕ! Используем прямые настройки: {direct_app_converter}"
+                )
+                app_converter = direct_app_converter
         if app_converter == "MSWORD":
             self.convert_from_docx_to_pdf_using_msword(local_osbm, docx_path, pdf_path)
         # elif app_converter == "OPENOFFICE":
@@ -495,6 +513,9 @@ class ConverterPool:
     def convert_from_docx_to_pdf_using_msword(self, local_osbm, docx_path, pdf_path):
         local_osbm.obj_logg.debug_logger(
             "Converter convert_from_docx_to_pdf_using_msword(docx_path, pdf_path)"
+        )
+        local_osbm.obj_logg.debug_logger(
+            "Converter convert_from_docx_to_pdf_using_msword: начинаем конвертацию через MS Word"
         )
         try:
             self.__is_word_active = False
@@ -529,7 +550,10 @@ class ConverterPool:
             "Converter convert_from_docx_to_pdf_using_libreoffice(docx_path, pdf_path)"
         )
         try:
-            libreoffice_path = local_osbm.obj_settings.get_libreoffice_path()
+            libreoffice_path = local_osbm.settings_data.libreoffice_path
+            local_osbm.obj_logg.debug_logger(
+                f"Converter convert_from_docx_to_pdf_using_libreoffice: используемый путь = {libreoffice_path}"
+            )
             command = [
                 libreoffice_path,
                 "--headless",
@@ -547,17 +571,49 @@ class ConverterPool:
             raise local_osbm.obj_com.errors.LibreOfficeError(e)
 
 
+class ConverterSettingsData:
+    """Класс для передачи только сериализуемых данных настроек в многопроцессорную обработку"""
+    def __init__(self, app_converter=None, libreoffice_path=None):
+        # Принимаем значения напрямую, а не через settings_manager
+        self.app_converter = app_converter or "LIBREOFFICE"
+        self.libreoffice_path = libreoffice_path or "C:\\Program Files\\LibreOffice\\program\\soffice.exe"
+    
+    @classmethod
+    def from_settings_manager(cls, settings_manager):
+        """Создает объект из settings_manager, извлекая только сериализуемые данные"""
+        # Проверяем, инициализирован ли settings_manager
+        if hasattr(settings_manager, '_SettingsManager__settings'):
+            app_converter = settings_manager.get_app_converter()
+            libreoffice_path = settings_manager.get_libreoffice_path()
+            # Добавляем логирование для отладки
+            if hasattr(settings_manager, '_SettingsManager__osbm') and settings_manager._SettingsManager__osbm:
+                settings_manager._SettingsManager__osbm.obj_logg.debug_logger(
+                    f"ConverterSettingsData.from_settings_manager: app_converter = {app_converter}, libreoffice_path = {libreoffice_path}"
+                )
+        else:
+            # Значения по умолчанию, если settings_manager еще не инициализирован
+            app_converter = "LIBREOFFICE"
+            libreoffice_path = "C:\\Program Files\\LibreOffice\\program\\soffice.exe"
+        return cls(app_converter, libreoffice_path)
+
+
+
+
+
 class ConverterObjectsManager:
     def __init__(self, osbm):
         self.obj_dirm = osbm.obj_dirm
         self.obj_logg = osbm.obj_logg
         self.obj_prodb = osbm.obj_prodb
         self.obj_seci = osbm.obj_seci
-        self.obj_settings = osbm.obj_settings
         self.obj_imgr = osbm.obj_imgr
         self.obj_film = osbm.obj_film
         # общее
         self.obj_com = osbm.obj_com
+        # Создаем объект с сериализуемыми данными настроек
+        self.settings_data = ConverterSettingsData.from_settings_manager(osbm.obj_settings)
+        # Сохраняем ссылку на obj_settings для совместимости с существующим кодом
+        self.obj_settings = osbm.obj_settings
 
 
 class Converter:
@@ -578,6 +634,14 @@ class Converter:
             f"Converter create_one_page_pdf(page) -> str:\npage = {page}"
         )
         local_osbm = ConverterObjectsManager(self.__osbm)
+        # Обновляем settings_data с актуальными настройками
+        self.__osbm.obj_logg.debug_logger(
+            f"Converter create_one_page_pdf: обновляем settings_data"
+        )
+        local_osbm.settings_data = ConverterSettingsData.from_settings_manager(self.__osbm.obj_settings)
+        self.__osbm.obj_logg.debug_logger(
+            f"Converter create_one_page_pdf: обновленный app_converter = {local_osbm.settings_data.app_converter}"
+        )
         pdf_path = ConverterPool().create_page_pdf(local_osbm, page)
         return pdf_path
 
@@ -657,25 +721,21 @@ class Converter:
             f"Converter get_list_of_created_pdf_pages(project_pages_objects):\nproject_pages_objects = {project_pages_objects}"
         )
         list_of_pdf_pages = list()
-        # с multiprocessing.Pool
-        processes_number = int()
-        app_converter = self.__osbm.obj_settings.get_app_converter()
-        if app_converter == "MSWORD":
-            processes_number = max(1, multiprocessing.cpu_count() - 1)
-        else:
-            processes_number = 1
-        #
-        print(f"processes_number = {processes_number}")
-        args = [
-            (ConverterObjectsManager(self.__osbm), obj) for obj in project_pages_objects
-        ]
-        with multiprocessing.Pool(processes=processes_number) as pool:
-            results = pool.map(
-                functools.partial(
-                    ConverterPool().process_object_of_project_pages_objects
-                ),
-                args,
-            )
+        # Используем однопроцессорную обработку для избежания проблем с сериализацией QSettings
+        # Обновляем settings_data с актуальными настройками перед обработкой
+        self.__osbm.obj_logg.debug_logger(
+            f"Converter get_list_of_created_pdf_pages: обновляем settings_data"
+        )
+        self.__osbm.settings_data = ConverterSettingsData.from_settings_manager(self.__osbm.obj_settings)
+        self.__osbm.obj_logg.debug_logger(
+            f"Converter get_list_of_created_pdf_pages: обновленный app_converter = {self.__osbm.settings_data.app_converter}"
+        )
+        
+        results = []
+        for obj in project_pages_objects:
+            args = (self.__osbm, obj)
+            result = ConverterPool().process_object_of_project_pages_objects(args)
+            results.append(result)
         # без WorkerPool
         # results = []
         # for obj in project_pages_objects:

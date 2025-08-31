@@ -12,14 +12,56 @@ class StyleController:
         """Установить OSBM"""
         self.__osbm = osbm
 
+    def get_png_prefix(self, theme_name=None):
+        """
+        Получить префикс для PNG ресурсов в зависимости от темы
+        
+        Args:
+            theme_name (str): Название темы. Если None, используется текущая тема
+            
+        Returns:
+            str: Префикс для PNG ресурсов
+        """
+        if theme_name is None:
+            theme_name = self.current_theme
+            
+        if theme_name == "light":
+            return "white-png"
+        else:
+            return "black-png"
+
+    def get_theme_style(self, theme_name=None):
+        """
+        Получить стиль для темы с правильными путями к PNG файлам
+        
+        Args:
+            theme_name (str): Название темы. Если None, используется текущая тема
+            
+        Returns:
+            str: Стиль с правильными путями к PNG файлам
+        """
+        if theme_name is None:
+            theme_name = self.current_theme
+            
+        # Получаем базовый стиль для темы
+        base_style = self.__themes.get(theme_name, self.__themes["dark"])
+        
+        # Получаем правильный префикс для PNG файлов
+        png_prefix = self.get_png_prefix(theme_name)
+        
+        # Заменяем пути к PNG файлам
+        style = base_style.replace(":/png/resources/png/", f":/{png_prefix}/resources/{png_prefix}/")
+        
+        return style
+
     def set_style_for(self, widget):
         """Совместимый метод для установки стиля для виджета (использует текущую тему)"""
-        style = self.__themes.get(self.current_theme, self.__themes["dark"])
+        style = self.get_theme_style()
         widget.setStyleSheet(style)
 
     def set_style_for_mw_by_name(self, mw, theme_name="dark"):
         """Установить стиль для главного окна по имени темы"""
-        style = self.__themes.get(theme_name, self.__themes["dark"])
+        style = self.get_theme_style(theme_name)
         mw.setStyleSheet(style)
         self.current_theme = theme_name
         
@@ -39,7 +81,7 @@ class StyleController:
     def apply_theme_to_all_windows(self, theme_name):
         """Применить тему ко всем окнам приложения"""
         self.current_theme = theme_name
-        style = self.__themes.get(theme_name, self.__themes["dark"])
+        style = self.get_theme_style(theme_name)
         
         # Применяем стиль ко всем виджетам приложения
         for widget in QApplication.allWidgets():
