@@ -79,6 +79,33 @@ class OfficePackets:
         self.__osbm = osbm
         self.__osbm.obj_logg.debug_logger("OfficePackets setting_all_osbm()")
 
+    def initialize_libreoffice_only(self):
+        """Быстрая инициализация только LibreOffice"""
+        self.__osbm.obj_logg.debug_logger("OfficePackets initialize_libreoffice_only()")
+        self.run_libreoffice()
+
+    def initialize_msword_async(self):
+        """Асинхронная инициализация MS Word"""
+        self.__osbm.obj_logg.debug_logger("OfficePackets initialize_msword_async()")
+        if not self.__status_msword:
+            # Устанавливаем состояние "проверяется" (None)
+            self.__status_msword = None
+            if self.__osbm.obj_stab.get_is_active():
+                self.__osbm.obj_stab.update_status_msword_label(self.__status_msword)
+            
+            try:
+                self.__msword_thread = MsWordThread(self.__osbm)
+                # подключение сигнала к слоту и запуск потока
+                self.__msword_thread.status_changed.connect(self.update_status_msword)
+                self.__msword_thread.start()
+            except Exception as e:
+                self.__osbm.obj_logg.error_logger(f"Error creating MsWordThread: {e}")
+                self.__status_msword = False
+                if self.__osbm.obj_stab.get_is_active():
+                    self.__osbm.obj_stab.update_status_msword_label(self.__status_msword)
+        else:
+            self.__osbm.obj_logg.debug_logger("MsWordThread is already running")
+
     def resetting_office_packets(self):
         self.__osbm.obj_logg.debug_logger("OfficePackets resetting_office_packets()")
         # экземпляр QThread

@@ -171,8 +171,8 @@ class App:
         self.osbm.obj_film.create_and_setting_files_and_folders()
         # настроить БД
         self.osbm.obj_settings.initialize_default_settings()
-        # настройка officepackets
-        self.osbm.obj_offp.resetting_office_packets()
+        # Инициализация LibreOffice (быстрая проверка)
+        self.osbm.obj_offp.initialize_libreoffice_only()
 
     def start_app(self):
         """
@@ -197,6 +197,10 @@ class App:
             # подключение MainWindow к osbm
             self.osbm.obj_mw = self.window
             self.window.show()
+            
+            # Асинхронная инициализация MS Word после показа окна
+            self.osbm.obj_offp.initialize_msword_async()
+            
             # sys.exit(self.app.exec())
             return self.app.exec()
         except Exception as e:
